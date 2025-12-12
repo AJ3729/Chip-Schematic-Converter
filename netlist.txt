@@ -1,0 +1,35 @@
+=== CIRCUIT NETLIST ===
+
+Total components: 10
+Total nets: 8
+
+Net 0:
+  - capacitor (ID: 0)
+  - Independent DC Current (ID: 8)
+
+Net 1:
+  - DC Supply (ID: 1)
+
+Net 2:
+  - DC Supply (ID: 2)
+
+Net 3:
+  - ground (ID: 3)
+
+Net 4:
+  - resistor (ID: 4)
+
+Net 5:
+  - inductor (ID: 5)
+  - inductor (ID: 6)
+
+Net 6:
+  - resistor (ID: 7)
+
+Net 7:
+  - resistor (ID: 9)
+
+=== DIRECT CONNECTIONS ===
+
+capacitor (ID 0) <-> Independent DC Current (ID 8)
+inductor (ID 5) <-> inductor (ID 6)

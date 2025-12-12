@@ -1,0 +1,142 @@
+{
+    "visualization": null,
+    "inference_id": null,
+    "frame_id": null,
+    "time": null,
+    "image": {
+        "width": 512,
+        "height": 512
+    },
+    "predictions": [
+        {
+            "x": 183.5,
+            "y": 253.0,
+            "width": 37.0,
+            "height": 20.0,
+            "confidence": 0.93994140625,
+            "class_name": "capacitor",
+            "class_confidence": null,
+            "class_id": 5,
+            "tracker_id": null,
+            "detection_id": "0e8f1cf3-70b5-4736-9be4-7683593461e1",
+            "parent_id": null
+        },
+        {
+            "x": 464.5,
+            "y": 259.0,
+            "width": 37.0,
+            "height": 40.0,
+            "confidence": 0.93359375,
+            "class_name": "DC Supply",
+            "class_confidence": null,
+            "class_id": 1,
+            "tracker_id": null,
+            "detection_id": "78742deb-aa23-4f0e-aaf7-a14600b07334",
+            "parent_id": null
+        },
+        {
+            "x": 61.0,
+            "y": 253.0,
+            "width": 34.0,
+            "height": 34.0,
+            "confidence": 0.845703125,
+            "class_name": "DC Supply",
+            "class_confidence": null,
+            "class_id": 1,
+            "tracker_id": null,
+            "detection_id": "cc9aae95-cce0-4637-a85f-bca319a36050",
+            "parent_id": null
+        },
+        {
+            "x": 247.0,
+            "y": 336.5,
+            "width": 30.0,
+            "height": 15.0,
+            "confidence": 0.83251953125,
+            "class_name": "ground",
+            "class_confidence": null,
+            "class_id": 8,
+            "tracker_id": null,
+            "detection_id": "18906288-baa1-437e-b878-2d06d8664f1a",
+            "parent_id": null
+        },
+        {
+            "x": 368.5,
+            "y": 259.5,
+            "width": 17.0,
+            "height": 39.0,
+            "confidence": 0.767578125,
+            "class_name": "resistor",
+            "class_confidence": null,
+            "class_id": 12,
+            "tracker_id": null,
+            "detection_id": "3053abc0-a031-4caf-b66c-0b43faf643f3",
+            "parent_id": null
+        },
+        {
+            "x": 406.0,
+            "y": 203.5,
+            "width": 52.0,
+            "height": 17.0,
+            "confidence": 0.76123046875,
+            "class_name": "inductor",
+            "class_confidence": null,
+            "class_id": 9,
+            "tracker_id": null,
+            "detection_id": "c359f55b-1069-41f5-bb1d-3c83b2da5716",
+            "parent_id": null
+        },
+        {
+            "x": 124.0,
+            "y": 199.5,
+            "width": 50.0,
+            "height": 13.0,
+            "confidence": 0.75830078125,
+            "class_name": "inductor",
+            "class_confidence": null,
+            "class_id": 9,
+            "tracker_id": null,
+            "detection_id": "e0bb1a74-8972-40a2-aec5-6435c7313038",
+            "parent_id": null
+        },
+        {
+            "x": 243.0,
+            "y": 201.5,
+            "width": 42.0,
+            "height": 13.0,
+            "confidence": 0.6640625,
+            "class_name": "resistor",
+            "class_confidence": null,
+            "class_id": 12,
+            "tracker_id": null,
+            "detection_id": "488efe55-0232-4b19-b924-77bc26b127f4",
+            "parent_id": null
+        },
+        {
+            "x": 298.0,
+            "y": 254.5,
+            "width": 34.0,
+            "height": 35.0,
+            "confidence": 0.62060546875,
+            "class_name": "Independent DC Current",
+            "class_confidence": null,
+            "class_id": 3,
+            "tracker_id": null,
+            "detection_id": "3679d705-7194-4201-bd47-299b941f9bda",
+            "parent_id": null
+        },
+        {
+            "x": 496.5,
+            "y": 262.0,
+            "width": 31.0,
+            "height": 20.0,
+            "confidence": 0.58544921875,
+            "class_name": "resistor",
+            "class_confidence": null,
+            "class_id": 12,
+            "tracker_id": null,
+            "detection_id": "0838632a-1ab0-4af4-ab09-430c8b951c82",
+            "parent_id": null
+        }
+    ]
+}

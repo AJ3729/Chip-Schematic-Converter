@@ -1,0 +1,33 @@
+=== CIRCUIT NETLIST (readable) ===
+
+Total components: 10
+Total nets: 7
+
+Net 0:
+  - capacitor (ID 0) bbox=(184, 253, 220, 273)
+  - resistor (ID 7) bbox=(243, 202, 285, 214)
+
+Net 1:
+  - DC Supply (ID 1) bbox=(464, 259, 502, 299)
+
+Net 2:
+  - DC Supply (ID 2) bbox=(61, 253, 95, 287)
+  - inductor (ID 6) bbox=(124, 200, 174, 212)
+
+Net 3:
+  - ground (ID 3) bbox=(247, 336, 277, 352)
+  - Independent DC Current (ID 8) bbox=(298, 254, 332, 290)
+
+Net 4:
+  - resistor (ID 4) bbox=(368, 260, 386, 298)
+
+Net 5:
+  - inductor (ID 5) bbox=(406, 204, 458, 220)
+
+Net 6:
+  - resistor (ID 9) bbox=(496, 262, 511, 282)
+
+Connections (direct):
+  0 <-> 7
+  2 <-> 6
+  3 <-> 8
