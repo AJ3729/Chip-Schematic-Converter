@@ -1,13 +1,15 @@
-* Auto-generated SPICE netlist
+* Auto-generated SPICE netlist (NO OCR values)
+* Values are placeholders.
 
-C1 n0 0 1u
-D1 n1 0 DC 5V
-D2 n2 0 DC 5V
-R1 n4 0 1k
-I1 n5 0 1m
-I2 n5 0 1m
-R2 n6 0 1k
-I1 n0 0 DC 1mA
-R3 n7 0 1k
+C1 n3 n3 1u
+V1 n5 n5 DC 5V
+V2 n2 n2 DC 5V
+R1 n4 n4 1k
+L1 n4 n4 1m
+L2 n2 n2 1m
+R2 n3 n3 1k
+I1 n4 n4 DC 1mA
+R3 n1 n1 1k
 
+.op
 .end

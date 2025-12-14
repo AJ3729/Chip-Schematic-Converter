@@ -1,51 +1,42 @@
-import json
-from inference import get_model
-import supervision as sv
 import cv2
-
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
+from inference_sdk import InferenceHTTPClient
+import supervision as sv
+import json
 
 load_dotenv()
-api_key = os.getenv("ROBOFLOW_API_KEY")
 
-print(f"API Key: {api_key}")
-print(f"API Key is None: {api_key is None}")
+client = InferenceHTTPClient(
+    api_url="https://detect.roboflow.com",
+    api_key=os.getenv("ROBOFLOW_API_KEY")
+)
 
-os.makedirs('results', exist_ok=True)
+image = cv2.imread("data/cleaned/circuit_199.jpg")
 
-# define the image url to use for inference
-image_file = "data/cleaned/circuit_1199.jpg"
-image = cv2.imread(image_file)
+results = client.infer(
+    image,
+    model_id="electrical-components-qpl1s/6"
+)
 
-# load a pre-trained yolov8n model
-model = get_model(model_id="electrical-components-qpl1s/3")
-
-# run inference on our chosen image, image can be a url, a numpy array, a PIL image, etc.
-results = model.infer(image)[0]
-
-# load the results into the supervision Detections api
 detections = sv.Detections.from_inference(results)
 
-with open('detections.json', 'w') as f:
-    json.dump(results.dict(), f, indent=4)
+# Create annotators
+box_annotator = sv.BoxAnnotator(thickness=2)
+label_annotator = sv.LabelAnnotator(text_scale=0.5, text_thickness=1)
 
-# create supervision annotators
-bounding_box_annotator = sv.BoxAnnotator()
-label_annotator = sv.LabelAnnotator()
-
-# annotate the image with our inference results
-annotated_image = bounding_box_annotator.annotate(
-    scene=image, detections=detections)
+# Annotate image
+annotated_image = image.copy()
+annotated_image = box_annotator.annotate(
+    scene=annotated_image,
+    detections=detections
+)
 annotated_image = label_annotator.annotate(
-    scene=annotated_image, detections=detections)
+    scene=annotated_image,
+    detections=detections
+)
 
-# display the image
-output_path = 'output.jpg'
-success = cv2.imwrite(output_path, annotated_image)
-
-if success:
-    print(f"✅ Image saved successfully to {output_path}")
-else:
-    print("❌ Failed to save image")
-print("Results saved to detections.json and output.jpg")
+# Show image
+cv2.imshow("Detections", annotated_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
