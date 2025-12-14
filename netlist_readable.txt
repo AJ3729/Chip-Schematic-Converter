@@ -1,0 +1,13 @@
+=== NETLIST (NO OCR VALUES) ===
+nodes are derived from wire connected-components
+
+ID 00  capacitor                 nodes=[4, 4]  names=['n3', 'n3']
+ID 01  DC Supply                 nodes=[6, 6]  names=['n5', 'n5']
+ID 02  DC Supply                 nodes=[3, 3]  names=['n2', 'n2']
+ID 03  ground                    nodes=[7, 7]  names=['0', '0']
+ID 04  resistor                  nodes=[5, 5]  names=['n4', 'n4']
+ID 05  inductor                  nodes=[5, 5]  names=['n4', 'n4']
+ID 06  inductor                  nodes=[3, 3]  names=['n2', 'n2']
+ID 07  resistor                  nodes=[4, 4]  names=['n3', 'n3']
+ID 08  Independent DC Current    nodes=[5, 5]  names=['n4', 'n4']
+ID 09  resistor                  nodes=[2, 2]  names=['n1', 'n1']
