@@ -1,3 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+venv/
+.venv/
+
 # Environment variables
 .env
 .env.*
+!.env.example
+
+# Data (raw images, cleaned images, splits, annotations, GT netlists,
+# per-image detection caches) — provenance documented in data/README.md
+data/
+
+# Experiment outputs (runs, logs, per-run config snapshots, legacy artifacts)
+experiments/
+
+# Model weights
+*.pt
+*.pth
+*.onnx
+weights/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
