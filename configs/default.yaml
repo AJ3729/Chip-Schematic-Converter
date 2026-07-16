@@ -1,0 +1,90 @@
+# schematic2netlist — canonical configuration.
+# Every value here was previously a hardcoded magic number in the legacy
+# scripts (nodes_mapping_and_netlist.py = "v1", nodes_mapping_and_netlist2.py
+# = "v2", scripts/preprocess.py). Where the two legacy variants disagreed the
+# v1 value is the default and the v2 value is noted — these are the ablation
+# axes of Phase E.
+
+seed: 0
+
+preprocess:
+  target_size: 512          # output canvas (px), aspect ratio preserved
+  blur_kernel: 3            # Gaussian blur before Otsu for angle estimation
+  angle_min_blob_area: 200  # ignore specks when estimating skew angle
+  border_margin: 2          # blobs touching the frame within this margin are ignored
+  landscape_ratio: 1.05     # rotate 90° CCW if height > width * ratio
+  shadow_std_threshold: 18  # only shadow-normalize if gray.std() exceeds this
+  shadow_dilate_kernel: 7
+  shadow_median_blur: 21
+  speck_min_area: 120       # minimum stroke area kept after binarization
+  crop_pad: 12              # padding around the content crop (px)
+
+detect:
+  backend: cached           # cached | roboflow | ultralytics
+  cache_dir: data/detections
+  model_id: electrical-components-qpl1s/6   # Roboflow hosted model (legacy)
+  api_url: https://detect.roboflow.com
+  weights: null             # path to local YOLO weights (ultralytics backend)
+  confidence: 0.4           # detector confidence threshold
+  image_size: 640           # inference resolution (ultralytics backend)
+
+textmask:
+  enabled: true
+  adaptive_block_size: 31
+  adaptive_c: 10
+  dilate_kernel: 3
+  min_area: 20
+  max_area: 2500
+  min_aspect: 0.2
+  max_aspect: 6.0
+  max_height: 50
+  max_width: 120
+
+wires:
+  component_mask_pad: 8     # px added around detected component boxes
+  canny_low: 40
+  canny_high: 120
+  morph_kernel: 2           # dilate + open structuring element (px)
+  min_blob_area: 20         # v1 = 20, v2 = 60 (ablation E3)
+  non_wire_classes:         # detector classes masked out before wire extraction
+    - resistor
+    - capacitor
+    - inductor
+    - DC Supply
+    - Independent DC Current
+    - Independent AC Current
+    - AC Supply
+    - diode
+    - Zener Diode
+    - MOSFET Transistor
+    - operational amplifier
+    - ground
+
+nodes:
+  connectivity: 8           # 4 or 8 (ablation E4)
+
+snapping:
+  strategy: directional     # directional (v1) | uniform (v2) — ablation E4
+  max_expand: 30            # v1 = 30, v2 = 22
+  window_depth: 4           # px the snap window reaches into the bbox
+  expand_step: 2            # growth step for expanding searches
+  ground_max_expand: 40     # v1 ground symbol search radius
+  uniform_ground_max_expand: 26   # v2 ground search radius
+
+netlist:
+  ground_fallback: most_connected  # most_connected (v1) | fail (v2) — ablation E4
+  placeholders:             # values assigned in lieu of OCR
+    resistor: 1k
+    capacitor: 1u
+    inductor: 1m
+    dc_supply: DC 5
+    ac_supply: AC 1
+    dc_current: DC 1m
+    ac_current: AC 1m
+    diode_model: Ddefault
+    zener_model: Zdefault
+    mosfet_model: NMOS
+
+simulate:
+  ngspice_binary: ngspice
+  timeout_s: 5

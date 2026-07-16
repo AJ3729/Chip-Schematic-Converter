@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "schematic2netlist"
+version = "0.1.0"
+description = "Deterministic pipeline converting photographs of hand-drawn circuit schematics into SPICE netlists"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Ammaar Junaid" }]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "opencv-python>=4.9",
+    "PyYAML>=6.0",
+    "networkx>=3.2",
+    "scipy>=1.11",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+# Hosted Roboflow inference fallback (legacy detection path)
+roboflow = ["inference-sdk>=0.62", "python-dotenv>=1.0", "supervision>=0.27"]
+# Local YOLO training / inference (Phase C)
+train = ["ultralytics>=8.2"]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
