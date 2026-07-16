@@ -18,7 +18,7 @@ NGSPICE_TIMEOUT = 5                   # seconds
 # LOAD DETECTIONS
 # =========================
 with open(DETECTIONS_PATH, "r") as f:
-    predictions = json.load(f)["predictions"]
+    predictions = json.load(f)["detections"]
 
 def extract_clean_wires(gray, predictions):
     """
@@ -33,6 +33,11 @@ def extract_clean_wires(gray, predictions):
         "inductor",
         "DC Supply",
         "Independent DC Current",
+        "Independent AC Current",
+        "AC Supply",
+        "diode",
+        "Zener Diode",
+        "MOSFET Transistor",
         "ground"
     }
 
