@@ -13,6 +13,7 @@ from pathlib import Path
 
 from schematic2netlist.config import load_config
 from schematic2netlist.detect import load_cached_detections
+from schematic2netlist.determinism import set_global_seed, write_run_metadata
 from schematic2netlist.pipeline import run_pipeline
 
 
@@ -34,6 +35,7 @@ def main() -> None:
     args = ap.parse_args()
 
     cfg = load_config(args.config)
+    seed = set_global_seed(cfg["seed"])
 
     detections = None
     if args.detections:
@@ -42,6 +44,11 @@ def main() -> None:
     out_dir = Path(args.out) if args.out else Path("experiments/runs") / Path(args.image).stem
 
     result = run_pipeline(args.image, cfg, detections=detections, out_dir=out_dir)
+    write_run_metadata(
+        out_dir, cfg, seed,
+        extra={"image": args.image,
+               "detections_source": args.detections or "cache/backend"},
+    )
 
     cov = result["coverage"]
     print(f"[INFO] wire nodes detected: {result['num_wire_nodes']}")

@@ -28,6 +28,7 @@ from pathlib import Path
 
 from schematic2netlist.config import config_hash, load_config
 from schematic2netlist.detect import load_cached_detections
+from schematic2netlist.determinism import set_global_seed, write_run_metadata
 from schematic2netlist.netlist import GroundNotFoundError
 from schematic2netlist.pipeline import run_pipeline
 from schematic2netlist.simulate import run_ngspice
@@ -62,6 +63,11 @@ def evaluate(
     out_dir = Path(out_dir)
     netlist_dir = out_dir / "netlists"
     netlist_dir.mkdir(parents=True, exist_ok=True)
+    seed = set_global_seed(cfg["seed"])
+    write_run_metadata(
+        out_dir, cfg, seed,
+        extra={"images_dir": str(images_dir), "limit": limit},
+    )
     det_dir = Path(detections_dir) if detections_dir else Path(cfg["detect"]["cache_dir"])
 
     images = sorted(

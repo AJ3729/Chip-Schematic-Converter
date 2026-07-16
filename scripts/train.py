@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 
 from schematic2netlist.config import load_config
+from schematic2netlist.determinism import set_global_seed, write_run_metadata
 
 
 def main() -> None:
@@ -29,7 +30,12 @@ def main() -> None:
     args = ap.parse_args()
 
     cfg = load_config(args.config)
-    seed = cfg["seed"]
+    seed = set_global_seed(cfg["seed"])
+    write_run_metadata(
+        args.project, cfg, seed,
+        extra={"data": args.data, "model": args.model,
+               "imgsz": args.imgsz, "epochs": args.epochs},
+    )
 
     try:
         from ultralytics import YOLO
