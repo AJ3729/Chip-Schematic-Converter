@@ -54,54 +54,85 @@ data/cleaned/circuit_1199.jpg` reproduces legacy outputs byte-for-byte
 
 ---
 
-## Phase B — Data: Splits, Annotations, Ground Truth 🔶 (in progress, 2026-07-18)
+## Phase B — Data: Splits, Annotations, Ground Truth ✅ code-complete (2026-07-18) — [HUMAN] GT verification pending
 
 ### Done
-- **B3 GT tooling** (`9ad8ab43`): schema v1 for GT topology graphs
-  (`data/gt_netlists/<stem>.json`: components + terminal→net mapping,
-  ground net "0", verified/annotator fields), loader + strict
-  validator, and `scripts/annotate_topology.py` with the
-  bootstrap → correct → render → check workflow. Smoke-tested on
-  circuit_1199. 12 new tests (44 total).
-- **B1 acquisition in progress**: Digitize-HCD downloading from
-  Mendeley (doi 10.17632/rngcz5wtv8; single 2.1 GB zip, published
-  sha256 to verify against). Confirmed v1 and v2 reference the same
-  zip file — the "v2 adds heatmaps" assumption from the plan is
-  checked against the zip contents below.
-- **B4 scoped**: CGHD is Zenodo record 10056817, single 3.4 GB zip,
-  CC-BY-4.0; download queued after Digitize-HCD.
+- **B1 acquisition + provenance** (`7daaa81b`): Digitize-HCD downloaded
+  from Mendeley (doi 10.17632/rngcz5wtv8, CC BY 4.0, 2.1 GB zip);
+  **sha256 verified** against the published hash. Confirmed contents:
+  1,277 original-resolution images, COCO component annotations
+  (**18,600 boxes, 17 categories**), MMOCR-style text annotations
+  (with transcriptions — usable for future OCR work), and per-class
+  **port-location Gaussian heatmaps** + pixel coordinates (so
+  contribution C4 is feasible). Mendeley v1 and v2 reference the same
+  archive; v2 is a metadata revision.
+- **Reconciliation** (`scripts/reconcile_data.py` →
+  `data/reconciliation.json`): local `data/raw` is **byte-identical**
+  to the published image set (1277/1277 matched, 0 mismatches, 0
+  duplicates); `data/cleaned` are preprocessed derivatives matched by
+  filename. The plan's feared 624-vs-1279 discrepancy does not exist.
+- **B2 frozen splits** (committed): train 895 / val 192 / test 190
+  (70.1/15.0/14.9), stratified by component-count tertile ×
+  rarest-class from the published annotations; all 17 classes in every
+  split (test support: 44–470). Full distributions in
+  `data/splits/splits_meta.json`.
+- **B3 GT tooling** (`9ad8ab43`) + **bootstrap executed**: schema v1
+  loader/strict-validator (`gt.py`), annotation workflow
+  (bootstrap → correct → render → check). Detection cache filled for
+  all 190 test images via hosted Roboflow (0 failures); **191 GT
+  files bootstrapped** (190 test + circuit_1199 demo), all overlays
+  rendered, all passing validation. 12 new tests (44 total passing).
+- **B4 CGHD**: upstream `classes.json` fetched (53 entries, not the
+  59 the plan said); `data/cghd/class_mapping.yaml` maps CGHD → the
+  17 published Digitize-HCD categories with lossy mappings marked;
+  I-DC, I-AC, and V-DC (one port) have no CGHD counterpart. 3.4 GB
+  zip (CC BY 4.0) downloading; zero-shot subset extraction pending.
 
 ### Remaining (this phase)
-- Verify zip sha256, extract, inspect annotation formats (COCO boxes,
-  text polygons, port heatmaps?).
-- Hash-reconcile the download against local `data/raw` and
-  `data/cleaned`; document provenance + counts in `data/README.md`.
-- `scripts/make_splits.py`: stratified 70/15/15 splits (component
-  count × class presence; drafter-disjoint if metadata exists) and
-  commit the frozen manifests.
-- Bootstrap GT for the full test split (needs detections — see
-  problem below).
-- CGHD class-mapping table + zero-shot subset.
-- **[HUMAN]** GT verification pass (~1–2 min/image × ~190 test images):
-  correct each bootstrapped GT JSON, then set `verified: true` +
-  `annotator`. The tool renders overlays to make this fast.
+- **[HUMAN] GT verification pass** — the single most valuable human
+  task in the project (~1–2 min/image × 190): for each
+  `data/gt_netlists/<stem>.json`, check the render in
+  `data/gt_netlists/renders/`, correct classes/nets/missed components,
+  then set `verified: true` and `annotator`. Re-run
+  `annotate_topology.py --render/--check` while editing.
+- CGHD zip: verify md5, selectively extract annotations + a subset of
+  images, build the zero-shot evaluation list (finishes when the
+  background download lands).
 
 ### Limitations / problems
-- **Detection-cache bottleneck**: bootstrapping GT for the test split
-  requires per-image detections, but only circuit_1199 is cached. The
-  options are (a) train the local YOLO first (Phase C) and bootstrap
-  from it, or (b) batch-call the hosted Roboflow model on the ~190
-  test images. (b) preserves the plan's ordering (GT before training)
-  and needs only the existing ROBOFLOW_API_KEY.
+- **No drafter metadata** in the published COCO → drafter-disjoint
+  splitting is impossible. Stated in data/README.md and
+  splits_meta.json; must be stated in the paper's limitations (CGHD
+  papers split by drafter; reviewers may raise this).
+- **Class-name mismatch, pipeline vs published annotations**: the
+  pipeline's snapping/netlist stages branch on Roboflow-era lowercase
+  substrings ("ground", "dc supply"), but the published categories are
+  GND, V-DC, I-DC, etc. — `"gnd".lower()` does NOT contain "ground",
+  so a Phase C detector trained on published names would break ground
+  handling. Needs a class-normalization map at detection load time
+  before Phase C evaluation runs.
 - **Annotation/preprocessing coordinate mismatch**: published
-  Digitize-HCD annotations are in original-image coordinates, but
-  `data/cleaned` images went through rotate/crop/resize that was not
-  recorded. Training/eval on published annotations must either run on
-  raw images or re-run preprocessing with transforms recorded.
-  `scripts/preprocess.py` does not yet store its transform matrix —
-  needs a small extension before Phase C training.
-- Disk: ~18 GB free vs ~2.1+3.4 GB zips plus extractions; manageable
-  but CGHD extraction should be selective (subset only).
+  annotations are in original-image coordinates; `data/cleaned` was
+  produced by an unrecorded rotate/crop/resize. Phase C must train on
+  `data/raw` (annotations valid there) or extend
+  `scripts/preprocess.py` to record its transform matrix. The GT
+  bootstrap detections/bboxes are in cleaned-image coordinates —
+  consistent with the pipeline, but not with published annotations;
+  GT topology (net membership) is coordinate-free, so this only
+  affects bbox visual aids, not the benchmark labels.
+- **Bootstrap GT quality tracks pipeline quality**: bootstrapped nets
+  come from the current heuristic pipeline (~0.78 snap coverage on the
+  demo image), so the human pass must fix real errors, not rubber-stamp
+  — the render coloring makes disagreements visible by design.
+- Roboflow-model class set ≠ published 17 (e.g. Roboflow has
+  "operational amplifier"/"MOSFET Transistor"; published has
+  Op-Amp/MOSFET-N/MOSFET-P/BJT-*, Wire Crossover). Test-split GT
+  bootstraps therefore miss classes the hosted model can't emit —
+  another reason the human verification pass matters, and why Phase C
+  retrains locally on the published annotations.
+- Disk: ~11 GB free with both zips resident; CGHD extraction must be
+  selective. Consider deleting the Digitize zip after extraction is
+  re-verified (sha256 recorded in data/README.md).
 
 ---
 
