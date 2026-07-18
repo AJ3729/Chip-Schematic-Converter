@@ -1,7 +1,16 @@
 # schematic2netlist
 
-Deterministic, fully local pipeline that converts photographs of
-**hand-drawn analog circuit schematics** into **SPICE netlists**:
+Hand-drawn schematics are how circuits are first designed, taught, and
+discussed, yet they are disconnected from modern simulation tools —
+recreating each sketch in EDA software is slow and error-prone. This
+project bridges that gap: a machine-learning-based system that
+interprets photographed handwritten circuit schematics and generates
+simulation-ready digital netlists, aiming to accelerate prototyping and
+make hardware design more accessible to students and hobbyists.
+
+Concretely, it is a deterministic, fully local pipeline that converts
+photographs of **hand-drawn analog circuit schematics** into **SPICE
+netlists**:
 
 ```
 photo ─► preprocess ─► component detection ─► text masking ─► wire
