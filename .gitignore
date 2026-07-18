@@ -12,9 +12,13 @@ venv/
 .env.*
 !.env.example
 
-# Data (raw images, cleaned images, splits, annotations, GT netlists,
-# per-image detection caches) — provenance documented in data/README.md
-data/
+# Data (raw images, cleaned images, annotations, GT netlists, per-image
+# detection caches) — provenance documented in data/README.md.
+# Exceptions: frozen split manifests and the data README are versioned —
+# they are part of the benchmark contribution (C1).
+data/*
+!data/splits/
+!data/README.md
 
 # Experiment outputs (runs, logs, per-run config snapshots, legacy artifacts)
 experiments/
