@@ -82,11 +82,17 @@ data/cleaned/circuit_1199.jpg` reproduces legacy outputs byte-for-byte
   all 190 test images via hosted Roboflow (0 failures); **191 GT
   files bootstrapped** (190 test + circuit_1199 demo), all overlays
   rendered, all passing validation. 12 new tests (44 total passing).
-- **B4 CGHD**: upstream `classes.json` fetched (53 entries, not the
-  59 the plan said); `data/cghd/class_mapping.yaml` maps CGHD → the
-  17 published Digitize-HCD categories with lossy mappings marked;
-  I-DC, I-AC, and V-DC (one port) have no CGHD counterpart. 3.4 GB
-  zip (CC BY 4.0) downloading; zero-shot subset extraction pending.
+- **B4 CGHD complete** (`f7930ab8`): 3.4 GB zip downloaded from Zenodo
+  and md5-verified. Layout: **25 drafter folders, 3,255 images**,
+  Pascal VOC annotation XMLs (drafter folders also carry
+  segmentation/instances and some `spice/` data — potential extra GT
+  source worth revisiting). Upstream `classes.json` has 53 entries
+  (not 59 as the plan said). `data/cghd/class_mapping.yaml` maps CGHD
+  → the 17 published Digitize-HCD categories with lossy mappings
+  marked; I-DC, I-AC, and V-DC (one port) have no CGHD counterpart.
+  Deterministic drafter-stratified zero-shot subset extracted (4 per
+  drafter × 25 = 100 images, 106 MB); frozen manifest committed at
+  `data/splits/cghd_zero_shot.txt`.
 
 ### Remaining (this phase)
 - **[HUMAN] GT verification pass** — the single most valuable human
@@ -95,9 +101,6 @@ data/cleaned/circuit_1199.jpg` reproduces legacy outputs byte-for-byte
   `data/gt_netlists/renders/`, correct classes/nets/missed components,
   then set `verified: true` and `annotator`. Re-run
   `annotate_topology.py --render/--check` while editing.
-- CGHD zip: verify md5, selectively extract annotations + a subset of
-  images, build the zero-shot evaluation list (finishes when the
-  background download lands).
 
 ### Limitations / problems
 - **No drafter metadata** in the published COCO → drafter-disjoint
