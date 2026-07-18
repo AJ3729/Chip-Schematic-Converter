@@ -1,0 +1,79 @@
+{
+  "seed": 0,
+  "ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "strategy": "stratified by component-count tertile x rarest-class (no drafter metadata in the published annotations \u2014 drafter-disjoint splitting is not possible; stated as a limitation per plan B2)",
+  "coco_source": "data/digitize_hcd/extracted/Digitize-HCD Dataset/Component Symbol and Text Label Data/component_annotations.json",
+  "counts": {
+    "train": 895,
+    "val": 192,
+    "test": 190
+  },
+  "achieved_ratios": {
+    "train": 0.7009,
+    "val": 0.1504,
+    "test": 0.1488
+  },
+  "class_distribution": {
+    "train": {
+      "BJT-NPN": 457,
+      "BJT-PNP": 340,
+      "Capacitor": 1489,
+      "Diode": 647,
+      "GND": 1464,
+      "I-AC": 284,
+      "I-DC": 558,
+      "Inductor": 1552,
+      "MOSFET-N": 223,
+      "MOSFET-P": 226,
+      "Op-Amp": 550,
+      "Resistor": 2240,
+      "V-AC": 438,
+      "V-DC": 706,
+      "V-DC (one port)": 473,
+      "Wire Crossover": 1023,
+      "Zener Diode": 353
+    },
+    "val": {
+      "BJT-NPN": 93,
+      "BJT-PNP": 70,
+      "Capacitor": 323,
+      "Diode": 145,
+      "GND": 315,
+      "I-AC": 61,
+      "I-DC": 119,
+      "Inductor": 327,
+      "MOSFET-N": 50,
+      "MOSFET-P": 44,
+      "Op-Amp": 119,
+      "Resistor": 476,
+      "V-AC": 96,
+      "V-DC": 151,
+      "V-DC (one port)": 99,
+      "Wire Crossover": 227,
+      "Zener Diode": 76
+    },
+    "test": {
+      "BJT-NPN": 100,
+      "BJT-PNP": 73,
+      "Capacitor": 315,
+      "Diode": 139,
+      "GND": 316,
+      "I-AC": 69,
+      "I-DC": 115,
+      "Inductor": 327,
+      "MOSFET-N": 54,
+      "MOSFET-P": 44,
+      "Op-Amp": 116,
+      "Resistor": 470,
+      "V-AC": 94,
+      "V-DC": 154,
+      "V-DC (one port)": 102,
+      "Wire Crossover": 223,
+      "Zener Diode": 75
+    }
+  }
+}
