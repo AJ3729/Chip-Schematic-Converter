@@ -37,6 +37,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from schematic2netlist.classes import class_role, class_terminals, is_ground
+
 SCHEMA_VERSION = 1
 
 GROUND_NET = "0"
@@ -113,11 +115,20 @@ def validate_gt(
             issues.append(
                 f"component {cid}: terminal indices {indices} are not 0..{len(terminals) - 1}"
             )
-        is_ground = "ground" in c["class"].lower()
-        if is_ground and len(terminals) != 1:
-            issues.append(f"component {cid}: ground must have exactly 1 terminal")
-        if not is_ground and len(terminals) < 2:
-            issues.append(f"component {cid}: non-ground has {len(terminals)} terminal(s)")
+        role = class_role(c["class"])
+        if role == "none":
+            issues.append(
+                f"component {cid}: {c['class']!r} is a drawing annotation, "
+                "not an electrical component — remove it from topology GT"
+            )
+            continue
+        if role != "unknown":
+            expected = class_terminals(c["class"])
+            if len(terminals) != expected:
+                issues.append(
+                    f"component {cid}: {len(terminals)} terminal(s), "
+                    f"expected {expected} for class {c['class']!r}"
+                )
         for t in terminals:
             net = t.get("net")
             if net is None:
@@ -131,7 +142,7 @@ def validate_gt(
                 issues.append(f"component {cid}: invalid net name {net!r}")
                 continue
             net_names.add(net)
-        if is_ground and strict:
+        if is_ground(c["class"]) and strict:
             g_net = terminals[0].get("net")
             if g_net is not None and g_net != GROUND_NET:
                 issues.append(
@@ -155,19 +166,22 @@ def validate_gt(
 
 def bootstrap_from_pipeline(image_name: str, pipeline_result: dict) -> dict:
     """Create an unverified GT skeleton from a pipeline run for human
-    correction — much faster than annotating from zero."""
+    correction — much faster than annotating from zero.
+
+    Terminal count follows the class (1 for ground/one-port sources,
+    3 for transistors/op-amps); nets beyond what snapping produced are
+    left null for the annotator to fill.
+    """
+    detections = pipeline_result["detections"]
     components = []
-    for c, det in zip(
-        pipeline_result["components"], pipeline_result["detections"]
-    ):
-        is_ground = "ground" in c["class"].lower()
+    for c in pipeline_result["components"]:
+        det = detections[c["id"]]
         names = c.get("node_names", [None, None])
-        if is_ground:
-            terminals = [{"index": 0, "net": names[0]}]
-        else:
-            terminals = [
-                {"index": i, "net": names[i]} for i in range(len(names))
-            ]
+        n_terms = class_terminals(c["class"])
+        terminals = [
+            {"index": i, "net": names[i] if i < len(names) else None}
+            for i in range(n_terms)
+        ]
         components.append(
             {
                 "id": c["id"],

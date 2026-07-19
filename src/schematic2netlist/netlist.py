@@ -1,14 +1,24 @@
 """Node naming and SPICE netlist export.
 
-Migrated verbatim from nodes_mapping_and_netlist.py (v1). The ground
-fallback policy is configurable: "most_connected" (v1) assigns node "0"
-to the most-connected node when no ground symbol snapped; "fail" (v2)
-raises instead.
+Element choice is driven by each class's *role* (see
+schematic2netlist.classes), which supports both the published
+Digitize-HCD vocabulary and the legacy Roboflow names via aliases.
+This replaces the legacy substring dispatch, fixing two documented v1
+quirks: the "supply" branch that shadowed AC supplies (they were
+emitted as DC), and the diode/Zener counter collision that could emit
+duplicate D1 element names. Referenced device models now get .model
+cards so D/M/Q netlists are not unconditionally unparsable.
+
+The ground fallback policy is configurable: "most_connected" (v1)
+assigns node "0" to the most-connected node when no ground symbol
+snapped; "fail" (v2) raises instead.
 """
 
 from __future__ import annotations
 
 from collections import defaultdict
+
+from schematic2netlist.classes import class_role, class_terminals, is_ground
 
 
 class GroundNotFoundError(RuntimeError):
@@ -26,7 +36,7 @@ def build_node_name_map(
     """
     ground_raw_id = None
     for c in components_with_nodes:
-        if "ground" in c["class"].lower():
+        if is_ground(c["class"]):
             if c["nodes"][0] is not None:
                 ground_raw_id = c["nodes"][0]
                 break
@@ -94,6 +104,41 @@ def export_readable_netlist(
             )
 
 
+# role -> (element prefix, model name or None). Diode and Zener share
+# the D prefix AND the D counter (fixing the legacy duplicate-name bug).
+_TWO_TERMINAL_ROLES = {
+    "resistor": ("R", None),
+    "capacitor": ("C", None),
+    "inductor": ("L", None),
+    "vdc": ("V", None),
+    "vac": ("V", None),
+    "idc": ("I", None),
+    "iac": ("I", None),
+    "diode": ("D", "Ddefault"),
+    "zener": ("D", "Zdefault"),
+}
+
+_MODEL_CARDS = {
+    "Ddefault": ".model Ddefault D",
+    "Zdefault": ".model Zdefault D(bv=5.1)",
+    "NMOSdefault": ".model NMOSdefault NMOS",
+    "PMOSdefault": ".model PMOSdefault PMOS",
+    "QNPNdefault": ".model QNPNdefault NPN",
+    "QPNPdefault": ".model QPNPdefault PNP",
+}
+
+_ROLE_VALUE_KEYS = {
+    "resistor": ("resistor", "1k"),
+    "capacitor": ("capacitor", "1u"),
+    "inductor": ("inductor", "1m"),
+    "vdc": ("dc_supply", "DC 5"),
+    "vac": ("ac_supply", "AC 1"),
+    "vdc_oneport": ("dc_supply", "DC 5"),
+    "idc": ("dc_current", "DC 1m"),
+    "iac": ("ac_current", "AC 1m"),
+}
+
+
 def export_spice_netlist(
     components_with_nodes: list[dict],
     out_path: str,
@@ -101,12 +146,18 @@ def export_spice_netlist(
 ) -> dict:
     """Write a SPICE netlist with placeholder values (no OCR).
 
+    Dispatch is role-based (see module docstring). Components with
+    missing terminals are skipped with an UNSNAPPED comment; degenerate
+    same-node two-terminal components with SAME_NODE_SKIPPED. Model
+    cards for referenced device models are appended before .op.
+
     Returns {"wrote_any": bool, "skipped": [reason strings]}.
     """
     ph = placeholders or {}
     counters: dict[str, int] = defaultdict(int)
     skipped: list[str] = []
-    wrote_any = False
+    lines: list[str] = []
+    models_used: set[str] = set()
 
     def sanitize(node):
         if node is None:
@@ -114,97 +165,96 @@ def export_spice_netlist(
         s = str(node).strip().replace(" ", "_")
         return s if s else None
 
-    with open(out_path, "w") as f:
-        f.write("* Auto-generated SPICE netlist (NO TEXT OCR USED)\n\n")
+    def value_for(role: str) -> str:
+        key, default = _ROLE_VALUE_KEYS[role]
+        return ph.get(key, default)
 
-        for c in components_with_nodes:
-            cls = c["class"].lower()
+    for c in components_with_nodes:
+        role = class_role(c["class"])
 
-            # ground symbols are reference markers only — not SPICE elements
-            if "ground" in cls:
-                continue
+        # ground symbols are reference markers; crossovers are drawing
+        # annotations — neither is a SPICE element
+        if role in ("ground", "none"):
+            continue
 
-            a = sanitize(c["node_names"][0])
-            b = sanitize(c["node_names"][1])
+        names = [sanitize(n) for n in c["node_names"]]
+        n_needed = class_terminals(c["class"])
 
-            if a is None or b is None:
+        if role == "vdc_oneport":
+            # one-port rail source: element between its net and ground
+            a = next((n for n in names if n is not None), None)
+            if a is None:
                 msg = f"* UNSNAPPED {c['class']} raw_nodes={c['nodes']}"
-                f.write(msg + "\n")
+                lines.append(msg)
                 skipped.append(msg)
                 continue
+            if a == "0":
+                msg = f"* SAME_NODE_SKIPPED {c['class']} both_on=0"
+                lines.append(msg)
+                skipped.append(msg)
+                continue
+            counters["V"] += 1
+            lines.append(f"V{counters['V']} {a} 0 {value_for(role)}")
+            continue
 
+        usable = [n for n in names if n is not None]
+        if len(usable) < n_needed:
+            msg = f"* UNSNAPPED {c['class']} raw_nodes={c['nodes']}"
+            lines.append(msg)
+            skipped.append(msg)
+            continue
+
+        if role in _TWO_TERMINAL_ROLES:
+            a, b = names[0], names[1]
             if a == b:
                 msg = f"* SAME_NODE_SKIPPED {c['class']} both_on={a}"
-                f.write(msg + "\n")
+                lines.append(msg)
                 skipped.append(msg)
                 continue
-
-            if "resistor" in cls:
-                counters["R"] += 1
-                f.write(f"R{counters['R']} {a} {b} {ph.get('resistor', '1k')}\n")
-                wrote_any = True
-
-            elif "capacitor" in cls:
-                counters["C"] += 1
-                f.write(f"C{counters['C']} {a} {b} {ph.get('capacitor', '1u')}\n")
-                wrote_any = True
-
-            elif "inductor" in cls:
-                counters["L"] += 1
-                f.write(f"L{counters['L']} {a} {b} {ph.get('inductor', '1m')}\n")
-                wrote_any = True
-
-            # NOTE (verbatim v1 behavior): this branch matches any class
-            # containing "supply", so "AC Supply" is emitted as a DC source
-            # and the ac_supply branch below is unreachable. Preserved for
-            # output parity; slated for the post-migration refactor.
-            elif "dc supply" in cls or "supply" in cls:
-                counters["V"] += 1
-                f.write(f"V{counters['V']} {a} {b} {ph.get('dc_supply', 'DC 5')}\n")
-                wrote_any = True
-
-            elif "ac supply" in cls:
-                counters["V"] += 1
-                f.write(f"V{counters['V']} {a} {b} {ph.get('ac_supply', 'AC 1')}\n")
-                wrote_any = True
-
-            elif "dc current" in cls or "independent dc current" in cls:
-                counters["I"] += 1
-                f.write(f"I{counters['I']} {a} {b} {ph.get('dc_current', 'DC 1m')}\n")
-                wrote_any = True
-
-            elif "ac current" in cls or "independent ac current" in cls:
-                counters["I"] += 1
-                f.write(f"I{counters['I']} {a} {b} {ph.get('ac_current', 'AC 1m')}\n")
-                wrote_any = True
-
-            elif "diode" in cls and "zener" not in cls:
-                counters["D"] += 1
-                f.write(f"D{counters['D']} {a} {b} {ph.get('diode_model', 'Ddefault')}\n")
-                wrote_any = True
-
-            # NOTE (verbatim v1 behavior): zener uses its own counter but
-            # still writes a D-prefixed element, so a diode and a zener in
-            # one circuit can collide as duplicate "D1" element names.
-            # Preserved for output parity; slated for refactor.
-            elif "zener" in cls:
-                counters["Z"] += 1
-                f.write(f"D{counters['Z']} {a} {b} {ph.get('zener_model', 'Zdefault')}\n")
-                wrote_any = True
-
-            elif "mosfet" in cls:
-                counters["M"] += 1
-                # MOSFET needs drain gate source body — approximated here
-                f.write(f"M{counters['M']} {a} {b} 0 0 {ph.get('mosfet_model', 'NMOS')}\n")
-                wrote_any = True
-
+            prefix, model = _TWO_TERMINAL_ROLES[role]
+            counters[prefix] += 1
+            if model:
+                models_used.add(model)
+                lines.append(f"{prefix}{counters[prefix]} {a} {b} {model}")
             else:
-                counters["X"] += 1
-                f.write(f"* UNKNOWN {c['class']} {a} {b}\n")
+                lines.append(f"{prefix}{counters[prefix]} {a} {b} {value_for(role)}")
 
+        elif role in ("nmos", "pmos"):
+            d, g, s = names[0], names[1], names[2]
+            model = "NMOSdefault" if role == "nmos" else "PMOSdefault"
+            models_used.add(model)
+            counters["M"] += 1
+            # body tied to source (no body terminal in hand drawings)
+            lines.append(f"M{counters['M']} {d} {g} {s} {s} {model}")
+
+        elif role in ("npn", "pnp"):
+            cN, b, e = names[0], names[1], names[2]
+            model = "QNPNdefault" if role == "npn" else "QPNPdefault"
+            models_used.add(model)
+            counters["Q"] += 1
+            lines.append(f"Q{counters['Q']} {cN} {b} {e} {model}")
+
+        elif role == "opamp":
+            # terminals [in+, in-, out] (Digitize-HCD port order);
+            # ideal VCVS with high open-loop gain
+            inp, inn, out = names[0], names[1], names[2]
+            counters["E"] += 1
+            lines.append(f"E{counters['E']} {out} 0 {inp} {inn} 100k")
+
+        else:
+            counters["X"] += 1
+            lines.append(f"* UNKNOWN {c['class']} {' '.join(usable)}")
+
+    wrote_any = any(not ln.startswith("*") for ln in lines)
+
+    with open(out_path, "w") as f:
+        f.write("* Auto-generated SPICE netlist (NO TEXT OCR USED)\n\n")
+        for ln in lines:
+            f.write(ln + "\n")
         if not wrote_any:
             f.write("* WARNING: no valid components written\n")
-
+        for model in sorted(models_used):
+            f.write(_MODEL_CARDS[model] + "\n")
         f.write("\n.op\n.end\n")
 
     return {"wrote_any": wrote_any, "skipped": skipped}

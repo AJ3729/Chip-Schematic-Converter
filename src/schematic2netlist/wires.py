@@ -11,6 +11,8 @@ from __future__ import annotations
 import cv2
 import numpy as np
 
+from schematic2netlist.classes import canonical_class
+
 
 def build_non_wire_mask(
     gray: np.ndarray,
@@ -21,14 +23,16 @@ def build_non_wire_mask(
     """255 where pixels must not be treated as wire (components, text)."""
     h, w = gray.shape[:2]
     pad = cfg["wires"]["component_mask_pad"]
-    non_wire_classes = set(cfg["wires"]["non_wire_classes"])
+    non_wire_classes = {
+        canonical_class(c) for c in cfg["wires"]["non_wire_classes"]
+    }
 
     non_wire_mask = np.zeros((h, w), dtype=np.uint8)
     if text_mask is not None:
         non_wire_mask = cv2.bitwise_or(non_wire_mask, text_mask)
 
     for det in detections:
-        if det["class"] not in non_wire_classes:
+        if canonical_class(det["class"]) not in non_wire_classes:
             continue
         cx, cy = det["x"], det["y"]
         bw, bh = det["width"], det["height"]

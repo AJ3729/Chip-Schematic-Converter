@@ -1,0 +1,46 @@
+# Canonical component vocabulary and legacy aliases.
+#
+# Canonical names are the 17 published Digitize-HCD COCO categories —
+# the vocabulary of the benchmark, the local detector (Phase C), and
+# all ground-truth files. `aliases` maps the legacy Roboflow-era class
+# names (still present in old cached detections) onto canonical names;
+# lookups are case-insensitive.
+#
+# role: drives pipeline logic (ground handling, SPICE element type).
+# terminals: electrical terminal count used for GT and (eventually)
+#   multi-terminal snapping. Wire Crossover is a drawing annotation,
+#   not an electrical component: role none, 0 terminals, excluded from
+#   topology GT, and NOT masked before wire extraction (masking a
+#   crossover would sever the wires that cross there).
+
+canonical:
+  Resistor:            {role: resistor,    terminals: 2}
+  Capacitor:           {role: capacitor,   terminals: 2}
+  Inductor:            {role: inductor,    terminals: 2}
+  Diode:               {role: diode,       terminals: 2}
+  Zener Diode:         {role: zener,       terminals: 2}
+  GND:                 {role: ground,      terminals: 1}
+  V-DC:                {role: vdc,         terminals: 2}
+  V-DC (one port):     {role: vdc_oneport, terminals: 1}
+  V-AC:                {role: vac,         terminals: 2}
+  I-DC:                {role: idc,         terminals: 2}
+  I-AC:                {role: iac,         terminals: 2}
+  MOSFET-N:            {role: nmos,        terminals: 3}
+  MOSFET-P:            {role: pmos,        terminals: 3}
+  BJT-NPN:             {role: npn,         terminals: 3}
+  BJT-PNP:             {role: pnp,         terminals: 3}
+  Op-Amp:              {role: opamp,       terminals: 3}
+  Wire Crossover:      {role: none,        terminals: 0}
+
+aliases:
+  resistor:                  Resistor
+  capacitor:                 Capacitor
+  inductor:                  Inductor
+  diode:                     Diode
+  ground:                    GND
+  DC Supply:                 V-DC
+  AC Supply:                 V-AC
+  Independent DC Current:    I-DC
+  Independent AC Current:    I-AC
+  MOSFET Transistor:         MOSFET-N
+  operational amplifier:     Op-Amp

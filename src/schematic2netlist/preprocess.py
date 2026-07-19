@@ -3,6 +3,13 @@ aspect-preserving resize onto a square canvas.
 
 Migrated from scripts/preprocess.py (legacy). All thresholds come from the
 `preprocess` section of the config.
+
+``preprocess_image_meta`` additionally returns the full geometric
+transform (rotation matrix, optional 90° rotation, crop, scale, canvas
+offset) so points/boxes annotated on the ORIGINAL image can be
+projected into cleaned-image coordinates (``project_point`` /
+``project_bbox``) — required because the published Digitize-HCD
+annotations are in original-image coordinates.
 """
 
 from __future__ import annotations
@@ -13,11 +20,54 @@ import numpy as np
 
 def preprocess_image(path: str, cfg: dict) -> np.ndarray | None:
     """Preprocess one image file; returns the binarized canvas or None."""
+    result = preprocess_image_meta(path, cfg)
+    return None if result is None else result[0]
+
+
+def project_point(meta: dict, x: float, y: float) -> tuple[float, float]:
+    """Project a point from original-image to cleaned-image coordinates."""
+    m = meta["rotation_matrix"]
+    xr = m[0][0] * x + m[0][1] * y + m[0][2]
+    yr = m[1][0] * x + m[1][1] * y + m[1][2]
+    if meta["rotated90"]:
+        w_before = meta["size_before_rot90"][0]
+        xr, yr = yr, (w_before - 1) - xr
+    cx, cy = meta["crop"][0], meta["crop"][1]
+    s = meta["scale"]
+    ox, oy = meta["canvas_offset"]
+    return (xr - cx) * s + ox, (yr - cy) * s + oy
+
+
+def project_bbox(
+    meta: dict, x: float, y: float, w: float, h: float
+) -> tuple[float, float, float, float]:
+    """Project a COCO-style [x, y, w, h] box (original coords) to a
+    center-based (cx, cy, w, h) box in cleaned-image coordinates, by
+    projecting all four corners (correct under rotation)."""
+    corners = [
+        project_point(meta, x, y),
+        project_point(meta, x + w, y),
+        project_point(meta, x, y + h),
+        project_point(meta, x + w, y + h),
+    ]
+    xs = [c[0] for c in corners]
+    ys = [c[1] for c in corners]
+    x1, x2 = min(xs), max(xs)
+    y1, y2 = min(ys), max(ys)
+    return (x1 + x2) / 2, (y1 + y2) / 2, x2 - x1, y2 - y1
+
+
+def preprocess_image_meta(
+    path: str, cfg: dict
+) -> tuple[np.ndarray, dict] | None:
+    """Preprocess one image; returns (canvas, transform_meta) or None."""
     p = cfg["preprocess"]
 
     img = cv2.imread(path)
     if img is None:
         return None
+
+    H0, W0 = img.shape[:2]
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     k = p["blur_kernel"]
@@ -59,8 +109,11 @@ def preprocess_image(path: str, cfg: dict) -> np.ndarray | None:
         borderMode=cv2.BORDER_CONSTANT, borderValue=(255, 255, 255),
     )
 
+    rotated90 = False
+    size_before_rot90 = [img.shape[1], img.shape[0]]
     if img.shape[0] > img.shape[1] * p["landscape_ratio"]:
         img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        rotated90 = True
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -103,6 +156,8 @@ def preprocess_image(path: str, cfg: dict) -> np.ndarray | None:
         h = min(img.shape[0] - y, h + 2 * pad)
         cropped = binary[y : y + h, x : x + w]
     else:
+        x, y = 0, 0
+        h, w = binary.shape[:2]
         cropped = binary
 
     # Aspect-preserving resize onto a white square canvas
@@ -115,4 +170,16 @@ def preprocess_image(path: str, cfg: dict) -> np.ndarray | None:
     y0 = (target - nh) // 2
     x0 = (target - nw) // 2
     canvas[y0 : y0 + nh, x0 : x0 + nw] = resized
-    return canvas
+
+    meta = {
+        "original_size": [W0, H0],
+        "angle_deg": float(angle),
+        "rotation_matrix": M.tolist(),
+        "rotated90": rotated90,
+        "size_before_rot90": size_before_rot90,
+        "crop": [int(x), int(y), int(w), int(h)],
+        "scale": float(scale),
+        "canvas_offset": [int(x0), int(y0)],
+        "target_size": int(target),
+    }
+    return canvas, meta

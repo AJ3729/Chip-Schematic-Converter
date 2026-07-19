@@ -47,18 +47,25 @@ wires:
   morph_kernel: 2           # dilate + open structuring element (px)
   min_blob_area: 20         # v1 = 20, v2 = 60 (ablation E3)
   non_wire_classes:         # detector classes masked out before wire extraction
-    - resistor
-    - capacitor
-    - inductor
-    - DC Supply
-    - Independent DC Current
-    - Independent AC Current
-    - AC Supply
-    - diode
+    # (canonical vocabulary; legacy names canonicalize on load.
+    #  Wire Crossover is deliberately absent — masking it would sever
+    #  the wires that cross there.)
+    - Resistor
+    - Capacitor
+    - Inductor
+    - Diode
     - Zener Diode
-    - MOSFET Transistor
-    - operational amplifier
-    - ground
+    - GND
+    - V-DC
+    - V-DC (one port)
+    - V-AC
+    - I-DC
+    - I-AC
+    - MOSFET-N
+    - MOSFET-P
+    - BJT-NPN
+    - BJT-PNP
+    - Op-Amp
 
 nodes:
   connectivity: 8           # 4 or 8 (ablation E4)

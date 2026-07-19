@@ -93,7 +93,30 @@ class TestValidator:
             {"index": 0, "net": "0"},
             {"index": 1, "net": "0"},
         ]
-        assert any("exactly 1" in i for i in validate_gt(gt))
+        assert any("expected 1" in i for i in validate_gt(gt))
+
+    def test_wrong_terminal_count_for_transistor(self):
+        gt = make_gt()
+        gt["components"][0] = {
+            "id": 0,
+            "class": "MOSFET-N",
+            "bbox": [50, 50, 30, 10],
+            "terminals": [
+                {"index": 0, "net": "n1"},
+                {"index": 1, "net": "0"},
+            ],
+        }
+        assert any("expected 3" in i for i in validate_gt(gt))
+
+    def test_wire_crossover_rejected_in_topology(self):
+        gt = make_gt()
+        gt["components"].append({
+            "id": 3,
+            "class": "Wire Crossover",
+            "bbox": [10, 10, 5, 5],
+            "terminals": [{"index": 0, "net": "n1"}],
+        })
+        assert any("drawing annotation" in i for i in validate_gt(gt))
 
     def test_class_whitelist(self):
         gt = make_gt()

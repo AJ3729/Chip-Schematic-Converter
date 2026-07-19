@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from schematic2netlist.classes import class_role, is_ground
 from schematic2netlist.nodes import bbox_xyxy, collect_nodes_in_rect
 
 
@@ -95,8 +96,11 @@ def build_component_pin_nets(
     strategy = cfg["snapping"]["strategy"]
     comps = []
     for i, det in enumerate(detections):
-        cls = det["class"].lower()
-        if "ground" in cls:
+        if class_role(det["class"]) == "none":
+            # drawing annotations (Wire Crossover) are not electrical
+            # components — no terminals to snap
+            continue
+        if is_ground(det["class"]):
             if strategy == "directional":
                 g = find_ground_node(det, node_map, cfg)
             else:

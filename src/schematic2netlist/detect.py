@@ -24,9 +24,13 @@ import json
 import os
 from pathlib import Path
 
+from schematic2netlist.classes import canonical_class
+
 
 def normalize_detection(det: dict) -> dict:
-    """Return a detection dict with the canonical "class" key."""
+    """Return a detection dict with the canonical "class" key and the
+    class name canonicalized to the published Digitize-HCD vocabulary
+    (legacy Roboflow names are mapped via aliases)."""
     if "class" in det:
         cls = det["class"]
     elif "class_name" in det:
@@ -37,7 +41,7 @@ def normalize_detection(det: dict) -> dict:
             f"{sorted(det.keys())}"
         )
     return {
-        "class": cls,
+        "class": canonical_class(cls),
         "confidence": float(det.get("confidence", 1.0)),
         "x": float(det["x"]),
         "y": float(det["y"]),
