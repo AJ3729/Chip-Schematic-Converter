@@ -139,7 +139,59 @@ data/cleaned/circuit_1199.jpg` reproduces legacy outputs byte-for-byte
 
 ---
 
-## Phase C — Models & Baselines (not started)
+## Phase C — Models & Baselines 🔶 (started 2026-07-18)
+
+### Done
+- **Prerequisites cleared** (`9d92bc9f`):
+  - Canonical class vocabulary = the 17 published categories
+    (`configs/class_names.yaml`, `classes.py`); legacy names are
+    aliases; pipeline branches on roles. Fixes GND-not-recognized-as-
+    ground and both v1 netlist quirks; adds .model cards, 3-terminal
+    transistor / op-amp (ideal VCVS) / one-port rail support. Wire
+    Crossover excluded from masking (would sever crossing wires),
+    snapping, and netlists.
+  - Preprocessing transforms recorded for all 1,277 images and
+    verified **byte-identical** against data/cleaned
+    (`scripts/record_transforms.py` → `data/transforms.json`) —
+    published annotations can now be projected into cleaned
+    coordinates (also unblocks ablation E2).
+  - **GT re-bootstrapped as a merge** (`bootstrap_gt_merged.py`):
+    components from published COCO (complete, correctly classified,
+    projected boxes), nets transferred from pipeline snapping by IoU
+    ≥0.3 — 190 files, 2,563 components, 1,522 (59%) with transferred
+    nets; all validate. Human pass is now mostly net-checking.
+- **GT verification guide**: `docs/GT_VERIFICATION_GUIDE.md` — full
+  [HUMAN] workflow, prerequisites, judgment calls, 6–8 h realistic
+  budget.
+- **YOLO dataset built** (`scripts/make_yolo_dataset.py`):
+  COCO → YOLO labels on data/raw (annotation coordinate frame), frozen
+  splits, all 17 classes, 18,600 boxes; `data/yolo/dataset.yaml`.
+- **Training started on Apple M1 (8 GB, MPS)**: smoke run passed
+  (yolov8n/320/1 epoch); primary run launched — **yolov8s, 640 px,
+  batch 8, 100 epochs, seed 0, deterministic**, under caffeinate, to
+  `experiments/train/yolov8s_640_seed0/`.
+
+### Remaining
+- Wait out seed-0 run (rough ETA 6–12 h on M1 8 GB; early-stops on
+  patience). Then seeds 1 and 2 (plan: mean ± std over 3 seeds).
+- Detector baselines (C2): yolov8n/m, v5s, v10s/11s, RT-DETR or
+  Faster R-CNN — consider a rented GPU; M1 wall-clock makes the full
+  baseline family painful locally.
+- Switch pipeline detect backend to local weights; regenerate
+  detection caches; per-class AP with support counts (C1).
+- End-to-end baselines (C3) and runtime/cost benchmark (C4→paper C2).
+
+### Limitations / problems
+- M1 8 GB is the only compute: yolov8s@640 batch 8 fits but each run
+  is overnight-scale, and the C2 baseline family (6+ detectors × 3
+  seeds) is impractical locally — plan a Colab/Lambda session or use
+  the plan's fallback (Roboflow for training only, exported weights).
+- Merged-bootstrap net transfer covers 59% of components; the rest
+  are null nets the human must fill (expected — hosted-detector
+  misses and low-IoU projections).
+- Op-Amp terminal order (in+, in−, out) and BJT/MOSFET (C-B-E /
+  D-G-S) conventions are asserted in the guide + netlist writer;
+  the annotator must follow them for SPICE elements to be sensible.
 ## Phase D — Evaluation Harness vs GT (metrics implemented + tested in A; harness wiring not started)
 ## Phase E — Ablations (axes prepared in config; not started)
 ## Phase F — Paper Rewrite (not started)
