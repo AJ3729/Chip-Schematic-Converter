@@ -192,7 +192,66 @@ data/cleaned/circuit_1199.jpg` reproduces legacy outputs byte-for-byte
 - Op-Amp terminal order (in+, in−, out) and BJT/MOSFET (C-B-E /
   D-G-S) conventions are asserted in the guide + netlist writer;
   the annotator must follow them for SPICE elements to be sensible.
-## Phase D — Evaluation Harness vs GT (metrics implemented + tested in A; harness wiring not started)
+---
+
+## Plan v2 adopted (2026-07-18) — Benchmark + Design-Intent Completion
+
+Superseded the phase plan with `IEEE_ACCESS_PLAN_v2_with_repair.md`
+(30-day, MSP-vs-IDEAL). New contribution set C1–C5; the headline
+addition is **C5 — transparent minimal design-intent completion**
+(the ERC + assumption-ledger repair layer), the novelty hook. Two
+Day-1 decisions: standardize on the **cleaned 512-px frame**; secure a
+**GPU [HUMAN]** for training. Work below is the local, GPU-free slice
+of Week 1.
+
+### Done — Week 1 local build
+- **BUILD-C0 — ERC + minimal assumption ledger (C5)** (`1cbd5e0c`):
+  `erc.py` diagnoses simulability issues with DC-path reasoning
+  (caps/current-sources/transistor-gates don't conduct at DC);
+  `repair.py` applies minimal, logged fixes under a gauge (safe) vs
+  assumption (flagged, with alternatives + confidence) taxonomy —
+  one shunt per floating subnet, unsnapped terminals flagged never
+  auto-wired. **Integrity rule enforced**: repair only adds SPICE
+  lines, never changes topology (proven byte-identical on
+  circuit_1199). Human-readable + JSON ledger, schema v1.
+  `simulate.py` gained diagnostics (extracts the failing node names).
+- **BUILD-B — GT benchmark harness** (`3fc202c6`): `benchmark.py`
+  (+library) aligns pred→GT by IoU-within-class (Hungarian; unmatched
+  penalize, not dropped), **canonicalizes terminal order by
+  connectivity signature** so arbitrary 2-terminal indexing can't
+  unfairly penalize, computes the full cascade (terminal-pair/net/
+  per-component/nGED/strict-e2e + SPICE validity + solvability lift)
+  with bootstrap 95% CIs. `--include-unverified` for provisional runs.
+- **BUILD-A(local) — cleaned-frame dataset + detector eval**
+  (`87de8024`): `make_yolo_dataset.py --frame cleaned` projects COCO
+  boxes via `transforms.json` (verified visually on circuit_1);
+  17,769/18,600 boxes kept (4.5% drop out-of-frame from the content
+  crop). `eval_detector.py` ready to emit mAP + per-class AP+supports
+  + confusion matrix once GPU weights exist.
+- Test suite: **86 passing** (was 59; +15 repair/ERC/simulate,
+  +12 benchmark).
+
+### Remaining — needs GPU or [HUMAN]
+- **[HUMAN] GPU**: train yolov8s@640 on the cleaned frame, 3 seeds
+  (+n/m for E1); the M1 run does not survive a session exit.
+- **[HUMAN] GT verification**: 190 files → `verified:true` (the
+  benchmark scores verified-only by default).
+- Provisional benchmark run over unverified GT is executing now to
+  smoke-test the harness end-to-end (numbers are NOT paper numbers —
+  they use unverified bootstrap GT and legacy hosted detections).
+- M2 (crossover-aware net assembly [MSP], U-Net [IDEAL]); M3 (port
+  localization); ablations; repair evaluation at scale; paper.
+
+### Limitations / problems (new this session)
+- Benchmark wall-clock: ~8 s/image (two ngspice calls + GED), ~25 min
+  for 190. Fine as a one-off; consider caching / `--no-spice` for
+  iteration.
+- Cleaned-frame decision drops 4.5% of boxes that fall outside the
+  content crop — documented, small, but must be stated in the paper.
+- The repair layer's DC-conduction model is a documented ERC
+  approximation (e.g. op-amp treated as weakly linking its terminals
+  for reachability); good enough for diagnosis, stated as such.
+
 ## Phase E — Ablations (axes prepared in config; not started)
-## Phase F — Paper Rewrite (not started)
+## Phase F — Paper Rewrite (front-matter not started)
 ## Phase G — Pre-submission Verification (not started)
