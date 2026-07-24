@@ -143,6 +143,7 @@ def export_spice_netlist(
     components_with_nodes: list[dict],
     out_path: str,
     placeholders: dict | None = None,
+    extra_lines: list[str] | None = None,
 ) -> dict:
     """Write a SPICE netlist with placeholder values (no OCR).
 
@@ -150,6 +151,10 @@ def export_spice_netlist(
     missing terminals are skipped with an UNSNAPPED comment; degenerate
     same-node two-terminal components with SAME_NODE_SKIPPED. Model
     cards for referenced device models are appended before .op.
+
+    ``extra_lines`` are appended verbatim under a "repair" banner (used
+    by the M4 repair layer to inject minimal SPICE aids without touching
+    the component lines that encode topology).
 
     Returns {"wrote_any": bool, "skipped": [reason strings]}.
     """
@@ -255,6 +260,10 @@ def export_spice_netlist(
             f.write("* WARNING: no valid components written\n")
         for model in sorted(models_used):
             f.write(_MODEL_CARDS[model] + "\n")
+        if extra_lines:
+            f.write("\n* --- design-intent repair (does not change topology) ---\n")
+            for ln in extra_lines:
+                f.write(ln + "\n")
         f.write("\n.op\n.end\n")
 
     return {"wrote_any": wrote_any, "skipped": skipped}

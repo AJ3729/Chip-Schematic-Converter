@@ -22,6 +22,7 @@ from schematic2netlist.netlist import (
     export_spice_netlist,
 )
 from schematic2netlist.nodes import bbox_xyxy, build_wire_nodes
+from schematic2netlist.repair import build_ledger, export_ledger, repair_circuit
 from schematic2netlist.snapping import build_component_pin_nets
 from schematic2netlist.textmask import detect_text_mask
 from schematic2netlist.wires import build_non_wire_mask, extract_wires
@@ -103,6 +104,12 @@ def run_pipeline(
     )
     assign_node_names(comps, node_name_map)
 
+    # --- design-intent repair (M4 / C5): diagnose + minimal logged fixes.
+    # Topology is untouched; repairs are extra SPICE lines only. ---
+    repair_result = None
+    if cfg.get("repair", {}).get("enabled"):
+        repair_result = repair_circuit(comps, node_name_map, cfg)
+
     netlist_info = None
     if save:
         export_readable_netlist(comps, str(out_dir / "netlist_readable.txt"))
@@ -111,6 +118,17 @@ def run_pipeline(
             str(out_dir / "netlist.sp"),
             placeholders=cfg["netlist"]["placeholders"],
         )
+        if repair_result is not None:
+            export_spice_netlist(
+                comps,
+                str(out_dir / "netlist_repaired.sp"),
+                placeholders=cfg["netlist"]["placeholders"],
+                extra_lines=repair_result.extra_lines,
+            )
+            ledger = build_ledger(
+                Path(image_path).name, None, None, repair_result
+            )
+            export_ledger(ledger, str(out_dir / "ledger.json"))
         _write_debug_overlay(
             img, clean_wires, detections, comps,
             out_dir / "06_netlist_debug_overlay.png",
@@ -126,5 +144,6 @@ def run_pipeline(
         "node_name_map": node_name_map,
         "coverage": coverage,
         "netlist": netlist_info,
+        "repair": repair_result,
         "out_dir": str(out_dir) if save else None,
     }

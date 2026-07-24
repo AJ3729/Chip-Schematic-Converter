@@ -95,3 +95,19 @@ netlist:
 simulate:
   ngspice_binary: ngspice
   timeout_s: 5
+  diagnostics: true         # parse which node/element ngspice reported failing
+
+# M4 design-intent completion & transparent repair (contribution C5).
+# Repair NEVER changes the recovered topology — it only adds explicit,
+# logged constraints to make the circuit DC-solvable. See repair.py.
+repair:
+  enabled: true
+  max_assumptions: 8        # minimality budget (flagged if exceeded)
+  prefer_spice_aids: true   # prefer SPICE aids over structural edits
+  shunt_r: 1e9              # ohms, shunt-to-ground for floating subnets
+  strategies:
+    add_ground_reference: true
+    shunt_floating_net: true
+    inductor_series_r: true
+    placeholder_values: true
+    current_direction: true
