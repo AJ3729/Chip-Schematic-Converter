@@ -252,6 +252,31 @@ of Week 1.
   approximation (e.g. op-amp treated as weakly linking its terminals
   for reachability); good enough for diagnosis, stated as such.
 
+### CGHD segmentation finding — the U-Net crux is NOT well-supported
+Verified the plan's central M2 assumption ("CGHD ships segmentation
+maps, train a wire-segmentation U-Net on those"). It does not hold:
+- **Only 253 of 3,255 CGHD images (7.8%) have a segmentation map.**
+- The maps are **binary foreground/ink masks** (background ~97%, ink
+  ~3%), NOT wire-vs-component segmentation — they do not separate
+  wires from symbols/text, which is the actual hard problem.
+- They are cross-domain (some are P&ID-style, not standard circuits).
+
+Consequence: the **U-Net wire-segmentation path (BUILD-C2, IDEAL) is
+weakly supported and high-risk** — 253 cross-domain binary masks won't
+train a robust wire-vs-symbol segmenter for Digitize-HCD. This is
+exactly the risk the plan named ("if the U-Net fights, fall back").
+The reliable M2 contribution is **BUILD-C1 crossover-aware net
+assembly, already built and unit-tested**, which needs no segmentation
+supervision (uses the detected Wire Crossover class). Recommend: treat
+U-Net as a documented negative/limitation, not a headline; the C2
+ablation becomes classical vs crossover-aware.
+
+Silver lining for M3 (ports): `classes_ports.json` in CGHD gives
+**canonical normalized port positions per class** (e.g. resistor
+connectors at [0,0.5] and [1,0.5]) — a deterministic template prior
+for pin localization needing no training, complementing Digitize-HCD's
+per-component port heatmaps + XY coords. The M3 path is well-supported.
+
 ## Phase E — Ablations (axes prepared in config; not started)
 ## Phase F — Paper Rewrite (front-matter not started)
 ## Phase G — Pre-submission Verification (not started)
