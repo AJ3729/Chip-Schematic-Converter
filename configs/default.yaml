@@ -69,6 +69,9 @@ wires:
 
 nodes:
   connectivity: 8           # 4 or 8 (ablation E4)
+  handle_crossovers: false  # crossover-aware net assembly (C2 ablation:
+                            # false = classical CC; true = notch + reconnect
+                            # opposite arms at detected Wire Crossover boxes)
 
 snapping:
   strategy: directional     # directional (v1) | uniform (v2) — ablation E4

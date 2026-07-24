@@ -21,7 +21,12 @@ from schematic2netlist.netlist import (
     export_readable_netlist,
     export_spice_netlist,
 )
-from schematic2netlist.nodes import bbox_xyxy, build_wire_nodes
+from schematic2netlist.classes import canonical_class
+from schematic2netlist.nodes import (
+    bbox_xyxy,
+    build_wire_nodes,
+    build_wire_nodes_crossover_aware,
+)
 from schematic2netlist.repair import build_ledger, export_ledger, repair_circuit
 from schematic2netlist.snapping import build_component_pin_nets
 from schematic2netlist.textmask import detect_text_mask
@@ -93,9 +98,19 @@ def run_pipeline(
         cv2.imwrite(str(out_dir / "04_wire_overlay.png"), blended)
 
     # --- nodes + snapping ---
-    node_map, num_nodes = build_wire_nodes(
-        clean_wires, connectivity=cfg["nodes"]["connectivity"]
-    )
+    if cfg["nodes"].get("handle_crossovers"):
+        crossover_boxes = [
+            d for d in detections
+            if canonical_class(d["class"]) == "Wire Crossover"
+        ]
+        node_map, num_nodes = build_wire_nodes_crossover_aware(
+            clean_wires, crossover_boxes,
+            connectivity=cfg["nodes"]["connectivity"],
+        )
+    else:
+        node_map, num_nodes = build_wire_nodes(
+            clean_wires, connectivity=cfg["nodes"]["connectivity"]
+        )
     comps = build_component_pin_nets(detections, node_map, cfg)
 
     # --- node naming + netlist export ---
