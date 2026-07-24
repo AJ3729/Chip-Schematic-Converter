@@ -32,9 +32,16 @@ COCO_PATH = ("data/digitize_hcd/extracted/Digitize-HCD Dataset/"
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--coco", default=COCO_PATH)
+    ap.add_argument("--frame", choices=["raw", "cleaned"], default="cleaned",
+                    help="coordinate frame for labels/images (Day-1 decision: "
+                    "the benchmark standardizes on 'cleaned'; boxes are "
+                    "projected via data/transforms.json)")
     ap.add_argument("--raw-dir", default="data/raw")
+    ap.add_argument("--cleaned-dir", default="data/cleaned")
+    ap.add_argument("--transforms", default="data/transforms.json")
     ap.add_argument("--splits-dir", default="data/splits")
-    ap.add_argument("--out-dir", default="data/yolo")
+    ap.add_argument("--out-dir", default=None,
+                    help="default: data/yolo_<frame>")
     args = ap.parse_args()
 
     coco = json.load(open(args.coco))
@@ -48,9 +55,14 @@ def main() -> None:
     for a in coco["annotations"]:
         anns[a["image_id"]].append(a)
 
-    out = Path(args.out_dir)
-    raw_dir = Path(args.raw_dir).resolve()
-    total_boxes = 0
+    cleaned = args.frame == "cleaned"
+    if cleaned:
+        from schematic2netlist.preprocess import project_bbox
+        transforms = json.load(open(args.transforms))
+
+    out = Path(args.out_dir) if args.out_dir else Path(f"data/yolo_{args.frame}")
+    img_src = Path(args.cleaned_dir if cleaned else args.raw_dir).resolve()
+    total_boxes, dropped = 0, 0
     for split in ("train", "val", "test"):
         img_out = out / "images" / split
         lbl_out = out / "labels" / split
@@ -60,20 +72,34 @@ def main() -> None:
         for name in split_names:
             iid = by_name[name]
             info = images[iid]
-            W, H = info["width"], info["height"]
+            stem = Path(name).stem
+            if cleaned:
+                meta = transforms.get(stem)
+                if meta is None:
+                    continue
+                W = H = meta["target_size"]        # 512 canvas
+            else:
+                W, H = info["width"], info["height"]
             link = img_out / name
             if not link.exists():
-                link.symlink_to(raw_dir / name)
+                link.symlink_to(img_src / name)
             lines = []
             for a in anns[iid]:
                 x, y, w, h = a["bbox"]
-                cx, cy = (x + w / 2) / W, (y + h / 2) / H
+                if cleaned:
+                    cx, cy, bw, bh = project_bbox(meta, x, y, w, h)
+                else:
+                    cx, cy, bw, bh = x + w / 2, y + h / 2, w, h
+                # clip to frame; drop boxes projected fully out of view
+                if cx < 0 or cy < 0 or cx > W or cy > H or bw <= 0 or bh <= 0:
+                    dropped += 1
+                    continue
                 lines.append(
                     f"{class_index[a['category_id']]} "
-                    f"{cx:.6f} {cy:.6f} {w / W:.6f} {h / H:.6f}"
+                    f"{cx / W:.6f} {cy / H:.6f} {bw / W:.6f} {bh / H:.6f}"
                 )
                 total_boxes += 1
-            (lbl_out / (Path(name).stem + ".txt")).write_text(
+            (lbl_out / (stem + ".txt")).write_text(
                 "\n".join(lines) + ("\n" if lines else "")
             )
         print(f"[OK] {split}: {len(split_names)} images")
@@ -87,7 +113,8 @@ def main() -> None:
         "names:\n" + "".join(f"  {i}: {n}\n" for i, n in enumerate(names))
     )
     (out / "dataset.yaml").write_text(yaml_text)
-    print(f"[OK] {total_boxes} boxes; dataset.yaml written to {out / 'dataset.yaml'}")
+    print(f"[OK] {total_boxes} boxes ({dropped} dropped out-of-frame); "
+          f"frame={args.frame}; dataset.yaml written to {out / 'dataset.yaml'}")
 
 
 if __name__ == "__main__":
