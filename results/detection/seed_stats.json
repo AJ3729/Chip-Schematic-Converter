@@ -1,0 +1,24 @@
+{
+  "yolov8s": {
+    "map50": {
+      "mean": 0.9719,
+      "std": 0.0012,
+      "n_seeds": 3
+    },
+    "map50_95": {
+      "mean": 0.727,
+      "std": 0.0032,
+      "n_seeds": 3
+    },
+    "precision": {
+      "mean": 0.9526,
+      "std": 0.0054,
+      "n_seeds": 3
+    },
+    "recall": {
+      "mean": 0.961,
+      "std": 0.0036,
+      "n_seeds": 3
+    }
+  }
+}

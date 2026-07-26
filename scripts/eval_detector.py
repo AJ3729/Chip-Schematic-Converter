@@ -56,13 +56,22 @@ def main() -> None:
     data_root = Path(args.data).parent
     supports = support_counts(data_root / "labels" / args.split, names)
 
+    # Ultralytics returns per-class AP arrays indexed by ap_class_index
+    # (only the classes present in the eval), NOT by full names order —
+    # map them back to the class id before pairing with names/supports.
+    ap50_by_cls = {
+        int(ci): float(metrics.box.ap50[j])
+        for j, ci in enumerate(metrics.box.ap_class_index)
+    }
+    ap_by_cls = {
+        int(ci): float(metrics.box.ap[j].mean())
+        for j, ci in enumerate(metrics.box.ap_class_index)
+    }
     per_class = []
     for i, name in enumerate(names):
-        ap50 = float(metrics.box.ap50[i]) if i < len(metrics.box.ap50) else None
-        ap = float(metrics.box.ap[i]) if i < len(metrics.box.ap) else None
         per_class.append({
             "class": name, "support": supports[name],
-            "ap50": ap50, "ap50_95": ap,
+            "ap50": ap50_by_cls.get(i), "ap50_95": ap_by_cls.get(i),
         })
 
     with open(out / "per_class_ap.csv", "w", newline="") as f:
