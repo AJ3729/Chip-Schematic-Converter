@@ -54,6 +54,12 @@ textmask:
   max_width: 120
 
 wires:
+  # C2: wire extraction method.
+  #   "ink"   — binarized ink (solid strokes) + anisotropic gap bridging
+  #   "canny" — legacy edge detection (hollow double-edges); the baseline
+  method: ink
+  bridge_span: 9            # px, along-stroke gap bridging (anisotropic)
+  min_blob_extent: 15       # keep thin strokes regardless of area
   component_mask_pad: 8     # px added around detected component boxes
   canny_low: 40
   canny_high: 120
@@ -82,7 +88,7 @@ wires:
 
 nodes:
   connectivity: 8           # 4 or 8 (ablation E4)
-  handle_crossovers: true  # crossover-aware net assembly (C2 ablation:
+  handle_crossovers: false  # crossover-aware net assembly (C2 ablation:
                             # false = classical CC; true = notch + reconnect
                             # opposite arms at detected Wire Crossover boxes)
 
