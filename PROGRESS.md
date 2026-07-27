@@ -139,6 +139,41 @@ data/cleaned/circuit_1199.jpg` reproduces legacy outputs byte-for-byte
 
 ---
 
+## Session 2026-07-27 — verified benchmark, snapping/wire fixes, tiers 1-2 ✅
+
+### Done
+- First genuine topology benchmark on the human-verified GT (all 191
+  files verified by Ammaar; strict validator 0 issues). Baseline
+  exposed the truth: net F1 0.433, terminal-pair 0.163, strict 0.000.
+- Oracle stage attribution (`scripts/oracle.py`): detection solved;
+  snapping owned 4x the error of wires (hard-coded 2-terminal limit,
+  18% of components structurally missing pins).
+- Boundary-crossing snapping (class-aware terminal counts): terminal-
+  pair F1 +108%; ink-vs-canny ordering REVERSED under it (interaction).
+- Preprocessing migration (annotation-aware crop; 831->0 boxes lost);
+  GT bboxes re-projected (`gt_netlists_verified_v2`, originals intact).
+- Tier 1 mask-hole stitching + tier 2 crossover re-enable: all
+  topology metrics significant (paired bootstrap); strict success
+  5 -> 10 images.
+- **Session total: net F1 0.433 -> 0.637, terminal-pair 0.163 -> 0.463,
+  per-component 0.024 -> 0.184, strict 0 -> 10/190.**
+
+### Remaining / next
+- Tier 3: C3 port-heatmap keypoint CNN (supervision ships with
+  Digitize-HCD; RunPod). Tier 4: pin-anchored path tracing.
+- Fix oracle mode C (star-hub artifact gives impossible negative wire
+  attribution). Repair evaluation script; runtime benchmark; ablation
+  tables; 3-seed frozen-config run; Phase F paper; Phase G.
+- See HANDOFF.md for the complete state dump and conventions.
+
+### Limitations / problems
+- Strict success still low in absolute terms (product over ~14
+  components/image; per-comp acc is the number to move).
+- Detector trained on old preprocessing frames (transfers fine;
+  retrain is a known modest win, deferred by owner).
+
+---
+
 ## Phase C — Models & Baselines 🔶 (started 2026-07-18)
 
 ### Done
