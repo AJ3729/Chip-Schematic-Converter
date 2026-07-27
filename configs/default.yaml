@@ -60,6 +60,16 @@ wires:
   method: ink
   bridge_span: 9            # px, along-stroke gap bridging (anisotropic)
   min_blob_extent: 15       # keep thin strokes regardless of area
+  # Tier-1: stitch wire islands across regions OUR OWN masking deleted
+  # (text boxes + component pad rings, never component bodies). The
+  # measured dominant failure was rail nets shattered into 4-6 islands
+  # with 20-45 px gaps exactly at these self-inflicted holes.
+  stitch_masked_gaps: true
+  stitch_max_gap: 60        # px, cap on bridgeable hole size
+  stitch_angle_tol_deg: 35  # collinearity required on both endpoints
+  stitch_min_inside_frac: 0.75  # segment must run through hole/wire pixels
+  stitch_dir_radius: 7      # window for local stroke direction
+  stitch_passes: 2          # chained holes (text box next to pad ring)
   component_mask_pad: 8     # px added around detected component boxes
   canny_low: 40
   canny_high: 120
@@ -88,7 +98,7 @@ wires:
 
 nodes:
   connectivity: 8           # 4 or 8 (ablation E4)
-  handle_crossovers: false  # crossover-aware net assembly (C2 ablation:
+  handle_crossovers: true  # crossover-aware net assembly (C2 ablation:
                             # false = classical CC; true = notch + reconnect
                             # opposite arms at detected Wire Crossover boxes)
 

@@ -30,7 +30,12 @@ from schematic2netlist.nodes import (
 from schematic2netlist.repair import build_ledger, export_ledger, repair_circuit
 from schematic2netlist.snapping import build_component_pin_nets
 from schematic2netlist.textmask import detect_text_mask
-from schematic2netlist.wires import build_non_wire_mask, extract_wires
+from schematic2netlist.wires import (
+    build_non_wire_mask,
+    extract_wires,
+    stitch_wire_islands,
+    stitchable_mask,
+)
 
 
 def _write_debug_overlay(img, clean_wires, detections, comps, out_path):
@@ -91,6 +96,13 @@ def run_pipeline(
 
     # --- wire extraction ---
     wire_candidate, clean_wires = extract_wires(gray, non_wire_mask, cfg)
+
+    # tier-1 fix: reconnect islands split by our own masking (text boxes,
+    # component pad rings) — the measured dominant cause of net shattering
+    if cfg["wires"].get("stitch_masked_gaps"):
+        stitchable = stitchable_mask(gray.shape, detections, cfg, text_mask)
+        clean_wires = stitch_wire_islands(clean_wires, stitchable, cfg)
+
     if save:
         cv2.imwrite(str(out_dir / "02_wire_candidates.png"), wire_candidate)
         cv2.imwrite(str(out_dir / "03_wire_binary.png"), clean_wires)

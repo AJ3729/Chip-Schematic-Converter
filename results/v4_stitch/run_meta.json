@@ -1,0 +1,137 @@
+{
+  "timestamp_utc": "2026-07-27T19:46:03.325796+00:00",
+  "git_sha": "bfa31461421c4243c1a27f4e8c82ce99b51d2122",
+  "seed": 0,
+  "config": {
+    "seed": 0,
+    "preprocess": {
+      "target_size": 512,
+      "blur_kernel": 3,
+      "angle_min_blob_area": 200,
+      "border_margin": 2,
+      "landscape_ratio": 1.05,
+      "shadow_std_threshold": 18,
+      "shadow_dilate_kernel": 7,
+      "shadow_median_blur": 21,
+      "remove_specks": true,
+      "speck_min_area": 40,
+      "speck_min_extent": 12,
+      "crop_pad": 12,
+      "crop_pad_frac": 0.02,
+      "hough_min_line_frac": 0.06,
+      "hough_threshold": 80,
+      "hough_max_gap": 6,
+      "max_skew_deg": 20.0
+    },
+    "detect": {
+      "backend": "ultralytics",
+      "cache_dir": "data/detections",
+      "model_id": "electrical-components-qpl1s/6",
+      "api_url": "https://detect.roboflow.com",
+      "weights": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt",
+      "confidence": 0.4,
+      "image_size": 640
+    },
+    "textmask": {
+      "enabled": true,
+      "adaptive_block_size": 31,
+      "adaptive_c": 10,
+      "dilate_kernel": 3,
+      "min_area": 20,
+      "max_area": 2500,
+      "min_aspect": 0.2,
+      "max_aspect": 6.0,
+      "max_height": 50,
+      "max_width": 120
+    },
+    "wires": {
+      "method": "ink",
+      "bridge_span": 9,
+      "min_blob_extent": 15,
+      "stitch_masked_gaps": true,
+      "stitch_max_gap": 60,
+      "stitch_angle_tol_deg": 35,
+      "stitch_min_inside_frac": 0.75,
+      "stitch_dir_radius": 7,
+      "stitch_passes": 2,
+      "component_mask_pad": 8,
+      "canny_low": 40,
+      "canny_high": 120,
+      "morph_kernel": 2,
+      "min_blob_area": 20,
+      "non_wire_classes": [
+        "Resistor",
+        "Capacitor",
+        "Inductor",
+        "Diode",
+        "Zener Diode",
+        "GND",
+        "V-DC",
+        "V-DC (one port)",
+        "V-AC",
+        "I-DC",
+        "I-AC",
+        "MOSFET-N",
+        "MOSFET-P",
+        "BJT-NPN",
+        "BJT-PNP",
+        "Op-Amp"
+      ]
+    },
+    "nodes": {
+      "connectivity": 8,
+      "handle_crossovers": false
+    },
+    "snapping": {
+      "strategy": "boundary",
+      "max_expand": 30,
+      "window_depth": 4,
+      "expand_step": 2,
+      "ground_max_expand": 40,
+      "uniform_ground_max_expand": 26
+    },
+    "netlist": {
+      "ground_fallback": "most_connected",
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 5",
+        "ac_supply": "AC 1",
+        "dc_current": "DC 1m",
+        "ac_current": "AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      }
+    },
+    "simulate": {
+      "ngspice_binary": "ngspice",
+      "timeout_s": 5,
+      "diagnostics": true
+    },
+    "repair": {
+      "enabled": true,
+      "max_assumptions": 8,
+      "prefer_spice_aids": true,
+      "shunt_r": "1e9",
+      "strategies": {
+        "add_ground_reference": true,
+        "shunt_floating_net": true,
+        "inductor_series_r": true,
+        "placeholder_values": true,
+        "current_direction": true
+      }
+    }
+  },
+  "env": {
+    "python": "3.11.9 (main, Oct 20 2025, 14:35:45) [Clang 17.0.0 (clang-1700.0.13.5)]",
+    "platform": "macOS-15.5-arm64-arm-64bit",
+    "numpy": "2.3.5",
+    "cv2": "4.10.0",
+    "networkx": "3.6.1",
+    "scipy": "1.16.3",
+    "yaml": "6.0.3"
+  },
+  "split": "test"
+}
