@@ -181,6 +181,34 @@ function show() {
   const s = stages[idx];
   let inner = `<div class="stage-title">${s.title}</div>
                <div class="stage-caption">${s.caption}</div>`;
+  if (s.id === 'simulate') {
+    const x = s.extra, p = x.pred_sim, g = x.gt_sim;
+    inner += `<div class="badges">
+      <span class="badge ${p.ok ? 'ok' : 'fail'}">recovered netlist: ${p.ok ? 'simulated' : esc(p.category)}</span>
+      ${g ? `<span class="badge ${g.ok ? 'ok' : 'fail'}">verified netlist: ${g.ok ? 'simulated' : esc(g.category)}</span>` : ''}
+    </div>`;
+    if (!x.probes.length) {
+      inner += `<div class="stage-caption">no probe-able components (need a matched 2-terminal part with both pins wired)</div>`;
+    }
+    inner += `<div class="split">` + x.probes.map((pr, i) => `
+      <div>
+        <div class="stage-caption" style="margin:0 0 4px">
+          ${esc(pr.label)}${pr.match !== null && pr.match !== undefined ? ` — <b style="color:${pr.match > 90 ? 'var(--good)' : pr.match > 60 ? 'var(--warn)' : 'var(--bad)'}">${pr.match}% match</b>` : ''}
+        </div>
+        <canvas id="wave${i}" width="440" height="200"
+                style="width:100%;background:var(--panel2);border:1px solid var(--border);border-radius:10px"></canvas>
+      </div>`).join('') + `</div>
+      <div class="stage-caption" style="margin-top:12px">
+        <span style="color:var(--accent)">■</span> recovered&nbsp;&nbsp;
+        <span style="color:var(--good)">■</span> verified ground truth&nbsp;&nbsp;
+        (transient, 0–5 ms, AC sources driven as 1 kHz sine)
+      </div>`;
+    $('card').innerHTML = inner;
+    x.probes.forEach((pr, i) => drawWave($('wave' + i), pr));
+    $('prev').disabled = idx === 0;
+    $('next').disabled = idx === stages.length - 1;
+    return;
+  }
   if (s.id === 'netlist') {
     const x = s.extra, b = x.ngspice_before, a = x.ngspice_after;
     const baseLines = new Set(x.netlist.split('\n'));
@@ -208,6 +236,44 @@ function show() {
   $('next').disabled = idx === stages.length - 1;
 }
 function esc(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function drawWave(cv, pr) {
+  const ctx = cv.getContext('2d'), W = cv.width, H = cv.height, pad = 26;
+  ctx.clearRect(0, 0, W, H);
+  const series = [pr.pred, pr.gt].filter(v => v);
+  if (!pr.t || !series.length) {
+    ctx.fillStyle = '#93a0b1'; ctx.font = '12px sans-serif';
+    ctx.fillText('no waveform (simulation failed)', 20, H / 2);
+    return;
+  }
+  const all = series.flat();
+  let lo = Math.min(...all), hi = Math.max(...all);
+  if (hi - lo < 1e-9) { hi += 1; lo -= 1; }
+  const m = (hi - lo) * 0.1; lo -= m; hi += m;
+  const t0 = pr.t[0], t1 = pr.t[pr.t.length - 1];
+  const X = t => pad + (t - t0) / (t1 - t0) * (W - pad - 8);
+  const Y = v => H - pad + (lo - v) / (hi - lo) * (H - pad - 10) * -1 - (H - pad - 10) * 0 ;
+  const Yv = v => (H - pad) - (v - lo) / (hi - lo) * (H - pad - 12);
+  // axes
+  ctx.strokeStyle = '#2a3342'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad, 6); ctx.lineTo(pad, H - pad); ctx.lineTo(W - 6, H - pad); ctx.stroke();
+  if (lo < 0 && hi > 0) {           // zero line
+    ctx.setLineDash([3, 4]); ctx.beginPath();
+    ctx.moveTo(pad, Yv(0)); ctx.lineTo(W - 6, Yv(0)); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.fillStyle = '#93a0b1'; ctx.font = '10px sans-serif';
+  ctx.fillText(hi.toPrecision(3) + ' V', 2, 12);
+  ctx.fillText(lo.toPrecision(3) + ' V', 2, H - pad);
+  ctx.fillText(t1.toFixed(1) + ' ms', W - 44, H - 8);
+  const trace = (vals, color, dash) => {
+    ctx.strokeStyle = color; ctx.lineWidth = 1.8; ctx.setLineDash(dash);
+    ctx.beginPath();
+    vals.forEach((v, i) => { const x = X(pr.t[i]), y = Yv(v);
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.stroke(); ctx.setLineDash([]);
+  };
+  if (pr.gt) trace(pr.gt, '#3ecf8e', [5, 4]);
+  if (pr.pred) trace(pr.pred, '#4da3ff', []);
+}
 $('prev').onclick = () => { if (idx > 0) { idx--; show(); } };
 $('next').onclick = () => { if (idx < stages.length - 1) { idx++; show(); } };
 $('restart').onclick = () => {
