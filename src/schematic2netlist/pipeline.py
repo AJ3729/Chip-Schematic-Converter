@@ -43,10 +43,12 @@ def _write_debug_overlay(img, clean_wires, detections, comps, out_path):
         x1, y1, x2, y2 = bbox_xyxy(detections[c["id"]])
         cx_c = int((x1 + x2) / 2)
         cy_c = int((y1 + y2) / 2)
-        col_a = (0, 255, 255) if c["nodes"][0] is not None else (0, 0, 255)
-        col_b = (0, 255, 255) if c["nodes"][1] is not None else (0, 0, 255)
-        cv2.circle(debug, (cx_c - 10, cy_c), 5, col_a, -1)
-        cv2.circle(debug, (cx_c + 10, cy_c), 5, col_b, -1)
+        # terminal count is class-dependent (1 for GND, 3 for transistors)
+        n = len(c["nodes"])
+        for t, node in enumerate(c["nodes"]):
+            col = (0, 255, 255) if node is not None else (0, 0, 255)
+            off = int((t - (n - 1) / 2) * 12)
+            cv2.circle(debug, (cx_c + off, cy_c), 5, col, -1)
     cv2.imwrite(str(out_path), debug)
 
 

@@ -93,7 +93,7 @@ nodes:
                             # opposite arms at detected Wire Crossover boxes)
 
 snapping:
-  strategy: directional     # directional (v1) | uniform (v2) — ablation E4
+  strategy: boundary       # boundary (C2, default) | directional (v1) | uniform (v2)
   max_expand: 30            # v1 = 30, v2 = 22
   window_depth: 4           # px the snap window reaches into the bbox
   expand_step: 2            # growth step for expanding searches

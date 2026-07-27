@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from schematic2netlist.classes import class_role, is_ground
+from schematic2netlist.classes import class_role, class_terminals, is_ground
 from schematic2netlist.nodes import bbox_xyxy, collect_nodes_in_rect
 
 
@@ -84,6 +84,94 @@ def find_ground_node(
     return None
 
 
+def _perimeter(x1: int, y1: int, x2: int, y2: int, shape) -> list:
+    """Ordered (x, y) walk around a rectangle, clipped to the image."""
+    H, W = shape
+    pts = []
+    for x in range(x1, x2 + 1):
+        pts.append((x, y1))
+    for y in range(y1 + 1, y2 + 1):
+        pts.append((x2, y))
+    for x in range(x2 - 1, x1 - 1, -1):
+        pts.append((x, y2))
+    for y in range(y2 - 1, y1, -1):
+        pts.append((x1, y))
+    return [(x, y) for x, y in pts if 0 <= x < W and 0 <= y < H]
+
+
+def _boundary_runs(node_map: np.ndarray, x1, y1, x2, y2) -> list:
+    """Contiguous runs of the same wire node along the rectangle walk.
+
+    Each run is one place a conductor crosses the component boundary —
+    i.e. one terminal. Returns [(node_id, run_length), ...] sorted by
+    length descending. The walk is circular, so a run spanning the
+    start/end seam is merged.
+    """
+    pts = _perimeter(x1, y1, x2, y2, node_map.shape)
+    if not pts:
+        return []
+    ids = [int(node_map[y, x]) for x, y in pts]
+
+    runs = []
+    start = 0
+    for i in range(1, len(ids) + 1):
+        if i == len(ids) or ids[i] != ids[start]:
+            if ids[start] != -1:
+                runs.append([ids[start], i - start, start, i - 1])
+            start = i
+    # merge across the seam if the walk begins and ends on the same node
+    if len(runs) > 1 and runs[0][2] == 0 and runs[-1][3] == len(ids) - 1 \
+            and runs[0][0] == runs[-1][0]:
+        runs[0][1] += runs[-1][1]
+        runs.pop()
+
+    merged: dict[int, int] = {}
+    for nid, length, _, _ in runs:
+        merged[nid] = merged.get(nid, 0) + length
+    ordered = sorted(runs, key=lambda r: -r[1])
+    seen, out = set(), []
+    for nid, length, _, _ in ordered:
+        if nid not in seen:
+            seen.add(nid)
+            out.append((nid, merged[nid]))
+    return out
+
+
+def snap_boundary(
+    det: dict, node_map: np.ndarray, cfg: dict, n_terminals: int
+) -> list:
+    """Boundary-crossing snapping (contribution C2).
+
+    Reads terminals the way a human reads a schematic: wherever a
+    conductor crosses the component's boundary, that is a pin. This
+    replaces the two fixed edge probes of the directional/uniform
+    strategies, which structurally could not represent a third terminal
+    — so every MOSFET, BJT and Op-Amp lost a pin regardless of how good
+    the wire mask was (measured: 18% of components).
+
+    The boundary ring is grown outward until it sees at least the number
+    of distinct nodes the class expects, which also bridges the small
+    whitespace gaps hand-drawn symbols leave between a symbol and its
+    wire.
+    """
+    s = cfg["snapping"]
+    step = s["expand_step"]
+    max_expand = s["max_expand"]
+
+    x1, y1, x2, y2 = bbox_xyxy(det)
+    best: list = []
+    for r in range(step, max_expand + 1, step):
+        runs = _boundary_runs(node_map, x1 - r, y1 - r, x2 + r, y2 + r)
+        if len(runs) > len(best):
+            best = runs
+        if len(runs) >= n_terminals:
+            break
+
+    nodes = [nid for nid, _ in best[:n_terminals]]
+    nodes += [None] * (n_terminals - len(nodes))
+    return nodes
+
+
 def build_component_pin_nets(
     detections: list[dict], node_map: np.ndarray, cfg: dict
 ) -> list[dict]:
@@ -101,6 +189,16 @@ def build_component_pin_nets(
             # components — no terminals to snap
             continue
         if is_ground(det["class"]):
+            if strategy == "boundary":
+                # a GND symbol has exactly ONE terminal; emitting two
+                # copies would invent a terminal-pair that GT does not
+                # have and cost precision
+                comps.append({
+                    "id": i, "class": det["class"],
+                    "nodes": snap_boundary(det, node_map, cfg, 1),
+                    "kind": "ground",
+                })
+                continue
             if strategy == "directional":
                 g = find_ground_node(det, node_map, cfg)
             else:
@@ -114,7 +212,11 @@ def build_component_pin_nets(
             )
             continue
 
-        if strategy == "directional":
+        if strategy == "boundary":
+            # class-aware terminal count — the whole point: a MOSFET has
+            # three pins and must be able to report three nets
+            nodes = snap_boundary(det, node_map, cfg, class_terminals(det["class"]))
+        elif strategy == "directional":
             nodes = snap_directional(det, node_map, cfg)
         elif strategy == "uniform":
             nodes = snap_uniform(det, node_map, cfg)
