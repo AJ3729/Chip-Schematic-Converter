@@ -33,3 +33,14 @@ weights/
 .DS_Store
 .idea/
 .vscode/
+
+# Local archives and migration backups (large, regenerable / transferred by hand)
+*.zip
+*.tgz
+*.tar.gz
+backups/
+
+# Per-image benchmark artifacts (bulky, regenerable). Summaries, per-image
+# CSVs and run metadata ARE committed — they are the reported numbers.
+results/**/ledgers/
+results/**/netlists/

@@ -16,15 +16,28 @@ preprocess:
   shadow_std_threshold: 18  # only shadow-normalize if gray.std() exceeds this
   shadow_dilate_kernel: 7
   shadow_median_blur: 21
-  speck_min_area: 120       # minimum stroke area kept after binarization
-  crop_pad: 12              # padding around the content crop (px)
+  # Speck removal (gentler than the legacy area-only rule, which deleted
+  # faint components): a blob survives if its area OR its extent is
+  # meaningful, so hairline wire segments are preserved. Speck removal
+  # affects emitted pixels only — never the crop rectangle.
+  remove_specks: true
+  speck_min_area: 40        # was 120 — deleted real ink
+  speck_min_extent: 12      # keep thin/elongated strokes regardless of area
+  crop_pad: 12              # minimum padding around the content crop (px)
+  crop_pad_frac: 0.02       # ...scaled to image size (12 px is 0.6% of 2000 px)
+  # Skew estimation: length-weighted median of Hough segments folded
+  # mod 90 (robust), falling back to pooled-blob minAreaRect.
+  hough_min_line_frac: 0.06
+  hough_threshold: 80
+  hough_max_gap: 6
+  max_skew_deg: 20.0        # reject implausible skew estimates
 
 detect:
-  backend: cached           # cached | roboflow | ultralytics
+  backend: ultralytics
   cache_dir: data/detections
   model_id: electrical-components-qpl1s/6   # Roboflow hosted model (legacy)
   api_url: https://detect.roboflow.com
-  weights: null             # path to local YOLO weights (ultralytics backend)
+  weights: /Users/junaidahmed/Documents/Chip-Schematic-Converter/experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt
   confidence: 0.4           # detector confidence threshold
   image_size: 640           # inference resolution (ultralytics backend)
 
@@ -69,7 +82,7 @@ wires:
 
 nodes:
   connectivity: 8           # 4 or 8 (ablation E4)
-  handle_crossovers: false  # crossover-aware net assembly (C2 ablation:
+  handle_crossovers: true  # crossover-aware net assembly (C2 ablation:
                             # false = classical CC; true = notch + reconnect
                             # opposite arms at detected Wire Crossover boxes)
 
