@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>schematic2netlist — live demo</title>
+<style>
+  :root {
+    --bg: #0f1216; --panel: #171c23; --panel2: #1e2530; --text: #e8ecf1;
+    --dim: #93a0b1; --accent: #4da3ff; --good: #3ecf8e; --warn: #f0b429;
+    --bad: #ff6b6b; --border: #2a3342;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    font-family: -apple-system, "SF Pro Text", "Segoe UI", sans-serif;
+    display: flex; flex-direction: column; align-items: center; padding: 28px 16px;
+  }
+  h1 { font-size: 20px; font-weight: 650; letter-spacing: .2px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--dim); font-size: 13px; margin-top: 4px; }
+  #drop {
+    margin-top: 26px; width: min(720px, 94vw); padding: 46px 20px;
+    border: 2px dashed var(--border); border-radius: 14px; text-align: center;
+    color: var(--dim); cursor: pointer; transition: all .15s; background: var(--panel);
+  }
+  #drop.hover { border-color: var(--accent); color: var(--text); background: var(--panel2); }
+  #drop b { color: var(--text); }
+  .examples { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .examples figure { cursor: pointer; text-align: center; }
+  .examples img {
+    width: 120px; height: 90px; object-fit: cover; border-radius: 8px;
+    border: 1px solid var(--border); transition: transform .12s;
+  }
+  .examples figure:hover img { transform: scale(1.05); border-color: var(--accent); }
+  .examples figcaption { font-size: 11px; color: var(--dim); margin-top: 4px; }
+  #loading { display: none; margin-top: 40px; text-align: center; color: var(--dim); }
+  .spinner {
+    width: 34px; height: 34px; margin: 0 auto 12px;
+    border: 3px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #viewer { display: none; width: min(980px, 96vw); margin-top: 22px; }
+  .steps {
+    display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px;
+  }
+  .step-dot {
+    padding: 6px 12px; font-size: 12px; border-radius: 999px; cursor: pointer;
+    background: var(--panel); border: 1px solid var(--border); color: var(--dim);
+  }
+  .step-dot.active { background: var(--accent); color: #08131f; border-color: var(--accent); font-weight: 600; }
+  .step-dot.done { color: var(--text); }
+  .stage-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px; display: flex; flex-direction: column; align-items: center;
+  }
+  .stage-title { font-size: 17px; font-weight: 650; }
+  .stage-caption { color: var(--dim); font-size: 13px; margin: 6px 0 16px; text-align: center; max-width: 640px; }
+  .stage-img {
+    max-width: 100%; max-height: 60vh; border-radius: 10px;
+    background: #fff; image-rendering: -webkit-optimize-contrast;
+  }
+  .split { display: flex; gap: 16px; width: 100%; flex-wrap: wrap; }
+  .split > div { flex: 1 1 300px; }
+  pre.netlist {
+    background: var(--panel2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px; font: 12px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+    overflow: auto; max-height: 46vh; color: var(--text); white-space: pre;
+  }
+  pre.netlist .rep { color: var(--warn); }
+  .badges { display: flex; gap: 10px; margin: 10px 0 14px; flex-wrap: wrap; justify-content: center; }
+  .badge {
+    font-size: 12px; padding: 5px 12px; border-radius: 999px; font-weight: 600;
+  }
+  .badge.ok { background: rgba(62,207,142,.15); color: var(--good); }
+  .badge.fail { background: rgba(255,107,107,.15); color: var(--bad); }
+  .ledger { width: 100%; display: flex; flex-direction: column; gap: 8px; max-height: 46vh; overflow: auto; }
+  .entry {
+    background: var(--panel2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 14px; font-size: 12.5px;
+  }
+  .entry .cat { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-right: 8px; }
+  .cat.gauge { background: rgba(62,207,142,.15); color: var(--good); }
+  .cat.assumption { background: rgba(240,180,41,.15); color: var(--warn); }
+  .entry .act { color: var(--dim); margin-top: 4px; }
+  .nav { display: flex; gap: 12px; margin-top: 18px; }
+  button {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--border);
+    padding: 9px 22px; border-radius: 10px; font-size: 14px; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #08131f; border-color: var(--accent); font-weight: 600; }
+  button:disabled { opacity: .35; cursor: default; }
+  #restart { margin-top: 14px; font-size: 12px; color: var(--dim); background: none; border: none; text-decoration: underline; }
+</style>
+</head>
+<body>
+  <h1>schematic<span>2</span>netlist</h1>
+  <div class="sub">hand-drawn circuit → SPICE netlist, one stage at a time</div>
+
+  <div id="drop">
+    <b>Drop a hand-drawn schematic here</b><br>or click to choose a file
+    <input id="file" type="file" accept="image/*" hidden>
+  </div>
+  <div class="examples" id="examples"></div>
+
+  <div id="loading"><div class="spinner"></div>running the pipeline…</div>
+
+  <div id="viewer">
+    <div class="steps" id="steps"></div>
+    <div class="stage-card" id="card"></div>
+    <div class="nav">
+      <button id="prev">← Back</button>
+      <button id="next" class="primary">Next →</button>
+    </div>
+    <center><button id="restart">start over with another image</button></center>
+  </div>
+
+<script>
+const $ = id => document.getElementById(id);
+let stages = [], runId = null, idx = 0;
+
+fetch('/api/examples').then(r => r.json()).then(names => {
+  $('examples').innerHTML = names.map(n =>
+    `<figure onclick="runExample('${n}')">
+       <img src="/api/example-thumb/${n}" alt="${n}">
+       <figcaption>${n}</figcaption></figure>`).join('');
+});
+
+const drop = $('drop');
+drop.onclick = () => $('file').click();
+$('file').onchange = e => { if (e.target.files[0]) upload(e.target.files[0]); };
+['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => {
+  e.preventDefault(); drop.classList.add('hover'); }));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {
+  e.preventDefault(); drop.classList.remove('hover'); }));
+drop.addEventListener('drop', e => {
+  const f = e.dataTransfer.files[0]; if (f) upload(f);
+});
+
+function busy(on) {
+  $('loading').style.display = on ? 'block' : 'none';
+  drop.style.display = on ? 'none' : 'block';
+  $('examples').style.display = on ? 'none' : 'flex';
+  if (on) $('viewer').style.display = 'none';
+}
+function upload(file) {
+  const fd = new FormData(); fd.append('file', file);
+  busy(true);
+  fetch('/api/process', { method: 'POST', body: fd })
+    .then(handleResp).catch(err => fail(err));
+}
+function runExample(name) {
+  busy(true);
+  fetch('/api/process', { method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ example: name }) })
+    .then(handleResp).catch(err => fail(err));
+}
+function fail(msg) { busy(false); alert('Pipeline error: ' + msg); }
+async function handleResp(r) {
+  const j = await r.json();
+  if (!r.ok) return fail(j.error || r.statusText);
+  stages = j.stages; runId = j.run_id; idx = 0;
+  busy(false);
+  drop.style.display = 'none'; $('examples').style.display = 'none';
+  $('viewer').style.display = 'block';
+  renderSteps(); show();
+}
+function renderSteps() {
+  $('steps').innerHTML = stages.map((s, i) =>
+    `<div class="step-dot" id="dot${i}" onclick="idx=${i};show()">${i + 1}. ${s.title}</div>`).join('');
+}
+function show() {
+  stages.forEach((_, i) => {
+    const d = $('dot' + i);
+    d.classList.toggle('active', i === idx);
+    d.classList.toggle('done', i < idx);
+  });
+  const s = stages[idx];
+  let inner = `<div class="stage-title">${s.title}</div>
+               <div class="stage-caption">${s.caption}</div>`;
+  if (s.id === 'netlist') {
+    const x = s.extra, b = x.ngspice_before, a = x.ngspice_after;
+    const baseLines = new Set(x.netlist.split('\n'));
+    const repHtml = x.netlist_repaired.split('\n').map(l =>
+      baseLines.has(l) ? esc(l) : `<span class="rep">${esc(l)}</span>`).join('\n');
+    const ledger = (x.ledger && x.ledger.entries || []).map(e =>
+      `<div class="entry"><span class="cat ${e.category}">${e.category}</span>
+         <b>${esc(e.issue)}</b><div class="act">${esc(e.action)}</div></div>`).join('');
+    inner += `
+      <div class="badges">
+        <span class="badge ${b.ok ? 'ok' : 'fail'}">before repair: ${b.ok ? 'DC solvable' : esc(b.category)}</span>
+        <span class="badge ${a.ok ? 'ok' : 'fail'}">after repair: ${a.ok ? 'DC solvable' : esc(a.category)}</span>
+      </div>
+      <div class="split">
+        <div><div class="stage-caption" style="margin:0 0 6px">netlist (repair lines highlighted)</div>
+             <pre class="netlist">${repHtml}</pre></div>
+        <div><div class="stage-caption" style="margin:0 0 6px">assumption ledger</div>
+             <div class="ledger">${ledger || '<div class="entry">no entries</div>'}</div></div>
+      </div>`;
+  } else {
+    inner += `<img class="stage-img" src="/runs/${runId}/${s.image}">`;
+  }
+  $('card').innerHTML = inner;
+  $('prev').disabled = idx === 0;
+  $('next').disabled = idx === stages.length - 1;
+}
+function esc(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+$('prev').onclick = () => { if (idx > 0) { idx--; show(); } };
+$('next').onclick = () => { if (idx < stages.length - 1) { idx++; show(); } };
+$('restart').onclick = () => {
+  $('viewer').style.display = 'none';
+  drop.style.display = 'block'; $('examples').style.display = 'flex';
+};
+document.addEventListener('keydown', e => {
+  if ($('viewer').style.display === 'none') return;
+  if (e.key === 'ArrowRight') $('next').click();
+  if (e.key === 'ArrowLeft') $('prev').click();
+});
+</script>
+</body>
+</html>

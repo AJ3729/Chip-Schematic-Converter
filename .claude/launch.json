@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "demo",
+      "runtimeExecutable": "./venv/bin/python",
+      "runtimeArgs": ["demo/app.py"],
+      "port": 5001
+    }
+  ]
+}

@@ -44,3 +44,4 @@ backups/
 # CSVs and run metadata ARE committed — they are the reported numbers.
 results/**/ledgers/
 results/**/netlists/
+demo/runs/
