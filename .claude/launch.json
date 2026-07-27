@@ -5,7 +5,8 @@
       "name": "demo",
       "runtimeExecutable": "./venv/bin/python",
       "runtimeArgs": ["demo/app.py"],
-      "port": 5001
+      "port": 5001,
+      "autoPort": true
     }
   ]
 }

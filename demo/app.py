@@ -513,4 +513,11 @@ def run_file(run_id, name):
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5001, debug=False)
+    import argparse
+    import os
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--port", type=int,
+                    default=int(os.environ.get("PORT", 5001)))
+    args = ap.parse_args()
+    app.run(host="127.0.0.1", port=args.port, debug=False)
