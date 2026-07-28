@@ -44,3 +44,8 @@ aliases:
   Independent AC Current:    I-AC
   MOSFET Transistor:         MOSFET-N
   operational amplifier:     Op-Amp
+  # Digitize-HCD's port-location directory spells the one-port source
+  # with a hyphen while its COCO category uses a space. Without this
+  # alias the port templates for that class key on a name nothing
+  # downstream ever asks for, and silently never apply.
+  V-DC (one-port):           V-DC (one port)

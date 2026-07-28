@@ -16,7 +16,13 @@ from __future__ import annotations
 
 import numpy as np
 
-from schematic2netlist.classes import class_role, class_terminals, is_ground
+from schematic2netlist import ports as ports_mod
+from schematic2netlist.classes import (
+    canonical_class,
+    class_role,
+    class_terminals,
+    is_ground,
+)
 from schematic2netlist.nodes import bbox_xyxy, collect_nodes_in_rect
 
 
@@ -137,6 +143,38 @@ def _boundary_runs(node_map: np.ndarray, x1, y1, x2, y2) -> list:
     return out
 
 
+def _boundary_run_sites(node_map: np.ndarray, x1, y1, x2, y2) -> list:
+    """Boundary runs as [(node_id, x, y), ...] at each run's midpoint.
+
+    Same walk as :func:`_boundary_runs`, but keeping WHERE each crossing
+    happened — which is what port-template matching needs in order to
+    decide which crossing is which named pin.
+    """
+    pts = _perimeter(x1, y1, x2, y2, node_map.shape)
+    if not pts:
+        return []
+    ids = [int(node_map[y, x]) for x, y in pts]
+
+    runs = []
+    start = 0
+    for i in range(1, len(ids) + 1):
+        if i == len(ids) or ids[i] != ids[start]:
+            if ids[start] != -1:
+                runs.append((ids[start], start, i - 1))
+            start = i
+    if len(runs) > 1 and runs[0][1] == 0 and runs[-1][2] == len(ids) - 1 \
+            and runs[0][0] == runs[-1][0]:
+        # seam-spanning run: represent it by the later arc's midpoint
+        nid, s, _e = runs[-1]
+        runs = runs[1:-1] + [(nid, s, len(ids) - 1)]
+
+    out = []
+    for nid, s, e in runs:
+        mx, my = pts[(s + e) // 2]
+        out.append((nid, float(mx), float(my)))
+    return out
+
+
 def snap_boundary(
     det: dict, node_map: np.ndarray, cfg: dict, n_terminals: int
 ) -> list:
@@ -172,6 +210,43 @@ def snap_boundary(
     return nodes
 
 
+def snap_ports(
+    det: dict, node_map: np.ndarray, cfg: dict, n_terminals: int
+) -> tuple[list, dict | None]:
+    """Port-template snapping (contribution C3).
+
+    Finds the boundary crossings exactly as :func:`snap_boundary` does,
+    then asks the class's port templates which crossing is which named
+    pin (see :mod:`schematic2netlist.ports`). This is what makes the
+    emitted terminal order MEAN something for directional devices; the
+    previous strategies filled terminals in whatever order the boundary
+    walk happened to encounter them.
+
+    Returns ``(nodes, info)``. ``info`` is None when the template did
+    not fit and ``nodes`` came from the boundary fallback — identity is
+    a bonus, never a connectivity regression.
+    """
+    s = cfg["snapping"]
+    step, max_expand = s["expand_step"], s["max_expand"]
+    x1, y1, x2, y2 = bbox_xyxy(det)
+
+    sites: list = []
+    for r in range(step, max_expand + 1, step):
+        found = _boundary_run_sites(node_map, x1 - r, y1 - r, x2 + r, y2 + r)
+        if len(found) > len(sites):
+            sites = found
+        if len(found) >= n_terminals:
+            break
+
+    matched = ports_mod.match_ports(canonical_class(det["class"]), det, sites)
+    if matched is not None:
+        nodes, info = matched
+        if len(nodes) == n_terminals:
+            return nodes, info
+
+    return snap_boundary(det, node_map, cfg, n_terminals), None
+
+
 def build_component_pin_nets(
     detections: list[dict], node_map: np.ndarray, cfg: dict
 ) -> list[dict]:
@@ -189,10 +264,12 @@ def build_component_pin_nets(
             # components — no terminals to snap
             continue
         if is_ground(det["class"]):
-            if strategy == "boundary":
-                # a GND symbol has exactly ONE terminal; emitting two
+            if strategy in ("boundary", "ports"):
+                # A GND symbol has exactly ONE terminal; emitting two
                 # copies would invent a terminal-pair that GT does not
-                # have and cost precision
+                # have and cost precision. It also has no orientation
+                # signal in its port data, so "ports" behaves as
+                # "boundary" here.
                 comps.append({
                     "id": i, "class": det["class"],
                     "nodes": snap_boundary(det, node_map, cfg, 1),
@@ -212,17 +289,27 @@ def build_component_pin_nets(
             )
             continue
 
+        port_info = None
         if strategy == "boundary":
             # class-aware terminal count — the whole point: a MOSFET has
             # three pins and must be able to report three nets
             nodes = snap_boundary(det, node_map, cfg, class_terminals(det["class"]))
+        elif strategy == "ports":
+            nodes, port_info = snap_ports(
+                det, node_map, cfg, class_terminals(det["class"])
+            )
         elif strategy == "directional":
             nodes = snap_directional(det, node_map, cfg)
         elif strategy == "uniform":
             nodes = snap_uniform(det, node_map, cfg)
         else:
             raise ValueError(f"Unknown snapping.strategy: {strategy!r}")
-        comps.append(
-            {"id": i, "class": det["class"], "nodes": nodes, "kind": "two_terminal"}
-        )
+        rec = {
+            "id": i, "class": det["class"], "nodes": nodes, "kind": "two_terminal",
+        }
+        if port_info is not None:
+            # terminal k is now the k-th NAMED port of this class, so the
+            # netlist writer can emit correct pin order and polarity
+            rec["ports"] = port_info
+        comps.append(rec)
     return comps

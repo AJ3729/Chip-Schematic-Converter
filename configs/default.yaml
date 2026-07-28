@@ -7,6 +7,18 @@
 
 seed: 0
 
+benchmark:
+  # CANONICAL ground truth. Topology (nets/terminals/classes) is the
+  # human-verified annotation; bounding boxes were rebuilt from the
+  # published Digitize-HCD COCO annotations by scripts/fix_gt_boxes.py,
+  # because the bootstrapped boxes in _v2 were pipeline echoes — ~20%
+  # squared off, which capped their IoU against correctly-shaped
+  # detections and made alignment discard components the pipeline had
+  # actually got right (216 -> 40 unmatchable components; six images
+  # went from scoring zero to scoring normally).
+  # _v2 is retained unmodified for provenance and comparison.
+  gt_dir: data/gt_netlists_verified_v3
+
 preprocess:
   target_size: 512          # output canvas (px), aspect ratio preserved
   blur_kernel: 3            # Gaussian blur before Otsu for angle estimation

@@ -12,6 +12,18 @@ cards so D/M/Q netlists are not unconditionally unparsable.
 The ground fallback policy is configurable: "most_connected" (v1)
 assigns node "0" to the most-connected node when no ground symbol
 snapped; "fail" (v2) raises instead.
+
+**Pin order.** Elements are emitted positionally — ``M<n> d g s s``,
+``Q<n> c b e``, ``D<n> anode cathode`` — so terminal order carries
+electrical meaning for every directional device. That order is only
+trustworthy under ``snapping.strategy: ports``, which assigns each
+terminal a named port from the class's port template (contribution C3,
+see :mod:`schematic2netlist.ports`); the port order in those templates
+is deliberately the SPICE argument order. Under the ``boundary``,
+``directional`` and ``uniform`` strategies terminals are filled in
+whatever order the geometry search encountered them, so polarity and
+pin identity are arbitrary — a documented correctness limitation of
+those configurations, not of the writer.
 """
 
 from __future__ import annotations

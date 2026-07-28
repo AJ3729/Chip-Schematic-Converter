@@ -1,0 +1,359 @@
+{
+  "BJT-NPN": {
+    "n_crops": 825,
+    "n_skipped": 0,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 2475,
+      "median_norm_err": 0.1344,
+      "mean_norm_err": 0.1956,
+      "p90_norm_err": 0.5377,
+      "frac_within_0.10": 0.381,
+      "frac_within_0.15": 0.5402
+    },
+    "axis_only": {
+      "n_ports_scored": 2475,
+      "median_norm_err": 0.2688,
+      "mean_norm_err": 0.409,
+      "p90_norm_err": 0.8457,
+      "frac_within_0.10": 0.2331,
+      "frac_within_0.15": 0.3608
+    }
+  },
+  "BJT-PNP": {
+    "n_crops": 633,
+    "n_skipped": 0,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 1899,
+      "median_norm_err": 0.1281,
+      "mean_norm_err": 0.1891,
+      "p90_norm_err": 0.538,
+      "frac_within_0.10": 0.3934,
+      "frac_within_0.15": 0.5692
+    },
+    "axis_only": {
+      "n_ports_scored": 1899,
+      "median_norm_err": 0.3176,
+      "mean_norm_err": 0.3819,
+      "p90_norm_err": 0.8349,
+      "frac_within_0.10": 0.1717,
+      "frac_within_0.15": 0.2575
+    }
+  },
+  "Capacitor": {
+    "n_crops": 1286,
+    "n_skipped": 0,
+    "directional": false,
+    "oracle_pose": {
+      "n_ports_scored": 2572,
+      "median_norm_err": 0.0911,
+      "mean_norm_err": 0.1032,
+      "p90_norm_err": 0.1797,
+      "frac_within_0.10": 0.5614,
+      "frac_within_0.15": 0.8044
+    },
+    "axis_only": {
+      "n_ports_scored": 2572,
+      "median_norm_err": 0.0932,
+      "mean_norm_err": 0.107,
+      "p90_norm_err": 0.1885,
+      "frac_within_0.10": 0.5443,
+      "frac_within_0.15": 0.7877
+    }
+  },
+  "Diode": {
+    "n_crops": 1254,
+    "n_skipped": 0,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 2508,
+      "median_norm_err": 0.088,
+      "mean_norm_err": 0.1003,
+      "p90_norm_err": 0.1876,
+      "frac_within_0.10": 0.5754,
+      "frac_within_0.15": 0.8002
+    },
+    "axis_only": {
+      "n_ports_scored": 2508,
+      "median_norm_err": 0.2211,
+      "mean_norm_err": 0.3682,
+      "p90_norm_err": 0.694,
+      "frac_within_0.10": 0.242,
+      "frac_within_0.15": 0.4035
+    }
+  },
+  "GND": {
+    "n_crops": 1443,
+    "n_skipped": 0,
+    "directional": false,
+    "oracle_pose": {
+      "n_ports_scored": 1443,
+      "median_norm_err": 0.3302,
+      "mean_norm_err": 0.3287,
+      "p90_norm_err": 0.4251,
+      "frac_within_0.10": 0.0,
+      "frac_within_0.15": 0.0111
+    },
+    "axis_only": {
+      "n_ports_scored": 1443,
+      "median_norm_err": 0.3302,
+      "mean_norm_err": 0.3287,
+      "p90_norm_err": 0.4251,
+      "frac_within_0.10": 0.0,
+      "frac_within_0.15": 0.0111
+    }
+  },
+  "I-AC": {
+    "n_crops": 531,
+    "n_skipped": 0,
+    "directional": false,
+    "oracle_pose": {
+      "n_ports_scored": 1062,
+      "median_norm_err": 0.0751,
+      "mean_norm_err": 0.0872,
+      "p90_norm_err": 0.1782,
+      "frac_within_0.10": 0.6271,
+      "frac_within_0.15": 0.8286
+    },
+    "axis_only": {
+      "n_ports_scored": 1062,
+      "median_norm_err": 0.0782,
+      "mean_norm_err": 0.0909,
+      "p90_norm_err": 0.1871,
+      "frac_within_0.10": 0.6139,
+      "frac_within_0.15": 0.8136
+    }
+  },
+  "I-DC": {
+    "n_crops": 1031,
+    "n_skipped": 0,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 2062,
+      "median_norm_err": 0.069,
+      "mean_norm_err": 0.0842,
+      "p90_norm_err": 0.1719,
+      "frac_within_0.10": 0.6503,
+      "frac_within_0.15": 0.8458
+    },
+    "axis_only": {
+      "n_ports_scored": 2062,
+      "median_norm_err": 0.1637,
+      "mean_norm_err": 0.4019,
+      "p90_norm_err": 0.822,
+      "frac_within_0.10": 0.3734,
+      "frac_within_0.15": 0.4811
+    }
+  },
+  "Inductor": {
+    "n_crops": 1391,
+    "n_skipped": 0,
+    "directional": false,
+    "oracle_pose": {
+      "n_ports_scored": 2782,
+      "median_norm_err": 0.0688,
+      "mean_norm_err": 0.0817,
+      "p90_norm_err": 0.1688,
+      "frac_within_0.10": 0.6722,
+      "frac_within_0.15": 0.8483
+    },
+    "axis_only": {
+      "n_ports_scored": 2782,
+      "median_norm_err": 0.0719,
+      "mean_norm_err": 0.0858,
+      "p90_norm_err": 0.1781,
+      "frac_within_0.10": 0.6542,
+      "frac_within_0.15": 0.8318
+    }
+  },
+  "MOSFET-N": {
+    "n_crops": 386,
+    "n_skipped": 9,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 1158,
+      "median_norm_err": 0.1688,
+      "mean_norm_err": 0.2377,
+      "p90_norm_err": 0.6345,
+      "frac_within_0.10": 0.3014,
+      "frac_within_0.15": 0.4516
+    },
+    "axis_only": {
+      "n_ports_scored": 1158,
+      "median_norm_err": 0.3658,
+      "mean_norm_err": 0.4383,
+      "p90_norm_err": 0.838,
+      "frac_within_0.10": 0.0959,
+      "frac_within_0.15": 0.1589
+    }
+  },
+  "MOSFET-P": {
+    "n_crops": 386,
+    "n_skipped": 17,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 1158,
+      "median_norm_err": 0.1981,
+      "mean_norm_err": 0.2609,
+      "p90_norm_err": 0.6501,
+      "frac_within_0.10": 0.2168,
+      "frac_within_0.15": 0.3705
+    },
+    "axis_only": {
+      "n_ports_scored": 1158,
+      "median_norm_err": 0.4274,
+      "mean_norm_err": 0.4604,
+      "p90_norm_err": 0.8351,
+      "frac_within_0.10": 0.0328,
+      "frac_within_0.15": 0.0846
+    }
+  },
+  "Op-Amp": {
+    "n_crops": 977,
+    "n_skipped": 0,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 2931,
+      "median_norm_err": 0.1051,
+      "mean_norm_err": 0.1369,
+      "p90_norm_err": 0.2783,
+      "frac_within_0.10": 0.4729,
+      "frac_within_0.15": 0.6615
+    },
+    "axis_only": {
+      "n_ports_scored": 2931,
+      "median_norm_err": 0.239,
+      "mean_norm_err": 0.387,
+      "p90_norm_err": 0.7785,
+      "frac_within_0.10": 0.2354,
+      "frac_within_0.15": 0.3845
+    }
+  },
+  "Resistor": {
+    "n_crops": 1459,
+    "n_skipped": 0,
+    "directional": false,
+    "oracle_pose": {
+      "n_ports_scored": 2918,
+      "median_norm_err": 0.0689,
+      "mean_norm_err": 0.0821,
+      "p90_norm_err": 0.1688,
+      "frac_within_0.10": 0.659,
+      "frac_within_0.15": 0.8588
+    },
+    "axis_only": {
+      "n_ports_scored": 2918,
+      "median_norm_err": 0.0721,
+      "mean_norm_err": 0.0866,
+      "p90_norm_err": 0.1752,
+      "frac_within_0.10": 0.6333,
+      "frac_within_0.15": 0.8328
+    }
+  },
+  "V-AC": {
+    "n_crops": 642,
+    "n_skipped": 5,
+    "directional": false,
+    "oracle_pose": {
+      "n_ports_scored": 1284,
+      "median_norm_err": 0.0657,
+      "mean_norm_err": 0.081,
+      "p90_norm_err": 0.1626,
+      "frac_within_0.10": 0.6807,
+      "frac_within_0.15": 0.8544
+    },
+    "axis_only": {
+      "n_ports_scored": 1284,
+      "median_norm_err": 0.0687,
+      "mean_norm_err": 0.0823,
+      "p90_norm_err": 0.1663,
+      "frac_within_0.10": 0.6737,
+      "frac_within_0.15": 0.8497
+    }
+  },
+  "V-DC": {
+    "n_crops": 1222,
+    "n_skipped": 1,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 2444,
+      "median_norm_err": 0.0682,
+      "mean_norm_err": 0.0794,
+      "p90_norm_err": 0.1625,
+      "frac_within_0.10": 0.6792,
+      "frac_within_0.15": 0.8723
+    },
+    "axis_only": {
+      "n_ports_scored": 2444,
+      "median_norm_err": 0.191,
+      "mean_norm_err": 0.4245,
+      "p90_norm_err": 0.823,
+      "frac_within_0.10": 0.3629,
+      "frac_within_0.15": 0.4607
+    }
+  },
+  "V-DC (one port)": {
+    "n_crops": 887,
+    "n_skipped": 0,
+    "directional": false,
+    "oracle_pose": {
+      "n_ports_scored": 887,
+      "median_norm_err": 0.4273,
+      "mean_norm_err": 0.4221,
+      "p90_norm_err": 0.5542,
+      "frac_within_0.10": 0.0,
+      "frac_within_0.15": 0.0
+    },
+    "axis_only": {
+      "n_ports_scored": 887,
+      "median_norm_err": 0.4273,
+      "mean_norm_err": 0.4221,
+      "p90_norm_err": 0.5542,
+      "frac_within_0.10": 0.0,
+      "frac_within_0.15": 0.0
+    }
+  },
+  "Wire Crossover": {
+    "n_crops": 1359,
+    "n_skipped": 0,
+    "directional": false,
+    "oracle_pose": {
+      "n_ports_scored": 2718,
+      "median_norm_err": 0.109,
+      "mean_norm_err": 0.1261,
+      "p90_norm_err": 0.2312,
+      "frac_within_0.10": 0.4485,
+      "frac_within_0.15": 0.6976
+    },
+    "axis_only": {
+      "n_ports_scored": 2718,
+      "median_norm_err": 0.1901,
+      "mean_norm_err": 0.2192,
+      "p90_norm_err": 0.3904,
+      "frac_within_0.10": 0.1402,
+      "frac_within_0.15": 0.3311
+    }
+  },
+  "Zener Diode": {
+    "n_crops": 673,
+    "n_skipped": 4,
+    "directional": true,
+    "oracle_pose": {
+      "n_ports_scored": 1346,
+      "median_norm_err": 0.0822,
+      "mean_norm_err": 0.0966,
+      "p90_norm_err": 0.1859,
+      "frac_within_0.10": 0.6003,
+      "frac_within_0.15": 0.8039
+    },
+    "axis_only": {
+      "n_ports_scored": 1346,
+      "median_norm_err": 0.1945,
+      "mean_norm_err": 0.3729,
+      "p90_norm_err": 0.7284,
+      "frac_within_0.10": 0.2786,
+      "frac_within_0.15": 0.4302
+    }
+  }
+}
