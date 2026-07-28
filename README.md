@@ -81,16 +81,22 @@ src/schematic2netlist/      the installable package
   textmask.py               heuristic text masking (ablation axis)
   wires.py                  non-wire masking + wire extraction
   nodes.py                  connected-component node inference
-  snapping.py               BOTH terminal-snapping strategies (v1/v2)
+  snapping.py               terminal snapping: boundary | ports | legacy v1/v2
+  ports.py                  port templates → pin identity and polarity
   netlist.py                node naming + SPICE export
+  erc.py, repair.py         electrical rule checks + ledgered minimal repair
+  repair_eval.py            repair measurement (lift, topology proof, gauge acc.)
+  oracle_render.py          GT wire routing + render verification for the oracle
   simulate.py               ngspice runner + failure taxonomy
-  metrics.py                coverage stats + GT metrics (pair F1, net F1, nGED)
+  metrics.py, benchmark.py  metric cascade, alignment, bootstrap CIs
   pipeline.py               per-image orchestration
   determinism.py            seeding + run metadata (config, git SHA, env)
-scripts/                    thin CLIs: run_pipeline, evaluate, preprocess, train, ablate
-tests/                      pytest unit tests (netlist writer, metrics, ngspice parser)
-data/                       (gitignored) raw/, cleaned/, detections/, splits/, gt_netlists/
+scripts/                    CLIs — see REPRODUCE.md for what each produces
+paper/                      IEEE Access manuscript (see paper/README.md)
+tests/                      pytest unit tests
+data/                       (gitignored) raw/, cleaned/, detections/, splits/, gt_netlists*/
 experiments/                (gitignored) runs, evaluations, legacy artifacts
+results/                    committed summaries + per-image CSVs = the reported numbers
 ```
 
 ## Data
@@ -102,11 +108,17 @@ the benchmark release.
 
 ## Reproducibility
 
+- **[REPRODUCE.md](REPRODUCE.md) lists the exact command behind every
+  reported number**, and `scripts/make_paper_tables.py` turns the
+  resulting `results/` artifacts into the manuscript's tables and
+  macros. No number is hand-typed.
 - Each run directory contains `run_meta.json`: full config, git SHA,
   seed, and environment versions.
 - `seed` in the config seeds `random`, `numpy`, and `torch`/Ultralytics.
-- Evaluation numbers are only ever produced by `scripts/evaluate.py`
-  from committed code + frozen splits — never hand-typed.
+- Benchmark numbers come from `scripts/benchmark.py` against
+  human-verified ground truth on frozen splits. Configuration
+  comparisons use a **paired** per-image bootstrap
+  (`scripts/compare_runs.py`), not independent-CI overlap.
 
 ## License
 

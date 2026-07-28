@@ -1,0 +1,65 @@
+\section{Dataset and Ground Truth}
+\label{sec:dataset}
+
+% Draft for Ammaar's revision. Facts sourced from data/README.md,
+% docs/GT_VERIFICATION_GUIDE.md, and the split manifests — keep in sync.
+
+\subsection{Source Dataset}
+Digitize-HCD \cite{digitizehcd_data} (CC BY 4.0) contains 1{,}277
+photographs of hand-drawn circuit diagrams at roughly 2000\,px
+resolution, annotated with 18{,}600 COCO-format component bounding
+boxes over 17 classes (BJT-NPN/PNP, capacitor, diode, Zener diode,
+GND, AC/DC current and voltage sources, one-port DC source, inductor,
+MOSFET-N/P, op-amp, resistor, and \emph{Wire Crossover}), MMOCR-style
+text annotations with transcriptions, and per-class component crops
+with port-location Gaussian heatmaps and pixel port coordinates. We
+verified our copy byte-for-byte against the published archive (SHA-256
+of the 2.1\,GB release; every one of the 1{,}277 images matched).
+
+The COCO records carry no drafter identity, so drafter-disjoint
+splitting is impossible — a stated limitation of any benchmark on this
+dataset. We instead freeze a stratified split of 895/192/\NumTestImages{}
+(train/val/test), stratified by component-count tertile and
+rarest-class presence; all \NumClasses{} classes appear in every split,
+with test-set support ranging from \SupportMin{}
+(\SupportMinClass) to \SupportMax{} (\SupportMaxClass) instances
+(Table~\ref{tab:detection}). The split manifests are versioned with the
+code.
+
+\subsection{Preprocessing and Coordinate Frames}
+All stages operate on a \emph{cleaned frame}: deskew (length-weighted
+median of Hough segment angles folded mod $90^\circ$, with a robust
+fallback), shadow normalization, binarization, a content crop, and an
+aspect-preserving resize onto a $512\times512$ canvas. Two properties
+make this frame benchmark-safe. First, the full geometric transform of
+every image is recorded, so published original-frame annotations
+project exactly into the cleaned frame (verified: 0 of 18{,}600
+projected boxes fall off-canvas, enforced by a guard script). Second,
+the crop is \emph{annotation-aware}: every annotated component is
+unioned into the crop rectangle before speck removal, making it
+structurally impossible for a labeled component to be cropped out.
+
+\subsection{Human-Verified Connectivity Ground Truth}
+\label{sec:gt}
+Digitize-HCD ships no connectivity ground truth, so we created it for
+the full test split. Each GT file is a component-terminal graph: per
+component, a class, a bounding box, and per-terminal net assignments
+(ground is always net~0), under a strict schema with a validator that
+rejects unnamed terminals, single-terminal nets, and class/terminal
+arity mismatches. Annotation followed a bootstrap-then-correct
+protocol: pipeline output pre-filled each file, and a human corrected
+it against a rendered overlay — correction, not transcription, which
+is faster and independently checkable. All \NumTestImages{} test-split
+files were verified by the first author (\texttt{verified:\,true} with
+annotator identity recorded); the strict validator passes on all
+files with zero issues. \todoa{mentor second-read of ambiguous
+crossings/transistors — state here if/when done.} The verified GT
+files are released with the benchmark; images remain under the
+original Digitize-HCD license.
+
+\subsection{Cross-Dataset Material}
+For context and future zero-shot evaluation we also stage CGHD
+\cite{cghd} (3{,}255 images, 25 drafters) with a mapping from its
+53-entry class dictionary onto the 17 Digitize-HCD categories.
+\draftnote{keep only if the zero-shot experiment [IDEAL] actually runs;
+otherwise fold into future work.}

@@ -1,0 +1,56 @@
+% Pipeline figure (vector art, TikZ) — replaces the legacy bioRender
+% flowchart. \input from main via figures/pipeline_figure.
+% Two-column width (figure*). Repair layer shaded; config switches dashed.
+\begin{tikzpicture}[
+  font=\small,
+  node distance=4mm and 6mm,
+  stage/.style={draw, rounded corners=1pt, align=center,
+                minimum height=9mm, inner sep=2.5pt, fill=white},
+  data/.style={draw, align=center, minimum height=7mm, inner sep=2.5pt,
+               fill=gray!8, font=\footnotesize},
+  repair/.style={draw, rounded corners=1pt, align=center,
+                 minimum height=9mm, inner sep=2.5pt, fill=orange!15},
+  switch/.style={draw, dashed, align=center, inner sep=2pt,
+                 font=\footnotesize, fill=white},
+  arr/.style={-{Stealth[length=2mm]}, thick},
+  lbl/.style={font=\scriptsize\itshape, text=black!60}
+]
+
+% ---- main recognition path ----
+\node[data] (img) {photo of\\hand-drawn circuit};
+\node[stage, right=of img] (pre) {preprocess\\ \scriptsize deskew, shadow,\\ \scriptsize binarize, crop};
+\node[stage, right=of pre] (det) {detect\\ \scriptsize YOLOv8s, 17 classes\\ \scriptsize incl.\ Wire Crossover};
+\node[stage, right=of det] (wires) {wire extraction\\ \scriptsize ink mask, masking,\\ \scriptsize hole stitching};
+\node[stage, right=of wires] (nodes) {net assembly\\ \scriptsize crossover-aware\\ \scriptsize connected comp.};
+\node[stage, right=of nodes] (snap) {terminal\\snapping\\ \scriptsize boundary};
+
+\draw[arr] (img) -- (pre);
+\draw[arr] (pre) -- (det);
+\draw[arr] (det) -- (wires);
+\draw[arr] (wires) -- (nodes);
+\draw[arr] (nodes) -- (snap);
+
+% detector boxes feed masking and crossover handling
+\draw[arr, black!50] (det.south) to[out=-60,in=-120]
+  node[lbl, below] {component/text masks \; \textbullet\; crossover boxes} (nodes.south);
+
+% ---- second row: export + repair + outputs ----
+\node[stage, below=9mm of nodes] (netlist) {netlist export\\ \scriptsize role-based SPICE,\\ \scriptsize model cards};
+\node[repair, left=of netlist] (rep) {ERC + minimal repair\\ \scriptsize gauge vs.\ assumption,\\ \scriptsize topology untouched};
+\node[data, left=of rep] (ledger) {assumption\\ledger (JSON)};
+\node[data, below=6mm of rep] (spice) {SPICE netlist\\ \scriptsize ngspice DC check};
+
+\draw[arr] (snap.south) to[out=-90,in=20] (netlist.east);
+\draw[arr] (netlist) -- (rep);
+\draw[arr] (rep) -- (ledger);
+\draw[arr] (rep) -- (spice);
+
+% ---- ablation switches ----
+\node[switch, above=2.5mm of wires] (sw1) {\texttt{wires.method}\\ink $\leftrightarrow$ canny};
+\node[switch, above=2.5mm of nodes] (sw2) {\texttt{handle\_crossovers}\\on $\leftrightarrow$ off};
+\node[switch, above=2.5mm of snap] (sw3) {\texttt{snapping.strategy}\\boundary / directional / uniform};
+\draw[dashed, black!60] (sw1) -- (wires);
+\draw[dashed, black!60] (sw2) -- (nodes);
+\draw[dashed, black!60] (sw3) -- (snap);
+
+\end{tikzpicture}

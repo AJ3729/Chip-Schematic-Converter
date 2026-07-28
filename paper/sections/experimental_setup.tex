@@ -1,0 +1,97 @@
+\section{Experimental Setup}
+\label{sec:setup}
+
+% Draft for Ammaar's revision. Week-2 deliverable. Values here mirror
+% configs/default.yaml and the training/eval scripts — the numbers
+% audit (Phase G) must cross-check this section against the config.
+
+\subsection{Splits, Seeds, and Reproducibility}
+All experiments use the frozen 895/192/\NumTestImages{} split
+(Sec.~\ref{sec:dataset}); every reported number is on the
+\NumTestImages-image test split against human-verified GT only. Every
+run writes a metadata record (full configuration, git SHA, seed,
+library versions), and a global seed fixture makes pipeline runs
+deterministic. The detector is trained with three seeds; pipeline
+results are reported for each detector seed (mean$\pm$std), and
+bootstrap confidence intervals capture per-image variation.
+
+\subsection{Training and Hardware}
+The YOLOv8s detector \cite{yolov8} is trained at $640$\,px on the
+train split with the val split for model selection (an NVIDIA RTX~3090
+was used for training; \todoa{confirm final training hardware +
+epochs/hyperparameters from experiments/train\_all/ before
+submission}). Everything downstream — the full pipeline, benchmark,
+and ngspice simulation — runs locally on an Apple~M1 laptop (CPU +
+Metal inference), which is part of the design brief: a lightweight
+pipeline that does not require server-side inference.
+
+\subsection{Metric Cascade (C4)}
+\label{sec:metrics}
+We report, in order of increasing strictness:
+\begin{itemize}
+  \item \textbf{Detection}: mAP@0.5 and mAP@0.5:0.95 with per-class AP
+  and supports.
+  \item \textbf{Terminal-pair $F_1$}: over all unordered pairs of
+  component terminals, whether the pair shares a net in prediction vs.\
+  GT — the finest-grained connectivity signal.
+  \item \textbf{Net-level $F_1$}: Hungarian matching between predicted
+  and GT nets (a net = a set of terminals), scored by set overlap.
+  \item \textbf{Per-component connected accuracy}: fraction of
+  components with \emph{every} terminal on the correct net.
+  \item \textbf{Normalized graph edit distance} (nGED): between
+  predicted and GT terminal graphs, with a timeout and documented
+  upper-bound fallback on large graphs.
+  \item \textbf{Strict end-to-end success}: an image counts only if
+  every component is detected, classified, and fully correctly
+  connected — a product over $\sim$14 components per image, so it is
+  deliberately punishing.
+  \item \textbf{SPICE validity and DC solvability}: whether ngspice
+  \cite{ngspice} parses the netlist, and whether DC operating-point
+  analysis converges — reported \emph{before and after} repair (C5),
+  on a separate axis from topology.
+\end{itemize}
+
+\textbf{Fair alignment.} Predicted components are aligned to GT
+components by Hungarian matching on bounding-box IoU within class
+(threshold 0.3); unmatched components on either side are retained with
+disjoint identities so they \emph{penalize} the graph metrics rather
+than being dropped. Terminal order of symmetric parts is canonicalized
+by an identical connectivity signature on both sides, so no metric
+rewards or punishes arbitrary bookkeeping.
+
+Alignment depends on ground-truth box geometry, which — unlike the net
+assignments — was not human-verified (Sec.~\ref{sec:gt}). We therefore
+rebuild GT box geometry from the published COCO annotations before
+scoring and report the sensitivity of the results to the alignment
+threshold, rather than choosing a threshold that flatters the numbers.
+\draftnote{finalize once the corrected-box comparison run lands; state
+which GT the headline table uses and show the sensitivity curve.}
+
+\textbf{Statistics.} Aggregate metrics carry bootstrap 95\% CIs
+(per-image resampling). Configuration comparisons on the same images
+are \emph{paired}: significance comes from the bootstrap distribution
+of per-image deltas (2{,}000 resamples), never from overlap of two
+independent CIs.
+
+\subsection{Oracle Stage Attribution}
+The GT-injection oracle replaces one pipeline stage at a time with its
+ground-truth output (perfect detections; GT-rendered wires; oracle
+snapping) and measures the end-to-end gain, attributing the error
+budget across stages. \draftnote{describe mode C rendering here once
+the orthogonal re-render is validated.}
+
+\subsection{Port Templates (C3)}
+Port templates are fitted on the Digitize-HCD port-location corpus with
+a deterministic held-out split (every fifth crop), and evaluated by
+normalized port-localization error on the held-out crops. All
+\NumClasses{} classes have templates; note that several classes' ports
+are unnamed upstream (both AC sources and the one-port DC source), so
+for those the template fixes an ordering convention only and no
+polarity claim is made.
+
+\subsection{Repair Evaluation (C5)}
+Repair is evaluated on its own axis: DC-solvability rate before vs.\
+after repair, assumptions per circuit (gauge vs.\ assumption split),
+and the topology-preservation check (topology metrics bit-identical
+with repair on/off). \todoa{[IDEAL] expert-acceptance study: mentor
+rates $\sim$30 ledgers correct-minimal / over-repaired / wrong.}

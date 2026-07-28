@@ -1,0 +1,69 @@
+\section{Discussion and Limitations}
+\label{sec:discussion}
+
+% SKELETON — write after final numbers land (Week 4). The bullets are
+% the agreed framing; keep limitations quantitative and cite the
+% oracle numbers, per the plan.
+
+The oracle (Sec.~\ref{sec:results}) settles where the remaining error
+lives. With perfect boxes the pipeline gains only \OracleDetection{}
+terminal-pair $F_1$, and with perfect terminal snapping only
+\OracleSnapping{}; injecting perfect \emph{connectivity} gains
+\OracleWires{}. Symbol detection is solved on this dataset and terminal
+snapping is close to exhausted; wire tracing is the bottleneck, and any
+further work on this task should go there. This also illustrates a
+methodological point worth stating: an earlier version of this analysis
+attributed most of the error to snapping, and it was wrong for two
+reasons — it predated the boundary-crossing snapper, and its synthetic
+wire injection was subtly unreadable by the stage it was measuring.
+Stage attribution is only as trustworthy as the verification of the
+injected oracle, which is why we verify every synthetic render and
+report how many were excluded.
+
+\draftnote{remaining Discussion bullets to develop:
+(i) why per-component accuracy is the number that gates strict success
+--- with $\sim$14 components per image, strict success is a product
+over components, so even a high per-component accuracy yields a modest
+strict rate; state the arithmetic with generated numbers, not a
+worked hypothetical;
+(ii) errors are concentrated — rail-level fixes repair many components
+at once, which is why stage fixes produce jumps, not creep;
+(iii) what the ledger reveals: hand-drawn circuits are mostly
+\emph{underspecified} rather than wrong — the common entries are
+missing ground and unvalued parts, which is the argument for treating
+intent completion as part of the problem;
+(iv) stratified results — crossing-heavy and multi-terminal drawings
+are measurably harder (Sec.~\ref{sec:results});
+(v) comparison-by-citation with Wang/SINA: different, unreleased test
+sets, so no direct comparison is possible — exactly the problem C1
+fixes.}
+
+\subsection*{Limitations}
+\begin{itemize}
+  \item \textbf{Single dataset; no drafter split.} Digitize-HCD has no
+  drafter metadata (Sec.~\ref{sec:dataset}); results may not transfer
+  across drawing styles. \draftnote{cite CGHD zero-shot if run.}
+  \item \textbf{GT scope.} Connectivity GT covers the
+  \NumTestImages-image test split, verified by one annotator
+  \todoa{+ mentor second-read status}.
+  \item \textbf{Ground-truth boxes are not geometric ground truth.} GT
+  files were bootstrapped from pipeline output and verified for
+  \emph{topology}; their bounding boxes were not. Roughly a fifth are
+  square, which caps their IoU against a correctly-shaped detection and
+  makes bounding-box alignment discard components the pipeline in fact
+  got right. We report the alignment-threshold sensitivity rather than
+  tuning the threshold to taste. \draftnote{decide before submission:
+  re-project GT boxes from the published COCO annotations (the right
+  fix, moves every number), or report the sensitivity curve and keep
+  0.3. Do not do this silently either way.}
+  \item \textbf{No value extraction.} Component values are
+  placeholders, logged as assumptions (future work M4/OCR).
+  \item \textbf{Repair assumptions are flagged, not validated.}
+  Unless the expert-acceptance study runs, ledger entries are
+  \emph{disclosed} choices, not human-endorsed ones — that is the
+  honest claim.
+  \item \textbf{Absolute strict success remains low} — this is a
+  hard task and the benchmark is deliberately strict; the paper's
+  claim is measured progress and a reusable yardstick, not a solved
+  problem.
+\end{itemize}

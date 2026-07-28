@@ -1,0 +1,178 @@
+\section{Method}
+\label{sec:method}
+
+% Draft for Ammaar's revision. Week-2 deliverable. Faithful to the
+% implementation in src/schematic2netlist/ as of this commit; every
+% threshold named here lives in configs/default.yaml (single source of
+% truth) — the prose deliberately names the config keys so reviewers
+% can map text to code.
+
+Fig.~\ref{fig:pipeline} shows the pipeline: preprocessing, component
+detection, wire extraction, net assembly, terminal snapping, netlist
+export, and the design-intent repair layer. The design philosophy is
+deliberate: a lightweight, locally-runnable system of interpretable
+stages, each independently measurable (Sec.~\ref{sec:setup}) and each
+switchable to its classical baseline in configuration — the ablations
+in Sec.~\ref{sec:results} are config switches, not code forks.
+
+\begin{figure*}[t]
+  \centering
+  \input{figures/pipeline_figure}
+  \caption{The pipeline. Solid stages form the recognition path;
+  the shaded stage is the C5 design-intent repair layer, which may
+  add explicit, logged constraints but provably never modifies the
+  recovered topology. Configuration switches (dashed) select the
+  classical baselines used in the C2 ablation.}
+  \label{fig:pipeline}
+\end{figure*}
+
+\subsection{Component Detection}
+\label{sec:method-detect}
+A YOLOv8s \cite{yolov8} detector is trained on the Digitize-HCD train
+split at $640$\,px over the 17-class vocabulary (three seeds;
+Sec.~\ref{sec:setup}). Detection includes the \emph{Wire Crossover}
+class — a drawing convention marking where two wires cross without
+connecting — which most prior work discards but which our net assembly
+exploits (Sec.~\ref{sec:method-nodes}). Detections are cached
+per-image, making every downstream experiment reproducible from the
+same detection set.
+
+\subsection{Wire Extraction}
+\label{sec:method-wires}
+The wire mask is computed from binarized \emph{ink} rather than Canny
+edges: hand-drawn strokes are solid, so edge detection yields hollow
+double-contours that fragment under morphology (the classical
+\texttt{canny} path remains available as the ablation baseline,
+\texttt{wires.method}). Regions belonging to detected non-wire classes
+(component bodies, padded by 8\,px) and detected text are masked out —
+except \emph{Wire Crossover} boxes, which would sever the very wires
+that cross there. Anisotropic along-stroke bridging closes pen gaps up
+to 9\,px, and a blob filter keeps thin strokes by extent rather than
+area alone.
+
+\subsubsection{Stitching Self-Inflicted Mask Holes}
+Masking components and text out of the ink necessarily cuts the wires
+that touch them. Measurement on the benchmark showed this was the
+\emph{dominant} connectivity failure: supply rails shattered into 4--6
+islands with 20--45\,px gaps at exactly the masked rectangles. The
+stitching stage reconnects wire islands across those known holes under
+three conservative guards: (i) the bridge must be collinear with the
+local stroke direction at \emph{both} endpoints (within
+$35^\circ$), (ii) the gap must be explained by a masked rectangle it
+traverses, and (iii) the bridge must not pass through a third island.
+Two passes handle chained holes (a text box adjacent to a component
+pad). Crucially, stitching never bridges across a component
+\emph{body} — a component's two leads are different nets by
+definition.
+
+\subsection{Net Assembly: Crossover-Aware Connected Components}
+\label{sec:method-nodes}
+Classically, each 8-connected component of the wire mask is one
+electrical net. This has a structural ceiling: two wires that
+\emph{cross without connecting} form a single pixel-connected region
+and are merged into one net — no threshold can fix this. We use the
+detector's \emph{Wire Crossover} boxes to break the ceiling: inside
+each detected crossover, the mask is notched to separate the crossing
+strokes, and the four wire arms entering the box are re-linked
+pairwise (opposite arms belong to the same net; adjacent arms do not).
+The result is a net partition that respects drawn crossing semantics.
+The switch (\texttt{nodes.handle\_crossovers}) is the core of the C2
+ablation.
+
+\subsection{Terminal Snapping}
+\label{sec:method-snap}
+Each component must attach its terminals to nets. The
+\emph{boundary-crossing} strategy walks the component's bounding-box
+boundary and collects the wire strokes that cross it, using the
+class's expected terminal count (two-terminal passives and sources,
+three-terminal transistors, five-terminal op-amps) to select terminal
+sites. Two legacy strategies — \emph{directional} (orientation-guessed
+snap windows) and \emph{uniform} (stepwise bbox expansion) — are kept
+as configuration baselines for the snapping ablation.
+
+\subsection{Port-Template Pin Identity and Polarity (C3)}
+\label{sec:method-ports}
+Finding \emph{where} a component connects is not the same as knowing
+\emph{which pin} connects there. Under the strategies above, terminals
+are filled in whatever order the geometry search encounters them, so a
+diode's anode and cathode — or a MOSFET's drain, gate and source — are
+assigned arbitrarily, and the emitted netlist cannot be trusted for any
+directional device.
+
+Digitize-HCD supplies the missing supervision, in an annotation
+modality no published work exploits: per class, thousands of component
+crops with pixel port coordinates and, for directional parts,
+\emph{port names} (Anode/Cathode, Positive/Negative, Drain/Gate/Source,
+In$+$/In$-$/Out). We distill these into per-class \emph{port
+templates}: the median normalized position of each named port, in
+canonical order.
+
+The modeling choice that makes such templates useful is the binning.
+Hand-drawn symbols appear in any orientation, and splitting merely into
+horizontal and vertical merges mirror images — a diode pointing left
+and one pointing right are both ``horizontal'' — which places every
+port near the middle of the crop. We therefore bin by \emph{pose}: the
+angle of the vector between the first and last port in canonical order,
+quantized into eight sectors, derived from the port constellation
+itself and never from image content. At inference, boundary crossings
+are located as above, then Hungarian-matched against each candidate
+pose's predicted pin sites; the best-fitting pose supplies both the
+assignment and the pin identities. When no pose fits, the component
+falls back to boundary order, so pin identity is a bonus and never a
+connectivity regression. Because the template port order is
+deliberately SPICE argument order, the writer's positional emission
+(\texttt{M d g s}, \texttt{Q c b e}, \texttt{D anode cathode}) then
+carries its intended meaning.
+
+\subsection{Netlist Export}
+\label{sec:method-netlist}
+Nets are named (ground is net \texttt{0}, chosen by GND-symbol
+snapping with a configurable fallback policy), and each component is
+emitted as a SPICE element according to its class \emph{role};
+referenced device models get \texttt{.model} cards so diode/MOSFET/BJT
+netlists are parseable. Component \emph{values} are not read from the
+drawing (explicit future work); placeholders are assigned — and,
+importantly for C5, that assignment is \emph{logged as an assumption},
+not silent (Sec.~\ref{sec:method-repair}).
+
+\subsection{Design-Intent Repair with an Assumption Ledger (C5)}
+\label{sec:method-repair}
+A topologically correct netlist can still fail simulation: no ground
+reference, a subnet with no DC path to ground, an ideal-inductor DC
+short, an unset source polarity. These are \emph{underspecifications}
+of the drawing, not recognition errors, and prior systems either fail
+silently or fix silently. Our repair layer makes this step explicit,
+minimal, and auditable.
+
+\textbf{Diagnosis (ERC).} Rule checks on the recovered graph mirror
+the reasons simulators reject circuits, using DC-conduction reasoning
+(capacitors and current sources open at DC; inductors and sources
+conduct; transistor channels conduct, gates/bases do not — a
+documented approximation adequate for diagnosis).
+
+\textbf{Repair with a gauge/assumption taxonomy.} Each issue maps to a
+strategy that emits a \emph{ledger entry} classified as either
+\begin{itemize}
+  \item \emph{gauge} — behavior-invariant or determined by the drawing
+  (current-source reference direction, terminal order of a symmetric
+  passive, ground selection when a GND symbol exists): safe to infer,
+  still logged; or
+  \item \emph{assumption} — behavior-changing (choosing a reference
+  node when no ground is drawn, shunting a floating subnet,
+  placeholder component values): applied only if needed, flagged with
+  alternatives and a confidence, and counted against a minimality
+  budget (\texttt{repair.max\_assumptions}).
+\end{itemize}
+Strategies prefer standard SPICE convergence aids \cite{ngspice} over
+structural edits, and the layer applies the fewest, lowest-impact
+fixes that yield DC solvability.
+
+\textbf{The integrity rule.} Repair \emph{never} changes the recovered
+topology — it only adds explicit constraints. This is enforced by
+construction, unit-tested, and verified experimentally: topology
+metrics are identical with repair on and off
+(Sec.~\ref{sec:results}). The per-circuit ledger (JSON schema v1,
+released with the benchmark) records issue, category, action,
+alternatives, confidence, and evidence for every entry — the complete,
+machine-readable answer to ``what did the system assume about my
+circuit?''

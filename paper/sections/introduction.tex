@@ -1,0 +1,83 @@
+\section{Introduction}
+\label{sec:introduction}
+
+% Draft for Ammaar's revision. Voice: measured, claims scoped to what
+% the artifacts support. Every number is a generated macro.
+
+\IEEEPARstart{H}{and-drawn} circuit diagrams remain the lingua franca
+of electronics education, whiteboard design discussions, and lab
+notebooks. Converting a photograph of such a sketch into a
+machine-readable SPICE netlist would connect this informal medium
+directly to simulation, checking, and documentation tools. The task is
+deceptively hard: it requires detecting freehand component symbols,
+tracing noisy, gapped, and crossing pencil strokes into electrical
+nets, associating component terminals with those nets, and finally
+emitting a netlist that a simulator will actually accept.
+
+Recent systems report strong headline results on this task
+\cite{wang2026topology,sina2026,reddy2022handdrawn}, yet the field has
+a reproducibility problem: to our knowledge, \emph{no public
+evaluation benchmark with human-verified connectivity ground truth
+exists}. Wang et al.\ \cite{wang2026topology} train on the public
+Digitize-HCD dataset \cite{digitizehcd_data} but evaluate on an
+independent 1{,}317-image benchmark that is not released; SINA
+\cite{sina2026} and Netlistify \cite{netlistify} evaluate on their own
+curated sets. Published numbers are therefore not comparable, and none
+of the underlying ground truth is available for scrutiny. Separately,
+most pipelines stop at topology: whether the emitted netlist actually
+\emph{simulates} — and what silent assumptions were needed to make it
+simulate — is rarely measured or disclosed.
+
+This paper addresses both gaps. Our contributions are:
+
+\begin{enumerate}
+  \item \textbf{C1 — the first published evaluation benchmark on
+  Digitize-HCD.} Frozen train/val/test splits (895/192/\NumTestImages),
+  human-verified ground-truth topology for every test image, a strict
+  GT validator, and released code that regenerates every number in
+  this paper. Digitize-HCD has been used for \emph{training}
+  \cite{wang2026topology}; nobody has published an evaluation protocol
+  or baseline results on it.
+
+  \item \textbf{C2 — structural connectivity recovery that measurably
+  beats classical CV.} A progression of interpretable connectivity
+  stages — binarized-ink wire extraction, stitching of mask-induced
+  wire gaps, and crossover-aware net assembly driven by the detector's
+  \emph{Wire Crossover} class — lifts net-level $F_1$ from
+  \AblNetFOneClassical{} to \AblNetFOneVFive{} and terminal-pair $F_1$
+  from \AblTpFOneClassical{} to \AblTpFOneVFive{}, with every step
+  validated by a paired per-image bootstrap test.
+
+  \item \textbf{C3 — port-aware terminal handling.} Class-aware
+  terminal semantics (pin identity and polarity for directional
+  two-terminal parts) derived from Digitize-HCD's port-location
+  annotations, an annotation modality no published work exploits.
+  \draftnote{scope this bullet to exactly what lands in
+  Sec.~\ref{sec:method}; MSP = two-terminal polarity + pin order.}
+
+  \item \textbf{C4 — metric standardization and stage attribution.} A
+  metric cascade from detection mAP through terminal-pair/net $F_1$,
+  normalized graph edit distance, strict end-to-end success, SPICE
+  validity, and DC solvability, reported together with bootstrap
+  confidence intervals; plus a ground-truth-injection oracle that
+  attributes end-to-end error to individual pipeline stages.
+
+  \item \textbf{C5 — transparent, minimal design-intent repair.} An
+  electrical-rule-check layer diagnoses why a recovered circuit cannot
+  be DC-solved, and a repair layer applies the \emph{minimal} set of
+  explicit fixes, each logged in a human-reviewable assumption ledger
+  and classified as a behavior-invariant \emph{gauge} choice or a
+  flagged, behavior-changing \emph{assumption} with alternatives.
+  Repair raises DC solvability from \RepSolvBefore{} to
+  \RepSolvAfter{} while provably never altering the recovered
+  topology.
+\end{enumerate}
+
+Together these turn an anecdotally-evaluated task into a measured one:
+the benchmark quantifies exactly where current pipelines fail (wire
+topology and terminal association, not symbol detection — detection is
+essentially solved at \DetMapFifty{} mAP@0.5), and the repair layer
+makes the final, usually-hidden step from ``topologically plausible''
+to ``simulable'' explicit and auditable.
+
+\draftnote{closing paragraph: one-sentence paper roadmap.}

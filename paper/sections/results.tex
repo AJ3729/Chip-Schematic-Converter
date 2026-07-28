@@ -1,0 +1,130 @@
+\section{Results}
+\label{sec:results}
+
+% SKELETON — fills from generated tables as experiments land.
+% Tables in paper/tables/ and macros in paper/generated/numbers.tex are
+% produced by scripts/make_paper_tables.py from results/ artifacts.
+% NO hand-typed numbers in this section, ever.
+
+\subsection{Detection (M1)}
+Detection is essentially solved on this dataset:
+\DetMapFifty{} mAP@0.5 (mean of three seeds; std \DetMapFiftyStd)
+and \DetMapFiftyNinetyFive{} mAP@0.5:0.95.
+Table~\ref{tab:detection} gives per-class AP with supports.
+
+\begin{table}[t]
+  \centering
+  \caption{Per-class detection AP on the test split (YOLOv8s, seed 0),
+  with class supports.}
+  \label{tab:detection}
+  \input{tables/detection_per_class}
+\end{table}
+
+\subsection{Connectivity: Classical vs.\ Structural (C2 Headline)}
+Table~\ref{tab:wire-ablation} reports the progression from the
+classical baseline to the full structural configuration. Each step is
+validated by a paired per-image bootstrap (Sec.~\ref{sec:metrics}).
+\draftnote{narrate: (i) boundary snapping is the single largest jump;
+(ii) stitching fixes rail shattering — first non-zero strict success;
+(iii) crossover-aware CC was a null result until stitching landed —
+stage interactions reverse conclusions (cite the two-run comparison
+CSVs); (iv) detection is not the bottleneck.}
+
+\begin{table*}[t]
+  \centering
+  \caption{The C2 connectivity ablation on the \NumTestImages-image
+  verified test split. Bootstrap 95\% CIs in brackets.}
+  \label{tab:wire-ablation}
+  \input{tables/wire_method_ablation}
+\end{table*}
+
+\subsection{Full Benchmark, Three Detector Seeds}
+Table~\ref{tab:benchmark} reports the primary configuration across
+three detector seeds (mean$\pm$std).
+
+\begin{table}[t]
+  \centering
+  \caption{Primary configuration, three detector training seeds.}
+  \label{tab:benchmark}
+  \input{tables/benchmark_3seed}
+\end{table}
+
+\subsection{Repair: Solvability Lift with Zero Topology Cost (C5)}
+Table~\ref{tab:repair} summarizes the repair layer. DC solvability
+rises from \RepSolvBefore{} to \RepSolvAfter{} — a paired per-image
+lift with 95\% CI $[\RepLiftCiLo, \RepLiftCiHi]$ and
+\RepRegressed{} circuits made worse — at \RepMeanAssumptions{} logged
+assumptions per circuit (\RepMeanGauge{} gauge entries). The integrity
+rule holds experimentally as well as by construction:
+\RepTopoViolations{} of \RepVerifiedImages{} circuits had any component
+net assignment altered by repair.
+
+Where the ledger's inferences can be checked against the verified
+ground truth, they are. When a GND symbol is present, the reference net
+the pipeline selects is the human's ground net in \GroundAccResolved{}
+of decidable cases ($n=\GroundNGnd$; \GroundAccStrict{} if the
+structurally ambiguous cases are counted as failures rather than
+excluded). When no GND symbol is drawn, the ``most connected net''
+fallback never matched the human's choice — a small sample, but a clean
+negative result that says the fallback is a placeholder, not a method.
+\draftnote{add a worked ledger example figure (one circuit, its ledger,
+before/after ngspice) — high leverage for the C5 story.}
+
+\begin{table}[t]
+  \centering
+  \caption{Design-intent repair (C5) on the verified test split.}
+  \label{tab:repair}
+  \input{tables/repair_summary}
+\end{table}
+
+\subsection{Port-Template Localization (C3)}
+Table~\ref{tab:ports} reports held-out port-localization error under
+two regimes: the true pose (template quality, and the ceiling for any
+pose-selection scheme) and axis-only (all a bounding box reveals
+without reading the symbol). \draftnote{narrate: pose binning roughly
+halves the error for every directional class, and the oracle-vs-axis
+gap is precisely what a learned port model would buy; single-port
+classes carry no orientation signal at all and are the clearest case
+for the learned path.}
+
+\begin{table}[t]
+  \centering
+  \caption{Held-out port localization from class port templates.
+  Error is normalized to the crop width.}
+  \label{tab:ports}
+  \input{tables/port_templates}
+\end{table}
+
+\subsection{Oracle Stage Attribution (C4)}
+The GT-injection oracle attributes end-to-end terminal-pair $F_1$ as
+\OracleDetection{} to detection, \OracleWires{} to wire extraction, and
+\OracleSnapping{} to terminal snapping, over the
+\OracleNValid{} of \NumTestImages{} images whose synthetic wiring
+passed verification. \draftnote{narrate carefully — this is a strong
+claim and it reverses an earlier internal conclusion: after boundary
+snapping landed, snapping is nearly exhausted as an error source and
+wire tracing dominates. Also explain the exclusion criterion and why
+the waterfall is computed on the valid subset only.}
+
+\subsection{Stratified Performance}
+Table~\ref{tab:stratified} breaks results down by drawing
+characteristics. \draftnote{narrate: crossing-bearing and
+multi-terminal drawings are measurably harder, which is the honest
+counterpart to the C2 crossover result — handling crossings helps, and
+crossing-heavy drawings are still the hard cases; strict success falls
+to zero on the largest circuits because it is a product over
+components.}
+
+\begin{table}[t]
+  \centering
+  \caption{Performance stratified by drawing characteristics.}
+  \label{tab:stratified}
+  \input{tables/stratified}
+\end{table}
+
+\subsection{Failure Cases}
+\draftnote{qualitative figure: dense circuits, curved wires, faint
+strokes; tie each to the stage the oracle blames. Note when selecting
+examples: some apparent total failures were an artifact of GT box
+geometry (Sec.~\ref{sec:discussion}) — check against the corrected-box
+run before presenting an image as a pipeline failure.}

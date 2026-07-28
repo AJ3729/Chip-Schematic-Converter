@@ -1,0 +1,62 @@
+\section{Related Work}
+\label{sec:related}
+
+% Draft for Ammaar's revision. Positioning rules (from the plan):
+% - C5 must be positioned against ERC/convergence-aid prior art
+%   honestly, NOT overclaimed as "unlike any software".
+% - Claim "first PUBLISHED benchmark on Digitize-HCD", not "first to use".
+
+\subsection{Hand-Drawn Circuit Recognition Pipelines}
+Early work treated the task as symbol recognition plus ad-hoc wire
+tracing. Reddy and Panicker \cite{reddy2022handdrawn} combine YOLOv5
+component detection with Hough-based node recognition and report
+98.2\% detection mAP@0.5, but evaluate connectivity only qualitatively
+on a small private set. Recent end-to-end systems are stronger: SINA
+\cite{sina2026} couples detection, connected-component connectivity
+reasoning, OCR, and a vision-language model for designator assignment;
+Netlistify \cite{netlistify} adds orientation detection to component
+recognition. Wang et al.\ \cite{wang2026topology} is closest to our
+setting: a topology-consistent parsing framework trained on
+Digitize-HCD with wire connected-component-guided connectivity and
+explicit endpoint semantics, reporting a 95.14\% strict image-level
+success rate. In all of these, however, evaluation is performed on
+private or unreleased test sets with bespoke metrics, so results
+cannot be compared or audited. Our contribution is deliberately
+complementary: a frozen, human-verified, public evaluation protocol
+(C1/C4) plus baseline results, against which such systems can be
+measured.
+
+\subsection{Datasets and Graph Extraction on CGHD}
+Two public datasets anchor the field. CGHD \cite{cghd} provides
+hand-drawn circuit images by multiple drafters with symbol bounding
+boxes, and later releases add segmentation maps; the accompanying line
+of work by Bayer et al.\ extracts electrical graphs via instance
+segmentation \cite{bayer2023instance}, modular pipelines
+\cite{bayer2024modular}, and text extraction \cite{bayer2023text}.
+Digitize-HCD \cite{digitizehcd_data} contributes 1{,}277 photographed
+hand-drawn circuits with 18{,}600 component boxes over 17 classes,
+text transcriptions, and — uniquely — per-class \emph{port-location}
+annotations (Gaussian heatmaps and pixel coordinates). Neither dataset
+ships connectivity ground truth for end-to-end evaluation; our
+benchmark adds exactly that layer on Digitize-HCD, and we use CGHD's
+class dictionary for a cross-dataset mapping. \draftnote{mention the
+P\&ID/engineering-drawing digitization literature in one sentence if a
+survey ref is added to refs.bib.}
+
+\subsection{Making Recovered Circuits Simulate}
+That a syntactically valid netlist can still fail DC analysis is a
+classic problem: simulators ship convergence aids (gmin stepping,
+source stepping, \texttt{.nodeset}) \cite{ngspice}, and schematic
+tools ship electrical rule checks (ERC) that flag floating nodes or
+missing references. Our C5 layer builds deliberately on this prior
+art rather than claiming novelty over it: what is new is (i) applying
+ERC-style diagnosis to \emph{recovered} (noisy, machine-inferred)
+circuits rather than human-entered ones, (ii) enforcing a
+\emph{minimality} discipline over the applied fixes, and (iii) the
+\emph{assumption ledger} — a per-circuit, machine-readable record that
+classifies each repair as behavior-invariant (\emph{gauge}) or
+behavior-changing (\emph{assumption}), with alternatives, so a human
+can audit exactly what the system assumed about their design intent.
+To our knowledge no published hand-drawn-circuit system measures or
+discloses this repair step; they either report simulation success
+without stating what was fixed, or stop at topology.
