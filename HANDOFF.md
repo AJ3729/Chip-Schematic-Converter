@@ -27,10 +27,26 @@ items are his). **Standing user conventions — do not break these:**
 
 ## 2. Current benchmark state
 
-All on the 190-image test split vs **human-verified GT** (all 191 files
-verified, strict validator passes). Consolidated in
-`results/ablations/wire_method.csv` (regenerate with
-`scripts/make_ablation_table.py`).
+All on the 190-image test split vs **human-verified GT**. The canonical
+GT is now `data/gt_netlists_verified_v3` (published-COCO box geometry,
+human-verified topology), set once in `configs/default.yaml` under
+`benchmark.gt_dir` and read by every script.
+
+**Headline, canonical v3 GT** (`results/benchmark/seed0`):
+net F1 **0.6748**, terminal-pair F1 **0.4933**, per-component
+**0.1958**, strict **0.0579**, DC-solvable after repair **0.7158**.
+
+The v2→v3 switch is measurement, not behaviour: same config, same
+predictions, +0.038 net F1 (paired CI [+0.019, +0.060], 16 wins / 1
+loss / 173 ties), while SPICE validity and solvability are bit-
+identical because they do not depend on GT alignment. Full comparison
+in `results/comparisons/gtboxes_v2_vs_v3.csv`.
+
+The table below is the historical progression, still scored against
+**v2** GT — it is internally consistent (every row same GT) and shows
+the effect of each pipeline change, but its absolute values are ~0.04
+low. Regenerate against v3 when the suite finishes
+(`scripts/make_ablation_table.py`).
 
 | Config | net F1 | term-pair F1 | per-comp | strict |
 |---|---|---|---|---|
@@ -95,12 +111,13 @@ renders verified): detection +0.0205, **wires +0.4697**, snapping
    spurious net F1 of 0.000. `scripts/fix_gt_boxes.py` rebuilds the
    boxes from the **published COCO annotations** (median centre shift
    0.0 px — the boxes were centred right and shaped wrong):
-   matchability 91.6% → 98.4%. Output is in
-   `data/gt_netlists_verified_v3/` with topology byte-identical;
-   **the canonical GT was not modified** and a comparison benchmark is
-   queued. Adopting v3 is the owner's call, but the evidence is
-   one-sided: it makes the GT match the published annotations instead
-   of an echo of our own pipeline.
+   matchability 91.6% → 98.4%, topology byte-identical.
+   **v3 is now canonical** (owner's decision, 2026-07-28), set once in
+   `configs/default.yaml` as `benchmark.gt_dir`; `_v2` is retained
+   unmodified for provenance. Worth knowing when reading older
+   numbers: `circuit_136` went from a recorded 0.000 to a *perfect*
+   1.000 — it had always been reconstructed correctly and the
+   benchmark could not see it.
 5. **Tier-4 path tracing was probed and rejected** — see priority 2 and
    `results/path_tracing_probe/`.
 6. **Reproducibility scaffolding**: `REPRODUCE.md` maps every reported
