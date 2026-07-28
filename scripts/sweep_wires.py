@@ -72,11 +72,13 @@ def score(cfg, names, gt_dir, images_dir="data/cleaned"):
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--limit", type=int, default=60)
-    ap.add_argument("--gt-dir", default="data/gt_netlists_verified_v2")
+    ap.add_argument("--gt-dir", default=None,
+                    help="overrides benchmark.gt_dir from the config")
     ap.add_argument("--config", default=None)
     args = ap.parse_args()
 
     base = load_config(args.config)
+    args.gt_dir = args.gt_dir or base["benchmark"]["gt_dir"]
     names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][: args.limit]
 
     configs = [("canny (baseline)", set_by_dotted_key(base, "wires.method", "canny"))]
