@@ -68,7 +68,8 @@ def main() -> None:
     ap.add_argument("--split", default="test")
     ap.add_argument("--splits-dir", default="data/splits")
     ap.add_argument("--images-dir", default="data/cleaned")
-    ap.add_argument("--gt-dir", default="data/gt_netlists")
+    ap.add_argument("--gt-dir", default=None,
+                    help="overrides benchmark.gt_dir from the config")
     ap.add_argument("--out-dir", default="results/benchmark")
     ap.add_argument("--config", default=None)
     ap.add_argument("--include-unverified", action="store_true", help="score unverified GT too (default: verified only)")
@@ -78,11 +79,12 @@ def main() -> None:
 
     cfg = load_config(args.config)
     seed = set_global_seed(cfg["seed"])
+    gt_dir = args.gt_dir or cfg["benchmark"]["gt_dir"]
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "ledgers").mkdir(parents=True, exist_ok=True)
-    write_run_metadata(out_dir, cfg, seed, extra={"split": args.split})
+    write_run_metadata(out_dir, cfg, seed, extra={"split": args.split, "gt_dir": gt_dir})
 
     det_dir = Path(cfg["detect"]["cache_dir"])
     names = (Path(args.splits_dir) / f"{args.split}.txt").read_text().split()
@@ -101,7 +103,7 @@ def main() -> None:
             stem = Path(name).stem
             print(f"[{idx}/{len(names)}] Processing: {name}", flush=True)
             
-            gt_path = Path(args.gt_dir) / (stem + ".json")
+            gt_path = Path(gt_dir) / (stem + ".json")
             det_path = det_dir / (stem + ".json")
 
             if not gt_path.exists() or not det_path.exists():
