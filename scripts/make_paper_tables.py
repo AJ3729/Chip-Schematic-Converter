@@ -27,6 +27,34 @@ ROOT = Path(__file__).resolve().parent.parent
 GEN = ROOT / "paper" / "generated"
 TAB = ROOT / "paper" / "tables"
 
+# Which set of result directories to read. Every committed 512-px run was
+# superseded when preprocess.target_size became 1024, and the two must
+# never be mixed in one table — so the choice is made once, here, rather
+# than path by path.
+VARIANTS = {
+    "1024": {
+        "detection": "results/detection_1024",
+        "ablation": "results/ablations_1024/wire_method.csv",
+        "default_run": "results/benchmark_1024/seed0",
+        "seeds": "results/benchmark_1024",
+        "oracle": "results/oracle_1024",
+        "repair": "results/repair_1024",
+        "stratified": "results/stratified_1024",
+        "ports": "results/ports",          # templates are scale-invariant
+    },
+    "512": {
+        "detection": "results/detection",   # numbers as cited; detection_512fixed reproduces them
+        "ablation": "results/ablations/wire_method.csv",
+        "default_run": "results/v5_stitch_crossover",
+        "seeds": "results/benchmark",
+        "oracle": "results/oracle",
+        "repair": "results/repair",
+        "stratified": "results/stratified",
+        "ports": "results/ports",
+    },
+}
+SRC = dict(VARIANTS["1024"])   # the adopted configuration
+
 ABL_LABELS = {
     # csv label -> table row label (paper-facing)
     "v1_classical_directional": "classical (canny + directional snap)",
@@ -54,7 +82,7 @@ def macro(name: str, value: str) -> str:
 
 
 def load_ablation() -> list[dict]:
-    with (ROOT / "results/ablations/wire_method.csv").open() as fh:
+    with (ROOT / SRC["ablation"]).open() as fh:
         return list(csv.DictReader(fh))
 
 
@@ -63,12 +91,20 @@ def gen_numbers(abl: list[dict]) -> None:
     classical = by_label["v1_classical_directional"]
     v5 = by_label["v5_plus_crossover_DEFAULT"]
 
-    det = json.loads((ROOT / "results/detection/summary.json").read_text())
-    det_seeds = json.loads((ROOT / "results/detection/seed_stats.json").read_text())
+    det = json.loads((ROOT / SRC["detection"] / "summary.json").read_text())
+    seed_stats_path = ROOT / SRC["detection"] / "seed_stats.json"
+    if not seed_stats_path.exists():
+        # a single-seed number must not be silently substituted for the
+        # 3-seed mean+-std the manuscript reports
+        raise SystemExit(
+            f"missing {seed_stats_path}. Generate it with:\n"
+            f"  ./venv/bin/python scripts/detector_comparison.py "
+            f"--data data/yolo_1024/dataset.yaml --out-dir {SRC['detection']}")
+    det_seeds = json.loads(seed_stats_path.read_text())
     s8 = det_seeds["yolov8s"]
 
     v5sum = json.loads(
-        (ROOT / "results/v5_stitch_crossover/summary.json").read_text()
+        (ROOT / SRC["default_run"] / "summary.json").read_text()
     )
     rep = v5sum["repair"]
 
@@ -103,7 +139,7 @@ def _signed(x: float) -> str:
 def _support_macros() -> list[str]:
     """Test-split class supports, so the Dataset section can state its
     range without anyone typing a count."""
-    p = ROOT / "results/detection/per_class_ap.csv"
+    p = ROOT / SRC["detection"] / "per_class_ap.csv"
     if not p.exists():
         return ["% per-class supports absent — run scripts/eval_detector.py"]
     with p.open() as fh:
@@ -120,7 +156,7 @@ def _support_macros() -> list[str]:
 
 
 def _oracle_macros() -> list[str]:
-    p = ROOT / "results/oracle/summary.json"
+    p = ROOT / SRC["oracle"] / "summary.json"
     if not p.exists():
         return ["% oracle results absent — run scripts/oracle.py"]
     s = json.loads(p.read_text())
@@ -134,7 +170,7 @@ def _oracle_macros() -> list[str]:
 
 
 def _repair_verify_macros() -> list[str]:
-    p = ROOT / "results/repair/summary.json"
+    p = ROOT / SRC["repair"] / "summary.json"
     if not p.exists():
         return ["% repair results absent — run scripts/benchmark_repair.py"]
     s = json.loads(p.read_text())
@@ -160,9 +196,9 @@ def _repair_verify_macros() -> list[str]:
 
 
 def gen_port_table() -> None:
-    p = ROOT / "results/ports/template_accuracy.json"
+    p = ROOT / SRC["ports"] / "template_accuracy.json"
     if not p.exists():
-        print("skip port table: results/ports/template_accuracy.json absent")
+        print(f"skip port table: {SRC['ports']}/template_accuracy.json absent")
         return
     acc = json.loads(p.read_text())
     out = [
@@ -189,7 +225,7 @@ def gen_port_table() -> None:
 
 
 def gen_stratified_table() -> None:
-    p = ROOT / "results/stratified/stratified.csv"
+    p = ROOT / SRC["stratified"] / "stratified.csv"
     if not p.exists():
         print("skip stratified table: run scripts/analyze_failures.py")
         return
@@ -218,7 +254,7 @@ def gen_stratified_table() -> None:
 
 
 def gen_detection_table() -> None:
-    with (ROOT / "results/detection/per_class_ap.csv").open() as fh:
+    with (ROOT / SRC["detection"] / "per_class_ap.csv").open() as fh:
         rows = list(csv.DictReader(fh))
     out = [
         "% AUTO-GENERATED by scripts/make_paper_tables.py — do not edit.",
@@ -266,7 +302,7 @@ def gen_ablation_table(abl: list[dict]) -> None:
 
 
 def gen_3seed_table() -> None:
-    seed_dirs = sorted((ROOT / "results/benchmark").glob("seed*"))
+    seed_dirs = sorted((ROOT / SRC["seeds"]).glob("seed*"))
     summaries = []
     for d in seed_dirs:
         p = d / "summary.json"
@@ -276,7 +312,7 @@ def gen_3seed_table() -> None:
     if len(summaries) < 2:
         out.append(
             "% 3-seed results not present yet — run scripts/benchmark.py "
-            "per seed into results/benchmark/seed<N>/."
+            f"per seed into {SRC['seeds']}/seed<N>/."
         )
         out.append("\\multicolumn{2}{c}{\\emph{3-seed run pending}}")
     else:
@@ -305,7 +341,7 @@ def gen_3seed_table() -> None:
 
 
 def gen_repair_table() -> None:
-    v5 = json.loads((ROOT / "results/v5_stitch_crossover/summary.json").read_text())
+    v5 = json.loads((ROOT / SRC["default_run"] / "summary.json").read_text())
     rep = v5["repair"]
     rows = [
         ("SPICE syntactic validity", f3(rep["spice_valid_rate"])),
@@ -318,7 +354,7 @@ def gen_repair_table() -> None:
     # topology preservation and gauge accuracy come from the dedicated
     # repair evaluation, which recomputes them per image rather than
     # asserting the invariant
-    rp = ROOT / "results/repair/summary.json"
+    rp = ROOT / SRC["repair"] / "summary.json"
     if rp.exists():
         r = json.loads(rp.read_text())
         rows.append((
@@ -357,6 +393,16 @@ def gen_repair_table() -> None:
 
 
 def main() -> None:
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--variant", choices=sorted(VARIANTS), default="1024",
+                    help="which result set to read (default: 1024, the "
+                         "adopted configuration). 512 runs are superseded "
+                         "and must not be mixed with 1024 numbers.")
+    args = ap.parse_args()
+    SRC.clear(); SRC.update(VARIANTS[args.variant])
+    print(f"variant={args.variant}: reading {SRC['default_run']}")
+
     GEN.mkdir(parents=True, exist_ok=True)
     TAB.mkdir(parents=True, exist_ok=True)
     abl = load_ablation()

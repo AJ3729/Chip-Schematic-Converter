@@ -56,10 +56,22 @@ from schematic2netlist.gt import gt_to_components, load_gt  # noqa: E402
 app = Flask(__name__, static_folder="static", static_url_path="")
 RUNS = REPO / "demo" / "runs"
 RUNS.mkdir(parents=True, exist_ok=True)
+
+# Config is resolved at startup and may be overridden with --config, so
+# the demo can show a candidate configuration before it becomes the
+# repo default. CFG is rebound in __main__; everything below reads it.
 CFG = load_config()
 
+
+def _gt_dir() -> Path:
+    """Canonical GT, from the config rather than hardcoded. This was
+    pinned to _v2 and silently kept comparing against superseded
+    ground truth after v3 became canonical."""
+    return REPO / CFG.get("benchmark", {}).get(
+        "gt_dir", "data/gt_netlists_verified_v3")
+
+
 EXAMPLES = ["circuit_1.jpg", "circuit_995.jpg", "circuit_1016.jpg", "circuit_619.jpg"]
-GT_DIR = REPO / "data" / "gt_netlists_verified_v2"
 
 CLASS_COLORS: dict[str, tuple] = {}
 
@@ -173,8 +185,9 @@ def _simulation_stage(comps, dets, run: Path, rep, gt_stem: str | None):
 
     gt_bench = None
     gt_comps_sim = None
-    if gt_stem and (GT_DIR / f"{gt_stem}.json").exists():
-        gt = load_gt(GT_DIR / f"{gt_stem}.json")
+    gt_dir = _gt_dir()
+    if gt_stem and (gt_dir / f"{gt_stem}.json").exists():
+        gt = load_gt(gt_dir / f"{gt_stem}.json")
         gt_bench = gt_to_components(gt)
         by_id = {c["id"]: c for c in gt["components"]}
         for c in gt_bench:
@@ -360,20 +373,36 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
         vis[wires0 > 0] = (80, 200, 80)
         vis[bridges > 0] = (230, 60, 200)
         n_br = int(cv2.connectedComponents((bridges > 0).astype(np.uint8))[0]) - 1
-        stage("stitch", "Gap stitching",
-              f"{max(n_br, 0)} bridge(s) (magenta) reconnect wires split by our "
-              "own masking — collinearity-checked, never through a component.",
+        pad = CFG["wires"].get("component_mask_pad", 0)
+        caption = (
+            f"{max(n_br, 0)} bridge(s) (magenta) reconnect wires split by our "
+            "own masking — collinearity-checked, never through a component.")
+        if pad == 0:
+            caption += (" With component_mask_pad=0 there are no self-inflicted "
+                        "holes left to bridge, so this stage is a no-op.")
+        stage("stitch", "Gap stitching", caption,
               _save(run, "05_stitch.png", vis))
 
     # ---- 6. nets ----
-    if CFG["nodes"].get("handle_crossovers"):
-        from schematic2netlist.classes import canonical_class
-        xb = [d for d in dets if canonical_class(d["class"]) == "Wire Crossover"]
+    from schematic2netlist.classes import canonical_class
+    ncfg = CFG["nodes"]
+    method = ncfg.get("method") or (
+        "crossover" if ncfg.get("handle_crossovers") else "cc")
+    xb = [d for d in dets if canonical_class(d["class"]) == "Wire Crossover"]
+    if method == "learned":
+        from schematic2netlist.nodes import build_wire_nodes_learned
+        node_map, n_nodes, _jinfo = build_wire_nodes_learned(
+            wires, xb, weights=ncfg["junction_weights"],
+            threshold=ncfg.get("junction_threshold", 0.4),
+            site_box=ncfg.get("junction_site_box", 15),
+            context=ncfg.get("junction_context", 3.0),
+            connectivity=ncfg["connectivity"])
+    elif method == "crossover":
         node_map, n_nodes = build_wire_nodes_crossover_aware(
-            wires, xb, connectivity=CFG["nodes"]["connectivity"])
+            wires, xb, connectivity=ncfg["connectivity"])
     else:
         node_map, n_nodes = build_wire_nodes(
-            wires, connectivity=CFG["nodes"]["connectivity"])
+            wires, connectivity=ncfg["connectivity"])
     pal = _net_palette(n_nodes)
     vis = np.full_like(img, 255)
     for nid in range(n_nodes):
@@ -512,12 +541,48 @@ def run_file(run_id, name):
     return send_from_directory(RUNS / Path(run_id).name, Path(name).name)
 
 
+@app.get("/config")
+def config_summary():
+    """What configuration is this demo actually running? Shown in the UI
+    so a walkthrough can never be mistaken for a different setup."""
+    ncfg = CFG["nodes"]
+    return jsonify({
+        # resolution is a headline choice, not an incidental one: 1024 px
+        # beats 512 significantly on five of seven benchmark metrics, so a
+        # walkthrough must say which one produced what is on screen
+        "target_size": CFG["preprocess"]["target_size"],
+        "component_mask_pad": CFG["wires"].get("component_mask_pad"),
+        "wire_method": CFG["wires"].get("method"),
+        "stitching": bool(CFG["wires"].get("stitch_masked_gaps")),
+        "nodes_method": ncfg.get("method") or (
+            "crossover" if ncfg.get("handle_crossovers") else "cc"),
+        "snapping": CFG["snapping"]["strategy"],
+        "repair": bool(CFG.get("repair", {}).get("enabled")),
+        "gt_dir": str(_gt_dir().relative_to(REPO)),
+    })
+
+
 if __name__ == "__main__":
     import argparse
     import os
 
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--port", type=int,
                     default=int(os.environ.get("PORT", 5001)))
+    ap.add_argument("--config", default=None,
+                    help="YAML config to run; defaults to configs/default.yaml. "
+                         "Use this to demo a candidate configuration before it "
+                         "becomes the repo default.")
     args = ap.parse_args()
+    if args.config:
+        # module-level rebind so every handler sees the override
+        globals()['CFG'] = load_config(args.config)
+    n = CFG["nodes"]
+    print(f"demo config: target_size={CFG['preprocess']['target_size']} "
+          f"component_mask_pad="
+          f"{CFG['wires'].get('component_mask_pad')} "
+          f"wires={CFG['wires'].get('method')} "
+          f"stitch={bool(CFG['wires'].get('stitch_masked_gaps'))} "
+          f"nodes={n.get('method') or ('crossover' if n.get('handle_crossovers') else 'cc')} "
+          f"snapping={CFG['snapping']['strategy']}", flush=True)
     app.run(host="127.0.0.1", port=args.port, debug=False)

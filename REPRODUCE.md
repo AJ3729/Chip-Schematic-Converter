@@ -15,19 +15,47 @@ Run everything from the repository root with the project venv
 | Requirement | Notes |
 | --- | --- |
 | Digitize-HCD | `data/raw` sha256-verified against the published archive; see `data/README.md` |
-| Preprocessed frames | `data/cleaned` + `data/transforms.json` (`scripts/preprocess.py`, guarded by `scripts/record_transforms.py`) |
+| Preprocessed frames | `data/cleaned_1024` + `data/transforms_1024.json` (`scripts/preprocess.py`, guarded by `scripts/record_transforms.py`) |
 | Detector weights | `experiments/train_all/runs/yolov8s_640_seed{0,1,2}/weights/best.pt` |
-| Detection cache | `data/detections/` (`scripts/detect_batch.py --images data/splits/test.txt`) |
-| Verified GT | `data/gt_netlists_verified_v2/` (canonical) |
+| Detection cache | `data/detections_1024/` (`scripts/detect_batch.py --images data/splits/test.txt --images-dir data/cleaned_1024`) |
+| Verified GT | `data/gt_1024/` (canonical topology is `data/gt_netlists_verified_v3`; `gt_1024` is the same annotation at 2x coordinates) |
+
+**Frame size is part of the configuration.** `preprocess.target_size` is
+1024 and `preprocess.images_dir` names the matching frames; every script
+that feeds images to the pipeline resolves the directory through
+`schematic2netlist.frames.resolve_and_check` and **refuses to run** if
+the frames on disk are not that size. Before this guard existed, running
+a 1024 config against 512 frames scored the wrong pixels with no error
+raised — and because detection boxes are stored in frame coordinates,
+component alignment corrupted too. The 512 results in `results/` predate
+the switch and must not be quoted alongside a 1024 number.
 
 `data/` and `experiments/` are gitignored; the frozen split manifests and
 `data/README.md` are versioned because they are part of the benchmark.
 
 ## 1. Detection (M1)
 
+**Rebuild the YOLO dataset whenever preprocessing changes.** Labels are
+the published COCO boxes projected through `data/transforms*.json`, so
+regenerating `data/cleaned*` invalidates them. This bit once: labels
+left over from an older preprocessing run made the committed mAP@0.5 of
+0.9725 irreproducible (the same command returned 0.051) with no error
+anywhere — the labels still parsed and the counts still matched.
+`tests/test_yolo_labels_fresh.py` now re-derives labels from COCO and
+fails if they disagree with the transforms on disk.
+
 ```bash
-./venv/bin/python scripts/eval_detector.py --split test
+./venv/bin/python scripts/make_yolo_dataset.py --frame cleaned \
+    --cleaned-dir data/cleaned_1024 --transforms data/transforms_1024.json \
+    --out-dir data/yolo_1024
+./venv/bin/python scripts/eval_detector.py --split test \
+    --data data/yolo_1024/dataset.yaml \
+    --weights experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt \
+    --out-dir results/detection_1024
 ```
+
+`data/yolo_cleaned` is the stale 512-px dataset and must not be used;
+`data/yolo_cleaned_rebuilt` is its corrected equivalent.
 
 → `results/detection/{summary.json,per_class_ap.csv,seed_stats.json}`
 (mAP@0.5, mAP@0.5:0.95, per-class AP with supports, 3-seed mean±std).
@@ -115,6 +143,11 @@ This rebuilds box geometry from the published COCO annotations, leaving
 topology byte-identical (`tests/test_gt_boxes.py` enforces that). Score
 against it with `--gt-dir data/gt_netlists_verified_v3` to see how much
 of a result depends on box geometry.
+
+`data/gt_1024` is v3 with every coordinate doubled, for the 1024-px
+frames; component count, classes, terminals and net assignments are
+identical, so it is the same ground truth expressed in the frame
+coordinates the pipeline now runs in — not a different annotation.
 
 ## 8. Regenerate the manuscript's numbers
 
