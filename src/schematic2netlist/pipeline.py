@@ -23,6 +23,7 @@ from schematic2netlist.netlist import (
 )
 from schematic2netlist.classes import canonical_class
 from schematic2netlist.nodes import (
+    build_wire_nodes_learned,
     bbox_xyxy,
     build_wire_nodes,
     build_wire_nodes_crossover_aware,
@@ -112,19 +113,38 @@ def run_pipeline(
         cv2.imwrite(str(out_dir / "04_wire_overlay.png"), blended)
 
     # --- nodes + snapping ---
-    if cfg["nodes"].get("handle_crossovers"):
-        crossover_boxes = [
-            d for d in detections
-            if canonical_class(d["class"]) == "Wire Crossover"
-        ]
+    ncfg = cfg["nodes"]
+    # `method` supersedes the older boolean; the boolean is still read so
+    # existing configs and committed run_meta records keep working.
+    method = ncfg.get("method")
+    if method is None:
+        method = "crossover" if ncfg.get("handle_crossovers") else "cc"
+    crossover_boxes = [
+        d for d in detections
+        if canonical_class(d["class"]) == "Wire Crossover"
+    ]
+    junction_info = None
+    if method == "learned":
+        node_map, num_nodes, junction_info = build_wire_nodes_learned(
+            clean_wires, crossover_boxes,
+            weights=ncfg["junction_weights"],
+            threshold=ncfg.get("junction_threshold", 0.4),
+            site_box=ncfg.get("junction_site_box", 15),
+            context=ncfg.get("junction_context", 3.0),
+            thin_input=ncfg.get("junction_thin_input", False),
+            connectivity=ncfg["connectivity"],
+        )
+    elif method == "crossover":
         node_map, num_nodes = build_wire_nodes_crossover_aware(
             clean_wires, crossover_boxes,
-            connectivity=cfg["nodes"]["connectivity"],
+            connectivity=ncfg["connectivity"],
+        )
+    elif method == "cc":
+        node_map, num_nodes = build_wire_nodes(
+            clean_wires, connectivity=ncfg["connectivity"]
         )
     else:
-        node_map, num_nodes = build_wire_nodes(
-            clean_wires, connectivity=cfg["nodes"]["connectivity"]
-        )
+        raise ValueError(f"Unknown nodes.method: {method!r}")
     comps = build_component_pin_nets(detections, node_map, cfg)
 
     # --- node naming + netlist export ---
@@ -174,5 +194,7 @@ def run_pipeline(
         "coverage": coverage,
         "netlist": netlist_info,
         "repair": repair_result,
+        "nodes_method": method,
+        "junction_info": junction_info,
         "out_dir": str(out_dir) if save else None,
     }

@@ -1,0 +1,12 @@
+{
+  "n_images": 60,
+  "mean_sites_per_image": 20.37,
+  "mean_labeled_crossovers": 2.23,
+  "mean_unlabeled_sites": 18.13,
+  "mean_load_bearing": 14.2,
+  "mean_welds_per_image": 12.27,
+  "labeled_fraction": 0.1097,
+  "welded_nodes": 368,
+  "total_snapped_nodes": 507,
+  "welded_node_rate": 0.7258
+}

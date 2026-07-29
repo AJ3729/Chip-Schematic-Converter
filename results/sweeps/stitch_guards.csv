@@ -1,0 +1,20 @@
+config,terminal_pair_f1,net_f1,per_component_acc,fragmentation
+DEFAULT (baseline),0.5194,0.6833,0.2071,1.154
+wires.stitch_max_gap=30,0.4906,0.6617,0.1653,1.207
+wires.stitch_max_gap=60,0.5194,0.6833,0.2071,1.154
+wires.stitch_max_gap=90,0.5347,0.6957,0.2099,1.148
+wires.stitch_max_gap=130,0.5347,0.6957,0.2099,1.148
+wires.stitch_angle_tol_deg=20,0.522,0.6833,0.2093,1.188
+wires.stitch_angle_tol_deg=35,0.5194,0.6833,0.2071,1.154
+wires.stitch_angle_tol_deg=50,0.5253,0.6839,0.2189,1.125
+wires.stitch_angle_tol_deg=65,0.5001,0.662,0.217,1.097
+wires.stitch_min_inside_frac=0.55,0.5159,0.6814,0.2081,1.148
+wires.stitch_min_inside_frac=0.75,0.5194,0.6833,0.2071,1.154
+wires.stitch_min_inside_frac=0.9,0.5203,0.6835,0.2047,1.188
+wires.stitch_passes=1,0.5194,0.6833,0.2071,1.154
+wires.stitch_passes=2,0.5194,0.6833,0.2071,1.154
+wires.stitch_passes=3,0.5194,0.6833,0.2071,1.154
+wires.stitch_passes=4,0.5194,0.6833,0.2071,1.154
+wires.bridge_span=9,0.5194,0.6833,0.2071,1.154
+wires.bridge_span=13,0.5181,0.6753,0.2113,1.148
+wires.bridge_span=17,0.5142,0.672,0.2165,1.111

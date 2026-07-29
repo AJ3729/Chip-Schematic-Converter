@@ -126,6 +126,88 @@ def build_wire_nodes_crossover_aware(
     return out, next_id
 
 
+def build_wire_nodes_learned(
+    clean_wires: np.ndarray,
+    crossover_boxes: list[dict],
+    weights: str,
+    threshold: float = 0.4,
+    site_box: int = 15,
+    connectivity: int = 8,
+    notch_frac: float = 0.6,
+    band: int = 4,
+    context: float = 3.0,
+    min_degree: int = 4,
+    thin_input: bool = False,
+) -> tuple[np.ndarray, int, dict]:
+    """Net inference that asks a classifier at EVERY stroke intersection.
+
+    The crossover-aware variant can only act where the detector labelled
+    a ``Wire Crossover`` — measured at 11% of the intersections actually
+    present. Everywhere else connected components assumes touching means
+    connected, and that assumption welds nets: 72.6% of wire nodes
+    carrying component terminals fuse two or more ground-truth nets.
+
+    Here every intersection is located geometrically, classified, and
+    the ones judged crossings are notched and re-linked opposite-arm to
+    opposite-arm exactly as detected crossovers are. Detected crossover
+    boxes are still honoured unconditionally — the detector's label is
+    evidence the drawing itself provides, and is not overridden by the
+    model.
+
+    Returns (node_map, num_nodes, info) where ``info`` records how many
+    sites were examined and how many were judged crossings, so a run can
+    be audited without re-deriving it.
+    """
+    from .junction_model import crossing_probabilities
+    from .skeleton import intersection_sites_with_degree
+
+    # Only 4-way sites are crossing candidates. Notch-and-relink severs
+    # the middle and rejoins OPPOSITE arms, which a 3-arm T does not
+    # have — notching one orphans its stem permanently. Three wires
+    # meeting in a schematic is a junction by definition, so this filter
+    # is semantic, not a tuning knob. Measured: roughly half of detected
+    # sites are 3-arm, and passing them through was costing more than
+    # the classifier won.
+    all_sites = intersection_sites_with_degree(clean_wires)
+    sites = [(x, y) for x, y, deg in all_sites if deg >= min_degree]
+    n_t_sites = len(all_sites) - len(sites)
+    labelled = []
+    for det in crossover_boxes:
+        x1, y1, x2, y2 = bbox_xyxy(det)
+        labelled.append((x1, y1, x2, y2))
+
+    def is_labelled(x, y):
+        return any(x1 <= x <= x2 and y1 <= y <= y2 for x1, y1, x2, y2 in labelled)
+
+    unlabelled = [(x, y) for x, y in sites if not is_labelled(x, y)]
+    probs = crossing_probabilities(clean_wires, unlabelled, weights,
+                                   context=context, thin_input=thin_input)
+    predicted = [pt for pt, p in zip(unlabelled, probs) if p >= threshold]
+
+    # a classified site has no box, so give it one centred on the site;
+    # the notch/re-link machinery below is shared with detected boxes
+    half = max(3, site_box // 2)
+    synthetic = [{"x": float(x), "y": float(y),
+                  "width": float(site_box), "height": float(site_box)}
+                 for x, y in predicted]
+
+    node_map, n = build_wire_nodes_crossover_aware(
+        clean_wires, list(crossover_boxes) + synthetic,
+        connectivity=connectivity, notch_frac=notch_frac, band=band,
+    )
+    info = {
+        "sites_found": len(all_sites),
+        "t_sites_skipped": n_t_sites,
+        "crossing_candidates": len(sites),
+        "detector_labelled": len(sites) - len(unlabelled),
+        "classified": len(unlabelled),
+        "judged_crossing": len(predicted),
+        "threshold": threshold,
+        "mean_crossing_prob": float(probs.mean()) if len(probs) else None,
+    }
+    return node_map, n, info
+
+
 def bbox_xyxy(det: dict) -> tuple[int, int, int, int]:
     """Center-based detection dict -> integer (x1, y1, x2, y2)."""
     cx, cy = det["x"], det["y"]

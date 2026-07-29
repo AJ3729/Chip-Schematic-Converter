@@ -1,0 +1,7 @@
+config,terminal_pair_f1,net_f1,per_component_acc,fragmentation
+DEFAULT (baseline),0.4474,0.633,0.143,1.402
+nodes.junction_threshold=0.25,0.4206,0.6183,0.1259,1.469
+nodes.junction_threshold=0.35,0.4392,0.627,0.1402,1.433
+nodes.junction_threshold=0.45,0.4504,0.6359,0.1445,1.321
+nodes.junction_threshold=0.55,0.4523,0.6365,0.1492,1.297
+nodes.junction_threshold=0.7,0.4568,0.6399,0.1514,1.25
