@@ -16,6 +16,7 @@ import csv
 import json
 from pathlib import Path
 
+from schematic2netlist.frames import resolve_and_check
 from schematic2netlist.config import load_config
 from schematic2netlist.detect import load_cached_detections
 from schematic2netlist.determinism import set_global_seed, write_run_metadata
@@ -44,6 +45,7 @@ def verify_pass(args, cfg) -> tuple[list[dict], dict]:
     names = (Path(args.splits_dir) / f"{args.split}.txt").read_text().split()
     if args.limit:
         names = names[: args.limit]
+    images_dir = resolve_and_check(args.images_dir, names, cfg)
 
     rows: list[dict] = []
     for idx, name in enumerate(names, 1):
@@ -63,7 +65,7 @@ def verify_pass(args, cfg) -> tuple[list[dict], dict]:
         cfg_norepair = json.loads(json.dumps(cfg))
         cfg_norepair["repair"]["enabled"] = False
         result = run_pipeline(
-            Path(args.images_dir) / name, cfg_norepair, detections=detections
+            images_dir / name, cfg_norepair, detections=detections
         )
         comps = result["components"]
 
@@ -130,7 +132,9 @@ def main() -> None:
                          "+ ground gauge accuracy (minutes)")
     ap.add_argument("--split", default="test")
     ap.add_argument("--splits-dir", default="data/splits")
-    ap.add_argument("--images-dir", default="data/cleaned")
+    ap.add_argument("--images-dir", default=None,
+                    help="preprocessed frames; defaults to "
+                         "preprocess.images_dir from the config")
     ap.add_argument("--gt-dir", default=None,
                     help="overrides benchmark.gt_dir from the config")
     ap.add_argument("--config", default=None)

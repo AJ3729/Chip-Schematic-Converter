@@ -1,0 +1,4 @@
+config,terminal_pair_f1,net_f1,per_component_acc,fragmentation
+DEFAULT (baseline),0.6841,0.797,0.5067,1.25
+wires.morph_kernel=2,0.6841,0.797,0.5067,1.25
+wires.min_blob_area=20,0.6817,0.7974,0.5058,1.25

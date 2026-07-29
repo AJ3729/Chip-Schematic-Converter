@@ -34,6 +34,7 @@ from pathlib import Path
 import cv2
 
 from schematic2netlist.classes import canonical_class
+from schematic2netlist.frames import resolve_and_check
 from schematic2netlist.config import load_config
 from schematic2netlist.detect import load_cached_detections
 from schematic2netlist.determinism import set_global_seed, write_run_metadata
@@ -145,7 +146,9 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=40)
     ap.add_argument("--split", default="test")
     ap.add_argument("--splits-dir", default="data/splits")
-    ap.add_argument("--images-dir", default="data/cleaned")
+    ap.add_argument("--images-dir", default=None,
+                    help="preprocessed frames; defaults to "
+                         "preprocess.images_dir from the config")
     ap.add_argument("--out-dir", default="results/runtime")
     ap.add_argument("--config", default=None)
     ap.add_argument("--time-detector", action="store_true",
@@ -160,6 +163,7 @@ def main() -> None:
 
     names = (Path(args.splits_dir) / f"{args.split}.txt").read_text().split()
     names = names[: args.limit + args.warmup]
+    images_dir = resolve_and_check(args.images_dir, names, cfg)
     det_dir = Path(cfg["detect"]["cache_dir"])
 
     model = True if args.time_detector else None
@@ -167,7 +171,7 @@ def main() -> None:
     for i, nm in enumerate(names):
         stem = Path(nm).stem
         row = time_image(
-            Path(args.images_dir) / nm, cfg, det_dir / f"{stem}.json", model
+            images_dir / nm, cfg, det_dir / f"{stem}.json", model
         )
         if i < args.warmup:            # discard: first calls pay import/JIT costs
             continue

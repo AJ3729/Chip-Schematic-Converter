@@ -1,0 +1,41 @@
+{
+  "source_run": "results/benchmark_1024/seed0",
+  "n_images": 190,
+  "n_ledgers": 190,
+  "solvable_before_rate": 0.5210526315789473,
+  "solvable_after_rate": 0.7421052631578947,
+  "solvability_lift": 0.22105263157894736,
+  "lift_ci95_lo": 0.1631578947368421,
+  "lift_ci95_hi": 0.2843421052631572,
+  "regressed_images": 0,
+  "mean_assumptions": 2.626315789473684,
+  "median_assumptions": 2.0,
+  "max_assumptions_observed": 6,
+  "mean_gauge": 1.7,
+  "budget": 8,
+  "budget_violations": 0,
+  "per_issue": {
+    "ground_selection|gauge": 183,
+    "ideal_inductor_dc|assumption": 156,
+    "no_dc_path_to_ground|assumption": 130,
+    "placeholder_values|assumption": 190,
+    "unset_current_direction|gauge": 140,
+    "unsnapped_terminal|assumption": 23
+  },
+  "entries_by_category": {
+    "gauge": 323,
+    "assumption": 499
+  },
+  "verified_images": 190,
+  "topology_violations": 0,
+  "ground_accuracy_gauge_gnd_symbol_strict": 0.7541,
+  "ground_accuracy_gauge_gnd_symbol_resolved": 0.9079,
+  "ground_n_gauge_gnd_symbol": 183,
+  "ground_ambiguous_gauge_gnd_symbol": 31,
+  "ground_unanswerable_gauge_gnd_symbol": 0,
+  "ground_accuracy_assumed_strict": 0.0,
+  "ground_accuracy_assumed_resolved": 0.0,
+  "ground_n_assumed": 7,
+  "ground_ambiguous_assumed": 0,
+  "ground_unanswerable_assumed": 0
+}

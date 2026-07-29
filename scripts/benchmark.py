@@ -23,6 +23,7 @@ from schematic2netlist.benchmark import aggregate, score_prediction
 from schematic2netlist.config import config_hash, load_config
 from schematic2netlist.detect import load_cached_detections
 from schematic2netlist.determinism import set_global_seed, write_run_metadata
+from schematic2netlist.frames import resolve_and_check
 from schematic2netlist.gt import gt_to_components, load_gt
 from schematic2netlist.netlist import export_spice_netlist
 from schematic2netlist.nodes import bbox_xyxy  # noqa: F401 (kept for parity)
@@ -67,7 +68,9 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--split", default="test")
     ap.add_argument("--splits-dir", default="data/splits")
-    ap.add_argument("--images-dir", default="data/cleaned")
+    ap.add_argument("--images-dir", default=None,
+                    help="preprocessed frames; defaults to "
+                         "preprocess.images_dir from the config")
     ap.add_argument("--gt-dir", default=None,
                     help="overrides benchmark.gt_dir from the config")
     ap.add_argument("--out-dir", default="results/benchmark")
@@ -88,6 +91,8 @@ def main() -> None:
 
     det_dir = Path(cfg["detect"]["cache_dir"])
     names = (Path(args.splits_dir) / f"{args.split}.txt").read_text().split()
+
+    images_dir = resolve_and_check(args.images_dir, names, cfg)
 
     rows: list[dict] = []
     skipped: dict[str, int] = {}
@@ -115,8 +120,9 @@ def main() -> None:
                 skipped["unverified"] = skipped.get("unverified", 0) + 1
                 continue
 
-            detections = load_cached_detections(det_path)
-            result = run_pipeline(Path(args.images_dir) / name, cfg, detections=detections)
+            detections = load_cached_detections(
+                det_path, min_confidence=cfg["detect"].get("confidence"))
+            result = run_pipeline(images_dir / name, cfg, detections=detections)
 
             row = {"image": name}
             row.update(score_prediction(pred_components(result), gt_components(gt), iou_threshold=args.iou_threshold))

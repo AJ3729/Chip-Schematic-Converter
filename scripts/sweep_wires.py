@@ -44,9 +44,15 @@ def score(cfg, names, gt_dir, images_dir="data/cleaned"):
         for c in gcomps:
             c["bbox"] = by_id[c["id"]]["bbox"]
 
+        # cache_dir from the config, not a hardcoded path: sweeping a
+        # config whose detections live elsewhere (e.g. the 1024-px frame,
+        # data/detections_1024) silently scored 512-px boxes against
+        # 1024-px images otherwise.
         res = run_pipeline(
             f"{images_dir}/{nm}", cfg,
-            detections=load_cached_detections(f"data/detections/{stem}.json"),
+            detections=load_cached_detections(
+                f"{cfg['detect']['cache_dir']}/{stem}.json",
+                min_confidence=cfg["detect"].get("confidence")),
         )
         dets = res["detections"]
         pcomps = [{
@@ -69,36 +75,78 @@ def score(cfg, names, gt_dir, images_dir="data/cleaned"):
     return (st.mean(tp), st.mean(nf), st.mean(pc), st.median(frag))
 
 
+def parse_value(raw: str):
+    for cast in (int, float):
+        try:
+            return cast(raw)
+        except ValueError:
+            continue
+    if raw.lower() in ("true", "false"):
+        return raw.lower() == "true"
+    return raw
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--gt-dir", default=None,
                     help="overrides benchmark.gt_dir from the config")
     ap.add_argument("--config", default=None)
+    ap.add_argument("--images-dir", default="data/cleaned",
+                    help="preprocessed frames matching the config's "
+                         "preprocess.target_size")
+    ap.add_argument("--axis", action="append", default=None, metavar="KEY=V1,V2",
+                    help="sweep a dotted config key one axis at a time, e.g. "
+                         "--axis wires.stitch_max_gap=40,60,90 . Repeatable. "
+                         "Omit to run the default bridge-span sweep.")
+    ap.add_argument("--out", default=None, help="write results as CSV")
     args = ap.parse_args()
 
     base = load_config(args.config)
     args.gt_dir = args.gt_dir or base["benchmark"]["gt_dir"]
     names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][: args.limit]
 
-    configs = [("canny (baseline)", set_by_dotted_key(base, "wires.method", "canny"))]
-    for span in (0, 5, 9, 13, 17, 21):
-        c = set_by_dotted_key(base, "wires.method", "ink")
-        c = set_by_dotted_key(c, "wires.bridge_span", span)
-        configs.append((f"ink span={span}", c))
+    if args.axis:
+        # One axis at a time from the current default, so each row is
+        # attributable to a single knob. A full grid hides interactions
+        # behind a wall of rows and is rarely what you want first.
+        configs = [("DEFAULT (baseline)", base)]
+        for spec in args.axis:
+            key, _, raw = spec.partition("=")
+            for v in (parse_value(x) for x in raw.split(",")):
+                configs.append((f"{key}={v}", set_by_dotted_key(base, key, v)))
+    else:
+        configs = [("canny (baseline)", set_by_dotted_key(base, "wires.method", "canny"))]
+        for span in (0, 5, 9, 13, 17, 21):
+            c = set_by_dotted_key(base, "wires.method", "ink")
+            c = set_by_dotted_key(c, "wires.bridge_span", span)
+            configs.append((f"ink span={span}", c))
 
     print(f"scoring {len(names)} images per config "
           f"(GT: {args.gt_dir})\n")
-    print(f"{'config':22s} {'term-pair F1':>13s} {'net F1':>8s} "
+    print(f"{'config':34s} {'term-pair F1':>13s} {'net F1':>8s} "
           f"{'per-comp':>9s} {'frag':>6s}")
-    best = None
+    best, rows = None, []
     for label, cfg in configs:
-        t, n, p, f = score(cfg, names, args.gt_dir)
+        t, n, p, f = score(cfg, names, args.gt_dir, images_dir=args.images_dir)
+        rows.append({"config": label, "terminal_pair_f1": round(t, 4),
+                     "net_f1": round(n, 4), "per_component_acc": round(p, 4),
+                     "fragmentation": round(f, 3)})
         star = ""
         if best is None or t > best[1]:
             best, star = (label, t), "  <-- best term-pair F1"
-        print(f"{label:22s} {t:13.4f} {n:8.4f} {p:9.4f} {f:6.2f}{star}")
+        print(f"{label:34s} {t:13.4f} {n:8.4f} {p:9.4f} {f:6.2f}{star}", flush=True)
     print(f"\nbest: {best[0]}")
+
+    if args.out:
+        import csv
+        from pathlib import Path
+        Path(args.out).parent.mkdir(parents=True, exist_ok=True)
+        with open(args.out, "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
+            w.writeheader()
+            w.writerows(rows)
+        print(f"wrote {args.out}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,76 @@
+{
+  "n_images": 60,
+  "detector_timed": false,
+  "load": {
+    "mean_ms": 3.68,
+    "median_ms": 3.54,
+    "p90_ms": 5.38,
+    "share_of_total": 0.0797
+  },
+  "detect": {
+    "mean_ms": 0.28,
+    "median_ms": 0.27,
+    "p90_ms": 0.34,
+    "share_of_total": 0.0061
+  },
+  "textmask": {
+    "mean_ms": 2.78,
+    "median_ms": 2.68,
+    "p90_ms": 3.06,
+    "share_of_total": 0.0602
+  },
+  "wiremask": {
+    "mean_ms": 0.19,
+    "median_ms": 0.19,
+    "p90_ms": 0.25,
+    "share_of_total": 0.0041
+  },
+  "wires": {
+    "mean_ms": 8.26,
+    "median_ms": 7.7,
+    "p90_ms": 11.85,
+    "share_of_total": 0.179
+  },
+  "stitch": {
+    "mean_ms": 24.98,
+    "median_ms": 21.22,
+    "p90_ms": 44.4,
+    "share_of_total": 0.5413
+  },
+  "nodes": {
+    "mean_ms": 2.94,
+    "median_ms": 2.86,
+    "p90_ms": 3.36,
+    "share_of_total": 0.0637
+  },
+  "snapping": {
+    "mean_ms": 2.46,
+    "median_ms": 1.82,
+    "p90_ms": 4.27,
+    "share_of_total": 0.0533
+  },
+  "netlist": {
+    "mean_ms": 0.02,
+    "median_ms": 0.02,
+    "p90_ms": 0.02,
+    "share_of_total": 0.0004
+  },
+  "repair": {
+    "mean_ms": 0.07,
+    "median_ms": 0.08,
+    "p90_ms": 0.11,
+    "share_of_total": 0.0015
+  },
+  "export": {
+    "mean_ms": 0.5,
+    "median_ms": 0.43,
+    "p90_ms": 0.69,
+    "share_of_total": 0.0108
+  },
+  "total": {
+    "mean_ms": 46.15,
+    "median_ms": 43.69,
+    "p90_ms": 69.99,
+    "share_of_total": null
+  }
+}
