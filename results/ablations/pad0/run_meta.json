@@ -1,6 +1,6 @@
 {
-  "timestamp_utc": "2026-07-28T22:58:23.129902+00:00",
-  "git_sha": "8010ef7941a9b3b99af808f910b077cd0d915e3a",
+  "timestamp_utc": "2026-07-28T20:48:46.531892+00:00",
+  "git_sha": "cc4be808c026702bb7bff0261b89ad1be83c27d6",
   "seed": 0,
   "config": {
     "seed": 0,
@@ -91,7 +91,7 @@
       "junction_context": 3.0
     },
     "snapping": {
-      "strategy": "ports",
+      "strategy": "boundary",
       "max_expand": 30,
       "window_depth": 4,
       "expand_step": 2,

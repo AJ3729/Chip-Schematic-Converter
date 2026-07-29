@@ -21,6 +21,7 @@ This module fixes the two legacy evaluation bugs:
 from __future__ import annotations
 
 import json
+import warnings
 import os
 from pathlib import Path
 
@@ -50,18 +51,46 @@ def normalize_detection(det: dict) -> dict:
     }
 
 
-def load_cached_detections(path: str | Path) -> list[dict]:
+def load_cached_detections(
+    path: str | Path, min_confidence: float | None = None
+) -> list[dict]:
     """Load and normalize detections from a JSON cache file.
 
     Accepts both legacy shapes: {"detections": [...]} and
     {"predictions": [...]}.
+
+    ``min_confidence`` filters the cached boxes. Without it the
+    configured ``detect.confidence`` was silently ignored on every run
+    that used the cache — which is every benchmark run — so sweeping
+    that threshold produced identical results at every value and any
+    detector-confidence ablation would have been meaningless.
+
+    **Caveat that cannot be checked from the data.** The cache is a
+    superset only down to the threshold it was generated at; asking for
+    a lower one cannot recover boxes never stored. Caches written from
+    now on record ``min_confidence`` so this is detectable, but older
+    ones do not, and it cannot be inferred from the boxes present — an
+    image whose weakest detection scored 0.43 looks identical whether
+    the cache was built at 0.4 or at 0.43. Regenerate the cache before
+    evaluating a threshold below its generation value.
     """
     with open(path) as f:
         data = json.load(f)
     dets = data.get("detections", data.get("predictions"))
     if dets is None:
         raise ValueError(f"{path}: no 'detections' or 'predictions' key")
-    return [normalize_detection(d) for d in dets]
+    out = [normalize_detection(d) for d in dets]
+    if min_confidence is None:
+        return out
+    generated_at = data.get("min_confidence")
+    if generated_at is not None and min_confidence < float(generated_at):
+        warnings.warn(
+            f"{path}: requested confidence {min_confidence} is below the "
+            f"{generated_at} this cache was generated at; regenerate it to "
+            f"evaluate this threshold honestly",
+            RuntimeWarning, stacklevel=2,
+        )
+    return [d for d in out if d.get("confidence", 1.0) >= min_confidence]
 
 
 def cache_path_for_image(image_path: str | Path, cfg: dict) -> Path:
@@ -74,7 +103,11 @@ def save_detections(image_path: str | Path, detections: list[dict], cfg: dict) -
     out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, "w") as f:
         json.dump(
-            {"image": os.path.basename(str(image_path)), "detections": detections},
+            {"image": os.path.basename(str(image_path)),
+             # record the threshold so a later run can tell whether this
+             # cache can honestly answer for a lower one
+             "min_confidence": cfg["detect"].get("confidence"),
+             "detections": detections},
             f,
             indent=4,
         )
@@ -156,7 +189,8 @@ def detect(image_path: str | Path, cfg: dict) -> list[dict]:
     cache = cache_path_for_image(image_path, cfg)
 
     if cache.exists():
-        return load_cached_detections(cache)
+        return load_cached_detections(
+            cache, min_confidence=cfg["detect"].get("confidence"))
     if backend == "cached":
         raise FileNotFoundError(
             f"No cached detections at {cache}. Run detection with the "

@@ -1,0 +1,9 @@
+config,terminal_pair_f1,net_f1,per_component_acc,fragmentation
+DEFAULT (baseline),0.5194,0.6833,0.2071,1.154
+wires.component_mask_pad=0,0.6231,0.7483,0.3442,1.25
+wires.component_mask_pad=2,0.5943,0.7296,0.2986,1.236
+wires.component_mask_pad=4,0.5779,0.7178,0.2644,1.225
+wires.component_mask_pad=8,0.5194,0.6833,0.2071,1.154
+wires.component_mask_pad=12,0.4017,0.6115,0.1284,1.118
+textmask.enabled=True,0.5194,0.6833,0.2071,1.154
+textmask.enabled=False,0.2751,0.4987,0.0381,2.167

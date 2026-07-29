@@ -63,11 +63,31 @@ class TestStitch:
         assert n_islands(out) <= 3
 
     def test_stitchable_mask_excludes_component_body(self):
+        """A component BODY is never stitchable — its two leads are
+        different nets. This holds at any padding."""
         dets = [{"class": "Resistor", "confidence": 1.0,
                  "x": 100, "y": 50, "width": 40, "height": 20}]
         m = stitchable_mask((100, 200), dets, cfg(), text_mask=None)
-        assert m[50, 100] == 0           # centre of body: never stitchable
-        assert m[50, 100 - 20 - 4] == 255  # inside the pad ring: stitchable
+        assert m[50, 100] == 0
+
+    def test_pad_ring_is_stitchable_only_when_padding_exists(self):
+        """The stitchable ring around a component IS the region the
+        padding erased. With component_mask_pad=0 — now the default,
+        because the padding was destroying wire evidence — there is no
+        ring, and therefore nothing for stitching to repair. This is
+        why stitching became a no-op rather than a regression."""
+        dets = [{"class": "Resistor", "confidence": 1.0,
+                 "x": 100, "y": 50, "width": 40, "height": 20}]
+
+        padded = cfg()
+        padded["wires"]["component_mask_pad"] = 8
+        m = stitchable_mask((100, 200), dets, padded, text_mask=None)
+        assert m[50, 100 - 20 - 4] == 255, "pad ring should be stitchable"
+
+        unpadded = cfg()
+        unpadded["wires"]["component_mask_pad"] = 0
+        m0 = stitchable_mask((100, 200), dets, unpadded, text_mask=None)
+        assert m0[50, 100 - 20 - 4] == 0, "no padding means no ring to stitch"
 
     def test_far_gap_not_stitched(self):
         wires = np.zeros((100, 400), np.uint8)

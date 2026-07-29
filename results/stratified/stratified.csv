@@ -1,0 +1,11 @@
+stratum,n_images,terminal_pair_f1,net_f1,per_component_connected_acc,nged,strict_success
+all,190,0.4933,0.6748,0.1958,0.2192,0.0579
+small (<=8 components),72,0.5601,0.7166,0.2546,0.0996,0.125
+medium (9-16),56,0.4227,0.5942,0.1112,0.2244,0.0357
+large (>16),62,0.4797,0.6991,0.204,0.3534,0.0
+has wire crossover,56,0.4008,0.5861,0.1088,0.3184,0.0
+no wire crossover,134,0.532,0.7119,0.2322,0.1778,0.0821
+has 3+ terminal device,59,0.3994,0.6433,0.155,0.3566,0.0
+only 2-terminal devices,131,0.5356,0.689,0.2142,0.1574,0.084
+has GND symbol,183,0.4954,0.678,0.1986,0.2198,0.0601
+no GND symbol,7,0.4381,0.5908,0.122,0.2048,0.0

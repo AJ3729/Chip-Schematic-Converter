@@ -1,0 +1,8 @@
+config                                 tpF1    netF1  perComp   frag
+current default (pad=8)              0.5194   0.6833   0.2071   1.15
+pad=0                                0.6231   0.7483   0.3442   1.25
+pad=0, no stitching                  0.6231   0.7483   0.3442   1.25
+pad=0 + stitch gap=90 ang=50         0.6231   0.7483   0.3442   1.25
+pad=0 + crossover off                0.5517   0.6867   0.3099   1.22
+pad=0 + ports snapping               0.6911   0.7872   0.5166   1.25
+pad=0 + ports + stitch tuned         0.6911   0.7872   0.5166   1.25
