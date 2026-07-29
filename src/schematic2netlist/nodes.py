@@ -84,32 +84,64 @@ def build_wire_nodes_crossover_aware(
     Assumes axis-aligned crossover arms (the case in these drawings);
     a crossover with fewer than two opposite-arm pairs is left as-is.
     """
-    mask = (clean_wires > 0).astype(np.uint8)
+    base = (clean_wires > 0).astype(np.uint8)
 
-    # (1) notch each crossover center to sever the X
-    boxes_xyxy = []
-    for det in crossover_boxes:
-        x1, y1, x2, y2 = bbox_xyxy(det)
-        boxes_xyxy.append((x1, y1, x2, y2))
+    def notch_of(box):
+        x1, y1, x2, y2 = box
         bw, bh = x2 - x1, y2 - y1
         nx, ny = int(bw * notch_frac / 2), int(bh * notch_frac / 2)
         ccx, ccy = (x1 + x2) // 2, (y1 + y2) // 2
-        mask[max(0, ccy - ny):ccy + ny, max(0, ccx - nx):ccx + nx] = 0
+        return (slice(max(0, ccy - ny), ccy + ny),
+                slice(max(0, ccx - nx), ccx + nx))
 
-    num_labels, labels = cv2.connectedComponents(mask, connectivity=connectivity)
-    node_map = labels.astype(np.int32) - 1
+    boxes_xyxy = [bbox_xyxy(det) for det in crossover_boxes]
+
+    def cut(keep):
+        m = base.copy()
+        for i in keep:
+            ys, xs = notch_of(boxes_xyxy[i])
+            m[ys, xs] = 0
+        n, lab = cv2.connectedComponents(m, connectivity=connectivity)
+        return n, lab, lab.astype(np.int32) - 1
+
+    def pairs_at(node_map, box):
+        x1, y1, x2, y2 = box
+        e = {s: _edge_label(node_map, x1, y1, x2, y2, s, band)
+             for s in ("top", "bottom", "left", "right")}
+        return ((e["top"], e["bottom"]) if e["top"] is not None
+                and e["bottom"] is not None else None,
+                (e["left"], e["right"]) if e["left"] is not None
+                and e["right"] is not None else None)
+
+    # (1) Notch, but only KEEP notches that actually re-link both opposite
+    # arm pairs. The notch used to be unconditional while the re-link was
+    # conditional, so a box that is not a clean 4-way crossing — a T, an
+    # L, or a spurious branch point thrown up by thick strokes — had its
+    # centre deleted with nothing put back, permanently severing the net.
+    # Measured on 30 images: 36% of classifier-proposed boxes and 36% of
+    # detector boxes re-link only ONE pair, and 3% re-link none. Reverting
+    # those keeps the repair strictly non-destructive: a notch is applied
+    # only when the evidence to undo it is present.
+    keep = set(range(len(boxes_xyxy)))
+    for _ in range(2):                     # settles immediately in practice
+        if not keep:
+            break
+        _n, _lab, nm_try = cut(keep)
+        drop = {i for i in keep if None in pairs_at(nm_try, boxes_xyxy[i])}
+        if not drop:
+            break
+        keep -= drop
+
+    num_labels, labels, node_map = cut(keep)
 
     # (2) reconnect opposite arms
     uf = _UnionFind(num_labels)
-    for (x1, y1, x2, y2) in boxes_xyxy:
-        top = _edge_label(node_map, x1, y1, x2, y2, "top", band)
-        bottom = _edge_label(node_map, x1, y1, x2, y2, "bottom", band)
-        left = _edge_label(node_map, x1, y1, x2, y2, "left", band)
-        right = _edge_label(node_map, x1, y1, x2, y2, "right", band)
-        if top is not None and bottom is not None:
-            uf.union(top + 1, bottom + 1)      # +1: labels are node_map+1
-        if left is not None and right is not None:
-            uf.union(left + 1, right + 1)
+    for i in keep:
+        tb, lr = pairs_at(node_map, boxes_xyxy[i])
+        if tb is not None:
+            uf.union(tb[0] + 1, tb[1] + 1)   # +1: labels are node_map+1
+        if lr is not None:
+            uf.union(lr[0] + 1, lr[1] + 1)
 
     # relabel by union-find root, compacted to 0..k-1 (background stays -1).
     # LUT indexed by original CC label (0..num_labels-1; 0 = background).
