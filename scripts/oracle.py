@@ -43,6 +43,7 @@ import cv2
 
 from schematic2netlist.benchmark import align_components, canonicalize_terminals
 from schematic2netlist.classes import canonical_class
+from schematic2netlist.frames import resolve_and_check
 from schematic2netlist.config import load_config
 from schematic2netlist.detect import load_cached_detections
 from schematic2netlist.determinism import set_global_seed, write_run_metadata
@@ -99,7 +100,9 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--gt-dir", default=None,
                     help="overrides benchmark.gt_dir from the config")
-    ap.add_argument("--images-dir", default="data/cleaned")
+    ap.add_argument("--images-dir", default=None,
+                    help="preprocessed frames; defaults to "
+                         "preprocess.images_dir from the config")
     ap.add_argument("--out-dir", default="results/oracle")
     ap.add_argument("--config", default=None)
     args = ap.parse_args()
@@ -112,6 +115,7 @@ def main() -> None:
     write_run_metadata(out_dir, cfg, seed, extra={"gt_dir": gt_dir})
 
     names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][: args.limit]
+    images_dir = resolve_and_check(args.images_dir, names, cfg)
     rows: list[dict] = []
 
     for i, nm in enumerate(names, 1):
@@ -122,11 +126,19 @@ def main() -> None:
         for c in gcomps:
             c["bbox"] = by_id[c["id"]]["bbox"]
 
-        img_path = f"{args.images_dir}/{nm}"
+        img_path = f"{images_dir}/{nm}"
         print(f"[{i}/{len(names)}] {nm}", flush=True)
 
         # A — everything predicted
-        pred_dets = load_cached_detections(f"data/detections/{stem}.json")
+        # cache_dir from the config, and honour detect.confidence: this
+        # was hardcoded to the 512-px cache, so running the oracle on
+        # 1024 frames scored half-scale boxes and mode A collapsed to
+        # 0.0000 term-pair F1 — which then charged the ENTIRE pipeline
+        # error to the detection stage, inverting the attribution the
+        # oracle exists to produce.
+        pred_dets = load_cached_detections(
+            f"{cfg['detect']['cache_dir']}/{stem}.json",
+            min_confidence=cfg["detect"].get("confidence"))
         rA = run_pipeline(img_path, cfg, detections=pred_dets)
         a = score(as_pred(rA["components"], rA["detections"]), gcomps)
 
@@ -170,6 +182,24 @@ def main() -> None:
                for k, v in zip(("tp_f1", "net_f1", "percomp"), c)},
             **{f"D_{k}": v for k, v in zip(("tp_f1", "net_f1", "percomp"), d)},
         })
+
+    # Mode A IS the ordinary pipeline, so it must land near the benchmark's
+    # terminal-pair F1. A near-zero mode A means predictions never aligned
+    # to GT at all — the usual cause is a detection cache from a different
+    # frame size — and every attribution below would then be charged to the
+    # detection stage. That reads as a finding rather than a failure, so it
+    # has to be caught here.
+    mean_a = sum(r["A_tp_f1"] for r in rows) / max(len(rows), 1)
+    if mean_a < 0.05:
+        raise SystemExit(
+            f"oracle mode A (the plain pipeline) scored {mean_a:.4f} "
+            f"terminal-pair F1 over {len(rows)} images. That is not a "
+            f"result, it is a misconfiguration — predictions are not "
+            f"aligning to GT.\nCheck that detect.cache_dir "
+            f"({cfg['detect']['cache_dir']}) holds boxes for the same "
+            f"frame size as preprocess.target_size "
+            f"({cfg['preprocess']['target_size']})."
+        )
 
     with (out_dir / "per_image.csv").open("w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))

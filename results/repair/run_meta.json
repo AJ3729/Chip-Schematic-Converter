@@ -1,9 +1,12 @@
 {
-  "timestamp_utc": "2026-07-28T12:47:11.117625+00:00",
-  "git_sha": "ab42f4d2a3eea2454c890e197208ff121a26c459",
+  "timestamp_utc": "2026-07-28T18:59:53.260454+00:00",
+  "git_sha": "a1ec5ffc4012cf80884c4e14dc77d7e0092b8a50",
   "seed": 0,
   "config": {
     "seed": 0,
+    "benchmark": {
+      "gt_dir": "data/gt_netlists_verified_v3"
+    },
     "preprocess": {
       "target_size": 512,
       "blur_kernel": 3,
@@ -80,7 +83,12 @@
     },
     "nodes": {
       "connectivity": 8,
-      "handle_crossovers": true
+      "handle_crossovers": true,
+      "method": "crossover",
+      "junction_weights": "experiments/junction/full_cpu/best.pt",
+      "junction_threshold": 0.4,
+      "junction_site_box": 15,
+      "junction_context": 3.0
     },
     "snapping": {
       "strategy": "boundary",
@@ -133,5 +141,5 @@
     "scipy": "1.16.3",
     "yaml": "6.0.3"
   },
-  "run_dir": "results/v5_stitch_crossover"
+  "run_dir": "results/benchmark/seed0"
 }
