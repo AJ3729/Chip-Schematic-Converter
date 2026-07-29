@@ -31,11 +31,15 @@ def support_counts(labels_dir: Path, names: list[str]) -> dict[str, int]:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--weights", required=True)
-    ap.add_argument("--data", default="data/yolo_cleaned/dataset.yaml")
+    # NOT data/yolo_cleaned: its labels predate the 2026-07-27
+    # preprocessing change and score this detector at mAP@0.5 = 0.051
+    # instead of 0.974. Defaulting there meant running this script bare
+    # produced a plausible-looking, badly wrong number.
+    ap.add_argument("--data", default="data/yolo_1024/dataset.yaml")
     ap.add_argument("--split", default="test")
     ap.add_argument("--imgsz", type=int, default=640)
     ap.add_argument("--device", default=None)
-    ap.add_argument("--out-dir", default="results/detection")
+    ap.add_argument("--out-dir", default="results/detection_1024")
     args = ap.parse_args()
 
     try:
