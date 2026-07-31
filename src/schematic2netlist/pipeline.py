@@ -29,6 +29,7 @@ from schematic2netlist.nodes import (
     build_wire_nodes_crossover_aware,
 )
 from schematic2netlist.repair import build_ledger, export_ledger, repair_circuit
+from schematic2netlist.connectivity_repair import repair_connectivity
 from schematic2netlist.snapping import build_component_pin_nets
 from schematic2netlist.textmask import detect_text_mask
 from schematic2netlist.wires import (
@@ -79,6 +80,18 @@ def run_pipeline(
     if detections is None:
         detections = detect_mod.detect(image_path, cfg)
 
+    # "Text" detections (from the 18-class detector) are mask evidence,
+    # never components: they are removed here and rasterized into the
+    # text mask below, so they can neither reach component building nor
+    # inflate benchmark alignment. Motivation is measured, not assumed —
+    # the heuristic mask fully misses 10.5% of text boxes (48% of test
+    # images affected), and unmasked text enters the wire mask as phony
+    # wire. With a 17-class cache this partition is a no-op.
+    text_dets = [d for d in detections
+                 if canonical_class(d["class"]) == "Text"]
+    detections = [d for d in detections
+                  if canonical_class(d["class"]) != "Text"]
+
     save = out_dir is not None
     if save:
         out_dir = Path(out_dir)
@@ -87,7 +100,32 @@ def run_pipeline(
     # --- text mask + non-wire mask ---
     text_mask = None
     if cfg["textmask"]["enabled"]:
-        text_mask = detect_text_mask(gray, cfg)
+        # Oracle/override hook: a directory of per-stem mask PNGs
+        # replaces the heuristic. Used by the GT-text oracle (bounds how
+        # much perfect text masking is worth) and later by
+        # detector-based masking. Default off; missing file falls back
+        # to the heuristic so partial mask sets cannot silently zero
+        # out masking.
+        mask_dir = cfg["textmask"].get("mask_dir")
+        if mask_dir:
+            p = Path(mask_dir) / (Path(str(image_path)).stem + ".png")
+            if p.exists():
+                text_mask = cv2.imread(str(p), cv2.IMREAD_GRAYSCALE)
+        if text_mask is None:
+            text_mask = detect_text_mask(gray, cfg)
+        # union in detector-found text boxes (padded like components).
+        # Detection and the heuristic are complementary: the detector
+        # catches labels the CC heuristic loses to wire contact; the
+        # heuristic still covers strokes outside any detected box.
+        if text_dets:
+            pad = int(cfg["textmask"].get("det_pad", 2))
+            Hh, Ww = text_mask.shape
+            for d in text_dets:
+                x1 = max(0, int(d["x"] - d["width"] / 2) - pad)
+                y1 = max(0, int(d["y"] - d["height"] / 2) - pad)
+                x2 = min(Ww, int(d["x"] + d["width"] / 2) + pad)
+                y2 = min(Hh, int(d["y"] + d["height"] / 2) + pad)
+                text_mask[y1:y2, x1:x2] = 255
         if save:
             cv2.imwrite(str(out_dir / "01b_text_mask.png"), text_mask)
 
@@ -123,29 +161,71 @@ def run_pipeline(
         d for d in detections
         if canonical_class(d["class"]) == "Wire Crossover"
     ]
-    junction_info = None
-    if method == "learned":
-        node_map, num_nodes, junction_info = build_wire_nodes_learned(
-            clean_wires, crossover_boxes,
-            weights=ncfg["junction_weights"],
-            threshold=ncfg.get("junction_threshold", 0.4),
-            site_box=ncfg.get("junction_site_box", 15),
-            context=ncfg.get("junction_context", 3.0),
-            thin_input=ncfg.get("junction_thin_input", False),
-            connectivity=ncfg["connectivity"],
-        )
-    elif method == "crossover":
-        node_map, num_nodes = build_wire_nodes_crossover_aware(
-            clean_wires, crossover_boxes,
-            connectivity=ncfg["connectivity"],
-        )
-    elif method == "cc":
-        node_map, num_nodes = build_wire_nodes(
-            clean_wires, connectivity=ncfg["connectivity"]
-        )
-    else:
-        raise ValueError(f"Unknown nodes.method: {method!r}")
-    comps = build_component_pin_nets(detections, node_map, cfg)
+    def _build_nodes(wires):
+        """Nodes + component pin nets from a wire mask.
+
+        Closed over ``detections``/``cfg`` and used both for the first pass and
+        for every rebuild inside connectivity repair, so there is exactly ONE
+        node-construction path. A diagnostic that re-implemented this dispatch
+        instead silently diverged from the pipeline and produced a wrong
+        conclusion, which is why the repair stage is handed this function rather
+        than the ingredients to rebuild it.
+        """
+        info = None
+        if method == "learned":
+            nm, nn, info = build_wire_nodes_learned(
+                wires, crossover_boxes,
+                weights=ncfg["junction_weights"],
+                threshold=ncfg.get("junction_threshold", 0.4),
+                site_box=ncfg.get("junction_site_box", 15),
+                context=ncfg.get("junction_context", 3.0),
+                thin_input=ncfg.get("junction_thin_input", False),
+                relink=ncfg.get("relink", "band"),
+                connectivity=ncfg["connectivity"],
+            )
+        elif method == "vector":
+            from .vector_nodes import build_wire_nodes_vector
+            vcfg = ncfg.get("vector", {}) or {}
+            nm, nn, info = build_wire_nodes_vector(
+                wires, crossover_boxes,
+                connectivity=ncfg["connectivity"],
+                **{k: v for k, v in vcfg.items()},
+            )
+        elif method == "crossover":
+            nm, nn = build_wire_nodes_crossover_aware(
+                wires, crossover_boxes,
+                connectivity=ncfg["connectivity"],
+                relink=ncfg.get("relink", "band"),
+            )
+        elif method == "cc":
+            nm, nn = build_wire_nodes(
+                wires, connectivity=ncfg["connectivity"]
+            )
+        else:
+            raise ValueError(f"Unknown nodes.method: {method!r}")
+        cs = build_component_pin_nets(detections, nm, cfg)
+        # the repair stage inspects node_names, so they must exist on rebuild
+        for c in cs:
+            c["node_names"] = [None if x is None else f"n{x}"
+                               for x in c["nodes"]]
+        return nm, nn, info, cs
+
+    node_map, num_nodes, junction_info, comps = _build_nodes(clean_wires)
+
+    # --- constraint-triggered connectivity repair.
+    # Unlike C5 below, this DOES change topology -- it acts only where an
+    # electrical fact makes the current answer impossible (a component with
+    # every pin on one net, a net with a single terminal). See
+    # connectivity_repair.py. ---
+    conn_repair = None
+    if cfg.get("connectivity_repair", {}).get("enabled"):
+        (clean_wires, node_map, rebuilt_n, rebuilt_info, comps,
+         conn_repair) = repair_connectivity(
+            clean_wires, node_map, comps, detections, cfg, _build_nodes)
+        if conn_repair["applied"]:
+            num_nodes = rebuilt_n if rebuilt_n is not None else num_nodes
+            junction_info = (rebuilt_info if rebuilt_info is not None
+                             else junction_info)
 
     # --- node naming + netlist export ---
     node_name_map = build_node_name_map(
@@ -190,11 +270,16 @@ def run_pipeline(
         "detections": detections,
         "components": comps,
         "num_wire_nodes": num_nodes,
+        # exposed for diagnostics (weld localisation, oracle checks); it is
+        # the label image net assembly produced, not a copy
+        "node_map": node_map,
+        "clean_wires": clean_wires,
         "node_name_map": node_name_map,
         "coverage": coverage,
         "netlist": netlist_info,
         "repair": repair_result,
         "nodes_method": method,
+        "connectivity_repair": conn_repair,
         "junction_info": junction_info,
         "out_dir": str(out_dir) if save else None,
     }
