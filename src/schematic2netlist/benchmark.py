@@ -23,6 +23,7 @@ from schematic2netlist.metrics import (
     net_level_metrics,
     normalized_ged,
     per_component_connected_accuracy,
+    per_component_recall_accuracy,
     terminal_pair_metrics,
 )
 
@@ -137,6 +138,7 @@ def score_prediction(
     tp = terminal_pair_metrics(pred_c, gt_c)
     net = net_level_metrics(pred_c, gt_c)
     pcc = per_component_connected_accuracy(pred_c, gt_c)
+    pcr = per_component_recall_accuracy(pred_c, gt_c)
     nged = normalized_ged(pred_c, gt_c)
 
     strict = (
@@ -151,6 +153,7 @@ def score_prediction(
         "terminal_pair_f1": tp["f1"],
         "net_f1": net["f1"],
         "per_component_connected_acc": pcc,
+        "per_component_recall_acc": pcr,
         "nged": nged,
         "strict_success": bool(strict),
     }
@@ -173,6 +176,7 @@ def aggregate(per_image: list[dict], n_resamples: int = 1000, seed: int = 0) -> 
     """Aggregate per-image metric dicts into means with bootstrap 95% CIs."""
     keys = [
         "terminal_pair_f1", "net_f1", "per_component_connected_acc",
+        "per_component_recall_acc",
         "nged", "strict_success",
     ]
     out: dict = {"n_images": len(per_image)}

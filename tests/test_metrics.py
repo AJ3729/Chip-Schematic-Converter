@@ -9,6 +9,7 @@ from schematic2netlist.metrics import (
     net_level_metrics,
     normalized_ged,
     per_component_connected_accuracy,
+    per_component_recall_accuracy,
     terminal_pair_metrics,
 )
 
@@ -80,10 +81,18 @@ class TestPerComponentAccuracy:
     def test_identical_is_one(self):
         assert per_component_connected_accuracy(GT, GT) == 1.0
 
-    def test_merged_prediction_still_covers_gt_pairs(self):
-        # merged prediction contains every GT pair, so components count
-        # as connected (precision suffers in the pair metric instead)
-        assert per_component_connected_accuracy(PRED_MERGED, GT) == 1.0
+    def test_merged_prediction_is_exact_zero_but_recall_one(self):
+        """The distinction that used to be missing, now pinned in both
+        directions.
+
+        A merged prediction contains every GT pair, because welding only ADDS
+        pairs. The recall variant therefore scores it 1.0 -- which is what the
+        headline metric used to do, so a circuit with every net shorted together
+        was indistinguishable from a perfect answer on the very measure used to
+        track welding. The exact variant scores it 0.0.
+        """
+        assert per_component_recall_accuracy(PRED_MERGED, GT) == 1.0
+        assert per_component_connected_accuracy(PRED_MERGED, GT) == 0.0
 
     def test_missing_connection(self):
         pred = [
