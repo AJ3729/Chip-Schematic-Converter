@@ -111,8 +111,30 @@ def main() -> None:
 
     print(f"scanned {len(targets)} .tex files; {n_macros} generated macros "
           f"available; {allowed_hits} allowlisted literals")
+
+    # A macro the prose \inputs but nobody generated is invisible to the
+    # literal check -- it is not a number, so the audit passes while LaTeX
+    # fails on an undefined control sequence. That is not hypothetical:
+    # running benchmark_repair.py without --verify silently dropped five
+    # macros (30 -> 25) and nothing complained.
+    generated = set(re.findall(r"\\newcommand\{\\([A-Za-z]+)\}",
+                               macros.read_text())) if macros.exists() else set()
+    referenced: set[str] = set()
+    for p in targets:
+        if "generated" in str(p):
+            continue
+        referenced |= set(re.findall(r"\\([A-Z][A-Za-z]{4,})\{\}",
+                                     p.read_text(encoding="utf-8")))
+    missing = sorted(m for m in referenced if m not in generated)
+    if missing:
+        print(f"\nFAIL — referenced but never generated: {', '.join(missing)}")
+        print("  run scripts/make_paper_tables.py; if a macro is still absent "
+              "its source run has not been produced")
+        sys.exit(1)
+
     if not findings:
-        print("PASS — no hand-typed result numbers found")
+        print(f"PASS — no hand-typed result numbers, and all "
+              f"{len(referenced)} referenced macros are generated")
         return
     print(f"\nFAIL — {len(findings)} literal number(s) in prose:\n")
     for path, lineno, tok, line in findings:

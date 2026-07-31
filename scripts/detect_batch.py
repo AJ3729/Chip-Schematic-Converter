@@ -24,7 +24,14 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--images", default=None,
                     help="split .txt file listing image filenames")
-    ap.add_argument("--images-dir", default="data/cleaned")
+    ap.add_argument("--images-dir", default=None,
+                    help="defaults to the CONFIG's preprocess.images_dir. It used "
+                         "to default to a hardcoded data/cleaned, which is the "
+                         "512-era frame set: a cache generated without this flag "
+                         "was silently computed on the wrong frame generation, in "
+                         "a different coordinate frame, and every box in it was "
+                         "misplaced. scripts/check_cache_alignment.py catches it, "
+                         "but the default should not create the hazard.")
     ap.add_argument("--config", default=None)
     ap.add_argument("--backend", default=None,
                     help="override detect.backend (roboflow | ultralytics)")
@@ -37,7 +44,8 @@ def main() -> None:
     if args.backend:
         cfg = set_by_dotted_key(cfg, "detect.backend", args.backend)
 
-    images_dir = Path(args.images_dir)
+    images_dir = Path(args.images_dir
+                      or cfg["preprocess"]["images_dir"])
     if args.images:
         names = Path(args.images).read_text().split()
         images = [images_dir / n for n in names]

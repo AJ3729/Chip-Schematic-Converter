@@ -32,11 +32,17 @@ TAB = ROOT / "paper" / "tables"
 # never be mixed in one table — so the choice is made once, here, rather
 # than path by path.
 VARIANTS = {
+    # benchmark_1024_final, not benchmark_1024: the latter is the working area
+    # and still holds the pre-2026-07-30 runs, whose nGED was produced by the
+    # timeout-truncated GED search and is not reproducible (see metrics.py).
+    # The _final runs are on the deterministic bound AND on the current default
+    # (bridge_span 7 + connectivity repair), and must not be mixed with the old
+    # ones in a single table.
     "1024": {
         "detection": "results/detection_1024",
         "ablation": "results/ablations_1024/wire_method.csv",
-        "default_run": "results/benchmark_1024/seed0",
-        "seeds": "results/benchmark_1024",
+        "default_run": "results/benchmark_1024_final/seed0",
+        "seeds": "results/benchmark_1024_final",
         "oracle": "results/oracle_1024",
         "repair": "results/repair_1024",
         "stratified": "results/stratified_1024",
@@ -90,6 +96,10 @@ def gen_numbers(abl: list[dict]) -> None:
     by_label = {r["label"]: r for r in abl}
     classical = by_label["v1_classical_directional"]
     v5 = by_label["v5_plus_crossover_DEFAULT"]
+    # The ablation grew past v5. AblTpFOneVFive now means the v5 STAGE, which is
+    # no longer the shipped configuration, so the prose must not use it as the
+    # headline -- *Final* is the last row and follows the table automatically.
+    final = abl[-1]
 
     det = json.loads((ROOT / SRC["detection"] / "summary.json").read_text())
     seed_stats_path = ROOT / SRC["detection"] / "seed_stats.json"
@@ -122,6 +132,11 @@ def gen_numbers(abl: list[dict]) -> None:
         macro("AblNetFOneVFive", f3(v5["net_f1"])),
         macro("AblTpFOneClassical", f3(classical["terminal_pair_f1"])),
         macro("AblTpFOneVFive", f3(v5["terminal_pair_f1"])),
+        macro("AblNetFOneFinal", f3(final["net_f1"])),
+        macro("AblTpFOneFinal", f3(final["terminal_pair_f1"])),
+        macro("AblStrictFinal", f3(final["strict_success"])),
+        macro("AblStrictClassical", f3(classical["strict_success"])),
+        macro("AblFinalLabel", final["label"].replace("_", " ")),
         macro("RepSolvBefore", f3(rep["solvable_before_rate"])),
         macro("RepSolvAfter", f3(rep["solvable_after_rate"])),
         macro("RepMeanAssumptions", f"{rep['mean_assumptions']:.1f}"),
