@@ -1,0 +1,12 @@
+{
+  "n_images": 40,
+  "min_blob_area": 80,
+  "min_blob_extent": 30,
+  "reach_px": 3,
+  "n_deleted": 34,
+  "n_kept": 465,
+  "deleted_bridging": 0,
+  "deleted_bridging_rate": 0.0,
+  "kept_bridging_rate": 0.0215,
+  "deleted_px": 1013
+}

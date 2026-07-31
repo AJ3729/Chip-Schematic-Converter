@@ -1,0 +1,14 @@
+{
+  "n_images": 60,
+  "n_pairwise_welds": 74,
+  "min_arm_cuts_distribution": {
+    "0": 41,
+    "1": 28,
+    "2": 5
+  },
+  "non_numeric": {
+    "flow_failed": 84
+  },
+  "separable_by_one_cut": 0.3784,
+  "separable_by_two_cuts": 0.4459
+}

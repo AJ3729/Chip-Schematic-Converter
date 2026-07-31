@@ -1,0 +1,103 @@
+{
+  "weights": "experiments/junction/synth128_v5b/best.pt",
+  "n_images": 60,
+  "n_sites_scored": 1720,
+  "n_must_split": 788,
+  "n_must_union": 932,
+  "skipped": {
+    "node_carries_no_gt_terminal": 173,
+    "site_off_any_node": 115
+  },
+  "AUC": 0.4849,
+  "threshold_sweep": [
+    {
+      "threshold": 0.3,
+      "split_recall": 0.7398,
+      "split_precision": 0.4562,
+      "union_recall": 0.2543,
+      "balanced_acc": 0.4971,
+      "wrong_splits": 695,
+      "missed_splits": 205
+    },
+    {
+      "threshold": 0.4,
+      "split_recall": 0.6396,
+      "split_precision": 0.4528,
+      "union_recall": 0.3466,
+      "balanced_acc": 0.4931,
+      "wrong_splits": 609,
+      "missed_splits": 284
+    },
+    {
+      "threshold": 0.5,
+      "split_recall": 0.5063,
+      "split_precision": 0.4524,
+      "union_recall": 0.4818,
+      "balanced_acc": 0.4941,
+      "wrong_splits": 483,
+      "missed_splits": 389
+    },
+    {
+      "threshold": 0.6,
+      "split_recall": 0.3883,
+      "split_precision": 0.4513,
+      "union_recall": 0.6009,
+      "balanced_acc": 0.4946,
+      "wrong_splits": 372,
+      "missed_splits": 482
+    },
+    {
+      "threshold": 0.7,
+      "split_recall": 0.2868,
+      "split_precision": 0.4405,
+      "union_recall": 0.6921,
+      "balanced_acc": 0.4894,
+      "wrong_splits": 287,
+      "missed_splits": 562
+    },
+    {
+      "threshold": 0.8,
+      "split_recall": 0.2157,
+      "split_precision": 0.4474,
+      "union_recall": 0.7747,
+      "balanced_acc": 0.4952,
+      "wrong_splits": 210,
+      "missed_splits": 618
+    },
+    {
+      "threshold": 0.9,
+      "split_recall": 0.1244,
+      "split_precision": 0.4016,
+      "union_recall": 0.8433,
+      "balanced_acc": 0.4839,
+      "wrong_splits": 146,
+      "missed_splits": 690
+    }
+  ],
+  "reference": "CGHD classifier reached AUC 0.72 on real masks with 0.97 in-domain accuracy; >0.85 here would be a real improvement, ~0.72 means the render domain did not close the gap.",
+  "checkpoint_provenance": "VERIFIED CONSISTENT by scripts/check_junction_checkpoint.py: best.pt reproduces val_probs.npy to 3.3e-03 and summary.json agrees within float tolerance (worst predicted-positive discrepancy 8 of 8476 = 0.09%). Trained 750 epochs on crossings_v5.npz, best balanced accuracy 0.8241 at epoch 433, in-domain AUC 0.9045. This IS the reported model, unlike the earlier out_v5.zip whose weights were a half-trained second run.",
+  "degree_stratified_AUC": {
+    "deg3": {
+      "AUC": 0.4998,
+      "n_split": 428,
+      "n_union": 535
+    },
+    "deg4": {
+      "AUC": 0.4674,
+      "n_split": 349,
+      "n_union": 380
+    },
+    "deg5plus": {
+      "AUC": 0.3409,
+      "n_split": 11,
+      "n_union": 16
+    }
+  },
+  "separation_test": {
+    "mann_whitney_two_sided_p": 0.2824,
+    "must_split_prob_mean": 0.5167,
+    "must_union_prob_mean": 0.5305,
+    "conclusion": "No separation in EITHER direction, so there is no signal to exploit even by inverting the decision."
+  },
+  "verdict": "NEGATIVE, and now conclusive. Transfer AUC across every checkpoint tried: CGHD trained on real photographs 0.596; render-trained v3 0.5094; render-trained v5 at 60 epochs 0.5231 (in-domain AUC 0.7469); render-trained v5 at 750 epochs 0.4849 (in-domain AUC 0.9045). The relationship across the three render-trained models is MONOTONE IN THE WRONG DIRECTION: raising in-domain AUC from 0.7469 to 0.9045 lowered transfer from 0.5231 to 0.4849. That is the signature of fitting render-specific artefacts, so more epochs, more capacity or more synthetic data make it worse rather than better -- 12.5x the epochs bought +0.022 in-domain balanced accuracy and -0.038 transfer AUC. The only checkpoint with any real signal is the one trained on real photographs, which is the actionable finding: what is missing is real annotated crossings, not better renders. Self-labeled synthetic renders are closed as an avenue."
+}

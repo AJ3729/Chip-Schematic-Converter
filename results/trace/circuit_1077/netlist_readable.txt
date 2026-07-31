@@ -1,0 +1,10 @@
+=== NETLIST (NO OCR VALUES) ===
+nodes derived from wire connected-components
+
+ID 00  V-AC                          raw=[6, 3]  names=['n3', '0']
+ID 01  Resistor                      raw=[1, 7]  names=['n1', 'n4']
+ID 02  GND                           raw=[3]  names=['0']
+ID 03  Resistor                      raw=[6, 1]  names=['n3', 'n1']
+ID 04  Inductor                      raw=[7, 3]  names=['n4', '0']
+ID 05  Resistor                      raw=[1, 2]  names=['n1', 'n2']
+ID 06  Capacitor                     raw=[2, 3]  names=['n2', '0']

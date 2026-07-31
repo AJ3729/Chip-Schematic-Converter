@@ -1,0 +1,18 @@
+=== NETLIST (NO OCR VALUES) ===
+nodes derived from wire connected-components
+
+ID 00  MOSFET-P                      raw=[6, 7, 8]  names=['n5', 'n6', 'n7']
+ID 01  MOSFET-N                      raw=[6, 5, 10]  names=['n5', 'n4', 'n9']
+ID 02  I-AC                          raw=[7, 11]  names=['n6', '0']
+ID 03  MOSFET-P                      raw=[1, 6, 5]  names=['n2', 'n5', 'n4']
+ID 04  MOSFET-N                      raw=[1, 4, 6]  names=['n2', 'n3', 'n5']
+ID 05  V-DC                          raw=[0, 1]  names=['n1', 'n2']
+ID 06  I-AC                          raw=[9, 11]  names=['n8', '0']
+ID 07  V-AC                          raw=[4, 11]  names=['n3', '0']
+ID 08  V-AC                          raw=[5, 11]  names=['n4', '0']
+ID 10  Resistor                      raw=[10, 8]  names=['n9', 'n7']
+ID 11  Zener Diode                   raw=[1, 5]  names=['n2', 'n4']
+ID 13  GND                           raw=[11]  names=['0']
+ID 14  MOSFET-N                      raw=[10, 4, 11]  names=['n9', 'n3', '0']
+ID 15  GND                           raw=[0]  names=['n1']
+ID 16  MOSFET-N                      raw=[8, 11, 9]  names=['n7', '0', 'n8']

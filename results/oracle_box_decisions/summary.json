@@ -1,0 +1,15 @@
+{
+  "n_scored": 53,
+  "n_skipped_too_many_boxes": 7,
+  "n_images_with_boxes": 14,
+  "tp_f1_default": 0.7072,
+  "tp_f1_perfect_box_decisions": 0.7073,
+  "tp_f1_headroom": 0.0,
+  "net_f1_default": 0.8259,
+  "net_f1_perfect": 0.8259,
+  "percomp_default": 0.4975,
+  "percomp_perfect": 0.4975,
+  "images_improved": 1,
+  "mean_boxes_per_image": 0.58,
+  "interpretation": "tp_f1_headroom is the ceiling for a per-box honour/ignore classifier, holding everything else fixed. Compare it with the +0.074 that crossover-aware currently gains over plain CC."
+}

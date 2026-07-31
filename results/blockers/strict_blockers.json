@@ -1,0 +1,45 @@
+{
+  "source": "results/benchmark_1024/seed0 (190 test images, seed 0), strict success 0.3526",
+  "question": "Strict success requires every component correct, so an image with an unmatched GT component cannot be strict no matter how good connectivity gets. Splitting the test set by that gate bounds what each stage can possibly deliver.",
+  "gate": {
+    "detection_blocked_unmatched_gt_gt0": {
+      "n": 38,
+      "strict": 0,
+      "note": "strict is IMPOSSIBLE for these until detection is fixed"
+    },
+    "detection_clean": {
+      "n": 152,
+      "strict": 67,
+      "connectivity_bound": 85
+    },
+    "connectivity_ceiling": 0.8,
+    "ceiling_note": "Fixing connectivity perfectly caps strict success at 152/190; everything above needs detection work."
+  },
+  "why_detection_blocks": {
+    "n_unmatched_components": 54,
+    "detected_but_wrong_class": {
+      "n": 41,
+      "rate": 0.759
+    },
+    "nothing_detected_there": {
+      "n": 13,
+      "rate": 0.241
+    },
+    "confusions": {
+      "MOSFET-N -> MOSFET-P": 9,
+      "MOSFET-P -> MOSFET-N": 7,
+      "Inductor -> Resistor": 7,
+      "BJT-NPN -> BJT-PNP": 3,
+      "I-AC -> I-DC": 3,
+      "Capacitor -> GND": 2
+    },
+    "images_blocked_by_exactly_one_component": 26,
+    "interpretation": "Three quarters of the blockage is CLASS CONFUSION, not missed detection: the box is present and localizes to IoU >= 0.3, only the label is wrong, and the confusions are near-symmetric visual pairs differing in one detail (arrow direction, coil versus zigzag, sine versus straight). Detection mAP is 0.9725, which averages over classes and hides this entirely -- a metric worth reporting alongside mAP."
+  },
+  "sequencing": {
+    "immediate_flips_from_fixing_class_alone": 2,
+    "images_at_precision_ge_0.8_and_blocked": 4,
+    "conclusion": "Fixing class confusion is a CEILING RAISER, not a direct win. Only 2 blocked images have connectivity clean enough (precision >= 0.9, one unmatched) to flip on a label fix alone. Its value is moving the 26 single-blocker images out of permanent exclusion, lifting the connectivity ceiling from 0.80 to roughly 0.94. That pays off only AFTER connectivity improves, so connectivity comes first."
+  },
+  "where_real_annotations_DO_pay": "The train split carries abundant real human labels for exactly these confusable classes -- 327 MOSFET-N and 314 MOSFET-P, 2206 Inductor and 3186 Resistor, 650 BJT-NPN and 483 BJT-PNP, 414 I-AC and 792 I-DC boxes over 1277 images. Unlike the crossing task this is not oracle-capped, the input is the component symbol crop rather than an ambiguous wire patch, and training on the same preprocessed frames the pipeline uses removes the mask-domain shift that sank the render classifiers."
+}

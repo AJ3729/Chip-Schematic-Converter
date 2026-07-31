@@ -1,0 +1,27 @@
+{
+  "n_images": 190,
+  "baseline": {
+    "tp_f1": 0.7669,
+    "tp_precision": 0.7828,
+    "tp_recall": 0.7828,
+    "net_f1": 0.8585,
+    "percomp": 0.5482,
+    "strict": 0.4158
+  },
+  "bridge_cut": {
+    "tp_f1": 0.7681,
+    "tp_precision": 0.7908,
+    "tp_recall": 0.7816,
+    "net_f1": 0.8571,
+    "percomp": 0.5473,
+    "strict": 0.4158
+  },
+  "weld_handling": {
+    "cut_1_arms": 272,
+    "skipped_no_finite_cut": 69,
+    "skipped_node_physically_disconnected": 52,
+    "cut_2_arms": 7,
+    "cut_3_arms": 1
+  },
+  "note": "Ground truth chooses WHICH arm to cut; the cut mask then goes through the real node assembly, snapping and scoring. This bounds bridge detection without assuming how it would be done."
+}

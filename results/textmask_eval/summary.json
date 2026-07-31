@@ -1,0 +1,12 @@
+{
+  "split": "test",
+  "n_images": 190,
+  "n_text_boxes": 1764,
+  "mean_ink_recall": 0.8541,
+  "median_ink_recall": 0.8845,
+  "boxes_fully_missed": 186,
+  "boxes_fully_missed_frac": 0.1054,
+  "images_with_any_fully_missed_box": 92,
+  "mean_wire_damage": 0.0128,
+  "mean_uncovered_text_px_per_image": 591.3
+}

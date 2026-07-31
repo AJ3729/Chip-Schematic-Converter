@@ -1,0 +1,5 @@
+config,terminal_pair_f1,net_f1,per_component_acc,fragmentation
+DEFAULT (baseline),0.6135,0.7434,0.4855,1.345
+nodes.vector.collinear_deg=0,0.6385,0.7639,0.5546,1.333
+nodes.vector.link_gap=20,0.6135,0.7434,0.4855,1.345
+nodes.method=crossover,0.6795,0.7993,0.5328,1.25

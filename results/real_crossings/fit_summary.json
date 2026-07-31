@@ -1,0 +1,31 @@
+{
+  "n_sites": 4822,
+  "n_images": 190,
+  "methodology": "Verified GT exists only for the test split, so there is no clean held-out set; the combined model is image-grouped cross-validated. Per-feature AUCs require no fitting and are contamination-free.",
+  "grouped_cv_auc": 0.6645,
+  "per_feature_auc": {
+    "dot_ratio": 0.5017,
+    "degree": 0.5676,
+    "straightness": 0.4302,
+    "n_collinear": 0.5633,
+    "angle_min_gap": 0.461,
+    "d_xover_box": 0.4648,
+    "d_comp_box": 0.612,
+    "local_ink": 0.5193
+  },
+  "coefficients": {
+    "dot_ratio": 0.1499,
+    "degree": 0.478,
+    "straightness": -0.0273,
+    "n_collinear": 0.0731,
+    "angle_min_gap": 0.0182,
+    "d_xover_box": -0.3238,
+    "d_comp_box": 0.3361,
+    "local_ink": -0.5161
+  },
+  "baselines": {
+    "render_cnn_750ep": 0.4849,
+    "render_cnn_v3": 0.5094,
+    "cghd_cnn_real_photos": 0.596
+  }
+}

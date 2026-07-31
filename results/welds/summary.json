@@ -1,0 +1,12 @@
+{
+  "images": 25,
+  "welded_nodes": 93,
+  "single_intersection_cut_exists": 80,
+  "single_cut_share": 0.8602,
+  "no_single_cut_share": 0.1398,
+  "cut_site_degrees": {
+    "single_cut_deg3": 33,
+    "single_cut_deg4": 47
+  },
+  "interpretation": "single_cut_share is the ceiling for ANY intersection-splitting method: welds without a single cutting site cannot be repaired by one split, however well crossings are classified."
+}

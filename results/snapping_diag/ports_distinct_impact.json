@@ -1,0 +1,198 @@
+{
+  "change": "ports.match_ports now assigns ports to DISTINCT wire nodes instead of to boundary runs, so one net crossing the boundary several times can no longer win several pins.",
+  "oracle_modes": {
+    "A": {
+      "tp_f1": {
+        "old": 0.7305408230106004,
+        "new": 0.7299800171190121,
+        "delta": -0.0006
+      },
+      "net_f1": {
+        "old": 0.8207180664684078,
+        "new": 0.82074352221441,
+        "delta": 0.0
+      },
+      "percomp": {
+        "old": 0.5979056265601663,
+        "new": 0.5938752877840648,
+        "delta": -0.004
+      }
+    },
+    "B": {
+      "tp_f1": {
+        "old": 0.775946454132235,
+        "new": 0.7756885259431425,
+        "delta": -0.0003
+      },
+      "net_f1": {
+        "old": 0.8444632364720884,
+        "new": 0.8443603260086882,
+        "delta": -0.0001
+      },
+      "percomp": {
+        "old": 0.6654270778887774,
+        "new": 0.6565944792256703,
+        "delta": -0.0088
+      }
+    },
+    "C": {
+      "tp_f1": {
+        "old": 0.9541039486280275,
+        "new": 0.9988709135712336,
+        "delta": 0.0448
+      },
+      "net_f1": {
+        "old": 0.9690400819840721,
+        "new": 0.999614226552719,
+        "delta": 0.0306
+      },
+      "percomp": {
+        "old": 0.8675422816082359,
+        "new": 0.9971751412429378,
+        "delta": 0.1296
+      }
+    },
+    "D": {
+      "tp_f1": {
+        "old": 1.0,
+        "new": 1.0,
+        "delta": 0.0
+      },
+      "net_f1": {
+        "old": 1.0,
+        "new": 1.0,
+        "delta": 0.0
+      },
+      "percomp": {
+        "old": 1.0,
+        "new": 1.0,
+        "delta": 0.0
+      }
+    }
+  },
+  "snapping_headroom_percomp": {
+    "old": 0.1325,
+    "new": 0.0028
+  },
+  "images_changed_mode_B": 14,
+  "images_total": 190,
+  "bucket_summary": {
+    "hopeless_lt0.5": {
+      "n_images": 10,
+      "sum_percomp_delta": -1.9119
+    },
+    "mid_0.5_0.9": {
+      "n_images": 4,
+      "sum_percomp_delta": 0.4319
+    },
+    "near_perfect_ge0.9": {
+      "n_images": 0,
+      "sum_percomp_delta": 0.0
+    }
+  },
+  "images_at_tp_f1_1.0_mode_B": {
+    "old": 80,
+    "new": 80
+  },
+  "interpretation": "Mode C, where connectivity is perfect, is the condition that isolates snapping: per-component accuracy there rises 0.8675 -> 0.9972 and the attributed snapping headroom collapses 0.1325 -> 0.0028, so duplicate-node collapse WAS essentially the whole of it. Mean per-component accuracy in modes A and B falls slightly (-0.0040 / -0.0088), and that fall is entirely inside images whose terminal-pair F1 is below 0.5. On those, the pipeline has welded most of the drawing into one node, which makes every GT terminal-pair vacuously present and per-component accuracy read 1.0 at a terminal-pair F1 of 0.25; spreading pins across distinct nodes breaks that vacuous containment. No image at terminal-pair F1 >= 0.9 changed at all, and the count of images at F1 == 1.0 is 80 before and after, so strict success cannot move down. Mid-range images (0.5-0.9) net IMPROVED by +0.43. This is also independent evidence for the over-merge-sensitive per-component metric that is still outstanding: a metric that scores 1.0 on a prediction welding the whole page into one net is not measuring what it claims to.",
+  "per_image_changed": [
+    {
+      "image": "circuit_595.jpg",
+      "B_percomp_old": 1.0,
+      "B_percomp_new": 0.6428571428571429,
+      "B_tp_f1_old": 0.22727272727272727,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_910.jpg",
+      "B_percomp_old": 0.21428571428571427,
+      "B_percomp_new": 0.5,
+      "B_tp_f1_old": 0.24749163879598662,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_187.jpg",
+      "B_percomp_old": 1.0,
+      "B_percomp_new": 0.14285714285714285,
+      "B_tp_f1_old": 0.27507163323782235,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_972.jpg",
+      "B_percomp_old": 0.08333333333333333,
+      "B_percomp_new": 0.041666666666666664,
+      "B_tp_f1_old": 0.28070175438596495,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_394.jpg",
+      "B_percomp_old": 0.35714285714285715,
+      "B_percomp_new": 0.14285714285714285,
+      "B_tp_f1_old": 0.3092783505154639,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_836.jpg",
+      "B_percomp_old": 1.0,
+      "B_percomp_new": 0.5,
+      "B_tp_f1_old": 0.3127035830618892,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_1134.jpg",
+      "B_percomp_old": 1.0,
+      "B_percomp_new": 0.7142857142857143,
+      "B_tp_f1_old": 0.31683168316831684,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_113.jpg",
+      "B_percomp_old": 0.16666666666666666,
+      "B_percomp_new": 0.20833333333333334,
+      "B_tp_f1_old": 0.3356643356643356,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_613.jpg",
+      "B_percomp_old": 0.16666666666666666,
+      "B_percomp_new": 0.25,
+      "B_tp_f1_old": 0.34615384615384615,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_563.jpg",
+      "B_percomp_old": 0.06666666666666667,
+      "B_percomp_new": 0.0,
+      "B_tp_f1_old": 0.4487179487179487,
+      "bucket": "hopeless_lt0.5"
+    },
+    {
+      "image": "circuit_869.jpg",
+      "B_percomp_old": 0.0,
+      "B_percomp_new": 0.2857142857142857,
+      "B_tp_f1_old": 0.5714285714285715,
+      "bucket": "mid_0.5_0.9"
+    },
+    {
+      "image": "circuit_588.jpg",
+      "B_percomp_old": 0.46153846153846156,
+      "B_percomp_new": 0.3076923076923077,
+      "B_tp_f1_old": 0.5864661654135339,
+      "bucket": "mid_0.5_0.9"
+    },
+    {
+      "image": "circuit_427.jpg",
+      "B_percomp_old": 0.3,
+      "B_percomp_new": 0.4,
+      "B_tp_f1_old": 0.8125000000000001,
+      "bucket": "mid_0.5_0.9"
+    },
+    {
+      "image": "circuit_193.jpg",
+      "B_percomp_old": 0.5,
+      "B_percomp_new": 0.7,
+      "B_tp_f1_old": 0.8771929824561404,
+      "bucket": "mid_0.5_0.9"
+    }
+  ]
+}

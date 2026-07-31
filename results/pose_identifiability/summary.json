@@ -1,0 +1,92 @@
+{
+  "n_components": 1944,
+  "chosen_order_correct": 0.713,
+  "no_correct_pose_exists": 128,
+  "tied_within_0.02_diag": 0.2744,
+  "by_class": {
+    "V-AC": {
+      "n": 95,
+      "order_correct": 1.0,
+      "tied_rate": 0.0,
+      "median_gap_frac": -0.2839
+    },
+    "MOSFET-N": {
+      "n": 54,
+      "order_correct": 0.0,
+      "tied_rate": 0.0,
+      "median_gap_frac": 0.0921
+    },
+    "I-AC": {
+      "n": 69,
+      "order_correct": 1.0,
+      "tied_rate": 0.0,
+      "median_gap_frac": -0.279
+    },
+    "MOSFET-P": {
+      "n": 44,
+      "order_correct": 0.0455,
+      "tied_rate": 0.5,
+      "median_gap_frac": 0.0158
+    },
+    "V-DC": {
+      "n": 146,
+      "order_correct": 0.3973,
+      "tied_rate": 1.0,
+      "median_gap_frac": 0.0001
+    },
+    "Resistor": {
+      "n": 409,
+      "order_correct": 1.0,
+      "tied_rate": 0.0,
+      "median_gap_frac": -0.2321
+    },
+    "Zener Diode": {
+      "n": 78,
+      "order_correct": 0.141,
+      "tied_rate": 1.0,
+      "median_gap_frac": 0.0016
+    },
+    "Capacitor": {
+      "n": 284,
+      "order_correct": 0.9965,
+      "tied_rate": 0.0036,
+      "median_gap_frac": -0.2126
+    },
+    "I-DC": {
+      "n": 103,
+      "order_correct": 0.2913,
+      "tied_rate": 1.0,
+      "median_gap_frac": 0.0001
+    },
+    "Inductor": {
+      "n": 295,
+      "order_correct": 1.0,
+      "tied_rate": 0.0,
+      "median_gap_frac": -0.2384
+    },
+    "Op-Amp": {
+      "n": 66,
+      "order_correct": 0.0758,
+      "tied_rate": 0.2069,
+      "median_gap_frac": 0.0638
+    },
+    "BJT-PNP": {
+      "n": 69,
+      "order_correct": 0.0,
+      "tied_rate": 0.0952,
+      "median_gap_frac": 0.0898
+    },
+    "Diode": {
+      "n": 137,
+      "order_correct": 0.9343,
+      "tied_rate": 1.0,
+      "median_gap_frac": -0.0013
+    },
+    "BJT-NPN": {
+      "n": 95,
+      "order_correct": 0.0105,
+      "tied_rate": 0.0426,
+      "median_gap_frac": 0.1368
+    }
+  }
+}

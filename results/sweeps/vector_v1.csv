@@ -1,0 +1,7 @@
+config,terminal_pair_f1,net_f1,per_component_acc,fragmentation
+DEFAULT (baseline),0.5984,0.7318,0.469,1.385
+nodes.vector.dot_ratio=2.2,0.5371,0.6919,0.3557,1.462
+nodes.vector.dot_ratio=3.0,0.5273,0.6931,0.3114,1.462
+nodes.vector.dot_ratio=99,0.5411,0.706,0.3101,1.462
+nodes.vector.collinear_deg=45,0.5937,0.7302,0.4274,1.392
+nodes.method=crossover,0.6795,0.7993,0.5328,1.25

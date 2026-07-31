@@ -1,0 +1,78 @@
+{
+  "weights": "experiments/junction/synth128_gpu/best.pt",
+  "n_images": 25,
+  "n_sites_scored": 773,
+  "n_must_split": 299,
+  "n_must_union": 474,
+  "skipped": {
+    "node_carries_no_gt_terminal": 71,
+    "site_off_any_node": 38
+  },
+  "AUC": 0.5094,
+  "threshold_sweep": [
+    {
+      "threshold": 0.3,
+      "split_recall": 0.7191,
+      "split_precision": 0.4041,
+      "union_recall": 0.3312,
+      "balanced_acc": 0.5251,
+      "wrong_splits": 317,
+      "missed_splits": 84
+    },
+    {
+      "threshold": 0.4,
+      "split_recall": 0.6254,
+      "split_precision": 0.3979,
+      "union_recall": 0.403,
+      "balanced_acc": 0.5142,
+      "wrong_splits": 283,
+      "missed_splits": 112
+    },
+    {
+      "threshold": 0.5,
+      "split_recall": 0.5485,
+      "split_precision": 0.3942,
+      "union_recall": 0.4684,
+      "balanced_acc": 0.5084,
+      "wrong_splits": 252,
+      "missed_splits": 135
+    },
+    {
+      "threshold": 0.6,
+      "split_recall": 0.4415,
+      "split_precision": 0.3837,
+      "union_recall": 0.5527,
+      "balanced_acc": 0.4971,
+      "wrong_splits": 212,
+      "missed_splits": 167
+    },
+    {
+      "threshold": 0.7,
+      "split_recall": 0.3211,
+      "split_precision": 0.3623,
+      "union_recall": 0.6435,
+      "balanced_acc": 0.4823,
+      "wrong_splits": 169,
+      "missed_splits": 203
+    },
+    {
+      "threshold": 0.8,
+      "split_recall": 0.214,
+      "split_precision": 0.3536,
+      "union_recall": 0.7532,
+      "balanced_acc": 0.4836,
+      "wrong_splits": 117,
+      "missed_splits": 235
+    },
+    {
+      "threshold": 0.9,
+      "split_recall": 0.1137,
+      "split_precision": 0.3366,
+      "union_recall": 0.8586,
+      "balanced_acc": 0.4862,
+      "wrong_splits": 67,
+      "missed_splits": 265
+    }
+  ],
+  "reference": "CGHD classifier reached AUC 0.72 on real masks with 0.97 in-domain accuracy; >0.85 here would be a real improvement, ~0.72 means the render domain did not close the gap."
+}

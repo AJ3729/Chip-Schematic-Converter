@@ -1,0 +1,124 @@
+{
+  "mode": "oracle C (GT boxes + GT-rendered connectivity)",
+  "n_images_scored": 177,
+  "n_components": 2303,
+  "per_component_exact_ordered": 0.7568,
+  "per_component_set_correct": 0.9983,
+  "component_kind": {
+    "exact_ordered": 1743,
+    "permutation_only": 558,
+    "set_wrong": 2
+  },
+  "component_kind_rates": {
+    "exact_ordered": 0.7568,
+    "permutation_only": 0.2423,
+    "set_wrong": 0.0009
+  },
+  "set_wrong_rate_by_n_terminals": {
+    "1": 0.0057,
+    "2": 0.0006,
+    "3": 0.003
+  },
+  "note": "Only set_wrong is per-component headroom; canonicalize_terminals makes permutation_only invisible to every benchmark number, though it still corrupts SPICE pin order for directional devices.",
+  "n_terminals_scored": 4580,
+  "verdicts": {
+    "ok": 3287,
+    "swapped": 1291,
+    "gt_null": 2,
+    "wrong_net": 2
+  },
+  "verdict_rates": {
+    "ok": 0.7177,
+    "swapped": 0.2819,
+    "wrong_net": 0.0004
+  },
+  "by_n_terminals": {
+    "2": {
+      "ok": 2765,
+      "swapped": 476,
+      "gt_null": 1
+    },
+    "3": {
+      "swapped": 815,
+      "ok": 171,
+      "gt_null": 1
+    },
+    "1": {
+      "ok": 351,
+      "wrong_net": 2
+    }
+  },
+  "node_count_mismatch": {
+    "under (saw 2, want 3)": 7,
+    "under (saw 1, want 2)": 5,
+    "over (saw 3, want 2)": 11,
+    "over (saw 2, want 1)": 2
+  },
+  "pose_used": {
+    "template": 2043,
+    "fallback": 260
+  },
+  "by_class": {
+    "V-AC": {
+      "ok": 190
+    },
+    "MOSFET-N": {
+      "swapped": 157,
+      "ok": 5
+    },
+    "I-AC": {
+      "ok": 138
+    },
+    "MOSFET-P": {
+      "swapped": 94,
+      "ok": 38
+    },
+    "GND": {
+      "ok": 258,
+      "wrong_net": 2
+    },
+    "V-DC": {
+      "ok": 116,
+      "swapped": 176
+    },
+    "Resistor": {
+      "ok": 818
+    },
+    "Zener Diode": {
+      "swapped": 134,
+      "ok": 22
+    },
+    "Capacitor": {
+      "ok": 569,
+      "gt_null": 1,
+      "swapped": 2
+    },
+    "I-DC": {
+      "swapped": 146,
+      "ok": 66
+    },
+    "Inductor": {
+      "ok": 590
+    },
+    "Op-Amp": {
+      "swapped": 159,
+      "ok": 41,
+      "gt_null": 1
+    },
+    "BJT-PNP": {
+      "ok": 66,
+      "swapped": 141
+    },
+    "Diode": {
+      "ok": 256,
+      "swapped": 18
+    },
+    "BJT-NPN": {
+      "swapped": 264,
+      "ok": 21
+    },
+    "V-DC (one port)": {
+      "ok": 93
+    }
+  }
+}

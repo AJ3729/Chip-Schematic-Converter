@@ -1,0 +1,719 @@
+[
+  {
+    "sid": "input",
+    "title": "Input image",
+    "what": "Read from <code>data/cleaned_1024/circuit_437.jpg</code>.",
+    "image": "00_input.png",
+    "sources": [
+      "[native] ?.imread()"
+    ],
+    "keys": [],
+    "stats": {
+      "shape": "1024x1024"
+    },
+    "note": "If this is already a cleaned 1024 px frame, the preprocessing stages below are near no-ops. Pass --raw to trace a real photo."
+  },
+  {
+    "sid": "skew",
+    "title": "1. Skew estimation",
+    "what": "Length-weighted median of Hough segments folded mod 90 gives <b>+0.000&deg;</b>. Rejected outright if |angle| exceeds <code>max_skew_deg</code>.",
+    "image": "01_skew.png",
+    "sources": [
+      "src/schematic2netlist/preprocess.py:121  _estimate_skew()"
+    ],
+    "keys": [
+      [
+        "preprocess.hough_min_line_frac",
+        0.06
+      ],
+      [
+        "preprocess.hough_threshold",
+        80
+      ],
+      [
+        "preprocess.hough_max_gap",
+        6
+      ],
+      [
+        "preprocess.max_skew_deg",
+        20.0
+      ],
+      [
+        "preprocess.blur_kernel",
+        3
+      ]
+    ],
+    "stats": {
+      "angle_deg": 0.0,
+      "ink_px": 30096
+    },
+    "note": "A wrong angle here rotates every downstream coordinate. If the estimate is 0.000 on a visibly skewed page, Hough found too few long segments -- lower hough_min_line_frac."
+  },
+  {
+    "sid": "specks",
+    "title": "2. Speck removal",
+    "what": "A blob survives on area <b>OR</b> extent, so hairline strokes are kept where a pure area rule would delete them. Red = removed.",
+    "image": "02_specks.png",
+    "sources": [
+      "src/schematic2netlist/preprocess.py:174  _remove_specks()"
+    ],
+    "keys": [
+      [
+        "preprocess.remove_specks",
+        true
+      ],
+      [
+        "preprocess.speck_min_area",
+        40
+      ],
+      [
+        "preprocess.speck_min_extent",
+        12
+      ]
+    ],
+    "stats": {
+      "removed_px": 28
+    },
+    "note": "Red on an actual wire means speck_min_area/extent are too aggressive; that ink is gone for the rest of the pipeline."
+  },
+  {
+    "sid": "preprocess",
+    "title": "3. Deskew, shadow-normalise, crop, scale",
+    "what": "Rotated +0.00&deg;, cropped to <code>[3, 146, 1018, 738]</code>, scaled &times;1.0059 onto a 1024 px canvas.",
+    "image": "03_preprocess.png",
+    "sources": [
+      "src/schematic2netlist/preprocess.py:195  preprocess_image_meta()",
+      "src/schematic2netlist/preprocess.py:62  project_point()",
+      "src/schematic2netlist/preprocess.py:102  project_bbox()"
+    ],
+    "keys": [
+      [
+        "preprocess.target_size",
+        1024
+      ],
+      [
+        "preprocess.crop_pad",
+        12
+      ],
+      [
+        "preprocess.crop_pad_frac",
+        0.02
+      ],
+      [
+        "preprocess.shadow_std_threshold",
+        18
+      ],
+      [
+        "preprocess.shadow_dilate_kernel",
+        7
+      ],
+      [
+        "preprocess.landscape_ratio",
+        1.05
+      ]
+    ],
+    "stats": {
+      "angle_deg": 0.0,
+      "scale": 1.005893909626719,
+      "rotated90": false,
+      "target_size": 1024
+    },
+    "note": "meta{} here is what project_point/unproject_point use to move GT boxes and text annotations between the photo and this canvas. If GT boxes look offset downstream, suspect this transform."
+  },
+  {
+    "sid": "detect",
+    "title": "4. Component detection",
+    "what": "17 boxes from cache <code>data/detections_1024/circuit_437.json</code>, filtered at <code>confidence &ge; 0.4</code>.",
+    "image": "04_detect.png",
+    "sources": [
+      "src/schematic2netlist/detect.py:54  load_cached_detections()",
+      "src/schematic2netlist/nodes.py:362  bbox_xyxy()"
+    ],
+    "keys": [
+      [
+        "detect.backend",
+        "ultralytics"
+      ],
+      [
+        "detect.weights",
+        "/Users/junaidahmed/Documents/Chip-Schematic-Converter/experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt"
+      ],
+      [
+        "detect.confidence",
+        0.4
+      ],
+      [
+        "detect.image_size",
+        640
+      ],
+      [
+        "detect.cache_dir",
+        "data/detections_1024"
+      ]
+    ],
+    "stats": {
+      "GND": 1,
+      "I-AC": 2,
+      "I-DC": 1,
+      "MOSFET-N": 5,
+      "MOSFET-P": 1,
+      "Resistor": 1,
+      "V-AC": 2,
+      "V-DC": 1,
+      "Wire Crossover": 2,
+      "Zener Diode": 1
+    },
+    "note": "A WRONG CLASS here is the single largest remaining detection error source: the GT-class oracle is +0.0211 strict success. A spurious box is worse than a miss -- it blanks its own ink in the next stage and can sever a net."
+  },
+  {
+    "sid": "partition",
+    "title": "5. Text/component partition",
+    "what": "0 'Text' detections are mask evidence, never components; 17 remain as components. With a 17-class cache this is a no-op.",
+    "image": null,
+    "sources": [
+      "src/schematic2netlist/pipeline.py  run_pipeline() text_dets partition"
+    ],
+    "keys": [],
+    "stats": {
+      "text_dets": 0,
+      "component_dets": 17
+    },
+    "note": "If Text boxes reached component building they would inflate benchmark alignment and be scored as circuit elements."
+  },
+  {
+    "sid": "textmask",
+    "title": "6. Handwriting mask",
+    "what": "Adaptive-threshold connected components filtered by area, aspect and size \u2014 labels like &quot;10k&quot; are not conductors.",
+    "image": "06_textmask.png",
+    "sources": [
+      "src/schematic2netlist/textmask.py:17  detect_text_mask()"
+    ],
+    "keys": [
+      [
+        "textmask.enabled",
+        true
+      ],
+      [
+        "textmask.adaptive_block_size",
+        63
+      ],
+      [
+        "textmask.adaptive_c",
+        10
+      ],
+      [
+        "textmask.dilate_kernel",
+        6
+      ],
+      [
+        "textmask.min_area",
+        80
+      ],
+      [
+        "textmask.max_area",
+        10000
+      ],
+      [
+        "textmask.min_aspect",
+        0.2
+      ],
+      [
+        "textmask.max_aspect",
+        6.0
+      ]
+    ],
+    "stats": {
+      "masked_px": 12079,
+      "frac_of_frame": 0.01152
+    },
+    "note": "dilate_kernel is 6, an EVEN size, so OpenCV anchors it off-centre and the mask is offset by half a pixel on both axes. Blue covering a wire means that wire is about to be deleted."
+  },
+  {
+    "sid": "nonwire",
+    "title": "7. Non-wire mask",
+    "what": "Component boxes (padded by <code>component_mask_pad</code>) unioned with the handwriting mask. Everything red is removed from the ink.",
+    "image": "07_nonwire.png",
+    "sources": [
+      "src/schematic2netlist/wires.py:17  build_non_wire_mask()"
+    ],
+    "keys": [
+      [
+        "wires.component_mask_pad",
+        0
+      ],
+      [
+        "wires.non_wire_classes",
+        [
+          "Resistor",
+          "Capacitor",
+          "Inductor",
+          "Diode",
+          "Zener Diode",
+          "GND",
+          "V-DC",
+          "V-DC (one port)",
+          "V-AC",
+          "I-DC",
+          "I-AC",
+          "MOSFET-N",
+          "MOSFET-P",
+          "BJT-NPN",
+          "BJT-PNP",
+          "Op-Amp"
+        ]
+      ]
+    ],
+    "stats": {
+      "masked_px": 87141
+    },
+    "note": "component_mask_pad is 0 deliberately: at 8 it erased the wire pixels immediately next to every component -- exactly the terminals snapping then has to find -- and cost 0.163 strict success on its own. Wire Crossover is absent from non_wire_classes because masking it would sever the crossing."
+  },
+  {
+    "sid": "ink",
+    "title": "8. Ink binarisation",
+    "what": "Otsu on the masked frame. C2: the ink itself, not Canny edges \u2014 an edge detector turns one pen stroke into TWO parallel lines with a hollow gap that morphology then has to glue back together.",
+    "image": "08_ink.png",
+    "sources": [
+      "src/schematic2netlist/wires.py:416  extract_wires_ink()",
+      "src/schematic2netlist/wires.py:445  extract_wires()"
+    ],
+    "keys": [
+      [
+        "wires.method",
+        "ink"
+      ]
+    ],
+    "stats": {
+      "ink_px": 15222
+    },
+    "note": "Speckle here means the frame has low contrast; Otsu is global."
+  },
+  {
+    "sid": "bridge",
+    "title": "9. Gap bridging",
+    "what": "Line-kernel closings join stroke fragments across pen lifts. Components 21 &rarr; 13. <b>Magenta = pixels this stage invented.</b>",
+    "image": "09_bridge.png",
+    "sources": [
+      "src/schematic2netlist/wires.py:312  _bridge_collinear()",
+      "src/schematic2netlist/wires.py:211  _line_kernel()",
+      "src/schematic2netlist/wires.py:241  _oriented_ink()",
+      "src/schematic2netlist/wires.py:258  _bridge_guarded()"
+    ],
+    "keys": [
+      [
+        "wires.bridge_span",
+        7
+      ],
+      [
+        "wires.bridge_mode",
+        "<absent>"
+      ],
+      [
+        "wires.bridge_odd_kernel",
+        "<absent>"
+      ],
+      [
+        "wires.bridge_run",
+        "<absent>"
+      ],
+      [
+        "wires.bridge_thick",
+        "<absent>"
+      ]
+    ],
+    "stats": {
+      "added_px": 808,
+      "deleted_px": 0,
+      "cc_before": 21,
+      "cc_after": 13
+    },
+    "note": "THE STAGE TO SUSPECT FIRST FOR WELDED NETS. A horizontal closing bridges horizontal gaps between ANY ink, so two side-by-side VERTICAL rails closer than bridge_span fuse into one conductor. That is why the span is 7 and not the 18 it shipped with. If deleted_px is non-zero the kernel is even-length and the closing is destroying ink (bridge_odd_kernel)."
+  },
+  {
+    "sid": "filter",
+    "title": "10. Noise-blob filter",
+    "what": "A blob survives on area <b>OR</b> extent \u2014 a hairline wire has small area but large extent, and an area-only rule shatters nets. <b>Red = dropped.</b>",
+    "image": "10_filter.png",
+    "sources": [
+      "src/schematic2netlist/wires.py:396  _filter_blobs()"
+    ],
+    "keys": [
+      [
+        "wires.min_blob_area",
+        80
+      ],
+      [
+        "wires.min_blob_extent",
+        30
+      ]
+    ],
+    "stats": {
+      "dropped_px": 0,
+      "kept_px": 16030
+    },
+    "note": "Measured harmless: across 40 frames this drops 20 blobs / 623 px and NONE of them bridged two surviving components."
+  },
+  {
+    "sid": "stitch",
+    "title": "11. Stitching across self-inflicted holes",
+    "what": "Reconnects islands separated by regions OUR OWN masking deleted \u2014 text boxes and component pad rings, never a component body. Collinearity is required on both endpoints.",
+    "image": "11_stitch.png",
+    "sources": [
+      "src/schematic2netlist/wires.py:109  stitch_wire_islands()",
+      "src/schematic2netlist/wires.py:48  stitchable_mask()",
+      "src/schematic2netlist/wires.py:97  _local_direction()"
+    ],
+    "keys": [
+      [
+        "wires.stitch_masked_gaps",
+        true
+      ],
+      [
+        "wires.stitch_max_gap",
+        120
+      ],
+      [
+        "wires.stitch_angle_tol_deg",
+        35
+      ],
+      [
+        "wires.stitch_min_inside_frac",
+        0.75
+      ],
+      [
+        "wires.stitch_dir_radius",
+        14
+      ],
+      [
+        "wires.stitch_passes",
+        2
+      ]
+    ],
+    "stats": {
+      "added_px": 0,
+      "stitchable_px": 10765
+    },
+    "note": "CURRENTLY INERT: with component_mask_pad=0 the pad ring is empty, so only text boxes are stitchable. Turning this off changes every topology metric by exactly 0.0000. It solved a self-inflicted problem that was later fixed at the source."
+  },
+  {
+    "sid": "skeleton",
+    "title": "12. Skeleton and intersection sites",
+    "what": "Thinned centreline (black) with 50 branch sites (magenta, labelled by degree). This is where a crossing decision would be made.",
+    "image": "12_skeleton.png",
+    "sources": [
+      "src/schematic2netlist/skeleton.py:28  thin()",
+      "src/schematic2netlist/skeleton.py:62  intersection_sites_with_degree()",
+      "src/schematic2netlist/skeleton.py:93  crop_site()"
+    ],
+    "keys": [],
+    "stats": {
+      "skeleton_px": 5515,
+      "sites": 50
+    },
+    "note": "A degree-4 site is a crossing OR a junction and the image cannot reliably tell which: six approaches on 4822 causally-labelled sites top out at 0.659 AUC, and giving the pipeline PERFECT crossover boxes makes strict success WORSE. Do not spend effort here."
+  },
+  {
+    "sid": "cc",
+    "title": "13. Connected components (the baseline)",
+    "what": "13 regions by plain 8-connectivity. Every crossing is welded here \u2014 this is the arrangement crossover handling has to improve on.",
+    "image": "13_cc.png",
+    "sources": [
+      "src/schematic2netlist/nodes.py:15  build_wire_nodes()"
+    ],
+    "keys": [
+      [
+        "nodes.connectivity",
+        8
+      ]
+    ],
+    "stats": {
+      "nodes": 13
+    },
+    "note": "72.6% of wire nodes carrying component terminals fuse two or more GT nets at this point."
+  },
+  {
+    "sid": "nodes",
+    "title": "14. Net assembly (crossover)",
+    "what": "15 electrical nets, one colour each. At each detected <b>Wire Crossover</b> box (magenta, 2 here) the wires are notched apart and opposite arms reconnected, so a crossing does not weld two nets.",
+    "image": "14_nodes.png",
+    "sources": [
+      "src/schematic2netlist/nodes.py:69  build_wire_nodes_crossover_aware()",
+      "src/schematic2netlist/nodes.py:46  _edge_label()"
+    ],
+    "keys": [
+      [
+        "nodes.method",
+        "crossover"
+      ],
+      [
+        "nodes.handle_crossovers",
+        true
+      ],
+      [
+        "nodes.relink",
+        "band"
+      ],
+      [
+        "nodes.connectivity",
+        8
+      ],
+      [
+        "nodes.junction_site_box",
+        30
+      ]
+    ],
+    "stats": {
+      "nodes": 15,
+      "vs_plain_cc": "13 -> 15",
+      "crossover_boxes": 2
+    },
+    "note": "relink='angle' samples a ring and pairs the most-opposite arms by measured direction; 'band' votes in four fixed strips at the box edges and is placement-dependent -- a 2 px box shift once took terminal-pair F1 from 1.000 to 0.523."
+  },
+  {
+    "sid": "snap",
+    "title": "15. Terminal snapping (port identity)",
+    "what": "Each component's pins are matched to nets. C3 assigns over DISTINCT NODES by Hungarian, not over boundary runs \u2014 the bug that fix removed was worth +0.133 per-component accuracy on its own. Yellow = snapped, red = unsnapped (0).",
+    "image": "15_snap.png",
+    "sources": [
+      "src/schematic2netlist/snapping.py:250  build_component_pin_nets()",
+      "src/schematic2netlist/snapping.py:213  snap_ports()",
+      "src/schematic2netlist/ports.py:89  match_ports()",
+      "src/schematic2netlist/ports.py:73  predicted_sites()",
+      "[native] schematic2netlist.ports.load_templates()",
+      "src/schematic2netlist/snapping.py:78  find_ground_node()",
+      "src/schematic2netlist/snapping.py:146  _boundary_run_sites()"
+    ],
+    "keys": [
+      [
+        "snapping.strategy",
+        "ports"
+      ],
+      [
+        "snapping.max_expand",
+        80
+      ],
+      [
+        "snapping.window_depth",
+        8
+      ],
+      [
+        "snapping.expand_step",
+        4
+      ],
+      [
+        "snapping.ground_max_expand",
+        80
+      ]
+    ],
+    "stats": {
+      "components": 15,
+      "port_sites": 0,
+      "unsnapped_terminals": 0
+    },
+    "note": "A red dot means no net was found within max_expand of that pin. Either the wire ink next to it was masked away (see stage 7) or the drawing genuinely leaves it floating."
+  },
+  {
+    "sid": "connrepair",
+    "title": "16. Constraint-triggered connectivity repair",
+    "what": "Acts only where an ELECTRICAL fact makes the answer impossible: a component with every pin on one net (0.60% in GT), or a net with a single terminal (0.00% \u2014 0 of 1509). Magenta = ink added, red = erased body band.",
+    "image": "16_connrepair.png",
+    "sources": [
+      "src/schematic2netlist/connectivity_repair.py:130  repair_connectivity()",
+      "src/schematic2netlist/connectivity_repair.py:63  find_violations()",
+      "src/schematic2netlist/connectivity_repair.py:83  _erase_body()",
+      "src/schematic2netlist/connectivity_repair.py:95  _bridge_fragment()"
+    ],
+    "keys": [
+      [
+        "connectivity_repair.enabled",
+        true
+      ],
+      [
+        "connectivity_repair.passes",
+        2
+      ],
+      [
+        "connectivity_repair.body_frac",
+        0.5
+      ],
+      [
+        "connectivity_repair.max_gap",
+        60
+      ],
+      [
+        "connectivity_repair.dir_tol_deg",
+        40
+      ]
+    ],
+    "stats": {
+      "self_shorted_components": 0,
+      "one_terminal_nets": 0
+    },
+    "note": "Worth +0.0211 strict success (4 gained, 0 lost) and it COMPOUNDS with connectivity work: the identical repair on the older wire settings gained only half as much, because strict success is a product over components."
+  },
+  {
+    "sid": "naming",
+    "title": "17. Node naming and ground selection",
+    "what": "Nets are named, and one is chosen as ground (node 0) \u2014 SPICE cannot solve without a reference.",
+    "image": null,
+    "sources": [
+      "src/schematic2netlist/netlist.py:40  build_node_name_map()",
+      "src/schematic2netlist/netlist.py:94  assign_node_names()"
+    ],
+    "keys": [
+      [
+        "netlist.ground_fallback",
+        "most_connected"
+      ]
+    ],
+    "stats": {
+      "named_nets": 10,
+      "ground_node": 0
+    },
+    "note": "ground_fallback='most_connected' picks the busiest net when no GND symbol was detected. 'fail' refuses instead, which is the v2 behaviour and an ablation axis."
+  },
+  {
+    "sid": "spice",
+    "title": "18. SPICE netlist",
+    "what": "Written to <code>results/trace/circuit_437/netlist.sp</code>; the repaired variant, with the repair layer's extra lines appended verbatim under a banner, is <code>results/trace/circuit_437/netlist_repaired.sp</code>.",
+    "image": null,
+    "sources": [
+      "src/schematic2netlist/netlist.py:154  export_spice_netlist()",
+      "src/schematic2netlist/netlist.py:104  export_readable_netlist()"
+    ],
+    "keys": [
+      [
+        "netlist.placeholders",
+        {
+          "resistor": "1k",
+          "capacitor": "1u",
+          "inductor": "1m",
+          "dc_supply": "DC 5",
+          "ac_supply": "AC 1",
+          "dc_current": "DC 1m",
+          "ac_current": "AC 1m",
+          "diode_model": "Ddefault",
+          "zener_model": "Zdefault",
+          "mosfet_model": "NMOS"
+        }
+      ],
+      [
+        "netlist.ground_fallback",
+        "most_connected"
+      ]
+    ],
+    "stats": {
+      "lines": 22,
+      "wrote_any": true
+    },
+    "note": "Values are PLACEHOLDERS. The dataset ships real transcribed values, but they cannot be attached: value labels are not reliably associable with their own component (the capacitor's nearest label is often the inductor's), which was measured at 29.4% precision and a NET LOSS of 14 labels."
+  },
+  {
+    "sid": "repair",
+    "title": "19. Design-intent repair (C5)",
+    "what": "Electrical rule checks diagnose why the circuit cannot simulate, then a minimal, fully-logged set of repairs is applied. Topology is NEVER changed here \u2014 that is stage 16's job.",
+    "image": null,
+    "sources": [
+      "src/schematic2netlist/repair.py:94  repair_circuit()",
+      "src/schematic2netlist/repair.py:212  build_ledger()",
+      "src/schematic2netlist/repair.py:228  export_ledger()"
+    ],
+    "keys": [
+      [
+        "repair.enabled",
+        true
+      ],
+      [
+        "repair.max_assumptions",
+        8
+      ],
+      [
+        "repair.strategies",
+        {
+          "add_ground_reference": true,
+          "shunt_floating_net": true,
+          "inductor_series_r": true,
+          "placeholder_values": true,
+          "current_direction": true
+        }
+      ],
+      [
+        "repair.shunt_r",
+        "1e9"
+      ]
+    ],
+    "stats": {
+      "entries": 3,
+      "solvable_before": null,
+      "solvable_after": null,
+      "assumptions": 1,
+      "gauge": 2
+    },
+    "note": "Every entry is classified as a behaviour-invariant GAUGE choice or a flagged ASSUMPTION, so a reader can see exactly what was assumed on their behalf."
+  },
+  {
+    "sid": "simulate",
+    "title": "20. ngspice",
+    "what": "Ran <code>netlist_repaired.sp</code>. Result: <b>solvable</b>.",
+    "image": null,
+    "sources": [
+      "src/schematic2netlist/simulate.py:66  run_ngspice_diag()",
+      "src/schematic2netlist/simulate.py:60  run_ngspice()",
+      "src/schematic2netlist/simulate.py:32  parse_ngspice_output()"
+    ],
+    "keys": [
+      [
+        "simulate.ngspice_binary",
+        "ngspice"
+      ],
+      [
+        "simulate.timeout_s",
+        5
+      ],
+      [
+        "simulate.diagnostics",
+        true
+      ]
+    ],
+    "stats": {
+      "solvable": true,
+      "reason": "ok",
+      "failing_nodes": []
+    },
+    "note": "reason='timeout' would make this metric wall-clock dependent, the same defect that made nGED non-reproducible. If you see it, raise simulate.timeout_s and re-check."
+  },
+  {
+    "sid": "metrics",
+    "title": "21. Scoring against verified ground truth",
+    "what": "Strict end-to-end success requires EVERY component correct: <b>FAIL</b>.",
+    "image": null,
+    "sources": [
+      "src/schematic2netlist/benchmark.py:42  align_components()",
+      "src/schematic2netlist/benchmark.py:110  canonicalize_terminals()",
+      "src/schematic2netlist/metrics.py:94  terminal_pair_metrics()",
+      "src/schematic2netlist/metrics.py:106  net_level_metrics()",
+      "src/schematic2netlist/metrics.py:158  per_component_connected_accuracy()",
+      "src/schematic2netlist/metrics.py:142  per_component_recall_accuracy()",
+      "src/schematic2netlist/metrics.py:324  normalized_ged()"
+    ],
+    "keys": [
+      [
+        "benchmark.gt_dir",
+        "data/gt_1024"
+      ]
+    ],
+    "stats": {
+      "terminal_pair_f1": 0.3191,
+      "terminal_pair_precision": 0.283,
+      "terminal_pair_recall": 0.3659,
+      "net_f1": 0.5,
+      "per_component_exact": 0.0,
+      "per_component_recall": 0.0,
+      "nged": 0.3983,
+      "unmatched_gt": 4,
+      "unmatched_pred": 5,
+      "strict_success": 0
+    },
+    "note": "unmatched_gt > 0 makes strict success IMPOSSIBLE for this image regardless of connectivity. per_component_exact penalises welds; per_component_recall does not and is the variant every pre-2026-07-30 result used."
+  }
+]

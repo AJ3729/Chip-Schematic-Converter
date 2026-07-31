@@ -1,0 +1,7 @@
+{
+  "n_sites": 4804,
+  "cv_auc_geometry": 0.6589,
+  "cv_auc_darkness": 0.5379,
+  "cv_auc_combined": 0.6551,
+  "darkness_gain": -0.0038
+}

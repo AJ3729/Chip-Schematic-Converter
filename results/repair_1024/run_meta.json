@@ -1,6 +1,6 @@
 {
-  "timestamp_utc": "2026-07-29T14:53:09.864475+00:00",
-  "git_sha": "f37d7cde7878813476bab4b36a3554a55234f26c",
+  "timestamp_utc": "2026-07-30T07:55:50.705196+00:00",
+  "git_sha": "3848f2403e839027abb60220deeb338f7921170e",
   "seed": 0,
   "config": {
     "seed": 0,
@@ -50,7 +50,7 @@
     },
     "wires": {
       "method": "ink",
-      "bridge_span": 18,
+      "bridge_span": 7,
       "min_blob_extent": 30,
       "stitch_masked_gaps": true,
       "stitch_max_gap": 120,
@@ -82,12 +82,37 @@
         "Op-Amp"
       ]
     },
+    "connectivity_repair": {
+      "enabled": true,
+      "passes": 2,
+      "body_frac": 0.5,
+      "max_gap": 60,
+      "dir_tol_deg": 40,
+      "repair_self_shorts": true,
+      "repair_one_terminal_nets": true
+    },
     "nodes": {
       "connectivity": 8,
       "handle_crossovers": true,
       "method": "crossover",
       "junction_weights": "experiments/junction/full_cpu/best.pt",
       "junction_threshold": 0.4,
+      "vector": {
+        "site_radius_frac": 2.2,
+        "min_sep": 9,
+        "spur_frac": 3.0,
+        "arm_probe_frac": 4.0,
+        "collinear_deg": 30.0,
+        "dot_ratio": 1.75,
+        "link_gap": 0,
+        "link_collinear_deg": 25.0,
+        "split_geometry": false,
+        "classifier_weights": "",
+        "classifier_threshold": 0.5,
+        "classifier_context": 3.0,
+        "classifier_min_degree": 3
+      },
+      "relink": "band",
       "junction_site_box": 30,
       "junction_context": 3.0
     },
@@ -142,5 +167,5 @@
     "scipy": "1.16.3",
     "yaml": "6.0.3"
   },
-  "run_dir": "results/benchmark_1024/seed0"
+  "run_dir": "results/benchmark_1024_final/seed0"
 }

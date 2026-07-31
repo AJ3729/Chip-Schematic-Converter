@@ -1,0 +1,95 @@
+{
+  "n_images": 190,
+  "n_gt_nets": 1504,
+  "overall": {
+    "clean": {
+      "n": 1006,
+      "rate": 0.6689
+    },
+    "welded": {
+      "n": 140,
+      "rate": 0.0931
+    },
+    "split": {
+      "n": 55,
+      "rate": 0.0366
+    },
+    "welded+split": {
+      "n": 254,
+      "rate": 0.1689
+    },
+    "lost_terminal": {
+      "n": 2,
+      "rate": 0.0013
+    },
+    "unmatched": {
+      "n": 47,
+      "rate": 0.0312
+    }
+  },
+  "nets_touched_by_welding": {
+    "n": 394,
+    "rate": 0.262
+  },
+  "nets_touched_by_splitting": {
+    "n": 309,
+    "rate": 0.2055
+  },
+  "by_precision_bucket": {
+    "[0.0,0.3)": {
+      "n_images": 10,
+      "n_gt_nets": 95,
+      "clean": 0.1368,
+      "welded": 0.1368,
+      "split": 0.0211,
+      "welded+split": 0.5895,
+      "lost_terminal": 0.0,
+      "unmatched": 0.1158,
+      "mean_defects_per_image": 7.1
+    },
+    "[0.3,0.5)": {
+      "n_images": 22,
+      "n_gt_nets": 198,
+      "clean": 0.2525,
+      "welded": 0.1616,
+      "split": 0.0404,
+      "welded+split": 0.4697,
+      "lost_terminal": 0.0,
+      "unmatched": 0.0758,
+      "mean_defects_per_image": 6.05
+    },
+    "[0.5,0.7)": {
+      "n_images": 40,
+      "n_gt_nets": 350,
+      "clean": 0.4971,
+      "welded": 0.18,
+      "split": 0.0571,
+      "welded+split": 0.2143,
+      "lost_terminal": 0.0,
+      "unmatched": 0.0514,
+      "mean_defects_per_image": 3.95
+    },
+    "[0.7,0.9)": {
+      "n_images": 22,
+      "n_gt_nets": 206,
+      "clean": 0.6845,
+      "welded": 0.1505,
+      "split": 0.0485,
+      "welded+split": 0.1019,
+      "lost_terminal": 0.0,
+      "unmatched": 0.0146,
+      "mean_defects_per_image": 2.82
+    },
+    "[0.9,1.0)": {
+      "n_images": 96,
+      "n_gt_nets": 655,
+      "clean": 0.9588,
+      "welded": 0.0015,
+      "split": 0.0229,
+      "welded+split": 0.0137,
+      "lost_terminal": 0.0031,
+      "unmatched": 0.0,
+      "mean_defects_per_image": 0.28
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "n_images": 60,
+  "actions": {
+    "candidate_sites": 1245,
+    "site_split_accepted": 8
+  },
+  "base_tp_f1": 0.7309,
+  "base_net_f1": 0.8403,
+  "base_percomp": 0.4929,
+  "base_strict": 0.35,
+  "orc_tp_f1": 0.7457,
+  "orc_net_f1": 0.8505,
+  "orc_percomp": 0.5242,
+  "orc_strict": 0.3833,
+  "strict_gained": 2,
+  "strict_lost": 0
+}

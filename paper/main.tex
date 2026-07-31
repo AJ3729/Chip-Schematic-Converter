@@ -71,10 +71,13 @@ distance, strict end-to-end success, SPICE validity and DC solvability),
 and released code that regenerates every reported number. On this
 benchmark we develop a lightweight local pipeline whose connectivity
 stage is progressively strengthened — binarized-ink wire extraction,
-mask-hole stitching, and crossover-aware net assembly driven by the
-detector's \emph{Wire Crossover} class — improving net-level $F_1$ from
-\AblNetFOneClassical{} (classical baseline) to \AblNetFOneVFive{},
-with each step validated by paired per-image bootstrap tests. A
+mask-hole stitching, crossover-aware net assembly driven by the
+detector's \emph{Wire Crossover} class, and constraint-triggered
+connectivity repair — improving net-level $F_1$ from
+\AblNetFOneClassical{} (classical baseline) to \AblNetFOneFinal{} and
+strict end-to-end success from \AblStrictClassical{} to
+\AblStrictFinal{}, with each step validated by paired per-image
+bootstrap tests. A
 GT-injection oracle attributes the remaining error to individual
 stages. Finally, we introduce a transparent design-intent repair layer:
 electrical rule checks diagnose why a recovered circuit cannot be

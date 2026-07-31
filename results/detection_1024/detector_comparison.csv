@@ -1,0 +1,6 @@
+run,model,seed,params_M,map50,map50_95,precision,recall
+yolov8m_640_seed0,yolov8m,0,25.87,0.9788,0.725,0.97,0.968
+yolov8n_640_seed0,yolov8n,0,3.01,0.9705,0.7121,0.9641,0.9678
+yolov8s_640_seed0,yolov8s,0,11.14,0.9739,0.7078,0.9472,0.9663
+yolov8s_640_seed1,yolov8s,1,11.14,0.9783,0.7146,0.9568,0.9702
+yolov8s_640_seed2,yolov8s,2,11.14,0.9738,0.712,0.9544,0.969

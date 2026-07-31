@@ -1,0 +1,10 @@
+{
+  "n_paths": 83,
+  "median_path_len": 56.0,
+  "median_detour": 1.27,
+  "median_frac_in_component_box": 0.0,
+  "median_min_width": 1.91,
+  "median_median_width": 1.91,
+  "frac_bottlenecked": 0.0,
+  "frac_full_width": 0.9879518072289156
+}

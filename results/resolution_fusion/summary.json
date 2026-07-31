@@ -1,0 +1,9 @@
+{
+  "n_regions": 239,
+  "n_welded": 88,
+  "n_clean": 151,
+  "welded_cc_1024": 1.261,
+  "welded_cc_orig": 3.42,
+  "clean_cc_1024": 1.272,
+  "clean_cc_orig": 2.49
+}

@@ -1,0 +1,12 @@
+{
+  "total_one_terminal_nets": 47,
+  "images_affected": 30,
+  "by_precision_bucket": {
+    "<0.5": 29,
+    "0.5-0.7": 7,
+    "0.7-0.9": 9,
+    ">=0.9": 2
+  },
+  "gt_one_terminal_nets": 0,
+  "strict_images_with_one_terminal_net": 0
+}

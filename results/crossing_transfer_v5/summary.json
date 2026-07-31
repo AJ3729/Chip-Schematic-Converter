@@ -1,0 +1,100 @@
+{
+  "weights": "experiments/junction/synth128_v5/best.pt",
+  "n_images": 60,
+  "n_sites_scored": 1713,
+  "n_must_split": 782,
+  "n_must_union": 931,
+  "skipped": {
+    "node_carries_no_gt_terminal": 180,
+    "site_off_any_node": 115
+  },
+  "AUC": 0.5231,
+  "threshold_sweep": [
+    {
+      "threshold": 0.3,
+      "split_recall": 0.9425,
+      "split_precision": 0.4632,
+      "union_recall": 0.0827,
+      "balanced_acc": 0.5126,
+      "wrong_splits": 854,
+      "missed_splits": 45
+    },
+    {
+      "threshold": 0.4,
+      "split_recall": 0.4565,
+      "split_precision": 0.4786,
+      "union_recall": 0.5822,
+      "balanced_acc": 0.5193,
+      "wrong_splits": 389,
+      "missed_splits": 425
+    },
+    {
+      "threshold": 0.5,
+      "split_recall": 0.11,
+      "split_precision": 0.4699,
+      "union_recall": 0.8958,
+      "balanced_acc": 0.5029,
+      "wrong_splits": 97,
+      "missed_splits": 696
+    },
+    {
+      "threshold": 0.6,
+      "split_recall": 0.0269,
+      "split_precision": 0.4118,
+      "union_recall": 0.9678,
+      "balanced_acc": 0.4973,
+      "wrong_splits": 30,
+      "missed_splits": 761
+    },
+    {
+      "threshold": 0.7,
+      "split_recall": 0.0077,
+      "split_precision": 0.3529,
+      "union_recall": 0.9882,
+      "balanced_acc": 0.4979,
+      "wrong_splits": 11,
+      "missed_splits": 776
+    },
+    {
+      "threshold": 0.8,
+      "split_recall": 0.0,
+      "split_precision": 0.0,
+      "union_recall": 0.9936,
+      "balanced_acc": 0.4968,
+      "wrong_splits": 6,
+      "missed_splits": 782
+    },
+    {
+      "threshold": 0.9,
+      "split_recall": 0.0,
+      "split_precision": 0.0,
+      "union_recall": 1.0,
+      "balanced_acc": 0.5,
+      "wrong_splits": 0,
+      "missed_splits": 782
+    }
+  ],
+  "reference": "CGHD classifier reached AUC 0.72 on real masks with 0.97 in-domain accuracy; >0.85 here would be a real improvement, ~0.72 means the render domain did not close the gap.",
+  "checkpoint_provenance": "MISMATCHED ARTEFACTS. The out_v5.zip this ran on carried a summary.json from a completed 60-epoch run (balanced_acc 0.8019 at epoch 57) next to a best.pt/val_probs.npy pair from a second, partial run into the same output directory (balanced_acc 0.6746, in-domain AUC 0.7469 -- roughly epoch 4-5 of a fresh run). scripts/check_junction_checkpoint.py reports check 2 FAIL on all 17 swept thresholds. The AUC below is therefore the transfer of a mid-training checkpoint, NOT of the reported 0.80 model, and does not settle whether the v5 render domain transfers.",
+  "degree_stratified_AUC": {
+    "deg3": {
+      "AUC": 0.4943,
+      "n_split": 425,
+      "n_union": 537,
+      "share_of_must_splits": 0.543
+    },
+    "deg4": {
+      "AUC": 0.5422,
+      "n_split": 346,
+      "n_union": 377,
+      "share_of_must_splits": 0.442
+    },
+    "deg5plus": {
+      "AUC": 0.5341,
+      "n_split": 11,
+      "n_union": 16,
+      "share_of_must_splits": 0.014
+    },
+    "note": "No degree stratum carries usable signal even for this checkpoint; degree-4 sites are the true X-crossings and reach only 0.5422."
+  }
+}

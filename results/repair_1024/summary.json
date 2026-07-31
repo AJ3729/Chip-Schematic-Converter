@@ -1,30 +1,30 @@
 {
-  "source_run": "results/benchmark_1024/seed0",
+  "source_run": "results/benchmark_1024_final/seed0",
   "n_images": 190,
   "n_ledgers": 190,
-  "solvable_before_rate": 0.5210526315789473,
-  "solvable_after_rate": 0.7421052631578947,
-  "solvability_lift": 0.22105263157894736,
-  "lift_ci95_lo": 0.1631578947368421,
-  "lift_ci95_hi": 0.2843421052631572,
+  "solvable_before_rate": 0.5157894736842106,
+  "solvable_after_rate": 0.7684210526315789,
+  "solvability_lift": 0.25263157894736843,
+  "lift_ci95_lo": 0.19473684210526315,
+  "lift_ci95_hi": 0.32105263157894737,
   "regressed_images": 0,
-  "mean_assumptions": 2.626315789473684,
+  "mean_assumptions": 2.5894736842105264,
   "median_assumptions": 2.0,
-  "max_assumptions_observed": 6,
+  "max_assumptions_observed": 5,
   "mean_gauge": 1.7,
   "budget": 8,
   "budget_violations": 0,
   "per_issue": {
     "ground_selection|gauge": 183,
     "ideal_inductor_dc|assumption": 156,
-    "no_dc_path_to_ground|assumption": 130,
+    "no_dc_path_to_ground|assumption": 122,
     "placeholder_values|assumption": 190,
     "unset_current_direction|gauge": 140,
-    "unsnapped_terminal|assumption": 23
+    "unsnapped_terminal|assumption": 24
   },
   "entries_by_category": {
     "gauge": 323,
-    "assumption": 499
+    "assumption": 492
   },
   "verified_images": 190,
   "topology_violations": 0,

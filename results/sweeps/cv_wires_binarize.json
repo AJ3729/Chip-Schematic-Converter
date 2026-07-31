@@ -1,0 +1,49 @@
+{
+  "metric": "terminal_pair_f1",
+  "folds": 10,
+  "n_images": 190,
+  "naive_best": "sauvola",
+  "fold_choices": [
+    "sauvola",
+    "sauvola",
+    "sauvola",
+    "otsu",
+    "sauvola",
+    "sauvola",
+    "sauvola",
+    "sauvola",
+    "otsu",
+    "sauvola"
+  ],
+  "stability": {
+    "sauvola": 8,
+    "otsu": 2
+  },
+  "results": {
+    "terminal_pair_f1": {
+      "naive_peak": 0.767789,
+      "cross_validated": 0.765043,
+      "shipped_default": null
+    },
+    "net_f1": {
+      "naive_peak": 0.8579,
+      "cross_validated": 0.856315,
+      "shipped_default": null
+    },
+    "per_component_connected_acc": {
+      "naive_peak": 0.557295,
+      "cross_validated": 0.552522,
+      "shipped_default": null
+    },
+    "strict_success": {
+      "naive_peak": 0.426316,
+      "cross_validated": 0.426316,
+      "shipped_default": null
+    },
+    "nged": {
+      "naive_peak": 0.230738,
+      "cross_validated": 0.232553,
+      "shipped_default": null
+    }
+  }
+}

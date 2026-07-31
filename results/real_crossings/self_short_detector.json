@@ -1,0 +1,819 @@
+{
+  "n_components_scored": 2065,
+  "n_pred_self_shorted": 160,
+  "n_also_gt_shorted": 8,
+  "weld_detection_precision": 0.95,
+  "gt_genuine_short_rate": 0.006,
+  "by_class": {
+    "Op-Amp": {
+      "n_shorted": 9,
+      "n_total": 114
+    },
+    "Capacitor": {
+      "n_shorted": 38,
+      "n_total": 307
+    },
+    "I-DC": {
+      "n_shorted": 19,
+      "n_total": 111
+    },
+    "V-DC": {
+      "n_shorted": 23,
+      "n_total": 148
+    },
+    "I-AC": {
+      "n_shorted": 10,
+      "n_total": 66
+    },
+    "V-AC": {
+      "n_shorted": 10,
+      "n_total": 91
+    },
+    "Inductor": {
+      "n_shorted": 28,
+      "n_total": 307
+    },
+    "Resistor": {
+      "n_shorted": 3,
+      "n_total": 457
+    },
+    "BJT-NPN": {
+      "n_shorted": 10,
+      "n_total": 97
+    },
+    "Diode": {
+      "n_shorted": 1,
+      "n_total": 138
+    },
+    "MOSFET-P": {
+      "n_shorted": 2,
+      "n_total": 37
+    },
+    "MOSFET-N": {
+      "n_shorted": 7,
+      "n_total": 45
+    }
+  },
+  "per_image": [
+    {
+      "image": "circuit_1.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1016.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1018.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1074.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_1076.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1077.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1079.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1087.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1093.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1094.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1097.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1111.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1121.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_1122.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1124.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1127.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_113.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_1133.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_1134.jpg",
+      "n_self_shorted": 10
+    },
+    {
+      "image": "circuit_1135.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1145.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1153.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_1162.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1166.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1172.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_1183.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1194.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1201.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_1202.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1203.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1204.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1205.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1209.jpg",
+      "n_self_shorted": 5
+    },
+    {
+      "image": "circuit_1233.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1239.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1241.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1243.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1244.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_125.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1252.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_1256.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_1258.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1262.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_1268.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_1272.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_136.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_138.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_14.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_153.jpg",
+      "n_self_shorted": 8
+    },
+    {
+      "image": "circuit_155.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_170.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_178.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_184.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_185.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_187.jpg",
+      "n_self_shorted": 8
+    },
+    {
+      "image": "circuit_19.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_193.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_198.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_205.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_210.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_215.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_226.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_230.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_236.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_238.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_260.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_263.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_267.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_294.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_297.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_299.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_300.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_303.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_312.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_318.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_324.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_327.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_328.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_333.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_337.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_344.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_35.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_350.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_355.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_356.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_361.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_372.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_374.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_383.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_384.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_386.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_394.jpg",
+      "n_self_shorted": 3
+    },
+    {
+      "image": "circuit_41.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_415.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_417.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_427.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_437.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_438.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_439.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_455.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_468.jpg",
+      "n_self_shorted": 3
+    },
+    {
+      "image": "circuit_469.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_470.jpg",
+      "n_self_shorted": 13
+    },
+    {
+      "image": "circuit_472.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_481.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_485.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_492.jpg",
+      "n_self_shorted": 2
+    },
+    {
+      "image": "circuit_506.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_522.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_524.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_525.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_537.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_538.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_555.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_560.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_563.jpg",
+      "n_self_shorted": 3
+    },
+    {
+      "image": "circuit_575.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_576.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_588.jpg",
+      "n_self_shorted": 3
+    },
+    {
+      "image": "circuit_591.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_595.jpg",
+      "n_self_shorted": 11
+    },
+    {
+      "image": "circuit_6.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_606.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_607.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_61.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_611.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_613.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_614.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_618.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_623.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_645.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_649.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_658.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_665.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_678.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_689.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_690.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_707.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_709.jpg",
+      "n_self_shorted": 6
+    },
+    {
+      "image": "circuit_720.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_726.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_730.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_733.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_743.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_748.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_750.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_755.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_760.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_769.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_775.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_784.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_795.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_808.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_816.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_820.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_823.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_832.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_833.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_835.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_836.jpg",
+      "n_self_shorted": 8
+    },
+    {
+      "image": "circuit_856.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_862.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_869.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_87.jpg",
+      "n_self_shorted": 6
+    },
+    {
+      "image": "circuit_884.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_885.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_886.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_895.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_897.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_9.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_901.jpg",
+      "n_self_shorted": 9
+    },
+    {
+      "image": "circuit_904.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_910.jpg",
+      "n_self_shorted": 10
+    },
+    {
+      "image": "circuit_925.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_926.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_931.jpg",
+      "n_self_shorted": 3
+    },
+    {
+      "image": "circuit_932.jpg",
+      "n_self_shorted": 3
+    },
+    {
+      "image": "circuit_937.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_953.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_957.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_961.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_963.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_968.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_972.jpg",
+      "n_self_shorted": 1
+    },
+    {
+      "image": "circuit_975.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_979.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_980.jpg",
+      "n_self_shorted": 3
+    },
+    {
+      "image": "circuit_986.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_992.jpg",
+      "n_self_shorted": 0
+    },
+    {
+      "image": "circuit_995.jpg",
+      "n_self_shorted": 0
+    }
+  ]
+}

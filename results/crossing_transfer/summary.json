@@ -1,0 +1,77 @@
+{
+  "weights": "experiments/junction/full_cpu/best.pt",
+  "n_images": 25,
+  "n_sites_scored": 811,
+  "n_must_split": 430,
+  "n_must_union": 381,
+  "skipped": {
+    "no_gt_terminal_nearby": 71
+  },
+  "AUC": 0.5959,
+  "threshold_sweep": [
+    {
+      "threshold": 0.3,
+      "split_recall": 0.1837,
+      "split_precision": 0.7383,
+      "union_recall": 0.9265,
+      "balanced_acc": 0.5551,
+      "wrong_splits": 28,
+      "missed_splits": 351
+    },
+    {
+      "threshold": 0.4,
+      "split_recall": 0.1651,
+      "split_precision": 0.732,
+      "union_recall": 0.9318,
+      "balanced_acc": 0.5484,
+      "wrong_splits": 26,
+      "missed_splits": 359
+    },
+    {
+      "threshold": 0.5,
+      "split_recall": 0.1488,
+      "split_precision": 0.7442,
+      "union_recall": 0.9423,
+      "balanced_acc": 0.5455,
+      "wrong_splits": 22,
+      "missed_splits": 366
+    },
+    {
+      "threshold": 0.6,
+      "split_recall": 0.1349,
+      "split_precision": 0.7733,
+      "union_recall": 0.9554,
+      "balanced_acc": 0.5451,
+      "wrong_splits": 17,
+      "missed_splits": 372
+    },
+    {
+      "threshold": 0.7,
+      "split_recall": 0.114,
+      "split_precision": 0.7778,
+      "union_recall": 0.9633,
+      "balanced_acc": 0.5386,
+      "wrong_splits": 14,
+      "missed_splits": 381
+    },
+    {
+      "threshold": 0.8,
+      "split_recall": 0.1047,
+      "split_precision": 0.7895,
+      "union_recall": 0.9685,
+      "balanced_acc": 0.5366,
+      "wrong_splits": 12,
+      "missed_splits": 385
+    },
+    {
+      "threshold": 0.9,
+      "split_recall": 0.0907,
+      "split_precision": 0.78,
+      "union_recall": 0.9711,
+      "balanced_acc": 0.5309,
+      "wrong_splits": 11,
+      "missed_splits": 391
+    }
+  ],
+  "reference": "CGHD classifier reached AUC 0.72 on real masks with 0.97 in-domain accuracy; >0.85 here would be a real improvement, ~0.72 means the render domain did not close the gap."
+}

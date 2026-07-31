@@ -1,0 +1,48 @@
+{
+  "metric": "terminal_pair_f1",
+  "folds": 10,
+  "n_images": 190,
+  "naive_best": "21",
+  "fold_choices": [
+    "21",
+    "21",
+    "21",
+    "21",
+    "21",
+    "21",
+    "21",
+    "21",
+    "21",
+    "21"
+  ],
+  "stability": {
+    "21": 10
+  },
+  "results": {
+    "terminal_pair_f1": {
+      "naive_peak": 0.768443,
+      "cross_validated": 0.768443,
+      "shipped_default": null
+    },
+    "net_f1": {
+      "naive_peak": 0.858844,
+      "cross_validated": 0.858844,
+      "shipped_default": null
+    },
+    "per_component_connected_acc": {
+      "naive_peak": 0.556637,
+      "cross_validated": 0.556637,
+      "shipped_default": null
+    },
+    "strict_success": {
+      "naive_peak": 0.421053,
+      "cross_validated": 0.421053,
+      "shipped_default": null
+    },
+    "nged": {
+      "naive_peak": 0.22975,
+      "cross_validated": 0.22975,
+      "shipped_default": null
+    }
+  }
+}

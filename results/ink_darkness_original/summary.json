@@ -1,0 +1,13 @@
+{
+  "n_sites": 4804,
+  "n_must_split": 2368,
+  "n_must_union": 2436,
+  "per_feature_auc": {
+    "dark_at_site": 0.5501,
+    "dark_peak": 0.5222,
+    "dark_excess_area": 0.5421,
+    "stroke_dark_local": 0.4843
+  },
+  "source": "original photographs, sites unprojected via transforms_1024",
+  "note": "The pipeline's own frames carry no dynamic range (93.5% of pixels exactly 255, ink median grey ~8), so the earlier null there measured destroyed evidence. This measures where the evidence still exists."
+}

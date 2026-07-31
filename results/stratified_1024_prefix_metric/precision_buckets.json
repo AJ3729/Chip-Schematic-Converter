@@ -1,0 +1,79 @@
+{
+  "source": "results/benchmark_1024/seed0/per_image.csv (190 test images, seed 0)",
+  "strict_success_overall": 0.3526,
+  "finding": "Strict success is not spread thinly across the test set -- it is concentrated in one bucket. Stratifying by terminal-pair PRECISION (the over-merge axis) gives a sharply bimodal population: images at precision >= 0.9 average 0.98 terminal-pair F1 and convert to strict success 85% of the time, while EVERY image below 0.9 converts 0%. All 67 strict successes come from the top bucket.",
+  "buckets": [
+    {
+      "precision_range": [
+        0.0,
+        0.3
+      ],
+      "n_images": 22,
+      "mean_tp_precision": 0.187,
+      "mean_tp_recall": 0.6024,
+      "mean_tp_f1": 0.2621,
+      "mean_percomp": 0.3219,
+      "strict_successes": 0,
+      "strict_rate": 0.0
+    },
+    {
+      "precision_range": [
+        0.3,
+        0.5
+      ],
+      "n_images": 27,
+      "mean_tp_precision": 0.4112,
+      "mean_tp_recall": 0.434,
+      "mean_tp_f1": 0.3895,
+      "mean_percomp": 0.1844,
+      "strict_successes": 0,
+      "strict_rate": 0.0
+    },
+    {
+      "precision_range": [
+        0.5,
+        0.7
+      ],
+      "n_images": 36,
+      "mean_tp_precision": 0.6314,
+      "mean_tp_recall": 0.6038,
+      "mean_tp_f1": 0.5937,
+      "mean_percomp": 0.321,
+      "strict_successes": 0,
+      "strict_rate": 0.0
+    },
+    {
+      "precision_range": [
+        0.7,
+        0.9
+      ],
+      "n_images": 26,
+      "mean_tp_precision": 0.7837,
+      "mean_tp_recall": 0.7314,
+      "mean_tp_f1": 0.7453,
+      "mean_percomp": 0.4449,
+      "strict_successes": 0,
+      "strict_rate": 0.0
+    },
+    {
+      "precision_range": [
+        0.9,
+        1.0
+      ],
+      "n_images": 79,
+      "mean_tp_precision": 0.9926,
+      "mean_tp_recall": 0.9698,
+      "mean_tp_f1": 0.98,
+      "mean_percomp": 0.9234,
+      "strict_successes": 67,
+      "strict_rate": 0.8481
+    }
+  ],
+  "why_precision_not_recall": "On the failing images recall stays moderate (mean 0.51 below precision 0.5) while precision collapses. The conductors ARE being found; they are fused into too few nets. So the residual error is over-merging, not missing ink -- consistent with the oracle's post-snapping-fix per-component attribution of detection 0.0627, wires 0.3406, snapping 0.0028.",
+  "implied_target": {
+    "images_in_0.5_to_0.9": 62,
+    "current_strict": 67,
+    "strict_if_marginal_bucket_converted_at_top_bucket_rate": 120,
+    "note": "Illustrative ceiling, not a prediction: it assumes images moved above 0.9 precision would convert at the same 85% the existing top bucket does. It identifies WHERE the work is -- roughly 62 specific images whose conductors are already found and merely need separating -- rather than promising a number."
+  }
+}

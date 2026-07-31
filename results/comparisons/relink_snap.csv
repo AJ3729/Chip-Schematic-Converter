@@ -1,0 +1,8 @@
+metric,label,n_images,mean_a,mean_b,delta,ci95_lo,ci95_hi,wins,losses,ties,significant
+terminal_pair_f1,terminal-pair F1,190,0.7076,0.684,-0.0236,-0.036,-0.0109,8,35,147,True
+net_f1,net F1,190,0.8083,0.7899,-0.0184,-0.0292,-0.0072,6,35,149,True
+per_component_connected_acc,per-component connected,190,0.5692,0.5579,-0.0112,-0.0285,0.008,7,13,170,False
+nged,nGED,190,0.1921,0.1947,0.0026,-0.0022,0.0074,31,26,133,False
+strict_success,strict success,190,0.3526,0.3158,-0.0368,-0.0684,-0.0105,0,7,183,True
+solvable_before,DC-solvable (pre-repair),190,0.5211,0.5474,0.0263,0.0,0.0579,7,2,181,False
+solvable_after,DC-solvable (post-repair),190,0.7421,0.7316,-0.0105,-0.0526,0.0316,7,9,174,False

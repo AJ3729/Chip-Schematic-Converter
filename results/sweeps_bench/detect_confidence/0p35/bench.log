@@ -1,0 +1,580 @@
+Starting benchmark processing loop over 190 items...
+[1/190] Processing: circuit_1.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[2/190] Processing: circuit_1016.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1016.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[3/190] Processing: circuit_1018.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1018.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[4/190] Processing: circuit_1074.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1074.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[5/190] Processing: circuit_1076.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1076.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[6/190] Processing: circuit_1077.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1077.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[7/190] Processing: circuit_1079.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1079.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[8/190] Processing: circuit_1087.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1087.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[9/190] Processing: circuit_1093.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1093.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[10/190] Processing: circuit_1094.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1094.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[11/190] Processing: circuit_1097.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1097.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[12/190] Processing: circuit_1111.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1111.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[13/190] Processing: circuit_1121.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1121.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[14/190] Processing: circuit_1122.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1122.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[15/190] Processing: circuit_1124.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1124.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[16/190] Processing: circuit_1127.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1127.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[17/190] Processing: circuit_113.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_113.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[18/190] Processing: circuit_1133.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1133.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[19/190] Processing: circuit_1134.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1134.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[20/190] Processing: circuit_1135.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1135.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[21/190] Processing: circuit_1145.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1145.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[22/190] Processing: circuit_1153.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1153.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[23/190] Processing: circuit_1162.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1162.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[24/190] Processing: circuit_1166.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1166.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[25/190] Processing: circuit_1172.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1172.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[26/190] Processing: circuit_1183.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1183.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[27/190] Processing: circuit_1194.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1194.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[28/190] Processing: circuit_1201.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1201.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[29/190] Processing: circuit_1202.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1202.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[30/190] Processing: circuit_1203.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1203.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[31/190] Processing: circuit_1204.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1204.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[32/190] Processing: circuit_1205.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1205.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[33/190] Processing: circuit_1209.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1209.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[34/190] Processing: circuit_1233.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1233.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[35/190] Processing: circuit_1239.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1239.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[36/190] Processing: circuit_1241.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1241.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[37/190] Processing: circuit_1243.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1243.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[38/190] Processing: circuit_1244.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1244.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[39/190] Processing: circuit_125.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_125.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[40/190] Processing: circuit_1252.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1252.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[41/190] Processing: circuit_1256.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1256.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[42/190] Processing: circuit_1258.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1258.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[43/190] Processing: circuit_1262.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1262.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[44/190] Processing: circuit_1268.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1268.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[45/190] Processing: circuit_1272.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_1272.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[46/190] Processing: circuit_136.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_136.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[47/190] Processing: circuit_138.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_138.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[48/190] Processing: circuit_14.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_14.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[49/190] Processing: circuit_153.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_153.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[50/190] Processing: circuit_155.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_155.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[51/190] Processing: circuit_170.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_170.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[52/190] Processing: circuit_178.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_178.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[53/190] Processing: circuit_184.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_184.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[54/190] Processing: circuit_185.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_185.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[55/190] Processing: circuit_187.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_187.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[56/190] Processing: circuit_19.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_19.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[57/190] Processing: circuit_193.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_193.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[58/190] Processing: circuit_198.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_198.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[59/190] Processing: circuit_205.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_205.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[60/190] Processing: circuit_210.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_210.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[61/190] Processing: circuit_215.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_215.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[62/190] Processing: circuit_226.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_226.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[63/190] Processing: circuit_230.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_230.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[64/190] Processing: circuit_236.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_236.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[65/190] Processing: circuit_238.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_238.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[66/190] Processing: circuit_260.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_260.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[67/190] Processing: circuit_263.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_263.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[68/190] Processing: circuit_267.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_267.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[69/190] Processing: circuit_294.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_294.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[70/190] Processing: circuit_297.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_297.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[71/190] Processing: circuit_299.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_299.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[72/190] Processing: circuit_300.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_300.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[73/190] Processing: circuit_303.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_303.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[74/190] Processing: circuit_312.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_312.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[75/190] Processing: circuit_318.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_318.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[76/190] Processing: circuit_324.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_324.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[77/190] Processing: circuit_327.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_327.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[78/190] Processing: circuit_328.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_328.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[79/190] Processing: circuit_333.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_333.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[80/190] Processing: circuit_337.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_337.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[81/190] Processing: circuit_344.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_344.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[82/190] Processing: circuit_35.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_35.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[83/190] Processing: circuit_350.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_350.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[84/190] Processing: circuit_355.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_355.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[85/190] Processing: circuit_356.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_356.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[86/190] Processing: circuit_361.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_361.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[87/190] Processing: circuit_372.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_372.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[88/190] Processing: circuit_374.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_374.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[89/190] Processing: circuit_383.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_383.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[90/190] Processing: circuit_384.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_384.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[91/190] Processing: circuit_386.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_386.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[92/190] Processing: circuit_394.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_394.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[93/190] Processing: circuit_41.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_41.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[94/190] Processing: circuit_415.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_415.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[95/190] Processing: circuit_417.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_417.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[96/190] Processing: circuit_427.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_427.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[97/190] Processing: circuit_437.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_437.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[98/190] Processing: circuit_438.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_438.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[99/190] Processing: circuit_439.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_439.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[100/190] Processing: circuit_455.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_455.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[101/190] Processing: circuit_468.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_468.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[102/190] Processing: circuit_469.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_469.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[103/190] Processing: circuit_470.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_470.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[104/190] Processing: circuit_472.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_472.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[105/190] Processing: circuit_481.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_481.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[106/190] Processing: circuit_485.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_485.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[107/190] Processing: circuit_492.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_492.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[108/190] Processing: circuit_506.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_506.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[109/190] Processing: circuit_522.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_522.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[110/190] Processing: circuit_524.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_524.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[111/190] Processing: circuit_525.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_525.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[112/190] Processing: circuit_537.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_537.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[113/190] Processing: circuit_538.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_538.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[114/190] Processing: circuit_555.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_555.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[115/190] Processing: circuit_560.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_560.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[116/190] Processing: circuit_563.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_563.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[117/190] Processing: circuit_575.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_575.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[118/190] Processing: circuit_576.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_576.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[119/190] Processing: circuit_588.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_588.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[120/190] Processing: circuit_591.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_591.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[121/190] Processing: circuit_595.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_595.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[122/190] Processing: circuit_6.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_6.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[123/190] Processing: circuit_606.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_606.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[124/190] Processing: circuit_607.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_607.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[125/190] Processing: circuit_61.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_61.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[126/190] Processing: circuit_611.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_611.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[127/190] Processing: circuit_613.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_613.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[128/190] Processing: circuit_614.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_614.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[129/190] Processing: circuit_618.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_618.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[130/190] Processing: circuit_623.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_623.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[131/190] Processing: circuit_645.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_645.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[132/190] Processing: circuit_649.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_649.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[133/190] Processing: circuit_658.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_658.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[134/190] Processing: circuit_665.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_665.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[135/190] Processing: circuit_678.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_678.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[136/190] Processing: circuit_689.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_689.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[137/190] Processing: circuit_690.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_690.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[138/190] Processing: circuit_707.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_707.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[139/190] Processing: circuit_709.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_709.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[140/190] Processing: circuit_720.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_720.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[141/190] Processing: circuit_726.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_726.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[142/190] Processing: circuit_730.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_730.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[143/190] Processing: circuit_733.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_733.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[144/190] Processing: circuit_743.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_743.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[145/190] Processing: circuit_748.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_748.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[146/190] Processing: circuit_750.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_750.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[147/190] Processing: circuit_755.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_755.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[148/190] Processing: circuit_760.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_760.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[149/190] Processing: circuit_769.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_769.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[150/190] Processing: circuit_775.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_775.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[151/190] Processing: circuit_784.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_784.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[152/190] Processing: circuit_795.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_795.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[153/190] Processing: circuit_808.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_808.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[154/190] Processing: circuit_816.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_816.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[155/190] Processing: circuit_820.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_820.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[156/190] Processing: circuit_823.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_823.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[157/190] Processing: circuit_832.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_832.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[158/190] Processing: circuit_833.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_833.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[159/190] Processing: circuit_835.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_835.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[160/190] Processing: circuit_836.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_836.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[161/190] Processing: circuit_856.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_856.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[162/190] Processing: circuit_862.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_862.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[163/190] Processing: circuit_869.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_869.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[164/190] Processing: circuit_87.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_87.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[165/190] Processing: circuit_884.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_884.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[166/190] Processing: circuit_885.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_885.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[167/190] Processing: circuit_886.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_886.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[168/190] Processing: circuit_895.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_895.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[169/190] Processing: circuit_897.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_897.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[170/190] Processing: circuit_9.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_9.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[171/190] Processing: circuit_901.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_901.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[172/190] Processing: circuit_904.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_904.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[173/190] Processing: circuit_910.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_910.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[174/190] Processing: circuit_925.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_925.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[175/190] Processing: circuit_926.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_926.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[176/190] Processing: circuit_931.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_931.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[177/190] Processing: circuit_932.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_932.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[178/190] Processing: circuit_937.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_937.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[179/190] Processing: circuit_953.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_953.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[180/190] Processing: circuit_957.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_957.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[181/190] Processing: circuit_961.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_961.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[182/190] Processing: circuit_963.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_963.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[183/190] Processing: circuit_968.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_968.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[184/190] Processing: circuit_972.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_972.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[185/190] Processing: circuit_975.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_975.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[186/190] Processing: circuit_979.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_979.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[187/190] Processing: circuit_980.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_980.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[188/190] Processing: circuit_986.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_986.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[189/190] Processing: circuit_992.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_992.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+[190/190] Processing: circuit_995.jpg
+/Users/junaidahmed/Documents/Chip-Schematic-Converter/scripts/benchmark.py:123: RuntimeWarning: data/detections_1024/circuit_995.json: requested confidence 0.35 is below the 0.4 this cache was generated at; regenerate it to evaluate this threshold honestly
+  detections = load_cached_detections(
+
+All files parsed. Running calculations and bootstrap metrics...
+[OK] scored 190 image(s); skipped {}
+  net F1: 0.844 [0.819, 0.866]
+  terminal-pair F1: 0.746
+  strict success: 0.379
+  nGED (lower=better): 0.237
+  solvable before→after: 0.521 → 0.774 (mean 2.56 assumptions/circuit)
+[OK] wrote /Users/junaidahmed/Documents/Chip-Schematic-Converter/results/sweeps_bench/detect_confidence/0p35/per_image.csv + summary.json

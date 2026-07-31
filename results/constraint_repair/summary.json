@@ -1,0 +1,26 @@
+{
+  "n_images": 190,
+  "baseline": {
+    "tp_f1": 0.7059,
+    "tp_precision": 0.7155,
+    "tp_recall": 0.7482,
+    "net_f1": 0.8075,
+    "percomp": 0.5675,
+    "strict": 0.3579
+  },
+  "repaired": {
+    "tp_f1": 0.714,
+    "tp_precision": 0.7215,
+    "tp_recall": 0.7592,
+    "net_f1": 0.8129,
+    "percomp": 0.5831,
+    "strict": 0.3684
+  },
+  "actions": {
+    "bridged_one_terminal_net": 34,
+    "erased_self_short_body": 2
+  },
+  "images_touched": 18,
+  "strict_gained": 2,
+  "strict_lost": 0
+}

@@ -1,0 +1,5 @@
+n_images,n_nodes,n_gt_nets,weld_rate,pairwise_weld_rate,mega_weld_rate,split_rate,lost_terminals,config,path
+60,523,497,0.304,0.2467,0.0574,0.2676,53,1024_bs18_base,configs/default.yaml
+60,529,497,0.2817,0.2325,0.0491,0.2475,53,1024_bs12,scratchpad/plan_cfg/bs12.yaml
+60,536,497,0.2761,0.2313,0.0448,0.2475,56,1024_bs9,scratchpad/plan_cfg/bs9.yaml
+60,531,496,0.2787,0.2279,0.0508,0.254,58,2048_bs18,scratchpad/plan_cfg/res2048_bs18.yaml
