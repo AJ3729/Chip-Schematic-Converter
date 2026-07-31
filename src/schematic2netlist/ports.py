@@ -50,6 +50,11 @@ PORT_TEMPLATE_PATH = (
 # box diagonal is not trusted; the caller falls back.
 MAX_MEAN_DIST_FRAC = 0.45
 
+# Ranks an out-of-range candidate behind reusing an in-range node. In box
+# diagonals, so it must exceed the reuse penalty (1 diagonal per extra
+# use) by enough that no realistic number of pins reorders the two.
+OUT_OF_RANGE_PENALTY = 10.0
+
 
 @lru_cache(maxsize=1)
 def load_templates(path: str | None = None) -> dict:
@@ -85,12 +90,49 @@ def match_ports(
     cls: str, det: dict, run_sites: list[tuple[int, float, float]],
     templates: dict | None = None,
 ) -> tuple[list, dict] | None:
-    """Assign boundary runs to canonical ports for the best-fitting pose.
+    """Assign boundary crossings to canonical ports for the best pose.
 
     ``run_sites`` is [(node_id, x, y), ...] — one entry per place a
     conductor crosses the component boundary. Returns
     ``(nodes_in_port_order, info)``, or None when no pose fits well
     enough and the caller should fall back to boundary order.
+
+    **Assignment is over distinct NODES, not over runs.** One net often
+    crosses a component's boundary several times — it may hug the body,
+    or reach two pins from the same side — so the run list contains
+    repeats. Matching ports to runs then lets several ports win several
+    runs *of the same net*, and nothing in the geometry objects. Measured
+    on oracle mode C, where connectivity is perfect and the ring saw all
+    three distinct nodes: a MOSFET-N whose boundary read
+    ``[n1, n4, n4, n3, n4]`` had every one of Drain/Gate/Source assigned
+    to ``n4``, at a mean fit of 0.13 box diagonals — a confident fit, so
+    the trust check below never fired and no fallback happened. Every
+    such collapse was a three-terminal device, and duplicate-node
+    collapse accounted for ALL of the set-level snapping error
+    (``scripts/diagnose_snapping.py``).
+
+    Two pins genuinely sharing a net is real but rare — 0.60% of GT
+    components with two or more terminals, concentrated in
+    diode-connected transistors and Op-Amps. So distinct nodes are
+    preferred rather than required: each distinct node offers one slot,
+    and extra slots appear only when the component has fewer distinct
+    nodes than pins. When there are enough nodes to go around the
+    assignment is strictly one-net-per-pin; when there are not, reuse is
+    allowed and the ``+ k * diag`` term orders which net doubles up.
+
+    Preferring distinctness *unconditionally* is wrong on real wires, and
+    measurably so. With perfect connectivity every node at the boundary
+    belongs to the component, so spreading pins across them is always
+    right. With predicted connectivity a weld can leave only one genuine
+    node on the ring, and an unbounded preference for distinctness then
+    recruits whatever second node is nearest — including an unrelated
+    wire passing by — because a full box diagonal of reuse penalty
+    outweighs any distance. Measured on the oracle: unbounded
+    distinctness lifted mode C per-component accuracy by +0.1296 but cost
+    mode B −0.0088 and mode A −0.0040. Candidates beyond the same
+    ``MAX_MEAN_DIST_FRAC`` the pose-trust check already uses are
+    therefore pushed behind reuse, so a distant node is never recruited
+    merely to satisfy distinctness.
     """
     templates = templates if templates is not None else load_templates()
     tpl = templates.get(cls)
@@ -101,18 +143,38 @@ def match_ports(
         return None
 
     diag = float(np.hypot(det["width"], det["height"])) or 1.0
+
+    # collapse runs to distinct nodes; a node keeps ALL its crossing
+    # locations so each port can be scored against the nearest one
+    node_pts: dict[int, list] = {}
+    for nid, rx, ry in run_sites:
+        node_pts.setdefault(int(nid), []).append((rx, ry))
+    nodes_uniq = sorted(node_pts)
+    # one slot per node, plus duplicates only if the pins outnumber nodes
+    repeats = max(1, -(-n_ports // len(nodes_uniq)))
+    slots = [(nid, k) for k in range(repeats) for nid in nodes_uniq]
+
     best = None
     for pose, entry in tpl["poses"].items():
         sites = predicted_sites(cls, det, pose, templates)
         if not sites or len(sites) != n_ports:
             continue
-        cost = np.zeros((len(sites), len(run_sites)))
+        true_d = np.zeros((n_ports, len(slots)))
+        cost = np.zeros((n_ports, len(slots)))
         for i, (sx, sy) in enumerate(sites):
-            for j, (_nid, rx, ry) in enumerate(run_sites):
-                cost[i, j] = np.hypot(sx - rx, sy - ry)
+            for j, (nid, k) in enumerate(slots):
+                d = min(float(np.hypot(sx - rx, sy - ry))
+                        for rx, ry in node_pts[nid])
+                true_d[i, j] = d
+                # a candidate too far to be this pin's conductor sits behind
+                # reuse, so distinctness never drags in a passing wire
+                far = OUT_OF_RANGE_PENALTY if d > MAX_MEAN_DIST_FRAC * diag \
+                    else 0.0
+                cost[i, j] = d + k * diag + far * diag
         rows, cols = linear_sum_assignment(cost)
-        total = float(cost[rows, cols].sum())
-        mean_dist = total / max(len(rows), 1)
+        # judge the pose on real distance; the reuse penalty is a tie-break
+        # for WHICH net doubles up, not evidence about pose quality
+        mean_dist = float(true_d[rows, cols].sum()) / max(len(rows), 1)
         if best is None or mean_dist < best[0]:
             best = (mean_dist, pose, rows, cols)
 
@@ -124,11 +186,13 @@ def match_ports(
 
     nodes: list = [None] * n_ports
     for i, j in zip(rows, cols):
-        nodes[i] = run_sites[j][0]
+        nodes[i] = slots[j][0]
     info = {
         "pose": pose,
         "mean_dist_frac": round(mean_dist / diag, 4),
         "port_names": tpl.get("port_names"),
         "matched": int(len(rows)),
+        "n_distinct_nodes": len(nodes_uniq),
+        "reused_nodes": int(len(nodes) - len(set(nodes))),
     }
     return nodes, info

@@ -1,0 +1,243 @@
+# schematic2netlist — canonical configuration.
+# Every value here was previously a hardcoded magic number in the legacy
+# scripts (nodes_mapping_and_netlist.py = "v1", nodes_mapping_and_netlist2.py
+# = "v2", scripts/preprocess.py). Where the two legacy variants disagreed the
+# v1 value is the default and the v2 value is noted — these are the ablation
+# axes of Phase E.
+
+seed: 0
+
+benchmark:
+  # CANONICAL ground truth. Topology (nets/terminals/classes) is the
+  # human-verified annotation; bounding boxes were rebuilt from the
+  # published Digitize-HCD COCO annotations by scripts/fix_gt_boxes.py,
+  # because the bootstrapped boxes in _v2 were pipeline echoes — ~20%
+  # squared off, which capped their IoU against correctly-shaped
+  # detections and made alignment discard components the pipeline had
+  # actually got right (216 -> 40 unmatchable components; six images
+  # went from scoring zero to scoring normally).
+  # _v2 is retained unmodified for provenance and comparison.
+  # Coordinates are 2x the v3 boxes (verified identical topology and
+  # component count); v3 itself remains the canonical annotation and is
+  # what data/gt_1024 is generated from.
+  gt_dir: data/gt_1024
+
+preprocess:
+  # 1024, not 512. At 512 a wire stroke is 1.9 px — at the survivability
+  # floor of binarization. Doubling the canvas takes it to 2.7 px and
+  # wins significantly on 5 of 7 benchmark metrics over 190 paired
+  # images (results/comparisons/res512_vs_1024.csv). Every dimensional
+  # parameter below and in wires/snapping/textmask is scaled with it.
+  target_size: 1024         # output canvas (px), aspect ratio preserved
+  # Frames must be preprocessed AT target_size; benchmark.py refuses to
+  # run on a mismatch rather than silently scoring the wrong pixels.
+  images_dir: data/cleaned_1024
+  blur_kernel: 3            # Gaussian blur before Otsu for angle estimation
+  angle_min_blob_area: 200  # ignore specks when estimating skew angle
+  border_margin: 2          # blobs touching the frame within this margin are ignored
+  landscape_ratio: 1.05     # rotate 90° CCW if height > width * ratio
+  shadow_std_threshold: 18  # only shadow-normalize if gray.std() exceeds this
+  shadow_dilate_kernel: 7
+  shadow_median_blur: 21
+  # Speck removal (gentler than the legacy area-only rule, which deleted
+  # faint components): a blob survives if its area OR its extent is
+  # meaningful, so hairline wire segments are preserved. Speck removal
+  # affects emitted pixels only — never the crop rectangle.
+  remove_specks: true
+  speck_min_area: 40        # was 120 — deleted real ink
+  speck_min_extent: 12      # keep thin/elongated strokes regardless of area
+  crop_pad: 12              # minimum padding around the content crop (px)
+  crop_pad_frac: 0.02       # ...scaled to image size (12 px is 0.6% of 2000 px)
+  # Skew estimation: length-weighted median of Hough segments folded
+  # mod 90 (robust), falling back to pooled-blob minAreaRect.
+  hough_min_line_frac: 0.06
+  hough_threshold: 80
+  hough_max_gap: 6
+  max_skew_deg: 20.0        # reject implausible skew estimates
+
+detect:
+  backend: ultralytics
+  cache_dir: data/detections_1024
+  model_id: electrical-components-qpl1s/6   # Roboflow hosted model (legacy)
+  api_url: https://detect.roboflow.com
+  weights: /Users/junaidahmed/Documents/Chip-Schematic-Converter/experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt
+  confidence: 0.4           # detector confidence threshold
+  image_size: 640           # inference resolution (ultralytics backend)
+
+textmask:
+  enabled: true
+  adaptive_block_size: 63
+  adaptive_c: 10
+  dilate_kernel: 6
+  min_area: 80
+  max_area: 10000
+  min_aspect: 0.2
+  max_aspect: 6.0
+  max_height: 100
+  max_width: 240
+
+wires:
+  # C2: wire extraction method.
+  #   "ink"   — binarized ink (solid strokes) + anisotropic gap bridging
+  #   "canny" — legacy edge detection (hollow double-edges); the baseline
+  method: ink
+  bridge_span: 9            # px, along-stroke gap bridging
+  bridge_mode: guarded       # closing minus parallel-rail welds
+  bridge_run: 7
+  bridge_thick: 3
+  min_blob_extent: 30       # keep thin strokes regardless of area
+  # Tier-1: stitch wire islands across regions OUR OWN masking deleted
+  # (text boxes + component pad rings, never component bodies). The
+  # measured dominant failure was rail nets shattered into 4-6 islands
+  # with 20-45 px gaps exactly at these self-inflicted holes.
+  stitch_masked_gaps: true
+  stitch_max_gap: 120        # px, cap on bridgeable hole size
+  stitch_angle_tol_deg: 35  # collinearity required on both endpoints
+  stitch_min_inside_frac: 0.75  # segment must run through hole/wire pixels
+  stitch_dir_radius: 14      # window for local stroke direction
+  stitch_passes: 2          # chained holes (text box next to pad ring)
+  # px added around detected component boxes before deleting them from
+  # the ink. This was 8, which erased the wire pixels immediately
+  # adjacent to every component — precisely the terminals snapping then
+  # has to find. Setting it to 0 is the single largest measured
+  # improvement in this pipeline: strict end-to-end success 0.058 ->
+  # 0.221 on its own, and 0.321 together with ports snapping.
+  # results/sweeps/masking.csv shows the effect is monotonic in the pad.
+  component_mask_pad: 0
+  canny_low: 40
+  canny_high: 120
+  # CANNY PATH ONLY. extract_wires() returns early for method: ink, so
+  # this knob is inert under the default and sweeping it is a no-op
+  # (verified: morph_kernel 2 vs 4 at 1024 px is bit-identical on all
+  # four sweep metrics). Kept because the canny baseline still uses it.
+  morph_kernel: 4           # dilate + open structuring element (px)
+  # Blob survives on area OR extent (see clean_blobs), so this threshold
+  # only removes specks that are also short — which is why it is nearly
+  # inert: at 1024 px, dropping it back to the 512 value of 20 costs
+  # 0.0024 terminal-pair F1 (results/sweeps/res1024_noisefloor.csv).
+  min_blob_area: 80         # v1 = 20, v2 = 60 (ablation E3)
+  non_wire_classes:         # detector classes masked out before wire extraction
+    # (canonical vocabulary; legacy names canonicalize on load.
+    #  Wire Crossover is deliberately absent — masking it would sever
+    #  the wires that cross there.)
+    - Resistor
+    - Capacitor
+    - Inductor
+    - Diode
+    - Zener Diode
+    - GND
+    - V-DC
+    - V-DC (one port)
+    - V-AC
+    - I-DC
+    - I-AC
+    - MOSFET-N
+    - MOSFET-P
+    - BJT-NPN
+    - BJT-PNP
+    - Op-Amp
+
+nodes:
+  connectivity: 8           # 4 or 8 (ablation E4)
+  handle_crossovers: true  # crossover-aware net assembly (C2 ablation:
+                            # false = classical CC; true = notch + reconnect
+                            # opposite arms at detected Wire Crossover boxes)
+  # C2 headline ablation. "cc" = connected components only; "crossover"
+  # = notch at DETECTED Wire Crossover boxes (which cover ~11% of the
+  # stroke intersections actually present); "learned" = classify EVERY
+  # intersection with the CGHD-trained junction/crossover CNN.
+  # Measured motivation: 72.6% of wire nodes carrying component
+  # terminals fuse two or more GT nets (results/intersections/).
+  method: crossover         # cc | crossover | learned
+  junction_weights: experiments/junction/full_cpu/best.pt
+  # Asymmetric costs: calling a crossing a junction WELDS two nets and
+  # corrupts every component on both; calling a junction a crossing
+  # splits one net, which is more localized. So the threshold sits below
+  # 0.5, biased toward predicting "crossing". Tune against the benchmark.
+  junction_threshold: 0.4
+  # nodes.method: vector — connectivity from skeleton ARM GEOMETRY, no
+  # ink editing. Lengths are multiples of the measured stroke half-width
+  # so one setting holds at 512 and 1024. Splits only on positive
+  # evidence (detector box, or 4 arms in two opposite pairs); every
+  # ambiguous site stays a junction, because a wrong split severs a net.
+  vector:
+    site_radius_frac: 2.2   # site disk radius, x stroke half-width
+    min_sep: 9              # branch-pixel clustering (px)
+    spur_frac: 3.0          # arms shorter than this x hw with a free end
+                            # are thick-stroke/stitch artifacts -> pruned
+    arm_probe_frac: 4.0     # radius for measuring an arm's direction
+    collinear_deg: 30.0     # max deviation from 180 to call arms opposite
+    dot_ratio: 1.75         # ink thicker than this x hw reads as a solder
+                            # dot. NOTE a 90-deg crossing is ~1.41x hw by
+                            # geometry, so this must stay above that.
+    link_gap: 0             # >0 enables endpoint linking across pen lifts
+    link_collinear_deg: 25.0
+    # Split on GEOMETRY alone at non-box sites? Measured worse: enabling it
+    # cost 0.025 terminal-pair F1 against the same tracer with it off,
+    # because a bare 4-arm site is not evidence of a crossing. Detected
+    # crossover boxes always split regardless of this flag.
+    split_geometry: false
+    # Learned per-site split decision. Empty = disabled (geometry/dot only).
+    # Point it at a checkpoint from scripts/train_junction.py trained on the
+    # self-labeled renders (scripts/build_crossing_dataset.py). Threshold is
+    # an operating point, not a detail: the model leans toward splitting
+    # (crossover recall ~0.93 vs junction recall ~0.86), and junctions
+    # outnumber crossings ~2.5:1, so raise it to trade recall for precision.
+    classifier_weights: ""
+    classifier_threshold: 0.5
+    classifier_context: 3.0
+    classifier_min_degree: 3   # 3 reaches T-sites: 41% of weld cut points
+  # How notched arms are re-paired. "band" votes in four fixed strips at
+  # the box edges and is therefore placement-dependent: a 2 px box shift
+  # took terminal-pair F1 from 1.0000 to 0.5233 on circuit_1166.
+  # "angle" samples a ring and pairs the most-opposite arms by measured
+  # direction, which is invariant to where the box sits.
+  relink: band            # band | angle
+  junction_site_box: 30     # px box synthesized around a classified site
+  junction_context: 3.0     # crop context, must match training
+
+snapping:
+  # ports = port-template pin identity (C3). It measured only +0.013
+  # terminal-pair F1 against padded masks and delivers +0.068 against
+  # clean ones — the contribution was suppressed by component_mask_pad
+  # two stages upstream, not weak.
+  strategy: ports          # ports (C3, default) | boundary | directional | uniform
+  max_expand: 60            # v1 = 30, v2 = 22
+  window_depth: 8           # px the snap window reaches into the bbox
+  expand_step: 4            # growth step for expanding searches
+  ground_max_expand: 80     # v1 ground symbol search radius
+  uniform_ground_max_expand: 52   # v2 ground search radius
+
+netlist:
+  ground_fallback: most_connected  # most_connected (v1) | fail (v2) — ablation E4
+  placeholders:             # values assigned in lieu of OCR
+    resistor: 1k
+    capacitor: 1u
+    inductor: 1m
+    dc_supply: DC 5
+    ac_supply: AC 1
+    dc_current: DC 1m
+    ac_current: AC 1m
+    diode_model: Ddefault
+    zener_model: Zdefault
+    mosfet_model: NMOS
+
+simulate:
+  ngspice_binary: ngspice
+  timeout_s: 5
+  diagnostics: true         # parse which node/element ngspice reported failing
+
+# M4 design-intent completion & transparent repair (contribution C5).
+# Repair NEVER changes the recovered topology — it only adds explicit,
+# logged constraints to make the circuit DC-solvable. See repair.py.
+repair:
+  enabled: true
+  max_assumptions: 8        # minimality budget (flagged if exceeded)
+  prefer_spice_aids: true   # prefer SPICE aids over structural edits
+  shunt_r: 1e9              # ohms, shunt-to-ground for floating subnets
+  strategies:
+    add_ground_reference: true
+    shunt_floating_net: true
+    inductor_series_r: true
+    placeholder_values: true
+    current_direction: true
