@@ -29,6 +29,7 @@ from schematic2netlist.nodes import (
     build_wire_nodes_crossover_aware,
 )
 from schematic2netlist.repair import build_ledger, export_ledger, repair_circuit
+from schematic2netlist.class_head import reclassify as class_head_reclassify
 from schematic2netlist.connectivity_repair import repair_connectivity
 from schematic2netlist.snapping import build_component_pin_nets
 from schematic2netlist.textmask import detect_text_mask
@@ -79,6 +80,11 @@ def run_pipeline(
 
     if detections is None:
         detections = detect_mod.detect(image_path, cfg)
+
+    # Re-decide component CLASS with the dedicated head before anything reads a
+    # label. Boxes are untouched, so masking, snapping and connectivity all see
+    # identical geometry and any metric change is attributable to labels alone.
+    class_head_report = class_head_reclassify(detections, gray, cfg)
 
     # "Text" detections (from the 18-class detector) are mask evidence,
     # never components: they are removed here and rasterized into the
@@ -279,6 +285,7 @@ def run_pipeline(
         "netlist": netlist_info,
         "repair": repair_result,
         "nodes_method": method,
+        "class_head": class_head_report,
         "connectivity_repair": conn_repair,
         "junction_info": junction_info,
         "out_dir": str(out_dir) if save else None,

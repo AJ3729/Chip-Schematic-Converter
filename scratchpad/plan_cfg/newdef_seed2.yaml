@@ -63,6 +63,25 @@ detect:
   weights: /Users/junaidahmed/Documents/Chip-Schematic-Converter/experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt
   confidence: 0.4           # detector confidence threshold
   image_size: 640           # inference resolution (ultralytics backend)
+  # Dedicated component-class head. The detector localises well and classifies
+  # less well, and the two are separable: mAP50 is 0.9725 while class confusion
+  # is the whole detection headroom (GT classes are worth +0.0263 strict, GT
+  # crossover boxes LESS than nothing). On the same 2782 test components the
+  # detector scores 0.9583 balanced accuracy and this head 0.9805, with
+  # MOSFET-N 0.7778 -> 0.9259 and MOSFET-P 0.7955 -> 0.9545.
+  #
+  # threshold is a RISK setting, not a tuning knob. Strict success is a product
+  # over components, so a wrong relabel destroys an image that was already
+  # correct. The head is better on the confusable pairs but WORSE on some easy
+  # ones (Resistor 0.9766 vs 0.9957), so relabelling everything loses. At 0.95:
+  # 26 corrected against 1 broken, 96.3% precision, and strict success improves
+  # on ALL THREE detector seeds (+0.0105 / +0.0105 / +0.0158).
+  class_head:
+    enabled: true
+    weights: experiments/class_head/best.pt
+    threshold: 0.95
+    pad_frac: 0.25
+    device: cpu
 
 textmask:
   enabled: true
