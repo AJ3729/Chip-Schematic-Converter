@@ -42,7 +42,10 @@ from schematic2netlist.preprocess import preprocess_image_meta  # noqa: E402
 from schematic2netlist.repair import build_ledger, repair_circuit  # noqa: E402
 from schematic2netlist.simulate import run_ngspice_diag  # noqa: E402
 from schematic2netlist.snapping import build_component_pin_nets  # noqa: E402
-from schematic2netlist.textmask import detect_text_mask  # noqa: E402
+from schematic2netlist.textmask import detect_text_mask
+from schematic2netlist.preprocess import project_point as pp_project_point
+from schematic2netlist.wires import _bridge_collinear as wires_bridge_collinear
+from schematic2netlist.wires import _filter_blobs as wires_filter_blobs  # noqa: E402
 from schematic2netlist.wires import (  # noqa: E402
     build_non_wire_mask,
     extract_wires,
@@ -294,12 +297,29 @@ def _simulation_stage(comps, dets, run: Path, rep, gt_stem: str | None):
     }
 
 
+def _where(fn) -> str:
+    """'src/schematic2netlist/wires.py:208  _bridge_collinear()', resolved from
+    the live object so it cannot drift as code moves."""
+    import inspect
+    try:
+        f = Path(inspect.getsourcefile(fn)).resolve()
+        _, line = inspect.getsourcelines(fn)
+    except (TypeError, OSError):
+        return f"[native] {getattr(fn, '__name__', fn)}()"
+    try:
+        rel = f.relative_to(Path(__file__).resolve().parent.parent)
+    except ValueError:
+        rel = f
+    return f"{rel}:{line}  {fn.__qualname__}()"
+
+
 def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
     stages = []
 
-    def stage(sid, title, caption, image_name, extra=None):
+    def stage(sid, title, caption, image_name, extra=None, sources=()):
         stages.append({"id": sid, "title": title, "caption": caption,
-                       "image": image_name, "extra": extra or {}})
+                       "image": image_name, "extra": extra or {},
+                       "sources": [_where(s) for s in sources]})
 
     # ---- 0. original ----
     arr = np.frombuffer(image_bytes, np.uint8)
@@ -309,7 +329,7 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
     _save(run, "00_original.png", orig)
     stage("original", "Original drawing",
           "The photo as uploaded — skewed, shadowed, hand-drawn.",
-          "00_original.png")
+          "00_original.png", sources=[cv2.imdecode])
 
     # ---- 1. preprocess ----
     tmp = run / "_upload.png"
@@ -321,7 +341,8 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
     stage("preprocess", "Preprocessing",
           f"Deskewed {meta['angle_deg']:+.1f}°, shadow-normalized, binarized, "
           f"cropped and scaled onto a {meta['target_size']} px canvas.",
-          "01_cleaned.png")
+          "01_cleaned.png",
+          sources=[preprocess_image_meta, pp_project_point])
 
     img = _bgr(canvas)
     gray = canvas
@@ -338,7 +359,8 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
     stage("detect", "Component detection",
           f"Local YOLOv8s finds {len(dets)} symbols across 17 classes — "
           "including wire crossovers.",
-          _save(run, "02_detect.png", vis))
+          _save(run, "02_detect.png", vis),
+          sources=[detect_ultralytics, bbox_xyxy])
 
     # ---- 3. masking ----
     text_mask = detect_text_mask(gray, CFG) if CFG["textmask"]["enabled"] else None
@@ -352,7 +374,8 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
     stage("mask", "Masking non-wire ink",
           "Component bodies (red) and handwriting (blue) are removed so "
           "only conductors remain.",
-          _save(run, "03_mask.png", vis))
+          _save(run, "03_mask.png", vis),
+          sources=[detect_text_mask, build_non_wire_mask])
 
     # ---- 4. wire extraction ----
     _, wires0 = extract_wires(gray, non_wire, CFG)
@@ -361,7 +384,8 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
     stage("wires", "Wire extraction",
           "Remaining ink is binarized into candidate conductors "
           f"(method: {CFG['wires'].get('method', 'canny')}).",
-          _save(run, "04_wires.png", vis))
+          _save(run, "04_wires.png", vis),
+          sources=[extract_wires, wires_bridge_collinear, wires_filter_blobs])
 
     # ---- 5. stitching ----
     wires = wires0
@@ -381,7 +405,8 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
             caption += (" With component_mask_pad=0 there are no self-inflicted "
                         "holes left to bridge, so this stage is a no-op.")
         stage("stitch", "Gap stitching", caption,
-              _save(run, "05_stitch.png", vis))
+              _save(run, "05_stitch.png", vis),
+              sources=[stitch_wire_islands, stitchable_mask])
 
     # ---- 6. nets ----
     from schematic2netlist.classes import canonical_class
@@ -398,8 +423,13 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
             context=ncfg.get("junction_context", 3.0),
             connectivity=ncfg["connectivity"])
     elif method == "crossover":
+        # relink MUST be passed. Omitting it silently fell back to the default
+        # while the pipeline may be configured for "angle", so this stage could
+        # render connectivity the pipeline would never produce -- the exact
+        # failure mode a demo must not have.
         node_map, n_nodes = build_wire_nodes_crossover_aware(
-            wires, xb, connectivity=ncfg["connectivity"])
+            wires, xb, connectivity=ncfg["connectivity"],
+            relink=ncfg.get("relink", "band"))
     else:
         node_map, n_nodes = build_wire_nodes(
             wires, connectivity=ncfg["connectivity"])
@@ -411,7 +441,8 @@ def process(image_bytes: bytes, run: Path, gt_stem: str | None = None) -> dict:
     stage("nets", "Electrical nets",
           f"{n_nodes} connected regions — one colour per electrical net. "
           "Crossing wires stay separate at detected crossovers.",
-          _save(run, "06_nets.png", vis))
+          _save(run, "06_nets.png", vis),
+          sources=[build_wire_nodes_crossover_aware, build_wire_nodes])
 
     # ---- 7. snapping ----
     comps = build_component_pin_nets(dets, node_map, CFG)
