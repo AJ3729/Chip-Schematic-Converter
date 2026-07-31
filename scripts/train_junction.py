@@ -61,7 +61,12 @@ def load_split(root: Path, split: str, size: int):
             y.append(label)
     if not X:
         raise SystemExit(f"no patches under {root/split}")
-    return np.stack(X).astype(np.float32) / 255.0, np.array(y, dtype=np.int64)
+    # Keep patches as uint8 and scale per BATCH, not here. Materializing
+    # float32 costs 4x: the 128-px synthetic set (92,689 train + 20,267
+    # val patches) needs 8.6 GB as float32 and was silently OOM-killed on
+    # a 16 GB machine, leaving an empty output directory and no error.
+    # uint8 brings the same set to 2.1 GB.
+    return np.stack(X), np.array(y, dtype=np.int64)
 
 
 def build_model(size: int):
@@ -112,6 +117,8 @@ def main() -> None:
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--device", default=None, help="cuda | mps | cpu")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--force", action="store_true",
+                    help="overwrite an --out that already holds best.pt")
     args = ap.parse_args()
 
     import torch
@@ -126,15 +133,46 @@ def main() -> None:
     # data problem, which cost a debugging session, so it must be opted
     # into explicitly.
     dev = args.device or ("cuda" if torch.cuda.is_available() else "cpu")
+    # Accept the Ultralytics-style device spec ("0", "1", ...) as well as
+    # PyTorch's own. scripts/train.py takes --device 0 because that is what
+    # Ultralytics wants, so passing the same flag here is the natural
+    # mistake, and torch answers it with a bare "Invalid device string: '0'"
+    # AFTER loading the whole dataset.
+    if dev.isdigit():
+        dev = f"cuda:{dev}"
+    if dev.startswith("cuda") and not torch.cuda.is_available():
+        raise SystemExit(f"--device {args.device} requested but CUDA is not "
+                         f"available (torch {torch.__version__}, "
+                         f"cuda {torch.version.cuda})")
     if dev == "mps":
         print("[WARN] MPS produces a degenerate model here (see comment); "
               "CPU or CUDA strongly recommended", flush=True)
     root = Path(args.data)
     out = Path(args.out)
+    if (out / "best.pt").exists() and not args.force:
+        raise SystemExit(
+            f"{out}/best.pt already exists. A second run here overwrites the "
+            f"weights the moment its first epoch 'improves' on nothing, while "
+            f"summary.json keeps describing the OLD run until this one "
+            f"finishes — so an interrupted re-run ships a finished run's "
+            f"metrics next to a half-trained run's weights. Use a fresh "
+            f"--out, or --force if you really mean to overwrite.")
     out.mkdir(parents=True, exist_ok=True)
 
-    Xtr, ytr = load_split(root, "train", args.size)
-    Xva, yva = load_split(root, "val", args.size)
+    # A packed .npz (scripts/pack_crossing_dataset.py) loads in seconds
+    # where ~150k individual PNGs take minutes — the difference matters on
+    # a rented GPU, where startup time is billed.
+    if root.suffix == ".npz":
+        z = np.load(root, allow_pickle=False)
+        Xtr, ytr = z["X_train"], z["y_train"]
+        Xva, yva = z["X_val"], z["y_val"]
+        if Xtr.shape[1] != args.size:
+            raise SystemExit(
+                f"{root} holds {Xtr.shape[1]}px patches but --size is "
+                f"{args.size}; pass --size {Xtr.shape[1]}")
+    else:
+        Xtr, ytr = load_split(root, "train", args.size)
+        Xva, yva = load_split(root, "val", args.size)
     # load_split returns patches grouped by class; shuffle validation so
     # that any subsampling downstream stays class-representative rather
     # than silently scoring one class (a mistake this project has made).
@@ -156,9 +194,10 @@ def main() -> None:
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=args.epochs)
     lossf = nn.CrossEntropyLoss(weight=weights)
 
+    # uint8 on the host; scaled to float per batch on the device
     Xtr_t = torch.from_numpy(Xtr).unsqueeze(1)
     ytr_t = torch.from_numpy(ytr)
-    Xva_t = torch.from_numpy(Xva).unsqueeze(1).to(dev)
+    Xva_t = torch.from_numpy(Xva).unsqueeze(1)
 
     best = {"balanced_acc": -1.0}
     history = []
@@ -168,7 +207,7 @@ def main() -> None:
         total = 0.0
         for i in range(0, len(perm), args.batch):
             idx = perm[i:i + args.batch]
-            xb = Xtr_t[idx].to(dev)
+            xb = Xtr_t[idx].to(dev).float().div_(255.0)
             yb = ytr_t[idx].to(dev)
             # augmentation: circuits are drawn at any orientation, and a
             # junction stays a junction under flips and 90-degree turns
@@ -183,12 +222,16 @@ def main() -> None:
             loss = lossf(model(xb), yb)
             loss.backward()
             opt.step()
-            total += float(loss) * len(idx)
+            total += float(loss.detach()) * len(idx)
         sched.step()
 
         model.eval()
         with torch.no_grad():
-            probs = torch.softmax(model(Xva_t), dim=1)[:, 1].cpu().numpy()
+            chunks = []
+            for i in range(0, len(Xva_t), 512):
+                vb = Xva_t[i:i + 512].to(dev).float().div_(255.0)
+                chunks.append(torch.softmax(model(vb), dim=1)[:, 1].cpu())
+            probs = torch.cat(chunks).numpy()
         m = metrics_at(probs, yva, 0.5)
         m["epoch"] = epoch
         m["train_loss"] = round(total / len(ytr_t), 4)
@@ -199,8 +242,18 @@ def main() -> None:
               f"junction recall {m['junction_recall']:.4f}", flush=True)
         if m["balanced_acc"] > best["balanced_acc"]:
             best = dict(m)
+            # Stamp the metrics INTO the checkpoint. best.pt, val_probs.npy
+            # and summary.json are written at three different moments, so a
+            # second run into the same --out silently leaves a mismatched
+            # trio: a finished run's summary next to a half-trained run's
+            # weights. That happened on the v5 pod run and cost a full
+            # transfer evaluation on the wrong model, which read as "the
+            # data did not transfer" when the 0.80 weights were never
+            # tested at all. Anything reading best.pt can now check.
             torch.save({"state_dict": model.state_dict(), "size": args.size,
-                        "classes": CLASSES}, out / "best.pt")
+                        "classes": CLASSES, "epoch": epoch,
+                        "val_metrics": dict(m), "data": str(root),
+                        "seed": args.seed}, out / "best.pt")
             np.save(out / "val_probs.npy", probs)
 
     probs = np.load(out / "val_probs.npy")

@@ -42,12 +42,31 @@ def main() -> None:
     ap.add_argument("--splits-dir", default="data/splits")
     ap.add_argument("--out-dir", default=None,
                     help="default: data/yolo_<frame>")
+    ap.add_argument("--include-text", action="store_true",
+                    help="add the published text annotations as an 18th "
+                         "class 'Text'. Measured motivation: the heuristic "
+                         "text mask fully misses 10.5%% of text boxes "
+                         "(48%% of test images affected), and every "
+                         "unmasked label enters the wire mask as a phony "
+                         "wire. Detection-based masking is the fix.")
+    ap.add_argument("--text-json",
+                    default=("data/digitize_hcd/extracted/Digitize-HCD Dataset/"
+                             "Component Symbol and Text Label Data/"
+                             "text_annotations.json"))
     args = ap.parse_args()
 
     coco = json.load(open(args.coco))
     cats = sorted(coco["categories"], key=lambda c: c["id"])
     class_index = {c["id"]: i for i, c in enumerate(cats)}
     names = [c["name"] for c in cats]
+
+    text_by_stem: dict[str, list] = {}
+    if args.include_text:
+        tdata = json.load(open(args.text_json))
+        text_by_stem = {Path(e["file_name"]).stem: e["instances"]
+                        for e in tdata["data_list"]}
+        TEXT_CLASS = len(names)
+        names.append("Text")
 
     images = {i["id"]: i for i in coco["images"]}
     by_name = {i["file_name"]: i["id"] for i in coco["images"]}
@@ -96,6 +115,21 @@ def main() -> None:
                     continue
                 lines.append(
                     f"{class_index[a['category_id']]} "
+                    f"{cx / W:.6f} {cy / H:.6f} {bw / W:.6f} {bh / H:.6f}"
+                )
+                total_boxes += 1
+            for inst in text_by_stem.get(stem, []) if args.include_text else []:
+                x1, y1, x2, y2 = inst["bbox"]
+                x, y, w, h = x1, y1, x2 - x1, y2 - y1
+                if cleaned:
+                    cx, cy, bw, bh = project_bbox(meta, x, y, w, h)
+                else:
+                    cx, cy, bw, bh = x + w / 2, y + h / 2, w, h
+                if cx < 0 or cy < 0 or cx > W or cy > H or bw <= 0 or bh <= 0:
+                    dropped += 1
+                    continue
+                lines.append(
+                    f"{TEXT_CLASS} "
                     f"{cx / W:.6f} {cy / H:.6f} {bw / W:.6f} {bh / H:.6f}"
                 )
                 total_boxes += 1
