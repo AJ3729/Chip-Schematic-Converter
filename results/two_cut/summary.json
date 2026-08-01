@@ -1,0 +1,12 @@
+{
+ "images": 60,
+ "welds": 229,
+ "one_cut": 202,
+ "two_cut": 0,
+ "neither": 27,
+ "one_cut_share": 0.8821,
+ "two_cut_share": 0.0,
+ "cumulative_share_after_two_cuts": 0.8821,
+ "median_pair_distance_px": null,
+ "interpretation": "two_cut counts welds that NO single site separates but some PAIR does. A large share with a small pair distance is the signature of a hand-drawn hop whose arc touches the crossed conductor twice, and would mean single-site splitting was the wrong operation rather than crossings being unrecoverable."
+}
