@@ -1,0 +1,124 @@
+{
+ "components": [
+  {
+   "id": 0,
+   "terminals": [
+    "n_sense",
+    "n_out",
+    "n_drive"
+   ]
+  },
+  {
+   "id": 1,
+   "terminals": [
+    "n_bottom",
+    "n_ref"
+   ]
+  },
+  {
+   "id": 2,
+   "terminals": [
+    "n_bottom",
+    "n_out"
+   ]
+  },
+  {
+   "id": 3,
+   "terminals": [
+    "n_bottom",
+    "n_ac_left"
+   ]
+  },
+  {
+   "id": 4,
+   "terminals": [
+    "n_bottom",
+    "n_ac_right"
+   ]
+  },
+  {
+   "id": 5,
+   "terminals": [
+    "n_ac_right",
+    "n_top"
+   ]
+  },
+  {
+   "id": 6,
+   "terminals": [
+    "n_out",
+    "n_bottom"
+   ]
+  },
+  {
+   "id": 7,
+   "terminals": [
+    "n_sense",
+    "n_ref",
+    "n_timing"
+   ]
+  },
+  {
+   "id": 8,
+   "terminals": [
+    "n_top",
+    "n_lc"
+   ]
+  },
+  {
+   "id": 9,
+   "terminals": [
+    "n_lc",
+    "n_bottom"
+   ]
+  },
+  {
+   "id": 10,
+   "terminals": [
+    "n_top",
+    "n_drive",
+    "n_switch"
+   ]
+  },
+  {
+   "id": 11,
+   "terminals": [
+    "n_top",
+    "n_ref"
+   ]
+  },
+  {
+   "id": 12,
+   "terminals": [
+    "n_ac_left",
+    "n_top"
+   ]
+  },
+  {
+   "id": 13,
+   "terminals": [
+    "n_switch",
+    "n_out"
+   ]
+  },
+  {
+   "id": 14,
+   "terminals": [
+    "n_ac_left",
+    "n_ac_right"
+   ]
+  },
+  {
+   "id": 15,
+   "terminals": [
+    "n_timing",
+    "n_bottom"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2006,
+  "output": 1865
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

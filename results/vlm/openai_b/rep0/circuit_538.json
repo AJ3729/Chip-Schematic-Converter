@@ -1,0 +1,173 @@
+{
+ "components": [
+  {
+   "id": 0,
+   "terminals": [
+    "nD",
+    "nDrive"
+   ]
+  },
+  {
+   "id": 1,
+   "terminals": [
+    "nQ4base",
+    "nD"
+   ]
+  },
+  {
+   "id": 2,
+   "terminals": [
+    "0",
+    "nB",
+    "nA"
+   ]
+  },
+  {
+   "id": 3,
+   "terminals": [
+    "nCol3",
+    "nC",
+    "nPre"
+   ]
+  },
+  {
+   "id": 4,
+   "terminals": [
+    "nTop",
+    "nQ4base",
+    "nOut"
+   ]
+  },
+  {
+   "id": 6,
+   "terminals": [
+    "0",
+    "nL",
+    "nB"
+   ]
+  },
+  {
+   "id": 7,
+   "terminals": [
+    "nC",
+    "nOut"
+   ]
+  },
+  {
+   "id": 8,
+   "terminals": [
+    "nCol3",
+    "nQ8base",
+    "0"
+   ]
+  },
+  {
+   "id": 9,
+   "terminals": [
+    "n10",
+    "nA"
+   ]
+  },
+  {
+   "id": 10,
+   "terminals": [
+    "nDrive",
+    "nPre",
+    "0"
+   ]
+  },
+  {
+   "id": 11,
+   "terminals": [
+    "nL",
+    "0"
+   ]
+  },
+  {
+   "id": 12,
+   "terminals": [
+    "nA",
+    "nC"
+   ]
+  },
+  {
+   "id": 13,
+   "terminals": [
+    "nTop",
+    "n10"
+   ]
+  },
+  {
+   "id": 15,
+   "terminals": [
+    "nTop"
+   ]
+  },
+  {
+   "id": 16,
+   "terminals": [
+    "nOut",
+    "nQ16base",
+    "0"
+   ]
+  },
+  {
+   "id": 17,
+   "terminals": [
+    "nC"
+   ]
+  },
+  {
+   "id": 18,
+   "terminals": [
+    "nQ8base",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "id": 19,
+   "terminals": [
+    "nPre",
+    "0"
+   ]
+  },
+  {
+   "id": 20,
+   "terminals": [
+    "n10"
+   ]
+  },
+  {
+   "id": 21,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 22,
+   "terminals": [
+    "nL"
+   ]
+  },
+  {
+   "id": 23,
+   "terminals": [
+    "nOut"
+   ]
+  },
+  {
+   "id": 24,
+   "terminals": [
+    "nQ16base",
+    "nDrive",
+    "nOut"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2186,
+  "output": 2224
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

@@ -1,0 +1,74 @@
+{
+ "run_dir": "results/vlm/openai_b",
+ "variant": "b",
+ "n_repeats": 1,
+ "per_repeat": [
+  {
+   "rep": "rep0",
+   "n": 190,
+   "unusable": 0,
+   "metrics": {
+    "n_images": 190,
+    "terminal_pair_f1": {
+     "mean": 0.8561506556874244,
+     "ci95_lo": 0.8315276400881342,
+     "ci95_hi": 0.8814118264962505
+    },
+    "net_f1": {
+     "mean": 0.9081734085484189,
+     "ci95_lo": 0.8920915003145508,
+     "ci95_hi": 0.9241275709786548
+    },
+    "per_component_connected_acc": {
+     "mean": 0.6437518837499567,
+     "ci95_lo": 0.5902409856447065,
+     "ci95_hi": 0.6991969106204593
+    },
+    "per_component_recall_acc": {
+     "mean": 0.7437049458797922,
+     "ci95_lo": 0.6974796462009661,
+     "ci95_hi": 0.7922430273576772
+    },
+    "nged": {
+     "mean": 0.17000719346151272,
+     "ci95_lo": 0.15083453484918302,
+     "ci95_hi": 0.18838152318534346
+    },
+    "strict_success": {
+     "mean": 0.4789473684210526,
+     "ci95_lo": 0.4052631578947368,
+     "ci95_hi": 0.5526315789473685
+    }
+   }
+  }
+ ],
+ "across_repeats": {
+  "terminal_pair_f1": {
+   "mean": 0.8561506556874244,
+   "sd": 0.0
+  },
+  "net_f1": {
+   "mean": 0.9081734085484189,
+   "sd": 0.0
+  },
+  "per_component_connected_acc": {
+   "mean": 0.6437518837499567,
+   "sd": 0.0
+  },
+  "nged": {
+   "mean": 0.17000719346151272,
+   "sd": 0.0
+  },
+  "strict_success": {
+   "mean": 0.4789473684210526,
+   "sd": 0.0
+  }
+ },
+ "agreement_vs_pipeline": {
+  "both_strict": 71,
+  "pipeline_only": 13,
+  "vlm_only": 20,
+  "neither": 86,
+  "n": 190
+ }
+}
