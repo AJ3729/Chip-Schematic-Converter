@@ -16,7 +16,11 @@ pipeline's own run so you can ask the question that matters: does the VLM fail
 on the SAME images we do?
 
 Usage:
-    python scripts/score_vlm.py --run-dir results/vlm/b --variant b
+    python scripts/score_vlm.py --run-dir results/vlm/claude_b --variant b
+    python scripts/score_vlm.py --run-dir results/vlm/openai_b --variant b
+
+Provider-agnostic: both runners write the same cached shape, so there is no
+per-provider branch here and neither model gets a scoring advantage.
 """
 
 from __future__ import annotations
@@ -37,7 +41,7 @@ from schematic2netlist.config import load_config
 from schematic2netlist.gt import gt_to_components, load_gt
 
 sys.path.insert(0, str(ROOT / "scripts"))
-from vlm_baseline import load_detections  # same class head the pipeline applies
+from vlm_task import load_detections  # same class head the pipeline applies
 
 METRICS = ["terminal_pair_f1", "net_f1", "per_component_connected_acc",
            "nged", "strict_success"]
