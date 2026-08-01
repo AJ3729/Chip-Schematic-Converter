@@ -1,6 +1,6 @@
 {
-  "timestamp_utc": "2026-07-31T19:25:33.167074+00:00",
-  "git_sha": "c6b3d35979117ab8ebe517b0b7f54ec0dd4347fc",
+  "timestamp_utc": "2026-08-01T00:28:33.978365+00:00",
+  "git_sha": "83ef9f8123c75c17b54525563d34a30a5b92ff33",
   "seed": 0,
   "config": {
     "seed": 0,
@@ -38,7 +38,8 @@
       "class_head": {
         "enabled": true,
         "weights": "experiments/class_head/best.pt",
-        "threshold": 0.95,
+        "weights2": "experiments/class_head_s1/best.pt",
+        "threshold": 0.9,
         "pad_frac": 0.25,
         "device": "cpu"
       }

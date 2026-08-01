@@ -79,7 +79,13 @@ detect:
   class_head:
     enabled: true
     weights: experiments/class_head/best.pt
-    threshold: 0.95
+    # Second independently seeded head; softmax outputs are AVERAGED. Two heads
+    # disagree where either is unsure, so the ensemble is better calibrated and
+    # the threshold means more: 45 corrected against 1 broken at 97.8% precision,
+    # where one head managed 26 against 1 at 96.3%. Worth +0.0053 strict
+    # (1 win / 0 lose) and significant on tp F1, net F1, per-component and nGED.
+    weights2: experiments/class_head_s1/best.pt
+    threshold: 0.90
     pad_frac: 0.25
     device: cpu
 

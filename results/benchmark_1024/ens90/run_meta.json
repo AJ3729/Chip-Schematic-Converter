@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-08-01T00:29:39.437985+00:00",
+  "timestamp_utc": "2026-08-01T00:27:18.414761+00:00",
   "git_sha": "83ef9f8123c75c17b54525563d34a30a5b92ff33",
   "seed": 0,
   "config": {
@@ -29,17 +29,16 @@
     },
     "detect": {
       "backend": "ultralytics",
-      "cache_dir": "data/detections_seed2_1024",
+      "cache_dir": "data/detections_1024_ens90",
       "model_id": "electrical-components-qpl1s/6",
       "api_url": "https://detect.roboflow.com",
       "weights": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt",
       "confidence": 0.4,
       "image_size": 640,
       "class_head": {
-        "enabled": true,
+        "enabled": false,
         "weights": "experiments/class_head/best.pt",
-        "weights2": "experiments/class_head_s1/best.pt",
-        "threshold": 0.9,
+        "threshold": 0.95,
         "pad_frac": 0.25,
         "device": "cpu"
       }

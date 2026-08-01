@@ -9,22 +9,25 @@ corrections, resolution experiment).
 
 ### 0.1 Where the pipeline is
 
-**strict end-to-end success 0.4368** (83 of 190 images fully correct), from 0.3526
-at the start of the previous session. Paired over 190 images, all significant:
+**strict end-to-end success 0.4421** (84 of 190 images fully correct), from
+0.3526. Paired over 190 images, all significant:
 
 | metric | was | now | delta | W/L |
 |---|---|---|---|---|
-| terminal-pair F1 | 0.7076 | **0.7834** | +0.0758 | 68/9 |
-| net F1 | 0.8088 | **0.8675** | +0.0587 | 63/12 |
-| per-component (exact) | 0.4684 | **0.5712** | +0.1028 | 47/4 |
-| nGED | 0.2439 | **0.2306** | −0.0133 | 33/57 |
-| **strict success** | 0.3526 | **0.4368** | **+0.0842** | **16/0** |
+| terminal-pair F1 | 0.7076 | **0.7889** | +0.0813 | 73/9 |
+| net F1 | 0.8088 | **0.8714** | +0.0626 | 68/11 |
+| per-component (exact) | 0.4684 | **0.5771** | +0.1087 | 52/4 |
+| nGED | 0.2439 | **0.2274** | −0.0165 | 32/62 |
+| **strict success** | 0.3526 | **0.4421** | **+0.0895** | **17/0** |
 
-Three detector seeds: 0.4368 / 0.4316 / 0.4263. **Zero regressions anywhere.**
+Three detector seeds: 0.4421 / 0.4316 / 0.4211. **Zero regressions anywhere.**
 
 What changed, in order of contribution: blob-filter thresholds 80/30 → 10/8
-(+0.0368 strict), the class head (+0.0105), connectivity repair C6 (+0.0158),
-`bridge_span` 18 → 7, Sauvola binarisation, `snapping.max_expand` 60 → 80.
+(+0.0368 strict), the two-head class ensemble (+0.0158), connectivity repair C6
+(+0.0158), `bridge_span` 18 → 7, Sauvola binarisation,
+`snapping.max_expand` 60 → 80. The full 12-stage ablation is in
+`results/ablations_1024/wire_method.csv`, monotone on net F1 and tp F1
+throughout, from 0.0000 strict at the classical baseline.
 
 ### 0.2 TWO METRIC DEFINITIONS CHANGED. Old numbers are not comparable.
 
@@ -80,14 +83,22 @@ vector tracing, `bridge_mode: guarded`/`directional`, union ensemble.
 
 | lever | headroom | status |
 |---|---|---|
-| **class labels** | **+0.0211 strict**, SIG, 4 win / 0 lose | the class head captured +0.0105 of the original +0.0263; a second head is training to ensemble |
+| **class labels** | **+0.0211 strict** measured BEFORE the ensemble | the two-head ensemble captured +0.0158 of it; re-run `orc_gtclass_now` to get the current remainder |
 | connectivity | ceiling 0.80 | **blocked** on the weld adjudication (0.6) |
 | detection recall | 13 undetected components | lowering confidence is monotonically *worse* (0.3737 at 0.1); union ensemble is a null |
 
-**The gate now:** 31 images detection-blocked (21 by exactly ONE component),
-76 connectivity-only. Ceiling if detection were perfect: **0.8368**.
-Of the remaining blocks, 30 are wrong-class and 13 not-detected; the largest
-remaining pair is Inductor → Resistor (9).
+**The gate (measured at strict 0.4368, so slightly stale):** 31 images
+detection-blocked, 21 of them by exactly ONE component; 76 connectivity-only.
+Ceiling if detection were perfect: **0.8368**. Of the remaining blocks 30 were
+wrong-class and 13 not-detected, the largest pair being Inductor → Resistor.
+
+**Zero-shot on CGHD (100 images, 25 drafters): macro AP50 0.1846** against
+0.9753 in-domain — but this measures a DIFFERENT task, not degradation. 73.7% of
+CGHD's annotations are text/junction/terminal primitives, median per-image
+coverage by our 17 classes is 21.5%, and the corpus includes industrial ladder
+diagrams. Quote it only with that caveat. CGHD does annotate `junction` (2730)
+and `crossover` (205) explicitly, so it is the only source of real crossover
+supervision in this repository if the weld adjudication says hops dominate.
 
 ### 0.5 Performance is a function of CIRCUIT SIZE
 

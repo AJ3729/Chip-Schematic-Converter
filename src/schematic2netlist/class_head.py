@@ -22,8 +22,11 @@ product over every component in an image, so a wrong relabel destroys an image
 that was already correct while a right one helps only where the rest of that
 image is already perfect. The head is BETTER than the detector on the confusable
 pairs but WORSE on some easy ones (Resistor 0.9766 against 0.9957), so relabelling
-everything would lose. At 0.95 the change set is 26 corrected against 1 broken,
-96.3% precision, and the benchmark gains on all three detector seeds.
+everything would lose. Two independently seeded heads are ENSEMBLED by averaging softmax outputs, which
+moves the whole precision-recall curve rather than trading along it: at threshold
+0.90 the change set is 45 corrected against 1 broken, 97.8% precision, where a
+single head managed 26 against 1 at 96.3%. Two heads disagree where either is
+unsure, so a confidence threshold means more.
 """
 
 from __future__ import annotations
@@ -104,19 +107,27 @@ def reclassify(detections: list[dict], gray: np.ndarray, cfg: dict) -> dict:
             return self.head(self.drop(F.adaptive_avg_pool2d(x, 1).flatten(1)))
 
     weights = hcfg.get("weights") or "experiments/class_head/best.pt"
+    weights2 = hcfg.get("weights2")
     device = hcfg.get("device", "cpu")
     thr = float(hcfg.get("threshold", 0.95))
     pad = float(hcfg.get("pad_frac", 0.25))
 
-    key = (weights, device)
+    key = (weights, weights2, device)
     if key not in _CACHE:
         ck = torch.load(weights, map_location="cpu", weights_only=False)
         m = Net(len(ck["names"]))
         m.load_state_dict(ck["state"])
         m.to(device).eval()
-        _CACHE[key] = (m, [canonical_class(n) for n in ck["names"]],
+        m2 = None
+        if weights2:
+            ck2 = torch.load(weights2, map_location="cpu", weights_only=False)
+            assert ck2["names"] == ck["names"], "heads must share a label order"
+            m2 = Net(len(ck2["names"]))
+            m2.load_state_dict(ck2["state"])
+            m2.to(device).eval()
+        _CACHE[key] = (m, m2, [canonical_class(n) for n in ck["names"]],
                        int(ck.get("size", 128)))
-    model, names, size = _CACHE[key]
+    model, model2, names, size = _CACHE[key]
 
     crops, idx = [], []
     for i, d in enumerate(detections):
@@ -129,7 +140,11 @@ def reclassify(detections: list[dict], gray: np.ndarray, cfg: dict) -> dict:
 
     with torch.no_grad():
         xb = torch.from_numpy(np.array(crops)).float().div(255).unsqueeze(1)
-        p = torch.softmax(model(xb.to(device)), 1).cpu().numpy()
+        xd = xb.to(device)
+        pr = torch.softmax(model(xd), 1)
+        if model2 is not None:
+            pr = (pr + torch.softmax(model2(xd), 1)) / 2
+        p = pr.cpu().numpy()
 
     n_changed = 0
     changes: dict[str, int] = {}
