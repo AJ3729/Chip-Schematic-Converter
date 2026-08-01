@@ -58,19 +58,32 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from vlm_task import annotate, build_task, load_detections, split_names
 
 MODEL = "claude-opus-5"
+PRICE_IN, PRICE_OUT = 5.0, 25.0     # USD per Mtok, claude-opus-5
+BATCH_DISCOUNT = 0.5
 
 
-def params_for(task: dict) -> dict:
+def params_for(task: dict, effort: str = "low", thinking: bool = False) -> dict:
     """Messages-API parameters for one image. Shared by sync and batch so the
-    two paths cannot drift apart."""
-    return {
+    two paths cannot drift apart.
+
+    Thinking is OFF by default and that is the whole cost story. Structured
+    outputs already force JSON-only, so the visible answer is ~151 tokens; at
+    effort=high the model additionally spends ~21,000 INVISIBLE thinking
+    tokens per image, billed at the output rate. That is 99.3% of the bill.
+    Opus 5 accepts thinking:disabled only at effort high or lower, hence the
+    low default here.
+    """
+    cfg = {"format": {"type": "json_schema", "schema": task["schema"]},
+           "effort": effort}
+    out = {
         "model": MODEL,
-        "max_tokens": 32000,
+        # Generous: thinking tokens count against max_tokens, and 4096 clipped
+        # 19 of 190 images mid-answer (stop_reason=max_tokens, unparseable
+        # JSON). A cap costs nothing when the model finishes early.
+        "max_tokens": 16000,
         "system": task["system"],
-        "output_config": {
-            "format": {"type": "json_schema", "schema": task["schema"]},
-            "effort": "high",
-        },
+        "output_config": cfg,
+        "thinking": {"type": "adaptive"} if thinking else {"type": "disabled"},
         "messages": [{"role": "user", "content": [
             {"type": "image", "source": {
                 "type": "base64", "media_type": task["media_type"],
@@ -78,6 +91,7 @@ def params_for(task: dict) -> dict:
             {"type": "text", "text": task["text"]},
         ]}],
     }
+    return out
 
 
 def parse_message(msg) -> dict:
@@ -106,9 +120,37 @@ def is_done(path: Path) -> bool:
 
 # --------------------------------------------------------------------- batch
 
+# Measured on this task, claude-opus-5, variant B (mean output tokens/image).
+# Thinking tokens are invisible but billed as output and dominate the bill.
+MEASURED_OUT = {("adaptive", "low"): 2368, ("adaptive", "medium"): 8000,
+                ("adaptive", "high"): 21239, ("disabled", "low"): 317}
+MEASURED_IN = 2687
+
+
+def project_cost(n_requests: int, thinking: bool, effort: str) -> tuple[float, int]:
+    key = ("adaptive" if thinking else "disabled", effort)
+    out_tok = MEASURED_OUT.get(key, MEASURED_OUT[("adaptive", "high")])
+    per = (MEASURED_IN * PRICE_IN + out_tok * PRICE_OUT) / 1e6
+    return per * n_requests * BATCH_DISCOUNT, out_tok
+
+
 def run_batch(client, names, args, cfg, out: Path) -> None:
     from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
     from anthropic.types.messages.batch_create_params import Request
+
+    # Price the run BEFORE submitting. A batch cannot be un-spent, and the
+    # difference between effort levels here is 67x.
+    pending = sum(
+        1 for rep in range(args.repeat) for nm in names
+        if not is_done(out / f"rep{rep}" / f"{Path(nm).stem}.json"))
+    est, out_tok = project_cost(pending, args.thinking, args.effort)
+    print(f"projected: {pending} requests x ~{out_tok:,} output tok "
+          f"= ~${est:.2f} batched "
+          f"(thinking={'on' if args.thinking else 'OFF'}, effort={args.effort})")
+    if est > args.max_spend:
+        sys.exit(f"ABORT: ~${est:.2f} exceeds --max-spend ${args.max_spend:.2f}. "
+                 f"Nothing submitted.\n"
+                 f"  Lower --repeat, drop --thinking, or raise --max-spend.")
 
     state_path = out / "batches.json"
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
@@ -121,19 +163,38 @@ def run_batch(client, names, args, cfg, out: Path) -> None:
             print(f"rep{rep}: already complete")
             continue
 
-        bid = state.get(str(rep))
-        if not bid:
-            reqs = [Request(custom_id=Path(nm).stem,
-                            params=MessageCreateParamsNonStreaming(
-                                **params_for(build_task(Path(nm).stem, args.variant, cfg))))
-                    for nm in todo]
-            batch = client.messages.batches.create(requests=reqs)
-            bid = batch.id
-            state[str(rep)] = bid
-            state_path.write_text(json.dumps(state, indent=1))
-            print(f"rep{rep}: submitted {len(reqs)} requests as {bid}")
-        else:
-            print(f"rep{rep}: resuming {bid}")
+        # State is a LIST of batch ids per repeat, not one id. With a single
+        # id, a partially-failed batch could never be retried: the resume path
+        # re-read the same finished batch, re-wrote the same errors, and no
+        # retry batch was ever submitted. Observed exactly that on 19 of 190
+        # images clipped by max_tokens.
+        bids = state.get(str(rep)) or []
+        if isinstance(bids, str):                # migrate the old one-id shape
+            bids = [bids]
+        known = set(bids)
+
+        # Drain every batch already submitted for this repeat first; that may
+        # satisfy `todo` without spending anything.
+        for bid in bids:
+            harvest(client, bid, rep_dir, args, label=f"rep{rep} {bid}")
+        todo = [nm for nm in names
+                if not is_done(rep_dir / f"{Path(nm).stem}.json")]
+        if not todo:
+            print(f"rep{rep}: complete after draining {len(bids)} batch(es)")
+            continue
+
+        reqs = [Request(custom_id=Path(nm).stem,
+                        params=MessageCreateParamsNonStreaming(
+                            **params_for(build_task(Path(nm).stem, args.variant, cfg),
+                                         args.effort, args.thinking)))
+                for nm in todo]
+        batch = client.messages.batches.create(requests=reqs)
+        bid = batch.id
+        bids.append(bid)
+        state[str(rep)] = bids
+        state_path.write_text(json.dumps(state, indent=1))
+        print(f"rep{rep}: submitted {len(reqs)} requests as {bid}"
+              + (f" (retry #{len(bids)-1})" if known else ""))
 
         while True:
             b = client.messages.batches.retrieve(bid)
@@ -144,21 +205,32 @@ def run_batch(client, names, args, cfg, out: Path) -> None:
                   f"processing={c.processing} succeeded={c.succeeded} "
                   f"errored={c.errored}", flush=True)
             time.sleep(args.poll_seconds)
+        harvest(client, bid, rep_dir, args, label=f"rep{rep} {bid}")
 
-        n_ok = n_err = 0
-        for r in client.messages.batches.results(bid):
-            # Results come back in ARBITRARY order — key on custom_id, never
-            # on position.
-            dst = rep_dir / f"{r.custom_id}.json"
-            if r.result.type == "succeeded":
-                res = parse_message(r.result.message)
-            else:
-                res = {"error": r.result.type,
-                       "message": str(getattr(r.result, "error", ""))[:300]}
-            n_ok += "error" not in res
-            n_err += "error" in res
-            dst.write_text(json.dumps(res, indent=1))
-        print(f"rep{rep}: wrote {n_ok} ok, {n_err} errored")
+
+def harvest(client, bid: str, rep_dir: Path, args, label: str) -> None:
+    """Write every result of one ended batch into the per-image cache."""
+    b = client.messages.batches.retrieve(bid)
+    if b.processing_status != "ended":
+        return
+    n_ok = n_err = 0
+    for r in client.messages.batches.results(bid):
+        # Results come back in ARBITRARY order — key on custom_id, never on
+        # position.
+        dst = rep_dir / f"{r.custom_id}.json"
+        if r.result.type == "succeeded":
+            res = parse_message(r.result.message)
+        else:
+            res = {"error": r.result.type,
+                   "message": str(getattr(r.result, "error", ""))[:300]}
+        n_ok += "error" not in res
+        n_err += "error" in res
+        # Never let an older batch's failure clobber a good result already
+        # harvested from a retry.
+        if "error" in res and is_done(dst):
+            continue
+        dst.write_text(json.dumps(res, indent=1))
+    print(f"{label}: {n_ok} ok, {n_err} errored")
 
 
 # ---------------------------------------------------------------------- sync
@@ -176,7 +248,8 @@ def run_sync(client, names, args, cfg, out: Path) -> None:
         dst.parent.mkdir(parents=True, exist_ok=True)
         try:
             with client.messages.stream(
-                    **params_for(build_task(stem, args.variant, cfg))) as s:
+                    **params_for(build_task(stem, args.variant, cfg),
+                                  args.effort, args.thinking)) as s:
                 res = parse_message(s.get_final_message())
         except Exception as e:  # noqa: BLE001 — recorded, not swallowed
             res = {"error": type(e).__name__, "message": str(e)[:400]}
@@ -208,6 +281,7 @@ def main() -> None:
     ap.add_argument("--variant", choices=["a", "b"], default="b")
     ap.add_argument("--config", default=None)
     ap.add_argument("--split", default="test")
+    ap.add_argument("--splits-dir", default=None)
     ap.add_argument("--limit", type=int, default=0, help="0 = all")
     ap.add_argument("--repeat", type=int, default=3,
                     help="independent passes; a single pass is not a measurement")
@@ -215,6 +289,18 @@ def main() -> None:
     ap.add_argument("--sync", action="store_true",
                     help="live requests instead of the Batches API (2x the cost)")
     ap.add_argument("--workers", type=int, default=4, help="--sync only")
+    ap.add_argument("--thinking", action="store_true",
+                    help="enable adaptive thinking. Costs ~9-85x more: "
+                         "thinking tokens are invisible but billed as output "
+                         "and are 99%% of the bill. Off by default.")
+    ap.add_argument("--max-spend", type=float, default=10.0,
+                    help="abort before submitting if the measured projection "
+                         "exceeds this many USD")
+    ap.add_argument("--effort", default="low",
+                    choices=["low", "medium", "high", "xhigh", "max"],
+                    help="thinking depth. 99%% of output tokens (and so ~97%% of "
+                         "cost) is thinking, so this is the cost dial. Measure "
+                         "before lowering it.")
     ap.add_argument("--poll-seconds", type=int, default=60)
     ap.add_argument("--dry-run", action="store_true",
                     help="build one request, save it, make no API call")
@@ -222,7 +308,7 @@ def main() -> None:
 
     from schematic2netlist.config import load_config
     cfg = load_config(args.config)
-    names = split_names(cfg, args.split, args.limit)
+    names = split_names(cfg, args.split, args.limit, args.splits_dir)
     out = Path(args.out_dir or f"results/vlm/claude_{args.variant}")
     out.mkdir(parents=True, exist_ok=True)
 

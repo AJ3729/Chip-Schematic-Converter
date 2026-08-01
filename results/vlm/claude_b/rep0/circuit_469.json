@@ -1,0 +1,57 @@
+{
+ "components": [
+  {
+   "id": 0,
+   "terminals": [
+    "nB",
+    "0"
+   ]
+  },
+  {
+   "id": 1,
+   "terminals": [
+    "nC",
+    "0"
+   ]
+  },
+  {
+   "id": 2,
+   "terminals": [
+    "nD",
+    "0"
+   ]
+  },
+  {
+   "id": 3,
+   "terminals": [
+    "nA",
+    "nB"
+   ]
+  },
+  {
+   "id": 4,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 5,
+   "terminals": [
+    "nA",
+    "nC"
+   ]
+  },
+  {
+   "id": 6,
+   "terminals": [
+    "nD",
+    "nC"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2418,
+  "output": 456
+ },
+ "_model": "claude-opus-5"
+}

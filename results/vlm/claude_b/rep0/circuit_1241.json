@@ -1,0 +1,153 @@
+{
+ "components": [
+  {
+   "id": 0,
+   "terminals": [
+    "nH",
+    "nD",
+    "nI"
+   ]
+  },
+  {
+   "id": 1,
+   "terminals": [
+    "nG",
+    "nE"
+   ]
+  },
+  {
+   "id": 2,
+   "terminals": [
+    "nE",
+    "nH",
+    "nC"
+   ]
+  },
+  {
+   "id": 3,
+   "terminals": [
+    "nF",
+    "nG"
+   ]
+  },
+  {
+   "id": 4,
+   "terminals": [
+    "nL",
+    "nB",
+    "nK"
+   ]
+  },
+  {
+   "id": 5,
+   "terminals": [
+    "nM",
+    "nE",
+    "nE"
+   ]
+  },
+  {
+   "id": 6,
+   "terminals": [
+    "nI",
+    "nC"
+   ]
+  },
+  {
+   "id": 7,
+   "terminals": [
+    "nE",
+    "nM",
+    "nC"
+   ]
+  },
+  {
+   "id": 9,
+   "terminals": [
+    "nB",
+    "nC"
+   ]
+  },
+  {
+   "id": 10,
+   "terminals": [
+    "nA",
+    "nF",
+    "nE"
+   ]
+  },
+  {
+   "id": 11,
+   "terminals": [
+    "nH",
+    "nJ",
+    "nC"
+   ]
+  },
+  {
+   "id": 12,
+   "terminals": [
+    "nJ",
+    "nL",
+    "nC"
+   ]
+  },
+  {
+   "id": 13,
+   "terminals": [
+    "nK",
+    "nD"
+   ]
+  },
+  {
+   "id": 14,
+   "terminals": [
+    "nB",
+    "nK"
+   ]
+  },
+  {
+   "id": 16,
+   "terminals": [
+    "nA",
+    "nB"
+   ]
+  },
+  {
+   "id": 17,
+   "terminals": [
+    "nD",
+    "nE"
+   ]
+  },
+  {
+   "id": 18,
+   "terminals": [
+    "nD"
+   ]
+  },
+  {
+   "id": 19,
+   "terminals": [
+    "nA"
+   ]
+  },
+  {
+   "id": 20,
+   "terminals": [
+    "nE"
+   ]
+  },
+  {
+   "id": 21,
+   "terminals": [
+    "nB"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2874,
+  "output": 4621
+ },
+ "_model": "claude-opus-5"
+}

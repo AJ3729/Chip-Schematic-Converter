@@ -22,6 +22,16 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
+# Both runners resolve provider credentials from the environment. The repo
+# already keeps secrets in a gitignored .env (see .env.example), so load it
+# here rather than making every invocation export them by hand — which is how
+# keys end up in shell history.
+try:
+    from dotenv import load_dotenv
+    load_dotenv(ROOT / ".env")
+except ImportError:
+    pass
+
 from schematic2netlist.class_head import reclassify as class_head_reclassify
 from schematic2netlist.classes import canonical_class, canonical_classes, class_terminals
 from schematic2netlist.detect import load_cached_detections
@@ -173,6 +183,8 @@ def build_task(stem: str, variant: str, cfg) -> dict:
             "schema": schema, "n_components": n_comp, "n_detections": len(dets)}
 
 
-def split_names(cfg, split: str, limit: int = 0) -> list[str]:
-    names = [l.strip() for l in open(ROOT / f"data/splits/{split}.txt") if l.strip()]
+def split_names(cfg, split: str, limit: int = 0,
+                splits_dir: str | None = None) -> list[str]:
+    d = Path(splits_dir) if splits_dir else ROOT / "data/splits"
+    names = [l.strip() for l in open(d / f"{split}.txt") if l.strip()]
     return names[:limit] if limit else names

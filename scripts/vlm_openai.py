@@ -45,7 +45,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from vlm_task import build_task, split_names
 
 
-def body_for(task: dict, model: str, max_tokens: int) -> dict:
+def body_for(task: dict, model: str, max_tokens: int,
+             effort: str | None = None) -> dict:
     """Chat Completions body for one image.
 
     Chat Completions rather than Responses because the Batch API supports it
@@ -56,7 +57,7 @@ def body_for(task: dict, model: str, max_tokens: int) -> dict:
     """
     data_url = (f"data:{task['media_type']};base64,"
                 f"{base64.b64encode(task['image_bytes']).decode()}")
-    return {
+    body = {
         "model": model,
         "max_completion_tokens": max_tokens,
         "messages": [
@@ -70,6 +71,9 @@ def body_for(task: dict, model: str, max_tokens: int) -> dict:
             "name": "circuit_netlist", "strict": True,
             "schema": task["schema"]}},
     }
+    if effort:
+        body["reasoning_effort"] = effort
+    return body
 
 
 def parse_line(rec: dict) -> dict:
@@ -103,9 +107,38 @@ def parse_line(rec: dict) -> dict:
     return out
 
 
+# Measured on this task, gpt-5.5, variant B, reasoning_effort=low.
+MEASURED_IN, MEASURED_OUT = 1981, 1681
+
+
 def is_done(path: Path) -> bool:
     """A cached ERROR does not count as done, so reruns retry it."""
     return path.exists() and "error" not in json.loads(path.read_text())
+
+
+def drain(client, bid: str, rep_dir: Path, label: str) -> None:
+    """Write every result of one ended batch into the per-image cache."""
+    b = client.batches.retrieve(bid)
+    if b.status not in ("completed", "failed", "expired", "cancelled"):
+        return
+    n_ok = n_err = 0
+    for fid in (b.output_file_id, b.error_file_id):
+        if not fid:
+            continue
+        for raw in client.files.content(fid).text.splitlines():
+            if not raw.strip():
+                continue
+            rec = json.loads(raw)
+            # Batch output is NOT in submission order — key on custom_id.
+            res = parse_line(rec)
+            n_ok += "error" not in res
+            n_err += "error" in res
+            dst = rep_dir / f"{rec['custom_id']}.json"
+            # Never let an older batch's failure clobber a retry's good result.
+            if "error" in res and is_done(dst):
+                continue
+            dst.write_text(json.dumps(res, indent=1))
+    print(f"{label}: {n_ok} ok, {n_err} errored")
 
 
 def main() -> None:
@@ -117,10 +150,15 @@ def main() -> None:
                     help="exact model id; see --list-models. Nothing is guessed.")
     ap.add_argument("--config", default=None)
     ap.add_argument("--split", default="test")
+    ap.add_argument("--splits-dir", default=None)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--repeat", type=int, default=3)
     ap.add_argument("--max-tokens", type=int, default=32000)
     ap.add_argument("--out-dir", default=None)
+    ap.add_argument("--effort", default=None,
+                    choices=["minimal", "low", "medium", "high"],
+                    help="reasoning_effort. 96%% of output tokens are reasoning, "
+                         "so this is the cost dial.")
     ap.add_argument("--poll-seconds", type=int, default=60)
     ap.add_argument("--completion-window", default="24h")
     ap.add_argument("--jsonl-dir", default=None,
@@ -130,6 +168,13 @@ def main() -> None:
                     help="keep the local payload after upload (debugging)")
     ap.add_argument("--keep-remote", action="store_true",
                     help="do not delete the uploaded input file when done")
+    ap.add_argument("--price-in", type=float, default=10.0,
+                    help="USD per Mtok input. Default is a deliberately "
+                         "pessimistic flagship rate — set your real one.")
+    ap.add_argument("--price-out", type=float, default=30.0,
+                    help="USD per Mtok output (reasoning tokens bill here)")
+    ap.add_argument("--max-spend", type=float, default=10.0,
+                    help="abort before submitting if the projection exceeds this")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--list-models", action="store_true")
     args = ap.parse_args()
@@ -150,14 +195,14 @@ def main() -> None:
 
     from schematic2netlist.config import load_config
     cfg = load_config(args.config)
-    names = split_names(cfg, args.split, args.limit)
+    names = split_names(cfg, args.split, args.limit, args.splits_dir)
     out = Path(args.out_dir or f"results/vlm/openai_{args.variant}")
     out.mkdir(parents=True, exist_ok=True)
 
     if args.dry_run:
         stem = Path(names[0]).stem
         task = build_task(stem, args.variant, cfg)
-        body = body_for(task, args.model or "<MODEL>", args.max_tokens)
+        body = body_for(task, args.model or "<MODEL>", args.max_tokens, args.effort)
         ext = "png" if task["media_type"].endswith("png") else "jpg"
         (out / f"dryrun_image.{ext}").write_bytes(task["image_bytes"])
         (out / "dryrun_prompt.txt").write_text(
@@ -181,6 +226,17 @@ def main() -> None:
                  "can reach; this script will not guess a model id for you.")
 
     client = openai.OpenAI()
+
+    pending = sum(1 for rep in range(args.repeat) for nm in names
+                  if not is_done(out / f"rep{rep}" / f"{Path(nm).stem}.json"))
+    est = ((MEASURED_IN * args.price_in + MEASURED_OUT * args.price_out)
+           / 1e6 * pending * 0.5)
+    print(f"projected: {pending} requests x ~{MEASURED_OUT:,} output tok "
+          f"= ~${est:.2f} batched at ${args.price_in}/${args.price_out} per Mtok")
+    if est > args.max_spend:
+        sys.exit(f"ABORT: ~${est:.2f} exceeds --max-spend ${args.max_spend:.2f}. "
+                 f"Nothing submitted.")
+
     state_path = out / "batches.json"
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
 
@@ -193,9 +249,22 @@ def main() -> None:
             print(f"rep{rep}: already complete")
             continue
 
-        entry = state.get(str(rep)) or {}
-        bid, input_fid = entry.get("batch_id"), entry.get("input_file_id")
-        if not bid:
+        # A LIST of submissions per repeat, not one. With a single id a
+        # partially-failed batch can never be retried — the resume path just
+        # re-reads the same finished batch. Cost that lesson once already on
+        # the Anthropic side (19 of 190 clipped by max_tokens).
+        entries = state.get(str(rep)) or []
+        if isinstance(entries, dict):                 # migrate old shape
+            entries = [entries]
+        for e in entries:
+            drain(client, e["batch_id"], rep_dir, f"rep{rep} {e['batch_id']}")
+        todo = [nm for nm in names
+                if not is_done(rep_dir / f"{Path(nm).stem}.json")]
+        if not todo:
+            print(f"rep{rep}: complete after draining {len(entries)} batch(es)")
+            continue
+        input_fid = None
+        if True:
             # The payload is base64 images — ~47 MB per repeat for variant B,
             # ~200 MB across both variants at 3 repeats. It must NOT land in
             # results/, which is a tracked directory: one `git add results/`
@@ -211,7 +280,8 @@ def main() -> None:
                         "custom_id": stem, "method": "POST",
                         "url": "/v1/chat/completions",
                         "body": body_for(build_task(stem, args.variant, cfg),
-                                         args.model, args.max_tokens)}) + "\n")
+                                         args.model, args.max_tokens,
+                                         args.effort)}) + "\n")
             size_mb = jl.stat().st_size / 1e6
             with jl.open("rb") as fh:
                 up = client.files.create(file=fh, purpose="batch")
@@ -219,8 +289,9 @@ def main() -> None:
                 input_file_id=up.id, endpoint="/v1/chat/completions",
                 completion_window=args.completion_window)
             bid, input_fid = batch.id, up.id
-            state[str(rep)] = {"batch_id": bid, "input_file_id": input_fid,
-                               "model": args.model}
+            entries.append({"batch_id": bid, "input_file_id": input_fid,
+                            "model": args.model})
+            state[str(rep)] = entries
             state_path.write_text(json.dumps(state, indent=1))
             if args.keep_jsonl:
                 print(f"rep{rep}: kept local payload at {jl}")
@@ -228,8 +299,6 @@ def main() -> None:
                 jl.unlink(missing_ok=True)
             print(f"rep{rep}: submitted {len(todo)} requests as {bid} "
                   f"({size_mb:.0f} MB uploaded)")
-        else:
-            print(f"rep{rep}: resuming {bid}")
 
         while True:
             b = client.batches.retrieve(bid)
@@ -253,21 +322,7 @@ def main() -> None:
             except Exception as e:  # noqa: BLE001
                 print(f"rep{rep}: could not delete {input_fid}: "
                       f"{type(e).__name__}")
-        n_ok = n_err = 0
-        for fid in (b.output_file_id, b.error_file_id):
-            if not fid:
-                continue
-            for raw in client.files.content(fid).text.splitlines():
-                if not raw.strip():
-                    continue
-                rec = json.loads(raw)
-                # Batch output is NOT in submission order — key on custom_id.
-                res = parse_line(rec)
-                n_ok += "error" not in res
-                n_err += "error" in res
-                (rep_dir / f"{rec['custom_id']}.json").write_text(
-                    json.dumps(res, indent=1))
-        print(f"rep{rep}: wrote {n_ok} ok, {n_err} errored")
+        drain(client, bid, rep_dir, f"rep{rep} {bid}")
 
     errs = [p for p in out.rglob("rep*/*.json")
             if "error" in json.loads(p.read_text())]

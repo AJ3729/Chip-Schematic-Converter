@@ -1,0 +1,74 @@
+{
+ "run_dir": "results/vlm/claude_b",
+ "variant": "b",
+ "n_repeats": 1,
+ "per_repeat": [
+  {
+   "rep": "rep0",
+   "n": 190,
+   "unusable": 0,
+   "metrics": {
+    "n_images": 190,
+    "terminal_pair_f1": {
+     "mean": 0.8282061656544542,
+     "ci95_lo": 0.795642012619549,
+     "ci95_hi": 0.8590236872561582
+    },
+    "net_f1": {
+     "mean": 0.8867902258418099,
+     "ci95_lo": 0.8639375115729344,
+     "ci95_hi": 0.907767896372252
+    },
+    "per_component_connected_acc": {
+     "mean": 0.6170584975163742,
+     "ci95_lo": 0.5588280594694692,
+     "ci95_hi": 0.6756458699775407
+    },
+    "per_component_recall_acc": {
+     "mean": 0.7084623849226102,
+     "ci95_lo": 0.655457606034116,
+     "ci95_hi": 0.7606694993688113
+    },
+    "nged": {
+     "mean": 0.18270442988939709,
+     "ci95_lo": 0.1609437927632958,
+     "ci95_hi": 0.20266291187217877
+    },
+    "strict_success": {
+     "mean": 0.45789473684210524,
+     "ci95_lo": 0.384078947368421,
+     "ci95_hi": 0.531578947368421
+    }
+   }
+  }
+ ],
+ "across_repeats": {
+  "terminal_pair_f1": {
+   "mean": 0.8282061656544542,
+   "sd": 0.0
+  },
+  "net_f1": {
+   "mean": 0.8867902258418099,
+   "sd": 0.0
+  },
+  "per_component_connected_acc": {
+   "mean": 0.6170584975163742,
+   "sd": 0.0
+  },
+  "nged": {
+   "mean": 0.18270442988939709,
+   "sd": 0.0
+  },
+  "strict_success": {
+   "mean": 0.45789473684210524,
+   "sd": 0.0
+  }
+ },
+ "agreement_vs_pipeline": {
+  "both_strict": 70,
+  "pipeline_only": 14,
+  "vlm_only": 17,
+  "neither": 89,
+  "n": 190
+ }
+}
