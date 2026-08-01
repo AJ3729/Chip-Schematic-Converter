@@ -1,0 +1,64 @@
+{
+ "question": "what do the 12 images the pipeline fails and BOTH VLMs solve have in common",
+ "groups": {
+  "recoverable_12": 12,
+  "hard_core_81": 81,
+  "pipeline_solved_84": 84
+ },
+ "terminal_pair_means": {
+  "recoverable_12": {
+   "f1": 0.536,
+   "precision": 0.699,
+   "recall": 0.453,
+   "mean_gt_components": 18.8
+  },
+  "hard_core_81": {
+   "f1": 0.645,
+   "precision": 0.634,
+   "recall": 0.716,
+   "mean_gt_components": 15.6
+  },
+  "solved_84": {
+   "f1": 1.0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "mean_gt_components": 9.8
+  }
+ },
+ "pair_decomposition": {
+  "recoverable_12": {
+   "missing_split": 576,
+   "extra_weld": 143,
+   "ratio": 4.03,
+   "split_dominant_images": "12/12"
+  },
+  "hard_core_81": {
+   "missing_split": 1614,
+   "extra_weld": 2054,
+   "ratio": 0.79,
+   "weld_dominant_images": "44/81"
+  }
+ },
+ "split_gap_px": {
+  "n_fragment_pairs": 363,
+  "median": 260.5,
+  "p25": 93.7,
+  "p75": 464.0,
+  "share_under_20px": 0.01,
+  "share_under_60px": 0.12,
+  "midpoint_inside_component_box": "85/363 (23%)"
+ },
+ "unattached_terminals": {
+  "recoverable_12": "3/441",
+  "hard_core_81": "0/2617",
+  "solved_84": "0/1604"
+ },
+ "conclusion": [
+  "The two failure populations are mechanistically distinct, not a severity gradient.",
+  "Recoverable = SPLIT: the pipeline breaks conductors that exist. 12/12 split-dominant.",
+  "Hard core = WELD: the pipeline fuses conductors that are separate. 44/81 weld-dominant.",
+  "The splits are NOT bridgeable micro-gaps: median 260 px, 1% under 20 px, so raising wires.bridge_span (currently 7) cannot reach them. Whole runs of conductor are missing from the wire mask, not pen-lift gaps.",
+  "Unattached terminals are ~0 everywhere, so snapping is not implicated.",
+  "Recoverable images are LARGER (18.8 GT components vs 15.6 hard core, 9.8 solved)."
+ ]
+}
