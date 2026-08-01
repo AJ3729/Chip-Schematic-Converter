@@ -33,7 +33,9 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import os
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -121,6 +123,13 @@ def main() -> None:
     ap.add_argument("--out-dir", default=None)
     ap.add_argument("--poll-seconds", type=int, default=60)
     ap.add_argument("--completion-window", default="24h")
+    ap.add_argument("--jsonl-dir", default=None,
+                    help="where to stage the upload payload (default: system "
+                         "temp). Never results/ — that directory is tracked.")
+    ap.add_argument("--keep-jsonl", action="store_true",
+                    help="keep the local payload after upload (debugging)")
+    ap.add_argument("--keep-remote", action="store_true",
+                    help="do not delete the uploaded input file when done")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--list-models", action="store_true")
     args = ap.parse_args()
@@ -184,9 +193,17 @@ def main() -> None:
             print(f"rep{rep}: already complete")
             continue
 
-        bid = state.get(str(rep))
+        entry = state.get(str(rep)) or {}
+        bid, input_fid = entry.get("batch_id"), entry.get("input_file_id")
         if not bid:
-            jl = out / f"input_rep{rep}.jsonl"
+            # The payload is base64 images — ~47 MB per repeat for variant B,
+            # ~200 MB across both variants at 3 repeats. It must NOT land in
+            # results/, which is a tracked directory: one `git add results/`
+            # and that is in the history forever. It is also fully regenerable
+            # from the committed prompts and code, so it goes to a temp dir and
+            # is deleted once uploaded.
+            jl = Path(args.jsonl_dir or tempfile.gettempdir()) / \
+                f"vlm_{args.variant}_rep{rep}_{os.getpid()}.jsonl"
             with jl.open("w") as fh:
                 for nm in todo:
                     stem = Path(nm).stem
@@ -195,15 +212,22 @@ def main() -> None:
                         "url": "/v1/chat/completions",
                         "body": body_for(build_task(stem, args.variant, cfg),
                                          args.model, args.max_tokens)}) + "\n")
-            up = client.files.create(file=jl.open("rb"), purpose="batch")
+            size_mb = jl.stat().st_size / 1e6
+            with jl.open("rb") as fh:
+                up = client.files.create(file=fh, purpose="batch")
             batch = client.batches.create(
                 input_file_id=up.id, endpoint="/v1/chat/completions",
                 completion_window=args.completion_window)
-            bid = batch.id
-            state[str(rep)] = bid
+            bid, input_fid = batch.id, up.id
+            state[str(rep)] = {"batch_id": bid, "input_file_id": input_fid,
+                               "model": args.model}
             state_path.write_text(json.dumps(state, indent=1))
+            if args.keep_jsonl:
+                print(f"rep{rep}: kept local payload at {jl}")
+            else:
+                jl.unlink(missing_ok=True)
             print(f"rep{rep}: submitted {len(todo)} requests as {bid} "
-                  f"({jl.stat().st_size/1e6:.0f} MB)")
+                  f"({size_mb:.0f} MB uploaded)")
         else:
             print(f"rep{rep}: resuming {bid}")
 
@@ -218,6 +242,17 @@ def main() -> None:
 
         if b.status != "completed":
             print(f"rep{rep}: batch ended {b.status} — {b.errors}")
+        # The uploaded input is the big artifact (base64 images) and counts
+        # against the account's file storage. It is regenerable, so drop it
+        # once the batch has ended. The OUTPUT file is left alone — that is
+        # the data, and it is small.
+        if input_fid and not args.keep_remote:
+            try:
+                client.files.delete(input_fid)
+                print(f"rep{rep}: deleted uploaded input file {input_fid}")
+            except Exception as e:  # noqa: BLE001
+                print(f"rep{rep}: could not delete {input_fid}: "
+                      f"{type(e).__name__}")
         n_ok = n_err = 0
         for fid in (b.output_file_id, b.error_file_id):
             if not fid:

@@ -45,3 +45,10 @@ backups/
 results/**/ledgers/
 results/**/netlists/
 demo/runs/
+
+# VLM batch upload payloads: base64-encoded images, ~200 MB across both
+# variants at 3 repeats, fully regenerable from the committed prompts + code.
+# They are staged in a temp dir and deleted after upload; this is the guard
+# against a stray --jsonl-dir or --keep-jsonl putting them in the history.
+# Nothing else in the repo uses .jsonl; `git add -f` if that ever changes.
+*.jsonl
