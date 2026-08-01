@@ -832,46 +832,37 @@ method. Report that honestly.
    rows).
 8. Tests 97 → **124**.
 
-## 4. Running / unfinished at session end
+## 4. State of the artifacts (2026-07-31)
 
-**The 1024 regeneration queue is running — see the READ FIRST block in
-§2 for how to watch it and what to run afterwards.** Everything below is
-the state of the 512 work it supersedes.
+**Canonical run: `results/benchmark_1024_final/seed{0,1,2}`.** These are the only
+end-to-end runs on the current default AND the current metric definitions. Do not
+mix them with anything in `results/benchmark_1024/`, which is the working area and
+still holds pre-fix runs whose nGED came from the timeout-truncated search;
+`make_paper_tables.py` points at `_final` deliberately.
 
-The 512/v3 suite is COMPLETE and committed — 3-seed benchmark, ports
-ablation, oracle, repair, stratified, runtime. It is internally
-consistent and is the fallback if 1024 is ever reverted. It must not be
-quoted alongside a 1024 number.
+Also current: `results/ablations_1024/wire_method.csv` (11 stages, monotone),
+`results/detection_1024/` (3-seed detector stats + the class baseline),
+`results/oracle_1024`, `results/repair_1024`, `results/stratified_1024`.
+The `*_prefix_metric` copies are the pre-fix versions, kept only for provenance.
 
-Still genuinely open:
+**Verify before trusting any artifact pairing:**
 
-- **The learned-connectivity verdict is UNDECIDED**, not negative — the
-  partial run that suggested otherwise was deleted (see §6.2 for why and
-  for the exact commands). This decides benchmark-only vs
-  novel-contribution framing, so it is the highest-value item left.
-- `results/ablations/wire_method.csv` was scored against v2 GT and is
-  superseded twice over (v3, then 1024). `scratchpad/finalize_1024.sh`
-  regenerates it as `results/ablations_1024/wire_method.csv`.
-- Committed `paper/tables/*` lag committed `results/` — regenerate
-  before reading them.
+```bash
+./venv/bin/python scripts/check_cache_alignment.py     # frames vs detection cache
+./venv/bin/python scripts/audit_data_freshness.py      # mtime staleness
+./venv/bin/python scripts/audit_paper_numbers.py       # macros + literals
+./venv/bin/python -m pytest tests/ -q                  # 179 pass, 1 skip, 1 xfail
+```
 
-A partial `results/` directory means a stage was interrupted: check for
-`summary.json` before trusting it, and re-run that one command. The
-queue does not `set -e`, so read its final `### STAGES FAILED` line
-rather than assuming success from the absence of noise.
+**Model weights:** `experiments/class_head/best.pt` is a required runtime
+dependency now (`detect.class_head.enabled: true`). It is ~0.9M parameters and
+runs on CPU in the pipeline; set `enabled: false` to disable it and the pipeline
+falls back to raw detector labels.
 
-**Determinism confirmed:** `results/benchmark/seed0` reproduced
-`results/v5_stitch_crossover` to four decimals on every metric (same
-config, same detections, independent run). Any future difference
-between two runs of the same config is a bug, not noise. The same check
-applies to the new queue: `results/benchmark_1024/seed0` runs the same
-config as `results/ablations/res1024` and must match it — if it does
-not, the parallel harness is at fault, not the pipeline.
-
-Seed configs live in the session scratchpad (`scratchpad/seedcfg1024/`,
-rebased onto 1024 by `scratchpad/rebase_configs.py`); regenerate
-trivially by copying `configs/default.yaml` with `seed`,
-`detect.weights` and `detect.cache_dir` changed.
+**Git:** history was consolidated from 82 commits to ~16.
+`backup/pre-consolidate` holds the original. **The consolidation rewrote 83
+already-pushed commits, so publishing needs `git push --force-with-lease`** — this
+was deliberately NOT done; confirm with the owner first.
 
 ## 5. Architecture and key files
 
@@ -1012,7 +1003,19 @@ wire graph" is a genuinely useful finding that saves other groups the same year.
 
 ## 8. [HUMAN] gates outstanding
 
-ORCID + authorship decision; mentor second-read of ambiguous GT;
-[IDEAL] C5 expert-acceptance study (~30 ledgers); APC ($2,160)
-awareness; iThenticate access; biographies; GitHub push + Zenodo DOI;
-RunPod sessions for any retraining. GT verification itself is DONE.
+**Blocking the science, in priority order:**
+
+1. **Annotate net topology for a validation split** (even 50 images). Without it
+   every tuned parameter is chosen on the split it is reported on, and
+   cross-validation is a mitigation rather than a fix. Highest-value item in this
+   document.
+2. **Adjudicate `results/weld_review/review.html`** — 60 welds, HOP / JUDGEMENT /
+   GT ERROR, blank `verdict` column in `welds.csv`. Decides whether 0.4368 is
+   near the achievable ceiling (a publishable finding) or whether the GT itself
+   needs correcting (which moves every denominator).
+3. **Decide the force-push** (see §4).
+
+**Administrative:** ORCID + authorship; APC ($2,160) awareness; iThenticate
+access; biographies; Zenodo DOI; RunPod for any retraining.
+[IDEAL] C5 expert-acceptance study (~30 ledgers). Component GT verification is
+DONE; net-topology GT beyond the test split is NOT.
