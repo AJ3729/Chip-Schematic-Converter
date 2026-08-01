@@ -55,7 +55,7 @@ def iou(a, b) -> float:
     return inter / ua if ua > 0 else 0.0
 
 
-def score_all(cfg, ckpt, device):
+def score_all(cfg, ckpt, device, ckpt2=None):
     """(records) one per detection: current label, head label, head confidence,
     and the GT class where one can be matched."""
     names = ckpt["names"]
@@ -63,6 +63,12 @@ def score_all(cfg, ckpt, device):
     model = Net(len(names))
     model.load_state_dict(ckpt["state"])
     model.to(device).eval()
+    model2 = None
+    if ckpt2 is not None:
+        model2 = Net(len(ckpt2["names"]))
+        model2.load_state_dict(ckpt2["state"])
+        model2.to(device).eval()
+        assert ckpt2["names"] == names, "the two heads must share a label order"
 
     idir = Path(cfg["preprocess"]["images_dir"])
     cdir = Path(cfg["detect"]["cache_dir"])
@@ -102,7 +108,11 @@ def score_all(cfg, ckpt, device):
             continue
         xb = torch.from_numpy(np.array(crops)).float().div(255).unsqueeze(1)
         with torch.no_grad():
-            p = torch.softmax(model(xb.to(device)), 1).cpu().numpy()
+            xd = xb.to(device)
+            p = torch.softmax(model(xd), 1)
+            if model2 is not None:
+                p = (p + torch.softmax(model2(xd), 1)) / 2
+            p = p.cpu().numpy()
         for k, j in enumerate(keep):
             d = dets[j]
             gi = int(p[k].argmax())
@@ -125,9 +135,21 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default=None)
     ap.add_argument("--weights", default="experiments/class_head/best.pt")
+    ap.add_argument("--weights2", default=None,
+                    help="second checkpoint; softmax outputs are AVERAGED. Two "
+                         "independently seeded heads disagree where either is "
+                         "unsure, so the ensemble is better calibrated and a "
+                         "confidence threshold means more.")
     ap.add_argument("--threshold", type=float, default=0.9)
     ap.add_argument("--device", default="mps")
     ap.add_argument("--sweep", action="store_true")
+    ap.add_argument("--min-target-val-acc", type=float, default=0.0,
+                    help="only accept a relabel INTO a class whose accuracy on "
+                         "the VALIDATION split reaches this. The head beats the "
+                         "detector on the confusable pairs but is worse on some "
+                         "easy classes, so an ungated relabel imports its own "
+                         "errors -- Inductor -> Resistor is the largest remaining "
+                         "wrong-class pair. Gated on VAL, never on test.")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
@@ -137,8 +159,22 @@ def main() -> None:
                        else "cpu")
     ckpt = torch.load(ROOT / args.weights, map_location="cpu",
                       weights_only=False)
-    recs = score_all(cfg, ckpt, dev)
+    ckpt2 = (torch.load(ROOT / args.weights2, map_location="cpu",
+                        weights_only=False) if args.weights2 else None)
+    recs = score_all(cfg, ckpt, dev, ckpt2)
     dis = [r for r in recs if r["head"] != r["cur"]]
+    if args.min_target_val_acc > 0:
+        vp = json.loads(Path(ROOT / "experiments/class_head/val_per_class.json")
+                        .read_text())
+        before = len(dis)
+        dis = [r for r in dis
+               if vp.get(r["head"], 0.0) >= args.min_target_val_acc]
+        blocked = sorted({r["head"] for r in recs
+                          if r["head"] != r["cur"]
+                          and vp.get(r["head"], 0.0) < args.min_target_val_acc})
+        print(f"  per-class gate at val acc >= {args.min_target_val_acc}: "
+              f"{before} -> {len(dis)} candidate relabels")
+        print(f"  blocked target classes: {', '.join(blocked) or 'none'}\n")
     print(f"{len(recs)} detections scored, head disagrees on {len(dis)} "
           f"({len(dis)/max(len(recs),1):.1%})\n")
 

@@ -1,0 +1,42 @@
+{
+  "n_images": 100,
+  "n_drafters": 25,
+  "n_gt_boxes": 1886,
+  "n_ignored_objects": 6580,
+  "iou": 0.5,
+  "macro_ap50": 0.15936361645950972,
+  "per_class_ap50": {
+    "BJT-NPN": 0.18556743163472508,
+    "Capacitor": 0.2343911021293302,
+    "Diode": 0.10226697689370166,
+    "GND": 0.13281079346740507,
+    "Inductor": 0.04329998682937323,
+    "MOSFET-N": 0.07598090636131281,
+    "Op-Amp": 0.4947980839069952,
+    "Resistor": 0.24708475849337616,
+    "V-AC": 0.24045261669024065,
+    "V-DC": 0.11589982527664532,
+    "Wire Crossover": 0.014292011392920113,
+    "Zener Diode": 0.025518904438090982
+  },
+  "gt_counts": {
+    "Resistor": 566,
+    "Wire Crossover": 205,
+    "V-DC": 30,
+    "GND": 287,
+    "Diode": 185,
+    "Inductor": 75,
+    "Capacitor": 327,
+    "BJT-NPN": 103,
+    "Zener Diode": 17,
+    "MOSFET-N": 56,
+    "Op-Amp": 29,
+    "V-AC": 6
+  },
+  "absent_classes": [
+    "I-DC",
+    "I-AC",
+    "V-DC (one port)"
+  ],
+  "in_domain_map50": 0.9753
+}

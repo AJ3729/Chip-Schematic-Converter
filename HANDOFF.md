@@ -5,340 +5,100 @@
 2026-07-29 (long session: Week-2/3 completion, two major pipeline
 corrections, resolution experiment).
 
-## 0. LATEST — 2026-07-30 overnight session
+## 0. STATE OF PLAY — read this first (2026-07-31)
 
-Read 0.1 first; it invalidates numbers, not just conclusions.
+### 0.1 Where the pipeline is
 
-### 0.1 nGED WAS NOT REPRODUCIBLE. Every pre-2026-07-30 nGED number is void.
+**strict end-to-end success 0.4368** (83 of 190 images fully correct), from 0.3526
+at the start of the previous session. Paired over 190 images, all significant:
 
-`nx.graph_edit_distance(..., timeout=t)` does not report that it gave up. On
-timeout it returns the best bound found SO FAR as a plain float, so the
-`if ged is not None` check could not distinguish that from an exact answer and
-the documented fallback branch was unreachable. What the benchmark printed as
-GED was a function of how much CPU the process happened to get. Same graphs, at
-1 s / 3 s / 6 s budgets: **0.4850 / 0.4611 / 0.4371**. At the shipped 5 s
-budget, 13 of 18 test images burned the entire budget and all returned a number.
+| metric | was | now | delta | W/L |
+|---|---|---|---|---|
+| terminal-pair F1 | 0.7076 | **0.7834** | +0.0758 | 68/9 |
+| net F1 | 0.8088 | **0.8675** | +0.0587 | 63/12 |
+| per-component (exact) | 0.4684 | **0.5712** | +0.1028 | 47/4 |
+| nGED | 0.2439 | **0.2306** | −0.0133 | 33/57 |
+| **strict success** | 0.3526 | **0.4368** | **+0.0842** | **16/0** |
 
-It had already produced a false positive. Turning `stitch_masked_gaps` off
-changes the recovered topology on **zero** images — the pipeline output is
-identical pixel for pixel and every other per-image column has CI [0,0] — yet
-nGED "significantly" improved on 24 of 190 images.
+Three detector seeds: 0.4368 / 0.4316 / 0.4263. **Zero regressions anywhere.**
 
-Replaced with Riesen–Bunke bipartite assignment: Hungarian proposes a node
-mapping, then the EXACT cost of that concrete mapping is returned, so it is a
-genuine upper bound. Deterministic to 12 decimals across repeated calls and
-shuffled component order; valid upper bound in 12/12 exactly-solvable pairs.
-Absolute values rise (0.1921 → 0.2439 on the same baseline) because a
-deterministic bound is looser than one silently given more compute.
+What changed, in order of contribution: blob-filter thresholds 80/30 → 10/8
+(+0.0368 strict), the class head (+0.0105), connectivity repair C6 (+0.0158),
+`bridge_span` 18 → 7, Sauvola binarisation, `snapping.max_expand` 60 → 80.
 
-**Side effect worth knowing: a 190-image benchmark went from ~35 min to ~75 s,
-about 25x.** The GED search was nearly all the runtime. Sweeping a parameter on
-the real benchmark is now cheaper than the weld/split proxy was.
+### 0.2 TWO METRIC DEFINITIONS CHANGED. Old numbers are not comparable.
 
-### 0.2 Two real bugs in `_bridge_collinear`, one of which does not matter
+Before quoting anything from git history or old CSVs, know that both of these
+were broken and are now fixed:
 
-**Welding parallel rails.** The docstring claimed the two anisotropic closings
-leave "the perpendicular direction untouched". Backwards: a HORIZONTAL closing
-bridges horizontal gaps between *any* ink, and the horizontal gap between two
-side-by-side VERTICAL strokes is exactly such a gap. Two rails 10 px apart fuse
-into one solid 17-px band at `bridge_span: 18`; at 9 they do not.
+- **nGED** was computed by a timed search that returns its best-so-far bound as a
+  plain float on timeout. The reported value depended on CPU contention
+  (0.4850 / 0.4611 / 0.4371 on the same graphs at 1/3/6 s). It had already
+  produced a "significant" improvement from a change that provably does nothing.
+  Now a deterministic Riesen–Bunke assignment bound. **Absolute values are higher
+  because a deterministic bound is looser.**
+- **per-component accuracy** was recall-only (`gt_pairs <= pred_pairs`), so a
+  circuit with every net welded into one scored **1.000**. Now exact;
+  `per_component_recall_accuracy` preserves the old behaviour and the benchmark
+  emits both.
 
-**Kernel parity.** A closing is extensive only for a structuring element
-symmetric about its anchor. OpenCV anchors an even-length kernel off-centre, so
-dilate and erode stop being adjoint and the closing DELETES ink — a lone pixel
-is annihilated. Every even span destroys 0.87–2.40% of all wire ink, every odd
-span exactly none. `bridge_span: 18` was destroying 1.44%.
+Side effect: removing the GED search took a 190-image benchmark from ~35 min to
+**~75 s**. That is what made everything else affordable — sweep on the real
+objective, never on a proxy.
 
-`_line_kernel` now rounds up to odd; `wires.bridge_odd_kernel: false` reproduces
-the old behaviour so the ablation keeps an arm.
+### 0.3 CLOSED. Do not spend time here; each has an oracle, not an opinion.
 
-### 0.3 The decomposition: span is the whole effect, parity is a null
+**Crossings.** Four independent oracles, all null or negative:
 
-All on the deterministic metric, paired over 190:
+| oracle | result |
+|---|---|
+| GT crossover boxes | strict −0.0053, negative at *every* circuit-size stratum, only 16/190 images change |
+| GT-guided arm cutting | 280 cuts, strict **unchanged** |
+| GT-guided splits at arbitrary sites | 8 of 1245 accepted; +0.0333 but needs ~99.4% specificity against a measured 0.659 AUC |
+| perfect hop classifier over fully-covering candidates | 2477 boxes, strict **+0.0000** |
 
-| change | tp_f1 | net F1 | verdict |
-|---|---|---|---|
-| parity only, even 18 → odd 19 | −0.0017 | −0.0013 | **null** |
-| span only, odd 19 → odd 9 | **+0.0232** | **+0.0216** | **SIG** |
-| combined, even 18 → odd 9 | +0.0215 | +0.0203 | SIG |
+**Why all four fail — the single most useful fact in this document.** Erase the
+ink outright at every correct weld location, no relink: only **24.6%** of welds
+disappear and terminal-pair F1 *falls* 0.4219 → 0.3627. **The welds are multiply
+connected.** Every approach above is a single-site decision, and no single-site
+decision can separate a multiply-connected pair.
 
-**Do not credit the parity fix.** I initially wrote that bs9 "mixes the span
-change with the kernel-parity bug"; isolated, parity moves nothing and span
-alone reproduces the whole effect. Deleting 1.44% of wire ink is verifiably real
-and metrically inert. Keep the fix (free, removes silent damage), do not sell it.
+**Multicut is infeasible**, which is a proof rather than a failed attempt. On the
+natural graph (skeleton segments, nothing erased, 98.6% terminal attachment)
+**31.8% of terminal-carrying segments host two or more different GT nets** and
+**0 of 30 images are feasible**. A segment is one continuous conductor with no
+junction on it, so the drawing joins those nets with unbroken wire. The target
+partition does not exist in the graph.
 
-strict success is flat throughout (2 win / 2 lose). The gain is in terminal-pair
-and net F1 — fewer welds and splits, not yet whole images flipping.
+**Also closed:** resolution/2048 (inter-stroke gap distribution is *identical*
+across circuit sizes, correlation with tp F1 −0.029), `component_mask_pad`
+(monotonically harmful), value-label class disambiguation (net −14 labels; labels
+are not associable with their own component), TTA (redundant with the seed vote),
+vector tracing, `bridge_mode: guarded`/`directional`, union ensemble.
 
-### 0.4 `bridge_mode: guarded` — the closing minus its welds
+### 0.4 OPEN, with measured headroom
 
-Pure orientation gating (`bridge_mode: directional`) removes the welds but also
-removes bridging the closing was rightly doing: the legacy closing adds 55% more
-ink than the frame contains, the gated version 7.6%, and the split rate rose
-0.12. The closing does two jobs — bridging dash gaps AND gluing wobbly strokes
-— and gating discards the second with the first.
+| lever | headroom | status |
+|---|---|---|
+| **class labels** | **+0.0211 strict**, SIG, 4 win / 0 lose | the class head captured +0.0105 of the original +0.0263; a second head is training to ensemble |
+| connectivity | ceiling 0.80 | **blocked** on the weld adjudication (0.6) |
+| detection recall | 13 undetected components | lowering confidence is monotonically *worse* (0.3737 at 0.1); union ensemble is a null |
 
-`guarded` keeps every added pixel and subtracts only welds (44.8% added ink,
-removing 18.7% of the fill). The guard is phrased as a condition for KEEPING a
-fill: legitimate when ink running along the same direction is within reach on
-either side. Rejecting on "perpendicular ink on both sides" was tried first and
-is too narrow twice over — it cannot see a weld between strokes neither parallel
-nor perpendicular to the pass, which is how adding the diagonal passes re-welded
-the very rails they were meant to spare.
+**The gate now:** 31 images detection-blocked (21 by exactly ONE component),
+76 connectivity-only. Ceiling if detection were perfect: **0.8368**.
+Of the remaining blocks, 30 are wrong-class and 13 not-detected; the largest
+remaining pair is Inductor → Resistor (9).
 
-### 0.5 Class confusion: the errors are systematic, and text cannot fix them
-
-- **Seed class vote**: strict +0.0105, 2 win / 0 lose, CI touching zero. Free,
-  monotone, directionally positive everywhere. Adopt but do not claim.
-- **Polarity-preserving TTA** (`scripts/detect_tta.py`): net +7 at 88.9%
-  precision, but only **2 of 67** errors are TTA-only — it is redundant with the
-  seed vote. Note the domain constraint: ultralytics `augment=True` includes a
-  HORIZONTAL FLIP, and MOSFET-N/P and BJT-NPN/PNP are distinguished by a
-  mirrored arrow, so a flip *is* the other class.
-- **38 of 67 errors survive both**, so they are systematic, not variance.
-- **Value labels: NEGATIVE.** `text_annotations.json` gives 11,936 transcribed
-  values and the unit IS the class (Ω→R, F→C, H→L, V/A→source, sin/cos→AC),
-  verified on every real string form. It still nets **−14 labels at 29.4%
-  precision**, because labels are not associable with their own component:
-  in circuit_267 the capacitor's nearest label is the inductor's `60H` at 0.76
-  box diagonals while its own `1F` sits at 1.70. Hungarian does not help — the
-  WRONG pairing has lower total cost (121 vs 303 px). A count constraint
-  (multiset of units vs class counts) matches exactly in only 71.6% of images.
-  This also blocks emitting real values instead of placeholders: same
-  association.
-
-### 0.6 Positive, cheap, and composable
-
-**Constraint-triggered repair** (`scripts/apply_constraint_repairs.py`, all 190):
-strict **+0.0105, 2 gained / 0 lost**, tp_f1 +0.0082, percomp +0.0156, from 34
-one-terminal-net bridges and 2 self-short body erasures. Purely
-circuit-theoretic — no image evidence, no training.
-
-**Why composition matters:** the seed vote corrected labels in 23 images but
-gained strict in only 2. Strict is a product over components, so a corrected
-label converts only where connectivity is ALREADY perfect. Class work and wire
-work multiply rather than add.
-
-### 0.7 The Tier-1 stitcher is currently INERT
-
-`stitch_masked_gaps: false` changes every topology metric by exactly 0.0000
-(CI [0,0]) and the pipeline output is identical pixel for pixel. With
-`component_mask_pad: 0` the stitchable region is only the text mask, and the
-pad-ring holes the stitcher was built to bridge no longer exist. It solved a
-self-inflicted problem that was later fixed at the source. The nGED difference
-that made it look useful was the metric bug in 0.1.
-
-### 0.8b WHY STRICT SUCCESS IS WHERE IT IS — and what is actually left
-
-**Strict success is a function of circuit size, and not merely because it is a
-product over components.**
+### 0.5 Performance is a function of CIRCUIT SIZE
 
 | components | images | strict | tp F1 | GT nets clean |
 |---|---|---|---|---|
-| ≤8 | 72 | **0.7639** | 0.9131 | 87.0% |
-| 9–12 | 19 | 0.5263 | 0.8887 | 82.8% |
-| 13–16 | 37 | 0.0811 | 0.6331 | **49.0%** |
-| 17–20 | 23 | 0.1739 | 0.7617 | 71.4% |
+| ≤8 | 72 | 0.7639 | 0.9131 | 87.0% |
+| 13–16 | 37 | 0.0811 | 0.6331 | 49.0% |
 | 21+ | 39 | 0.1795 | 0.5677 | 60.1% |
 
-Correlation with component count is −0.51 on BOTH strict and terminal-pair F1.
-The second one is the point: tp F1 is a per-pair metric, not a product, and it
-still falls 0.91 → 0.57. Per-net cleanliness falls 87% → 49–60%. Large circuits
-are genuinely harder, not just penalised harder.
-
-**The gate.** Of 111 failures: 38 are blocked by detection (`unmatched_gt` > 0,
-and 26 of those by exactly ONE component), 73 by connectivity alone. Perfect
-connectivity would give **0.80**; perfect detection only ~0.44. Connectivity is
-the binding constraint. And the connectivity failures are not near-misses — only
-8 of 73 are within 0.10 of perfect, while **51 are below 0.80 tp F1** with 3–7
-defects each. There is no patch that flips them.
-
-**What was ruled OUT, each with a measurement rather than an argument:**
-
-| hypothesis | test | result |
-|---|---|---|
-| dense circuits have tighter spacing → raise resolution | inter-stroke gap distribution by size bucket | **identical** (median 15.28 px, p05 1.91 px in every bucket), correlation with tp F1 −0.029. Refuted; 2048 would not help, which is consistent with the earlier null. |
-| missing crossing information | 3 independent oracles — GT crossover boxes, GT-guided arm cutting, GT-guided splits at arbitrary sites | all null or negative; see 0.8c |
-| component ink leaking past its box | `component_mask_pad` sweep | monotonically harmful, 0 is best |
-| morphology manufactures the welds | bridge_span sweep split into precision/recall | precision does NOT recover as bridging is removed (0.7419 at span 3 vs 0.7497 at 7) |
-
-**So the welds are in the raw ink**: wires that genuinely touch where the drawing
-crosses them without a hop symbol. No local operation on the extracted graph
-fixes that, and three GT-guided oracles confirm it.
-
-### 0.8c THE STRATEGIC CONCLUSION
-
-The morphological pipeline is at its ceiling. Every remaining lever has now been
-priced:
-
-- **class labels** +0.0263 strict, significant — needs better *training*, not
-  more inference tricks (38 of 67 errors survive both the seed vote and TTA, and
-  value labels are refuted).
-- **per-site crossing decisions** +0.0333 strict — but only 8 of 1245 sites should
-  be split, so a classifier needs ~99.4% specificity against a measured 0.659 AUC.
-  Not reachable.
-- **everything else in wires** — no local operation helps, with or without GT.
-
-What that leaves is a change of paradigm rather than another parameter: the net
-assignment should be **learned directly** rather than derived from morphology and
-connected components — a model that labels wire pixels (or skeleton nodes) with
-net identity, trained on the 895-image train split, so that "do these two strokes
-belong to the same net" is answered by context and circuit structure instead of
-by whether their ink happens to touch. Mode C shows the target is reachable in
-principle (tp F1 0.9967 once connectivity is correct); nothing in the current
-extractor can get there.
-
-### 0.9 WHERE THE PIPELINE LANDED, and what to do next
-
-Two changes shipped. Everything else this session was either a negative or
-hygiene.
-
-| stage | net F1 | tp F1 | strict |
-|---|---|---|---|
-| v1 classical canny | 0.4618 | 0.2170 | 0.0000 |
-| v5 + ports snap, pad 0 (previous default) | 0.8075 | 0.7059 | 0.3579 |
-| **v6 + bridge_span 7** | 0.8334 | 0.7321 | 0.3632 |
-| **v7 + connectivity repair** | 0.8411 | 0.7426 | 0.3789 |
-| **v8 + snapping max_expand 80 (new default)** | **0.8436** | **0.7458** | **0.3789** |
-
-Three seeds under the new default: tp F1 0.7458 / 0.7494 / 0.7390, strict
-0.3789 / 0.3579 / 0.3421.
-
-Against the *previously shipped* default, paired over 190
-(`results/comparisons/full_stack.csv`): tp F1 **+0.0351 SIG**, net F1 **+0.0323
-SIG**, per-component **+0.0294 SIG**, strict **+0.0263** (6 win / 1 lose, CI
-touches zero). 67 → 72 of 190 images fully correct. Three seeds under the new
-default: strict 0.3789 / 0.3579 / 0.3368.
-
-**The attribution moved, which is the real result:**
-
-| stage | before | now |
-|---|---|---|
-| detection | 0.0627 | 0.0642 |
-| wires | **0.3406** | **0.1892** |
-| snapping | 0.0028 | 0.0033 |
-
-Wires is still dominant but is now 2.9x detection where it was 5.4x — its share
-of the terminal-pair error fell 44%.
-
-**The next moves, in priority order.**
-
-1. **Keep cross-validating the swept parameters — this is still the best
-   expected value per hour.** Two are now done and both were off: `bridge_span`
-   was 11 points off optimum with a *significant* gain unclaimed, and
-   `snapping.max_expand` peaked at 80 rather than 60 (small, not significant,
-   adopted). `connectivity_repair.max_gap` saturates at 60 and is confirmed.
-   **Still unswept on the real benchmark:** `min_blob_area` (80),
-   `min_blob_extent` (30), `textmask.*` (a whole block, and `dilate_kernel: 6`
-   is even so it offsets the mask by half a pixel), `nodes.junction_site_box`,
-   `preprocess.speck_min_area`/`speck_min_extent`, and
-   `snapping.window_depth`/`ground_max_expand`. A 10-point sweep is ~13 minutes
-   with `scripts/cv_select_param.py` for the honest number.
-2. **Class confusion is the only detection headroom.** The GT-class oracle is
-   **+0.0211 strict (4/0), SIG on four metrics** on the improved pipeline. The
-   seed vote captures part of it (+0.0105, 2/0, free). TTA is redundant with the
-   vote (2 of 67 errors are TTA-only) and value labels are refuted (0.5). What is
-   left is 38 systematic errors that need better *training* — more data, or a
-   loss that penalises the near-symmetric pairs — not more inference tricks.
-3. **Crossings are closed.** Do not reopen. Six approaches, two oracles, and now
-   a *significant negative* on per-component accuracy from perfect crossover
-   boxes.
-4. **`[HUMAN]`: annotate net topology for the val split.** Every parameter in
-   this pipeline is tuned on the split it is reported on, because net-level GT
-   exists only for test (see 0.10). Cross-validation is a mitigation, not a fix.
-5. Regenerate `results/oracle_1024` etc. after any further default change — the
-   `*_prefix_metric` copies show what a stale set looks like.
-
-### 0.10a PARAMETER SWEEP COVERAGE — what is now settled, and what cannot be swept
-
-Every value below was checked on the REAL benchmark (~75 s per run) and selected
-by 10-fold cross-validation, not by reading a sweep peak.
-
-**Changed (adopted):**
-
-| parameter | was | now | effect |
-|---|---|---|---|
-| `wires.min_blob_area` | 80 | **10** | together **+0.0207 tp_f1, +0.0368 STRICT** |
-| `wires.min_blob_extent` | 30 | **8** | (a 30-point grid; the filter was near-pure harm) |
-| `wires.bridge_span` | 18 | **7** | +0.0245 tp_f1, +0.0246 net F1, both SIG |
-| `snapping.max_expand` | 60 | **80** | +0.0031 tp_f1, not significant, stable in 10/10 folds |
-
-**Confirmed at the shipped value** — swept and left alone, so do not re-sweep:
-`detect.confidence` 0.4 (0.5 wins 9/10 folds on strict but delivers 0.4158
-out-of-fold, identical to 0.4 — the edge is selection noise; and lowering it is
-monotonically WORSE, 0.3737 at 0.1, so recovering missed components that way does
-not work), `nodes.connectivity` 8, `connectivity_repair.max_gap` 60 (saturates —
-60/90/120 are bit-identical), `connectivity_repair.body_frac` 0.5,
-`connectivity_repair.dir_tol_deg` 40, `snapping.window_depth` 8,
-`snapping.ground_max_expand` 80, `snapping.expand_step` 4,
-`nodes.junction_site_box` 30, and the whole `textmask` block (`dilate_kernel`,
-`adaptive_c`, `min_area` — all flat within 0.0002).
-
-**Cannot be swept as things stand** (see 0.10b for the guards now in place):
-every `preprocess.*` key, because frames are pre-generated and the benchmark
-reads them rather than re-running preprocessing. Sweeping them requires
-regenerating frames AND the detection cache per value; the speck experiment that
-ignored this produced a bogus sharp optimum. The speck filter itself barely
-changes the frame at all (mean level difference 7.09 at 40/12 versus 7.15 with
-removal off entirely), so the expected effect is small.
-
-### 0.10b THE MEASUREMENT AUDIT — six defects, three of them corrupting results
-
-Asked to hunt measurement bugs, these are what turned up. The first two were
-actively wrong-ing published numbers; the rest are traps that silently produce
-false negatives.
-
-| # | defect | status |
-|---|---|---|
-| 1 | **nGED not reproducible** — `nx.graph_edit_distance(timeout=)` returns its best-so-far bound as a plain float, so 72% of images reported a load-dependent number as exact (0.4850 / 0.4611 / 0.4371 at 1/3/6 s on the same graphs). It had already produced a significant result from a change that provably does nothing. | FIXED — deterministic Riesen–Bunke bound, and a 190-image benchmark went 35 min → 75 s |
-| 2 | **per-component accuracy recall-only** — `gt_pairs <= pred_pairs`, so a circuit with every net welded into one scored **1.000**, identical to a perfect answer. Blind to welding, which is the dominant failure mode. | FIXED — exact variant is now primary, recall variant kept and both emitted |
-| 3 | **`detect.confidence` unsweepable** — the cache's own floor is 0.4118 because the 0.4 threshold was baked in when it was written, so sweeping below 0.4 is a no-op and reports a flat curve that reads as "no effect". | GUARDED — `sweep_param.py` warns; low-confidence cache regenerated to make it explorable |
-| 4 | **every `preprocess.*` sweep is a no-op** — frames are pre-generated, so the benchmark never re-runs preprocessing. All five speck arms scored identically for this reason. | GUARDED — `sweep_param.py` refuses `preprocess.*` outright |
-| 5 | **frames/cache generation mismatch** — regenerating frames while keeping the committed detection cache costs **0.027 tp_f1 and 0.032 strict** and nothing complains; `audit_data_freshness.py` reports "ok" for both. This produced a bogus "the speck filter has a sharp optimum" result. | GUARDED — `scripts/check_cache_alignment.py`; ink coverage is useless (6.059 vs 6.069) but box-centre-to-ink-centroid CENTRING separates cleanly (2.795 / 2.799 aligned vs 3.633 mismatched) |
-| 6 | **`detect_batch.py --images-dir` defaulted to the 512-era `data/cleaned`** and ignored `cfg["preprocess"]["images_dir"]`, so a cache generated without the flag was computed in a different coordinate frame — 0 of 2802 boxes within 1 px of the committed ones. | FIXED — default now follows the config. Caught by #5 twenty minutes after writing it. |
-
-**Checked and CLEAN**, so nobody re-audits them: the paired bootstrap in
-`compare_runs.py` (resamples per-image deltas, seeded, sorted order); pipeline
-determinism (two identical runs, **0 differing cells** over 190 images × 18
-columns — only true because of #1); `align_components` (Hungarian on 1−IoU with a
-post-assignment threshold re-check that correctly rejects padded cells); and
-vacuous strict success (**0** GT files have zero terminal pairs).
-
-**A false alarm I raised and must not be repeated:** the committed frames do not
-reproduce byte-for-byte from the current config, which looked like a
-reproducibility failure of the whole pipeline. It is not. Re-running BOTH stages
-from raw inputs gives tp_f1 0.7675 / strict 0.4105 against the reported 0.7669 /
-0.4158 — the pipeline reproduces, and only *mixing generations* breaks.
-
-**The transferable lesson**, which cost the most: `measure_blob_filter_damage.py`
-reported the blob filter "harmless" TWICE — 0 of 20 and then 0 of 34 deleted blobs
-bridged two surviving components — while the real benchmark says removing it is
-worth **+0.0368 strict success**. The proxy only tested one failure mode. A stub
-carrying a component PIN touches one wire island, so a "bridges ≥ 2 components"
-test cannot see it. Sweep on the objective; a negative result is only as good as
-the mechanism it tested.
-
-### 0.10 The methodological hole a reviewer WILL find
-
-`data/gt_1024`, `gt_netlists`, `gt_netlists_verified` and `_v3` overlap the 190
-test images completely and the 192 val images **not at all**. So `bridge_span`,
-`component_mask_pad`, `min_blob_area`, the snapping radii — every tuned value —
-was chosen on the split it is reported on.
-
-`scripts/cv_select_param.py` is the mitigation: choose per fold on the other
-folds, score out-of-fold. For `bridge_span` the naive peak is 0.7321 and the
-honest cross-validated figure is **0.7281**, with the value stable (7 wins 9 of
-10 folds). Quote the second number. The real fix is item 4 above.
-
-### 0.8 ENVIRONMENT: the disk is nearly full
-
-`/System/Volumes/Data` is at **99%, ~2.8 GiB free**. Eight concurrent benchmarks
-crashed with `OSError: [Errno 28] No space left on device` writing a temp SPICE
-netlist. Keep concurrency at 3. `[HUMAN]` decision: these four archives total
-~5.9 GB and their contents are already extracted —
-`data/cghd/cghd-zenodo-12.zip` (3.2G), `data/digitize_hcd/Digitize-HCD_Dataset.zip`
-(2.0G), `RTX_3090_training.zip` (428M), `runs.zip` (253M). Deleting them would
-more than double free space; not done, since re-downloading is your call.
+Correlation −0.51. This is **not** merely strict being a product: tp F1 is a
+per-pair metric and still falls 0.91 → 0.57. Large circuits are genuinely harder.
 
 ## 1. What this project is
 
@@ -1149,64 +909,67 @@ modify), `data/detections/` (+ `_seed1`/`_seed2` caches),
 `data/digitize_hcd/extracted/.../Component Port Location Data/` (C3
 supervision). Weights: `experiments/train_all/runs/yolov8s_640_seed{0,1,2}/`.
 
-## 6. Next steps, in priority order
+## 6. Next steps, in priority order (rewritten 2026-07-31)
 
-1. **Finish/verify the queued runs** (§4) and regenerate paper tables.
-2. **Learned junction/crossover net assembly — BUILT, benchmark pending.**
-   This is the live thread. Chain of evidence:
-   - Deterministic tuning is exhausted: sweeping every stitching guard
-     buys +0.02 terminal-pair F1 against +0.44 of headroom
-     (`results/sweeps/stitch_guards.csv`).
-   - Isotropic path tracing **fails** and was rejected before being
-     built (`results/path_tracing_probe/`): tight settings merge almost
-     nothing, loose ones short more nets than they fix. A scalar cost
-     cannot separate "one rail with a gap" from "two nets passing
-     close".
-   - Phase 0 found the real target (`results/intersections/`): ~20
-     stroke intersections per image, the detector labels **11%**, and
-     **72.6%** of wire nodes carrying terminals fuse ≥2 GT nets.
-   - CGHD annotates `junction` / `crossover` explicitly. 71,931 patches
-     built by streaming the 3.2 GB archive (disk is at 98%, so do NOT
-     extract it). Classifier trains to **0.969 balanced accuracy** on
-     drafter-disjoint validation.
-   - **MPS trains a degenerate model** (balanced acc pinned at 0.5000,
-     silently). Use CPU or CUDA. Device auto-select skips MPS.
-   - Integrated as `nodes.method: learned` (cc | crossover | learned),
-     returning an audit record of sites found/classified/judged.
-   **Remaining: threshold sweep + full benchmark + paired comparison.**
-   Whether the extra splits are CORRECT is unmeasured — do not claim a
-   win until `results/comparisons/crossover_vs_learned.csv` exists.
+The target is an IEEE Access submission. Frame it as a **benchmark-and-attribution
+paper, not a SOTA paper** — there is no prior work on this dataset+task to beat.
+Under that frame the negative results in 0.3 become contributions: "we show with
+GT-injection oracles that crossing information is worth less than nothing, and
+that the residual connectivity error is provably unrecoverable from the extracted
+wire graph" is a genuinely useful finding that saves other groups the same year.
 
-   **The verdict is UNDECIDED, not negative.** A 34/190 partial run of
-   `results/ablations/nodes_learned/` existed and looked like a
-   degradation; it was deleted rather than left to be misread, because
-   the 1024 experiment proved a prefix of this benchmark can carry the
-   wrong sign (§3.5) — 34 images is a quarter of the sample that lied.
-   Nothing about the learned method has been measured to completion.
-   Redo it at 1024 (`nodes.junction_site_box` is already scaled to 30)
-   and only then compare:
-   ```
-   ./venv/bin/python scripts/threshold_sensitivity.py    # pick the threshold
-   ./venv/bin/python scripts/benchmark.py --split test \
-       --config <learned-1024.yaml> --out-dir results/ablations_1024/nodes_learned
-   ./venv/bin/python scripts/compare_runs.py \
-       results/benchmark_1024/seed0 results/ablations_1024/nodes_learned \
-       --out results/comparisons/crossover_vs_learned.csv
-   ```
-   This is the experiment that decides benchmark-only vs novel-
-   contribution framing, so it is the highest-value item left.
-3. Remaining ablations: detector n/s/m, input resolution, legacy knobs
-   (`min_blob_area`, `connectivity`, `ground_fallback`).
-4. **Ground-selection fallback is a known-bad heuristic** (0/6). Either
-   improve it (nearest-to-GND-symbol-like structure) or scope it out
-   explicitly in the paper.
-5. Paper: fill Results narration, Discussion, Limitations, Abstract;
-   verify every `TODO-VERIFY` in `paper/refs.bib`; build the failure-
-   cases and ledger-example figures. Then Phase G (red-team,
-   reproducibility drill, numbers audit).
-6. [IDEAL] learned port-heatmap model (the oracle-vs-axis gap in
-   `results/ports/template_accuracy.json` quantifies its value);
-   CGHD zero-shot; C5 expert-acceptance study.
+### Tier 1 — required for acceptance
+
+1. **`[HUMAN]` Annotate topology for a validation split.** Net-level GT exists
+   only for the 190 test images, so *every* tuned parameter was chosen on the
+   split it is reported on. `scripts/cv_select_param.py` mitigates this and is
+   used throughout, but a reviewer is still entitled to discount it. **Even 50
+   annotated images breaks the circularity.** This is the highest-value hour
+   available.
+2. **`[HUMAN]` Adjudicate `results/weld_review/review.html`** — 60 welds, raw and
+   annotated crops, verdicts HOP / JUDGEMENT / GT ERROR, and a blank `verdict`
+   column in `welds.csv`. 90% have no crossover box of either kind within 60 px.
+   This sets the honest ceiling: if most are JUDGEMENT then 0.4368 is near what
+   any pixel-based method can reach **and that is a headline finding**; if many
+   are GT ERROR the denominator changes.
+3. **Rewrite the stale narrative.** Tables and macros auto-regenerate
+   (`make_paper_tables.py`, 35 macros, `audit_paper_numbers.py` passes), but the
+   prose still asserts things now refuted — `results.tex` says "handling
+   crossings helps".
+
+### Tier 2 — strongly improves the odds
+
+4. **An external anchor.** There is no comparison point for 0.4368. A VLM
+   baseline (Claude/GPT-4V on the same 190 images, scored with the same metric
+   cascade) is cheap and reviewers increasingly expect it.
+5. **Uncertainty calibration** (task #12) — flagging low-confidence outputs makes
+   this a usable tool rather than a number, and pairs naturally with C5's ledger.
+6. **Inter-annotator agreement** on a GT subset, which also feeds item 2.
+
+### Tier 3 — polish
+
+7. Runtime numbers (the 25× benchmark speedup is a real engineering result).
+8. Qualitative failure gallery — `scripts/pipeline_trace.py` already emits these.
+
+### The discipline that made this session work, and should be kept
+
+- **Sweep on the objective, never a proxy.** `measure_blob_filter_damage.py`
+  called the blob filter harmless twice while the benchmark said removing it was
+  worth +0.0368 strict. A negative result is only as good as the mechanism it
+  tested.
+- **Price a change before spending a benchmark.** `audit_relabels.py` and
+  `apply_class_head.py --sweep` both report corrected/broke/net against GT in
+  seconds.
+- **Bound a learned component with an oracle first.** `inject_hop_boxes.py`
+  showed a perfect classifier over the geometric hop candidates could not help,
+  before any model was trained. That check would have saved the whole hop-detector
+  attempt.
+- **Cross-validate any swept value** (`cv_select_param.py`) and quote the
+  out-of-fold number, not the sweep peak.
+- Guards that now exist because each caught a real error: `check_cache_alignment.py`
+  (frames/cache generation mismatch costs 0.027 tp F1 silently),
+  `sweep_param.py`'s refusal of `preprocess.*` and warning on `detect.confidence`
+  below the cache floor, and `audit_paper_numbers.py`'s missing-macro check.
 
 ## 7. Open issues / warts
 
