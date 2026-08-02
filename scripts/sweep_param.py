@@ -87,6 +87,15 @@ def main() -> None:
     ap.add_argument("--config", default=None)
     ap.add_argument("--reuse", action="store_true",
                     help="skip values whose run directory already has a summary")
+    # Without these the sweep always scored the DEFAULT split, i.e. test — the
+    # split every tuned value is then reported on. Selecting a threshold that
+    # way is the circularity the validation annotation exists to break, so the
+    # passthrough is mandatory rather than convenient.
+    ap.add_argument("--split", default=None)
+    ap.add_argument("--splits-dir", default=None)
+    ap.add_argument("--gt-dir", default=None)
+    ap.add_argument("--no-spice", action="store_true",
+                    help="skip ngspice; topology metrics are unaffected")
     args = ap.parse_args()
 
     sys.path.insert(0, str(ROOT / "src"))
@@ -152,7 +161,11 @@ def main() -> None:
             log = open(o / "bench.log", "w")
             procs.append((v, subprocess.Popen(
                 [str(ROOT / "venv/bin/python"), str(ROOT / "scripts/benchmark.py"),
-                 "--config", str(c), "--out-dir", str(o)],
+                 "--config", str(c), "--out-dir", str(o)]
+                + (["--split", args.split] if args.split else [])
+                + (["--splits-dir", args.splits_dir] if args.splits_dir else [])
+                + (["--gt-dir", args.gt_dir] if args.gt_dir else [])
+                + (["--no-spice"] if args.no_spice else []),
                 stdout=log, stderr=subprocess.STDOUT, cwd=ROOT)))
         for v, p in procs:
             rc = p.wait()

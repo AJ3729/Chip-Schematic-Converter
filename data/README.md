@@ -37,19 +37,33 @@ sha256-level reconciliation performed 2026-07-18:
 - `raw/` (1,277 files) is **byte-identical** to the published Circuit
   Diagram Images: 1,277/1,277 matched, 0 local-only, 0 published-only,
   0 duplicates.
-- `cleaned/` (1,277 files) are the preprocessed versions
-  (deskew → shadow removal → binarize → crop → 512×512 canvas, see
-  `scripts/preprocess.py`); zero byte-level matches with the published
-  set is expected. Correspondence is by identical `file_name`.
+- `cleaned*/` are the preprocessed versions (deskew → shadow removal →
+  binarize → crop → square canvas, see `scripts/preprocess.py` and
+  `src/schematic2netlist/preprocess.py`); zero byte-level matches with
+  the published set is expected. Correspondence is by identical
+  `file_name`.
 - Earlier plan documents mentioned a 624 vs 1,279 count discrepancy;
   it does not exist in the current state — both directories hold
   exactly the 1,277 published images.
 
-**Caution**: the published annotations are in ORIGINAL image
-coordinates. `cleaned/` images were produced by a transform that was
-not recorded, so annotations cannot be projected onto them yet.
-Training/evaluation against published annotations must use `raw/`
-until preprocessing records its transform.
+### Preprocessing frames and the recorded transform
+
+The published annotations are in ORIGINAL image coordinates. The
+preprocessing transform **is** recorded — `scripts/record_transforms.py`
+writes `transforms_<size>.json` (rotation matrix, optional 90° rotation,
+crop, scale, canvas offset), and `preprocess.project_point` /
+`project_bbox` project published boxes into a cleaned frame. The
+canonical frame is **1024** (`preprocess.target_size`,
+`preprocess.images_dir: data/cleaned_1024`); `cleaned/` is the legacy 512
+frame and `cleaned_2048/` an experiment.
+
+The crop is **annotation-aware**: it is computed from the full ink
+*before* speck removal and unioned with every published box, so an
+annotated component can no longer be cropped out. Before that fix, 108 of
+2,786 test-split boxes (4.2%, across 52 images) projected outside the
+canvas — the symbol was absent from the image entirely and its nets could
+only be inferred. The regression check lives in `record_transforms.py`
+and must report 0.
 
 ## Frozen splits (`splits/`, versioned)
 
@@ -60,14 +74,108 @@ classes are present in every split (test-set support: min 44 =
 MOSFET-P, max 470 = Resistor). Full per-split class distributions:
 `splits/splits_meta.json`.
 
+`splits/val_sample50.txt` is the 50-image validation subset carrying
+ground truth (`gt_val/`); its construction is described below.
+
+## Ground-truth topology (benchmark contribution C1)
+
+GT files are schema v1 (see `src/schematic2netlist/gt.py`): per component a
+class, a bbox, and one net name per terminal. Topology is
+image-geometry-independent, so it survives a preprocessing change; only
+`bbox` is frame-dependent, and no metric reads it (it is used solely to
+align predicted components to GT).
+
+`data/*` is gitignored, so none of these directories are versioned — they
+are transferred as an artifact. Only `splits/` and this README are in git.
+
+### Test split (190 images + 1 demo)
+
+| Directory | What |
+| --- | --- |
+| `gt_netlists/` | the machine bootstrap (`coco+pipeline_bootstrap`), unverified — retained as the starting point |
+| `gt_netlists_verified/` | topology pass: every terminal traced against the drawing, `verified: true` |
+| `gt_netlists_verified_v2/` | retained unmodified for provenance |
+| `gt_netlists_verified_v3/` | v2 topology + published COCO box geometry, substituted by `scripts/fix_gt_boxes.py` |
+| `gt_1024/` | v3 boxes projected to the 1024 frame — **this is `benchmark.gt_dir`** |
+
+The verification pass rewrote far more than a spot-check: 60.4% of
+bootstrapped terminals were `null` and most non-null values were wrong;
+182 of 191 files had a GND symbol on a net other than `"0"`. Null
+terminals went 3,090 → 2 (both `unconnected: true` — leads the drafter
+drew going nowhere). Every file passes the strict validator and carries no
+Tier-1 electrical fault: no shorted source, no disconnected island, no
+current source without a return path.
+
+Each file's `notes` records the net map and every judgment call, including
+the ~30 sheets with a crossing that has neither a dot nor a hop (resolved
+toward the reading that lets the circuit function, with coordinates and
+the consequence of the opposite reading), and the 52 files containing a
+component whose bbox falls outside the crop, whose nets are inferred from
+the open wire-ends the box sits between rather than traced.
+
+### Validation subset (50 images) — `gt_val/`
+
+Used **only to rank configurations** during parameter selection, never to
+compute a reported number, so it is annotated to a deliberately lower
+standard than the test GT: noise here adds variance to a ranking, not bias
+to a published figure.
+
+Frame: **1024**, matching `preprocess.target_size` and `cleaned_1024`, so
+`benchmark.gt_dir` swaps between `gt_1024` and `gt_val` with no
+re-projection. 50 files, 687 components, all 16 electrical classes present
+(min support 17 = MOSFET-P), mean 13.7 components per circuit, zero
+unresolved terminals, zero validation issues.
+
+Sample construction (`splits/val_sample50.txt`, seed 0):
+
+- **Motif-deduplicated first.** The val split contains 9 repeated textbook
+  circuits covering 33 of its 192 images — one drawn 8 times. Clustering on
+  identical class-multiset *and* identical text-label multiset reduced
+  192 → 168 representatives; sampling without this would have spent ~24 of
+  the 50 annotations on redundancy.
+- **Then stratified by component count** into quintile bins taken from the
+  test distribution, allocated proportionally, capped at 3 per loose
+  (class-multiset) cluster. Result: mean 15.0 / median 17 components
+  against test's 14.7 / 16.5, min 5 vs 4, max 31 vs 28. Performance
+  correlates −0.51 with circuit size, so a val set skewed small would
+  select parameters that are wrong where they matter.
+
+Provenance differs from the test GT and the `source` field records it as
+`coco_geometry+manual_topology`:
+
+- **Geometry and classes come from the published COCO annotations**,
+  projected through `transforms_1024.json` — not from a pipeline
+  bootstrap. This is the v3 lesson applied up front rather than repaired
+  afterwards, so no `fix_gt_boxes.py` pass is needed. 0 of 687 components
+  project outside the canvas.
+- **No pipeline bootstrap was used for topology either** (the detection
+  cache has no val entries). Every net was traced from `null`. This also
+  removes a circularity: GT used to rank pipeline configurations is not
+  seeded by that pipeline's own output.
+- **5 published class labels were corrected** (0.7% of components):
+  `circuit_131` id 4 Inductor → V-DC (a `+/−` circle labelled 1V);
+  `circuit_410` ids 1/11/18 Resistor → Inductor (coils labelled 1µH);
+  `circuit_578` id 3 I-DC → V-AC (a sine circle labelled "8V 1kHz").
+  The published boxes are reliable for geometry; they are not infallible
+  for class.
+
+Four sheets (`39`, `209`, `220`, `1059`) are un-simulable as drawn — a
+voltage source is shorted by the drafter's own wiring. This was checked
+specifically, because the same signature was a mis-trace all six times it
+appeared in the test split; a fifth case, `circuit_643`, was indeed that
+error and was fixed. For the remaining four the ink is decisive: `209` and
+`220` have no GND symbol at all, so the failure mode is structurally
+impossible, and `39`/`1059` carry junction dots at the critical crossing
+heavier than their sibling dead-end dots. Recorded in each file's `notes`.
+
+`<dir>/renders/` holds the verification overlays for each set, regenerable
+with `scripts/annotate_topology.py --render --gt-dir <dir> --images-dir data/cleaned_1024`.
+
 ## Other subdirectories
 
-- `detections/` — per-image detection cache (`<stem>.json`), written by
-  `scripts/detect_batch.py` / the pipeline's detect stage.
-- `gt_netlists/` — ground-truth topology graphs (schema v1, see
-  `src/schematic2netlist/gt.py`), bootstrapped by
-  `scripts/annotate_topology.py` and human-verified (`verified: true`).
-  `gt_netlists/renders/` holds verification overlays.
+- `detections*/` — per-image detection cache (`<stem>.json`), written by
+  `scripts/detect_batch.py` / the pipeline's detect stage. The suffixed
+  variants are ablation and ensemble runs.
 - `cghd/` — CGHD cross-dataset (Zenodo record
   [10056817](https://zenodo.org/records/10056817), CC BY 4.0,
   `cghd-zenodo-12.zip`, 3.4 GB) for zero-shot evaluation;

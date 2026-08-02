@@ -1,0 +1,71 @@
+{
+ "question": "can wire-mask parameters recover the split population (action item 1)",
+ "split": "val_sample50 (50 images, data/gt_val, disjoint from test)",
+ "baseline_strict": 0.46,
+ "baseline_note": "test strict is 0.4421, so the val split is representative",
+ "sweeps_on_val": {
+  "wires.min_blob_area": {
+   "values": [
+    2,
+    4,
+    6,
+    10,
+    16,
+    24
+   ],
+   "strict": "0.4600 at every value",
+   "verdict": "INERT"
+  },
+  "wires.min_blob_extent": {
+   "values": [
+    2,
+    4,
+    6,
+    8,
+    12,
+    16
+   ],
+   "strict": "0.4600 at every value",
+   "verdict": "INERT"
+  },
+  "wires.binarize_k": {
+   "values": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3
+   ],
+   "strict": "0.4600 except 0.44 at 0.30",
+   "verdict": "FLAT, shipped value already optimal"
+  },
+  "wires.binarize_window": {
+   "values": [
+    15,
+    21,
+    31,
+    41,
+    51
+   ],
+   "strict": "0.4600 except 0.44 at 21 and 41",
+   "verdict": "FLAT, shipped value already optimal"
+  }
+ },
+ "masking_oracle": {
+  "config": "wires.non_wire_classes = []",
+  "strict": 0.06,
+  "verdict": "component erasure is LOAD-BEARING; removing it costs 0.40 strict"
+ },
+ "retracted_claim": {
+  "claim": "wire/ink retention is lower on the recoverable population (0.538 vs 0.655), so the wire mask is discarding conductor",
+  "control": "recomputed over pixels OUTSIDE all detected component boxes, where erasure cannot explain a loss",
+  "result": "0.830 recoverable / 0.839 hard core / 0.858 solved - the 0.117 spread collapses to 0.028",
+  "cause": "component count. The recoverable circuits average 19.3 detections against 10.1 for circuits we solve, and component boxes are erased by design.",
+  "verdict": "the mechanism claim does not survive the control and is withdrawn"
+ },
+ "conclusion": [
+  "Action item 1 as specified - retune wire-mask construction to recover the split population - is not reachable. Every wire-mask parameter is inert or already optimal on an independent split, and the one component that is not inert (masking) is load-bearing.",
+  "The split population itself is unchanged and still real: 25 circuits recovered by at least one frontier model, 12/12 split-dominant, 260 px median fragment gaps.",
+  "What is now excluded is that a parameter choice reaches them. The remaining candidates are structural: a targeted corridor through foreign component boxes, or a learned merge decision (action item 2)."
+ ]
+}
