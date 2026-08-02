@@ -1,0 +1,38 @@
+{
+ "question": "why does the pipeline split conductors on the 25 circuits a frontier model recovers",
+ "populations": {
+  "recoverable_25": 25,
+  "hard_core_81": 81,
+  "pipeline_solves_84": 84
+ },
+ "crossover_presence": {
+  "recoverable_25": "1/25 (4%), mean 0.08",
+  "hard_core_81": "43/81 (53%), mean 2.38",
+  "solves_84": "12/84 (14%), mean 0.35"
+ },
+ "wiremask_retention": {
+  "recoverable_25": {
+   "ink_frac": 0.0263,
+   "wiremask_frac": 0.0138,
+   "wire_over_ink": 0.538,
+   "mask_components": 14.5
+  },
+  "hard_core_81": {
+   "ink_frac": 0.027,
+   "wiremask_frac": 0.016,
+   "wire_over_ink": 0.59,
+   "mask_components": 9.8
+  },
+  "solves_84": {
+   "ink_frac": 0.021,
+   "wiremask_frac": 0.0135,
+   "wire_over_ink": 0.655,
+   "mask_components": 8.1
+  }
+ },
+ "conclusions": [
+  "Notching is NOT the cause of the recoverable splits: only 4% of those circuits contain a detected crossover, against 53% of the hard core. The two failure populations are separated by crossover presence as well as by split-vs-fusion.",
+  "Ink availability is comparable across all three groups (0.021-0.027 of pixels), so the split population is not fainter. The pipeline retains a smaller fraction of the ink it has (0.538 against 0.655 on circuits it solves) and fragments the remainder into 14.5 mask components against 8.1.",
+  "That places the cause inside wire-mask construction - binarization, blob filtering, and masking - which is the self-inflicted-damage class that every successful fix in this project has belonged to, and not the inference class that every failed attempt has belonged to."
+ ]
+}
