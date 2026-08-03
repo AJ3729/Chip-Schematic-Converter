@@ -16,9 +16,13 @@ Does three things so a sweep cannot be reported dishonestly:
   tabulates every metric, not just the selection one, because a parameter that
             buys terminal-pair F1 by welding nets shows up as per-component or
             strict going the other way
-  selects   by 10-fold cross-validation via cv_select_param.py, since net-level
-            GT exists only for the test split and a sweep peak read off the
-            reported split is a test-set number
+  selects   by 10-fold cross-validation via cv_select_param.py, because a peak
+            read off 190 images is partly noise even when those images are the
+            validation split and not the reported one
+
+It defaults to --split val (--gt-dir data/gt_val_1024) and scoring test takes
+saying so. Selection must not touch the split it is reported on; the two splits
+swapped names on 2026-08-03 for exactly that reason (data/README.md).
 
 Usage:
     python scripts/sweep_param.py detect.confidence 0.2 0.3 0.4 0.5 0.6
@@ -87,13 +91,13 @@ def main() -> None:
     ap.add_argument("--config", default=None)
     ap.add_argument("--reuse", action="store_true",
                     help="skip values whose run directory already has a summary")
-    # Without these the sweep always scored the DEFAULT split, i.e. test — the
-    # split every tuned value is then reported on. Selecting a threshold that
-    # way is the circularity the validation annotation exists to break, so the
-    # passthrough is mandatory rather than convenient.
-    ap.add_argument("--split", default=None)
+    # A sweep selects a parameter, so it must never touch the split that
+    # parameter is then reported on — that circularity is what the validation
+    # annotation exists to break. Both defaults therefore point at val, and
+    # scoring test takes an explicit --split test.
+    ap.add_argument("--split", default="val")
     ap.add_argument("--splits-dir", default=None)
-    ap.add_argument("--gt-dir", default=None)
+    ap.add_argument("--gt-dir", default="data/gt_val_1024")
     ap.add_argument("--no-spice", action="store_true",
                     help="skip ngspice; topology metrics are unaffected")
     args = ap.parse_args()
