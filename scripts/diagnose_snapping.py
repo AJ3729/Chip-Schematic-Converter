@@ -107,6 +107,7 @@ from schematic2netlist.snapping import (
     build_component_pin_nets,
 )
 from schematic2netlist.nodes import bbox_xyxy
+from schematic2netlist.splits import add_split_arg, load_split
 
 from oracle import gt_detections  # noqa: E402  (same-dir import)
 
@@ -115,6 +116,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=190)
     ap.add_argument("--config", default=None)
     ap.add_argument("--gt-dir", default=None)
@@ -129,7 +131,7 @@ def main() -> None:
     write_run_metadata(out, cfg, seed, extra={"gt_dir": gt_dir,
                                               "mode": "oracle C"})
 
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
     images_dir = resolve_and_check(None, names, cfg)
 

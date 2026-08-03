@@ -59,6 +59,7 @@ from schematic2netlist.gt import load_gt
 from schematic2netlist.nodes import bbox_xyxy
 from schematic2netlist.pipeline import run_pipeline
 from schematic2netlist.skeleton import intersection_sites
+from schematic2netlist.splits import add_split_arg, load_split
 
 import sys
 
@@ -78,6 +79,7 @@ def net_slots(components: list[dict]) -> dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
+    add_split_arg(ap, "test")
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--images-dir", default=None,
                     help="preprocessed frames; defaults to "
@@ -90,7 +92,7 @@ def main() -> None:
     cfg = load_config(args.config)
     gt_dir = Path(args.gt_dir or cfg["benchmark"]["gt_dir"])
     det_dir = Path(cfg["detect"]["cache_dir"])
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][: args.limit]
+    names = load_split(args.split, args.splits_dir)[: args.limit]
     images_dir = resolve_and_check(args.images_dir, names, cfg)
 
     rows = []

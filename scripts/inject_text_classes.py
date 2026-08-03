@@ -142,7 +142,9 @@ def main() -> None:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default=None)
-    ap.add_argument("--split", default="test")
+    ap.add_argument("--split", default="val",
+                    help="exploration/oracle-injection, so it reads val by "
+                         "default; --split test only for a reported number")
     ap.add_argument("--primary", default="data/detections_1024")
     ap.add_argument("--transforms", default="data/transforms_1024.json")
     ap.add_argument("--max-dist-frac", type=float, default=1.2,

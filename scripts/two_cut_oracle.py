@@ -56,6 +56,7 @@ from schematic2netlist.frames import resolve_and_check
 from schematic2netlist.gt import load_gt
 from schematic2netlist.pipeline import run_pipeline
 from schematic2netlist.skeleton import intersection_sites_with_degree
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def separates(mask8, sites, anchors, radius):
@@ -79,6 +80,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--config", default=None)
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--cut-radius", type=int, default=7)
@@ -88,7 +90,7 @@ def main() -> None:
     args = ap.parse_args()
 
     cfg = load_config(args.config)
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
     images_dir = resolve_and_check(None, names, cfg)
 

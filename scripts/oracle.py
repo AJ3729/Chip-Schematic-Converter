@@ -56,6 +56,7 @@ from schematic2netlist.metrics import (
 from schematic2netlist.oracle_render import render_gt_node_map
 from schematic2netlist.pipeline import run_pipeline
 from schematic2netlist.snapping import build_component_pin_nets
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def gt_detections(gt: dict, extra: list[dict] | None = None) -> list[dict]:
@@ -97,6 +98,7 @@ def as_pred(components, dets):
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
+    add_split_arg(ap, "test")
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--gt-dir", default=None,
                     help="overrides benchmark.gt_dir from the config")
@@ -114,7 +116,7 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     write_run_metadata(out_dir, cfg, seed, extra={"gt_dir": gt_dir})
 
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][: args.limit]
+    names = load_split(args.split, args.splits_dir)[: args.limit]
     images_dir = resolve_and_check(args.images_dir, names, cfg)
     rows: list[dict] = []
 

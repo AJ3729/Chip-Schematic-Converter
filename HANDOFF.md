@@ -20,7 +20,7 @@ GT (`docs/GT_VAL_VERIFICATION_REPORT.md`), so they carry the headline.
 before 2026-08-03, is a VALIDATION number** whatever it is called — including
 the 0.4421 below, the oracles, the ablations, the sweeps and the VLM anchor.
 
-Held-out result on the new test split (`results/benchmark_test192/seed0`,
+Held-out result on the new test split (`results/paper_test/seeds/seed0`,
 same shipped config, nothing retuned):
 
 | metric | val (190, tuned) | **test (192, held out)** | p |
@@ -36,11 +36,60 @@ splits are matched on every difficulty proxy (mean components 13.51 vs
 13.35, crossovers 29.5% vs 28.1%, 3+-terminal parts 31.1% vs 30.2%, GT nets
 per circuit 7.92 vs 7.80), and only nGED separates them significantly, so
 treat the gap as sampling noise rather than as an improvement.
+`scripts/compare_splits.py` regenerates that comparison.
+
+The whole result set was replayed onto test by `scripts/regen_on_split.py`,
+which reads each historical run's frozen config snapshot out of its
+`run_meta.json` so every ablation arm keeps the configuration it had:
+
+| | val (190) | **test (192)** |
+|---|---|---|
+| ablation v1 → v12 strict | 0.000 → 0.442 | **0.000 → 0.516** |
+| 3 detector seeds, strict | .442/.432/.421 | **.516/.521/.510** |
+| oracle attribution (tp F1) | det +0.065, wires +0.181, snap +0.003 | **det +0.020, wires +0.170, snap +0.001** |
+| oracle mode-C valid | 55/60 | **59/60** |
+| repair solvability lift | 0.253 [0.195, 0.321] | **0.203 [0.146, 0.260]** |
+| repair regressions / topology violations | 0 / 0 | **0 / 0** |
+| ground-net gauge (resolved) | 0.908 (n=183) | **0.942 (n=180)** |
+| strict successes in tp-precision ≥0.9 bucket | 84/84 | **99/99** |
+
+`paper/generated/numbers.tex` and all six tables now read the test set;
+`make_paper_tables.py --variant test` is the default and `--variant 1024`
+gets the validation numbers back.
+
+### 0.0.1 THE DETECTOR WAS EARLY-STOPPED ON THE TEST SPLIT
+
+Found while finishing the swap, and it does not have a free fix. The YOLO
+weights in `experiments/` were trained with ultralytics `split: val`,
+`patience: 50`, and that val set is exactly the 192 images that are now
+`test` (verified against the training bundle: 192/192 overlap, 0 with the
+190). So the detector chose its stopping epoch on the reporting split.
+
+Measured size of the resulting optimism, same weights, both splits:
+
+| | test (192, early-stopped on) | val (190, never seen) |
+|---|---|---|
+| mAP@0.5 | 0.9909 | 0.9739 |
+| mAP@0.5:0.95 | 0.7309 | 0.7078 |
+
+So **+0.017 mAP@0.5 / +0.023 mAP@0.5:0.95**. The topology pipeline consumes
+those detections and inherits the bias — which is the likeliest reason the
+oracle now attributes only +0.020 to detection against +0.065 on val.
+
+Two honest options, neither free: disclose it as a limitation with the
+number above, or retrain with early stopping on val (GPU, costs money, needs
+owner approval). Until then the paper must state it. Nothing else in the
+cascade is affected: no topology parameter ever read these 192 images.
 
 Paths: `benchmark.gt_dir` is now `data/gt_test_1024` (was
 `data/gt_val_verified`); the validation GT is `data/gt_val_1024` (was
-`data/gt_1024`); `data/gt_2048` → `data/gt_val_2048`. Sweep with
-`--split val --gt-dir data/gt_val_1024`, report with `--split test`.
+`data/gt_1024`); `data/gt_2048` → `data/gt_val_2048`;
+`data/gt_text_masks_1024` → `..._val_1024`; `data/{cleaned,detections}_2048`
+→ `..._val_2048`; and all six `data/yolo*/{images,labels}/{test,val}` had
+their contents exchanged so they match the manifests again. Sweep with
+`--split val`, report with `--split test`. Every script now takes `--split`
+with a role-appropriate default via `schematic2netlist.splits.add_split_arg`
+— exploratory scripts default to val, reported ones to test.
 
 ### 0.1 Where the pipeline is
 

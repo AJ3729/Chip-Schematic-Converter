@@ -46,12 +46,14 @@ from schematic2netlist.determinism import set_global_seed
 from schematic2netlist.frames import resolve_and_check
 from schematic2netlist.textmask import detect_text_mask
 from schematic2netlist.wires import build_non_wire_mask
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=40)
     ap.add_argument("--config", default=None)
     ap.add_argument("--reach", type=int, default=3,
@@ -65,7 +67,7 @@ def main() -> None:
     min_area = wcfg["min_blob_area"]
     min_extent = wcfg.get("min_blob_extent", 15)
 
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
     images_dir = resolve_and_check(None, names, cfg)
 

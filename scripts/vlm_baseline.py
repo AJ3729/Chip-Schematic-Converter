@@ -280,7 +280,9 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--variant", choices=["a", "b"], default="b")
     ap.add_argument("--config", default=None)
-    ap.add_argument("--split", default="test")
+    ap.add_argument("--split", default="val",
+                    help="exploration/oracle-injection, so it reads val by "
+                         "default; --split test only for a reported number")
     ap.add_argument("--splits-dir", default=None)
     ap.add_argument("--limit", type=int, default=0, help="0 = all")
     ap.add_argument("--repeat", type=int, default=3,

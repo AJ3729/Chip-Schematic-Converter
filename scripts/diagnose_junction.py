@@ -39,6 +39,8 @@ import argparse
 import glob
 import random
 
+from schematic2netlist.splits import add_split_arg, load_split
+
 import numpy as np
 
 
@@ -84,6 +86,8 @@ def main():
         crop_site, intersection_sites_with_degree, thin)
 
     ap = argparse.ArgumentParser(description=__doc__)
+
+    add_split_arg(ap, "val")
     ap.add_argument("--config", default=None)
     ap.add_argument("--limit", type=int, default=40)
     ap.add_argument("--train-dir", default="data/junctions_full")
@@ -117,7 +121,7 @@ def main():
               f"junction {dj.mean():.3f}")
 
     # (3)+(4) real-patch AUC, raw vs thinned
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][:args.limit]
+    names = load_split(args.split, args.splits_dir)[:args.limit]
     cache = []
     for nm in names:
         cw, dets = build_mask(nm, cfg)

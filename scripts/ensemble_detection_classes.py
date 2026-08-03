@@ -56,7 +56,9 @@ def iou(a, b) -> float:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--config", default=None)
-    ap.add_argument("--split", default="test")
+    ap.add_argument("--split", default="val",
+                    help="exploration/oracle-injection, so it reads val by "
+                         "default; --split test only for a reported number")
     ap.add_argument("--primary", default="data/detections_1024")
     ap.add_argument("--others", nargs="*",
                     default=["data/detections_seed1_1024",

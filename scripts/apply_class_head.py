@@ -43,6 +43,7 @@ from train_class_head import Net
 from schematic2netlist.classes import canonical_class
 from schematic2netlist.config import load_config
 from schematic2netlist.gt import load_gt
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def iou(a, b) -> float:
@@ -77,7 +78,7 @@ def score_all(cfg, ckpt, device, ckpt2=None):
     names_can = [canonical_class(n) for n in names]
 
     recs = []
-    for lp in sorted(Path("data/splits/test.txt").read_text().split()):
+    for lp in sorted(load_split(args.split, args.splits_dir)):
         stem = Path(lp).stem
         cp, ip, gp = cdir / f"{stem}.json", idir / lp, gdir / f"{stem}.json"
         if not (cp.exists() and ip.exists()):
@@ -133,6 +134,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--config", default=None)
     ap.add_argument("--weights", default="experiments/class_head/best.pt")
     ap.add_argument("--weights2", default=None,
@@ -203,7 +205,7 @@ def main() -> None:
         cdir = Path(cfg["detect"]["cache_dir"])
         n_changed = 0
         changed = Counter()
-        for lp in Path("data/splits/test.txt").read_text().split():
+        for lp in load_split(args.split, args.splits_dir):
             stem = Path(lp).stem
             cp = cdir / f"{stem}.json"
             if not cp.exists():

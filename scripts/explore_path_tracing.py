@@ -55,6 +55,7 @@ from schematic2netlist.wires import (
     stitch_wire_islands,
     stitchable_mask,
 )
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def grid_graph(ink: np.ndarray, gap_cost: float) -> sp.csr_matrix:
@@ -137,6 +138,7 @@ def gt_net_of(gt: dict, comp_idx: int, dets: list, anchor_xy) -> str | None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=40)
     ap.add_argument("--images-dir", default="data/cleaned")
     ap.add_argument("--gt-dir", default=None,
@@ -151,7 +153,7 @@ def main() -> None:
     gt_dir = Path(args.gt_dir or cfg["benchmark"]["gt_dir"])
     gap_costs = [float(g) for g in args.gap_costs.split(",")]
     thresholds = [float(t) for t in args.thresholds.split(",")]
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][: args.limit]
+    names = load_split(args.split, args.splits_dir)[: args.limit]
 
     tally = {(g, t): {"correct": 0, "wrong": 0, "unknown": 0}
              for g in gap_costs for t in thresholds}

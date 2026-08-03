@@ -149,7 +149,9 @@ def main() -> None:
     ap.add_argument("--model", default=None,
                     help="exact model id; see --list-models. Nothing is guessed.")
     ap.add_argument("--config", default=None)
-    ap.add_argument("--split", default="test")
+    ap.add_argument("--split", default="val",
+                    help="exploration/oracle-injection, so it reads val by "
+                         "default; --split test only for a reported number")
     ap.add_argument("--splits-dir", default=None)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--repeat", type=int, default=3)

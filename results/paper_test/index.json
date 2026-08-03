@@ -1,0 +1,747 @@
+{
+ "split": "test",
+ "n_images": 192,
+ "gt_dir": "data/gt_test_1024",
+ "note": "Each arm replays a historical run's frozen config snapshot against this split; see scripts/regen_on_split.py.",
+ "arms": {
+  "seeds": [
+   {
+    "label": "seed0",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024_final/seed0",
+    "out_dir": "results/paper_test/seeds/seed0",
+    "config_hash": "b7c5eb992dc9",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.8077019057495421,
+      "ci95_lo": 0.7690613180389387,
+      "ci95_hi": 0.8439224964882445
+     },
+     "net_f1": {
+      "mean": 0.8767824735842907,
+      "ci95_lo": 0.8515956102166387,
+      "ci95_hi": 0.9018127608000929
+     },
+     "per_component_connected_acc": {
+      "mean": 0.6414920656186146,
+      "ci95_lo": 0.5830245387859974,
+      "ci95_hi": 0.6991344380605329
+     },
+     "per_component_recall_acc": {
+      "mean": 0.7314785034071362,
+      "ci95_lo": 0.6781537098873653,
+      "ci95_hi": 0.7852399677225148
+     },
+     "nged": {
+      "mean": 0.18165524454605383,
+      "ci95_lo": 0.15741275967949117,
+      "ci95_hi": 0.20422271706813971
+     },
+     "strict_success": {
+      "mean": 0.515625,
+      "ci95_lo": 0.4479166666666667,
+      "ci95_hi": 0.5885416666666666
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5260416666666666,
+     "solvable_after_rate": 0.7291666666666666,
+     "mean_assumptions": 2.4583333333333335,
+     "mean_gauge": 1.6770833333333333,
+     "spice_valid_rate": 0.9947916666666666
+    }
+   },
+   {
+    "label": "seed1",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024_final/seed1",
+    "out_dir": "results/paper_test/seeds/seed1",
+    "config_hash": "834c7d207e68",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.8112782619011579,
+      "ci95_lo": 0.7724568955914667,
+      "ci95_hi": 0.8470150831115187
+     },
+     "net_f1": {
+      "mean": 0.8801646598270066,
+      "ci95_lo": 0.8551575113708926,
+      "ci95_hi": 0.9031786005097686
+     },
+     "per_component_connected_acc": {
+      "mean": 0.6444182801609146,
+      "ci95_lo": 0.5835318338072826,
+      "ci95_hi": 0.7019147761485657
+     },
+     "per_component_recall_acc": {
+      "mean": 0.7113112756490901,
+      "ci95_lo": 0.6569547724528417,
+      "ci95_hi": 0.7629019197894789
+     },
+     "nged": {
+      "mean": 0.17697125940503902,
+      "ci95_lo": 0.15229643017368233,
+      "ci95_hi": 0.20136204842831093
+     },
+     "strict_success": {
+      "mean": 0.5208333333333334,
+      "ci95_lo": 0.4479166666666667,
+      "ci95_hi": 0.59375
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5416666666666666,
+     "solvable_after_rate": 0.765625,
+     "mean_assumptions": 2.4635416666666665,
+     "mean_gauge": 1.6822916666666667,
+     "spice_valid_rate": 1.0
+    }
+   },
+   {
+    "label": "seed2",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024_final/seed2",
+    "out_dir": "results/paper_test/seeds/seed2",
+    "config_hash": "371023e58676",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.811984404416695,
+      "ci95_lo": 0.7745303224357325,
+      "ci95_hi": 0.8481579544295988
+     },
+     "net_f1": {
+      "mean": 0.8804167254989156,
+      "ci95_lo": 0.8550667247262339,
+      "ci95_hi": 0.9037385858789446
+     },
+     "per_component_connected_acc": {
+      "mean": 0.6507389165726373,
+      "ci95_lo": 0.5939998199080118,
+      "ci95_hi": 0.7059890335513704
+     },
+     "per_component_recall_acc": {
+      "mean": 0.7136054656685378,
+      "ci95_lo": 0.6600003920571176,
+      "ci95_hi": 0.7624262008849976
+     },
+     "nged": {
+      "mean": 0.18361370903362972,
+      "ci95_lo": 0.1602684235570973,
+      "ci95_hi": 0.2068805880262673
+     },
+     "strict_success": {
+      "mean": 0.5104166666666666,
+      "ci95_lo": 0.442578125,
+      "ci95_hi": 0.578125
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5260416666666666,
+     "solvable_after_rate": 0.75,
+     "mean_assumptions": 2.4479166666666665,
+     "mean_gauge": 1.671875,
+     "spice_valid_rate": 1.0
+    }
+   }
+  ],
+  "ablation": [
+   {
+    "label": "v1_classical_directional",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/ablations_1024/canny_mk4",
+    "out_dir": "results/paper_test/ablation/v1_classical_directional",
+    "config_hash": "5fba8a6afd40",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.2695956294508967,
+      "ci95_lo": 0.2419449563512795,
+      "ci95_hi": 0.30036086190437444
+     },
+     "net_f1": {
+      "mean": 0.5059013297492497,
+      "ci95_lo": 0.47940617003608715,
+      "ci95_hi": 0.5312921666890976
+     },
+     "per_component_connected_acc": {
+      "mean": 0.029383680555555555,
+      "ci95_lo": 0.018193101025132274,
+      "ci95_hi": 0.041832578951719566
+     },
+     "per_component_recall_acc": {
+      "mean": 0.04786691385956091,
+      "ci95_lo": 0.02997575766417678,
+      "ci95_hi": 0.06690587900491392
+     },
+     "nged": {
+      "mean": 0.373208491416333,
+      "ci95_lo": 0.3554922373833566,
+      "ci95_hi": 0.38996829262196187
+     },
+     "strict_success": {
+      "mean": 0.0,
+      "ci95_lo": 0.0,
+      "ci95_hi": 0.0
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.390625,
+     "solvable_after_rate": 0.78125,
+     "mean_assumptions": 5.234375,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 0.9479166666666666
+    }
+   },
+   {
+    "label": "v2_ink_boundary_snap",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/ablations_1024/abl_ink_boundary_v2",
+    "out_dir": "results/paper_test/ablation/v2_ink_boundary_snap",
+    "config_hash": "1595e5f1a30c",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.5222129717872245,
+      "ci95_lo": 0.4836598384380232,
+      "ci95_hi": 0.5615637501120293
+     },
+     "net_f1": {
+      "mean": 0.6731079482322194,
+      "ci95_lo": 0.6437202362989793,
+      "ci95_hi": 0.7018932029861089
+     },
+     "per_component_connected_acc": {
+      "mean": 0.19088074101282473,
+      "ci95_lo": 0.15711759131501113,
+      "ci95_hi": 0.2295002607420627
+     },
+     "per_component_recall_acc": {
+      "mean": 0.2233287519357892,
+      "ci95_lo": 0.18694245070297083,
+      "ci95_hi": 0.2633199875983277
+     },
+     "nged": {
+      "mean": 0.3167937228833719,
+      "ci95_lo": 0.2973915835848892,
+      "ci95_hi": 0.336074135716922
+     },
+     "strict_success": {
+      "mean": 0.0625,
+      "ci95_lo": 0.03125,
+      "ci95_hi": 0.09895833333333333
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.3958333333333333,
+     "solvable_after_rate": 0.7083333333333334,
+     "mean_assumptions": 3.84375,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 0.9583333333333334
+    }
+   },
+   {
+    "label": "v3_plus_stitching",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/ablations_1024/abl_stitch_v2",
+    "out_dir": "results/paper_test/ablation/v3_plus_stitching",
+    "config_hash": "dcdc74729aa7",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.566986754660333,
+      "ci95_lo": 0.5268579787418382,
+      "ci95_hi": 0.6080888668489657
+     },
+     "net_f1": {
+      "mean": 0.7004974954061609,
+      "ci95_lo": 0.6699550641954428,
+      "ci95_hi": 0.7315652397429991
+     },
+     "per_component_connected_acc": {
+      "mean": 0.26440800595617237,
+      "ci95_lo": 0.21699823573662846,
+      "ci95_hi": 0.3130573521408083
+     },
+     "per_component_recall_acc": {
+      "mean": 0.2996547730746321,
+      "ci95_lo": 0.2507618630201865,
+      "ci95_hi": 0.3470859100317491
+     },
+     "nged": {
+      "mean": 0.2853377590894177,
+      "ci95_lo": 0.26342520844023565,
+      "ci95_hi": 0.3078449940612068
+     },
+     "strict_success": {
+      "mean": 0.140625,
+      "ci95_lo": 0.09361979166666667,
+      "ci95_hi": 0.19270833333333334
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.4479166666666667,
+     "solvable_after_rate": 0.71875,
+     "mean_assumptions": 3.6510416666666665,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 0.953125
+    }
+   },
+   {
+    "label": "v4_plus_crossover",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/ablations_1024/abl_crossover_v2",
+    "out_dir": "results/paper_test/ablation/v4_plus_crossover",
+    "config_hash": "dfd8e51c96c5",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.5960687071673179,
+      "ci95_lo": 0.5580228448613794,
+      "ci95_hi": 0.635093431224968
+     },
+     "net_f1": {
+      "mean": 0.7293375429097132,
+      "ci95_lo": 0.7020753847383014,
+      "ci95_hi": 0.7569640797385594
+     },
+     "per_component_connected_acc": {
+      "mean": 0.2807448130198816,
+      "ci95_lo": 0.23279645252926692,
+      "ci95_hi": 0.3323829058426897
+     },
+     "per_component_recall_acc": {
+      "mean": 0.31266260423803394,
+      "ci95_lo": 0.26646222508677514,
+      "ci95_hi": 0.36141759502578713
+     },
+     "nged": {
+      "mean": 0.2733763674959007,
+      "ci95_lo": 0.2525152757866328,
+      "ci95_hi": 0.29522637429903353
+     },
+     "strict_success": {
+      "mean": 0.140625,
+      "ci95_lo": 0.09361979166666667,
+      "ci95_hi": 0.19270833333333334
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.4270833333333333,
+     "solvable_after_rate": 0.703125,
+     "mean_assumptions": 3.59375,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 0.9739583333333334
+    }
+   },
+   {
+    "label": "v5_plus_crossover_DEFAULT",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024/parity19",
+    "out_dir": "results/paper_test/ablation/v5_plus_crossover_DEFAULT",
+    "config_hash": "9d5b33bb9061",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.7482587144540881,
+      "ci95_lo": 0.705978416423844,
+      "ci95_hi": 0.7888208661059692
+     },
+     "net_f1": {
+      "mean": 0.8325703962119523,
+      "ci95_lo": 0.8039534100304354,
+      "ci95_hi": 0.8619859797499162
+     },
+     "per_component_connected_acc": {
+      "mean": 0.5373627983024015,
+      "ci95_lo": 0.47659953605676625,
+      "ci95_hi": 0.5977247662889599
+     },
+     "per_component_recall_acc": {
+      "mean": 0.6513578702687685,
+      "ci95_lo": 0.6024240934064214,
+      "ci95_hi": 0.70508392195538
+     },
+     "nged": {
+      "mean": 0.21024147610971652,
+      "ci95_lo": 0.1852236602985219,
+      "ci95_hi": 0.23343177941458107
+     },
+     "strict_success": {
+      "mean": 0.40625,
+      "ci95_lo": 0.33841145833333336,
+      "ci95_hi": 0.4739583333333333
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.515625,
+     "solvable_after_rate": 0.7239583333333334,
+     "mean_assumptions": 2.609375,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 0.9895833333333334
+    }
+   },
+   {
+    "label": "v6_plus_bridge_span7",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024/span7",
+    "out_dir": "results/paper_test/ablation/v6_plus_bridge_span7",
+    "config_hash": "f14b97f586a6",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.7679215100737579,
+      "ci95_lo": 0.7279623780229522,
+      "ci95_hi": 0.8064189860563705
+     },
+     "net_f1": {
+      "mean": 0.849903759035071,
+      "ci95_lo": 0.8224126584331161,
+      "ci95_hi": 0.8751797255125744
+     },
+     "per_component_connected_acc": {
+      "mean": 0.5476952632772255,
+      "ci95_lo": 0.4861507322615994,
+      "ci95_hi": 0.607803876626708
+     },
+     "per_component_recall_acc": {
+      "mean": 0.6338092787874681,
+      "ci95_lo": 0.5758002771570733,
+      "ci95_hi": 0.6891950652554847
+     },
+     "nged": {
+      "mean": 0.20374464080471766,
+      "ci95_lo": 0.17928101715059933,
+      "ci95_hi": 0.22666060787395748
+     },
+     "strict_success": {
+      "mean": 0.4114583333333333,
+      "ci95_lo": 0.34375,
+      "ci95_hi": 0.484375
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.484375,
+     "solvable_after_rate": 0.7395833333333334,
+     "mean_assumptions": 2.6927083333333335,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 1.0
+    }
+   },
+   {
+    "label": "v7_plus_connectivity_repair",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024/span7_cr",
+    "out_dir": "results/paper_test/ablation/v7_plus_connectivity_repair",
+    "config_hash": "3cc5f617e35e",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.7767094897735548,
+      "ci95_lo": 0.7386275043604906,
+      "ci95_hi": 0.8143550100179485
+     },
+     "net_f1": {
+      "mean": 0.8578861777427154,
+      "ci95_lo": 0.8326384160251002,
+      "ci95_hi": 0.8822050535337961
+     },
+     "per_component_connected_acc": {
+      "mean": 0.568083437600254,
+      "ci95_lo": 0.5105641428210471,
+      "ci95_hi": 0.6280538033540769
+     },
+     "per_component_recall_acc": {
+      "mean": 0.6578197902032283,
+      "ci95_lo": 0.6022525661147254,
+      "ci95_hi": 0.7110918307243683
+     },
+     "nged": {
+      "mean": 0.19681556704048986,
+      "ci95_lo": 0.17236877429903222,
+      "ci95_hi": 0.2197497147140146
+     },
+     "strict_success": {
+      "mean": 0.4375,
+      "ci95_lo": 0.3645833333333333,
+      "ci95_hi": 0.5104166666666666
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5208333333333334,
+     "solvable_after_rate": 0.7395833333333334,
+     "mean_assumptions": 2.5729166666666665,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 1.0
+    }
+   },
+   {
+    "label": "v8_plus_snap_expand80",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024/snapexp80",
+    "out_dir": "results/paper_test/ablation/v8_plus_snap_expand80",
+    "config_hash": "c4048845873b",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.7756137728520603,
+      "ci95_lo": 0.7370486968033088,
+      "ci95_hi": 0.8144700186822236
+     },
+     "net_f1": {
+      "mean": 0.8569597638607144,
+      "ci95_lo": 0.8309414320604366,
+      "ci95_hi": 0.8818363947497498
+     },
+     "per_component_connected_acc": {
+      "mean": 0.5695450896786824,
+      "ci95_lo": 0.5121227713086883,
+      "ci95_hi": 0.6324667255897728
+     },
+     "per_component_recall_acc": {
+      "mean": 0.6558118307528348,
+      "ci95_lo": 0.602126484365617,
+      "ci95_hi": 0.7080746135338661
+     },
+     "nged": {
+      "mean": 0.1997235260327841,
+      "ci95_lo": 0.17442733596221807,
+      "ci95_hi": 0.22291123259030313
+     },
+     "strict_success": {
+      "mean": 0.4375,
+      "ci95_lo": 0.3645833333333333,
+      "ci95_hi": 0.5104166666666666
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5208333333333334,
+     "solvable_after_rate": 0.75,
+     "mean_assumptions": 2.5572916666666665,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 1.0
+    }
+   },
+   {
+    "label": "v9_plus_blob_thresholds",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/sweeps_bench/wires_binarize/otsu",
+    "out_dir": "results/paper_test/ablation/v9_plus_blob_thresholds",
+    "config_hash": "45040f06c22e",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.7865523595967486,
+      "ci95_lo": 0.7463111045708436,
+      "ci95_hi": 0.8243960488435925
+     },
+     "net_f1": {
+      "mean": 0.8636442508423546,
+      "ci95_lo": 0.8369616570441109,
+      "ci95_hi": 0.8891233265269941
+     },
+     "per_component_connected_acc": {
+      "mean": 0.5994932969956684,
+      "ci95_lo": 0.5388085870859968,
+      "ci95_hi": 0.6581613194081626
+     },
+     "per_component_recall_acc": {
+      "mean": 0.6719543998760424,
+      "ci95_lo": 0.61821305374166,
+      "ci95_hi": 0.7241296262501747
+     },
+     "nged": {
+      "mean": 0.19918154143038405,
+      "ci95_lo": 0.17414891214227965,
+      "ci95_hi": 0.2231155267988093
+     },
+     "strict_success": {
+      "mean": 0.46875,
+      "ci95_lo": 0.4010416666666667,
+      "ci95_hi": 0.5416666666666666
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5208333333333334,
+     "solvable_after_rate": 0.7604166666666666,
+     "mean_assumptions": 2.53125,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 1.0
+    }
+   },
+   {
+    "label": "v10_plus_sauvola",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/sweeps_bench/wires_binarize/sauvola",
+    "out_dir": "results/paper_test/ablation/v10_plus_sauvola",
+    "config_hash": "1b58ff1c7444",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.7940763735426822,
+      "ci95_lo": 0.7540986518712481,
+      "ci95_hi": 0.832359880835983
+     },
+     "net_f1": {
+      "mean": 0.8691976991244781,
+      "ci95_lo": 0.8430968401298494,
+      "ci95_hi": 0.894981954725555
+     },
+     "per_component_connected_acc": {
+      "mean": 0.6204610711501202,
+      "ci95_lo": 0.5605983632200149,
+      "ci95_hi": 0.6763469670484508
+     },
+     "per_component_recall_acc": {
+      "mean": 0.7079101157762485,
+      "ci95_lo": 0.6568109535526092,
+      "ci95_hi": 0.7613119062169094
+     },
+     "nged": {
+      "mean": 0.18556198515110145,
+      "ci95_lo": 0.1614458900099739,
+      "ci95_hi": 0.20821360155793023
+     },
+     "strict_success": {
+      "mean": 0.4895833333333333,
+      "ci95_lo": 0.4166666666666667,
+      "ci95_hi": 0.5625
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5260416666666666,
+     "solvable_after_rate": 0.7395833333333334,
+     "mean_assumptions": 2.4479166666666665,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 0.9947916666666666
+    }
+   },
+   {
+    "label": "v11_plus_class_head",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024/head95",
+    "out_dir": "results/paper_test/ablation/v11_plus_class_head",
+    "config_hash": "81d5fdda8548",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.7940763735426822,
+      "ci95_lo": 0.7540986518712481,
+      "ci95_hi": 0.832359880835983
+     },
+     "net_f1": {
+      "mean": 0.8691976991244781,
+      "ci95_lo": 0.8430968401298494,
+      "ci95_hi": 0.894981954725555
+     },
+     "per_component_connected_acc": {
+      "mean": 0.6204610711501202,
+      "ci95_lo": 0.5605983632200149,
+      "ci95_hi": 0.6763469670484508
+     },
+     "per_component_recall_acc": {
+      "mean": 0.7079101157762485,
+      "ci95_lo": 0.6568109535526092,
+      "ci95_hi": 0.7613119062169094
+     },
+     "nged": {
+      "mean": 0.18556198515110145,
+      "ci95_lo": 0.1614458900099739,
+      "ci95_hi": 0.20821360155793023
+     },
+     "strict_success": {
+      "mean": 0.4895833333333333,
+      "ci95_lo": 0.4166666666666667,
+      "ci95_hi": 0.5625
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5260416666666666,
+     "solvable_after_rate": 0.7395833333333334,
+     "mean_assumptions": 2.4479166666666665,
+     "mean_gauge": 1.6666666666666667,
+     "spice_valid_rate": 0.9947916666666666
+    }
+   },
+   {
+    "label": "v12_plus_head_ensemble",
+    "source_run": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/results/benchmark_1024_final/seed0",
+    "out_dir": "results/paper_test/ablation/v12_plus_head_ensemble",
+    "config_hash": "b7c5eb992dc9",
+    "split": "test",
+    "scored": 192,
+    "skipped": {},
+    "topology": {
+     "n_images": 192,
+     "terminal_pair_f1": {
+      "mean": 0.8077019057495421,
+      "ci95_lo": 0.7690613180389387,
+      "ci95_hi": 0.8439224964882445
+     },
+     "net_f1": {
+      "mean": 0.8767824735842907,
+      "ci95_lo": 0.8515956102166387,
+      "ci95_hi": 0.9018127608000929
+     },
+     "per_component_connected_acc": {
+      "mean": 0.6414920656186146,
+      "ci95_lo": 0.5830245387859974,
+      "ci95_hi": 0.6991344380605329
+     },
+     "per_component_recall_acc": {
+      "mean": 0.7314785034071362,
+      "ci95_lo": 0.6781537098873653,
+      "ci95_hi": 0.7852399677225148
+     },
+     "nged": {
+      "mean": 0.18165524454605383,
+      "ci95_lo": 0.15741275967949117,
+      "ci95_hi": 0.20422271706813971
+     },
+     "strict_success": {
+      "mean": 0.515625,
+      "ci95_lo": 0.4479166666666667,
+      "ci95_hi": 0.5885416666666666
+     }
+    },
+    "repair": {
+     "solvable_before_rate": 0.5260416666666666,
+     "solvable_after_rate": 0.7291666666666666,
+     "mean_assumptions": 2.4583333333333335,
+     "mean_gauge": 1.6770833333333333,
+     "spice_valid_rate": 0.9947916666666666
+    }
+   }
+  ]
+ }
+}

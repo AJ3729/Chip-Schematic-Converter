@@ -18,7 +18,7 @@ that carried detector-vocabulary classes and missed classes the hosted
 model could not emit.
 
 Usage:
-    python scripts/bootstrap_gt_merged.py --images data/splits/test.txt
+    python scripts/bootstrap_gt_merged.py --images data/splits/val.txt
 """
 
 from __future__ import annotations
@@ -54,7 +54,10 @@ def iou_center_boxes(a, b) -> float:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--images", default="data/splits/test.txt")
+    ap.add_argument("--images", required=True,
+                    help="split manifest to bootstrap GT for. No default: "
+                         "building GT against the reported split by accident "
+                         "is not a mistake worth leaving available.")
     ap.add_argument("--images-dir", default="data/cleaned")
     ap.add_argument("--gt-dir", default="data/gt_netlists")
     ap.add_argument("--transforms", default="data/transforms.json")

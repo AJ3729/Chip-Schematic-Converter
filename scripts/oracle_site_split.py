@@ -64,6 +64,7 @@ from schematic2netlist.nodes import (build_wire_nodes,
                                      build_wire_nodes_crossover_aware)
 from schematic2netlist.pipeline import run_pipeline
 from schematic2netlist.snapping import build_component_pin_nets
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def rebuild(wires, dets, cfg, extra_boxes):
@@ -106,6 +107,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--config", default=None)
     ap.add_argument("--site-box", type=int, default=None,
@@ -122,7 +124,7 @@ def main() -> None:
     set_global_seed(cfg["seed"])
     box = args.site_box or cfg["nodes"].get("junction_site_box", 30)
     idir = Path(cfg["preprocess"]["images_dir"])
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
 
     rows = []

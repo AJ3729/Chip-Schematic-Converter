@@ -17,9 +17,14 @@ from schematic2netlist.pipeline import run_pipeline
 from schematic2netlist.benchmark import align_components, canonicalize_terminals
 from schematic2netlist.classes import canonical_class
 
+from schematic2netlist.splits import load_split
+
 cfg = load_config(None)
-names = [l.strip() for l in open('data/splits/test.txt') if l.strip()]
-limit = int(sys.argv[1]) if len(sys.argv) > 1 else 190
+# exploratory: reads val so a prior measured here cannot leak into a
+# reported number. Pass a split name as argv[2] to override.
+split = sys.argv[2] if len(sys.argv) > 2 else 'val'
+names = load_split(split)
+limit = int(sys.argv[1]) if len(sys.argv) > 1 else len(names)
 names = names[:limit]
 from schematic2netlist.frames import resolve_and_check
 images_dir = resolve_and_check(None, names, cfg)

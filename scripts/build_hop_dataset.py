@@ -50,6 +50,7 @@ from schematic2netlist.determinism import set_global_seed
 from schematic2netlist.gt import gt_to_components, load_gt
 from schematic2netlist.nodes import bbox_xyxy
 from schematic2netlist.pipeline import run_pipeline
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def stroke_half_width(dt: np.ndarray) -> float:
@@ -158,6 +159,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=190)
     ap.add_argument("--config", default=None)
     ap.add_argument("--crop", type=int, default=64)
@@ -170,7 +172,7 @@ def main() -> None:
     cfg = load_config(args.config)
     set_global_seed(cfg["seed"])
     idir = Path(cfg["preprocess"]["images_dir"])
-    names = [l.strip() for l in open(ROOT / "data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
 
     X, Y, G, META = [], [], [], []

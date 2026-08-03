@@ -95,9 +95,29 @@ headline number honestly. Sweep with `--split val`; report with
 | **val** (selection) | 190 | `gt_val_1024/` | `gt_1024/` |
 
 Also renamed for the same reason: `gt_2048/` → `gt_val_2048/`,
-`gt_val/` → `gt_val50_preswap/`, `splits/val_sample50.txt` →
+`gt_val/` → `gt_val50_preswap/`, `gt_text_masks_1024/` →
+`gt_text_masks_val_1024/`, `cleaned_2048/` → `cleaned_val_2048/`,
+`detections_2048/` → `detections_val_2048/`, `splits/val_sample50.txt` →
 `splits/test_sample50_preswap.txt`. The `gt_netlists*` lineage below is the
-ancestry of `gt_val_1024` and keeps its historical names.
+ancestry of `gt_val_1024` and keeps its historical names. Detection caches
+(`detections_1024/` and the ablation variants) are keyed by image stem and
+span all three splits, so they needed nothing.
+
+All six YOLO datasets — `yolo/`, `yolo_1024/`, `yolo_1024_text/`,
+`yolo_cleaned/`, `yolo_cleaned_rebuilt/`, `yolo_cleaned_v2/` — had the
+contents of `images/test` ↔ `images/val` and `labels/test` ↔ `labels/val`
+exchanged, so each again matches the manifest of the same name. Verified:
+0 mismatches across all twelve directories.
+
+**The detector was early-stopped on what is now the test split.** The
+weights in `experiments/` trained with ultralytics `split: val`,
+`patience: 50`, and that val set is the 192 images now called `test`
+(checked against the training bundle: 192/192 overlap, 0 with the 190). The
+same weights score mAP@0.5 0.9909 on test against 0.9739 on the 190 they
+never saw, so detection on test is optimistic by **+0.017 mAP@0.5 /
++0.023 mAP@0.5:0.95**, and the topology cascade inherits that much. No
+topology parameter ever read these 192 images; this is a detector-only
+caveat, and removing it needs a retrain that early-stops on val.
 
 **Every artifact under `results/` committed before 2026-08-03 was computed
 on the 190-image split and is therefore a validation number**, whatever its

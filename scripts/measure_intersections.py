@@ -59,6 +59,7 @@ from schematic2netlist.wires import (
     stitch_wire_islands,
     stitchable_mask,
 )
+from schematic2netlist.splits import add_split_arg, load_split
 
 # 3x3 neighbour count; a thinned pixel with >=3 neighbours is a branch
 _K = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]], np.uint8)
@@ -154,6 +155,7 @@ def gt_net_lookup(gt: dict, comps: list[dict], dets: list[dict]) -> dict[int, se
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--images-dir", default="data/cleaned")
     ap.add_argument("--gt-dir", default=None)
@@ -164,7 +166,7 @@ def main() -> None:
 
     cfg = load_config(args.config)
     gt_dir = Path(args.gt_dir or cfg["benchmark"]["gt_dir"])
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][: args.limit]
+    names = load_split(args.split, args.splits_dir)[: args.limit]
     det_dir = Path(cfg["detect"]["cache_dir"])
 
     rows, tally = [], Counter()

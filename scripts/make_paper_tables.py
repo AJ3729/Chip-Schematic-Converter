@@ -32,6 +32,25 @@ TAB = ROOT / "paper" / "tables"
 # never be mixed in one table — so the choice is made once, here, rather
 # than path by path.
 VARIANTS = {
+    # THE REPORTED SET. Every artifact here is on the 192-image test split,
+    # which no parameter was ever selected on. The "1024" set below reads the
+    # same pipeline on the 190 images that WERE swept, and is a validation
+    # number whatever its run_meta.json calls it (data/README.md ->
+    # "the 2026-08-03 role swap"). Never mix the two in one table.
+    # Detection carries a caveat the others do not: the YOLO weights were
+    # early-stopped on these 192 images, so detection here is optimistic by a
+    # measured +0.017 mAP@0.5 against detection_test192/val. See
+    # src/schematic2netlist/splits.py.
+    "test": {
+        "detection": "results/detection_test192/test",
+        "ablation": "results/ablations_test192/wire_method.csv",
+        "default_run": "results/paper_test/seeds/seed0",
+        "seeds": "results/paper_test/seeds",
+        "oracle": "results/oracle_test192",
+        "repair": "results/repair_test192",
+        "stratified": "results/stratified_test192",
+        "ports": "results/ports",          # templates are scale-invariant
+    },
     # benchmark_1024_final, not benchmark_1024: the latter is the working area
     # and still holds the pre-2026-07-30 runs, whose nGED was produced by the
     # timeout-truncated GED search and is not reproducible (see metrics.py).
@@ -59,7 +78,7 @@ VARIANTS = {
         "ports": "results/ports",
     },
 }
-SRC = dict(VARIANTS["1024"])   # the adopted configuration
+SRC = dict(VARIANTS["test"])   # the reported, held-out split
 
 ABL_LABELS = {
     # csv label -> table row label (paper-facing)
@@ -410,10 +429,13 @@ def gen_repair_table() -> None:
 def main() -> None:
     import argparse
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--variant", choices=sorted(VARIANTS), default="1024",
-                    help="which result set to read (default: 1024, the "
-                         "adopted configuration). 512 runs are superseded "
-                         "and must not be mixed with 1024 numbers.")
+    ap.add_argument("--variant", choices=sorted(VARIANTS), default="test",
+                    help="which result set to read. 'test' (default) is the "
+                         "192-image held-out split and is what the manuscript "
+                         "reports; '1024' is the same pipeline on the 190 "
+                         "images every parameter was tuned on, i.e. a "
+                         "validation number; '512' is superseded. Never mix "
+                         "two variants in one table.")
     args = ap.parse_args()
     SRC.clear(); SRC.update(VARIANTS[args.variant])
     print(f"variant={args.variant}: reading {SRC['default_run']}")

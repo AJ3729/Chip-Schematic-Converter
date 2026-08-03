@@ -50,6 +50,7 @@ from schematic2netlist.gt import gt_to_components, load_gt
 from schematic2netlist.metrics import (
     net_level_metrics, per_component_connected_accuracy, terminal_pair_metrics)
 from schematic2netlist.pipeline import run_pipeline
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def score(res, gcomps):
@@ -69,6 +70,7 @@ def score(res, gcomps):
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
+    add_split_arg(ap, "val")
     ap.add_argument("--config", default=None)
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--max-boxes", type=int, default=5,
@@ -77,7 +79,7 @@ def main() -> None:
     args = ap.parse_args()
 
     cfg = load_config(args.config)
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
     images_dir = resolve_and_check(None, names, cfg)
 

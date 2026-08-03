@@ -41,6 +41,7 @@ from schematic2netlist.config import load_config
 from schematic2netlist.detect import load_cached_detections
 from schematic2netlist.gt import gt_to_components, load_gt
 from schematic2netlist.pipeline import run_pipeline
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def measure(cfg, names):
@@ -117,12 +118,13 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("configs", nargs="+", help="label=path.yaml")
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--out", default="results/sweeps/weld_split.csv")
     args = ap.parse_args()
 
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
     rows = []
     print(f"{'config':26s} {'imgs':>5s} {'nodes':>6s} {'WELD':>7s} "

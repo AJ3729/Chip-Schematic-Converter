@@ -95,7 +95,9 @@ def main() -> None:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default=None)
-    ap.add_argument("--split", default="test")
+    ap.add_argument("--split", default="val",
+                    help="exploration/oracle-injection, so it reads val by "
+                         "default; --split test only for a reported number")
     ap.add_argument("--primary", default="data/detections_1024",
                     help="boxes and the tie-breaking label come from here")
     ap.add_argument("--scales", type=int, nargs="*", default=[544, 640, 736])

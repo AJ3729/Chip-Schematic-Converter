@@ -74,6 +74,7 @@ from schematic2netlist.metrics import (
 from schematic2netlist.nodes import build_wire_nodes, build_wire_nodes_crossover_aware
 from schematic2netlist.pipeline import run_pipeline
 from schematic2netlist.snapping import build_component_pin_nets
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def rebuild(wires, dets, cfg):
@@ -188,6 +189,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=190)
     ap.add_argument("--passes", type=int, default=2)
     ap.add_argument("--body-frac", type=float, default=0.55,
@@ -209,7 +211,7 @@ def main() -> None:
         "passes": args.passes, "shorts": not args.no_shorts,
         "ones": not args.no_ones})
 
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
     images_dir = resolve_and_check(None, names, cfg)
     rows, acts = [], Counter()

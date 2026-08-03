@@ -19,7 +19,7 @@ verify:
    this sign-off is a human action by design.
 
 Usage:
-    python scripts/annotate_topology.py --bootstrap --images data/splits/test.txt
+    python scripts/annotate_topology.py --bootstrap --images data/splits/val.txt
     python scripts/annotate_topology.py --render
     python scripts/annotate_topology.py --check
 """

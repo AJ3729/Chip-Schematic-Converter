@@ -30,6 +30,7 @@ from schematic2netlist.metrics import (
     terminal_pair_metrics,
 )
 from schematic2netlist.pipeline import run_pipeline
+from schematic2netlist.splits import add_split_arg, load_split
 
 sys.path.insert(0, "scripts")
 
@@ -88,6 +89,7 @@ def parse_value(raw: str):
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--gt-dir", default=None,
                     help="overrides benchmark.gt_dir from the config")
@@ -104,7 +106,7 @@ def main() -> None:
 
     base = load_config(args.config)
     args.gt_dir = args.gt_dir or base["benchmark"]["gt_dir"]
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()][: args.limit]
+    names = load_split(args.split, args.splits_dir)[: args.limit]
 
     if args.axis:
         # One axis at a time from the current default, so each row is

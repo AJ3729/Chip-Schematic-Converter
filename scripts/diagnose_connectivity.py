@@ -62,6 +62,7 @@ from schematic2netlist.frames import resolve_and_check
 from schematic2netlist.gt import gt_to_components, load_gt
 from schematic2netlist.metrics import terminal_pair_metrics
 from schematic2netlist.pipeline import run_pipeline
+from schematic2netlist.splits import add_split_arg, load_split
 
 
 def classify(pred_comps, gt_comps):
@@ -157,6 +158,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=190)
     ap.add_argument("--config", default=None)
     ap.add_argument("--out-dir", default="results/connectivity_diag")
@@ -168,7 +170,7 @@ def main() -> None:
     out.mkdir(parents=True, exist_ok=True)
     write_run_metadata(out, cfg, seed)
 
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
     images_dir = resolve_and_check(None, names, cfg)
 

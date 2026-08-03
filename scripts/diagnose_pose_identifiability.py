@@ -66,6 +66,7 @@ from schematic2netlist.nodes import bbox_xyxy
 from schematic2netlist.oracle_render import render_gt_node_map
 from schematic2netlist.ports import load_templates, predicted_sites
 from schematic2netlist.snapping import _boundary_run_sites
+from schematic2netlist.splits import add_split_arg, load_split
 
 from oracle import gt_detections  # noqa: E402
 
@@ -101,6 +102,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    add_split_arg(ap, "val")
     ap.add_argument("--limit", type=int, default=190)
     ap.add_argument("--config", default=None)
     ap.add_argument("--gt-dir", default=None)
@@ -114,7 +116,7 @@ def main() -> None:
     out.mkdir(parents=True, exist_ok=True)
     templates = load_templates()
 
-    names = [l.strip() for l in open("data/splits/test.txt") if l.strip()]
+    names = load_split(args.split, args.splits_dir)
     names = names[: args.limit]
     images_dir = resolve_and_check(None, names, cfg)
     s = cfg["snapping"]

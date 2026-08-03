@@ -29,6 +29,26 @@ committed before that date was computed on the 190 images and is a
 validation number regardless of what its `run_meta.json` calls it. Full
 mapping: `data/README.md` and `data/splits/splits_meta.json` → `role_swap`.
 
+Every script now takes `--split` with a default set by its role — see
+`src/schematic2netlist/splits.py`. Exploratory and selection scripts default
+to `val` so nothing can leak into a reported number by omission; only
+scripts whose output is reported default to `test`. Reproducing the paper's
+result set is one command:
+
+```bash
+./venv/bin/python scripts/regen_on_split.py --split test --fill-caches
+```
+
+It replays each ablation arm and detector seed from the frozen config
+snapshot inside that run's `run_meta.json`, so every arm keeps the exact
+configuration it is being compared against, then
+`scripts/make_paper_tables.py` turns the output into `paper/generated/`.
+
+**Caveat that belongs in the paper, not just here**: the detector was
+early-stopped on the 192 images now called `test`, which makes detection
+metrics there optimistic by a measured +0.017 mAP@0.5 against the 190 it
+never saw (`results/detection_test192/{test,val}`).
+
 **Frame size is part of the configuration.** `preprocess.target_size` is
 1024 and `preprocess.images_dir` names the matching frames; every script
 that feeds images to the pipeline resolves the directory through

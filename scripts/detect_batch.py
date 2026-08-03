@@ -6,7 +6,7 @@ weights exist in Phase C) for every image that is not already cached in
 detect.cache_dir. Never overwrites existing cache entries.
 
 Usage:
-    python scripts/detect_batch.py --images data/splits/test.txt
+    python scripts/detect_batch.py --images data/splits/test.txt   # or val.txt
     python scripts/detect_batch.py --images-dir data/cleaned --limit 20 --backend roboflow
 """
 

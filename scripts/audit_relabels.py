@@ -52,7 +52,9 @@ def main() -> None:
     ap.add_argument("before")
     ap.add_argument("after")
     ap.add_argument("--config", default=None)
-    ap.add_argument("--split", default="test")
+    ap.add_argument("--split", default="val",
+                    help="exploration/oracle-injection, so it reads val by "
+                         "default; --split test only for a reported number")
     ap.add_argument("--iou", type=float, default=0.3,
                     help="GT match threshold; 0.3 matches the benchmark's "
                          "component alignment, not a strict 0.5")
