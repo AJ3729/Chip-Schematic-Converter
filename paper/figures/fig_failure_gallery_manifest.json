@@ -1,0 +1,11 @@
+{
+ "run": "results/paper_test/seeds/seed0",
+ "gt_dir": "data/gt_test_1024",
+ "selected": {
+  "over-merge (weld)": "circuit_211",
+  "under-merge (split)": "circuit_763",
+  "missing detection": "circuit_410",
+  "solved (strict success)": "circuit_1048"
+ },
+ "rule": "chosen by per-image metrics, not by eye; see scripts/make_paper_qualitative.py"
+}

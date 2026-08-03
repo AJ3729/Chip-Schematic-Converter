@@ -1,0 +1,59 @@
+{
+ "gt_dir": "data/gt_test_1024",
+ "images": 192,
+ "components": 2564,
+ "terminals": 5090,
+ "nets": 1497,
+ "terminals_with_no_net": 1,
+ "files_verified": 192,
+ "files_unverified": 0,
+ "sites_adjudicated": 2047,
+ "sites": {
+  "junction": 1707,
+  "crossing": 194,
+  "edge_group": 63,
+  "none": 83
+ },
+ "corrections": {
+  "merge": 38,
+  "manual_nets": 40,
+  "ports_components": 586,
+  "ports_terminals": 1261,
+  "bridges": 3,
+  "unconnected": 1,
+  "classes": 3
+ },
+ "second_reader": {
+  "_provenance": "Transcribed from docs/GT_VAL_VERIFICATION_REPORT.md section 5. Second-reader agreement is a fact about the verification PROCESS, not about the shipped files, so unlike every other statistic in the table it cannot be recomputed from data/gt_test_1024/decisions/. It lives here as a committed artifact so that scripts/gt_verification_stats.py can read it and no number ever gets typed straight into the manuscript.",
+  "method": "Independent re-derivation from the drawing, reading the first pass's reasoning only afterwards.",
+  "samples": [
+   {
+    "sample": "blind random",
+    "files": 12,
+    "three_terminal_parts": 0,
+    "disagreements": 0,
+    "note": "contained no 3-terminal components, which is why the stratified sample below exists"
+   },
+   {
+    "sample": "stratified on sheets with 3-terminal parts",
+    "files": 5,
+    "three_terminal_parts": 38,
+    "disagreements": 0,
+    "note": "pin order is the failure mode no net or ERC check can see, so it needed its own sample"
+   },
+   {
+    "sample": "flagged by cross-checks",
+    "files": 9,
+    "three_terminal_parts": null,
+    "disagreements": 7,
+    "note": "flagged by (a) any ERC error or (b) disagreeing with 4+ unanimous verified siblings on net count; the errors were here, which is the point"
+   }
+  ],
+  "sibling_calibration": {
+   "claim": "\"differs from siblings\" alone is weak and was calibrated before being trusted",
+   "sibling_pairs_sharing_net_count_small_sheets": 0.53,
+   "sibling_pairs_sharing_net_count_large_sheets": 0.65,
+   "verified_file_disagrees_with_4plus_unanimous_siblings": 0.07
+  }
+ }
+}

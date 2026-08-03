@@ -42,20 +42,61 @@ structurally impossible for a labeled component to be cropped out.
 \subsection{Human-Verified Connectivity Ground Truth}
 \label{sec:gt}
 Digitize-HCD ships no connectivity ground truth, so we created it for
-the full test split. Each GT file is a component-terminal graph: per
+both evaluation splits. Each GT file is a component-terminal graph: per
 component, a class, a bounding box, and per-terminal net assignments
 (ground is always net~0), under a strict schema with a validator that
 rejects unnamed terminals, single-terminal nets, and class/terminal
-arity mismatches. Annotation followed a bootstrap-then-correct
-protocol: pipeline output pre-filled each file, and a human corrected
-it against a rendered overlay — correction, not transcription, which
-is faster and independently checkable. All \NumTestImages{} test-split
-files were verified by the first author (\texttt{verified:\,true} with
-annotator identity recorded); the strict validator passes on all
-files with zero issues. \todoa{mentor second-read of ambiguous
-crossings/transistors — state here if/when done.} The verified GT
-files are released with the benchmark; images remain under the
-original Digitize-HCD license.
+arity mismatches.
+
+Critically, the test-split annotation was \emph{not} produced by running
+the pipeline and correcting its output. Component inventory and box
+geometry come from the published COCO annotations; every net was traced
+from \texttt{null}. Each image went through wire extraction under
+hysteresis binarization, a criticality analysis that flips every
+junction/crossing call and retains only the sites where the partition of
+terminals changes, adjudication by eye at 5--24$\times$ magnification,
+deterministic net reconstruction from the recorded decisions, an
+electrical rule check, and an independent second reader. Nets are
+recomputed from the decision record rather than hand-edited, so every
+shipped netlist is reproducible from it, and the decision records are
+released alongside the netlists.
+
+That protocol matters for more than rigor: ground truth seeded by the
+pipeline's own output would make any evaluation of that pipeline
+partly circular. Table~\ref{tab:gt-verification} reports the volume of
+judgement it took --- every count derived from the released decision
+records, not from prose --- and Table~\ref{tab:splits} gives the split
+composition. Two findings from the pass are worth carrying forward: the
+dominant error mode is a terminal landing on a stroke of the handwritten
+value label rather than on the lead, which is why a one-terminal net is a
+hard error in the rule check; and pin order on three-terminal parts was
+wrong far more often than net grouping, a failure no net-level or
+electrical check can detect.
+\todoa{mentor second-read of ambiguous crossings/transistors — state
+here if/when done; the second reader reported in
+Table~\ref{tab:gt-verification} is the first author re-deriving blind.}
+The verified GT files and decision records are released with the
+benchmark; images remain under the original Digitize-HCD license.
+
+\begin{table}[t]
+  \centering
+  \caption{Split composition. Connectivity ground truth exists for both
+  evaluation splits; the training split carries only the published box
+  annotations.}
+  \label{tab:splits}
+  \input{tables/splits}
+\end{table}
+
+\begin{table}[t]
+  \centering
+  \caption{Judgement recorded while building the test-split ground truth.
+  Every count is derived from the released per-image decision records by
+  \texttt{scripts/gt\_verification\_stats.py}. Second-reader rows are
+  disagreements over files re-derived from the drawing before reading the
+  first pass.}
+  \label{tab:gt-verification}
+  \input{tables/gt_verification}
+\end{table}
 
 \subsection{Cross-Dataset Material}
 For context and future zero-shot evaluation we also stage CGHD

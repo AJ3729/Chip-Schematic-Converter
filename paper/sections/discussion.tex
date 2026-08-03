@@ -38,8 +38,32 @@ are measurably harder (Sec.~\ref{sec:results});
 sets, so no direct comparison is possible — exactly the problem C1
 fixes.}
 
+Accuracy falls with circuit size (Fig.~\ref{fig:size}), and the fall is
+steeper for strict success than for net $F_1$ because strict success is a
+conjunction over every component: a circuit twice the size has twice the
+opportunities to break it. The two splits lie on the same curve, which is
+the visual form of the difficulty match in
+Table~\ref{tab:generalization}.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/fig_size_scatter}
+  \caption{Per-circuit net $F_1$ against component count, both splits.
+  The line is the mean over equal-count bins pooled across splits.}
+  \label{fig:size}
+\end{figure}
+
 \subsection*{Limitations}
 \begin{itemize}
+  \item \textbf{Detector early-stopped on the test split.} The detector
+  selected its stopping epoch on the images the paper reports on, so its
+  test-split numbers are optimistic and the rest of the cascade inherits
+  that bias. The size is measured rather than assumed: the same weights
+  score \DetMinClassApFifty{} at worst per class on test against the
+  validation split it never saw (Table~\ref{tab:detection}).
+  \draftnote{quote the aggregate gap in the authors' voice; removing it
+  needs a retrain that early-stops on val, which has not been run.}
+
   \item \textbf{Single dataset; no drafter split.} Digitize-HCD has no
   drafter metadata (Sec.~\ref{sec:dataset}); results may not transfer
   across drawing styles. \draftnote{cite CGHD zero-shot if run.}

@@ -10,15 +10,35 @@
 Detection is essentially solved on this dataset:
 \DetMapFifty{} mAP@0.5 (mean of three seeds; std \DetMapFiftyStd)
 and \DetMapFiftyNinetyFive{} mAP@0.5:0.95.
-Table~\ref{tab:detection} gives per-class AP with supports.
+Table~\ref{tab:detection} gives per-class AP with supports, and
+Fig.~\ref{fig:per-class-ap} shows where the remaining variation is: AP@0.5
+is saturated for every one of the \NumClasses{} classes, so what separates
+them is localization tightness, not whether the symbol is found at all.
+
+\draftnote{state the early-stopping caveat here in the authors' voice: the
+detector selected its stopping epoch on the test split, so its test column
+is optimistic; the val column in Table~\ref{tab:detection} is the unbiased
+one and the gap between them bounds the effect.}
 
 \begin{table}[t]
   \centering
-  \caption{Per-class detection AP on the test split (YOLOv8s, seed 0),
-  with class supports.}
+  \caption{Per-class detection AP with class supports. The detector was
+  early-stopped on the test split, so the val columns --- images it never
+  saw --- are the unbiased estimate; the difference bounds the optimism the
+  rest of the cascade inherits.}
   \label{tab:detection}
   \input{tables/detection_per_class}
 \end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/fig_per_class_ap}
+  \caption{Per-class detection on the test split. Bars are AP@0.5:0.95;
+  red ticks mark AP@0.5, whose worst class (\DetMinClassApFiftyClass)
+  still reaches \DetMinClassApFifty.
+  Class support is annotated at right.}
+  \label{fig:per-class-ap}
+\end{figure}
 
 \subsection{Connectivity: Classical vs.\ Structural (C2 Headline)}
 Table~\ref{tab:wire-ablation} reports the progression from the
@@ -38,6 +58,49 @@ CSVs); (iv) detection is not the bottleneck.}
   \input{tables/wire_method_ablation}
 \end{table*}
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig_ablation_waterfall}
+  \caption{Strict end-to-end success as each mechanism is added, on the
+  held-out test split. The classical baseline solves no circuit completely;
+  the shipped configuration solves \AblStrictFinal. Error bars are
+  bootstrap 95\% CIs.}
+  \label{fig:ablation}
+\end{figure*}
+
+\subsection{Where the Error Is: Oracle Stage Attribution}
+Substituting one stage at a time with ground truth localizes the loss
+rather than inferring it. Table~\ref{tab:oracle} and
+Fig.~\ref{fig:oracle} give the four modes: replacing detections buys
+\OracleDetection{} terminal-pair $F_1$, replacing connectivity buys
+\OracleWires, and replacing snapping buys \OracleSnapping. Wire
+extraction owns an order of magnitude more error than either neighbour,
+which is what motivates Sec.~\ref{sec:discussion}.
+\draftnote{narrate carefully — this is a strong claim and it reverses
+an earlier internal conclusion: after boundary snapping landed, snapping
+is nearly exhausted as an error source and wire tracing dominates. Also
+explain the exclusion criterion and why the waterfall is computed on the
+verified subset only. Note that the oracle runs on the first
+\OracleNAttempted{} images of the split, not all \NumTestImages{} —
+mode~C synthesises wiring per image and is expensive.}
+
+\begin{table}[t]
+  \centering
+  \caption{Oracle stage attribution on the test split. Modes are
+  cumulative; $n=\OracleNValid$ of \OracleNAttempted{} attempted circuits,
+  the rest excluded because their synthetic mode-C wiring did not verify.}
+  \label{tab:oracle}
+  \input{tables/oracle_attribution}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/fig_oracle_waterfall}
+  \caption{Error attribution by ground-truth substitution. The gap between
+  consecutive bars is the error the intervening stage owns.}
+  \label{fig:oracle}
+\end{figure}
+
 \subsection{Full Benchmark, Three Detector Seeds}
 Table~\ref{tab:benchmark} reports the primary configuration across
 three detector seeds (mean$\pm$std).
@@ -48,6 +111,47 @@ three detector seeds (mean$\pm$std).
   \label{tab:benchmark}
   \input{tables/benchmark_3seed}
 \end{table}
+
+\subsection{Generalization: Selection Split vs.\ Held-Out Split}
+Every parameter in the shipped configuration was selected by sweeping the
+validation split; none was ever selected on the test split.
+Table~\ref{tab:generalization} runs the identical configuration on both.
+\draftnote{narrate, and resist the temptation to sell the gap: nothing
+degrades out of sample, which is the claim; the difference is not an
+improvement, the comparison is unpaired across different images, only nGED
+separates at $p<0.05$, and the difficulty profile shows the test split is
+not the easier one.}
+
+\begin{table}[t]
+  \centering
+  \caption{Identical configuration on the split every parameter was tuned
+  on and on the held-out split. $p$ from a two-proportion $z$-test for
+  strict success and Welch's $t$ otherwise; the comparison is unpaired
+  because the image sets differ.}
+  \label{tab:generalization}
+  \input{tables/generalization}
+\end{table}
+
+\subsection{Strict Success Is a Step Function of Precision}
+Strict success is not spread across the test set --- it is concentrated
+above a terminal-pair precision threshold and is identically zero below
+it (Fig.~\ref{fig:cliff}). Every circuit that the pipeline solves
+completely sits in the top precision bucket, on both splits, and the
+buckets beneath it convert at zero despite holding most of the corpus.
+\draftnote{this is the paper's most transferable finding --- say plainly
+that it was found on the selection split and reproduced on data that never
+influenced a parameter, and that it makes the objective ``move specific
+circuits across one boundary'', not ``lift an average''.}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/fig_precision_cliff}
+  \caption{Strict success rate by terminal-pair precision bucket, on both
+  splits. Annotations are solved/total per bucket. The conversion rate is
+  exactly zero everywhere below \BucketTopEdge{} --- not merely low --- and the shape
+  reproduces on the split that never influenced a parameter.}
+  \label{fig:cliff}
+\end{figure}
 
 \subsection{Repair: Solvability Lift with Zero Topology Cost (C5)}
 Table~\ref{tab:repair} summarizes the repair layer. DC solvability
@@ -95,17 +199,6 @@ for the learned path.}
   \input{tables/port_templates}
 \end{table}
 
-\subsection{Oracle Stage Attribution (C4)}
-The GT-injection oracle attributes end-to-end terminal-pair $F_1$ as
-\OracleDetection{} to detection, \OracleWires{} to wire extraction, and
-\OracleSnapping{} to terminal snapping, over the
-\OracleNValid{} of \NumTestImages{} images whose synthetic wiring
-passed verification. \draftnote{narrate carefully — this is a strong
-claim and it reverses an earlier internal conclusion: after boundary
-snapping landed, snapping is nearly exhausted as an error source and
-wire tracing dominates. Also explain the exclusion criterion and why
-the waterfall is computed on the valid subset only.}
-
 \subsection{Stratified Performance}
 Table~\ref{tab:stratified} breaks results down by drawing
 characteristics. \draftnote{narrate: crossing-bearing and
@@ -123,8 +216,30 @@ components.}
 \end{table}
 
 \subsection{Failure Cases}
-\draftnote{qualitative figure: dense circuits, curved wires, faint
-strokes; tie each to the stage the oracle blames. Note when selecting
-examples: some apparent total failures were an artifact of GT box
-geometry (Sec.~\ref{sec:discussion}) — check against the corrected-box
-run before presenting an image as a pipeline failure.}
+Fig.~\ref{fig:gallery} shows one circuit per failure mode against its
+ground truth. The circuits are selected by per-image metric --- the most
+extreme precision/recall asymmetry, the most unmatched components, the
+largest strict success --- not chosen by eye, so the gallery is not a
+curated best case.
+
+The over-merge row is the failure mode in its clearest form: the ground
+truth carries fourteen distinct nets and the prediction assigns every
+component to one. Terminal-pair recall is perfect on that circuit and
+precision collapses, which is the signature the aggregate statistics
+describe --- the conductors are all found, and then fused.
+\draftnote{tie each row to the stage the oracle blames. Also note the
+caveat that some apparent total failures were once an artifact of GT box
+geometry (Sec.~\ref{sec:discussion}); these are on the corrected-box
+ground truth.}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig_failure_gallery}
+  \caption{One circuit per failure mode, ground truth (left) against
+  prediction (right), selected by per-image metrics rather than by eye.
+  Each component box is coloured by the net its first terminal sits on,
+  with ground shown in black. Colours are assigned per panel in order of
+  first appearance, so it is the \emph{grouping} that is comparable across
+  a pair, not the individual hue: components sharing a colour share a net.}
+  \label{fig:gallery}
+\end{figure*}
