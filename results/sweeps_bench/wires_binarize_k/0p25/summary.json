@@ -1,0 +1,46 @@
+{
+  "config_hash": "fe764ce70859",
+  "split": "val_sample50",
+  "scored": 50,
+  "skipped": {},
+  "topology": {
+    "n_images": 50,
+    "terminal_pair_f1": {
+      "mean": 0.8098251148381564,
+      "ci95_lo": 0.7330656358456984,
+      "ci95_hi": 0.8826481666054513
+    },
+    "net_f1": {
+      "mean": 0.8732280865552259,
+      "ci95_lo": 0.818355960795327,
+      "ci95_hi": 0.9225091978669965
+    },
+    "per_component_connected_acc": {
+      "mean": 0.6139264118795011,
+      "ci95_lo": 0.5018292064977993,
+      "ci95_hi": 0.7321391054629326
+    },
+    "per_component_recall_acc": {
+      "mean": 0.699609465667818,
+      "ci95_lo": 0.5889528577353235,
+      "ci95_hi": 0.8057698189967926
+    },
+    "nged": {
+      "mean": 0.21934083438536306,
+      "ci95_lo": 0.17417389986811768,
+      "ci95_hi": 0.26465414716420577
+    },
+    "strict_success": {
+      "mean": 0.46,
+      "ci95_lo": 0.32,
+      "ci95_hi": 0.6
+    }
+  },
+  "repair": {
+    "solvable_before_rate": 0.0,
+    "solvable_after_rate": 0.46,
+    "mean_assumptions": 0.0,
+    "mean_gauge": 0.0,
+    "spice_valid_rate": 0.0
+  }
+}

@@ -1,0 +1,60 @@
+Starting benchmark processing loop over 50 items...
+[1/50] Processing: circuit_15.jpg
+[2/50] Processing: circuit_20.jpg
+[3/50] Processing: circuit_39.jpg
+[4/50] Processing: circuit_50.jpg
+[5/50] Processing: circuit_78.jpg
+[6/50] Processing: circuit_89.jpg
+[7/50] Processing: circuit_96.jpg
+[8/50] Processing: circuit_131.jpg
+[9/50] Processing: circuit_142.jpg
+[10/50] Processing: circuit_150.jpg
+[11/50] Processing: circuit_208.jpg
+[12/50] Processing: circuit_209.jpg
+[13/50] Processing: circuit_218.jpg
+[14/50] Processing: circuit_220.jpg
+[15/50] Processing: circuit_255.jpg
+[16/50] Processing: circuit_298.jpg
+[17/50] Processing: circuit_325.jpg
+[18/50] Processing: circuit_388.jpg
+[19/50] Processing: circuit_410.jpg
+[20/50] Processing: circuit_483.jpg
+[21/50] Processing: circuit_486.jpg
+[22/50] Processing: circuit_505.jpg
+[23/50] Processing: circuit_557.jpg
+[24/50] Processing: circuit_578.jpg
+[25/50] Processing: circuit_590.jpg
+[26/50] Processing: circuit_643.jpg
+[27/50] Processing: circuit_706.jpg
+[28/50] Processing: circuit_717.jpg
+[29/50] Processing: circuit_754.jpg
+[30/50] Processing: circuit_763.jpg
+[31/50] Processing: circuit_776.jpg
+[32/50] Processing: circuit_779.jpg
+[33/50] Processing: circuit_792.jpg
+[34/50] Processing: circuit_817.jpg
+[35/50] Processing: circuit_857.jpg
+[36/50] Processing: circuit_896.jpg
+[37/50] Processing: circuit_916.jpg
+[38/50] Processing: circuit_923.jpg
+[39/50] Processing: circuit_928.jpg
+[40/50] Processing: circuit_930.jpg
+[41/50] Processing: circuit_936.jpg
+[42/50] Processing: circuit_949.jpg
+[43/50] Processing: circuit_958.jpg
+[44/50] Processing: circuit_999.jpg
+[45/50] Processing: circuit_1048.jpg
+[46/50] Processing: circuit_1059.jpg
+[47/50] Processing: circuit_1175.jpg
+[48/50] Processing: circuit_1187.jpg
+[49/50] Processing: circuit_1197.jpg
+[50/50] Processing: circuit_1264.jpg
+
+All files parsed. Running calculations and bootstrap metrics...
+[OK] scored 50 image(s); skipped {}
+  net F1: 0.874 [0.820, 0.923]
+  terminal-pair F1: 0.811
+  strict success: 0.460
+  nGED (lower=better): 0.218
+  solvable before→after: 0.000 → 0.460 (mean 0.00 assumptions/circuit)
+[OK] wrote /Users/junaidahmed/Documents/Chip-Schematic-Converter/results/sweeps_bench/wires_min_blob_area/4/per_image.csv + summary.json

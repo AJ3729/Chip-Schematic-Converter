@@ -50,6 +50,10 @@ backups/
 results/**/ledgers/
 results/**/netlists/
 demo/runs/
+# Weld review crops: 56 files at ~1 MB, regenerable with
+# scripts/adjudicate_welds.py. The adjudication itself is manifest.csv,
+# which IS committed.
+results/weld_adjudication/*.png
 
 # VLM batch upload payloads: base64-encoded images, ~200 MB across both
 # variants at 3 repeats, fully regenerable from the committed prompts + code.
