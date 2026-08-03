@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "image": "circuit_78.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a single-loop ladder drawn between a top rail (y~370, x 238..896) and a bottom rail (y~590, x 238..907), enclosed in a hand-drawn page border that is not a conductor. Reading left to right along the top: V-AC3 (6 sin(9t+10 deg) V) rises from the bottom rail to the top rail at x~238; R0 (54 kOhm) spans x 309..438; the node at x~489 drops to V-AC5 (9cos(9t) V) and back to the bottom rail; L1 (55 mH) spans x 576..688; then the right-hand section carries C2 (5 uF) dropping at x~779 and I-AC4 (7 sint A) dropping at x~896, both returning to the bottom rail. The single GND hangs off the bottom rail at x~615.\n\nNET MAP:\n  0  = bottom rail y~590 from x~238 to x~907, plus the GND stub at x~615: bottom of V-AC3, bottom of V-AC5, bottom of C2, bottom of I-AC4, GND6.\n  n1 = top-left segment: top lead of V-AC3 (x~238, riser y 428..370) and the left lead of R0 at (309,364).\n  n2 = top-middle segment x~438..576 at y~372: right lead of R0, left lead of L1, and the top lead of V-AC5 which drops away at site S6.\n  n3 = top-right segment x~688..896: right lead of L1, top lead of C2 (drops at site S7), top lead of I-AC4.\n\nSITE DECISIONS (all four CRITICAL sites plus S7 recorded explicitly):\n  S6 (489,372) deg=3, dot=1.6, hop=0: a plain tee. The top rail runs straight left-right; a single stroke leaves it downward toward V-AC5 and there is no ink above the rail at this x. One wire ending on another is a junction. If it were read as anything else, V-AC5's top lead would sit on a one-terminal net and the source would drive nothing.\n  S7 (769,379) deg=3, dot=1.6: same geometry - the top rail continues left-right and C2's lead drops away below it. Junction. Not flagged CRITICAL by the tracer only because C2's t0 was mis-assigned to label ink at the time; after the port fix this site is what puts C2's top on n3, so it is recorded here deliberately.\n  S11 (779,587) deg=3, dot=2.1: C2's bottom lead arrives from above and terminates on the bottom rail, which continues both ways. Tee, and the drafter thickened the corner. Junction.\n  S14 (500,595) deg=3, dot=1.6: V-AC5's bottom lead terminates on the bottom rail. Tee. Junction.\n  S15 (615,596) deg=4, dot=1.1: the GND symbol's stub leaves the bottom rail downward; deg=4 because the skeleton splits the rail into two stubs each side of the contact point. Junction. Reading S11/S14/S15 as anything but junctions would sever the return path of C2, V-AC5 or the ground reference respectively - each of those is electrically impossible (a source or a branch with no return, and GND stranded on a one-terminal net), so these are forced regardless of ink.\n  Non-critical sites S0 (388,332), S1 (416,335), S2 (687,335), S4 (676,335), S8 (731,442) and S10 (556,505) are all handwritten value text ('54 kOhm', '55 mH', '5 uF', '9cos(9t) V') brushing a component box or the rail above it. Left at default; none of them changes the netlist.\n\nPORT FIXES (both were one-terminal nets caused by the terminal landing on value-label ink):\n  - C2.t0 was on a stroke of the '5 uF' text at (742,432); moved to p1 (773,425), the real top lead (wire 44), which runs up to the top rail at S7 and so joins n3.\n  - V-AC3.t0 was on the 'V' of '6 sin(9t+10 deg) V' at (189,476); moved to p1 (238,428), the real top lead (wire 139) - the same wire the resistor's left lead already used, which is why n1 previously had only R0.t0 on it.\n  R0, L1, I-AC4, V-AC5 and GND6 already pointed at real leads and were left alone. All parts are two-terminal, so terminal order is unscored and the defaults are kept.\n\nCLASSES: all seven match the drawn symbols - Resistor (zigzag, '54 kOhm'), Inductor (coil, '55 mH'), Capacitor (two plates, '5 uF'), two V-AC (circle with sine, '6 sin(9t+10 deg) V' and '9cos(9t) V'), I-AC (circle with sine plus a downward current arrow, '7 sint A'), GND. Note #4 is correctly I-AC rather than V-AC: the ellipse contains both a tilde and a large arrow, and its label is in amperes. No re-classification.\n\nUNRESOLVED: nothing. Final netlist is 7 components / 4 nets, every terminal on a multi-terminal net, ERC clean.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        373.7,
+        368.9,
+        122.3,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        632.3,
+        371.4,
+        103.4,
+        43.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        779.1,
+        453.4,
+        65.7,
+        48.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-AC",
+      "bbox": [
+        238.9,
+        471.4,
+        92.6,
+        78.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-AC",
+      "bbox": [
+        899.4,
+        485.4,
+        80.0,
+        93.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-AC",
+      "bbox": [
+        502.0,
+        499.7,
+        73.7,
+        74.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        614.6,
+        636.6,
+        79.4,
+        51.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

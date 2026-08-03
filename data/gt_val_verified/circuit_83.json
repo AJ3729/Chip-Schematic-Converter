@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "image": "circuit_83.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: LC ladder. Five vertical columns. col1 x~135 (L 1MH y~168 over C 5MF y~293), col2 x~300 (L 5MH y~318 over C 10MF y~476), col3 x~462 (L 10MH y~496 over C 50MF y~661), col4 x~630 (L 50MH y~664 over C 100MF y~818), col5 x~758 = series source string 3V-AC / 5A I-AC / 5V V-DC / 10A I-DC / 15V V-DC top to bottom. Six horizontal rails: y~70 (top), y~237, y~398, y~564, y~766, y~891 (bottom). GND hangs off col2 below the bottom rail.\n\nNET MAP (6 nets, 27 terminals):\n  n1 = top rail y~70: joins the tops of all five columns -> 1.0 (1MH top), 4.0 (5MH top), 7.0 (10MH top), 9.0 (50MH top), 0.0 (3V-AC top). The col2/col3/col4 verticals reach their inductors by hopping OVER rails y237/y398/y564 (sites S3,S4,S6,S10,S11,S20), so those hops keep them on n1.\n  n2 = rail y~237: T's onto col1 at (141,239) and onto col5 at (752,241); hops over col2/col3/col4 -> 1.1 (1MH bot), 3.1 (5MF top), 0.1 (3V-AC bot), 2.0 (5A top).\n  n3 = rail y~398: T's onto col2 at (301,404) and onto col5 at (756,396); hops over col3/col4 -> 4.1 (5MH bot), 6.1 (10MF top), 2.1 (5A bot), 5.0 (5V top).\n  n4 = col3 mid segment y 540..630, between the 10MH bottom and the 50MF top; it hops over rail y564 at (444,564) so it touches nothing else -> 7.1, 10.1.\n  n5 = col4 mid segment y 710..790, between the 50MH bottom and the 100MF top; it hops over rail y766 at (613,762) -> 9.1, 12.1.\n  0  = GND. Bottom rail y~891 (col1 bottom corner -> col2 -> col3 -> col4 -> col5 bottom) + the GND symbol lead at (298,919) + col2's lower run y 568..884 + col3's lower run y 771..889 + BOTH the y564 rail and the y766 rail, because those two rails T onto those lower runs. Terminals: 3.0 (5MF bot), 6.0 (10MF bot), 5.1 (5V bot), 8.0 and 8.1 (10A both), 10.0 (50MF bot), 11.0 and 11.1 (15V both), 12.0 (100MF bot), 13.0 (GND).\n\nSITE DECISIONS (every CRITICAL site recorded; all read off 5x crops and confirmed on raw pixels with inkmap where it mattered):\n  S0 (286,75) J, S1 (460,81) J, S2 (630,95) J - column tops meeting the top rail, plain T's, no hop.\n  S3 (280,233) X, S4 (450,232) X, S6 (620,240) X - the col2/col3/col4 verticals each draw a clear semicircular hop bulging left around the y237 rail. Reading them as junctions would tie the tops of cols 2-4 to n2 and collapse n1 into n2.\n  S5 (141,239) J and S7 (752,241) J - the two ENDS of the y237 rail; the rail terminates on the column (T), so it is a junction. Reading either as anything else would strand the rail.\n  S10 (623,390) X, S11 (447,396) X - hops (hop score 12.3 / 20.1) of col4 and col3 over the y398 rail. Junction here would short n1 to n3.\n  S12 (756,396) J, S13 (301,404) J - the two ends of the y398 rail, plain T's.\n  S18 (303,564) J - LEFT END of the y564 rail, T'ing onto col2's lower run. inkmap at (305,564) shows the horizontal ink running into and slightly past the col2 vertical (overshoot to x=300), and the col2 vertical continuous through; there is no gap and no hop. This is the judgement call that costs the netlist (see BELOW).\n  S19 (444,564) X - col3 hops over the y564 rail; largest hop score on the sheet (33.7) and a textbook semicircle. Junction here would put col3's mid node (n4) on the y564 rail.\n  S20 (619,565) X - col4 makes an S-jog around the y564 rail (hop 17.0). Junction would put n5 on that rail.\n  S21 (756,570) J - RIGHT END of the y564 rail on col5 between the 5V and the 10A.\n  S25 (613,762) X - col4 S-jogs around the y766 rail (hop 8.3).\n  S26 (762,766) J - RIGHT END of the y766 rail on col5 between the 10A and the 15V.\n  S27 (465,768) J - LEFT END of the y766 rail, T'ing onto col3's lower run. inkmap at (466,768) shows the col3 vertical continuous from y748 to y788 with the rail growing out of it to the right and no ink to the left of x=463: an unambiguous T.\n  S34 (469,892) J - col3's lower run meets the bottom rail; inkmap shows the vertical crossing the rail with a 5 px pen overshoot below (y 894-897), i.e. a stroke end, not a hop.\n  S35 (297,894) J - 4-way: bottom rail left, bottom rail right, col2 from above, GND lead below. Deliberate GND tie, junction.\n  S9 (324,310), S14 (337,482), S15 (484,493), S22/S23/S24 (~600,655), S30 (578,823) -> \"none\": all are strokes of the handwritten value labels (5MH, 10MF, 10MH, 50MH, 100MF) brushing a component box, not wire.\n\nPORT FIXES:\n  #6 (10MF cap) t1 was landing on p2 (337,469) = the '1' of the handwritten '10MF' label; repointed to p1 (301,447), the real top lead. This was the source of the 1-terminal net n1 in the tracer output.\n  #12 (100MF cap) t0 was landing on p1 (593,809) = the 'F' of '100MF'; repointed to p3 (628,843), the real bottom lead (which reaches the bottom rail through gap bridge B7 at (629,884)->(626,891) - verified touching, bridge kept).\n  All other terminals verified on the _comps montage; #7, #9, #11 have extra label-ink ports that are correctly left unused. No 3-terminal parts in this image, so no pin-order questions. No class looks wrong: 4 Inductors, 4 Capacitors, V-AC, I-AC, 2x V-DC, I-DC, GND all match the drawn symbols.\n\nUNRESOLVED / ERC: this netlist keeps ONE ERC error - #11 (15V V-DC) has both terminals on net 0 - plus one warning - #8 (10A I-DC) likewise. That is a genuine property of the drawing, not an annotation slip. It follows from the two left-end T's above: the y564 rail lands on col2 BELOW the 10MF cap and the y766 rail lands on col3 BELOW the 50MF cap, and both of those lower column runs are plain unbroken wire down to the bottom rail (edge e44 y568..884 and edge e62 y771..889, both single continuous traced runs), which carries the GND symbol. So both rails are simply extra GND ties, which kills the 10A source and shorts the 15V source.\n  The tempting alternative is the 'regular ladder': y564 tapping col3's mid node and y766 tapping col4's mid node, which would give a clean 4-section LC ladder with 8 nets and no ERC complaint, and the two rail heights do sit exactly in col3's and col4's inter-component gaps. I rejected it because it requires overruling FOUR independent pieces of ink at once: the two unmistakable semicircular hops at S19 (444,564) and S25 (613,762), and the two unmistakable T's at S18 (303,564) and S27 (465,768) - plus it requires pretending that ~136 px and ~143 px of drawn rail (x306..441 at y565, and x468..610 at y768) do not exist. A third reading, calling S18 and S27 non-connections so those two rails become isolated 2-terminal nets, is also ERC-clean but asks two deliberately drawn wires to dead-end in mid-air on top of a column. Annotating the drawing as drawn is the only reading in which every mark means what it looks like, so that is what is recorded here. If this image is later found to disagree with a source netlist, S18 and S27 are the two sites to revisit.\n\n=== SECOND READER (audit pass) ===\nCHANGED: S34 (469,892) J -> explicit edge groups [[68,71],[62]] i.e. the two bottom-rail\nhalves stay one net and col3's lower run (e62) is NOT joined to the bottom rail there.\nEverything else (all other site readings, both port fixes, bridge B7) re-derived\nindependently and left as the first pass had it.\n\nWhy. The first pass correctly localised the short to \"y766 rail -> col3 lower run ->\nbottom rail\" but then treated all three links as forced. Only two of the three are\nforced by the ink:\n  * S27 (465,768) really is a T: inkmap x[442,495) y[742,795) shows the rail's ink\n    starting at x=464 (exactly on the col3 vertical, which occupies x=464-466 there)\n    and running right, with NOTHING at all to the left of x=463 at y=767/768. A rail\n    that terminates on a wire is a junction; there is no other reading. AGREE.\n  * S26 (762,766) and the 15V bottom lead into the bottom-rail corner at (766,868)\n    are likewise plain terminations. AGREE.\n  * S34 (469,892) is the only PLAIN X in the chain - col3's vertical crosses the\n    bottom rail and shows ink on both sides (rail at y=892-893, column at y=891 above\n    and y=894-897 below). Per BRIEF rule 1 (electrical impossibility wins) a plain X\n    that dead-shorts a voltage source must be read as a crossing, so this is where the\n    chain has to break.\n\nPixel evidence that S34 is a crossing and not just a pen overshoot - this drafter does\nNOT overshoot at the bottom rail:\n  * col1's lower run (x~138) stops dead ON the bottom rail: ink at y=891, rail at\n    y=892-893, and rows 894+ are empty paper at x=136-141. Zero overshoot.\n  * col4's lower run (x~628) stops 5 px SHORT of the rail (last ink y=886, rail\n    y=891-893) - that is gap bridge B7.\n  * col2 (x~297) is the one column that genuinely passes through the bottom rail\n    (down to the GND symbol) and the drafter marked that tie with a blob: inkmap at\n    (297,894) shows the vertical widening from 2 px to 6 px over y=885-889 (x=296-301)\n    just above the crossing. There is no such blob anywhere near (468,892).\n  So at the bottom rail this sheet has exactly one \"column continues through\" mark\n  (col2, dotted, GND) and one \"column continues through\" mark that is undotted\n  (col3, ours). The undotted one is the crossing.\n\nSibling evidence (hypothesis only, checked against this sheet's own ink):\n  * circuit_901 (human-verified, 7 nets) is very nearly the same sheet - same five\n    columns, same values 1uH/5uF/5uH/10uF/10uH/50uF/50uH/100uF and the same\n    3V-1kHz / 5A-1kHz / 5V / 10A / 15V source string. There the bottom-most left-going\n    rail T's onto col3's lower run with a fat solder dot at (400,767), and col3's lower\n    run then crosses the bottom rail at (398,890) as a bare plain X, verified as a\n    CROSSING (its GT keeps V-DC 15V unshorted: 0={GND, 50uF bottom, 10A bottom,\n    15V top}, n4={5V bottom, 10A top, 3 cap bottoms, 15V bottom}). That is exactly the\n    configuration here, minus the dot and with GND moved to col2.\n  * circuit_836 (human-verified, 7 nets) has the identical resulting net-size profile\n    to the corrected reading here: 0 = 7 terminals including GND, one 3-terminal net\n    {V-DC t0, I-DC t1, cap t1}, two 4-terminal rails, one 5-terminal top rail, two\n    2-terminal column-mid nets.\n  * circuit_468 (human-verified, 7 nets) shows the same drafter family reading a bare\n    rail-over-column X as a crossing at (365,755) for the same anti-short reason.\n\nResulting net map (7 nets), replacing the 6-net map above where they differ:\n  n1  top rail y~70          : 1.0, 4.0, 7.0, 9.0, 0.0\n  n2  rail y~237             : 1.1, 3.1, 0.1, 2.0\n  n3  rail y~398             : 4.1, 6.1, 2.1, 5.0\n  n4  col3 mid y540..630     : 7.1, 10.1\n  n5  col4 mid y710..790     : 9.1, 12.1\n  n5* rail y~766 + col3 lower run y771..889 (crossing the bottom rail at (469,892)\n      without joining it) : 10.0 (50uF bottom), 8.1 (10A bottom), 11.0 (15V top)\n      (*finalize.py emits this one as 'n5' and the col4 mid net as 'n6'; only the\n       grouping is scored)\n  0   bottom rail y~891 + col1 lower + col2 lower + col4 lower + rail y~564 (which\n      T's onto col2's lower run at S18) + GND : 3.0, 6.0, 12.0, 13.0, 5.1, 8.0, 11.1\nERC is now clean: 15V spans n6->0, 10A spans 0->n6.\n",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        763.0,
+        168.8,
+        74.1,
+        76.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        138.5,
+        168.3,
+        40.5,
+        73.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-AC",
+      "bbox": [
+        761.8,
+        315.3,
+        76.8,
+        83.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        137.8,
+        293.0,
+        56.3,
+        39.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        295.2,
+        318.2,
+        35.5,
+        72.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-DC",
+      "bbox": [
+        756.5,
+        492.0,
+        64.9,
+        71.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        299.4,
+        475.9,
+        60.6,
+        47.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        460.8,
+        495.9,
+        30.8,
+        69.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-DC",
+      "bbox": [
+        762.4,
+        657.3,
+        70.2,
+        79.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        628.1,
+        663.7,
+        33.5,
+        73.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Capacitor",
+      "bbox": [
+        461.6,
+        660.8,
+        65.9,
+        42.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "V-DC",
+      "bbox": [
+        765.4,
+        826.5,
+        69.6,
+        76.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Capacitor",
+      "bbox": [
+        629.9,
+        818.1,
+        59.5,
+        43.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "GND",
+      "bbox": [
+        297.4,
+        944.0,
+        55.3,
+        39.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "image": "circuit_251.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a 50V DC source driving four parallel branches - (1F series 3F), 2H, 5kOhm - i.e. a textbook 'equivalent impedance across the source' sheet. 6 components, 3 nets.\n\nNET MAP:\n  0  (GND) = the whole left/bottom loop: left column x~279 from the top rail (y~355) down to y~561, the wire running left-down from (279,561) to the bottom-left corner (207,568), the left edge x~210 down to y~680, the bottom rail (210,680)->(818,637), the GND symbol stub at (545,672), the bottom terminal of the 50V source, the LEFT plate of the 1F cap (368,357), the LEFT lead of the 2H inductor (380,477) and the LEFT lead of the 5kOhm resistor (392,554).\n  n1 = the short link between the two capacitors: right plate of 1F at (437,356) and left plate of 3F at (480,355) (both sit on tracer wire id 44). Exactly two terminals, as it should be for a series pair.\n  n2 = the top-right rail plus the right column: right plate of 3F (568,349), top rail east to (815,345), down the right edge to the TOP terminal of the 50V source (813,428); and the column at x~655..670 hanging off the top rail at S1 (652,346) down through S6 (663,463) to y~550, which picks up the RIGHT lead of the 2H inductor (521,471) and the RIGHT lead of the 5kOhm resistor (534,559).\n\nCRITICAL SITE DECISIONS (all five are unambiguous T's - one wire ENDS on another, no crossing to adjudicate, no dot or hop needed):\n  S1  (652,346) deg3 -> JUNCTION. The x~663 column terminates upward on the top rail. Reading it as anything else would strand the whole column (L.right, R.right) on a net with no source.\n  S6  (663,463) deg3 -> JUNCTION. Inductor right lead ends on the x~663 column (column continues above and below). Crossing is not even geometrically available - there is no westward continuation.\n  S8  (278,483) deg3 -> JUNCTION. Inductor left lead ends on the left column (column continues above and below). Same argument.\n  S12 (279,561) deg3 -> JUNCTION. Bottom of the left column lands on the resistor's left-lead wire, which continues west-down to the bottom-left corner. Verified at 6x zoom (/home/claude/zoom/circuit_251_265_555_w90_z6.png): the column stops dead at y~557, no ink below. If this were 'none' the left column and the 1F cap's left plate would form an island with no return path - electrically impossible - so the T reading is forced.\n  S16 (546,667) deg4 -> JUNCTION. GND symbol stub meets the bottom rail. The rail is split into two edges here, hence deg4. hop=3.6 is the rail's slight sag, not a hop-over; the stub visibly terminates on the rail. GND must be on net 0 by rule anyway.\n\nNON-CRITICAL sites S2,S3,S4,S5 ('3F' and '1F' glyphs brushing the cap plates), S7 ('50V' glyph touching the source circle), S9,S10,S11 ('2H' glyph under the inductor), S13 ('5KOhm' glyph under the resistor) are all handwritten value text touching component ink. Left at the default junction; none of them bridges two different nets.\n\nPORT FIXES (this is the main tracer error on this sheet - value-label ink swallowed as a lead):\n  comp #0 (3F Capacitor): tracer had t0 = p2@(519,388), which is the vertical stroke of the letter 'F' in '3F' hanging below the box. Remapped t0 -> p3@(480,355), the real left plate lead running west toward the 1F cap. t1 left on p0@(568,349) (real right lead). Before the fix net n1 held a single terminal - the classic one-terminal tell called out in the brief.\n  comp #1 (1F Capacitor): tracer had t1 = p1@(421,399), the stroke of the '1'/'F' glyph. Remapped t1 -> p4@(437,356), the real right plate lead. t0 left on p0@(368,357).\n  No other port changes. The 'unused port candidate' warnings on comps #2 and #4 are the '50V' and '5KOhm' glyphs and are correctly ignored.\n\nCLASSES: all six symbols match their labels (two parallel-plate capacitors, a coiled inductor, a zig-zag resistor, a circled +/- DC source, a three-bar ground). No reclassification.\n\nUNRESOLVED: nothing. The final netlist is fully determined and ERC-clean; every net has >=2 terminals and every branch has a DC return path to the source.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        524.7,
+        348.5,
+        81.0,
+        73.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        403.1,
+        352.9,
+        62.1,
+        73.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-DC",
+      "bbox": [
+        809.0,
+        478.4,
+        89.8,
+        93.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        450.9,
+        463.9,
+        133.2,
+        50.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        463.6,
+        555.0,
+        134.3,
+        50.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        545.3,
+        702.6,
+        122.0,
+        53.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

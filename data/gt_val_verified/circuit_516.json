@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "image": "circuit_516.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "One-loop-per-branch ladder on two horizontal rails: top rail y~390 from (168,474)'s corner at x=160 across to x=875, bottom rail y~595 from x=190 to x=875, with four vertical branches hanging between them. Left branch: 50V V-DC (#6). Then the 100uF capacitor (#1) sits IN the top rail between the left corner and the 17mH node, the 12kohm resistor (#2) in the top rail between the 17mH node and the 8A node, and the 20ohm resistor (#0) in the top rail between the 8A node and the 40V node. Vertical branches: 17mH inductor (#4) at x~385, 8A I-DC (#3) at x~600, 40V V-DC (#5) at x~872. GND (#7) hangs off the bottom rail at x~501. Net map: n3 = top-left corner (168,474)->(201,397): + lead of the 50V source (#6.t0) and the left plate of the 100uF cap (#1.t0). n4 = top rail (262,396)->(424,392) including the drop at x=366 to the inductor: right plate of the 100uF cap (#1.t1), left lead of the 12kohm resistor (#2.t0), top of the 17mH inductor (#4.t0). n1 = top rail (541,392)->(654,384) including the drop at x=586 to the current source: right lead of the 12kohm (#2.t1), left lead of the 20ohm (#0.t0), top of the 8A source (#3.t0). n2 = top-right rail (775,387)->(874,457): right lead of the 20ohm (#0.t1) and the top of the 40V source (#5.t1). 0 = the whole bottom rail (188,553)->(873,535) plus the stub down to the GND symbol at (501,611): bottom of the 50V source (#6.t1), bottom of the inductor (#4.t1), bottom of the 8A source (#3.t1), bottom of the 40V source (#5.t0), GND (#7.t0). Site decisions - all five CRITICAL sites inspected at 5x and all read as clean T-junctions with no dot, hop or jog anywhere on this sheet: S5 (366,394) = junction, the drop to the inductor's top lead ends on the top rail (a crossing here would strand the inductor's top on a stub and split the rail pointlessly). S4 (586,390) = junction, the drop to the current source's top lead ends on the top rail (same argument; the 8A source needs a return path). S11 (388,602) = junction, the inductor's bottom lead lands on the bottom rail. S9 (613,593) = junction, the current source's bottom lead lands on the bottom rail (it bends slightly at the landing but the strokes merge). S10 (500,597) = junction, the GND stub leaves the bottom rail; reading it as a crossing would leave the ground symbol on a one-terminal net and the whole bottom rail unreferenced. In every one of these five cases the alternative (crossing) reading would produce a dangling one-terminal net, so the ink prior and the electrical argument agree. Non-critical sites left at default, all handwriting brushing a component box: S0 (489,356) the '12kohm' label on the resistor box, S1 (719,357) and S2 (702,361) the '20ohm' label on the other resistor box, S7 (127,518) the '50V' label on the source circle. Ports: no fixes needed - every terminal already sits on a real lead. The flagged 'unused port candidates' on #0 (722,359), (770,359), (740,357) are strokes of '20ohm' and on #2 (454,371) a stroke of '12kohm'; none is a lead. Six gap bridges exist, none changes the netlist, and none was dropped. Classes confirmed against the drawing: two zigzags = Resistors (12kohm, 20ohm), one coil = Inductor (17mH), two plates = Capacitor (100uF), two circles with +/- bars = V-DC (50V, 40V), one circle with an upward arrow = I-DC (8A), plus the GND symbol. No 3-terminal parts, so no pin-order questions. Nothing left unresolved.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        714.9,
+        387.5,
+        114.0,
+        42.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        232.0,
+        398.4,
+        54.8,
+        48.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        483.2,
+        395.3,
+        110.1,
+        42.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-DC",
+      "bbox": [
+        600.3,
+        472.5,
+        78.3,
+        76.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        383.3,
+        502.1,
+        51.1,
+        103.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-DC",
+      "bbox": [
+        872.0,
+        496.0,
+        76.0,
+        72.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        182.8,
+        513.6,
+        79.4,
+        72.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        503.9,
+        641.8,
+        79.9,
+        53.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

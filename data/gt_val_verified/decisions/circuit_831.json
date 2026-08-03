@@ -1,0 +1,41 @@
+{
+  "sites": {
+    "1": "none",
+    "2": "none",
+    "3": "junction",
+    "6": "none",
+    "8": "junction",
+    "9": "junction",
+    "11": "none",
+    "15": "junction",
+    "19": "none",
+    "20": "none",
+    "23": "junction",
+    "24": "junction",
+    "25": "junction",
+    "27": "junction",
+    "28": "junction",
+    "29": "none",
+    "32": "junction",
+    "33": "none",
+    "37": "none",
+    "38": "none",
+    "40": "none",
+    "42": "none",
+    "44": "none",
+    "45": "junction",
+    "46": "junction"
+  },
+  "ports": {
+    "0": {"1": 1},
+    "2": {"0": 2, "1": 1},
+    "4": {"0": 0, "1": 1},
+    "9": {"1": 1},
+    "11": {"0": 3, "1": 1, "2": 0},
+    "14": {"0": 2, "1": 1},
+    "15": {"1": 4},
+    "19": {"1": 1},
+    "21": {"0": 5, "1": 1, "2": 0}
+  },
+  "notes": "CIRCUIT: five inverting op-amp stages, each with a reactive feedback element and a 1k series input resistor, plus a right-hand 1k summing bus. Stage A = op-amp #2 (1uF #0 feedback, driven by the 5V source #3). Stage B = #4 (1uH #1 feedback, driven from A through R #5). Stage C = #14 (1uH #10 feedback, driven by the 10A source #15). Stage D = #11 (1uF #9 feedback, driven from C through R #12). Stage E = #21 (1uH #17 feedback, driven from C through cap #19). Outputs of B, D and E all land on a common vertical bus at x~985 through R #6, R #13 and R #22.\n\nNET MAP (12 nets, 47 terminals):\n  n1 = op-amp A output rail y~242, x 309..389 then up x=389 to y=125: 2.2 (A out), 0.0 (1uF #0 right plate), 5.0 (R #5 left).\n  n2 = op-amp A inverting-input node: 2.1 (A in-), 3.0 (5V top), 0.1 (1uF #0 left plate, reached via the y=123 wire and the x=179 riser through S3).\n  0  = ground: 2.0 (A in+ -> GND #7), 3.1 (5V bottom -> GND #8), 7.0, 8.0, 11.0 (D in+ -> GND #16 via edge (615,649)-(630,585)), 14.0 (C in+ -> GND #18), 15.1 (10A bottom lead -> GND #20), 16.0, 18.0, 20.0, 21.0 (E in+ -> GND #23 via edge (639,812)-(623,876)), 23.0.\n  n3 = op-amp B inverting-input node at (565,255): 4.1 (B in-), 1.0 (1uH #1 left), 5.1 (R #5 right).\n  n4 = op-amp B output node (738,300): 4.2, 1.1 (1uH #1 right, down x=740), 6.0 (R #6 left).\n  n5 = op-amp C output rail: from C's output (294,639) right to x=363, up to the y~531 rail, right through S23 and S24 to R #12; also up the x=462 / x=573 dogleg to op-amp B's NON-inverting input at (609,291), and down x=462 to y~770 into the left plate of cap #19. Terminals: 14.2, 10.1 (1uH #10 right), 12.0 (R #12 left), 4.0 (B in+), 19.0 (1uF #19 left). This is the only op-amp + input on the sheet that is not tied to ground - verified by following the wire at 5x from (609,291) left to (572,290), down to (572,380), left to (462,381) and down.\n  n6 = right-hand bus, vertical at x~986 from y~575 down to y~790 plus the runs to R #6 / R #13 / R #22: 6.1, 13.1, 22.1.\n  n7 = op-amp D output node (756,572): 11.2, 9.0 (1uF #9 right plate, down x=755), 13.0 (R #13 left).\n  n8 = op-amp D inverting-input node (609,546): 11.1, 9.1 (1uF #9 left plate via the x~605 riser through S17), 12.1 (R #12 right).\n  n9 = op-amp C inverting-input node (184,615): 14.1, 10.0 (1uH #10 left via the diagonal riser), 15.0 (10A top).\n  n10 = op-amp E inverting-input node (609,780): 21.1, 17.0 (1uH #17 left, down x~609), 19.1 (1uF #19 right plate).\n  n11 = op-amp E output node (808,793): 21.2, 17.1 (1uH #17 right, down x~807), 22.0 (R #22 left).\n\nSITE DECISIONS (all 10 CRITICAL sites recorded explicitly):\n  S8 (389,244) J, S9 (565,255) J, S15 (738,300) J, S23 (362,531) J, S27 (756,572) J, S28 (986,575) J, S32 (184,615) J, S45 (609,780) J, S46 (808,793) J - every one of these is a plain T where a feedback riser or a bus stub ends on a through wire, and every one carries a visible solder blob (dot scores 1.4-2.9). None of them is a crossing candidate: no fourth branch, no hop, no jog.\n  S24 (460,534) J - the ONLY genuine junction/crossing call in this image: the x=462 vertical (op-amp B in+ down to cap #19) crosses the y=533 horizontal (op-amp C output to R #12) as a 4-way. inkmap at (461,533) shows a symmetric filled blob roughly 11 x 10 px against a 3 px stroke width, i.e. a real solder dot, so JUNCTION. The alternative (crossing) would split n5 into two nets - {14.2, 10.1, 12.0} and {4.0, 19.0} - which would leave op-amp B's + input and cap #19's left plate floating on a 2-terminal net with no dc path, and would make the 10A/stage-C branch drive nothing below y=540. Junction is both the ink reading and the electrically sane one.\n  S3 (179,195) J and S25 (609,546) J - not flagged critical but they are real 3-way nodes (feedback riser + input lead + source lead); recorded as junctions, both dotted.\n  S1, S2 (1uF label under cap #0), S6 (1uH label under #1), S11 (1k label under R #5), S19, S20 (1uF label around cap #9), S29 (1k label under R #12), S33 (1k label under R #13), S37, S38 (10A label beside #15), S40, S42, S44 (1uH label under #17) -> \"none\". All of these are handwritten value-label strokes that brush a component box; checked each in edges.py and every branch is a sub-20 px stub inside the text, no real wire is cut by setting them to none.\n\nPORT FIXES (9 components; the label-stroke failure mode is rampant on this sheet):\n  #0 1uF t1 was on p2 (294,156) = the '1' of '1uF'; moved to p1 (278,124), the real left plate lead. Killed 1-terminal net n2.\n  #9 1uF t1 was on p2 (681,482) = label ink; moved to p1 (639,445), the real left plate lead that rises to op-amp D's in-.\n  #19 1uF t1 was on p2 (508,811) = the '1' of '1uF'; moved to p1 (564,779), the real right plate lead into S45.\n  #15 10A t1 was on p1 (84,683) = a stroke of the '10A' caption; moved to p4 (58,711), the real bottom lead that runs to GND #20.\n  PIN ORDER - every op-amp on this sheet is drawn with '-' on the upper-left lead and '+' on the lower-left lead, and in every case the feedback element returns from the output to the UPPER-left lead, which independently confirms upper-left = in-. Required order is (in+, in-, out), so:\n    #2  t0=p2 (216,239 lower/+), t1=p1 (217,195 upper/-)  [tracer had them swapped]\n    #4  t0=p0 (609,291 lower/+), t1=p1 (608,261 upper/-)  [swapped]\n    #14 t0=p2 (196,650 lower/+), t1=p1 (197,618 upper/-)  [swapped]\n    #11 t0=p3 (630,585 lower/+, runs to GND #16), t1=p1 (630,545 upper/-), t2=p0 (728,571 out). The tracer had t1 pointing at p2 (690,504), which is a stroke of the '1uF' label sitting on top of the box - that was the 1-terminal net n16-equivalent.\n    #21 t0=p5 (639,812 lower/+, runs to GND #23), t1=p1 (639,782 upper/-), t2=p0 (741,813 out). The tracer had t1 on p2 (730,742) = '1uH' label ink.\n  All other terminals verified against the _comps montage; classes all match the drawn symbols (5 Op-Amp, 3 Capacitor, 3 Inductor, 5 Resistor, V-DC, I-DC, 6 GND) - nothing looks mis-classified.\n\nUNRESOLVED: none. ERC clean, every net has >= 2 terminals, all 6 GND symbols on net 0."
+}

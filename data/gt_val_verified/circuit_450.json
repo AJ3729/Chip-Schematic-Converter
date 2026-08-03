@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "image": "circuit_450.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: three vertical branches hung between a top rail (y~375, x from ~180 to ~565) and a grounded bottom rail (y~615, same x span). LEFT branch: 10 ohm resistor (#0) in series with a 20 uF capacitor (#3). MIDDLE branch: the 3 mA current source (#2), whose bottom lead continues past the bottom rail to the GND symbol (#5). RIGHT branch: 4 ohm resistor (#1) in series with a 2 mH inductor (#4). The 3 mA source therefore drives the top rail against ground, with the R-C leg and the R-L leg as the two loads.\n\nNET MAP (4 nets, 6 components):\n  n1 = the top rail at y~375: top lead of R10 #0 (x~182), top terminal of I-DC #2 (x~368), top lead of R4 #1 (x~565).\n  n2 = the left branch's mid-node, x~177 between y~496 and y~531: bottom lead of R10 #0, top plate of C20uF #3.\n  n3 = the right branch's mid-node, x~563 between y~505 and y~536: bottom lead of R4 #1, top lead of L2mH #4.\n  0  = the bottom rail at y~615: bottom plate of C20uF #3 (x~175 column), bottom terminal of I-DC #2 (x~359 column), bottom lead of L2mH #4 (which leaves the coil leftward at (535,620) into the rail), and the GND symbol #5 hanging below the rail at x~359.\n\nJUDGEMENT CALLS / SITES:\n  S0 (373,374) CRITICAL -> JUNCTION. The crop shows a clean T: the top rail runs unbroken left-to-right and the current source's top lead descends from it; there is no ink above y=374 at x=373. A T is a junction by definition. The other reading would strand the current source's top terminal and leave the two load branches with nothing driving them.\n  S11 (359,615) CRITICAL -> JUNCTION. inkmap.py at (359,615) shows this is not really a bare X at all: the left half of the bottom rail occupies rows 613-614 and terminates on the x~359 column, the right half occupies rows 616-617 and starts from the same column, and the column itself runs continuously from the current source above (cols 358-360) down to the GND symbol below (cols 359-361). Two rail strokes ending on a through-going column is a double-T, i.e. a junction; there is no solder blob (no symmetric thickening) and no arc or jog anywhere near it. This is also forced by rule 1: under the crossing reading the bottom rail {C20uF bottom, L2mH bottom} would be separate from {I-DC bottom, GND}, which leaves the 3 mA current source with no return path at all (its bottom terminal would touch only the ground symbol) and leaves both load branches floating with respect to the source.\n  Non-critical sites, all handwritten label ink brushing a wire or box, left at the tracer default: S2 (147,440) is the 'ohm' of '10 ohm' touching the resistor; S3 (602,449) is the '4' of '4 ohm'; S4/S5/S6 (403,458)/(411,464)/(408,474) are the '3' of '3mA' touching the current-source circle - note S4's dot=2.9 and S5's dot=2.5 are the fattest 'dots' on this sheet and both are pen loops in the digit '3', a good reminder that the dot metric alone does not identify a solder blob; S7 (119,564) and S9 (137,567) are the 'u'/'F' of '20 uF' running into the capacitor's left plate.\n\nPORT / PIN FIXES:\n  #3 Capacitor (20 uF): terminal 0 sat on p1@(154,555), a 29 px 'L'-side stub that is the crossbar of the 'F' in the handwritten '20 uF' label to the left of the plates (visible in the S9 crop). The real top-plate lead is p2@(176,531) with a 36 px wire running up to the 10 ohm resistor's bottom port p2@(178,496) - the same 36 px run. Repointed terminal 0 to port index 2, which merged the two spurious one-terminal nets n2 (resistor bottom) and n4 (capacitor top) into the left branch's mid-node. Terminal 1 (p0@(175,581), bottom plate, 224 px down to the bottom rail) was already correct.\n  No other component had a suspect port: #0/#1 sit squarely on their vertical leads, #2's top and bottom leads are both long real wires, #4's bottom lead correctly uses the left-exiting port p0@(535,620) where the coil turns into the bottom rail, and #5 GND has its single lead.\n\nCLASSES: all six symbols match their handwriting - two vertical zig-zags = Resistor (10 ohm, 4 ohm), a vertical coil = Inductor (2 mH), two horizontal plates = Capacitor (20 uF), a circle with an up arrow labelled '3mA' = I-DC, hatched stack = GND. No re-classification needed.\n\nUNRESOLVED: nothing. Both critical sites are settled by the ink itself (a T at S0, two rail strokes ending on a through column at S11) and independently by the current source's need for a return path. All 5 gap bridges were netlist-neutral.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        181.6,
+        450.7,
+        37.2,
+        83.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        560.5,
+        460.0,
+        41.4,
+        84.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        369.6,
+        470.5,
+        49.0,
+        65.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        179.4,
+        556.9,
+        43.3,
+        41.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        557.0,
+        586.7,
+        36.5,
+        90.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        358.6,
+        651.8,
+        59.0,
+        45.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

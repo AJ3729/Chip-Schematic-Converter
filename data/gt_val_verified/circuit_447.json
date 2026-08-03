@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "image": "circuit_447.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a 24 V source (V-DC #7) drives, through a 4 ohm series resistor (#3), a left node A at x~400; a 50 mH inductor (#6) shunts A to the grounded bottom rail, a 10 MF capacitor (#0) bridges A to a right node B along the top rail at y~285, and a 5 k ohm resistor (#2) in series with a 4 A current source (#1) also runs from A to B along y~357. Node B (the x~711 column) carries a 5 pF capacitor (#5) down to the bottom rail and continues right at y~355 to a 100 ohm resistor (#4) that also drops to the bottom rail. The bottom rail at y~646 runs from x~172 to x~866 and the GND symbol (#8) hangs off it at x~405.\n\nNET MAP (5 nets, 9 components):\n  0  = bottom return rail y~646: V-DC #7 t0 (x~172 column), inductor #6 t1 (x~407 column), capacitor #5 t1 (x~719 column), resistor #4 t1 (x~866 column), and the GND symbol #8 which hangs below the rail at x~405.\n  n4 = V-DC #7 top terminal up to y~360 and right to the left lead of the 4 ohm resistor #3.\n  n1 = NODE A, the x~400 column plus the wire east of it: right lead of R4 #3, left lead of R5k #2, top lead of L50mH #6, and (up the column to the y~285 top rail and east) the left plate of C10MF #0.\n  n3 = between R5k #2 right lead and the left terminal of I-DC #1 (short y~357 span, x 535..572).\n  n2 = NODE B, the x~711 column plus the y~355 wire east of it: right terminal of I-DC #1, right plate of C10MF #0 (down the column from the top rail), top plate of C5pF #5, top lead of R100 #4.\n\nJUDGEMENT CALLS / SITES (this sheet contains no hop or jog anywhere - every wire intersection the drafter drew is a plain crossing, so ink-prior rule 2 applies throughout):\n  S9 (395,364) CRITICAL -> JUNCTION. inkmap.py shows a plain '+': the x~394 column (4-5 px stroke) runs continuously from the y~285 top rail down past y~365 to the inductor, and the y~362 horizontal (5 px) runs continuously from the 4 ohm resistor to the 5 k resistor. No solder blob (the overlap is not symmetrically fatter than the strokes in both axes) and no arc/jog. Junction. The crossing reading would split node A into {R4 right, R5k left} and {C10MF left, L50mH top}; that is not electrically impossible - it would leave a C-L series branch from node B to ground - but it is the unusual reading, it contradicts the drafter's habit of drawing plain crossings for real junctions on this sheet, and it would make the 50 mH inductor share no node with the 24 V source at all, which is not how the picture reads.\n  S6 (711,354) CRITICAL -> JUNCTION. Same evidence: inkmap.py shows the x~710 column continuing straight through the y~353 horizontal (cols 708-712 above, 709-714 below, a 1-2 px pen drift), with the horizontal running unbroken from the current source on the left to the 100 ohm resistor on the right. dot=2.2 comes from the ordinary 4x5 px stroke overlap, not from a blob; hop=1.4 is the 1-2 px column drift. Junction. The crossing reading would split node B into {I-DC right, R100 top} and {C10MF right, C5pF top}, turning the two capacitors into a series C-C string from node A to ground and disconnecting the 10 MF capacitor from the current source. Again electrically survivable but against both the ink prior and the obvious reading of the drawing.\n  S23 (404,647) CRITICAL -> JUNCTION. inkmap.py shows the inductor's bottom column arriving at cols 402-406 and continuing below the rail at cols 402-407 down to the GND symbol, with the bottom rail (rows 645-648) running straight through; no dot, no hop (the tracer's hop=5.7 is the rail's 1-2 px vertical waver plus the slight column drift). Decided junction on rule 1 as well as the ink prior: under the crossing reading the bottom rail {V-DC bottom, C5pF bottom, R100 bottom} would be separate from {L50mH bottom, GND}, which leaves the 50 mH inductor branch with no return path (it would hang off node A into a two-element dead end) and leaves the ground reference touching nothing that carries current.\n  Non-critical sites, all handwriting or symbol ink brushing a wire/box, left at the tracer default: S1/S2 are the 'M'/'F' of '10MF' over the capacitor; S4/S5 are '4 ohm'; S10 is the 'K' of '5K ohm'; S11 is the 'A' of '4A' touching the source circle; S13/S14 are '100 ohm'; S15 is the '5' of '50mH'; S17 is the 'p' of '5pF'. S21 (175,644) is the unambiguous corner where the V-DC column turns into the bottom rail - junction, correct by default.\n  S20 (719,640) -> JUNCTION (became CRITICAL only after the #5 port fix below re-pointed the 5 pF capacitor's bottom plate onto this column). The crop shows a clean T: the x~719 column comes down from the capacitor and terminates on the bottom rail, which runs on unbroken left and right; nothing continues below y=640 there. Junction. The other reading would strand the 5 pF capacitor's bottom plate on a one-terminal net.\n\nPORT / PIN FIXES (all three one-terminal-net warnings were terminals landing on handwritten value-label ink):\n  #1 I-DC (4 A): terminal 0 was on p1@(605,402), a 22 px 'B'-side fragment that is the '4' of the '4A' label written under the source circle. Repointed to p3@(572,357), the real left lead (38 px) running back to the 5 k resistor. This is what created the one-terminal net n3.\n  #2 Resistor (5 k ohm): terminal 1 was on p1@(515,384), a 6 px 'B'-side fragment of the 'K' in '5K ohm'. Repointed to p2@(535,359), the real right lead (38 px) heading toward the current source. This is what created the one-terminal net n4 in the original numbering. These two fixes together join into a single net between the resistor and the source.\n  #5 Capacitor (5 pF): terminal 1 was on p2@(770,487), a 37 px fragment of the '5pF' label to the right of the plates. Repointed to p0@(719,488), the real bottom-plate lead (116 px) running down the x~719 column to the bottom rail, putting the capacitor's low side on net 0.\n  The remaining 'unused port candidate' warnings ((514,254)/(528,255)/(501,254)/(572,266) on #0, (453,384)/(504,385) on #2, (285,321) on #3, (437,468)/(437,495)/(438,483) on #6) are all label strokes ('10MF', '5K ohm', '4 ohm', '50mH') and were correctly left unused.\n\nCLASSES: all nine symbols match their handwriting - circle with +/- and '24V' = V-DC, circle with a right arrow and '4A' = I-DC, three zig-zags = Resistor (4 ohm, 5 k ohm, 100 ohm), a coiled vertical = Inductor (50 mH), two parallel-plate pairs = Capacitor (10 MF horizontal, 5 pF vertical), hatched stack = GND. No re-classification needed.\n\nUNRESOLVED: S6 and S9 are the only genuinely arguable calls - both are bare crossings where the alternative reading is electrically survivable rather than impossible. I resolved both as junctions on the dataset ink prior (a hop or jog is drawn when the drafter means 'not connected', and this sheet contains neither anywhere) and on the physical reading of the schematic, and have recorded above exactly what the crossing reading would have produced in each case. All 18 gap bridges were netlist-neutral.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        531.3,
+        282.6,
+        69.8,
+        50.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        620.2,
+        354.8,
+        87.9,
+        81.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        479.0,
+        354.7,
+        104.6,
+        52.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        274.8,
+        353.6,
+        119.3,
+        51.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        855.7,
+        431.5,
+        73.1,
+        107.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        716.7,
+        452.8,
+        94.2,
+        63.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        402.9,
+        471.2,
+        61.2,
+        100.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "V-DC",
+      "bbox": [
+        176.9,
+        468.1,
+        96.0,
+        89.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        405.7,
+        710.3,
+        90.9,
+        62.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

@@ -1,0 +1,26 @@
+{
+ "sites": {
+  "2": "junction",
+  "3": "junction",
+  "6": "junction",
+  "7": "junction",
+  "8": "junction",
+  "9": "junction",
+  "10": "junction",
+  "11": "junction",
+  "12": "junction",
+  "23": "junction",
+  "24": "junction",
+  "26": "junction",
+  "4": "junction"
+ },
+ "ports": {
+  "4": {
+   "1": 1
+  },
+  "10": {
+   "1": 2
+  }
+ },
+ "notes": "CIRCUIT: three horizontal rails (top y~355, middle y~520, bottom y~675) bridged by four vertical diode columns at x~378, 578, 720, 880; sources on the left column, 2k load to GND on the right. 19 components, 9 nets.\n\nNET MAP:\n  n3 = left column between V-AC(#6) top lead and the left end of the 5uH inductor(#1), x~120 y 355..405.\n  n1 = top rail from the right end of 5uH(#1) to the left plate of the 15uF cap(#0): 1.1, 4.1 (top of zener at x=381), 5.0 (top of diode at x=575), 0.0.\n  n2 = top rail right of the 15uF cap: 0.1, 2.1 (top of zener at x=719), 3.1 (top of diode at x=877).\n  0  = middle rail from GND(#9) rightwards to the left plate of the 9uF cap(#7): 9.0, 6.0 (V-AC bottom), 11.0 (I-DC top), 4.0 (bottom of zener at x=381), 14.0 (top of diode at x=376), 7.0; PLUS the separate right-hand ground leg 10.1 (resistor bottom) and 18.0 (GND).\n  n4 = middle rail centre section, right plate of 9uF to left end of 4uH: 7.1, 5.1, 12.1, 2.0, 13.0, 8.0.\n  n5 = middle rail right of the 4uH inductor across to the 2k resistor: 8.1, 3.0, 15.0, 10.0.\n  n6 = left column below the I-DC source: 11.1 and left plate of the 1uF cap(#16).\n  n7 = bottom rail from the right plate of 1uF to the left end of the 1mH inductor: 16.0, 14.1, 12.0, 17.0.\n  n8 = bottom rail right of the 1mH inductor: 17.1, 13.1, 15.1.\n\nJUDGEMENT CALLS:\n  S7 (884,522) deg=5 - OVERRIDDEN from the tracer's 'crossing' to JUNCTION. inkmap.py at (884,522) w=26 shows the x~884 column running straight from y=496 to y=548 with no semicircular hop and no sideways jog; the rail crosses it at y~520-524. The tracer's hop score of 6.1 is an artefact of the middle rail's gentle upward slope across the sheet (left branch enters at y~523, right branch leaves at y~520), not a drawn hop. No solder dot either - the ink at the crossing is ~3px in both axes, i.e. plain stroke width. Ink prior therefore reads junction, and the drafter's own habit on this sheet agrees: every other column (S9 at x=380, S6/S8 at x=575/581, S10/S11 at x=716/733) T's onto the middle rail with no hop. Consequence of the other reading: the Diode#3 / Diode#15 midpoint would be a dangling 2-terminal node and the 4uH -> 2k -> GND leg would be cut off from the x~880 column, breaking the ladder pattern shared by all four columns.\n  S12 (116,533) deg=4 - explicitly JUNCTION. Crop shows the GND(#9) stub, the middle rail, the V-AC bottom lead and the I-DC top lead all meeting at one point with a clean four-way cross; the reported hop=5.7 is again rail slope. A crossing reading would divorce GND from the rail and leave the source column floating, so it is electrically impossible.\n  S2 (720,352), S3 (571,356), S6 (575,522), S8 (581,522), S9 (380,526), S10 (716,526), S11 (733,526), S23 (372,674), S24 (759,675), S26 (587,679) - all inspected at 5x; every one is an unambiguous T (a single column wire terminating on a through-rail), so JUNCTION recorded explicitly. Note S6+S8 are the two halves of one physical column meeting the rail at x=575/581, and S10+S11 likewise at x=716/733; both pairs are junctions so the split costs nothing.\n  S4 (382,363) is now CRITICAL after the #4 port fix and is recorded explicitly as JUNCTION - a clean T where the x=381 column meets the top rail. S5, S13, S16-S19, S21 are non-critical: S4 is the x=381 column T on the top rail (junction, needed by the port fix below), S5/S13/S16-S19/S21 are handwriting ('8V', '4uH', '2kOhm') brushing wire ink and change no net.\n\nPORT FIXES:\n  #4 Zener Diode (381,409): terminal t1 had landed on p2@(422,431), which is a stroke of the handwritten '5V' label, giving a 1-terminal net n6. The real upper lead is p1@(381,383), which runs up to the top rail through site S4. Re-pointed t1 -> p1, so 4.1 = n1.\n  #10 Resistor (942,596): terminal t1 had landed on p1@(960,616), a stroke of the '2kOhm' label, giving a 1-terminal net n8. The real lower lead is p2@(945,634), the wire that runs down to GND #18. Re-pointed t1 -> p2, so 10.1 = 0.\n  Remaining 'unused port candidate' warnings are all label ink brushing the component boxes and need no action: #1 p1 on '5uH', #2 p2 on '5V', #7 p2 on '9uF', #8 p1/p2 on '4uH', #12 p2 on '5V', #10 p3 on '2kOhm'.\n\nCLASSES: all as annotated. The four bent-cathode-bar symbols (#2, #4, #12) plus #? are drawn as zeners and are labelled Zener Diode; the plain triangle-and-bar symbols (#3, #5, #13, #14, #15) are labelled Diode. Both readings match the ink. No class overrides.\n\nUNRESOLVED: none."
+}

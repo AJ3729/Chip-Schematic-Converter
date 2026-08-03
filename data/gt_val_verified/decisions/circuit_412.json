@@ -1,0 +1,71 @@
+{
+  "sites": {
+    "11": "junction",
+    "20": "junction",
+    "22": "junction",
+    "23": "junction",
+    "30": "junction",
+    "44": "junction",
+    "46": "junction",
+    "47": "junction",
+    "48": "junction",
+    "65": "junction",
+    "21": "junction"
+  },
+  "ports": {
+    "3": {
+      "0": 2,
+      "1": 1,
+      "2": 0
+    },
+    "4": {
+      "0": 3,
+      "1": 0,
+      "2": 1
+    },
+    "5": {
+      "0": null
+    },
+    "7": {
+      "0": 3,
+      "1": 0,
+      "2": 1
+    },
+    "10": {
+      "0": 2
+    },
+    "13": {
+      "0": 0,
+      "1": 1,
+      "2": 2
+    },
+    "17": {
+      "1": null
+    },
+    "19": {
+      "0": 2,
+      "1": 1,
+      "2": 0
+    },
+    "24": {
+      "0": 1,
+      "1": null,
+      "2": 0
+    },
+    "25": {
+      "0": 1
+    }
+  },
+  "merge": [
+    [
+      "4.0",
+      "11.0"
+    ]
+  ],
+  "notes": "CIRCUIT: a chain of six inverting/non-inverting op-amp stages with L or C feedback, driven from two one-port DC sources (+5V at top left, +0V at mid left). Op-amp #4's output feeds 1k #8 into op-amp #7; op-amp #19's output feeds 1k #12 into op-amp #7's other input; op-amp #7's output is the vertical bus at x~577 which fans out to three further stages (#3 via 1k #6, #13 via 1k #14, #24 via 1uF #25). The three final output resistors (#5, #16, #26) all land on the vertical bus at x~998. 28 components, 14 nets.\n\nNET MAP:\n  0   = ground: GND symbols #9 #11 #20 #21 #22 #27, the in+ (non-inverting) input of op-amps #3 #4 #13 #19 #24, and the bottom lead of the vertical 1k resistor #17.\n  n1  = +5V node / op-amp #4's summing loop: V-DC #0 (the '+5V' arrow), op-amp #4 in- (upper-left lead), op-amp #4 OUT, left lead of 1k resistor #8. Physically the y~257 rail from x=97 to x=270, the x~120 drop to the op-amp's upper lead, and the x~270 drop onto the output wire at S22.\n  n2  = op-amp #3's summing node (in-): LEFT lead of 1uH inductor #1, op-amp #3 in- (upper-left, at (683,309)), RIGHT lead of 1k resistor #6.\n  n3  = op-amp #3's output node: RIGHT lead of inductor #1, op-amp #3 OUT, LEFT lead of 1k resistor #5. Physically the blob at (785,325) with the x~785 riser to the inductor.\n  n4  = op-amp #7's in+ node: LEFT lead of 1uH inductor #2, op-amp #7 in+ (UPPER-left lead at (428,316)), RIGHT lead of 1k resistor #8. Physically the y~317 wire from x=381 to the op-amp bar, with the x~420 riser to the inductor joining at S21.\n  n5  = the big vertical bus at x~577 (op-amp #7's output): RIGHT lead of inductor #2, op-amp #7 OUT, LEFT lead of 1k #6, LEFT lead of 1k #14, LEFT plate of 1uF #25. Runs from y~255 down to y~755.\n  n6  = the right-hand output bus at x~998: RIGHT lead of 1k #5, RIGHT lead of 1k #16, RIGHT lead of 1k #26.\n  n7  = op-amp #7's in- node: op-amp #7 in- (LOWER-left lead at (428,365)), RIGHT lead of 1k #12, TOP lead of the vertical 1k #17. Physically the corner at (423,364) and the x~422 drop to S30.\n  n8  = op-amp #13's output node: RIGHT lead of 1uF #10, op-amp #13 OUT, LEFT lead of 1k #16.\n  n9  = op-amp #13's summing node (in-): LEFT lead of 1uF #10, op-amp #13 in- (upper-left at (670,466)), RIGHT lead of 1k #14.\n  n10 = op-amp #19's output node: LEFT lead of 1k #12, RIGHT lead of 1uH #18, op-amp #19 OUT. Physically the x~310 vertical from y~410 down to y~533, joined by the inductor at S46.\n  n11 = +0V node / op-amp #19's summing node: V-DC #15 (the '+0V' arrow), LEFT lead of 1uH #18, op-amp #19 in- (upper-left at (104,517)).\n  n12 = op-amp #24's summing node (in-): LEFT lead of 1uH #23, op-amp #24 in-, RIGHT plate of 1uF #25. Physically the y~755 wire from x~653 to the op-amp bar at x~697, with the x~677 riser to the inductor.\n  n13 = op-amp #24's output node: RIGHT lead of 1uH #23, op-amp #24 OUT, LEFT lead of 1k #26.\n\nCRITICAL SITE DECISIONS (all ten recorded; S21 added because it defines net n4 even though the tool did not flag it):\n  S11 (120,258) deg=3 - JUNCTION. T: the drop to op-amp #4's in- leaves the y~257 feedback rail here; the rail continues right. Nothing to 'cross'.\n  S20 (577,315) deg=4 - JUNCTION. A hand-drawn small ring sits on the x~577 bus exactly where the wire to 1k #6 leaves it; the bus passes vertically through the ring. Nothing continues to the LEFT at that height, so this is a tee, not a crossing - the tracer's hop=11.3 is the ring's curvature being mistaken for a wire hop. Reading it as a crossing would orphan resistor #6's left lead.\n  S22 (268,324) deg=4 - JUNCTION. inkmap at (268,324) shows the 3px vertical swelling to 9-11px across y 317-331 - a genuine solder blob about 3x stroke width - where op-amp #4's feedback rail (down the x~270 column from the y~257 top rail) meets its own output wire. THE OTHER READING would split n1 into {+5V source, op-amp #4 in-} and {op-amp #4 out, resistor #8 left}, i.e. 15 nets, with op-amp #4 running open-loop. Rejected on the blob. (The few px of vertical continuing below the blob to y~370 is pen overshoot; it reaches nothing.)\n  S21 (421,318) deg=4 - JUNCTION (recorded explicitly although not flagged critical). Zoom at (425,330) shows the x~420 column coming down from inductor #2's left lead and TERMINATING on the y~317 wire in a blob; the y~317 wire runs from resistor #8's right lead through that blob and on to op-amp #7's upper (in+) bar. Importantly the column does NOT continue below y~320: the wire that drops to S30 starts at a separate corner at (423,364) fed from the op-amp's LOWER (in-) lead. So inductor #2 is feedback from op-amp #7's output to its in+ - unusual (positive feedback) but unambiguously what is drawn, because this op-amp is the one triangle on the sheet with '+' drawn on the upper input and '-' on the lower.\n  S23 (577,338) deg=3 - JUNCTION. T with a fat blob: op-amp #7's output arrives from the left and lands on the x~577 bus.\n  S30 (422,412) deg=3 - JUNCTION. T: resistor #12's right lead lands on the x~422 column that runs from op-amp #7's in- corner down to the top of resistor #17.\n  S44 (576,467) deg=4 - JUNCTION. T: the wire to 1k #14 leaves the x~577 bus here; nothing continues to the left, so no crossing is possible.\n  S46 (310,471) deg=3 - JUNCTION. T with a blob: inductor #18's right lead lands on the x~310 column joining op-amp #19's output to resistor #12's left lead.\n  S47 (998,479) deg=3 - JUNCTION. T: resistor #16's right lead lands on the x~998 output bus, which passes top-to-bottom.\n  S48 (98,481) deg=3 - JUNCTION. T: the '+0V' arrow, inductor #18's left lead and the drop to op-amp #19's in- all meet at this corner.\n  S65 (833,759) deg=4 - JUNCTION. The x~833 column from inductor #23's right lead comes down to op-amp #24's output and the wire to resistor #26 leaves rightward; all three are the same node.\n  Non-critical sites, all inspected and left at default; every one is either handwriting brushing a wire or a corner inside a net that is already single: S0/S1/S2/S3 ('+5V'), S31/S32/S33/S35/S36 ('+0V'), S6/S7/S8/S12/S13/S14/S15/S38/S40/S41/S53/S54/S55/S56 ('1uH' labels on inductors #1 #2 #18 #23), S26/S27/S28/S34/S58/S59 ('1uF' labels on caps #10 #25), S16/S18/S37/S42/S43/S51/S60/S62 ('1kOhm' labels on resistors), S19/S24/S45/S49/S52/S64/S66 (input/output tees inside an already-single net).\n\nPIN-ORDER FIXES - every one of the six op-amps had its terminals mis-assigned; terminal order is (in+, in-, out):\n  #3  ports {0:p2, 1:p1, 2:p0}. '-' drawn on the UPPER input, '+' on the LOWER. p2@(683,343) lower = in+ (runs to GND #9), p1@(683,309) upper = in-, p0@(774,326) = out. The tracer had t0 on the OUTPUT.\n  #4  ports {0:p3, 1:p0, 2:p1}. '-' upper, '+' lower. p3@(116,356) is the lower (in+) lead, p0@(121,300) the upper (in-) lead, p1@(244,324) the output.\n  #7  ports {0:p3, 1:p0, 2:p1}. THIS ONE IS DRAWN FLIPPED: '+' on the UPPER input (glyph at ~(460,330)), '-' on the LOWER (dash at ~(463,363)). So p3@(428,316) upper = in+, p0@(428,365) lower = in-, p1@(538,338) = out. The tracer had t0 on the output and t1 on a stroke of the '1uH' label above the op-amp (net n9, one terminal).\n  #13 ports {0:p0, 1:p1, 2:p2}. '-' upper, '+' lower. p0@(670,511) lower = in+ (to GND #20), p1@(670,466) upper = in-, p2@(770,488) = out.\n  #19 ports {0:p2, 1:p1, 2:p0}. '-' upper, '+' lower. p2@(104,569) lower = in+ (to GND #22), p1@(104,517) upper = in-, p0@(227,540) = out.\n  #24 ports {0:p1, 1:null, 2:p0}. '-' upper, '+' lower. p1@(677,807) is the lower (in+) lead that drops to GND #27, p0@(802,782) = out. There is NO port on the in- lead (see below), so t1 is set with manual_nets.\n\nTERMINALS ON HANDWRITING OR SWALLOWED BY A BOX (fixed):\n  #5 Resistor (top right 1k) t0 was on p1@(824,295), a stroke of its own '1kOhm' label (net n7, one terminal). Zoom at (795,320) shows unbroken ink from op-amp #3's output blob at (785,325) straight into the resistor's zigzag at x=800; the COCO box (x from 794.5) swallows the whole left lead so no port exists there. t0 is set to n3 with manual_nets.\n  #17 Resistor (vertical 1k to ground) t1 was on p1@(439,490), the '1' glyph of its '1kOhm' label (net n15, one terminal). Zoom at (425,525) shows the resistor's bottom lead running unbroken from y~510 down onto the top bar of GND #21 at y=551; the gap between the two annotation boxes leaves no port, so t1 is set to '0' with manual_nets.\n  #24 Op-Amp in- : the wire from cap #25's right plate runs at y~755 to the triangle's flat bar at x~697, joined on the way by inductor #23's left lead dropping down the x~677 column (zoom at (680,750) shows all three meeting in a blob at (677,755)). The contact point is inside the op-amp box so no port was found - only the two ports on the in+/GND lead below. t1 is set to n12 with manual_nets.\n  #25 Capacitor t0 was on p2@(620,716), a stroke of the '1uF' label (net n18, one terminal). Repointed to p1@(653,757), the real right-plate lead. Now t0=n12.\n  #4 Op-Amp in+ : with t0 moved to p3@(116,356) the lead is still a one-terminal net (n6) because the GND #11 box swallows the point where the lead meets the top ground bar at (121,391). Zoom at (125,370) shows the lead running from the triangle bar at (144,356) left to (121,356) then straight down onto the ground bar - unbroken ink. Repaired with merge [4.0, 11.0], which puts it on net 0. No wire was invented: the ink is continuous, only the box hid the contact.\n  #10 Capacitor t0 was on p3@(725,390), a top-side candidate; repointed to p2@(725,413), the real right-plate lead. The resulting net (n8, op-amp #13's output) is unchanged, so this is cosmetic but makes the terminal defensible.\n\nCLASSES: no corrections. Inventory is 6 Op-Amp (#3 #4 #7 #13 #19 #24), 8 Resistor (#5 #6 #8 #12 #14 #16 #17 #26), 4 Inductor (#1 #2 #18 #23), 2 Capacitor (#10 #25), 2 V-DC one-port (#0 #15), 6 GND (#9 #11 #20 #21 #22 #27) = 28. Every symbol matches its drawn form.\n\nUNRESOLVED / RESIDUAL DOUBT: (1) op-amp #7's feedback landing on its in+ rather than in- is electrically odd, but the ink (S21 blob, the separate lower-lead corner at (423,364)) and the drawn '+' on the upper input both say so, and I have followed the drawing rather than 'fixing' it. (2) op-amp #4's in- being tied to both the +5V source and its own output is likewise what the blob at S22 says. (3) Nets n6 (three resistors on the x~998 bus) and the dangling pen overshoot below S22 are drawn as such and are not errors.",
+  "manual_nets": {
+    "5.0": "n3",
+    "17.1": "0",
+    "24.1": "n12"
+  }
+}

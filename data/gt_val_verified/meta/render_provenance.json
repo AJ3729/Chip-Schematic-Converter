@@ -1,0 +1,1154 @@
+[
+ {
+  "stem": "circuit_1013",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1022",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1025",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1028",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1045",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1048",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1052",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1059",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1080",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_1095",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1103",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_115",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1150",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_1156",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1175",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 2
+ },
+ {
+  "stem": "circuit_118",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1182",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1184",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1187",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1195",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1197",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1207",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1222",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 2
+ },
+ {
+  "stem": "circuit_1234",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 2
+ },
+ {
+  "stem": "circuit_1238",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1240",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1247",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_1253",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1259",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1264",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1273",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_1275",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_129",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_131",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_132",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_140",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_142",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_147",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_15",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_150",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_154",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_156",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_165",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_171",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_179",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_181",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_196",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_20",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_208",
+  "tracer": "tools_v1",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_209",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_21",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_211",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_218",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_220",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_221",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_225",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_249",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_251",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_255",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_257",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_259",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_264",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_270",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_271",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_278",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_298",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_304",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_308",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_321",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_325",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 3
+ },
+ {
+  "stem": "circuit_33",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_331",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_338",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_347",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_351",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_353",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_366",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_388",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_389",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_39",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_398",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_402",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_410",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 2
+ },
+ {
+  "stem": "circuit_412",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 3
+ },
+ {
+  "stem": "circuit_420",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_429",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_43",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_431",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_432",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_441",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_442",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_447",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_450",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_474",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_483",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_486",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_490",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_50",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_505",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_513",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_516",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_517",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_526",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_541",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_553",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_556",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_557",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_578",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_579",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_590",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_594",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_603",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_604",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_612",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_616",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_624",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_627",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_630",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_639",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_64",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_641",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_643",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_657",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_659",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_666",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_677",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_686",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_695",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_697",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_706",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_71",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_711",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_717",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_721",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_724",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_731",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_74",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_744",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_754",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_76",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_763",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_765",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_77",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_776",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_777",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_778",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_779",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_78",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_786",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_792",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_809",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_810",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_812",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_817",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_82",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_822",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_827",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_83",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_831",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_837",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_843",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_847",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_848",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_853",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_855",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_857",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_858",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_887",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 2
+ },
+ {
+  "stem": "circuit_89",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_891",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_896",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_914",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_916",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_919",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_920",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_923",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_927",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_928",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_930",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_934",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_936",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_940",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 1
+ },
+ {
+  "stem": "circuit_941",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_949",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_958",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_96",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_98",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_981",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_985",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_988",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_991",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ },
+ {
+  "stem": "circuit_999",
+  "tracer": "tools",
+  "reproduced": true,
+  "dots_missing": 0
+ }
+]

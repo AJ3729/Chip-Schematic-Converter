@@ -1,0 +1,487 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1238.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: five inverting op-amp stages, each with its + input grounded (except #2) and a reactive/resistive feedback element from its output back to its - input, all feeding a common 1k-terminated rail on the right. Two sources: V-DC #6 (top left) into stage #3, and I-DC 10A #16 (bottom left) into stage #14.\n\nNET MAP\n  n1 = the y~272 wire from resistor #4's right lead to op-amp #2's - input, plus the branch up at x~652 to the left end of the 1uH inductor #0: 4.1, 2.1 (#2 in-), 0.0.\n  n2 = op-amp #2's output, the branch up at x~853 to the inductor's right end, and on to resistor #5: 2.2, 0.1, 5.0.\n  n3 = op-amp #3's output, the branch up at x~424 to the right plate of the 1uF capacitor #1, and on to resistor #4: 3.2, 1.0, 4.0.\n  n4 = V-DC #6's top lead, the y~272 wire right to op-amp #3's - input, and the branch up at x~159 to the capacitor's left plate: 6.0, 3.1, 1.1.\n  n5 = the long shared rail: op-amp #14's output at (326,669) up to y~573, the y~569 horizontal, the vertical at x~515 that runs from y~380 down to y~810, plus the step up to op-amp #2's + input. Terminals 14.2, 13.1, 12.0, 2.0, 21.1.\n  n6 = the right-hand return rail, x~995 from y~278 down to y~800: 5.1, 11.1, 20.1.\n  n7 = op-amp #10's output plus the branch up at x~846 to the right plate of the 1uF #9, on to resistor #11: 10.2, 9.0, 11.0.\n  n8 = resistor #12's right lead to op-amp #10's - input plus the branch up at x~671 to the capacitor's left plate: 12.1, 10.1, 9.1.\n  n9 = I-DC #16's top lead across to op-amp #14's - input plus the branch up at x~213 to the inductor #13's left lead: 16.0, 14.1, 13.0.\n  n10 = capacitor #21's right plate to op-amp #19's - input plus the branch up at x~698 to inductor #17's left lead: 21.0, 19.1, 17.0.\n  n11 = op-amp #19's output plus the branch up at x~844 to the inductor's right lead, on to resistor #20: 19.2, 17.1, 20.0.\n  0  = ground: GND #7, #8, #15, #18, #22, #23, the + inputs of op-amps #3, #10, #14, #19, V-DC #6's bottom lead and I-DC #16's bottom lead.\n\nJUDGEMENT CALLS\n  This drafter marks every real connection with a solder dot and never draws a hop or a jog anywhere on the sheet, so every intersection here is a T or a dotted crossing - there is no ambiguous plain X on this image. Each of the 12 critical sites was checked at 5x and recorded explicitly as a junction:\n    S6 (652,265) filled dot, T: the inductor-#0 feedback branch meets the resistor-#4 -> op-amp-#2 wire.\n    S7 (159,272) dot, T: the capacitor-#1 branch meets the V-DC -> op-amp-#3 wire.\n    S8 (424,275) dot, T: the capacitor-#1 branch meets the op-amp-#3 -> resistor-#4 wire.\n    S10 (853,280) clean T, no dot needed (the branch simply ends on the wire): inductor #0's right end onto op-amp #2's output wire.\n    S19 (995,561) T: resistor #11's right lead onto the right return rail.\n    S20 (671,563) T: capacitor #9's left branch onto the resistor-#12 -> op-amp-#10 wire.\n    S22 (846,564) dot, T: capacitor #9's right branch onto op-amp #10's output wire.\n    S23 (514,569) TWO filled dots straddling the crossing (verified at 10x): the x~515 column and the y~569 rail are joined. This is the one site that could have been a crossing; the pair of dots settles it. Reading it as a crossing would split n5 into two nets and cut op-amp #2's + input off from the rest of the circuit.\n    S24 (381,573) dot, T: op-amp #14's output column onto the inductor-#13 rail.\n    S30 (213,663) T: inductor #13's left branch onto the I-DC -> op-amp-#14 wire.\n    S38 (844,803) dot, T: inductor #17's right branch onto op-amp #19's output wire.\n    S39 (698,806) T: inductor #17's left branch onto the capacitor-#21 -> op-amp-#19 wire.\n  Non-critical sites S0, S11, S17, S26, S28, S35, S40, S41, S42, S44 are all value text ('1uH', '1kOhm', '1uF') resting on a wire or a symbol; left at the default.\n  No gap bridges affect the netlist (15 found, 0 critical), and no wire on this sheet is broken.\n\nPORT / PIN FIXES - all five op-amps\n  Required order is (in+, in-, out). Every triangle on this sheet is drawn point-right with the '-' mark on the UPPER input and the '+' mark on the LOWER input (verified individually in the comps montage and again in the S7 / S20 / S30 / S39 crops), and the output at the apex. The tracer ordered the pins by geometry only, so all five needed repointing:\n    #2  t0 -> p0@(697,307) (lower, in+), t1 -> p2@(698,264) (upper, in-), t2 -> p1@(806,280) (out).\n    #3  t0 -> p2@(193,300) (lower, in+), t1 -> p1@(192,273) (upper, in-), t2 -> p0@(284,281) (out).\n    #10 t0 -> p2@(686,595), t1 -> p1@(687,562), t2 -> p0@(781,568).\n    #14 t0 -> p2@(233,702), t1 -> p1@(234,663), t2 -> p0@(326,669). (The tracer had the OUTPUT on t0 here.)\n    #19 t0 -> p2@(713,831), t1 -> p1@(714,806), t2 -> p0@(805,804). (Same fault - output was on t0.)\n  The result is self-consistent with the topology and is a second, independent check on the marks: every feedback element (#1 1uF, #0 1uH, #9 1uF, #13 1uH, #17 1uH) runs from an output back to the terminal now on t1, i.e. the inverting input, and four of the five t0 terminals land on ground.\n  Note the one asymmetry, which is what the sheet draws: op-amp #2's + input is NOT grounded - its lower lead runs left to x~650, down to y~378, left to x~515 and joins the n5 rail. Its - input carries both the resistor-#4 signal and the 1uH feedback.\n  All other components: t0/t1 already sit on the real leads. The single warning (component #0, unused port at (770,151)) is the '1uH' label touching the top of the coil; ignored.\n\nCLASSES\n  All 24 labels match the drawn symbols: five point-right triangles with +/- marks (Op-Amp), six GND rakes, four zig-zags (Resistor), three coils (Inductor), three parallel-plate pairs (Capacitor), one circle with +/- (V-DC #6) and one circle with a plain up-arrow and no sine (I-DC #16, labelled '10A'). No class overrides.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        785.1,
+        172.5,
+        63.5,
+        26.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        337.9,
+        198.7,
+        30.7,
+        41.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Op-Amp",
+      "bbox": [
+        751.9,
+        281.6,
+        101.8,
+        99.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        },
+        {
+          "index": 2,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Op-Amp",
+      "bbox": [
+        238.4,
+        280.6,
+        85.7,
+        80.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        },
+        {
+          "index": 2,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        509.0,
+        272.3,
+        41.3,
+        23.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        919.7,
+        279.4,
+        43.3,
+        25.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        61.5,
+        347.9,
+        72.6,
+        74.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        178.6,
+        351.4,
+        58.0,
+        36.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        62.2,
+        458.5,
+        78.1,
+        40.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Capacitor",
+      "bbox": [
+        769.0,
+        495.0,
+        28.2,
+        33.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Op-Amp",
+      "bbox": [
+        734.0,
+        572.6,
+        88.2,
+        82.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        },
+        {
+          "index": 2,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Resistor",
+      "bbox": [
+        897.8,
+        559.8,
+        45.9,
+        24.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Resistor",
+      "bbox": [
+        604.5,
+        567.4,
+        45.9,
+        22.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Inductor",
+      "bbox": [
+        312.2,
+        571.9,
+        62.0,
+        25.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n9"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Op-Amp",
+      "bbox": [
+        279.9,
+        677.0,
+        86.2,
+        107.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        },
+        {
+          "index": 2,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "GND",
+      "bbox": [
+        672.5,
+        643.7,
+        63.0,
+        37.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "I-DC",
+      "bbox": [
+        84.9,
+        738.2,
+        61.0,
+        66.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n9"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "Inductor",
+      "bbox": [
+        787.4,
+        728.4,
+        51.9,
+        26.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n10"
+        },
+        {
+          "index": 1,
+          "net": "n11"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "class": "GND",
+      "bbox": [
+        225.5,
+        768.2,
+        64.0,
+        35.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "class": "Op-Amp",
+      "bbox": [
+        759.7,
+        812.8,
+        85.2,
+        85.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n10"
+        },
+        {
+          "index": 2,
+          "net": "n11"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "class": "Resistor",
+      "bbox": [
+        904.6,
+        799.2,
+        51.4,
+        25.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n11"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "class": "Capacitor",
+      "bbox": [
+        605.2,
+        811.5,
+        26.2,
+        36.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n10"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "class": "GND",
+      "bbox": [
+        79.6,
+        820.1,
+        64.5,
+        43.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "class": "GND",
+      "bbox": [
+        704.5,
+        877.3,
+        50.4,
+        34.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

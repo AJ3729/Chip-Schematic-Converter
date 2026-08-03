@@ -1,0 +1,31 @@
+{
+  "sites": {
+    "12": "junction",
+    "17": "junction",
+    "18": "junction",
+    "21": "junction",
+    "28": "junction",
+    "29": "junction",
+    "43": "junction",
+    "44": "junction",
+    "45": "junction",
+    "47": "junction",
+    "49": "junction",
+    "61": "junction",
+    "64": "junction",
+    "66": "junction"
+  },
+  "ports": {
+    "0":  {"0": 1, "1": 0},
+    "2":  {"0": 2, "1": 0, "2": 1},
+    "3":  {"0": 0, "1": 2, "2": 1},
+    "9":  {"0": 1, "1": 0},
+    "10": {"0": 2, "1": 1, "2": 0},
+    "14": {"0": 2, "1": 0, "2": null},
+    "16": {"0": 0, "1": 4},
+    "20": {"0": 2, "1": 1, "2": 0},
+    "22": {"0": 1, "1": 0}
+  },
+  "manual_nets": {"14.2": "n5"},
+  "notes": "CIRCUIT: five inverting op-amp stages (all five op-amps have - on the upper input, + on the lower input tied to GND). Stage 1 is driven by the 5V source, stages 2/3/5 are driven from the shared node n5; the three 1k output resistors R5/R13/R19 all land on the same right-hand vertical rail (n6), which is a dead-end bus (no other component on it) - that is what the drawing shows.\n\nNET MAP\n  0  = ground: 5V negative terminal (6.1), the + input of all four grounded op-amps (2.0, 10.0, 14.0, 20.0), the bottom of the 10 A source (16.1) and GND symbols #7 #8 #15 #17 #21 #23.\n  n1 = 5V positive terminal, - input of op-amp #2 (top-left), left plate of the 1uF feedback cap #0; the x~194 riser (site S12).\n  n2 = output of op-amp #2, right plate of cap #0, left end of the 1k resistor #4 (the y~252 rail with the solder dot at S18 (389,252)).\n  n3 = right end of R#4, - input of op-amp #3 (top-right), left end of the 1uH feedback inductor #1 (riser at S17 (593,242)).\n  n4 = output of op-amp #3, right end of L#1 (riser down at S21 (769,261)), left end of R#5.\n  n5 = the big shared node: + input of op-amp #3 (down from (615,284) to the y~325 jog, then the x~466 column), output of op-amp #4 (apex (340,617) -> right to x~373 -> up to the y~547 rail, sites S49/S44), right end of inductor #12, left end of R#11, left plate of cap #22 at the bottom. Solder dot at S43 (466,547).\n  n6 = the right-hand vertical bus x~916: right end of R#5, right end of R#13 (T at S45 (916,554)), right end of R#19.\n  n7 = right end of R#11, - input of op-amp #10, left plate of the 1uF feedback cap #9.\n  n8 = output of op-amp #10, right plate of cap #9, left end of R#13.\n  n9 = top of the 10 A source #16, - input of op-amp #14, left end of inductor #12 (T at S47 (220,612)).\n  n10 = right plate of cap #22, - input of op-amp #20, left end of inductor #18 (riser at S66 (584,801)).\n  n11 = output of op-amp #20, right end of L#18 (corner/T at S64 (752,791)), left end of R#19.\n\nSITE DECISIONS (all CRITICAL sites explicitly recorded)\n  S17 (593,242) junction - clean T, the inductor #1 left lead ends on the horizontal feeding op-amp #3's - input. Crossing would strand the inductor lead on a one-terminal net.\n  S18 (389,252) junction - fat solder dot (dot=2.5), verified in the crop; the cap #0 right lead drops onto op-amp #2's output rail. Crossing would leave the cap right plate dangling.\n  S21 (769,261) junction - T, inductor #1 right lead drops onto op-amp #3's output rail. Crossing would strand it.\n  S43 (466,547) junction - unmistakable solder blob (dot=3.1) where the x~466 column crosses the y~547 rail. Crossing here would split n5 into two, isolating op-amp #3's + input and cap #22 from op-amp #4's output; that also leaves the bottom cap with no return path. Junction is both the ink and the only sane reading.\n  S45 (916,554) junction - T, R#13's right lead ends on the right-hand bus. Crossing would put R#13's right end on a one-terminal net.\n  S47 (220,612) junction - T at the 10 A source / inductor #12 riser feeding op-amp #14's - input. Crossing would leave the current source with no return path.\n  S64 (752,791) junction - the inductor #18 right lead comes down and meets both op-amp #20's output wire and R#19; deg-3 corner+T, all one node.\n  S66 (584,801) junction - T, the inductor #18 left lead riser meets the cap #22 -> op-amp #20 - input wire.\n  Also recorded as junction (not flagged CRITICAL by the tracer only because the affected terminal was mis-assigned before my port fixes): S12 (194,229) T where cap #0's left lead rises off the 5V wire; S44 (372,547) and S49 (352,618) the two ends of op-amp #14's output stub; S28/S29 (cap #9 left lead) and S61 (cap #22 left lead), which are the '1uF' label strokes brushing the wire - junction there is harmless because the label ink is not a port after the fixes below.\n  No crossings anywhere on this sheet: every intersection is either a T or a dotted cross, and no hop/jog is drawn.\n\nPORT / PIN FIXES\n  Op-amp terminal order is (in+, in-, out). The tracer had assigned the leads geometrically (top lead first), which is wrong on every op-amp here because all five are drawn with '-' on top and '+' on the bottom. Fixed #2, #3, #10, #14, #20 accordingly - confirmed the drawn +/- marks in each _comps_ crop.\n  #14 (bottom-left op-amp): its output stub starts ~7 px outside the annotated box, so no port candidate existed for it and the tracer had put t2 on the GND lead of the + input (giving 14.1 = 14.2 = 0). t2 is set to null and pinned with manual_nets to n5; verified in pixels (zoom at (350,615)): apex (340,617) -> horizontal to (373,617) -> vertical up to the y~547 rail, which is n5.\n  #0, #9, #22 (all 1uF caps): t0 was sitting on a stroke of the handwritten '1uF' label above the box; moved to the real left plate lead (p1). Each fixed a one-terminal net (n1/n8/n15 in the original run).\n  #16 (10 A source): t1 was on a stroke of the '10 A' text to the right of the symbol; moved to the bottom lead p4@(103,744) that runs to GND #21. Fixed one-terminal net n12.\n\nCLASSES: all 24 symbols match what is drawn (5 Op-Amp, 5 Resistor, 3 Inductor, 3 Capacitor, 1 V-DC, 1 I-DC, 6 GND). No re-classification needed.\n\nUNRESOLVED: none. The only oddity is that n6 (the right bus) touches nothing but the three output resistors - electrically a floating node - but that is exactly what the drawing shows, so it stays."
+}

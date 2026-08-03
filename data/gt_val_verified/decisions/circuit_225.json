@@ -1,0 +1,46 @@
+{
+ "sites": {
+  "11": "junction",
+  "13": "junction",
+  "14": "junction",
+  "15": "junction",
+  "16": "junction",
+  "17": "junction",
+  "31": "junction",
+  "32": "junction",
+  "33": "junction",
+  "34": "junction",
+  "35": "junction",
+  "36": "junction",
+  "43": "junction",
+  "44": "junction"
+ },
+ "ports": {
+  "2": {
+   "0": 2,
+   "1": 1,
+   "2": 0
+  },
+  "3": {
+   "0": 0,
+   "1": 1,
+   "2": 2
+  },
+  "11": {
+   "0": 2,
+   "1": 0,
+   "2": 1
+  },
+  "14": {
+   "0": 2,
+   "1": 0,
+   "2": 1
+  },
+  "21": {
+   "0": 2,
+   "1": 1,
+   "2": 0
+  }
+ },
+ "notes": "CIRCUIT: five inverting op-amp stages, each drawn as a triangle with '-' on the upper-left input, '+' on the lower-left input and the output at the apex, each with a single feedback element wrapped from its output back to its '-' input. Two sources drive it: V-DC 5V (#6) into op-amp A's summing node and I-DC 10A (#15) into op-amp C's summing node. Six GND symbols. All three 1kOhm stage outputs (#5, #13, #22) tie together on the vertical rail at the right edge (x~995). No hops or jogs anywhere in this drawing; the drafter uses plain Ts, plus two solder dots around (261,614)/(313,630).\n\nNET MAP (12 nets):\n  0  = ground: the '+' inputs of all five op-amps (2.0, 11.0, 14.0, 21.0), the bottom of the 5V source (6.1), the bottom of the 10A source (15.0), and the six GND symbols (7, 9, 16, 18, 19, 23). Note op-amp #3 is the exception - its '+' input is NOT grounded (see n5).\n  n1 = op-amp A (#2) OUTPUT node, y~265 from the apex right to S15 and on to R#4: 2.2, right plate of C#0 (1uF feedback, which comes back over the top via x~505 -> y~130), 4.0.\n  n2 = op-amp A SUMMING node: 2.1 ('-' input), left plate of C#0 (up the x~168 stub to the y~130 run, S11), and the top of the 5V source (6.0) via the y~235 run to x~65.\n  n3 = op-amp B (#3) SUMMING node: 3.1 ('-'), left end of L#1 (1uH feedback, up the x~663 stub, S13), 4.1.\n  n4 = op-amp B OUTPUT node: 3.2 (apex), right end of L#1 (down the x~870 stub, S14), 5.0.\n  n5 = op-amp C (#14) OUTPUT node, extended: 14.2 (apex, right then up x~481 to S32), right end of L#10 (1uH, op-amp C's feedback), 12.0 (R#12 left), plus the long vertical at x~581 which runs from y~352 down to y~800 and carries op-amp B's '+' input (3.0, via the y~355 run and the pen loop at (655,368)) and the left plate of C#20 (20.1). Joined at S33 - see judgement call below.\n  n6 = the right-edge rail x~995, y 262..810: right ends of the three output resistors 5.1, 13.1 and 22.1 and nothing else. A legitimate 3-terminal net; it is the circuit's dangling output bus.\n  n7 = op-amp D (#11) OUTPUT node: 11.2 (apex), right plate of C#8 (1uF feedback, down x~890, S34), 13.0.\n  n8 = op-amp D SUMMING node: 11.1 ('-'), left plate of C#8 (up the x~718 stub, S31), 12.1.\n  n9 = op-amp C SUMMING node: 14.1 ('-'), left end of L#10 (up the x~262 stub), top of the 10A source (15.1). All three meet at the solder dot S36 (261,614).\n  n10 = op-amp E (#21) SUMMING node: 21.1 ('-'), left end of L#17 (1uH feedback, up x~706, S43), right plate of C#20 (20.0).\n  n11 = op-amp E OUTPUT node: 21.2 (apex), right end of L#17 (down x~882, S44), 22.0.\n\nSITE DECISIONS (all CRITICAL sites; all resolved as junctions):\n  S11 (168,231) junction - clean T, C#0's left-plate return drops onto op-amp A's '-' input line.\n  S13 (663,260) junction - clean T, L#1's left end drops onto the R#4 -> op-amp B '-' line.\n  S14 (870,265) junction - clean T, L#1's right end drops onto the op-amp B output -> R#5 line.\n  S15 (499,266) junction - clean T, C#0's right-plate return drops onto op-amp A's output line.\n  S31 (718,540) junction - clean T, R#12's right end meets the stub up to C#8 and down to op-amp D's '-'.\n  S32 (481,541) junction - clean T, op-amp C's output riser meets L#10's right lead and the run east to R#12.\n  S33 (581,545) JUNCTION - JUDGEMENT CALL, the only wire-wire crossing in this image. It is a plain X: the pixel dump at (581,545) shows a 3-4px vertical and a 3-4px horizontal simply overlapping, with no solder dot (no symmetric blob ~3x stroke width in both axes) and no hop or jog. I read it as connected for three reasons. (a) The brief's ink prior: in this dataset a drafter who means 'not connected' draws a hop or a jog, and this drafter drew none anywhere on the sheet - so a bare X is a junction. (b) Function: as a crossing, the x~581 vertical would be a net containing only op-amp B's '+' input and the left plate of C#20 - two high-impedance inputs with no driver at all, leaving op-amp E fed from nothing; as a junction, op-amp C's output drives R#12 (-> op-amp D), C#20 (-> op-amp E) and op-amp B's '+' input, which is a coherent signal flow. (c) The tracer's own default agrees. THE OTHER READING would split n5 into {3.0, 20.1} and {10.1, 12.0, 14.2}, i.e. 13 nets instead of 12; ERC would still pass, so this is decided on the ink prior and on the driverless-net argument, not on an impossibility. This is the least certain call in this image.\n  S34 (887,553) junction - clean T, C#8's right lead drops onto the op-amp D output -> R#13 line.\n  S35 (990,553) junction - clean T, R#13's right end lands on the right-edge rail.\n  S36 (261,614) junction - genuine SOLDER DOT (dot=3.2): the 10A source line from the left, the riser to L#10's left lead, and the run right to op-amp C's '-' input all meet.\n  S43 (706,794) junction - clean T, C#20's right lead meets the riser to L#17 and op-amp E's '-' input.\n  S44 (882,816) junction - clean T, L#17's right lead drops onto the op-amp E output -> R#22 line.\n  S16/S17 (652-660,365-368) recorded as junction: verified at 10x, this is not a symbol - it is the little pen loop the drafter left when turning the corner from op-amp B's '+' lead into the horizontal run west. All branches are the same wire.\n  Every other site (S4-S8, S18-S29, S38-S41, S45) is a stroke of a handwritten value label ('1uF', '1uH', '1kOhm') brushing the wire or component it annotates; left at the tracer default, none carries a terminal.\n\nPIN-ORDER FIXES (all five op-amps needed reordering to the required in+, in-, out):\n  #2  {t0:p2@(240,281) '+', t1:p1@(240,234) '-', t2:p0@(374,269) apex} - was in-, in+, out.\n  #3  {t0:p0@(717,307) '+', t1:p1@(716,257) '-', t2:p2@(832,271) apex} - was out, in-, in+.\n  #11 {t0:p2@(751,587) '+', t1:p0@(752,539) '-', t2:p1@(859,558) apex} - was out, in-, in+.\n  #14 {t0:p2@(343,678) '+', t1:p0@(343,627) '-', t2:p1@(443,669) apex} - was in-, in+, out.\n  #21 {t0:p2@(738,836) '+', t1:p1@(738,794) '-', t2:p0@(841,817) apex} - was in-, in+, out.\n  The '+' and '-' marks are legible inside every triangle (see the comps montages), so no physical-reading guesswork was needed; in all five the '-' is the upper input and the '+' the lower one, and in four of the five the '+' input goes straight to a GND symbol, which corroborates the assignment. Op-amp #3 is the exception: its '+' input runs west to the x~581 vertical (n5), so it is not grounded.\n  No wire/terminal port fixes were needed. All 12 'unused port candidate' warnings are handwriting strokes ('1uF', '1uH', '1kOhm', '5V', '10A') that touch a component box; in every case the terminals already point at the real leads (checked against the wire lengths in the report: e.g. #5 p0 wire=333 is the right-edge rail, #20 p0 wire=288 is the x~581 vertical). All 46 gap bridges are non-critical and none changes the netlist.\n\nCLASSES: all 24 accepted as annotated. Both source symbols are unambiguous (#6 circle with +/- = V-DC; #15 circle with a vertical arrow = I-DC), the five triangles are Op-Amps, the six ground symbols are GND, and the RLC symbols match their handwritten values.\n\nUNRESOLVED: nothing blocking - ERC is clean and every net has at least 3 terminals. The single soft spot is S33 (documented above)."
+}

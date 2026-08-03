@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "image": "circuit_21.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a single-supply RLC ladder drawn as one rectangle with a middle branch. Left rail x~185 carries V-DC 12V #3; top rail y~373 carries R 2k #1 (left half) and R 4ohm #0 (right half); a middle column at x~405 drops from the top rail through Inductor 5mH #2 to the bottom rail and on to the GND symbol #5 at (412,608); right rail x~623 carries Capacitor 2F #4; bottom rail y~570 closes the loop.\nNET MAP (4 nets, 9 terminals):\n  n3 = top-left corner node: 3.0 (V-DC top, up the left rail to (185,375)) and 1.0 (2k left lead at (262,375)).\n  n1 = mid-top node at S0 (398,373): 1.1 (2k right lead), 0.0 (4ohm left lead), 2.0 (5mH top).\n  n2 = top-right corner node: 0.1 (4ohm right lead) down the right rail to 4.1 (2F top plate lead at (625,468)).\n  0  = the bottom rail plus the GND stub: 3.1 (V-DC bottom), 2.1 (5mH bottom), 4.0 (2F bottom lead), 5.0 (GND). Named '0' because the GND symbol sits on it.\nPORT FIXES (both were the classic value-label trap - each produced a one-terminal net):\n  #1 Resistor 2k: t0 was landing on p3@(278,400), a stroke of the handwritten '2K-ohm' label that brushes the box from below (net n3 had a single terminal). The real left lead is p4@(262,375). Repointed t0->p4, t1->p0 (357,374) right lead.\n  #4 Capacitor 2F: t1 was landing on p0@(659,490), the right-hand tail of the '2F' glyph / upper plate stub (net n5 had a single terminal). The real top lead is p3@(625,468). Repointed t1->p3, t0->p1 (625,513) bottom lead.\nAfter the fixes every net has >=2 terminals and no 'unused port candidate with a real wire' warning remains that is not simply label ink.\nCLASSES: all six symbols agree with their labels - two zig-zag Resistors (#0 '4 ohm', #1 '2K ohm'), a coil Inductor (#2 '5mH'), a circle-with-plus/minus V-DC (#3, '12V' written to its left), a two-plate Capacitor (#4 '2F') and a three-bar GND (#5). Nothing re-classed.\nSITE DECISIONS (there are no hops or ambiguous X crossings anywhere on this sheet):\n  S0 (398,373) CRITICAL - JUNCTION. Clean T: the 5mH column starts at the top rail between the two resistors. A crossing reading is not even expressible (deg 3) and would strand the inductor.\n  S12 (412,570) CRITICAL - JUNCTION. deg 5: the 5mH bottom lead crosses the bottom rail and continues 12 px further down into the GND symbol. Reading it as a crossing would leave GND on a one-terminal net and the inductor bottom off the return rail; the crop shows a plain unbroken cross with no dot and no hop, and the GND stub is clearly the same stroke as the inductor lead.\n  S1 (519,392), S4 (275,402), S5 (293,408), S7 (275,410), S9 (433,492), S10 (665,499) - all non-critical text-on-wire contacts: the '4 ohm' glyphs touching #0's body, three contacts of the '2K ohm' glyphs under #1, the '5' of '5mH' on #2's box edge and the '2' of '2F' on #4's lower plate. Left at the default junction; after the port fixes none of them carries a terminal, and I checked that the '2F' glyph does not bridge #4's two plates (upper-plate stub and lower plate stayed in different tracer nets before the fix, so the capacitor is not shorted).",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        523.1,
+        367.9,
+        93.7,
+        31.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        309.7,
+        373.9,
+        87.7,
+        34.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        404.7,
+        478.9,
+        35.7,
+        80.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        184.5,
+        474.5,
+        51.5,
+        56.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        623.8,
+        491.2,
+        54.2,
+        36.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        411.9,
+        607.9,
+        75.8,
+        42.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

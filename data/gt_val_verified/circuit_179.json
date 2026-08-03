@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "image": "circuit_179.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a two-mesh AC ladder drawn inside a hand-drawn page border (the outer rectangle is not part of the circuit and touches nothing). Left column: I-AC 3sin(wt) A (#5) between the slightly-slanted top rail (y~385) and the bottom rail (y~585). Top rail, left to right: left corner -> R 20 ohm (#1) -> node at the 2 F column (S8, 468,386) -> L 3 H (#0) -> node at the V-AC column (S7, 692,364) -> right corner down through L 3 H (#2, the vertical coil at x~824) to the bottom-right corner. Middle column at x~478: from the top rail down through C 2 F (#4) and on down across the bottom rail (S18, 480,579) to the GND symbol (#8) at y~650. Right column at x~700: V-AC 4cos(wt) V (#3) between the top rail and the bottom rail (S17, 708,562). Bottom rail, left to right: left corner -> L 4 mH (#7) -> the S18 crossing -> C 3 F (#6) -> the V-AC column -> bottom-right corner.\n\nNET MAP (6 nets, 9 components, 17 terminals):\n  n1 = top rail between the 20 ohm resistor and the 3 H inductor: R20 right (1.1), C2F top (4.0), L3H #0 left (0.0). Joined at S8.\n  n2 = top rail right of the 3 H inductor: L3H #0 right (0.1), V-AC top (3.0) at S7, L3H #2 top (2.0) via the top-right corner.\n  n3 = top rail left of the 20 ohm resistor, round the left corner: I-AC top (5.0), R20 left (1.0).\n  n4 = bottom rail right of the 3 F capacitor: C3F right (6.0), V-AC bottom (3.1) at S17, L3H #2 bottom (2.1) via the bottom-right corner at S16 (846,529).\n  n5 = bottom rail left of the 4 mH inductor, round the left corner: I-AC bottom (5.1), L4mH left (7.0).\n  0  = the ground net: the bottom-rail segment between the 4 mH inductor and the 3 F capacitor, plus the whole middle column below the 2 F capacitor down to the GND symbol. Terminals: C2F bottom (4.1), C3F left (6.1), L4mH right (7.1), GND (8.0). Formed by the S18 junction.\n\nSITE DECISIONS (all 4 CRITICAL sites read explicitly):\n  S7 (692,364) JUNCTION - clean T: the V-AC column drops out of the top rail. Degree 3, no crossing possible; the other reading would strand the V-AC top lead.\n  S8 (468,386) JUNCTION - clean T: the 2 F column drops out of the top rail. Degree 3.\n  S17 (708,562) JUNCTION - clean T: the V-AC column lands on the bottom rail and stops there (degree 3, nothing continues below). The small V-shaped notch in the rail just left of the meeting point is pen wobble where the two strokes join, not a hop - a hop would be a semicircular arc clearing the vertical, and the vertical is not continuous through the rail anyway.\n  S18 (480,579) JUNCTION - the one real judgement call on this sheet. Degree 4, a plain X: the middle column runs continuously from the 2 F capacitor's bottom plate down to the GND symbol, and the bottom rail runs continuously left-to-right through it. I dumped the pixels with inkmap at (480,579): the vertical stroke is a uniform 3-4 px wide above and below, the rail is uniform either side, and the overlap patch at y=577-585 is simply the union of the two strokes - elongated along the rail, NOT a symmetric blob ~3x stroke width in both axes, so there is no solder dot. There is also no arc and no sideways jog anywhere in the +/-24 px window (the reported hop=4.9 is picking up the 3 F capacitor's left plate, a straight vertical stroke ~28 px to the right at x~508, and dot=2.1 is just the two-stroke overlap). Decision rationale, in the brief's order: (1) Electrical impossibility settles it. Under the CROSSING reading, net 0 would consist of only the 2 F capacitor's bottom plate and the GND symbol, so the 2 F branch would hang off the top rail with no return path to the rest of the circuit and would carry no current, while the bottom-rail segment between the 4 mH inductor and the 3 F capacitor would be a private 2-terminal net. That is exactly the 'branch with no return path' case the brief says to reject. Under the JUNCTION reading everything is a proper two-mesh network with ground as a real node. (2) The ink prior points the same way - in this dataset a bare crossing with no hop and no jog is a real junction, and this drafter drew no hops anywhere on the sheet. (3) Drafter habit: every other wire meeting on this sheet is a plain T with no dot, so the absence of a dot here carries no information either way. Junction on all three counts, and it agrees with the tracer default.\n  Non-critical sites S1, S2, S3, S4, S6, S11, S12, S13, S14, S15, S16, S20, S22, S23 are caption ink ('20 ohm', '3H', '2F', '3F', '4mH', '3sinwtA', '4coswtV') brushing a wire, or plain corners on nets already fixed above. All left at the default; none changes the netlist.\n\nPORT / TERMINAL FIX (1 component):\n  #4 Capacitor (2 F, centre 474,477): t1 -> p0 (477,513), the real bottom lead descending from the lower plate. It had been pointing at p2 (527,440), which is the '2 F' caption text touching the upper plate - that was the source of the one-terminal net n5 in the original report. Verified in the #4 component crop and in the S11 crop, which shows the caption stroke running into the plate.\n  Not changed but checked: #0 ports p1/p3 are the '3 H' caption, #2 port p2 is the '3 H' caption, #1 p2 is '20 ohm', #5 p2 is '3sinwtA', #7 p2/p3 are '4 mH'. All correctly left unused.\n\nCLASSES: all 9 accepted as annotated. #5 (circle with a sine and an up arrow, labelled '3sin wt A') is I-AC and #3 (circle with a sine, labelled '4cos wt V') is V-AC - the arrow inside #5 is the distinguishing mark and it is clearly there. #2 is an Inductor drawn vertically (coil loops), not a resistor. No 3-terminal parts, so no pin-order questions.\n\nUNRESOLVED: nothing. ERC clean, no single-terminal nets.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        570.1,
+        372.5,
+        134.5,
+        48.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        356.7,
+        389.4,
+        112.2,
+        45.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        824.5,
+        435.5,
+        60.0,
+        109.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-AC",
+      "bbox": [
+        693.7,
+        470.5,
+        112.8,
+        126.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        473.9,
+        476.9,
+        103.3,
+        66.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-AC",
+      "bbox": [
+        255.4,
+        502.2,
+        94.1,
+        115.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        551.2,
+        566.6,
+        78.9,
+        79.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        341.7,
+        586.9,
+        116.7,
+        52.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        486.2,
+        650.8,
+        85.6,
+        68.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

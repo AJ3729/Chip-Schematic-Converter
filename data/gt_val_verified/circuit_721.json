@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "image": "circuit_721.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "Circuit: a single series loop driven by an AC current source. Reading the drawing: from the I-AC symbol (#3, centre 223,483) on the left vertical rail, the wire runs up to the top-left corner (240,372), right along the top rail through R1 20K (#0) and then the 2uF capacitor (#1), on to the top-right corner (700,372), down the right rail through the 20mH inductor (#2), to the bottom-right corner (675,605), and left along the bottom rail back to the bottom of the current source. A GND symbol (#4) hangs off the bottom rail at x~465. NET MAP: n1 = top terminal of I-AC #3, left-hand end of the top rail and left lead of R #0. n2 = right lead of R #0 through the short top-rail segment to the LEFT plate of capacitor #1. n3 = right plate of capacitor #1, the rest of the top rail, the top-right corner and the whole right rail down to the top of inductor #2. 0 = bottom of inductor #2, bottom-right corner, the entire bottom rail, the GND stub at (465,609) and the bottom terminal of I-AC #3. JUDGEMENT CALLS / SITES: S10 (465,609) deg=3, the only CRITICAL site: the crop shows a clean T - the vertical GND stub terminates on the horizontal bottom rail, no hop, no jog - so JUNCTION. The alternative reading ('none'/crossing) is impossible here: the stub has a free end, so not joining it would strand the GND symbol on a one-terminal net and leave the loop with no reference. S0 (529,411), S3 (566,419) and S8 (728,490) are non-critical text-ink artefacts (the handwritten '2uF' label and the '20mH' label brushing the symbol boxes); left at their defaults, and after the port fix below no terminal lands on them so they contribute nothing to the netlist. PORT FIX: capacitor #1 t0 was sitting on port p0@(528,407), which is a stroke of the handwritten '2uF' value label just under the box (wire=3 px, and it produced the single-terminal nets n2 and n3 flagged in the warnings). The real left plate lead is p2@(512,375), which lies on the same wire run (wire id 69) as the right lead of R #0 - verified in the comps crop, where p2 is drawn on the horizontal rail entering the left plate. Remapped t0->p2 and t1->p1 (the right lead at 565,378, wire 184, which runs to the inductor). This removed both one-terminal nets. CLASSES: all five symbols match their labels - zig-zag = Resistor, two parallel plates = Capacitor, coil = Inductor, circle with a sine and an arrow through it = I-AC current source (the label '5 sin 20t A' confirms a current source in amperes), and the three-bar symbol = GND. Nothing unresolved.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        397.3,
+        378.9,
+        86.5,
+        42.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        539.0,
+        378.9,
+        46.5,
+        42.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        692.4,
+        474.9,
+        40.7,
+        85.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-AC",
+      "bbox": [
+        222.8,
+        482.6,
+        62.9,
+        65.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        462.1,
+        660.5,
+        111.8,
+        52.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

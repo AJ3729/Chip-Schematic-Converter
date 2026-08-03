@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "image": "circuit_249.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a hand-drawn 6-column x 5-row mesh, drawn in landscape with all the value text rotated 90 deg. Vertical rails ('columns') at x ~ 100 (A), 282 (B), 436 (C), 590 (D), 727 (E), 856 (F). Horizontal rails ('rows') at y ~ 305 (the source row: V-AC #1, I-AC #3, V-DC 5V #6, I-DC 10A #9, V-DC 15V #11 left to right), 434, 540, 645 and 772. A GND symbol hangs off the right end of row 540.\n  This drafter's convention is completely consistent and easy to read: where a ROW must pass a COLUMN without connecting, the row is drawn with a downward semicircular DIP under the column (S10/S11/S15, S16, S17, S18, S28, S29, S34 - eight of them, all verified in the crops and, for the borderline ones, in pixel dumps). Where they connect, the drawing shows either a plain T (the column simply stops on the row) or a round solder dot (S21, S23). Columns A and F run the full height; columns B, C, D and E are stubs that hang from the source row and terminate on row 772, 645, 645 and 540 respectively.\n\nNET MAP (5 nets):\n  n1 = COLUMN A, the full-height left rail, plus the left run of every row (each of which tees onto it at S3, S9, S21, S33 and then dips under columns B/C/D on its way east). Terminals: left lead of V-AC #1, left lead of L#8 (50uH, reached along row 434 over the dips at B, C and D), left lead of R#7 (row 540 over the dips at B and C), left lead of L#2 (5uH, row 645 over the dip at B), left lead of L#0 (1uH, at the bottom of column A). [1.0 8.0 7.0 2.0 0.0]\n  n2 = COLUMN B, from the source row (between V-AC #1 and I-AC #3, S4) down past the dips at rows 434, 540 and 645 to row 772, where it tees (S35) into the segment between L#0 and C#4 (5uF). [1.1 3.0 0.1 4.1]\n  n3 = COLUMN C, from the source row (between I-AC #3 and V-DC 5V #6, S5) down past the dips at rows 434 and 540 to row 645, where it tees (S32) into the segment between L#2 (5uH) and C#5 (1uF). [3.1 6.0 2.1 5.1]\n  n4 = the short run of row 434 between L#8 (50uH) and C#12 (100uF), which dips under column E. [8.1 12.0]\n  '0' = the ground super-node: COLUMNS D, E and F are all one node. Column D drops from the source row (between V-DC 5V and I-DC) to row 645 (S31) and from there row 645 continues east as 258px of PLAIN WIRE (e67, no component) to column F. Column E drops from the source row (between I-DC and V-DC 15V) to row 540 (S22) and from there row 540 continues east as 124px of PLAIN WIRE (e47) to column F, where the solder dot S23 also picks up the GND lead and the bottom rail. Column F is continuous from the source row (right of V-DC 15V) down through row 434 (S14) and row 540 (S23) to y~770, where it turns west along row 772 to C#4. Terminals: 6.1, 9.0 (column D), 5.0 (C#5 right), 7.1 and 10.1 (row 540 at S25), 10.0 (C#10 right), 9.1, 11.0 (column E), 11.1 (column F), 12.1 (C#12 right), 4.0 (C#4 right, via the bottom rail), 13.0 (GND). [12 terminals]\n\nSITE DECISIONS (every CRITICAL site and every site carrying a terminal):\n  S3 (100,305), S4 (282,309), S5 (436,312), S6 (592,315), S7 (729,317) junction - the five column tops tee onto the source row; all clean solid Ts, S7 verified in a pixel dump (no dip, no hop, the column simply starts at the row).\n  S9 (99,430), S33 (95,646) junction - rows 434 and 645 tee onto column A. S21 (97,535) junction - a genuine round solder dot where row 540 meets column A.\n  S10/S11/S15 (column B x row 434) explicit groups [[13,30,40],[25,26,27,34]] with S10 and S11 'none' (overrode the tracer's junction). The pixel dump at (283,440) shows the column running dead straight from y=416 to y=456 while the row descends from y~431 on the left to y~443 under the column and climbs back to y~430 on the right - a textbook dip. The three tiny skeleton fragments the tracer produced where the rising arm brushes the column at y~431 (e26, e34) are assigned to the row; e30 is the column. Junction here would have merged column B with column A.\n  S16 (436,440) explicit groups [[15,41],[27,31]] - same dip, column C under row 434.\n  S17 (589,438) explicit groups [[20,39],[31,37,32]] - same dip, column D under row 434 (S13 at (598,433) is only the continuation of the row's right arm toward L#8 and is left at junction, consistent with the grouping).\n  S18 (727,446) explicit groups [[35,42],[28,33]] - same dip, column E under row 434; pixel dump at (727,443) confirms the column is straight through y=421..461 and the row makes the U.\n  S28 (434,548) explicit groups [[41,62],[59,60]] - same dip, column C under row 540.\n  S29 (278,552) crossing and S34 (276,654) crossing - the two dips the tracer already detected (hop=33.7 and 31.4): column B under rows 540 and 645. Agreed with the default.\n  S14 (856,435) junction - row 434 tees onto column F after C#12.\n  S22 (726,534) junction - clean solid T: column E ends on row 540. Pixel dump at (727,535) shows no ink at all below y=538 at that x.\n  S23 (855,535) junction - a genuine SOLDER DOT: the pixel dump at (856,536) shows a blob spanning x 851-859 by y 528-539, i.e. 4-5x the ~2px stroke width in both axes, with column F running straight through it. It ties column F above, column F below (which continues to the bottom rail), row 540 from column E, and the GND lead.\n  S25 (587,537) JUNCTION - the one judgement call in this image. The pixel dump at (588,540) shows a perfectly plain X: a 2px vertical crossing a 3px horizontal, no dot and - decisively - NO DIP, where this drafter drew a dip at all eight of the crossings they meant to be crossings. So column D is connected to row 540 here, i.e. R#7's right lead and C#10's left lead both sit on column D. THE OTHER READING (crossing) would peel {7.1, 10.1} off into a separate 2-terminal net and give 6 nets instead of 5; it would also remove the C#10 warning below. I rejected it because it contradicts the drafter's own, perfectly consistent, notation on this sheet.\n  S31 (585,638), S32 (434,641), S35 (274,772) junction - clean Ts where columns D, C and B terminate on rows 645, 645 and 772 respectively.\n  Non-critical sites S0, S1, S2, S19, S30 left at the tracer default: strokes of the rotated handwritten labels ('3V 1kHz', '5A 1kHz', '50uF', '1uF') brushing a source circle or a wire.\n  Gap bridge B11 (844,639)->(851,639) KEPT. The pixel dump at (850,641) shows row 645's ink ending at x=846 and column F starting at x=851 - a 4px pen skip, not a deliberate gap; the drafter clearly ran the row into the rail. Dropping it would leave a 258px wire dead-ending 4px from a rail, which no drafter intends.\n\nPORT FIX:\n  #5 (Capacitor 1uF): t0 was on p2@(481,612), a stroke of the rotated '1uF' label sitting on top of the component box; moved to p0@(511,639), the real right lead (72px of wire east along row 645). This was the cause of the single-terminal net 'n1' in the original report. t1 stays on p1@(461,642), the real left lead.\n  The other 'unused port candidate' warnings (#1 p2, #7 p2, #11 p2, #12 p2/p3) are all label strokes; those components' terminals already point at the real leads.\n\nUNAVOIDABLE ERC ERROR - READ THIS:\n  finalize.py reports [ERR] 11 (V-DC): voltage source short-circuited (both terminals on '0'), plus warnings that I-DC #9 and C#10 are likewise shorted. THESE ARE PROPERTIES OF THE DRAWING, NOT OF THE ANNOTATION, and there is no reading of the ink that removes them. The chain is: V-DC #11 left lead -> source row -> S7 (solid T) -> column E -> S18 (dip, crossing) -> S22 (solid T) -> row 540 e47 (124px of plain wire) -> S23 (solder dot) -> column F -> S14 -> up column F -> source row -> V-DC #11 right lead. Every one of those links was verified at the pixel level: a column-by-column scan of column F over y 315..778 finds ink in every row but one (a single-pixel JPEG dropout at y=497), and a scan of row 540 over x 728..856 finds ink in every column. The same pathology produces the I-DC and C#10 warnings, via the 258px plain-wire run of row 645 from column D to column F. In short, the generated netlist behind this sheet ties columns D, E and F together with two plain wires, which parallels out the 15V source, the 10A source and the 50uF capacitor. I did NOT fabricate a disconnection to silence the check, per the brief's rule 'never invent a connection to make ERC happy' and 'GT describes the drawing'.\n\nCLASSES: all 14 accepted as annotated, with one flag. #7 is annotated Resistor and IS drawn as a sharp zigzag - visibly different from the three inductors on this sheet (#0, #2, #8), which are drawn as rounded coils - but the drafter's value text next to it reads '100uH', an inductance. The symbol governs, so I kept Resistor; the label is either the drafter's slip or a generator mismatch. Everything else is unambiguous: #1 is a plain circle-with-sine (V-AC) while #3 has a sine plus an arrow (I-AC), #9 is a circle with a bare arrow (I-DC), #6 and #11 are circles with +/- (V-DC).\n\n=== SECOND READER (audit pass) ===\nCHANGED, two sites, both forced by electrical impossibility:\n  S22 (726,534)  junction  ->  explicit groups [[47,51],[42]]\n       row 540 stays continuous (e51 from C#10's right lead + e47 east to column F);\n       column E (e42) is NOT joined to it.\n  S25 (587,537)  junction  ->  crossing\n       column D (e39/e61) passes through row 540 (e52/e53) without joining.\nEverything else - all dips, all other Ts, the S23 solder dot, gap bridge B11, the\n#5 port fix, the Resistor/'100uH' class flag - re-derived independently and left\nexactly as the first pass had it. The first pass's site-by-site ink reading is\ncorrect in every particular; what it got wrong was concluding that the resulting\nshort is a property of the drawing.\n\nWhy the first pass's \"unavoidable short\" conclusion does not stand.\n  The chain it traced is right: 15V left lead -> source row -> column E -> S22 ->\n  row 540 east (e47, 124 px) -> S23 solder dot -> column F -> source row -> 15V\n  right lead. I re-verified every link at the pixel level and agree there is no\n  gap, dip, jog or hop anywhere in it:\n    * column E: a min-gray scan over x 716..737 for every y from 320 to 533 finds\n      ink (<170) in EVERY row - no break.\n    * row 540 east of column E: a min-gray scan over y 528..544 for every x from\n      700 to 870 finds ink in every column - no break.\n    * S23 (855,535): a genuine solder dot, blob x 851-859 by y 528-539, i.e. 9x12\n      px against a 2 px stroke, with column F running straight through it. This\n      sheet has three other blobs of that kind (S21 97,535; S33 95,646; S35\n      274,772) and every one of them is at a place that must be a junction, and\n      there is no blob at any of the eight dips. A dot here means \"connected\", and\n      it cannot be split anyway: the horizontal is ONE pen stroke - its y-centroid\n      is 533.5 +-0.3 continuously from x=718 through the dot at 855 all the way to\n      the GND symbol at x=910, while the stroke arriving from C#10 sits 2.5 px\n      lower (y-centroid 536.3 for x=600..718). So e47 and the GND lead e48 are the\n      same wire and must stay together.\n  So the break has to be at S22, the only remaining link. And it has to happen,\n  because a generated circuit cannot contain a dead-shorted independent voltage\n  source; BRIEF rule 1 (\"electrical impossibility wins\") makes that reading wrong\n  whatever the ink prior says.\n\nPixel picture at S22 (726,534) and why \"not joined\" is a legal reading here.\n  Raw grays over x 706..741, y 524..542: column E is a 2 px stroke at x=725-726\n  whose last ink is row 532; the eastbound horizontal occupies rows 533-535 from\n  x=718 onward; the westbound horizontal from C#10 occupies rows 534-537 and ends\n  at x~718. So column E's tip lands on the SIDE of an already-continuous\n  horizontal, 7 px east of where that horizontal begins - it is a tip-on-wire\n  landing, not a corner, and there is no dot on it. Row 540's two genuine\n  terminations are both dotted (column A at S21, column F at S23) and this one is\n  not. Verified precedent for exactly this call: sibling circuit_187, whose GT is\n  human-verified, has col3's lower run ending on the bottom rail at (500,940) as a\n  bare undotted T with a small terminal curl, and reads it as NOT connected\n  (col3 lower = n6, bottom rail = 0) - for precisely the same reason, to keep its\n  15 V source unshorted; the same sheet dots the real tie at (497,772).\n  Column E therefore taps nothing: it is a 2-terminal node between the 10A and the\n  15V. That outcome also exists in the verified set - circuit_468's n4 is exactly\n  {I-DC t1, V-DC t0} with nothing else on it.\n\nWhy S25 also has to move (this is the second impossibility, and the first pass\nflagged it as a warning without resolving it).\n  With S22 broken but S25 left as a junction, C#10 (50uF) still has BOTH terminals\n  on net 0: its left lead sits on column D (via the S25 junction) and its right\n  lead sits on row 540 east, and column D reaches row 645's tail at S31 and thence\n  column F. A capacitor short-circuited by a plain wire is as impossible in a\n  generated netlist as a shorted source, and it is the warning the first pass\n  recorded but could not explain. Reading S25 as a crossing removes it and nothing\n  else changes.\n  The ink cost is real and I state it plainly: S25 is a textbook plain X - raw\n  grays show row 540 running dead straight at y-centroid 536.5 +-0.3 across\n  x=540..640 with no deviation at all at x=587, and column D running straight\n  through - on a sheet where the drafter drew a dip at all eight crossings they\n  meant to be crossings, including column D itself at row 434 (S17) and columns B\n  and C on this very row (S29, S28). So this is a missing dip, i.e. a drafting\n  omission, not a mark I am re-reading. Two things support taking it as a\n  crossing anyway: (a) the impossibility above; (b) the sheet's own structure -\n  every other column taps the mesh exactly where its TIP terminates (B's tip on\n  row 772, C's tip on row 645, D's tip on row 645, E's tip on row 540) and crosses\n  everything it meets on the way; a junction at S25 would make column D the only\n  column that taps two different rows.\n\nResulting net map (7 nets, 27 terminals) - replaces the 5-net map above:\n  n1 = column A + every row's west run: 0.0, 1.0, 2.0, 7.0, 8.0                [5]\n  n2 = column B + row 772 mid (L#0 1uH / C#4 5uF): 1.1, 3.0, 0.1, 4.1          [4]\n  n3 = column C + row 645 mid (L#2 5uH / C#5 1uF): 3.1, 6.0, 2.1, 5.1          [4]\n  n4 = row 540 mid, R#7's right lead to C#10's left lead, crossing column D\n       at (587,537) without joining: 7.1, 10.1                                 [2]\n  n5 = row 434 mid, L#8's right lead to C#12's left lead, dipping under\n       column E at (727,446): 8.1, 12.0                                        [2]\n  n6 = column E alone, between the 10A and the 15V, its tip lying on but not\n       joined to row 540 at (726,534): 9.1, 11.0                               [2]\n  0  = column F (full height) + the GND lead + row 540 east of column E + the\n       east tails of rows 434, 645 (through bridge B11) and 772 + column D:\n       4.0, 5.0, 6.1, 9.0, 10.0, 11.1, 12.1, 13.0                              [8]\n  This is net-for-net the shape of verified sibling circuit_468 (5/4/4/2/2/2/8)\n  and it matches the 7-net count of this image's own verified sibling\n  circuit_187 (which partitions the bottom slightly differently, 5/4/4/2/2/3/7).\n  ERC is now completely clean - no errors and no warnings.\n",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        174.5,
+        771.1,
+        72.5,
+        28.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        220.7,
+        308.1,
+        58.5,
+        51.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        360.5,
+        640.4,
+        69.9,
+        30.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-AC",
+      "bbox": [
+        364.4,
+        311.5,
+        58.9,
+        49.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        419.5,
+        772.4,
+        39.1,
+        50.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        486.9,
+        641.2,
+        41.0,
+        46.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        510.3,
+        313.2,
+        56.6,
+        55.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        514.8,
+        534.8,
+        62.7,
+        24.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        642.8,
+        431.3,
+        59.6,
+        21.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "I-DC",
+      "bbox": [
+        655.0,
+        316.3,
+        63.4,
+        54.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Capacitor",
+      "bbox": [
+        650.1,
+        538.3,
+        41.4,
+        44.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "V-DC",
+      "bbox": [
+        792.7,
+        318.5,
+        66.8,
+        58.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Capacitor",
+      "bbox": [
+        785.1,
+        436.5,
+        38.0,
+        38.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "GND",
+      "bbox": [
+        927.6,
+        532.1,
+        42.8,
+        37.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

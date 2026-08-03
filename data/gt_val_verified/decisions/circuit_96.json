@@ -1,0 +1,26 @@
+{
+  "sites": {
+    "2": "junction",
+    "8": "crossing",
+    "9": "junction",
+    "10": "junction",
+    "11": "junction",
+    "16": "junction",
+    "17": "junction",
+    "22": "junction",
+    "27": "crossing",
+    "29": "junction",
+    "30": "junction",
+    "31": "junction",
+    "32": "junction",
+    "33": "junction",
+    "34": "junction"
+  },
+  "ports": {
+    "10": {"0": 2, "1": 0, "2": 1},
+    "12": {"0": 1, "1": 2, "2": 0},
+    "13": {"0": 0, "1": 2, "2": 1},
+    "14": {"0": 2, "1": 1, "2": 0}
+  },
+  "notes": "CIRCUIT: multi-output shunt-regulator / reference ladder. +15 V top rail feeds a 15k-15k divider (taps +10 V), then a horizontal mid rail at y~470 carrying two more 15k resistors that produce the +6 V and +5 V nodes. Each output has a PNP sense transistor whose emitter sits on the output and whose collector drives an NPN shunt to the bottom ground rail (y~888). A 2-diode string on the x~700 column sets the +5 V reference. NET MAP (final labels from finalize.py): 0 = bottom ground rail y~888 plus GND symbol #21 - emitters of Q17/Q18/Q19/Q20, collector of PNP Q13, bottom of R15 (50k) and R16 (50k). n1 = +15 V top rail y~180 - port #0, top of R1, collector of Q3. n2 = +10 V tap x~277 y~315 between R1 and R5 - port #2. n6 = node x~277 y~470, left end of the mid rail - bottom of R5, left of R9, EMITTER of PNP Q10. n7 = +6 V node x~505 y~470 - right of R9, left of R8, port #7, EMITTER of PNP Q12. n4 = +5 V node - right of R8, the whole y~470 rail right of x~745, the x~815 column from Q3's emitter down to Q17's collector, port #6, EMITTER of PNP Q14. n3 = Q3 base + D4 anode (wire y~280, x 700..800). n5 = D4 cathode + D11 anode (x~700 column, hops the mid rail at S8). n10 = D11 cathode + Q14 base + Q18 collector (x~700 column below D11, branch right at S17 y~665). n14 = Q14 collector + Q17 base. n9 = Q10 base + Q13 emitter (wire y~553 x 200..250 and x~200 column). n13 = Q13 base + top of R16 (wire y~600 x 105..165). n8 = Q10 collector + Q19 collector (x~287 column y 603..790). n15 = Q19 base + Q20 base (wire y~820 x 303..490). n12 = Q12 base + top of R15. n11 = Q12 collector + Q20 collector + Q18 base (x~493 column, jog right at y~740 to x~540, down to the y~800 wire that runs to Q18's base). JUDGEMENT CALLS: S8 (739,466) = CROSSING. 12x pixel zoom shows an unmistakable semicircular hop: the x~700 diode column jogs right to x~737 between y~450 and y~490 while the mid rail runs straight through at y~470. Reading it as a junction would merge n5 (between D4 and D11) into the +5 V node n4, i.e. short D11's anode to the regulator output and collapse the diode reference. S9 (808,466) = JUNCTION. 14x zoom shows a plain X: no solder blob (stroke width identical in both axes at the crossing) and no hop. This drafter demonstrably draws a hop when he means 'not connected' (S8 and S27 on this same sheet), so a bare X is a real junction. Reading it as a crossing would strand {right end of R8, +5 V port #6} as an isolated two-terminal net and would disconnect the +5 V label from Q3's emitter follower and Q17's shunt - electrically the wrong picture. S27 (587,802) = CROSSING. 12x zoom shows the R15 (50k) column hopping right around the y~800 wire before continuing to the ground rail. As a junction it would tie R15's grounded bottom end to Q18's base, shorting that base to ground through 0 ohm and killing the shunt. S11 (505,474) = JUNCTION (deg 4): the +6 V arrow stem and the column feeding Q12's emitter are one continuous vertical stroke; joining it to the rail is what creates the +6 V node. S2, S10, S16, S17, S22, S29, S30, S31, S32, S33, S34 are all plain T's (one wire ending on another) - junction, checked in the site crops. PIN-ORDER FIXES: all four PNPs (#10, #12, #13, #14) had t0/t2 swapped by the tracer. In every one of them the emitter arrowhead is drawn on the UPPER diagonal lead pointing back toward the base bar (PNP convention), and the physical reading agrees - the upper lead is the more positive terminal in each case (Q10 upper = divider node n6 vs lower = NPN collector; Q12 upper = +6 V vs lower = Q18 base; Q13 upper = n9 vs lower = ground; Q14 upper = +5 V vs lower = Q17 base). So emitter = upper port, collector = lower port, base = the side lead touching the bar. The five NPNs (#3, #17, #18, #19, #20) carry the arrow on the LOWER lead pointing away from the bar and were already correct (collector = top, base = side, emitter = bottom). NOT RESOLVED / ODDITIES IN THE DRAWING (netlist unaffected): (a) n15 is a floating two-terminal net - the y~820 wire joins the base bars of Q19 and Q20 and, verified at 7x zoom, touches nothing else; the drafter drew no bias for that pair. (b) Q3's base node n3 has no DC source: its only other terminal is D4's anode and both diodes point downward (anode at top, cathode bar at bottom), so no current can enter Q3's base under EITHER reading of S8. Since both readings are equally broken there, the electrical-impossibility rule cannot decide S8 and the ink (a textbook hop) does. The drawing appears to be missing a base bias resistor from the +15 V rail; I did not invent one. (c) The unused port candidates flagged for #0, #1, #8, #15, #16 are all strokes of the handwritten value labels ('+15', '15kohm', '50kohm') brushing the boxes - ignored, the real leads were already selected."
+}

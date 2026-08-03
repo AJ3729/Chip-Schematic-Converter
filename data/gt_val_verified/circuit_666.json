@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "image": "circuit_666.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a 5A current source driving a single-loop network with one shunt branch. 6 components, 4 nets, 11 terminals. Layout: the I-DC (5A, arrow up) sits vertically at x~183; its top lead goes up to the top-left corner (185,352) and the top rail runs right through the 20 Ohm resistor (x 236-348), past the node at (409,355), through the 3mH inductor (x 482-577), to the top-right corner (~650,347); the right-hand wire runs down through the 27F capacitor (horizontal plates at y~450/470) to the bottom-right corner (~648,592); the bottom rail runs left along y~597 to the bottom-left corner and up to the I-DC's bottom lead. The 60 Ohm resistor is a shunt branch hanging from the top-rail node at (409,355) down to the bottom rail at (400,597), where the GND symbol hangs below.\n\nNET MAP:\n n3 = I-DC top terminal (3.1) -> top-left corner -> 20 Ohm left lead (1.0). 2 terminals.\n n1 = the top-rail node at (409,355): 20 Ohm right lead (1.1), 60 Ohm top lead (2.0), 3mH left lead (0.0). 3 terminals.\n n2 = 3mH right lead (0.1) -> top-right corner (~650,347) -> down -> 27F top plate (4.1). 2 terminals.\n 0 = the bottom rail y~597 from the bottom-left corner to the bottom-right corner: I-DC bottom (3.0), 60 Ohm bottom (2.1), 27F bottom (4.0), and the GND symbol stub at (400,597) (5.0). 4 terminals.\n\nJUDGEMENT CALLS: none - this sheet has no wire crossings at all, no hops and no solder dots. Both CRITICAL sites are plain Ts and were inspected at 5x:\n * S0 (409,355) - the top rail runs straight through while the 60 Ohm shunt branch drops away downward. JUNCTION. A crossing reading is not even expressible here (there is no opposite branch to the downward stub) and would strand the 60 Ohm top lead on a one-terminal net.\n * S20 (400,597) - 4-way T on the bottom rail: rail left, rail right, the 60 Ohm lead arriving from above, the GND stub leaving below. JUNCTION; a crossing would split the bottom rail and cut the current source's return path, and would separate GND from the rest of the circuit.\n\nPORT FIXES - two terminals were bound to a stroke of a handwritten value label, each producing a one-terminal net:\n * #0 (3mH inductor): t1 was p1@(583,371), the 'H' of '3mH' hanging just under the coil box; the real right-hand lead is p2@(577,347) (the long wire, 164px, that runs to the top-right corner). Fixed with ports {\"0\":{\"0\":0,\"1\":2}}.\n * #4 (27F capacitor): t1 was p1@(680,467), the '2' of '27F' beside the plates; the real top lead is p2@(652,430) (also 164px - the same wire as the inductor's right lead, which is why n2 now has exactly the 2 terminals it should). Fixed with ports {\"4\":{\"0\":0,\"1\":2}}.\n\nOTHER CHECKS:\n * All 6 classes confirmed against the drawn symbols: 2 resistors (zig-zag, one horizontal 20 Ohm and one vertical 60 Ohm), 1 inductor (coil, horizontal), 1 capacitor (parallel plates, in the vertical right-hand branch), 1 I-DC (circled up-arrow, '5A'), 1 GND. No class changes.\n * The remaining non-critical sites (S3, S5, S7, S8, S12, S14, S15, S16, S17, S18) are all strokes of the handwritten labels '20 Ohm', '3mH', '60 Ohm', '27F' brushing a component box; none of them changes the netlist.\n * The dashed horizontal/vertical rules near the image borders are notebook/scan margin marks, not circuit ink; they carry no component and are correctly outside every net.\n * Nothing left unresolved.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        529.8,
+        350.8,
+        89.3,
+        30.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        291.6,
+        359.5,
+        104.4,
+        32.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        397.2,
+        471.0,
+        41.2,
+        88.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-DC",
+      "bbox": [
+        181.3,
+        459.4,
+        63.6,
+        63.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        651.9,
+        459.5,
+        48.4,
+        48.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        396.8,
+        633.5,
+        65.9,
+        32.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

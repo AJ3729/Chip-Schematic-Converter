@@ -1,0 +1,80 @@
+{
+ "sites": {
+  "0": "junction",
+  "1": "junction",
+  "3": "junction",
+  "5": "junction",
+  "7": "junction",
+  "8": "junction",
+  "9": "crossing",
+  "10": "junction",
+  "11": "crossing",
+  "13": [
+   [
+    16,
+    26
+   ],
+   [
+    23,
+    20
+   ]
+  ],
+  "14": [
+   [
+    26,
+    28
+   ]
+  ],
+  "18": "junction",
+  "19": "junction",
+  "21": "junction",
+  "23": "crossing",
+  "24": "junction",
+  "25": "junction",
+  "26": "crossing",
+  "30": "junction",
+  "32": "none",
+  "33": [
+   [
+    57,
+    64
+   ],
+   [
+    59,
+    65
+   ]
+  ],
+  "34": "junction",
+  "35": "crossing",
+  "36": "junction",
+  "38": "junction",
+  "40": "junction",
+  "41": "junction",
+  "42": "junction",
+  "43": "junction",
+  "44": "crossing",
+  "46": "junction",
+  "47": "junction",
+  "49": "crossing",
+  "50": "junction"
+ },
+ "ports": {
+  "1": {
+   "0": 0,
+   "1": 1
+  },
+  "2": {
+   "0": 1,
+   "1": 0
+  },
+  "8": {
+   "0": 2,
+   "1": 0
+  },
+  "10": {
+   "0": 0,
+   "1": 2
+  }
+ },
+ "notes": "CIRCUIT: a 5-column x 6-rail mesh with a GND symbol hanging off the bottom of column C3. Rails: R1 top y~48 (x75..810), R2 y~275 (x62..815), R3 y~552 (x213..836), R4 y~715 (x217..836), R5 y~828 (x421..832), R6 bottom y~857..935 (from C1's bottom-left corner across to the bottom-right corner of the right rail). Columns: C1 x~65 (1uH #0 then 5uF #4, tail straight down to R6), C2 x~215 (5uH #3 then 10uF #6, tail from R4 down to R6), C3 x~400 (10uH #7 then 50uF #10, tail from R5 down past R6 to GND #13), C4 x~585 (50uH #9 then 100uF #12), C5 x~830 right rail with the five sources in series: V-AC 3V/1kHz #1, I-AC 5A/1kHz #2, V-DC 5V #5, I-DC 10A #8, V-DC 15V #11.\nNET MAP (7 nets, 27 terminals):\n  n1 = R1 plus the whole upper run of C2/C3/C4, which hop every rail on the way down: 0.0 (1uH top), 1.0 (V-AC top), 3.0 (5uH top), 7.0 (10uH top), 9.0 (50uH top).\n  n2 = R2: 0.1 (1uH bottom), 4.0 (5uF top), 1.1 (V-AC bottom), 2.0 (I-AC top).\n  n3 = R3: 3.1 (5uH bottom), 6.0 (10uF top), 2.1 (I-AC bottom), 5.1 (V-DC 5V top).\n  n4 = R4 + R6 tied together by C2's bare tail (S30 junction at the top, S47 junction at the bottom): 6.1 (10uF bottom), 5.0 (V-DC 5V bottom), 8.0 (I-DC top) on R4; 4.1 (5uF bottom, down C1 to the bottom-left corner), 12.1 (100uF bottom at S50) and 11.0 (V-DC 15V bottom at the bottom-right corner) on R6.\n  0  = R5 plus C3's tail below the 50uF, which passes through R6 and ends on the GND symbol: 10.1 (50uF bottom), 13.0 (GND), 8.1 (I-DC bottom), 11.1 (V-DC 15V top). Named '0' because GND sits on it. Note I-DC #8 and V-DC 15V #11 are therefore in parallel between n4 and '0'; that is what the drawing says and it is not a short of either part.\n  n5 = private node in C3 between 10uH and 50uF: 7.1, 10.0 (the run hops R4).\n  n6 = private node in C4 between 50uH and 100uF: 9.1, 12.0 (the run hops R5).\nPORT FIXES (four one-terminal nets, all handwritten-label traps):\n  #1 V-AC: t1 was on p2@(856,215), a stroke of the '3V' glyph. Repointed t0->p0 (816,124) top lead, t1->p1 (808,212) bottom lead.\n  #2 I-AC: t1 was on p2@(883,424), the '5A' glyph. Repointed t0->p1 (823,356) top, t1->p0 (832,442) bottom.\n  #8 I-DC: t1 was on p1@(877,758), the '10A' glyph. Repointed t0->p2 (836,732) top, t1->p0 (832,803) bottom.\n  #10 Capacitor 50uF: t1 was on p1@(472,770), a stroke of the '50uF' label touching the upper plate. Repointed t0->p0 (415,765) top, t1->p2 (422,824) bottom.\nCLASSES: all 14 symbols match their labels (4 coil Inductors, 4 plate-pair Capacitors, V-AC sine-in-circle, I-AC sine+arrow, two V-DC +/- circles, I-DC arrow circle, 3-bar GND). Nothing re-classed.\nBRIDGE B6 (405,705)->(397,705), flagged CRITICAL: KEPT. The pixel dump shows solid ink across rows y=700..704 from x=393 to x=417, so the 10uH bottom lead and the top of the hop arc really do touch; the skeleton just pinched. Dropping it would strand 7.1.\nJUDGEMENT CALLS:\n (a) Hop convention: this drafter marks every rail crossing with a big semicircular hop, all confirmed at 10-16x - S9 (200,274), S11 (355,276), S26 (380,559), S23 (560,547), S44 (574,828) plus the three split hops below. All CROSSINGS.\n (b) C4 over R2 was split into S7 (586,256), S13 (562,278), S14 (586,280) because the lower half of the hop arc runs almost horizontally at y~280, right under the rail. The 12x crop shows a clean 'C' opening right: column down to (585,258), left to x~558, back right along y~281 to (587,283), then down. Encoded as S7 junction (column meets arc top) plus explicit groups S13=[[16,26],[23,20]] (arc e16->e26; rail e23->e20 straight through) and S14=[[26,28]] (arc into the column below). Plain 'crossing' on S13/S14 mis-pairs, because at each deg-3 site the two most opposite branches are the rail stub and the arc stub, which welds the arc to the rail.\n (c) C4 over R3 was split into S21 (581,529) and S23 (560,547). S21 is where the column meets the top of the arc - a T, so JUNCTION; S23 is the real crossing.\n (d) C4 over R4 was split into S35 (571,720) and S38 (584,734). S35 = CROSSING (pairs the rail halves and the two arc halves); S38 is a T joining the arc's lower end to the 50uH top stub, so JUNCTION. Left at 'crossing' it pairs a 1-px repeated branch with itself and strands 9.0.\n (e) C3 over R4, sites S32 (415,707) / S33 (392,713) / S34 (414,717). The 16x crop shows the 10uH's final coil stroke overshooting downward to x~417,y~713 where it grazes the rail, while the actual connecting wire leaves the same point as a big hop arc that goes round the rail and down to the 50uF top plate. I read the overshoot as pen follow-through, not a tap: S32 = 'none' so the lead tip is not welded to the rail, S33 = [[57,64],[59,65]] (rail e57-e64 straight through; arc e59-e65 straight through), S34 = junction (rail continues into e66). Treating the overshoot as a junction would put 10uH bottom and 50uF top both on R4 and destroy the private node n5.\n (f) S43 (421,828) - JUNCTION. R5's left end is a plain T landing on C3 between the 50uF bottom lead and the tail; there is no hop and no need for a dot on a T. So 50uF bottom is on R5.\n (g) S49 (416,889) - CROSSING, and this is the one real judgement call. Here C3's tail and the bottom rail R6 form a plain X (both wires continue on both sides). A junction reading ties R5 to R6; R6 is already tied to R4 by C2's tail (S30/S47), so R4=R5=R6 and V-DC 15V #11 would be short-circuited (and I-DC #8 too) - electrically impossible, which per the tie-break rules settles it. The pixels agree: the blob at the crossing is 9-10 px across where two 5-px strokes overlap at a shallow angle, dot score 2.5, whereas this drafter's genuine solder dots (S8 62,272; S25 213,555; S47 210,857; S50 602,929) score 3.2-3.6 and are visibly round and fat. Consequence of the crossing: GND ends up on the R5 node with the I-DC bottom, the V-DC 15V top and the 50uF bottom - a 4-terminal net.\n (h) Sanity check against the calibration set: 14 verified drawings share this exact 14-part inventory, and 11 of them have precisely the net signature reached here - (Ind,Ind,Ind,Ind,V-AC) / (Cap,I-AC,Ind,V-AC) / (Cap,I-AC,Ind,V-DC) / (Cap,Cap,Cap,I-DC,V-DC,V-DC) / (Cap,GND,I-DC,V-DC) / (Cap,Ind) / (Cap,Ind). The alternative reading in (g) would have produced the 1-in-14 variant.\n (i) Non-critical sites left at the default junction and checked in the crops: S5 (868,185) the '3V/1KHz' glyphs on #1, S18 (114,373) the '5uF' glyph on #4's plate, S19 (895,440) the '1KHz' glyph, S40/S41/S42 (472,774)/(489,779)/(484,789) the '50uF' glyphs around #10's plates. None carries a terminal after the port fixes. The remaining plain T taps - S0/S1/S3 on the top rail, S8/S10 on R2, S24/S25 on R3, S30/S36 on R4, S46 on R5, S47/S50 on R6 - are all junctions, each verified in its crop."
+}

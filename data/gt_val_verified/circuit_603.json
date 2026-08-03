@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "image": "circuit_603.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a single-node-pair parallel bank driven by a 34 A current source, drawn inside a printed page frame (the grey rectangle at the sheet border is not circuit ink and carries no net). 8 components, 3 nets. NET MAP. n2 = the left node: the I-DC(34A) top lead (203,440) up to the top-rail left corner (195,355), right along y~355 to S5 (267,356), and on to the 47ohm resistor #1 left lead (298,354). S5 also drops the branch column at x~270 down to y~437 and into the 48ohm resistor #4 left lead (297,442). 3 terminals: 1.0, 4.0, 6.0. n1 = the upper/right node: the 47ohm resistor #1 right lead (429,361) continuing right along the top rail through S8 (498,360) -> capacitor #5 (5F) top lead (501,428), S6 (629,358) -> inductor #3 (5H) top lead (634,402), S7 (759,358) -> resistor #2 (46kohm) top lead (764,398), and on to the V-DC(40kV) left lead (823,356). 5 terminals: 0.0, 1.1, 2.0, 3.0, 5.0. 0 = the bottom node / ground rail y~565-590: the I-DC bottom lead (204,548) right along the rail through S20 (426,565) - where the 48ohm branch column at x~426 lands, carrying resistor #4's right lead (413,456) - S19 (510,564) with capacitor #5's bottom lead (508,488), S22 (645,575) with inductor #3's bottom lead (644,512) and the GND#7 symbol below it (645,581), S23 (769,582) with resistor #2's bottom lead (770,518), and on to the far-right column at x~965 which rises to the V-DC(40kV) right lead (930,360). 7 terminals: 0.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.0. So: I-DC 34A between n2 and 0; R48 between n2 and 0; R47 between n2 and n1; C 5F, L 5H and R 46k each between n1 and 0; V-DC 40kV between n1 and 0. SITE DECISIONS: all 8 CRITICAL sites inspected at 5x and all are unambiguous plain T's - a vertical stem butting onto a through-running horizontal rail, no hop, no jog, nothing passing through - so all 8 are junctions and none was overridden. S5 (267,356): the 48ohm branch column drops off the top rail. S6 (629,358), S7 (759,358), S8 (498,360): the 5H, 46k and 5F columns drop off the top rail; treating any of them as a crossing would strand that component's top terminal on a one-terminal net, which is impossible. S19 (510,564), S20 (426,565), S23 (769,582): the 5F column, the 48ohm return column and the 46k column land on the bottom rail; same argument. S22 (645,575) deg 5, hop=3.6: the 5H inductor's bottom lead comes down, meets the bottom rail and carries straight on into the GND symbol two rows below - all five branches (rail left, rail right, lead up, lead down, ground bar) are one node; the small hop score is the ground bar's stroke, not an arc. Reading S22 as anything but a junction would take GND off the bottom rail and leave the whole return path floating. Non-critical sites S0/S1/S2 ('40kV'), S3/S4 ('47 ohm'), S9/S11/S12/S13 ('48 ohm'), S15 (the 48ohm branch corner at (425,457)), S16 ('46 k'), S17 ('34 A') are handwritten label strokes brushing a wire (plus one wire corner) and were left at their defaults; none of them changes the grouping. PORTS: no fixes needed. Every component is two-terminal except GND#7, so no pin order is scored, and the two 'unused port candidate' warnings are both label ink - (670,463)/(669,472) are strokes of the '5H' caption beside inductor #3 and (547,469) is a stroke of the '5F' caption beside capacitor #5; neither is a lead, and the terminals the tracer chose (top and bottom in each case) are the real ones. CLASSES: all correct - three zigzags (47 ohm, 48 ohm, 46 kohm) as Resistors, a coil (5H) as Inductor, two straight parallel plates (5F) as a non-polarised Capacitor, a circle with a bare arrow (34 A) as I-DC, a circle with -/+ (40 kV) as V-DC, and the hatched symbol at (644,608) as GND. UNRESOLVED: nothing; ERC clean, three nets, no one-terminal net, GND on net 0.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        876.6,
+        361.3,
+        101.3,
+        75.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        364.6,
+        356.4,
+        123.6,
+        42.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        771.6,
+        458.9,
+        51.5,
+        112.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        641.6,
+        457.4,
+        48.1,
+        100.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        355.5,
+        447.1,
+        108.8,
+        36.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        503.1,
+        458.3,
+        69.8,
+        53.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "I-DC",
+      "bbox": [
+        200.0,
+        495.2,
+        84.1,
+        99.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        643.9,
+        608.0,
+        82.4,
+        45.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

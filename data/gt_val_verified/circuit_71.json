@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "image": "circuit_71.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: single-loop-plus-shunts network drawn inside a hand-ruled border. 7 components, 4 nets. Reading of the drawing: a 7mA current source (#3) on the left drives a top rail y~355-400 that runs right through the 17uH inductor (#0) and the 4V source (#1) to the 4uF capacitor (#5) on the right; the 30k resistor (#2) and the 16uH inductor (#4) hang from the top rail down to a bottom rail y~530-575 that returns to the current source; GND (#6) hangs off the bottom rail under the 16uH.\nNET MAP: n1 = top-left rail, x=246..444 at y~355-420: I-DC top (246,420) + R30k top (388,415) via S7 + 17uH left lead (444,368). n2 = top-middle rail, x=575..701 at y~383-391: 17uH right lead (575,383) + 16uH top lead (624,428) via S8 + 4V source left terminal (701,391). n3 = 4V source right terminal (818,397), right down the x=858 riser to the 4uF top plate (861,470). 0 = bottom rail y~530-575 from x=241 to x=855: I-DC bottom (241,531), R30k bottom (392,520) via S12, 16uH bottom lead (620,532) via S13, 4uF bottom plate (855,528), and GND (#6) hanging below S13.\nJUDGEMENT CALLS: none - there is not a single ambiguous X on this sheet. All four CRITICAL sites are unambiguous T's where a component lead terminates on a rail, verified in the 5x crops:\nS7 (387,366) -> JUNCTION: the 30k resistor's top lead runs up and dead-ends on the top rail; the rail continues left and right. No hop, no crossing branch to pass through.\nS8 (625,388) -> JUNCTION: the 16uH inductor's top lead dead-ends on the top rail, same geometry.\nS12 (393,562) -> JUNCTION: the 30k resistor's bottom lead dead-ends on the bottom rail.\nS13 (617,573) -> JUNCTION: the 16uH bottom lead crosses the bottom rail and continues 6px further to the GND symbol's top bar (616,579). Reading this as a crossing would strand GND on a 2-terminal net with the inductor and leave the bottom rail with no reference; junction is both the ink reading (clean cross, no dot needed because the GND stub is the natural continuation) and the only sane one.\nThe remaining sites (S0,S1,S2,S4,S5 on the '17uH' caption over the inductor, S9 on the '30 k' caption beside the resistor) are handwriting strokes brushing component ink; left at default, they touch no terminal.\nPORTS: every terminal already sits on a real lead. The three tracer warnings about 'unused port candidates' are all caption strokes touching a component box - (481,343) is the '7' of '17uH' on the inductor box, (419,482) is the '3' of '30 k' on the resistor box, (656,490)/(653,470) are the '1' and '6' of '16uH' on the inductor box. All correctly left unused; no ports overrides needed.\nCLASSES: all confirmed against the drawing - #0/#4 coiled inductors, #1 circle with -/+ (2-terminal V-DC), #2 zigzag resistor, #3 circle with an up arrow (I-DC), #5 two parallel plates (capacitor), #6 stacked-bar GND. No class changes, no unconnected leads, no bridges dropped, no manual nets.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        509.4,
+        374.5,
+        124.6,
+        48.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        759.9,
+        396.8,
+        110.9,
+        78.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        392.2,
+        468.0,
+        45.7,
+        98.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-DC",
+      "bbox": [
+        243.6,
+        476.0,
+        97.2,
+        103.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        624.3,
+        480.8,
+        51.5,
+        96.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        859.3,
+        500.0,
+        80.0,
+        50.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        614.6,
+        605.2,
+        84.6,
+        42.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

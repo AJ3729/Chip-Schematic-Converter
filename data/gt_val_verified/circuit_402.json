@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "image": "circuit_402.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: 24A DC current source driving 4ohm to ground, with a 1mH inductor in parallel with a 3uF capacitor bridging to a second node loaded by 2ohm to ground. Classic source/R/(L||C)/R ladder. 6 components, 3 nets.\n\nNET MAP:\n  n2 = top-left node: I-DC(#4) top terminal, top of 4ohm resistor (#3), LEFT lead of 1mH inductor (#1), LEFT plate of 3uF capacitor (#0). Physically: the y~460 horizontal rail from x=265 to the inductor, plus the x~490 vertical from the capacitor's left corner (y~348) down to the 4ohm top (y~492).\n  n1 = right node: RIGHT lead of inductor (#1), RIGHT plate of capacitor (#0), top of 2ohm resistor (#2). Physically the x~670 vertical from y~348 down to y~484, joined by the inductor's right lead at S7.\n  0  = ground rail: bottom of 4ohm (#3), bottom of 2ohm (#2), I-DC bottom terminal (#4), GND symbol (#5). Physically the y~620 horizontal rail from x=265 to x=678 plus the short stub down to the GND symbol at (501,633).\n\nJUDGEMENT CALLS (all three CRITICAL sites are plain X/T with no solder dot and no hop):\n  S6 (487,460) deg=4 - the y~460 rail crosses the x~490 vertical. inkmap at (487,460) shows a clean plain X: stroke stays 3px wide in both axes through the intersection, no blob (dot score 1.1), and the small lateral drift of the vertical (x 485->488 over 50 rows) is ordinary freehand wander, not a deliberate sideways jog - the tracer's hop=4.8 is an artifact of the horizontal rail being drawn slightly sloped (y=462 on the left, y=460 on the right). DECIDED JUNCTION. Both readings are electrically sane, so the ink prior applies (this drafter draws a hop/jog when he means 'not connected'; there is no hop anywhere on this sheet). Corroborated by drafter habit: S11 below is drawn identically and MUST be a junction (see below), so on this sheet a plain X means connected. If it were instead read as a CROSSING, the source top would tie only to the inductor's left lead, and the capacitor's left plate would tie only to the top of the 4ohm - i.e. 4 nets, with the 4ohm hanging off the capacitor instead of sitting directly across the source. Rejected.\n  S7 (667,459) deg=3 - the inductor's right lead ENDS on the x~670 vertical: a T, not a crossing. DECIDED JUNCTION (unambiguous; a T is always joined).\n  S11 (498,617) deg=4 - the y~620 bottom rail crosses the stub running from the 4ohm bottom down to the GND symbol. DECIDED JUNCTION, forced by electrical impossibility (rule 1): if this were a crossing, net 0 would contain only the GND symbol and the bottom of the 4ohm, so the 4ohm branch would have no return path and could carry no current, and the source/2ohm loop would float with no ground reference. Junction is the only sane reading.\n\nNON-CRITICAL SITES (left at default, all are handwriting brushing wire ink, none change the netlist): S1/S3/S4/S5 are strokes of the '1mH' label touching the inductor's coil and lead; S9 is the 'Omega' of the '2 Omega' label touching the 2ohm resistor body.\n\nPORTS/CLASSES: no changes. All six symbols match their drawn class. Every terminal landed on a real lead - the extra ports the tracer found (inductor p2..p6, 2ohm p2) are label strokes and are correctly unused. No component has a lead drawn going nowhere; no gap bridges affect the netlist.\n\nUNRESOLVED: none.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        562.8,
+        357.3,
+        33.9,
+        41.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        557.0,
+        462.9,
+        75.9,
+        28.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        677.9,
+        530.9,
+        38.1,
+        84.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        488.0,
+        532.6,
+        38.6,
+        71.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-DC",
+      "bbox": [
+        261.9,
+        546.4,
+        45.1,
+        56.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        503.7,
+        655.4,
+        67.9,
+        35.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

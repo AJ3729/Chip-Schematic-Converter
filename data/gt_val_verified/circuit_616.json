@@ -1,0 +1,343 @@
+{
+  "schema_version": 1,
+  "image": "circuit_616.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "Circuit: a full-wave bridge rectifier (D4/D3 upper, D13/D14 lower) fed by a 100 V 1 kHz V-AC source, feeding a common top rail (+) and bottom rail (-), with five shunt branches hung between the rails: 100uF + 1uH in series (x~420), 1k + 10 V zener in series (x~550) whose midpoint drives the base of the PNP (#6), the PNP collector driving the op-amp in+, the op-amp output driving the base of the NPN (#1), and the NPN emitter feeding 1uH -> node -> 10k to the bottom rail with the 5 V zener (#10) tied from that node back to the op-amp in-. 16 components, 12 nets. No GND symbol on this sheet, so there is no net '0'.\n\nNet map (finalize labels):\n  n4  = top rail y~325: cathodes of D4 (4.0) and D3 (3.0), top of the 100uF cap (5.0), top of the 1k resistor (2.0), and the collector of the NPN #1 (1.0) which runs up at x~915 to the rail.\n  n12 = bottom rail y~700: anodes of D13 (13.0) and D14 (14.1), bottom of the 1uH #9 (9.1), bottom of the 10 V zener (11.0), bottom of the 10uF cap (12.1), bottom of the 10k (15.1).\n  n8  = left bridge leg, column x~174 between D4 anode (4.1) and D13 cathode (13.1), joined at S9 by the source's top lead (8.0).\n  n7  = right bridge leg, column x~287 between D3 anode (3.1) and D14 cathode (14.0), joined at S13 by the source's bottom lead (8.1) after that wire hops the left leg at S12.\n  n9  = bottom plate of the 100uF cap (5.1) to the top of the 1uH #9 (9.0), the x~420 column between them.\n  n6  = bottom of the 1k (2.1), base of the PNP #6 (6.1) via the horizontal wire at y~500, and the top (cathode) lead of the 10 V zener (11.1) continuing down the x~549 column.\n  n1  = collector of the PNP #6 (6.0) up at x~682 to y~377 then right to the op-amp in+ (0.0).\n  n2  = op-amp in- (0.1) left to x~745, down to y~575, right to the left terminal of the 5 V zener #10 (10.0).\n  n3  = op-amp out (0.2) right to the base of the NPN #1 (1.1).\n  n5  = emitter of the NPN #1 (1.2) down to the top of the 1uH #7 (7.0).\n  n11 = node at (919,574): bottom of the 1uH #7 (7.1), right terminal of the 5 V zener (10.1), top of the 10k (15.0).\n  n10 = emitter of the PNP #6 (6.2) down to the top plate of the 10uF cap (12.0).\n\nJudgement calls / CRITICAL sites:\n  S12 (174,558) - tracer default JUNCTION, OVERRIDDEN to CROSSING. This is the one site that matters on this sheet. The crop shows an unmistakable semicircular hop: the source's bottom wire comes in from the left at y~565, arcs up and over the x~174 bridge leg, and comes down on the right side before continuing to x~287. Reading it as a junction (the tracer's answer) shorted both bridge legs together, i.e. put both V-AC terminals on one net (old n7 had 6 terminals including 8.0 and 8.1) - a dead short across the source and a rectifier with no input. Crossing keeps the left leg (D4 anode / D13 cathode / source top) and the right leg (D3 anode / D14 cathode / source bottom) as two nets, which is the only sane reading of a bridge.\n  S9 (174,479) - JUNCTION (agrees with default). The source's top wire ends on the left bridge leg in a clean T and there is a visible fattened solder blob at the meeting point (dot score 1.8, the highest of the T sites here).\n  S10 (547,504) - JUNCTION (agrees with default). Clear T with a solder dot (dot=2.1): the 1k's bottom wire, the wire right to the PNP base, and the continuation down to the zener all meet. Reading it as a crossing would strand the PNP base.\n  S0 (548,325), S1 (411,332), S2 (276,336) - JUNCTION (agree with default). Each is a plain T where a column ends on the top rail; nothing crosses. Crossing readings are not available (deg=3) and would leave the corresponding branch floating.\n  S13 (287,568) - JUNCTION (agrees with default). T: the source's bottom wire ends on the right bridge leg.\n  S15 (919,574) - JUNCTION (agrees with default). T: the 5 V zener's right lead ends on the x~919 column between the 1uH and the 10k.\n  S29 (681,700), S30 (295,703), S31 (420,706) - JUNCTION (agree with default). Each is a T where a shunt column ends on the bottom rail.\n  Non-critical sites S4, S7, S8, S16, S18, S21, S23, S24, S25, S26, S28 are all handwritten value labels ('100uF', '1uH', '10uF', '10V', '5V', '10k') brushing a wire or a symbol; left at defaults, they contribute no terminals.\n\nGap bridges: B14 (554,701)->(549,701), dist 5.0, flagged CRITICAL - KEPT (verified, not dropped). inkmap at (551,701) shows the bottom rail ink running continuously except for a 3 px pen skip at x=551-553 where the zener column lands on it; left rail (y=703-704) and column are one blob, right rail (y=700-702) restarts 3 px later. Dropping the bridge would split the drawn bottom rail into two nets (D13/D14/1uH/zener on one, 10uF/10k on the other), which the drawing plainly does not show. All other bridges are non-critical.\n\nPort/terminal fixes:\n  #5 Capacitor (100uF): terminal 1 moved from p2@(456,451) (wire len 2 - a stroke of the '100uF' label touching the box) to p3@(422,479) (wire len 72 - the real bottom lead running down to the 1uH #9). This removed the one-terminal net n8.\n  #7 Inductor (1uH, right): terminal 0 moved from p2@(943,478) (wire len 6 - ink of the '1uH' label) to p3@(919,447) (wire len 30 - the real top lead running up to the NPN emitter). This removed the one-terminal net n10 and joined it to the emitter net.\n  merge [['11.1','2.1']]: the 10 V zener's top (cathode) lead was never mapped to a port - the tracer's edge e28 stops at (550,549), 9 px above the annotated box, so no 'T' port candidate existed, and terminal 1 had fallen onto p1@(572,621), a 13 px stub of the zener's own bent cathode bar (one-terminal net n14). inkmap at (551,556) shows the column ink unbroken from y=536 through y=576, i.e. the lead really does run from the S10 node into the zener. Merging 11.1 with 2.1 puts it on n6 = {1k bottom, PNP base}, which is what the pixels show. No other terminal was pinned.\n\nClasses: all 16 confirmed against the crops. #1 BJT-NPN at (909,377) - the emitter barbs at (905,392)/(908,410) converge to an apex pointing away from the base bar, so NPN is right (and it is a transistor, not the wire crossing it first appears to be). #6 BJT-PNP at (669,491) - the emitter arrowhead's apex points back toward the base bar, so PNP is right. Op-amp #0 has a legible '+' on the upper-left lead and '-' on the lower-left, so t0/t1/t2 = in+/in-/out as assigned. Both 'Zener Diode' symbols carry the bent-bar cathode; #10 ('5V') and #11 ('10V') are drawn with the bar on the far side from the triangle apex, which is sloppy but does not affect a 2-terminal netlist.\n\nUnresolved: nothing. Note the sheet is a symbol-collection exercise rather than a working design (e.g. the op-amp has no supply rails and the PNP is oriented emitter-down), so component-level plausibility could not be used as a cross-check beyond the bridge.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Op-Amp",
+      "bbox": [
+        804.4,
+        379.6,
+        85.4,
+        81.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        },
+        {
+          "index": 2,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "BJT-NPN",
+      "bbox": [
+        908.6,
+        377.2,
+        39.0,
+        75.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        },
+        {
+          "index": 2,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        552.1,
+        420.9,
+        33.6,
+        76.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Diode",
+      "bbox": [
+        282.6,
+        431.5,
+        57.3,
+        52.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Diode",
+      "bbox": [
+        176.2,
+        430.3,
+        62.9,
+        42.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        421.3,
+        457.0,
+        52.3,
+        37.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "BJT-PNP",
+      "bbox": [
+        668.6,
+        490.9,
+        54.0,
+        89.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        },
+        {
+          "index": 2,
+          "net": "n10"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        924.5,
+        493.1,
+        28.4,
+        81.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n11"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "V-AC",
+      "bbox": [
+        46.3,
+        523.9,
+        46.8,
+        47.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        427.6,
+        593.1,
+        31.5,
+        79.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n9"
+        },
+        {
+          "index": 1,
+          "net": "n12"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Zener Diode",
+      "bbox": [
+        839.5,
+        571.9,
+        56.4,
+        52.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n11"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Zener Diode",
+      "bbox": [
+        553.3,
+        585.5,
+        74.6,
+        55.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n12"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Capacitor",
+      "bbox": [
+        680.4,
+        584.7,
+        47.0,
+        26.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n10"
+        },
+        {
+          "index": 1,
+          "net": "n12"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Diode",
+      "bbox": [
+        176.7,
+        618.5,
+        75.8,
+        50.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n12"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Diode",
+      "bbox": [
+        293.9,
+        622.0,
+        58.6,
+        50.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n12"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "Resistor",
+      "bbox": [
+        916.5,
+        635.7,
+        28.9,
+        56.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n11"
+        },
+        {
+          "index": 1,
+          "net": "n12"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

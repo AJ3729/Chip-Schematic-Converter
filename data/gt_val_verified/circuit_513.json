@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "image": "circuit_513.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "Five-column ladder: four vertical L-C columns (x=95 1uH/5uF, x=248 5uH/10uF, x=415 10uH/50uF, x=620 50uH/100uF) between a common top rail (y~25) and a common bottom rail (y~845-865, carries the GND symbol at (434,892)); the fifth column (x~866) is a stack of five sources (3V 1kHz V-AC, 5A 1kHz I-AC, 5V V-DC, 10A I-DC, 15V V-DC) with four horizontal tap rails running left from between them at y~205, y~405, y~550, y~722. Net map: n2 = top rail (99,52)->(870,76) plus the four column stubs down to the inductor tops: L1 top (#1.t0), L5 top (#3.t0), L10 top (#6.t0), L50 top (#9.t0), V-AC top (#0.t1). n1 = rail y~205 from column 1 to the source column: 1uH bottom (#1.t1), 5uF top plate (#4.t1), V-AC bottom (#0.t0), I-AC top (#2.t0). n3 = rail y~405 from column 2 to the source column: 5uH bottom (#3.t1), 10uF top plate (#7.t1), I-AC bottom (#2.t1), 5V top (#5.t0). n4 = column 3 mid-section only (416,511)-(420,625): 10uH bottom (#6.t1) + 50uF top plate (#10.t0) - the y~550 rail hops over this column, it does not tap it. n6 = column 4 mid-section (640,666)-(642,781): 50uH bottom (#9.t1) + 100uF top plate (#12.t0) - the y~722 rail hops over this column too. n5 = the short vertical (866,712)-(866,744) plus the y~722 rail: 10A bottom (#8.t1) + 15V top (#11.t0). 0 = bottom rail + column-1 lower vertical + column-2 lower vertical + column-3 lower vertical + column-4 lower vertical + the whole y~550 rail: 5uF bottom (#4.t0), 10uF bottom (#7.t0), 50uF bottom (#10.t1), 100uF bottom (#12.t1), 5V bottom (#5.t1), 10A top (#8.t0), 15V bottom (#11.t1), GND (#13.t0). HOPS (the drafter draws a semicircular hop wherever two wires cross without connecting; verified pixel-by-pixel at 8x): S11 (234,211), S10 (397,208), S8 (605,204) - the y~205 rail hops columns 2, 3 and 4; S8 defaulted to junction (hop score only 3.6) but the crop at (615,205) shows the same left-bulging semicircle as S10/S11, so I set it to crossing. Reading S8 as a junction would have merged the top rail with rail y~205, i.e. shorted the 3V V-AC source - impossible. S19 (395,402) and S22 (614,405) - the y~405 rail hops columns 3 and 4; both defaulted to junction (hop=0.0) but both crops show unmistakable hops, so both were overridden to crossing. Junction at either would have shorted the V-AC/I-AC chain onto the top rail. S33 (610,547) - the y~550 rail hops column 4 (default crossing, confirmed). S34 (406,555) + S36 (399,557) - one drawn hop (column 3 hopping the y~550 rail) that the tracer split into two deg-3 sites at the arc/rail tangency. Expressed with explicit edge groups at S34: [[61,65,64],[62,66,58,70]] (rail halves e64+e61 with the 3-px tangency stub e65 in one group; arc halves e62+e66 with the column above e58 and below e70 in the other) and S36 set to 'none'. S41 (637,717) + S42 (628,722) - the same situation for column 4 hopping the y~722 rail; groups at S41: [[81,83,82],[78,80,84,87]] (rail e82+e83+e81 vs column e78+e80+e84+e87), S42 'none'. Neither pair was flagged CRITICAL (with the tracer's all-junction reading everything below was already one net) but both change the netlist once the rest is right. T-JUNCTIONS confirmed in the pixels (rail tip terminating on a continuous vertical, pen blob at the tip): S0 (247,23), S1 (412,28), S2 (622,37) top rail to columns 2/3/4; S9 (96,206) and S13 (861,211) the two ends of the y~205 rail; S20 (253,404) and S18 (873,397) the two ends of the y~405 rail; S35 (248,559) and S31 (872,541) the two ends of the y~550 rail; S43 (865,722) the right end of the y~722 rail; S47 (248,844), S48 (427,861), S49 (434,865) the column bottoms meeting the bottom rail and the GND stub. Non-critical noise sites left at default: S4 ('1uH' label on the inductor box), S5 ('3V'), S23/S28 ('10uH' label and the arc foot below the y~405 hop), S25 ('5V'), S27/S29/S30 ('10uF'), S38 (arc foot below the y~550 hop), S39 ('50uH'). GAP BRIDGE B19 (645,861)->(645,867) KEPT: the inkmap shows column 4's lower lead stopping 4 px short of the bottom rail with a clean aim at it; dropping the bridge would leave the 100uF bottom plate on a one-terminal net. PORT FIXES: #4 (5uF Capacitor) had t1 on p2@(127,365), a stroke of the handwritten '5uF' brushing the box (single-terminal net n2 in the tracer output); moved to p1@(95,310), the real top-plate lead running up to the y~205 rail. #7 (10uF Capacitor) had t1 on p3@(282,478), a stroke of the '10uF' label; moved to p1@(250,452), the real top-plate lead running up to the y~405 rail. All other flagged port candidates are label ink ('3V' on #0, '5A' on #2, '5V' on #5, '15V' on #11) and were left alone. Classes all confirmed against the drawing (four coils, four plate-pairs, circle+sine = V-AC, circles with arrows = I-AC/I-DC, circles with +/- = V-DC, GND); no 3-terminal parts. THE ONE FORCED DEVIATION FROM THE INK - S44 (423,724): the y~722 rail's left tip lands squarely on column 3's lower vertical (inkmap at (427,724) shows a continuous vertical with the rail's blob-tipped left end merged into it - it reads as a plain T). Taken literally, that ties the rail to column 3's bottom section, which runs unbroken down to the bottom rail at (427,858) (verified by a column scan y=700..860) and hence to net 0 - and the 15V source's bottom is on that same bottom rail via the (868,860) corner, so the 15V V-DC would have both terminals on net 0, a short-circuited voltage source (and the 10A source would also sit 0-to-0). Electrical impossibility overrides the ink prior, so I severed the rail from column 3 here, expressed as S44 = [[79,86]] (column above e79 joined to column below e86; the rail edge e82 joined to neither), which leaves the column intact on net 0 and puts the rail on n5 with the 10A bottom and the 15V top. Severing the rail's other end at S43 instead gives exactly the same terminal partition, so the choice of end does not affect the netlist. Note explicitly what the literal reading would have implied: #11.t0 and #8.t1 would join net 0 (6 nets instead of 7) with the 15V source shorted. Note also the pattern this deviation breaks: the y~550 rail's left tip lands the same way on column 2's lower vertical (S35), which I did NOT sever because it creates no impossibility - it simply grounds the 5V/10A tap. So on this sheet the two lower rails are drawn overshooting the column they hop over and terminating on the previous column's lower (grounded) section; only the second one had to be broken to keep the netlist electrically possible.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        865.9,
+        113.1,
+        65.0,
+        64.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        100.9,
+        92.7,
+        31.8,
+        70.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-AC",
+      "bbox": [
+        860.2,
+        311.3,
+        62.3,
+        67.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        254.1,
+        317.0,
+        34.4,
+        65.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        95.4,
+        337.1,
+        60.7,
+        45.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-DC",
+      "bbox": [
+        873.4,
+        444.3,
+        59.8,
+        67.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        415.2,
+        481.0,
+        26.8,
+        54.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        247.1,
+        476.2,
+        51.3,
+        40.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-DC",
+      "bbox": [
+        868.3,
+        625.3,
+        59.3,
+        64.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        638.4,
+        634.9,
+        25.3,
+        56.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Capacitor",
+      "bbox": [
+        421.0,
+        649.1,
+        44.4,
+        38.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "V-DC",
+      "bbox": [
+        864.6,
+        778.7,
+        56.3,
+        58.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Capacitor",
+      "bbox": [
+        645.4,
+        803.6,
+        47.5,
+        36.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "GND",
+      "bbox": [
+        431.9,
+        918.8,
+        70.7,
+        43.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

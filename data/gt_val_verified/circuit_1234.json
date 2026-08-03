@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1234.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: an AC source across two parallel series branches. Top rail y~356 runs from the source's upper lead across to the right-hand branch; bottom rail y~617 runs back, and a GND symbol hangs from it at x~378. Middle branch: 4k resistor (#1) over 5uF capacitor (#4). Right branch: 4 Ohm resistor (#0) over 5mH inductor (#3).\n\nNET MAP\n  n1 = top rail y~356: 2.0 (source top), 1.0 (4k resistor top), 0.0 (4 Ohm resistor top).\n  n2 = middle branch mid-node, the short wire between the 4k resistor's bottom lead and the 5uF capacitor's top plate: 1.1, 4.0.\n  n3 = right branch mid-node, the short wire (x~595, y 479-492) between the 4 Ohm resistor's bottom lead and the 5mH inductor's top lead: 0.1, 3.0.\n  0  = bottom rail y~617 plus the stub down to GND #5: 2.1 (source bottom), 4.1 (capacitor bottom), 3.1 (inductor bottom), 5.0.\n\nJUDGEMENT CALLS\n  S0 (375,362): the middle branch T's onto the top rail. Plain T, junction.\n  S6 (380,615): the middle branch crosses the bottom rail and carries on down to the GND symbol. The drafter put a SOLDER DOT on the rail ~20 px to the right of the crossing (visible in the S6 crop as a filled blob clearly fatter than the strokes), which marks this node as joined. Junction. The alternative reading (crossing) would separate the bottom rail from the GND stub; since the capacitor's bottom lead comes down the same column, the rail would then hold only the source bottom and the inductor bottom while GND held only the capacitor bottom - two nets where the drawing plainly shows one, and it would put the GND symbol on a net that no longer reaches the rest of the circuit.\n  S2 (409,439) and S4 (408,535) are the '4k Ohm' and '5uF' value labels touching their symbols. Non-critical, left at the default.\n  The large faint dashed rectangle around the whole drawing (x 10-1010, y 282-740) is the page/frame edge, not circuit ink. It carries no terminal and forms no net.\n\nPORT / PIN FIXES\n  #4 Capacitor: the tracer used p1@(406,538) as t1 - that is the '5' of the '5uF' label leaning on the right end of the lower plate (see S4). Repointed t0 to p2@(377,506), the real top lead (the same 18-px wire that carries the 4k resistor's bottom port), and t1 to p0@(378,557), the bottom lead.\n  #0 Resistor and #3 Inductor: each had only one of two leads resolved. The wire that joins them is real and unbroken - inkmap at (596,486) shows a solid 3-px-wide column at x=594-596 running continuously from y=468 down past y=504, i.e. straight from the resistor's bbox bottom (y=479) to the inductor's bbox top (y=492.5). The tracer isolated it as an 8-px edge (e6) and then rejected it as a port candidate for both parts because it is too short. Assigned directly: 0.1 and 3.0 both on n3.\n\nCLASSES\n  All six labels match the drawn symbols. Note one thing worth recording: #2 is labelled I-AC and the symbol IS a current source - a circle containing a sine squiggle AND an upward arrow, with the branch wire running straight through it (identical in style to the I-AC symbols on other sheets in this set). The drafter's handwritten value beside it reads '20 cos t V', i.e. volts, which contradicts the symbol. I kept the class as drawn (I-AC) because the symbol, not the text, is what the class annotation describes; flagging it here in case the value text matters downstream.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        591.4,
+        437.6,
+        35.4,
+        82.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        373.5,
+        444.8,
+        37.8,
+        79.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-AC",
+      "bbox": [
+        184.1,
+        481.3,
+        58.0,
+        62.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        598.2,
+        532.3,
+        38.5,
+        79.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        376.4,
+        532.4,
+        43.7,
+        43.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        378.4,
+        662.4,
+        83.7,
+        40.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

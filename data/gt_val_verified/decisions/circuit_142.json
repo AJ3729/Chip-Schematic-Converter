@@ -1,0 +1,50 @@
+{
+ "sites": {
+  "4": "junction",
+  "5": "junction",
+  "6": "junction",
+  "12": "junction",
+  "13": "junction",
+  "14": "junction",
+  "15": "junction",
+  "20": "junction",
+  "24": "junction",
+  "25": "junction",
+  "3": "junction"
+ },
+ "ports": {
+  "0": {
+   "0": 1,
+   "1": 0
+  },
+  "2": {
+   "0": 2,
+   "1": 0,
+   "2": 1
+  },
+  "3": {
+   "0": 0,
+   "1": 1,
+   "2": 2
+  },
+  "9": {
+   "0": 1,
+   "1": 0
+  },
+  "13": {
+   "0": 2,
+   "1": 1,
+   "2": 0
+  },
+  "19": {
+   "0": 2,
+   "1": 0,
+   "2": 1
+  }
+ },
+ "notes": "Circuit: five inverting op-amp stages, 23 components. Each op-amp is drawn as a right-pointing triangle with the flat side on the left, '-' marked on the upper input and '+' on the lower input, and a reactive feedback element (a capacitor or an inductor) wired from the apex/output back over the top of the symbol to the '-' input node. Stage 1 (op-amp #2, feedback cap #0 1uF) is driven by V-DC #7; stage 2 (op-amp #3, feedback inductor #1 1uH) is driven from stage 1 through R4 1k; stage 3 (op-amp #13, feedback inductor #12) is driven by I-DC #15 10A; stage 4 (op-amp #9, feedback cap #8 1uF) is driven from stage 3 through R11 1k; stage 5 (op-amp #19, feedback inductor #17 1uH) is driven from stage 3 through cap #20 1uF. The outputs of stages 2, 4 and 5 are tied together through R5, R10 and R21 (all 1k) onto the long right-hand vertical rail x~935.\n\nNET MAP (12 nets):\n  0   = the reference net: the '+' inputs of op-amps #2, #9, #13, #19 (each dropping to its own GND symbol #6, #14, #16, #22), the bottom of I-DC #15 with GND #18, and the bottom terminal of V-DC #7, which lands on the hatched earth symbol at (162,346) - see the note under PORT/TERMINAL FIXES.\n  n1  = stage-1 summing node: V-DC #7 top, op-amp #2 IN-, and the left plate of feedback cap #0 (up the stub at x~237 through site S3).\n  n2  = stage-1 output: op-amp #2 OUT, the right plate of cap #0 (down the stub at x~390 through site S4), R4 left.\n  n3  = stage-2 summing node: R4 right, op-amp #3 IN-, inductor #1 left (up the stub at x~545 through site S5).\n  n4  = stage-2 output: op-amp #3 OUT, inductor #1 right (down the stub at x~700 through site S6), R5 left.\n  n5  = stage-3 output and the busiest net on the sheet: op-amp #13 OUT, inductor #12 right (the feedback drop at x~401, site S15), R11 left, cap #20 left, AND op-amp #3 IN+. It runs east from the op-amp #13 apex to (455,592), crosses the middle horizontal at S14, and the long vertical x~455..470 carries it north to (455,292) then east/up to op-amp #3's lower input at (588,214), and south to (460,860) then east into cap #20.\n  n6  = the right-hand vertical rail x~935 from y~205 to y~890: R5 right, R10 right, R21 right. Only three terminals and no other load - unusual, but it is exactly what is drawn; the rail terminates at both ends on those resistor leads.\n  n8  = stage-4 summing node: R11 right, op-amp #9 IN-, cap #8 left (up the stub at x~605, site S12).\n  n9  = stage-4 output: op-amp #9 OUT, cap #8 right (the feedback drop at x~735), R10 left.\n  n10 = stage-3 summing node: I-DC #15 top, op-amp #13 IN-, inductor #12 left (up the stub at x~183, site S20).\n  n11 = stage-5 summing node: cap #20 right, op-amp #19 IN-, inductor #17 left (up the stub at x~588, site S24).\n  n12 = stage-5 output: op-amp #19 OUT, inductor #17 right (the drop at x~750, site S25), R21 left.\n\nSITE DECISIONS - all 11 CRITICAL sites explicitly recorded:\n  S3 (239,153), S4 (386,168), S5 (540,175), S6 (701,192), S12 (605,579), S15 (401,592), S20 (183,669), S24 (588,884), S25 (750,894) -> all JUNCTION. Each is a clean tee where one end of a feedback stub drops onto (or rises from) the signal line: the stub simply terminates on the through-wire, there is no hop and no fourth branch. Reading any of them as a crossing is electrically impossible - it would leave that feedback capacitor/inductor with one terminal on a dead-end net and the corresponding op-amp with no feedback path at all.\n  S13 (933,587) deg5 -> JUNCTION. R10's right lead lands on the right-hand rail. The tracer scored hop=4.9 but at 12x this is just a slight kink in the hand-drawn rail plus ~4 px of pen overshoot past it; the horizontal wire clearly ends on the rail. A crossing reading would leave R10's right end dangling.\n  S14 (469,588) deg4 -> JUNCTION (the one real JUDGEMENT CALL on this sheet). This is a plain X: the long vertical x~466..470 crosses the horizontal signal line y~586..589 with NO solder dot and NO hop. Pixel check with inkmap at (468,588): the ink swells only to about 8 px across over 4 rows against a 3-4 px stroke, and the swelling is explained by the horizontal entering at y~589 on the left and leaving at y~586 on the right - i.e. plain stroke overlap, not a symmetric blob. I take it as a junction on rule 1, electrical impossibility of the alternative: reading it as a crossing would split n5 into (a) {op-amp #13 OUT, inductor #12 right, R11 left} and (b) {op-amp #3 IN+, cap #20 left}. Group (b) would be a completely undriven floating island - an op-amp input terminal (infinite impedance) tied to one plate of a capacitor whose other plate goes to op-amp #19's summing node - so stage 5 would have no input source whatsoever and op-amp #3's non-inverting input would float. With the junction reading, op-amp #13's output simply fans out to three loads (R11 to stage 4, cap #20 to stage 5, and op-amp #3's + input), which is coherent and matches the way the rest of the sheet is wired. The ink prior for this dataset (a plain crossing with no hop is usually a real junction) points the same way, and the drafter used no dots anywhere on this sheet, so the absence of a dot here carries no information.\n  Non-critical sites left at the default: S0/S1 ('1uF' text over cap #0), S8 (the hatched earth symbol under V-DC #7 - its own ink, netlist-neutral), S18 ('1k-ohm' text), S21/S22/S23 ('1uH' text over inductor #17), S27 (the corner where op-amp #19's + input drops to GND #22 - a genuine corner, already inside net 0).\n\nPORT / TERMINAL FIXES:\n  #0 Capacitor (feedback of stage 1): terminal 0 was pointing at p2@(317,49), a fragment of the '1 uF' label rather than a lead, which produced the single-terminal net n1. Repointed t0 to p1@(274,78), the real left plate lead that runs left then down the x~237 stub to the stage-1 summing node at S3. t1 stays p0@(324,83).\n  ALL FIVE OP-AMPS had the wrong terminal order. The required order is (in+, in-, out); the tracer had put the output first in every case. Reading the drawn '-' (upper) and '+' (lower) marks at 8x on each symbol:\n    #2  (329,168): in+ = p2@(287,183) (lower, drops to GND #6), in- = p0@(286,152) (upper), out = p1@(371,167). ports 2 = {0:2, 1:0, 2:1}.\n    #3  (628,195): in+ = p0@(588,214) (lower), in- = p1@(589,178) (upper), out = p2@(667,193). ports 3 = {0:0, 1:1, 2:2}. NOTE: this is the only op-amp whose '+' input is NOT grounded - its lower lead runs left to (565,214), down to (565,290), west to (455,292) and then down the long vertical into net n5.\n    #9  (694,594): in+ = p1@(647,611) (lower, drops to GND #14), in- = p0@(646,581) (upper). ports 9 = {0:1, 1:0}.\n    #13 (256,697): in+ = p2@(211,717) (lower, drops to GND #16), in- = p1@(211,673) (upper), out = p0@(300,694). ports 13 = {0:2, 1:1, 2:0}.\n    #19 (670,897): in+ = p2@(623,914) (lower, drops to GND #22), in- = p0@(621,884) (upper), out = p1@(717,893). ports 19 = {0:2, 1:0, 2:1}.\n  #9 Op-Amp OUTPUT had no port at all (the tracer resolved only 2 of 3 terminals). The reason is visible in the edge graph: the output wire and the feedback lead form a single L-shaped edge e29 running (782,586) -> (703,507), i.e. from R10's left lead west along y~586, past the triangle apex at (730,588), then north to cap #8's right plate - there is no free wire END near the component box for the port finder to latch onto. Since there is no port index to point terminal 2 at, I pinned it with manual_nets: 9.2 = 'n9', which is exactly the net of e29 (cap #8 right + R10 left). Confirmed visually at 8x that the triangle apex sits on that wire.\n  #7 V-DC bottom terminal: the tracer left it on a one-terminal net. At 8x the symbol it lands on at (162,346) is unmistakably a chassis/earth GROUND - a horizontal bar with four hatch strokes - but the published COCO inventory contains no GND component there (the other five grounds on this sheet are all drawn in the three-bar style, and this one, drawn in the hatched earth style, appears to have been missed by the annotator). Because the GT must describe the DRAWING, I pinned 7.1 = '0' with manual_nets rather than leave the source with a floating terminal; a voltage source with one end on a dead-end net would also leave the entire stage-1 input branch with no return. This is the one place where I asserted a connection that the component inventory does not itself support, and it is flagged here deliberately: if the reference GT keeps the un-annotated earth symbol out of the netlist, 7.1 would instead be its own single-terminal net.\n  All other ports checked in the _comps montages and left alone. The 'unused port' warning on #15 (I-DC) is the '10A' label ink touching the box.\n\nCLASSES: all 23 accepted as annotated. Two labelling oddities that are NOT class errors and do not affect the netlist: component #12 at (321,592) is drawn as a coil (correctly annotated Inductor) but the drafter wrote '1uF' next to it, and component #0's stray label stroke is what mis-seeded its port. The five 'V-DC (one port)'-style supply symbols of other sheets do not appear here; #7 is a proper two-terminal V-DC circle and #15 a two-terminal I-DC circle.\n\nUNRESOLVED: the un-annotated earth ground under V-DC #7 (documented above) is the only item where my answer depends on a decision about the inventory rather than about the ink. Net n6 having only three terminals and no load is unusual but is what the drawing shows.",
+ "manual_nets": {
+  "9.2": "n9",
+  "7.1": "0"
+ }
+}

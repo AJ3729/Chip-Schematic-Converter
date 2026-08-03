@@ -1,0 +1,97 @@
+{
+ "sites": {
+  "1": "junction",
+  "3": "junction",
+  "5": "junction",
+  "13": "junction",
+  "26": "junction",
+  "34": "junction",
+  "35": "junction",
+  "36": "junction",
+  "37": "junction",
+  "51": "junction",
+  "53": "junction",
+  "7": "junction",
+  "8": "junction",
+  "11": "junction",
+  "9": [
+   [
+    24,
+    26
+   ]
+  ],
+  "10": "none",
+  "12": "none",
+  "14": "junction",
+  "15": "junction",
+  "16": "junction",
+  "27": "junction",
+  "46": "junction",
+  "17": "crossing",
+  "22": "crossing",
+  "23": "crossing",
+  "21": [
+   [
+    43,
+    47,
+    49,
+    44
+   ],
+   [
+    30,
+    51
+   ]
+  ],
+  "24": "none",
+  "28": "crossing",
+  "30": "crossing",
+  "31": "crossing",
+  "29": "crossing",
+  "44": "crossing",
+  "47": "crossing",
+  "49": [
+   [
+    91,
+    92
+   ],
+   [
+    65,
+    98
+   ]
+  ],
+  "20": "junction",
+  "32": "junction",
+  "40": "junction",
+  "41": [
+   [
+    69,
+    96
+   ],
+   [
+    83,
+    90
+   ]
+  ],
+  "42": "none",
+  "45": "none",
+  "48": "none",
+  "54": "junction",
+  "55": "junction",
+  "56": "junction"
+ },
+ "ports": {
+  "2": {
+   "0": 2,
+   "1": 0
+  },
+  "7": {
+   "0": 1,
+   "1": 0
+  },
+  "8": {
+   "0": 1,
+   "1": 0
+  }
+ },
+ "notes": "CIRCUIT: a 6-column x 5-row grid ladder, the same generated family as calibration sheets 153, 238, 394 and 836. Six vertical wires - A x~40 (left border), B x~210, C x~415, D x~607, E x~788, F x~920 (right border, slanted) - none of which carries a component, so each vertical is a single node. Five sources sit in series along the TOP rail (y~205): A -[V-AC #1 3V/1kHz]- B -[I-AC #4 5A/1kHz]- C -[V-DC #5 5V]- D -[I-DC #10 10A]- E -[V-DC #11 15V]- F. Four rungs run left to right, each an inductor then a capacitor: row2 y~385 (L#9 '50MH' + C#12 '50MH'), row3 y~545 (L#6 10uH + C#8 '50MH'), row4 y~725 (L#3 5uH + C#7 10uF), row5 y~905 (L#0 2uH + C#2 5uF). The GND symbol #13 sits outside the right border at (976,736) and its lead runs west into the row-4 line.\n\nNET MAP (14 components, 8 nets):\n  n1 = the LEFT BORDER column A, from the top-left corner (77,203) down to the bottom-left corner (98,926). It T-joins the left end of every rung: V-AC#1 left (1.0), and the left leads of all four inductors - L#9 (9.0), L#6 (6.0), L#3 (3.0), L#0 (0.0). 5 terminals.\n  n2 = column B (x~210) + row 5's MIDDLE segment. Column B taps the top rail at the filled dot S7 (208,204), hops rows 2, 3 and 4, and T-lands on row 5 at the filled dot S56 (223,918), which sits between L#0 and C#2. n2 = {V-AC#1 right (1.1), I-AC#4 left (4.0), L#0 right (0.1), C#2 left (2.0)}. 4 terminals.\n  n3 = the RIGHT BORDER column F + row 5's FAR segment + columns C and D. Column C taps the rail at the filled dot S8 (413,206), hops rows 2/3/4 and T-lands on row 5 at (438,905); column D hops rows 2/3/4 and T-lands on row 5 at (616,894); row 5 then runs unbroken east and turns up at (908,885) to BECOME column F, which carries the top-right corner and collects the right ends of rows 2 and 3. n3 = {I-AC#4 right (4.1), V-DC#5 left (5.0), C#2 right (2.1), C#8 right (8.1), C#12 right (12.1), V-DC#11 right (11.1)}. 6 terminals.\n  n5 = the top-rail node between V-DC#5 and I-DC#10 (x~598..615 at y~208): {V-DC#5 right (5.1), I-DC#10 left (10.0)}. 2 terminals. See judgement call J2.\n  0  = GROUND: the GND symbol's lead crosses the right border at (913,731) and continues west as row 4's FAR segment, which also collects column E (column E taps the rail at the filled dot S11 (791,210), hops row 2, crosses row 3 at the plain X S29, and T-terminates on row 4 at (782,721)). 0 = {GND #13 (13.0), C#7 right (7.1), I-DC#10 right (10.1), V-DC#11 left (11.0)}. 4 terminals. See judgement call J1.\n  n7 = row 2's middle segment: {L#9 right (9.1), C#12 left (12.0)}.\n  n6 = row 3's middle segment: {L#6 right (6.1), C#8 left (8.0)}.\n  n4 = row 4's middle segment: {L#3 right (3.1), C#7 left (7.0)}.\n\nDRAFTER'S CONVENTIONS ON THIS SHEET (established by inspecting every crossing at 5-12x plus raw pixel dumps):\n  * A crossing that is NOT a connection is drawn as a semicircular U-hop in the horizontal rung. Verified hops: row2 x B S17 (205,380), x C S22 (418,392), x D S23 (607,397), x E S21/S24 (790,390); row3 x B S28 (210,547), x C S30 (426,550), x D S31 (608,550); row4 x B S49 (218,746), x C S47 (436,736), x D S44 (608,731). All are recorded as crossings.\n  * A real connection is drawn either as a filled solder blob or as a bare T where a column dies on a rung. Filled blobs: S7 (208,204), S8 (413,206), S11 (791,210), S27 (46,534), S32 (921,554), S46 (42,735), S56 (223,918). Bare Ts (column stops dead on the rung, no ink beyond - checked in the pixel dumps): S20 (929,386), S40 (782,721), S54 (616,894), S55 (438,905). All recorded as junctions.\n  * The drafter also uses a small HOLLOW RING as a node marker. There are three: (35,354) on the left border where row 2 starts, (607,208) on the top rail where column D taps it, and (913,731) on the right border where the GND lead crosses. A hollow ring is NOT self-explanatory - calibration sheet 836 contains one hollow ring that is a junction (766,548) and one that is a crossover (896,548) - so each was decided on electrical grounds, per the guide's rule 1.\n\nJUDGEMENT CALLS (all three are forced by rule 1, 'electrical impossibility wins'):\n  J0 - RING (35,354), left border x row 2 -> JUNCTION. Column A passes vertically through the ring (ink enters the ring's top at x~34, leaves its bottom at x~36) and row 2's left end attaches to the ring's right wall at x=43. Reading it as a crossover would leave row 2's left segment holding only L#9's left lead - a one-terminal net - which the guide forbids. Junction.\n  J1 - RING (913,731), right border x row 4 x GND lead -> CROSSOVER: the row-4 line and the GND lead pass through each other (edges 83 and 90 grouped), and column F passes through vertically (edges 69 and 96 grouped). This is THE motif of this dataset family: in calibration sheets 153, 238, 394 and 836 the annotator made exactly this call - 'the GND lead crosses the border rail and becomes the rung's far segment'. The junction reading is electrically impossible here: it would put column E (which T-lands on row 4 at S40) onto column F, i.e. both terminals of V-DC#11 (15 V) on one net - a dead-shorted voltage source. Implemented as sites 41 = [[69,96],[83,90]] with 42/45/48 = none; the four 2-px ring arcs are left unassigned (they carry no terminals).\n  J2 - RING (607,208), top rail x column D -> CROSSOVER: the top rail passes through (edges 24 and 26 grouped) and column D's top stub is not joined to it. Forced: column C and column D both T-land on row 5's far segment (at (438,905) and (616,894) - both verified as solid Ts by pixel dump, no gap and no hop, so neither landing can be denied), and that segment runs on into column F. Hence columns C, D and F are one node. If column D's top were also joined to the rail, BOTH terminals of V-DC#5 (5 V) would sit on that node - a second dead-shorted source. The ring at (607,208) is the one anomalous mark among the four top-rail taps (B, C and E are unmistakable filled blobs; only D is a hollow ring), so it is the natural place for the break, and the same drafter's hollow ring at 836's (896,548) is likewise a crossover. NOTE FOR THE REVIEWER: the identical terminal partition is obtained by instead reading the T at (616,894) as a missing hop (column D never lands on row 5) - the two readings differ only in which copper the node 'n5' occupies, not in which terminals share a net, so the scored answer is unchanged. Implemented as sites 9 = [[24,26]] with 10/12 = none.\n  J3 - S29 (788,548), row 3 x column E -> CROSSING. This is the sheet's ONLY plain X: a clean 4-way with no dot and no hop (the drafter hopped every other rung/column crossing). Rule 1 decides it: the junction reading would tie column E to row 3's far segment, which runs east to the filled blob S32 on column F, re-merging net 0 with column F and re-shorting V-DC#11. Crossing.\n\nALL OTHER CRITICAL SITES (explicitly recorded, tracer default confirmed by eye):\n  S7 (208,204) junction - filled blob, column B taps the top rail. S8 (413,206) junction - filled blob, column C taps the rail. S11 (791,210) junction - filled blob, column E taps the rail. S20 (929,386) junction - row 2's right end dies on column F (bare T). S27 (46,534) junction - filled blob, row 3's left end on column A. S32 (921,554) junction - filled blob, row 3's right end on column F. S45/S41/S42/S48 - see J1. S46 (42,735) junction - filled blob, row 4's left end on column A. S54 (616,894) and S55 (438,905) junction - bare Ts, columns D and C dying on row 5. S56 (223,918) junction - filled blob, column B dying on row 5's middle segment. S21/S24 (790,390) - the row-2 hop over column E arrived split across two degree-3 sites, so it is expressed with explicit edge groups 21 = [[43,47,49,44],[30,51]], 24 = none: the incoming rung, both halves of the detour arc and the outgoing rung form one group, the two halves of column E the other. S49 (218,746) - same situation for row 4's hop over column B, expressed as 49 = [[91,92],[65,98]] (the tracer's own default here was 'junction', which would have shorted V-AC#1 by tying column B to column A through row 4; the crop shows an unmistakable U-hop). S22, S23, S17, S28, S30, S31, S44, S47 crossings - plain U-hops, tracer default kept and confirmed.\n  Non-critical sites recorded as junction because they are handwritten caption ink or symbol ink touching a wire, with no netlist effect: S1 (162,156) and S3 (114,159) ('3V 1kHz'), S5 (498,164) ('5V'), S13 (681,339) and S26 (672,482) ('50MH'), S34/S35/S36/S37 (515-528, 660-684) ('10uF' over the capacitor plates), S51 (300,855) ('5uF'), S53 (142,893) ('2uH').\n\nPORT FIXES: three capacitors had a terminal seated on caption ink instead of a lead, which produced four one-terminal nets in the tracer's output.\n  #2 (5uF, bbox 45x55 so the tracer treated it as a vertical part): t0 moved to p2@(274,916), the true LEFT lead; t1 to p0@(327,912), the RIGHT lead. p1@(307,880) is the stem of the handwritten 'F'.\n  #7 (10uF): t0 moved to p1@(493,720), the LEFT lead (was on p2@(534,682), the '10uF' caption). t1 = p0@(550,721), the right lead.\n  #8 ('50MH'): t0 moved to p1@(656,536), the LEFT lead (was on p2@(690,503), caption ink). t1 = p0@(713,542).\n  The other 'unused port candidate' warnings are all caption ink and correctly ignored: #1 p2/p3 ('3V'/'1kHz'), #3 p2 ('5uH'), #4 p3 ('5A'), #5 p1 ('5V'), #6 p2 ('10uH'), #10 p2/p3 ('10A').\n  Every part here is 2-terminal or the 1-terminal GND, so terminal ORDER is unscored; 2-terminal parts are listed left-then-right as drawn.\n\nCLASSES: all 14 match the drawn symbols and are left unchanged. Worth flagging to a reviewer, though it is a LABEL error rather than a class error: capacitors #8 and #12 are both captioned '50MH' (an inductance) while the symbol drawn in both places is unmistakably a two-plate capacitor. The COCO class (Capacitor) follows the symbol, which is what the guide asks for, so I kept it.\n\nUNRESOLVED / RESIDUAL RISK: J2 is the weakest link. The ink at (607,208) reads as a node marker, and taken literally the sheet short-circuits V-DC#5; something on this sheet must give, and I have chosen the break that (a) sits on the one anomalous mark, (b) leaves every other piece of ink read literally, and (c) is the minimal change - exactly the reasoning the calibration annotator used on sheet 836. A reviewer who prefers to move the break to the T at (616,894) gets the identical scored netlist."
+}

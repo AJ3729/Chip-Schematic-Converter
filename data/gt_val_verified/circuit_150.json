@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "image": "circuit_150.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: an AC phasor ladder. A 35sin(t) V source (#4) sits on the left vertical (x~174). The top rail (y~395-410) runs from x~174 to x~897 and carries, left to right: the 49F capacitor (#0) at x~281, a tap at x~400, the 73Ohm resistor (#1) at x~554, a tap at x~688, and the '50 Ohm' capacitor (#2) at x~785. From the x~400 tap a branch drops through the 78mH inductor (#3) to the bottom rail; from the x~688 tap a branch drops through the 10cos(t) A current source (#5) to the bottom rail. Right of #2 the rail turns down at x~897 and joins the bottom rail, so the right plate of #2 is tied straight to the bottom rail. The bottom rail (y~600-620) runs the full width and carries the GND symbol (#6) at x~575.\n\nNET MAP (4 nets, 7 components):\n  0  = the bottom rail from x~170 to x~897, the right-hand vertical at x~897 down from the top rail, the lower legs of the inductor and the current source, and the GND stem at x~572. Terminals: 4.0 (bottom of the V-AC), 3.1 (bottom of the 78mH), 5.1 (bottom of the I-AC), 2.1 (right plate lead of the '50 Ohm' capacitor, via the x~897 vertical), 6.0 (GND).\n  n1 = top rail left of the 49F cap (x~174-245) down the left vertical to the top terminal of the V-AC source: 0.0, 4.1.\n  n2 = top rail between the 49F cap and the 73Ohm resistor (x~316-494) plus the stub down to the top of the 78mH inductor: 0.1, 1.0, 3.0.\n  n3 = top rail between the 73Ohm resistor and the '50 Ohm' capacitor (x~613-749) plus the stub down to the top of the 10cos(t) current source: 1.1, 2.0, 5.0.\n\nJUDGEMENT CALLS / SITE DECISIONS (all four CRITICAL sites inspected in the crops):\n  S7 (400,395) -> JUNCTION. Clean T, deg=3: the top rail passes through horizontally and one vertical stub drops from it toward the inductor; there is no ink above the rail and no hop. Anything else would strand the inductor's top on a one-terminal net and remove the only shunt path in that mesh.\n  S9 (685,410) -> JUNCTION. Clean T, deg=3, same geometry, feeding the current source's top lead. Not joining would leave the current source's top open - a current source in an open branch is an electrical impossibility (rule 1).\n  S14 (694,612) -> JUNCTION. T where the current source's lower lead lands on the bottom rail. Not joining would open the current source's return path.\n  S15 (398,618) -> JUNCTION. T where the inductor's lower lead lands on the bottom rail. Not joining would strand 3.1 alone.\n  No solder dots and no hops/jogs appear anywhere on this sheet; every wire-to-wire meeting is an unambiguous T or corner, so no plain-X tie-breaking was needed.\n\nNON-CRITICAL SITES (left at tracer default, none change the netlist): S0/S1 are the '49F' label ink over the capacitor; S2/S3/S4 are the '73 Ohm' label ink over the resistor; S10/S11/S12 are the '78 mH' label ink touching the inductor coil; S13 (897,599) is the bottom-right corner where the right-hand vertical turns into the bottom rail - a plain L corner, junction by construction, and the tracer already reads it that way.\n\nFORCED GROUND CONNECTION (manual_nets): the tracer reported 'ports: NONE FOUND' for the GND symbol (#6) and left 6.0 on a null net, so the bottom rail came out as an ordinary net 'n4' with no ground. This is a tracer artefact, not a real break: an inkmap dump at (576,615) shows the bottom rail as solid ink across y=618-620 and a 4-px-wide vertical stem at x=571-574 running continuously from the rail at y=618 down through y=631 and on into the GND rake's top bar. The GND bounding box (x 538-614, y 624-670) swallows the lower part of that stem, so after box deletion no wire END was left touching the box and no port candidate was generated. The drawing plainly shows the connection, and without it the whole circuit would have no ground reference. Because component #6 has NO port candidate at all, its terminal never enters the tracer's terminal map, so the documented 'merge' key cannot reach it (merge only unions terminals that are already mapped, and 'bridges.add' is not implemented). The connection is therefore forced with manual_nets, relabelling the entire bottom-rail net to '0': 4.0, 3.1, 5.1, 2.1 and 6.0. This changes only the NAME of that net (it was already one group, 'n4') plus the addition of the GND terminal to it - exactly the grouping the drawing shows. This is the only forced connection on this sheet.\n\nCLASSES: no overrides. Note for the record that component #2 is labelled '50 Ohm' by the drafter but is unmistakably drawn as a capacitor (two parallel vertical plates with a gap, identical in form to the 49F cap #0), and the COCO class 'Capacitor' matches the drawn symbol. This is an AC phasor exercise, so '50 Ohm' is almost certainly the element's reactance magnitude rather than a resistance; either way GT follows the drawn symbol, so Capacitor stands. #5 is correctly I-AC (circle with a sine wave and a downward current arrow), #4 correctly V-AC (circle with a sine wave, no arrow).\n\nPORTS: no port overrides needed. The three 'unused port candidate' warnings (#1 at (552,373), #3 at (429,490), #5 at (734,522)/(734,511)) are all handwritten label glyphs ('73 Ohm', '78 mH', '10cos t A') whose ink brushes the symbol box; the chosen ->t0/->t1 ports are the genuine leads in every case. All components here are 2-terminal (or 1-terminal GND), so terminal order is unscored. Nothing left unresolved.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        280.9,
+        395.1,
+        64.7,
+        64.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        553.8,
+        400.3,
+        112.3,
+        42.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        785.2,
+        408.6,
+        64.1,
+        59.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        403.2,
+        487.3,
+        45.8,
+        108.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-AC",
+      "bbox": [
+        174.1,
+        470.7,
+        75.6,
+        72.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-AC",
+      "bbox": [
+        689.3,
+        513.7,
+        84.2,
+        96.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        576.1,
+        646.8,
+        75.6,
+        46.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

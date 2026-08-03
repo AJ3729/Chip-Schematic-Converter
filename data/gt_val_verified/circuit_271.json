@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "image": "circuit_271.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "Circuit: 20mV source (#4) in series with R 5ohm (#1) and L 2mH (#0) feeding a parallel combination of R 2kohm (#2) and C 5mF (#3), with the return along the bottom rail; the GND symbol (#5) hangs below the bottom rail on the same x~565 column as R 2kohm. NET MAP: n3 = left rail: V-DC(#4) + terminal (top, at (162,465)) up and right to the left lead of R 5ohm at (219,377). n1 = top rail between the right lead of R 5ohm (313,379) and the left lead of L 2mH (382,377) - one continuous 70px wire run. n2 = top rail right of the inductor: L right lead (469,375), the branch down the x~555 column to the top of R 2kohm (site S0), and the continuation right and down to the top plate of C 5mF. 0 = ground / bottom rail: V-DC bottom (- terminal), bottom lead of R 2kohm, bottom plate of C 5mF, and the GND symbol stub, all joined at site S17. JUDGEMENT CALLS: S17 (566,606) CRITICAL -> junction (agrees with the tracer default; recorded explicitly). The inkmap at (566,606) shows a plain X: the x~565 column runs continuously from R 2kohm's bottom lead down through the 2-3px horizontal bottom rail and on to the GND symbol, with no solder blob (no symmetric thickening in both axes) and no hop or jog. Branch edges are e31 (up to R 2kohm), e32 (down to GND), e30 (bottom rail left to the V-DC bottom) and e29 (bottom rail right to the capacitor bottom). Junction is forced electrically: under the crossing reading, R 2kohm's bottom lead would connect only to the GND symbol, giving a two-terminal net {R2k bottom, GND} with no return path, so R 2kohm would carry zero current and become a dead stub, and the source's return rail would have no reference at all. The junction reading gives the standard V - R5 - L - (R2k || C) network with every element energised. It is also what the ink prior predicts (plain X with no hop = junction). Note for the auditor: the visually identical plain X in the companion sheet circuit_270 at (402,576) was read as a CROSSING - there the vertical was a bare wire, so joining it would have shorted the source's node to the return rail and killed the whole L/R/C network; here the vertical contains R 2kohm, so joining it is the only sane reading. The deciding factor in both cases is which reading leaves current flowing, not the ink, which is the same in both. S0 (552,377) CRITICAL -> junction: the x~555 column ends on the top rail from below (T, deg 3, dot 2.0 from the pen lead-in); a crossing would strand the top of R 2kohm on a one-terminal net. Non-critical sites S3, S4, S5, S6, S9, S15 are all handwritten value text ('2mH', '5 ohm', '2k ohm') brushing the inductor coil, the resistor zigzag or their leads; none changes the netlist and all are left at the tracer default. PORT FIXES: comp #1 (R 5ohm) terminal t1 was landing on port p1@(282,403), a stroke of the '5 ohm' label written directly under the resistor box, which left it on a one-terminal net n4. Repointed t1 to p3@(313,379), the real right lead (70px run to the inductor's left lead). Comp #4 (V-DC) terminal t0 was landing on port p1@(127,495), the tail of the 'V' in the '20mV' label touching the left of the source circle (one-terminal net n5). Repointed t0 to p2@(162,465), the real top lead (140px run to R 5ohm's left lead). Together these fixes cleared all four single-terminal-net warnings. CLASSES: all confirmed from the crops - #4 circle with + over - (V-DC), #0 four-loop coil (Inductor), #3 two parallel plates (Capacitor), #1 and #2 zigzags (Resistors). No bridges dropped, no merges, no manual nets, nothing unconnected. Result: 6 components, 4 nets, ERC clean.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        425.8,
+        375.4,
+        79.8,
+        34.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        266.2,
+        381.2,
+        87.3,
+        37.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        561.4,
+        501.3,
+        40.6,
+        75.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        709.3,
+        491.0,
+        64.0,
+        49.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-DC",
+      "bbox": [
+        161.0,
+        498.7,
+        59.2,
+        57.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        565.8,
+        643.8,
+        60.9,
+        38.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

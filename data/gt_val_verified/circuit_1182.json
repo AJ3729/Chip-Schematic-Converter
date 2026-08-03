@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1182.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a textbook second-order source-load loop drawn inside a hand-ruled border. A 24V V-DC #3 at (228,456) sits in the left-hand vertical branch; from its + (top) terminal the wire runs up to (222,375) and right along the top rail y~377 through R1 5kOhm (313,381) and L0 2mH (460,380) to the node at (573,377); from that node a 20F capacitor #4 (573,454) drops to the bottom rail and the top rail continues right to (695,377) and down through R2 2Ohm (692,470) to the bottom rail y~551; the bottom rail runs from (222,547) right to (699,551) and carries GND #5 (578,598). 6 components, 4 nets.\n\nNET MAP:\n  n3 = V-DC #3 top terminal (224,428) up the x~222 column to (222,375) and right along the top rail to R1's left end (268,376). Two terminals.\n  n1 = the short top-rail segment between R1 and L0: R1 right end (356,377), L0 left end (413,376).\n  n2 = the top-rail node right of the inductor: L0 right end (509,377), the capacitor's top lead (573,431) which T's onto the rail at S6 (570,377), and the rail continuing right to (695,377) and down into R2's top (693,422). Three terminals.\n  0  = the bottom rail plus everything on it: V-DC #3 bottom terminal (222,484) down the x~222 column and right along y~549, R2 bottom (699,519), the capacitor's bottom lead (571,474) coming down x~574, and GND #5 (577,576). Four terminals.\n\nJUDGEMENT CALL - S11 (574,552), the capacitor's bottom lead crossing the bottom rail on its way to the GND symbol. CALLED JUNCTION, which OVERRIDES the tracer's default of 'crossing' (it had scored hop=7.1).\n  Ink: inkmap 22px at (574,550) shows the capacitor's lead as a dead-straight 3px column at x=573..575 running unbroken from y=528 to y=572 - no lateral excursion anywhere, so the hop score is spurious (it comes from a small kink in the horizontal rail, which sits at rows 551-554 and steps from y=552 on the left to y=553 on the right). There is no solder dot either: dot=1.4, essentially the noise floor, and the 5x crop shows a completely plain X. So the ink alone does not settle it, and the drawing contains no hop or jog anywhere to establish a no-connect idiom.\n  Electrical impossibility settles it. If S11 were a crossing, net '0' would consist of exactly two terminals - the capacitor's bottom plate and the GND symbol - and nothing else. The capacitor would then hang off the n2 node with its other end tied to a ground that touches no other component: a branch with no return path, through which no current can ever flow, and the source loop (24V -> 5k -> 2mH -> 2Ohm -> back) would have no ground reference at all. Rule 1 of the brief rules that reading out. Reading S11 as a junction gives the circuit the drawing plainly depicts: a 24V source driving a 5kOhm + 2mH series arm into a 20F capacitor in parallel with a 2Ohm load, all referenced to the grounded bottom rail. The rule-2 ink prior points the same way (a plain crossing with no hop is normally a junction in this dataset).\n  Consequence of the other reading, for the record: 5 nets instead of 4, with '0' = {4.1, 5.0} and a separate bottom-rail net {3.0, 2.1}.\n  S6 (570,377) is the other critical site and is an unambiguous T - the capacitor's top lead ends on the top rail - so junction. The remaining sites are handwriting touching a wire and were left at their (harmless) defaults: S1 (279,348) and S2 (301,348) are the '5KOhm' label crossing the rail above R1, S5 (441,355) is the '2mH' label above the inductor, S8 (530,467) is the 'F' of '20F' touching the capacitor's left plate, S10 (721,488) is the '2Ohm' label touching R2. 10 gap bridges were found, none critical, none dropped.\n\nPORT FIX (1): #4 Capacitor t0 -> p1 (573,431), the real top lead. The tracer had it on p2 (544,456), which is the tail of the 'F' in the '20F' label lying against the left-hand plate; that put the capacitor's top terminal on a 1-terminal net (the summary's n5) and left the genuine top lead unused. With the fix the capacitor sits correctly between n2 and 0.\n\nCLASSES: all six accepted. #3 is a two-terminal V-DC (circle with a + over a - bar), not the one-port arrow style, and its terminal order is top/bottom as drawn, which is unscored for a 2-terminal part. #0 Inductor, #1 and #2 Resistor, #4 Capacitor and #5 GND are all unmistakable. No 3-terminal parts, no unconnected leads, no merges needed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        460.5,
+        379.8,
+        90.0,
+        32.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        312.7,
+        380.7,
+        80.5,
+        31.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        692.2,
+        470.4,
+        40.4,
+        88.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        228.0,
+        456.1,
+        53.2,
+        49.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        573.4,
+        453.6,
+        42.3,
+        35.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        577.7,
+        597.7,
+        67.7,
+        37.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

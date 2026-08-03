@@ -1,0 +1,37 @@
+{
+ "sites": {
+  "0": "junction",
+  "1": "junction",
+  "2": "junction",
+  "6": "crossing",
+  "7": "junction",
+  "9": "crossing",
+  "10": "crossing",
+  "11": "junction",
+  "14": "junction",
+  "15": "crossing",
+  "16": "junction",
+  "17": "crossing",
+  "20": "junction",
+  "22": "crossing",
+  "23": "junction",
+  "25": "crossing",
+  "28": "junction",
+  "29": "crossing",
+  "30": "junction",
+  "35": "junction",
+  "36": "crossing",
+  "37": "junction"
+ },
+ "ports": {
+  "7": {
+   "0": 1,
+   "1": 0
+  },
+  "12": {
+   "0": 1,
+   "1": 0
+  }
+ },
+ "notes": "CIRCUIT: hand-drawn 5-column x 6-rail RLC/source mesh. Horizontal rails at y~52 (R1), 210 (R2), 375 (R3), 550 (R4), 748 (R5), 890 (R6, bottom); vertical columns at x~118 (C1), 300-320 (C2), 505 (C3), 710-730 (C4), 870 (C5, right rail). Components sit on the vertical columns; a column that must not touch a rail is drawn with a clear semicircular hop.\n\nNET MAP (7 nets):\nn1 = top rail y~52 (x 115..870) plus the upper stretches of columns C2, C3, C4 which hop rails R2/R3/R4. Terminals: V-AC 3V top (0.0), 1uH top (1.0), 5uH top (3.0), 10uH top (5.0), 50uH top (9.0).\nn2 = rail y~210 from its left T at (122,233) across to the right rail at S7 (869,202), plus the C1 stub between 1uH bottom and 5uF top. Terminals: V-AC bottom (0.1), 1uH bottom (1.1), I-AC 5A top (2.0), 5uF top (7.0).\nn3 = rail y~375 from the solder dot at S16 (322,376) to the right rail at S14 (862,356). Terminals: I-AC bottom (2.1), 5uH bottom (3.1), 10uF top (6.0), V-DC 5V top (4.0).\nn4 = rail y~550 (S23 -> S20) + column C2 below the 10uF cap + bottom rail y~890 + column C1 below the 5uF cap + right rail below the 15V source. Terminals: V-DC 5V bottom (4.1), I-DC 10A top (8.0), 10uF bottom (6.1), 5uF bottom (7.1), 100uF bottom (12.1), V-DC 15V bottom (11.1).\nn5 = short C3 segment between 10uH bottom (503,501) and 50uF top (508,608), hopping rail R4 at S25. 2 terminals.\nn6 = short C4 segment between 50uH bottom (726,679) and 100uF top (732,821), hopping rail R5 at S29. 2 terminals.\n0  = rail y~748 from S28 (509,746) to the right rail at S30 (852,750), plus the stem running from S28 down through the bottom rail (crossing at S36) to the GND symbol. Terminals: 50uF bottom (10.1), I-DC 10A bottom (8.1), V-DC 15V top (11.0), GND (13.0).\n\nJUDGEMENT CALLS:\nS36 (501,893) GND stem vs bottom rail -> CROSSING (overrides tracer default junction). No hop is drawn and the ink thickens only slightly (dot metric 1.8; the same stroke shows an identical wobble at y~875-880 where nothing crosses), so there is no solder dot. Decisive argument is electrical: a junction merges the y~748 rail with the bottom rail, and V-DC 15V (#11) has its top on the y~748 rail via S30 and its bottom on the bottom rail via the right-rail corner at (871,851)->(737,892) -> the source would be short-circuited. Reading it as a crossing also gives GND a sensible home (node 0 = the y~748 rail, which otherwise would have no ground reference).\nS25 (494,569) C3 column vs rail R4 -> CROSSING (overrides tracer default junction, hop metric 0.0). At 10x the column bulges left in an unmistakable semicircular hop (x drops from 503 to 490 and back) identical in form to S9/S10/S17/S22. A junction would have merged 10uH bottom and 50uF top into n4, shorting the 50uF top to the bottom rail and deleting net n5.\nS29 (716,752) C4 column vs rail R5 -> CROSSING (overrides tracer default junction, hop metric only 4.3). Same clear left-bulging semicircle at 10x. A junction would have put 50uH bottom and 100uF top on net 0 and deleted n6.\nS23 (321,564) rail R4 left end vs C2 column -> JUNCTION (agrees with default; plain X, dot 1.1, no hop). Both readings are electrically sane, so decided on drafting logic: with S25 and S22 read as crossings, a crossing here would leave the y~550 rail carrying only V-DC 5V bottom and I-DC top, which are already adjacent on the right rail - nobody draws a 540 px rail across the sheet to connect two points that are 100 px apart on the same wire. As a junction the rail is the route by which the bottom-rail node reaches the point between the 5V and 10A sources (the right rail there is occupied by those sources). The other reading would make the rail a 2-terminal net and keep 5uF/10uF/100uF/15V bottoms as a separate net.\nS28 (509,746) 50uF bottom / rail R5 / GND stem -> JUNCTION (agrees with default). Pixel dump shows a closed ink ring ~10x10 px on a 3 px stroke (dot metric 2.6) = a solder dot drawn as a small circle. Any other reading strands the left end of the y~748 rail or leaves GND on a 1-terminal net.\nS6 (698,198) -> CROSSING even though the hop metric is only 7.1: the crop shows a clean S-jog, matching the drafter's habit at S9/S10/S15/S17/S22 (hops 15-45).\nS0/S1/S2 (top rail), S16, S35 -> junctions with unambiguous solder dots (dot 2.2-3.2). S7/S11/S14/S20/S30/S37 -> plain T terminations, junctions.\n\nPORT FIXES: #7 (5uF cap) had t1 pointing at the '5uF' text stroke at (151,444); repointed t0->p1 (top lead 115,411) and t1->p0 (bottom lead 117,465). #12 (100uF cap) had t1 pointing at the '1' of '100uF' at (762,853); repointed t0->p1 (top 732,821), t1->p0 (bottom 736,866). Non-critical text-touch sites S12/S13 ('5A'), S18 ('5uF'), S33 ('uF') left at default - after the port fixes their ink forms isolated stray nets and touches no two component terminals.\n\nCLASSES: all 14 symbols agree with their labels (5 sources on the right rail: V-AC 3V/1kHz, I-AC 5A/1kHz, V-DC 5V, I-DC 10A, V-DC 15V; 4 inductors 1/5/10/50 uH; 4 capacitors 5/10/50/100 uF; 1 GND). No re-classification needed.\nUNRESOLVED: none. The only residual doubt is S23 vs S36 - both are plain crossings with no hop, and I read them oppositely; S36 is forced by the 15V short, S23 is decided by routing logic as described above."
+}

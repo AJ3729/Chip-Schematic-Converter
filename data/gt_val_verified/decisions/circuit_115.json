@@ -1,0 +1,37 @@
+{
+  "sites": {
+    "19": "junction",
+    "18": [
+      [
+        32,
+        33,
+        39
+      ]
+    ],
+    "28": "junction",
+    "29": "junction",
+    "30": "junction",
+    "31": "junction"
+  },
+  "ports": {
+    "5": {
+      "0": 3,
+      "1": 0
+    },
+    "7": {
+      "0": 3,
+      "1": 0
+    }
+  },
+  "merge": [
+    [
+      "0.0",
+      "1.1"
+    ],
+    [
+      "1.0",
+      "2.1"
+    ]
+  ],
+  "notes": "CIRCUIT: a 4-section ladder / two-source network. A slightly sloping top rail runs from (185,368) on the left to (805,325) on the right. V-DC 10V (#8, + on top) hangs on the left vertical; V-DC 5V (#4, + on top) hangs on the right vertical. Between them the top rail carries, left to right: L#3 4mH, node B, R#2 6ohm, node C, L#1 4mH, node D, R#0 3ohm. Three shunt branches drop from the top rail to the bottom rail: R#6 10ohm from node B, C#7 2F from node C, C#5 3F from node D. The bottom rail runs from the bottom of the 10V source at (215,570) rightwards, slightly rising, to the bottom of the 5V source at (830,487), with a GND#9 stub dropping from it at x=585.\n\nNET MAP (6 nets, 10 components):\n  n5 = top-left corner: left lead of L#3 down to the + (top) terminal of the 10V source #8. Terminals 3.0, 8.0.\n  n4 = node B (339,362): right lead of L#3, left lead of R#2 6ohm, top of R#6 10ohm. Terminals 2.0, 3.1, 6.0.\n  n3 = node C (~493,353): right lead of R#2 6ohm, left lead of L#1 4mH, top plate of C#7 2F. Terminals 1.0, 2.1, 7.0.\n  n1 = node D (~632,347): right lead of L#1 4mH, left lead of R#0 3ohm, top plate of C#5 3F. Terminals 0.0, 1.1, 5.0.\n  n2 = top-right corner: right lead of R#0 3ohm to the + (top) terminal of the 5V source #4. Terminals 0.1, 4.0.\n  0  = the whole bottom rail: bottom of the 10V source, bottom of R#6, bottom plate of C#7, GND#9, bottom plate of C#5, bottom of the 5V source. Terminals 4.1, 5.1, 6.1, 7.1, 8.1, 9.0.\n\nCRITICAL SITE DECISIONS:\n  S19 (339,362) JUNCTION - node B. edges.py reports kind=dot with dot=2.5, and the 5x crop shows an unmistakable filled solder blob roughly 3x the stroke width in both axes where the L#3 lead, the R#2 lead and the R#6 column meet. This is the drafter's own explicit junction mark and it establishes their habit on this sheet: they dot a node when three runs meet in a way that could be misread. Reading it as anything else would strand R#6 on a one-terminal net.\n  S18 (628,347) -> explicit edge groups [[32,33,39]] - node D. The drawing (zoom.py at 7x, centre 638,355) shows an unambiguous solid T: the L#1 lead runs right, flattens, and a vertical drops from it to the top plate of C#5, with the R#0 zigzag starting immediately to the right. The tracer could not see this because R#0's bounding box (x 631-785, y 313-361) swallows the top 48 px of that vertical, splitting the node into three scraps: e32/e33 (the 1-2 px top-rail fragments between the L#1 and R#0 boxes, joined by S18) and e39, the surviving 18 px of the vertical from (633,365) to the C#5 top plate at (638,382). Grouping [32,33,39] states that all three scraps are one node. The alternative (leaving them separate) leaves R#0.t0 and C#5.t0 each alone on a one-terminal net, which rule 'a net touching only one terminal is almost always a mistake' forbids.\n  S28 (671,514) JUNCTION - clean T where the C#5 3F column lands on the bottom rail. Became CRITICAL only after the C#5 bottom-lead port fix; before that the branch carried no terminal.\n  S29 (578,530) JUNCTION - clean T, the GND#9 stub rising to the bottom rail. The other reading would leave the circuit ungrounded.\n  S30 (525,538) JUNCTION - clean T where the C#7 2F column lands on the bottom rail.\n  S31 (376,556) JUNCTION - clean T where the R#6 10ohm column lands on the bottom rail.\n  All four T sites are three-branch stubs ending on a through-run; 'crossing' is not expressible at deg=3, and 'none' would orphan the shunt branch. No hop, jog or ambiguous X exists anywhere on this sheet.\n  Non-critical sites S0-S5, S8-S10, S12, S15, S16, S20-S26 are all handwritten value text ('3ohm', '4mH', '6ohm', '10ohm', '2F', '3F') brushing a wire, a symbol, or the printed page-border rectangle. Left at default.\n\nPORT / PIN FIXES:\n  #5 Capacitor 3F: t1 pointed at p2@(683,412), which is ink of the '3F' label, leaving the real bottom lead p0@(647,446) (wire=66, runs down to the bottom rail at S28) unused and C#5.t1 stranded on a one-terminal net. Set t0=p3@(638,382) (top plate, unchanged) and t1=p0 (bottom plate).\n  #7 Capacitor 2F: t0 pointed at p2@(473,465), a stub of the lower plate's own left end, while the real top lead p3@(502,399) (wire=45, runs up to node C) was unused. Set t0=p3 (top plate) and t1=p0@(511,465) (bottom plate).\n\nFORCED MERGES (2) - both are box-swallowed wire, not judgement calls:\n  ['0.0','1.1'] - L#1's RIGHT lead has no port at all: the gap between L#1's box right edge (x=621) and R#0's box left edge (x=631) is entirely consumed, so the tracer left L#1.t1 on p1@(605,318), a stroke of the '4mH' caption. The drawing plainly shows that lead running into node D. Merging L#1.t1 onto node D fixes it. The caption net carried exactly one terminal (1.1) before the merge, so nothing spurious is dragged in.\n  ['1.0','2.1'] - identically, R#2's RIGHT lead has no port: R#2's box right edge is x=491 and node C's surviving edge e34 starts at (495,355), so the 4 px between them is gone and the tracer left R#2.t1 on p0@(408,373), a stroke of the '6ohm' caption. The drawing shows that lead running into node C. Merging R#2.t1 onto node C (represented by L#1.t0, i.e. edge e34) fixes it; the caption net again carried exactly one terminal (2.1).\n  These two merges plus the S18 grouping are what collapse the seven one-terminal nets the tracer originally reported (n1, n3, n4, n6, n8, n9, n10) into the three real top-rail nodes.\n\nCLASSES: all 10 accepted. #4 and #8 are both V-DC (circle with + above and - below, labelled 5V and 10V); #0/#2/#6 resistors (zigzag); #1/#3 inductors (coil); #5/#7 capacitors (two parallel plates); #9 GND. No 3-terminal parts, so no pin-order risk. The outer rectangle is the printed page border, not circuit ink; it ends up on a net that carries no terminals.\n\nUNRESOLVED: nothing. Both V-DC sources are drawn with + at the top, so terminal order top->bottom matches the polarity marks (order is not scored for 2-terminal parts in any case)."
+}

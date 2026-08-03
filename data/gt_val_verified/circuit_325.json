@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "image": "circuit_325.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "Circuit: 1A current source (I-DC #4) in parallel with a 10uF cap (#0) / 2H inductor (#1) pair between the top-left node and the right node, plus a 10 ohm resistor (#5) to ground, a 10V source (#3) from the right node to ground, and a series 2H (#2) - 3 ohm (#6) - 5uF (#7) branch from the right node down to the bottom ground rail. NET MAP: '0' = bottom rail (y~675-690) running from x~180 to x~815, carrying I-DC bottom (4.1), R10 bottom (5.1), V-DC bottom (3.1), C5uF bottom (7.1) and the GND symbol (8.0). n1 = top-left node at (195-205,398): I-DC top (4.0), left plate of the 10uF cap via the up-right diagonal (0.0), left lead of the 2H inductor (1.0), top of the 10 ohm resistor via the down-right diagonal (5.0). n2 = right node at (645,389): right plate of 10uF cap via the down-right diagonal (0.1), right lead of 2H inductor (1.1), V-DC top (3.0), top of the right-hand 2H inductor via the diagonal to (785,420) (2.0). n4 = short link at x~790, y~500-518 between the bottom of inductor #2 and the top of resistor #6. n3 = short link at x~807, y~597-608 between the bottom of resistor #6 and the top plate of capacitor #7. JUDGEMENT CALLS / SITES: S1 (645,389) deg4 = junction - the two diagonals (from the cap and to the right branch) and the horizontal inductor lead all land on the vertical that runs down into the V-DC; reading it as a crossing would strand the V-DC top or the right branch on their own and break the only return path for the source, so junction is forced. S2 (195,398) and S3 (204,399) are the same drawn node split into two sites (the left overshoot stub, the up-right diagonal to the cap, the down-right diagonal to R10 and the vertical down to the I-DC); both junction - a crossing reading would disconnect the current source or leave the cap branch dangling. S10 (635,675) = junction, plain T: the vertical from the V-DC bottom terminates on the bottom rail (ink ends there, no hop). S11 (333,679) = junction: the vertical from R10 crosses the rail and continues down into the GND symbol; the alternative (crossing) would put the GND symbol on a net with only one terminal and leave R10 bottom floating, which is impossible. S12 (814,687) = junction: the right end of the rail meets the vertical coming down from the 5uF cap; a crossing would leave the cap bottom on a one-terminal net. S4 (441,419), S6 (709,530), S7 (715,531), S13 (814,698) are non-critical text-ink contacts ('2H' label brushing the inductor lead, '10V' label brushing the source circle, the 5MF bottom plate) and were left at the tracer default. PORT / TERMINAL FIXES: resistor #6 (3 ohm) - the tracer put BOTH of its terminals on strokes of the handwritten '3' of the '3 ohm' label at (836,538)/(838,566) (edges e24/e25, which form a closed glyph and hence a bogus shorting net). Both ports nulled. The real leads of #6 are vertical, top and bottom, but the COCO boxes of inductor #2 (y 443-515) and resistor #6 (y 515-597) abut, so the connecting ink between them was entirely deleted with the boxes and no port candidate survives; likewise only a 6-pixel stub (e29) survives between #6 bottom and the top plate of #7. Verified in the pixels (zoom at 800,560 w=130): one continuous pen line runs down x~790-800 from the coil (y 450-500) through a short straight segment (y 500-518) into the resistor zigzag (y 520-590), then a short segment (y 597-608) into the top plate of the 5uF capacitor. Because neither 2.1 nor 6.0/6.1 has any port the tracer can reach, they are pinned with manual_nets: 2.1 and 6.0 onto n4 (the inductor-resistor link) and 6.1 onto n3, the net the surviving stub e29 already gave to 7.0. Nothing else was pinned. CLASSES: all nine symbols match the drawing (2 capacitors, 2 inductors, 2 resistors, one V-DC, one I-DC, one GND); no re-classification needed. UNRESOLVED: none.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        449.5,
+        310.2,
+        92.6,
+        70.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        386.7,
+        386.1,
+        121.2,
+        57.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        795.1,
+        478.7,
+        55.7,
+        71.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        638.0,
+        515.7,
+        127.4,
+        130.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-DC",
+      "bbox": [
+        187.4,
+        508.1,
+        108.1,
+        113.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        331.7,
+        537.3,
+        57.6,
+        105.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        801.1,
+        556.0,
+        56.5,
+        81.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        802.9,
+        636.6,
+        102.0,
+        56.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        336.2,
+        746.7,
+        102.9,
+        67.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

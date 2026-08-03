@@ -1,0 +1,36 @@
+{
+  "sites": {
+    "2": "junction",
+    "3": "junction",
+    "20": "junction",
+    "21": "junction",
+    "16": "junction",
+    "4": [
+      [
+        11,
+        12,
+        14,
+        40
+      ]
+    ]
+  },
+  "ports": {
+    "1": {
+      "0": 4,
+      "1": 0
+    },
+    "3": {
+      "0": 0,
+      "1": 4
+    },
+    "4": {
+      "0": 0,
+      "1": 3
+    },
+    "7": {
+      "0": 0,
+      "1": 4
+    }
+  },
+  "notes": "CIRCUIT: a single mesh with two branches in parallel plus a series arm. A 100 V source #4 stands vertically at the left; its top lead reaches a four-way node at (270,393). From that node three branches leave: (a) a long diagonal up-right to (461,287) and along the top through the 10 V source #0 to the top-right corner (760,285), then down the right-hand diagonal to the 10 A source #5; (b) a horizontal run right through L 3H #3, R 20ohm #2 and C 3MF #1, joining the same right-hand diagonal at (811,384); (c) a diagonal down-right to (390,490) then down through L 6H #6 and C 3MF #7 to the bottom rail. The 100 V source's bottom lead goes down and diagonally right to the bottom-left corner (391,744); the bottom rail runs right to (822,745) where the 10 A source's bottom lead and the GND #8 stem meet it.\n\nNET MAP (6 nets, 17 terminals):\n  n1 = the left four-way node at (270,393): 10 V left 0.0, 3H left 3.0, 100 V top 4.1, 6H top 6.0.\n  n2 = the right-hand diagonal from the top-right corner down to the 10 A source: 10 V right 0.1, 3MF(#1) right 1.1, 10 A top 5.1.\n  n3 = short link between the 20 ohm right end (2.1) and the 3MF(#1) left plate (1.0).\n  n4 = short link between the 3H right end (3.1) and the 20 ohm left end (2.0).\n  n5 = link between the 6H bottom (6.1) and the 3MF(#7) top plate (7.1).\n  0  = bottom rail: 100 V bottom 4.0, 3MF(#7) bottom 7.0, 10 A bottom 5.0, GND 8.0.\n\nSITE DECISIONS (there is not a single wire crossing on this sheet - every intersection is a T or a corner, so no junction/crossing ambiguity arose anywhere):\n  S2 (811,384) JUNCTION - CRITICAL. The horizontal run (after C 3MF #1) ends on the right-hand diagonal; clean T. Reading it as anything else would strand 1.1 on a one-terminal net and leave the whole L-R-C arm with no return path.\n  S3 (273,395) JUNCTION - CRITICAL. The left node itself: NE diagonal, E horizontal, SE diagonal and the S stub down into the 100 V source all radiate from one point (confirmed at 6x zoom). Splitting it would break the circuit into islands.\n  S4 (279,395) - the same physical node, split off by the skeletoniser 6 px to the east; recorded as an explicit edge group [[11,12,14,40]] (see the wire repair below). Electrically a junction.\n  S16 (386,490) JUNCTION - the corner where the SE diagonal turns into the 6H inductor's top lead.\n  S20 (391,744) JUNCTION - CRITICAL. Bottom-left corner: the diagonal down from the 100 V source's bottom, the vertical down from C 3MF #7 and the bottom rail all meet. Clean junction, no dot needed.\n  S21 (822,745) JUNCTION - CRITICAL. Four-way on the bottom rail: rail from the left, the 10 A source's bottom lead from above, a short rail overshoot to the right, and the GND stem going down. Reading it as a crossing would leave the circuit ungrounded and strand the 10 A source's return.\n  Non-critical, left at default: S6/S9/S10/S11 (the handwritten '3MF' under capacitor #1 touching its plates), S8/S12/S13 (the '3H' under inductor #3), S17 (462,641) (the '3MF' beside capacitor #7). All are label ink; after the port fixes below no terminal sits on any of them.\n\nWIRE REPAIR at S4: the SE diagonal from the left node to the 6H inductor is one unbroken pen stroke (verified at 6x zoom over x=275..390, y=395..490 - it passes just outside the 100 V source's circle), but the COCO bounding box of component #4 (x 205-333, y 432-554) clips it, so the tracer cut the stroke into e14 (281,398)->(316,429) and e40 (336,445)->(383,489) and could not rejoin them. I stitched them with the explicit group [[11,12,14,40]] at S4 (e11 = the horizontal to the 3H, e12 = the 2 px link to S3). Without this, 6.0 would sit on a two-terminal net with 4.1 while 0.0/3.0 formed a separate node - i.e. the 100 V source would be wrongly in series with the 6H branch instead of in parallel with it.\n\nPORT FIXES (four of them; three are the classic 'terminal landed on the value label' error):\n  #1 Capacitor 3MF: t0 was on p1@(701,416), a stroke of the handwritten '3MF' below the symbol (one-terminal net n3 in the tracer output). Repointed t0 -> p4@(675,380), the real left plate lead. t1 stays on p0@(761,382), the right lead.\n  #3 Inductor 3H: t1 was on p2@(433,414), a stroke of the '3H' label (one-terminal net n6). Repointed t1 -> p4@(473,393), the real right-hand lead that runs on to the 20 ohm resistor. t0 stays on p0@(348,392).\n  #7 Capacitor 3MF: t1 was on p1@(455,660), a stroke of the lower '3MF' label (one-terminal net n9). Repointed t1 -> p4@(395,593), the real top plate lead coming down from the 6H inductor. t0 stays on p0@(397,662).\n  #4 V-DC 100 V: t1 was on p1@(336,445), which is not a lead at all but the SE diagonal wire brushing the corner of the source's bounding box. Repointed t1 -> p3@(271,428), the real top lead that runs straight up to the left node. t0 stays on p0@(268,557), the bottom lead.\nThese four fixes clear all five one-terminal-net warnings (n3, n4, n5, n6, n9 in the tracer output).\n\nCLASSES: all nine symbols match their labels - V-DC 10 V (#0, circle with +/-), C 3MF (#1), R 20 ohm (#2), L 3H (#3), V-DC 100 V (#4), I-DC 10 A (#5, circle with an arrow), L 6H (#6), C 3MF (#7), GND (#8). Nothing looks mis-classified. No bridges dropped, no components unconnected, no manual nets."
+}

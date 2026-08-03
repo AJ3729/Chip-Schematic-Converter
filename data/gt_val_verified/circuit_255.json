@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "image": "circuit_255.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: two independent AC sources at different frequencies (20sin(5t) V and 12cos(7t-30deg) V) driving two meshes that share only the grounded column at x~525 - a superposition / phasor exercise. 7 components, 5 nets.\n\nNET MAP:\n  0  (GND) = the vertical column at x~525 running unbroken from the top rail (y~365) down to y~600, plus the GND symbol stub at (526,610), plus the bottom rail (525,600)->(188,605) and up the left edge to the BOTTOM terminal of the 20sin(5t) source (189,531). It also collects the RIGHT lead of the 44-ohm resistor (501,467) at S5 and the LEFT lead of the 45-ohm resistor (581,592) at S9, and the LEFT lead of the 41mH inductor (588,366) at the top of the column. 5 terminals.\n  n1 = the wire from the inductor's right lead (711,367) east to x~750, down the x~750 column to y~455, then east to the LEFT plate of the 32uF cap (802,455).\n  n2 = the RIGHT plate of the 32uF cap (879,457) east to x~945, down the right edge to y~590, then west along the bottom-right rail to the RIGHT terminal of the 12cos source (856,595).\n  n3 = the TOP terminal of the 20sin source (198,444) up to y~382, east to (305,378), down to y~465, east to the LEFT lead of the 44-ohm resistor (379,472). All one tracer wire (id 323), which independently confirms the routing.\n  n4 = the RIGHT lead of the 45-ohm resistor (702,597) east to the LEFT terminal of the 12cos source (760,596) (tracer wire id 59).\n\nCRITICAL SITE DECISIONS:\n  S5 (523,466) deg3 -> JUNCTION. The 44-ohm resistor's right lead ENDS on the x~525 column; the column passes straight through the crop top-to-bottom with no hop and no jog, and there is no eastward continuation of the resistor wire, so 'crossing' is not geometrically available. Junction is forced. The alternative ('none') would strand the 44-ohm/source-1 branch with no return path.\n  S9 (525,594) deg3 -> JUNCTION. The x~525 column meets the 45-ohm resistor's left lead here (and the bottom rail one row lower at S10, and the GND stub continuing down). Plain T, verified in the crop: the column terminates into the GND symbol below and both horizontals end on it. Junction is forced - GND must be net 0 by rule, and reading it otherwise would leave the 45-ohm/12cos mesh open.\n  S10 (525,600) deg4 -> JUNCTION (non-critical duplicate of S9: the bottom rail arriving from the left plus the GND stub). Same node.\n\nNON-CRITICAL sites are all handwritten value text touching wire/symbol ink and were left at the default: S0,S1,S2,S3 ('32 uF' glyphs over the capacitor); S6 ('20s' of '20sin(5t) V' brushing the source's bottom lead); S7,S8 ('45 ohm' glyphs, whose trailing omega tail dips onto the resistor); S12,S13,S15 ('12 cos(7t-30deg) V' glyphs under the right-hand source). None of them bridges two different nets.\n\nPORT FIXES (four of the seven components had a terminal parked on value-label ink - every one produced a one-terminal net):\n  comp #1 (32uF Capacitor): t1 was p2@(865,422), a stroke of the 'uF' glyph sitting above the box. Remapped t1 -> p5@(879,457), the real right plate lead heading east (wire 303, shared with the 12cos source's right terminal).\n  comp #2 (20sin(5t) V-AC): t1 was p2@(224,531), a stroke of the '20s' glyph under the circle. Remapped t1 -> p3@(198,444), the real top lead (wire 323, shared with the 44-ohm resistor's left lead).\n  comp #4 (12cos V-AC): t1 was p1@(837,631), a stroke of the '(7t' glyph under the circle. Remapped t1 -> p2@(856,595), the real right lead (wire 303). t0 confirmed on p3@(760,596), the real left lead (wire 59).\n  comp #5 (45-ohm Resistor): t1 was p1@(696,566), the tail of the handwritten omega in '45 ohm' hanging over the resistor. Remapped t1 -> p4@(702,597), the real right lead (wire 59).\n  comps #0 (inductor), #3 (44-ohm resistor) and #6 (GND) already pointed at real leads; unchanged.\n\nCLASSES: all seven match. Both sources are circled sine symbols (V-AC), the 41mH is a four-loop coil (Inductor), the 32uF is a two-plate symbol (Capacitor), both zig-zags are Resistors, and the three-bar symbol is GND. No reclassification.\n\nNOTE ON TOPOLOGY (worth stating because it looks odd but is what is drawn): the 20sin(5t) source and the 44-ohm resistor form a mesh entirely of their own (n3 between them, both other ends on net 0), and the 12cos source, 45-ohm, 32uF and 41mH form a second mesh that also closes through net 0. The two meshes touch only at ground, so they are decoupled - which is exactly why the two sources are drawn at different frequencies. Nothing is short-circuited and every branch has a return path.\n\nUNRESOLVED: nothing.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        649.7,
+        365.9,
+        116.3,
+        48.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        841.3,
+        456.7,
+        69.9,
+        57.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-AC",
+      "bbox": [
+        195.9,
+        487.9,
+        84.8,
+        80.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        440.1,
+        475.6,
+        115.1,
+        41.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-AC",
+      "bbox": [
+        808.4,
+        596.1,
+        88.8,
+        63.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        642.0,
+        593.8,
+        114.5,
+        41.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        528.9,
+        642.0,
+        96.8,
+        54.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "image": "circuit_505.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "Ladder circuit on two horizontal rails (top y~400, bottom y~586) with the 500mA source in series in the top rail, so the top rail is two nets. Net map: n1 = top-left rail from (171,430) to (403,406): + terminal of the 10V V-DC (#6), top of the 16ohm resistor (#3) at x=284, top-left end of the diagonal 8ohm resistor (#5) at (328,445), left terminal of the 500mA I-DC (#0). n2 = top-right rail from (506,403) to (890,431): right terminal of the 500mA I-DC (#0), top-right end of the 5mH inductor (#4) at (665,441), top plate lead of the 16pF cap (#7) via the drop at x~705, top of the 10ohm resistor (#1) at (808,420), top of the 16A I-DC (#2) at (890,431). 0 = the whole bottom rail (163,518)->(892,524) plus the stub down to the GND symbol at (512,616): bottom of V-DC (#6), bottom of R16 (#3), bottom-right end of the 8ohm diagonal (#5), bottom-left end of the 5mH inductor (#4), bottom plate lead of the 16pF cap (#7), bottom of R10 (#1), bottom of the 16A source (#2), GND (#8). Site decisions (all seven CRITICAL sites inspected at 5x): S6 (288,407) = junction - the top of R16 and the upper end of the 8ohm diagonal both terminate on the top rail at one point; three-way convergence, no hop, no separate strokes. Reading it as a crossing would strand R16's top or the 8ohm's top on a dead-end stub. S7 (697,406) and S8 (705,407) = junction - one drawn node split by the tracer into two adjacent sites: the inductor diagonal arrives from lower-left and the drop to the 16pF top plate leaves downward, both meeting the rail within 8 px; treating either as a crossing would leave the inductor top or the cap top floating. S10 (808,410) = junction - clean T, R10's top lead ends on the rail. S20 (814,582) = junction - clean T, R10's bottom lead ends on the bottom rail. S22 (511,586) CRITICAL = junction - the 8ohm diagonal (from upper-left), the 5mH diagonal (from upper-right), the bottom rail (both directions) and the stub down to GND all converge on one point; the hop=7.7 score is an artefact of the V formed by the two diagonals, not a wire hopping the rail - at 5x the strokes all terminate on the same blob and there is no semicircle. If it were a crossing the ground stub would only reach the rail, and the 8ohm/5mH pair would form a dead loop with no return, so junction is also forced electrically. S24 (280,589) = junction - R16's bottom lead lands on the bottom rail (T corner, rail continues both ways). Non-critical sites left at default: S1,S2,S4 are strokes of the handwritten '500mA' resting on the current-source circle; S12,S13 are the '16ohm' label touching the R16 box and the 8ohm zigzag; S16,S18,S19 are the '16pF' label touching the capacitor's bottom plate; S23 (717,585) is the cap's bottom lead meeting the bottom rail, a clean T that is on net 0 either way. Port fixes: component #2 (16A I-DC) had t1 on p2@(944,512), which is the vertical stroke of the handwritten '16A' to the right of the circle - that produced the single-terminal net n3. Moved t1 to p1@(890,431), the real top lead running up to the top rail. Component #7 (16pF Capacitor) had t1 on p3@(752,518), a stroke of the '16pF' label brushing the bottom plate - the single-terminal net n4. Moved t1 to p1@(719,528), the real bottom lead that runs down to the bottom rail at S23. Remaining flagged port candidates are label ink and were left alone: #0 p2@(447,361) is '500mA', #2 p3@(944,472) is more of the '16A' text and p4@(848,465) is the tail of the '10ohm' label. Classes confirmed: circle with a horizontal arrow in the top rail = I-DC (500 mA), circle with +/- bars = V-DC (10 V), circle with an upward arrow on the right = I-DC (16 A), one coil = Inductor, three zigzags = Resistors, two plates = Capacitor, GND under the centre node. No 3-terminal parts. Nothing unresolved.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        455.5,
+        402.8,
+        95.3,
+        74.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        804.9,
+        461.8,
+        51.6,
+        75.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        895.8,
+        477.4,
+        89.3,
+        85.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        281.4,
+        470.5,
+        47.1,
+        87.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        603.2,
+        493.2,
+        118.2,
+        99.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        391.1,
+        483.3,
+        119.9,
+        78.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        167.9,
+        474.0,
+        90.6,
+        80.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        712.6,
+        500.5,
+        73.4,
+        47.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        516.7,
+        647.0,
+        79.3,
+        53.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

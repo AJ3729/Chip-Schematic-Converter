@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1059.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a 4-column x 6-rail passive ladder driven from a right-hand series stack of sources. Columns: A x~31-65 (left border), B x~265-290, C x~418-440, D x~570-583, E x~778-783 (right rail). Horizontal rails: R1 top y~30, R2 y~225, R3 y~425, R4 y~625, R5 y~770, R6 bottom y~857-884. Right rail is a series stack, top to bottom: V-AC#0 (R1-R2), I-AC#2 (R2-R3), V-DC#6 (R3-R4), I-DC#8 (R4-R5), V-DC#11 (R5-R6). Every column carries an inductor then a capacitor.\n\nNET MAP (7 nets, 14 components):\n  n1 = top rail R1: V-AC#0 top, 1uH#1 top, 5uH#4 top (colB, hops R2), 10uH#5 top (colC, hops R2+R3), 50uH#9 top (colD, hops R2+R3+R4).\n  n2 = rail R2 (y~225, left end T's onto colA at 59,222): 1uH#1 bottom, 5uF#3 top, V-AC#0 bottom, I-AC#2 top.\n  n3 = rail R3 (y~425, left end T's onto colB at 273,427 with a dot): 5uH#4 bottom, 10uF#7 top, I-AC#2 bottom, V-DC#6 top.\n  n4 = rail R4 (y~625) + bottom rail R6 + the bare colB segment (287,630)-(290,856) that joins them: 5uF#3 bottom, 10uF#7 bottom, V-DC#6 bottom, I-DC#8 top, 100uF#12 bottom, V-DC#11 bottom. Biggest node on the sheet.\n  n5 = private colC node between 10uH#5 bottom and 50uF#10 top (colC hops R4 at 418,634).\n  n6 = private colD node between 50uH#9 bottom and 100uF#12 top (see judgement call 2).\n  0  = GND#13 + rail R5 (y~770) + the colC segment (435,772)-(436,864) that carries R5 down through the bottom rail to the ground symbol: I-DC#8 bottom, V-DC#11 top, 50uF#10 bottom, GND#13.\n\nJUDGEMENT CALL 1 - S45 (434,869), colC crossing the bottom rail on its way to GND. CALLED CROSSING (overrides the tracer's 'junction' default, dot_score 3.0).\n  Ink: the colC vertical is 3 px wide and runs straight through unchanged (x=430-434 above, x=432-436 below), continuing to the GND lead at y=906. Sitting above-right of the crossing is an extra wedge of ink, x=435-441, y=853-871, separated from the vertical by a clean 1 px white column at x=435 for y=853-861 - i.e. a SECOND pen stroke, not a thickening of the wire. Its shape (thin at the top, fat where it lands on the rail, with the right-hand half of the bottom rail departing from exactly that point at y=872) reads as a pen lead-in / ink pool where the drafter restarted the rail, not as a symmetric solder blob. Contrast the two unmistakable dots on this sheet: (437,771) widens the 3 px colC line to 9-11 px symmetrically about the rail over y=765-778, and (580,878) is a 13x13 roundish blob centred on colD's dead end.\n  Circuit sense, which is decisive here: R5's left end T's onto colC at (437,771) with a real dot (S35, degree 3 - a wire ENDING on another wire, so it cannot be read as a crossing); R4's left end T's onto colB at (284,627) (S26, degree 3); colB then runs bare from (287,630) to (290,856) and dead-ends on the bottom rail at S44 (290,859) with no ink below y=863. Those three are all forced, so R4 == R6 unconditionally. If S45 were also a junction, R5 would merge into R4/R6 as well and both right-rail sources between them would die: V-DC#11 (R5-R6) short-circuited - a hard ERC error - and I-DC#8 (R4-R5) short-circuited too. Reading S45 as a crossing instead gives GND = R5, a normal-looking ground node (GND, 50uF bottom, I-DC minus, V-DC plus), and leaves the bottom rail as the large node n4. That is the only reading of this sheet in which no source is destroyed, so I took it. Consequence of the other reading: nets 0 and n4 merge into a single node, giving 6 nets, and components 8 and 11 both end up with both terminals on '0'. (The pre-existing annotation shipped in val/gt takes that other reading and does not pass ERC.)\n  Supporting idiom note: this drafter's no-connect marker is a full semicircular hop, used seven times (colB/C/D over R2 at x=238/389/559; colC/colD over R3 at x=412/563; colC/colD over R4 at x=418 and x=562-569). There is no hop at (434,869), so this is the one place on the sheet where the drafter omitted the hop, and the extra wedge stroke is what makes the omission look like a dot.\n\nJUDGEMENT CALL 2 - S36 (579,773), colD crossing rail R5. CALLED CROSSING (agrees with the tracer default; note the tracer's own shape classifier labelled the site kind 'plainX-junction', so this one is genuinely close).\n  Ink: a completely plain X. The colD vertical is 2-3 px at y=771, 772, 774 and 775 with zero widening; no dot, no hop, dot_score 1.4 (the same score the pure hops get). Compare (437,771), 143 px to the LEFT ON THE SAME RAIL, where the drafter drew a fat unambiguous dot for colC. Same rail, same drawing pass, one crossing marked and the other not - that contrast is my main reason for reading this one as not connected.\n  Structural support: each column is L-then-C, and each column's lower capacitor terminates on a rail with a drawn dot - colC's 50uF on R5 at (437,771), colD's 100uF on the bottom rail at (580,878). ColD therefore already has its bottom-end connection and does not need R5. Reading it as a crossing gives colD the same shape as colC: R1 -[50uH]- private node -[100uF]- rail.\n  Consequence of the other reading (junction): n6 disappears, 50uH#9 bottom and 100uF#12 top both move onto net '0', and the file has 6 nets instead of 7. It stays ERC-clean either way, so this is a true coin-flip settled on drawing idiom rather than electrical necessity.\n\nSITE OVERRIDES, mechanical: S28 (562,633) and S32 (569,635) are one single hop - colD's semicircular detour around R4 - that the skeletoniser split into two degree-3 nodes joined by a 2 px stub (edge 62). Both defaulted to 'junction', which would have wired colD into R4. Plain 'crossing' at each site is also wrong: with 3 branches it pairs the two rail halves and leaves the arc half orphaned at each site, so the two arc halves (edge 53 above, edge 64 below) never rejoin and 50uH#9 top lands on a 1-terminal net. I therefore used the explicit-group form: S28 = [[61,62,58],[53,64]] (rail-left + stub + rail-right in one group, arc-above + arc-below in the other) and S32 = [] (no unions), which reproduces the hop exactly. All other hops (S8 238,229; S9 559,229; S11 389,232; S19 412,432; S20 563,434; S31 418,634) are clean degree-4 sites whose 'crossing' default is correct, and all remaining T-sites (S1 257,31; S2 426,34; S3 581,46; S7 59,222; S12 774,234; S17 773,424; S18 273,427; S26 284,627; S27 778,628; S33 778,637; S35 437,769; S37 778,774; S44 290,859; S47 581,878) are genuine wire-ends-on-wire junctions and were left at their defaults. S5, S21, S22, S39, S41, S42, S43 are label ink touching a wire and change nothing.\n\nPORT FIXES (8 components had a terminal pointed at label ink instead of a lead; this sheet writes its value immediately to the right of each symbol, so the tracer kept picking up digit strokes as 'R' ports):\n  #0 V-AC t1 -> p1 (779,198), the bottom lead, instead of p2 (830,127) which is the '3' of '3V'.\n  #3 Capacitor t1 -> p1 (58,258), the top lead, instead of p2 (97,295), the '5' of '5uF'.\n  #6 V-DC t1 -> p1 (782,570), the bottom lead, instead of p2 (823,537), the '5' of '5A'.\n  #7 Capacitor t0 -> p1 (271,483), the top lead, instead of p2 (230,532), which is the '10uF' text to the LEFT of the symbol.\n  #8 I-DC t1 -> p1 (778,647), the top lead, instead of p2 (819,674), the '1' of '10A'.\n  #10 Capacitor t1 -> p1 (441,680), the top lead, instead of p2 (482,732), the '5' of '50uF'.\n  #11 V-DC t1 -> p0 (782,869), the bottom lead, instead of p2 (825,816), the '1' of '15V'.\n  #12 Capacitor t1 -> p0 (582,838), the bottom lead, instead of p3 (617,828); p1, p3 and p4 are all strokes of the '100uF' label crossing the box edge.\nAll 14 classes were checked against the drawing and are correct. There are no 3-terminal parts on this sheet, so no pin-order questions. No bridges dropped (15 found, none affect the netlist). No component is left unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        777.8,
+        157.3,
+        88.0,
+        75.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        65.2,
+        135.4,
+        47.7,
+        93.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-AC",
+      "bbox": [
+        770.7,
+        326.0,
+        68.8,
+        84.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        59.9,
+        287.1,
+        68.2,
+        53.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        268.7,
+        344.1,
+        51.8,
+        103.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        446.0,
+        517.7,
+        45.5,
+        100.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        780.6,
+        528.5,
+        78.7,
+        76.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        273.2,
+        515.9,
+        78.3,
+        55.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-DC",
+      "bbox": [
+        774.7,
+        689.2,
+        80.8,
+        75.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        589.2,
+        705.0,
+        43.8,
+        84.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Capacitor",
+      "bbox": [
+        442.4,
+        709.1,
+        68.4,
+        48.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "V-DC",
+      "bbox": [
+        782.6,
+        829.0,
+        76.3,
+        74.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Capacitor",
+      "bbox": [
+        581.5,
+        811.8,
+        64.3,
+        45.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "GND",
+      "bbox": [
+        440.8,
+        938.4,
+        92.9,
+        57.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

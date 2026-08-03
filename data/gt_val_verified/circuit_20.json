@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "image": "circuit_20.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "5 components, 3 nets. A 20cos(4t-15) V AC source feeding a 60 ohm series resistor into a parallel 10 mF capacitor / 5 H inductor tank, with the bottom rail grounded.\n\nNET MAP\nn1 = short top-left run: top terminal of V-AC #3 (184,425) up the left rail x~186 to y~365, then right along the top rail to the left lead of the 60 ohm resistor #0 (254,368). 2 terminals.\nn2 = the top rail from the resistor's right lead (342,369) eastward: right lead of resistor #0, the capacitor #1 top plate lead (418,396, joining the rail at S2 (418,368)), and the top of inductor #2 (604,404) reached by the rail continuing to x~608 and turning down. 3 terminals.\n0  = the bottom rail y~580 from x~188 to x~608 plus the GND stub: bottom terminal of V-AC #3 (188,482) down the left rail, bottom plate lead of capacitor #1 (423,443) down x~423 to S17, bottom of inductor #2 (608,494) down x~608, and GND #4 (424,586). Named 0 because GND #4 sits on it.\n\nPORT FIX (this is the substantive correction on this sheet)\nComponent #1 (Capacitor): the tracer had terminal t1 pointing at port p2 @ (455,435), which is not a lead at all - it is the vertical stroke of the '1' in the handwritten '10mF' label, which brushes the right edge of the capacitor's bounding box. That left t1 alone on a one-terminal net n3 and left the genuine top-plate lead p1 @ (418,396) unused. Overridden to t0=p0 (bottom plate lead, 423,443) and t1=p1 (top plate lead, 418,396). At 9x the top lead is unmistakable: a vertical from the top plate at y~412 up to a clean T on the top rail at (418,365), the rail running straight through left and right. With the fix, n3 disappears and the capacitor sits correctly across the R-node and ground, which is what makes this an RLC tank rather than a dangling plate.\n\nJUDGEMENT CALLS\nS17 (423,582), the only CRITICAL site - deg=5 because the GND symbol's top bar is close by. The picture is unambiguous: the bottom rail runs straight through east-west, the capacitor's bottom lead comes down into it from above, and the GND stub continues down out of it. Junction. Any other reading would either float GND or strand the capacitor's bottom plate.\nS2 (418,368) - not flagged CRITICAL by the tracer only because it had mis-assigned the capacitor's top port, but it becomes load-bearing after the port fix, so I am recording it explicitly. Verified at 9x: plain T, top rail continuous, capacitor lead terminating on it. Junction.\nAll remaining sites are handwriting touching wire ink and were left at their defaults: S0/S1 are the '60 ohm' label sitting on the resistor lead; S3/S4/S8/S9 are the '10mF' label crossing the capacitor leads; S10/S11/S12 are the long '20cos(4t-15)' expression running into the source symbol (S12's hop score of 115.6 is the sweep of the 'S', not a wire hop). None of them changes the netlist.\n\nCLASSES\nAll five confirmed from the crops: zigzag = Resistor, two parallel plates = Capacitor, coil = Inductor, circle with the internal sine/arrow plus the trailing 'V' in the label = V-AC, hatched triangle = GND. No 3-terminal parts, so no pin-order questions. Nothing left unresolved.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        298.3,
+        373.3,
+        81.3,
+        34.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        424.4,
+        420.4,
+        53.8,
+        39.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        607.4,
+        449.8,
+        36.0,
+        80.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-AC",
+      "bbox": [
+        188.6,
+        453.6,
+        48.5,
+        50.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        426.1,
+        611.2,
+        82.6,
+        41.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

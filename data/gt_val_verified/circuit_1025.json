@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1025.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a DC ladder. A 10 A current source (I-DC, arrow up) at x~195 sits between a top rail (y~378) and a bottom rail (y~585). Hanging off the same pair of rails, left to right: a 0.1 F capacitor at x~340 and a 0.3 mH inductor at x~444. The top rail then passes through a 250 ohm resistor (x~527..647), reaches the node at x~706 where a 50 ohm resistor drops to the bottom rail, then passes through a 150 ohm resistor (x~735..847) to the 2 V source (V-DC, minus on top, plus on bottom) at x~917, whose bottom returns to the bottom rail. A GND stub drops from the bottom rail at x~537.\n\nNET MAP (8 components, 4 nets):\n  n3 = left section of the top rail, x~194..527 at y~378: I-DC top (5.0), capacitor top plate (6.0), inductor top (3.0), left end of the 250 ohm (1.0).\n  n1 = middle section of the top rail, x~647..735: right end of the 250 ohm (1.1), top of the 50 ohm (2.0), left end of the 150 ohm (0.0).\n  n2 = right section of the top rail, x~847..918: right end of the 150 ohm (0.1), top (minus) terminal of the 2 V source (4.0).\n  0  = the whole bottom rail, y~585 from x~194 to x~913: I-DC bottom (5.1), capacitor bottom plate (6.1), inductor bottom (3.1), bottom of the 50 ohm (2.1), bottom (plus) terminal of the 2 V source (4.1), and the GND symbol (7.0) on the stub at x~537.\n\nCRITICAL SITE DECISIONS (all six are unambiguous plain Ts - a branch wire ends on a rail, no fourth arm, no dot needed, no hop drawn; in every case the crossing reading would leave the branch dangling and strand a component terminal on a one-terminal net, which rule 1 forbids):\n  S0  (706,384) -> JUNCTION. Top rail continues left-right; the 50 ohm's top lead ends on it. Crossing would isolate the 50 ohm's top and merge nothing useful.\n  S1  (435,395) -> JUNCTION. Top rail continues; the inductor's top lead ends on it. Crossing would leave the inductor's top floating.\n  S8  (692,573) -> JUNCTION. Bottom rail continues; the 50 ohm's bottom lead comes down and turns onto it. Crossing would leave the 50 ohm with no return.\n  S9  (536,581) -> JUNCTION. Bottom rail continues; the GND stub drops away from it. Crossing would put the ground symbol on its own one-terminal net and leave the circuit with no reference.\n  S10 (444,584) -> JUNCTION. Bottom rail continues; the inductor's bottom lead ends on it. Crossing would leave the inductor open.\n  S11 (339,589) -> JUNCTION. Bottom rail continues; the capacitor's bottom lead ends on it. Crossing would leave the capacitor open.\n\nOTHER SITES (recorded explicitly = looked at, tracer default accepted):\n  S2  (340,396) -> JUNCTION. The capacitor's top lead ending on the top rail. The tracer scored this non-critical only because it had mis-seated the capacitor's t0 on stray caption ink (see PORT FIX); once the port is corrected this T is what puts the capacitor's top plate on n3. The crop shows a clean T.\n  S3  (731,461) and S4 (748,472) -> the handwritten '50 ohm' caption running into the 50 ohm resistor's zig-zag. S4 is the one site on this sheet whose tracer default is 'crossing' (hop score 90): that is the caption's own curve arcing over the resistor body, not a wire hop. Either reading is harmless because both branches are caption ink, so I left the default (crossing) in place rather than fabricate a junction between a letter and a resistor.\n  S5  (311,530) -> JUNCTION. The 'F' of the '0.1F' caption touching the capacitor's lower plate. Caption ink; no netlist effect.\n  S6  (878,533) -> JUNCTION. The 'V' of the '2V' caption touching the source circle. Caption ink; no netlist effect.\n\nPORT FIX (this is the one real correction on this sheet):\n  Component 6 (Capacitor) had t0 pointing at p3@(296,521) - the descender of the handwritten 'F' in '0.1F', which brushes the lower plate - and t1 at p0@(341,520), the true bottom lead. That left the capacitor's real top lead p1@(341,458) unused and produced net 'n4' with exactly one terminal (the summary flagged it). The cause is geometric: the capacitor's bbox is 94 wide x 55 tall, so the tracer treated it as a horizontal part and picked the two most widely separated ports in x, when the symbol is in fact drawn vertically with the plates horizontal and the leads top and bottom. Corrected with ports {\"6\": {\"0\": 1, \"1\": 0}} -> t0 = p1 (top lead, on n3), t1 = p0 (bottom lead, on net 0). This removes the one-terminal net and puts the capacitor in parallel with the inductor and the current source, which is plainly what is drawn.\n  The other three 'unused port candidate' warnings are all caption ink and need no action: component 2 (50 ohm) p2@(729,478) is the '5' of '50 ohm'; component 3 (inductor) p2@(478,508) and p3@(478,491) are the '0' and '3' of '0.3mH' touching the coil; component 6's remaining p2@(313,520) is the crossbar of the same 'F'.\n\nCLASSES: all eight agree with the drawn symbols. In particular #5 is a circle with a plain arrow through it and the caption '10 A' - I-DC, correct; #4 is a circle with a '-' above and a '+' below and the caption '2 V' - V-DC, correct (not a source with a tilde, so not V-AC). No reclassification.\n\nTERMINAL ORDER: every component here is 2-terminal or the 1-terminal GND, so no ordering is scored. For the record, the 2 V source is drawn minus-up / plus-down, i.e. its top terminal (t0, on n2) is the negative one.\n\nUNRESOLVED: none.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        791.3,
+        380.1,
+        104.6,
+        45.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        587.5,
+        386.4,
+        113.8,
+        40.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        703.3,
+        486.0,
+        45.0,
+        86.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        448.8,
+        490.5,
+        52.8,
+        91.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-DC",
+      "bbox": [
+        916.9,
+        486.1,
+        75.3,
+        80.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-DC",
+      "bbox": [
+        194.7,
+        493.8,
+        78.9,
+        90.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        340.4,
+        489.6,
+        94.3,
+        55.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        537.9,
+        645.2,
+        101.1,
+        52.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "image": "circuit_765.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a single-node-pair (parallel) network. A -2A current source on the far left feeds a 10-ohm series resistor into a top rail (y~365) that runs the width of the sheet; hanging off that rail to the bottom rail (y~590) are a 5-ohm resistor (x~334), a 10 mF capacitor (x~476), a 5 V source (x~677); the rail then passes through a 20-ohm resistor (x~894) into the right-hand column (x~975) which contains a 3 H inductor down to the bottom rail. The bottom rail is grounded by the GND symbol at (543,630).\n\nNET MAP (4 nets):\n  0  = ground / bottom rail (y~583-605, full width): I-DC bottom 6.1, R5 bottom 2.1, capacitor bottom 5.0, V-DC bottom 4.1, inductor bottom 3.1, GND 7.0.\n  n1 = the top rail between the 10-ohm resistor and the 20-ohm resistor: R10 right end 1.1, R5 top 2.0, capacitor top 5.1, V-DC top 4.0, R20 left end 0.0.\n  n2 = short right-hand segment between the 20-ohm resistor's right end (0.1) and the top of the 3 H inductor (3.0), via the corner at (967,364).\n  n3 = the left-hand column: top terminal of the -2A source (6.0) up to the left end of the 10-ohm resistor (1.0).\n\nCRITICAL SITE DECISIONS (all five are plain T's - one wire ends on another - no crossings anywhere on this sheet, so no ambiguity arose):\n  S7 (671,365) JUNCTION - top rail with the 5 V source's top lead running down. Clean T, stub terminates on the rail. Crossing is not even expressible (deg 3); reading it as 'none' would strand the V-DC top terminal on a one-terminal net.\n  S9 (334,371) JUNCTION - top rail with the 5-ohm resistor's top lead. Clean T. Other reading would leave R5 top floating.\n  S16 (477,591) JUNCTION - bottom rail with the capacitor's bottom lead. Clean T. Other reading would strand the capacitor bottom.\n  S17 (557,588) JUNCTION - bottom rail with the stem of the GND symbol. Clean T. Other reading would leave the circuit with no ground reference at all.\n  S18 (332,596) JUNCTION - bottom rail with the 5-ohm resistor's bottom lead. Clean T. Other reading would strand R5 bottom.\nNon-critical sites also confirmed as junctions: S6 (967,364) corner where R20's right lead turns down into the inductor column; S10 (477,371) T of the capacitor column onto the top rail; S15 (679,583) T of the V-DC bottom lead onto the bottom rail. S0/S1/S2 (~877,326 etc) and S5 (246,339) are the handwritten '20 Ohm' and '10 Ohm' labels brushing the resistor boxes; S11 (721,511) is the '5V' label; S12/S13 (~508,516) are the '10mF' label touching the capacitor's bottom lead. All label ink, no terminals on them, left at default.\n\nPORT FIXES:\n  #4 V-DC: the tracer had t1 on p2@(720,502), which is a stroke of the handwritten '5V' label to the right of the source, giving the one-terminal net n4. The real bottom lead is p1@(678,533), which runs down to the bottom rail at S15. t1 -> p1.\n  #5 Capacitor: the tracer had t1 on p2@(526,503), a stroke of the handwritten '10mF' label, giving the one-terminal net n5. The real top plate lead is p1@(475,445), which runs up to the top rail at S10. t1 -> p1 (t0 left on p0@(474,510), the bottom lead). Capacitor terminal order is unscored.\nBoth one-terminal-net warnings are resolved by these two fixes; no bridges dropped, no merges, no class changes. Every drawn symbol matches its label (3 resistors, 1 inductor, 1 capacitor, 1 V-DC with a +/- circle, 1 I-DC with an arrow circle, 1 GND).",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        893.9,
+        360.0,
+        102.6,
+        42.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        227.5,
+        370.1,
+        97.7,
+        44.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        335.5,
+        472.7,
+        52.0,
+        90.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        978.6,
+        473.8,
+        50.0,
+        89.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-DC",
+      "bbox": [
+        676.1,
+        488.9,
+        80.7,
+        80.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        478.7,
+        478.0,
+        88.7,
+        57.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "I-DC",
+      "bbox": [
+        117.0,
+        500.2,
+        83.2,
+        78.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        542.7,
+        630.1,
+        87.9,
+        49.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

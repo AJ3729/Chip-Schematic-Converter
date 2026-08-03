@@ -1,0 +1,110 @@
+{
+ "sites": {
+  "1": "junction",
+  "2": "junction",
+  "3": "junction",
+  "9": "junction",
+  "30": [
+   [
+    39,
+    60
+   ],
+   [
+    58
+   ]
+  ],
+  "41": "junction",
+  "54": [
+   [
+    83,
+    107
+   ],
+   [
+    105
+   ]
+  ],
+  "28": "junction",
+  "37": "junction",
+  "58": "junction",
+  "63": "junction",
+  "66": [
+   [
+    126,
+    127
+   ],
+   [
+    111,
+    128
+   ]
+  ],
+  "67": "junction",
+  "29": "junction",
+  "39": "junction",
+  "55": "crossing",
+  "56": "junction",
+  "10": "crossing",
+  "12": "crossing",
+  "27": "crossing",
+  "38": "crossing",
+  "40": "crossing",
+  "57": "crossing",
+  "13": [
+   [
+    7,
+    26,
+    28
+   ],
+   [
+    24,
+    27
+   ]
+  ],
+  "14": "none",
+  "25": [
+   [
+    28,
+    47,
+    49,
+    54
+   ],
+   [
+    50,
+    52,
+    51,
+    53,
+    56,
+    58
+   ]
+  ],
+  "26": "none"
+ },
+ "ports": {
+  "1": {
+   "0": 0,
+   "1": 1
+  },
+  "4": {
+   "0": 0,
+   "1": 1
+  },
+  "7": {
+   "0": 0,
+   "1": 1
+  },
+  "9": {
+   "0": 1,
+   "1": 0
+  },
+  "11": {
+   "0": 0,
+   "1": 1
+  }
+ },
+ "merge": [
+  [
+   "1.1",
+   "2.0"
+  ]
+ ],
+ "notes": "CIRCUIT: a 5-column x 6-row hand-drawn grid. Five vertical rails: V1 x~180 (left edge), V2 x~310, V3 x~527, V4 x~686, V5 x~843 (right edge). Six horizontal rails: H1 y~105..160 (top edge), H2 y~278..305, H3 y~463..458, H4 y~657..645, H5 y~790..800, H6 y~910 (bottom edge). Components: each interior column carries an inductor above a capacitor (V1: 1uH inductor #0 + 5uF cap #4; V2: 5uH #3 + 10uF #7; V3: 10uH #6 + 50uF #10; V4: 50uH #8 + 100uF #12); the right rail V5 carries five sources in series top-to-bottom: V-AC 8V/1kHz #1, I-AC 5A/1kHz #2, V-DC 5V #5, I-DC 10A #9, V-DC 15V #11. THE DRAFTER'S CONVENTION IS EXPLICIT ON THIS SHEET: a semicircular hop / sideways jog in the vertical means NOT CONNECTED, a fat filled solder blob means CONNECTED. Both appear many times and are unmistakable at 12x. SITE DECISIONS. Crossings (hop drawn, wire passes over): S10 (297,278) V2 over H2; S12 (519,281) V3 over H2; S27 (520,454) V3 over H3; S40 (525,659) V3 over H4; S38 (684,649) V4 over H4; S57 (681,796) V4 over H5; S13/S14 (667,284)/(684,287) V4 over H2 - one drawn hop split into two tracer sites, expressed as explicit edge groups [[7,26,28],[24,27]] with S14='none' (the arc halves e7+e26+e28 are the column, e24+e27 the rail); S25/S26 (688,450)/(681,449) V4 over H3 - same split, groups [[28,47,49,54],[50,52,51,53,56,58]] with S26='none'. Note the second group of S25 also names e51,e53,e56,e58: the H3 rail ink is faint and the skeleton left two real gaps in it (x 427-472 and x 630-648); H3 is one continuous drawn wire from V1 to V5, so all its fragments are put in one group. Junctions (fat dot, or a T where a rail simply ends on another wire): S29 (304,461) V2-H3 and S39 (306,655) V2-H4 and S56 (529,797) V3-H5 all show unmistakable solder blobs ~3x stroke width in both axes; S55 (316,792) V2-H5 is a plain X with no hop and no dot - read as a junction on the ink prior (this drafter always draws a hop when he means 'not connected'), and it is not decisive anyway because V2 runs on down to H6 which is already tied to H5 through V1. S1/S2/S3 (column tops on H1), S9/S30/S41/S54 (H2/H3/H4/H5 ending on the left rail V1), S28/S37/S58 (H3/H4/H5 ending on the right rail V5), S63/S66/S67 (columns ending on the bottom rail H6) are all plain T's = junctions; verified in the pixels (e.g. inkmap at (181,463) shows the H3 stroke fully merged into the V1 stroke, no gap, no jog). All other sites (S5,S6,S8,S11,S16,S17,S18,S19,S21,S23,S31,S32,S33,S34,S42,S44,S47,S49,S50,S52,S61,S62) are handwritten value-label ink brushing a wire and change nothing. NET MAP (5 nets). n1 = top rail H1: tops of all four inductors (0.t0, 3.t0, 6.t0, 8.t0) and the top of the 8V V-AC (1.t0). The three interior columns hop over every rail between H1 and their inductor, so all four inductor tops really do land on H1. n2 = rail H2: bottom of inductor #0 (0.t1), top plate of the 5uF (4.t1), bottom of the V-AC (1.t1) and top of the I-AC (2.t0) - the last two are the same electrical node, the junction between the H2 rail and the short stub between the two source circles is buried inside the V-AC bounding box and was deleted with it, so it is restored with merge ['1.1','2.0']. n3 = the big bottom bus: H3 + H4 + H5 + H6 joined by the left rail V1 below the 5uF (continuous ink from y=378 to y=908, T-junction at every rail) and again by the lower stub of V2 (H4->H5->H6) and of V3 (H5->H6). It holds 4.t0 (5uF bottom), 3.t1 (5uH bottom), 7.t0 and 7.t1 (10uF), 2.t1 (I-AC bottom), 5.t0/5.t1 (5V source), 9.t0/9.t1 (10A source), 11.t0/11.t1 (15V source), 10.t0 (50uF bottom), 12.t0 (100uF bottom). n4 = the private node between the 10uH and the 50uF on V3 (6.t1, 10.t1) - V3 hops over H4 between them. n5 = the private node between the 50uH and the 100uF on V4 (8.t1, 12.t1) - V4 hops over H5 between them. PORT FIXES (the tracer had put five terminals on handwritten-label ink, giving seven one-terminal nets): #1 V-AC t0->p0 (top lead 857,241) and t1->p1 (H2 rail at 819,303); its old t1 sat on the '8' of '8V'. #4 5uF t0->p0 (bottom lead 176,378); its old t0 sat on the 'F' of '5uF'. #7 10uF t1->p1 (bottom lead 306,592); its old t1 sat on the '1' of '10uF'. #9 I-DC t0->p1 (top lead 838,677), t1->p0 (bottom lead 834,755); both old terminals sat on label ink ('uH' to the left, '10A' to the right). #11 V-DC t0->p0 (bottom lead 823,897); its old t0 sat on the 'uF' of '100uF'. Components #0,#2,#3,#5,#6,#8,#10,#12 already had both terminals on real leads. CLASSES: all 13 agree with the drawn symbols. Component #0 is drawn as a coil and is labelled '1uH' (not '1uF' - the mu and H overlap the coil), so Inductor is right. UNRESOLVED / KNOWN ERC ERRORS: the drawing as drawn short-circuits four elements, because the left rail V1 runs unbroken from H3 down to H6 and therefore makes H3=H4=H5=H6 one node, while the right rail V5 puts the 5V source between H3 and H4, the 10A source between H4 and H5 and the 15V source between H5 and H6. ERC therefore reports 'voltage source short-circuited' for #5 and #11 and warns about #9 and the 10uF #7. This is a property of the drawing, not of the annotation: I checked every candidate escape and none exists. (a) The three left-rail T's at (179,464), (172,662), (173,789) are solid merged ink at 12x zoom and in an ASCII pixel dump - no hop, no jog, no gap. (b) The left rail carries no third component below the 5uF. (c) The three right-rail T's at (843,458), (838,645), (835,800) are likewise solid, and no rail continues to the right of V5. (d) The solder blobs at (304,461), (306,655) and (529,797) are genuine dots ~3x stroke width in both axes, so the V2 and V3 lower stubs really do tie H4/H5/H6 together as well. Reading any of the hops as junctions instead would make things worse, not better. I have kept the faithful reading rather than inventing a break to satisfy ERC, per the rule that GT describes the drawing.\n\n=== SECOND READER (audit pass) ===\nCHANGED, four sites. All of them turn on ONE observation the first pass missed: this\ndrafter marks every tap he means with a fat filled solder blob, and the four sites that\ncreate the short-circuits carry NO blob while the comparable sites that must be\njunctions all do.\n\n  S30 (179,464)  junction -> explicit groups [[39,60],[58]]\n       left rail V1 continuous; rail H3 (e58) ends against it WITHOUT joining.\n  S54 (173,789)  junction -> explicit groups [[83,107],[105]]\n       left rail V1 continuous; rail H5 (e105) ends against it WITHOUT joining.\n  S55 (316,792)  junction -> crossing\n       column V2's lower run passes through rail H5 without joining.\n  S66 (532,911)  junction -> explicit groups [[126,127],[111,128]]\n       bottom rail H6 continuous; column V3's lower run (e111 + its 11 px overshoot\n       e128) crosses it without joining.\n  S41 (172,662) left at junction: netlist-neutral (rail H4 is already tied to V1's\n       lower run through the V2 blob at S39 and the bottom-left corner), so I did not\n       disturb it even though its blob is the weakest of the four left-rail sites.\n  Everything else - all eight hops, the S13/S14 and S25/S26 edge groups, the five port\n  fixes, the merge ['1.1','2.0'], the class calls - re-derived independently and left\n  exactly as the first pass had it. Its ink reading of those is right.\n\nTHE MEASUREMENT. For every rail/column intersection I dumped the width of the\ncrossing stroke row by row (contiguous ink run at threshold 170, nominal stroke 3 px):\n  site                      what it is                     stroke width near crossing\n  S9  (181,278) V1 x H2     rail H2 tap on V1's MID        3 -> 9,16,9,7,7,7  BLOB\n  S29 (305,461) V2 x H3     rail H3 tap on V2's MID        4 -> 7,8,9,9,10    BLOB\n  S39 (306,656) V2 x H4     rail H4 tap on V2's LOWER      5 -> 7,9,10,10,10  BLOB\n  S56 (530,798) V3 x H5     rail H5 tap on V3's LOWER      4 -> 6,7,8,9,10,10 BLOB\n  S30 (179,464) V1 x H3     rail H3 against V1's LOWER     3 -> 4,6,4         none\n  S54 (173,789) V1 x H5     rail H5 against V1's LOWER     3 -> 5,5,5,5,5     none\n  S55 (316,792) V2 x H5     rail H5 across V2's LOWER      3 -> 3,4,4 above   none\n  S63 (319,905) V2 x H6     column V2 ends on H6           3 -> 3,3           none\n  S66 (532,911) V3 x H6     column V3 CROSSES H6           3 -> 3,3           none\n  S67 (685,915) V4 x H6     column V4 ends on H6           3 -> 3             none\nAt 20x the difference is not subtle: S39 is a round filled disc roughly 4x the stroke\nwidth centred exactly on the crossing; S55, 137 px away on the same column and the\nsame rail, is a bare X with nothing on it but a small pen flick to the lower right.\nS9 has a clear blob on the left of the crossing; S30 and S54, on the same left rail,\nhave nothing. That is the drafter's own habit on his own sheet, which is the evidence\nBRIEF rule 3 asks for, and it resolves every one of the four sites the same way.\n\nWHY THE FIRST PASS'S \"UNAVOIDABLE\" SHORT IS NOT UNAVOIDABLE. Its chain was: the left\nrail V1 runs unbroken from the 5uF capacitor down to the bottom rail, T-ing on rails\nH3, H4 and H5, hence H3=H4=H5=H6 and the 5V, 10A and 15V sources are all bridged. I\nconfirm the ink it cites - V1 IS unbroken (a min-gray scan over x 158..200 finds ink\nin every row from y=370 to y=916) and the three left-rail contacts ARE merged ink with\nno gap and no jog. What it did not weigh is that the drafter dotted the ONE left-rail\ncontact he meant (S9, the H2 tap on V1's mid, which carries n2) and left the other\nthree bare. Reading the bare ones as junctions is what produces three simultaneously\nshorted sources - an impossibility that BRIEF rule 1 says makes the reading wrong, not\nthe drawing. The rails are simply drawn full width, from the left frame edge to the\nright frame edge, and the blobs say where they actually land.\nNote the asymmetry with the BOTTOM rail is real, not special pleading: there the\ncolumns' TIPS meet H6 (S63, S67), and those must be junctions or the 10uF and 100uF\ncapacitors would be stranded on one-terminal nets (BRIEF rule 1 again, in the other\ndirection). The one bottom-rail contact that is NOT a tip is S66, where V3's line\ncrosses H6 and carries on 11 px past it (ink at x 530-532 for y 912..922) - a plain X,\nno blob - and that one is a crossing. Same site, same shape, same verdict as\ncircuit_83's (469,892) and verified sibling circuit_187's (500,940).\n\nRESULTING NET MAP (7 nets, 26 terminals) - replaces the 5-net map above:\n  n1 = top rail H1                      0.0, 1.0, 3.0, 6.0, 8.0                    [5]\n  n2 = rail H2 + V1's mid (1uH/5uF)     0.1, 1.1, 2.0, 4.1                         [4]\n  n3 = rail H3 + V2's mid (5uH/10uF),\n       ending against V1 without\n       joining it at (179,464)          2.1, 3.1, 5.1, 7.0                         [4]\n  n4 = the return bus: bottom rail H6 + V1's lower run + V2's lower run + V4's\n       lower run + rail H4 (tapped onto V2's lower run at the S39 blob)\n                                        4.0, 5.0, 7.1, 9.0, 11.0, 12.0             [6]\n  n5 = V3's mid (10uH/50uF), hopping\n       rail H4 at (525,659)             6.1, 10.1                                  [2]\n  n6 = V4's mid (50uH/100uF), hopping\n       rail H5 at (681,796)             8.1, 12.1                                  [2]\n  n7 = rail H5 + V3's lower run (tapped at the S56 blob), crossing V2 at (316,792)\n       and the bottom rail at (532,911) without joining either\n                                        9.1, 10.0, 11.1                            [3]\n  ERC is clean: 5V spans n3->n4, 10A spans n4->n7, 15V spans n7->n4, 10uF spans\n  n3->n4. Net count 7 matches this image's verified sibling circuit_588, and the shape\n  is the same one the corrected circuit_83 has (top rail 5, two 4-terminal rails, two\n  2-terminal column mids, a 3-terminal rail+column-lower node, and the return bus).\n"
+}

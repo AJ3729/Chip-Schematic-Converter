@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "image": "circuit_843.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: a 3-node star/delta network drawn inside a decorative rectangular border (border ink at x~10..1017 / y~282..740; it touches no circuit wire and produced no traced edges, so it is not part of any net). Three upper nodes - A (top-left corner, ~(215,357)), B (top-right corner, ~(608,335)) and C (the centre of the star, ~(410,467)) - plus a bottom rail that carries the ground. Branches: 2H inductor A-B along the top; 3 ohm resistor A-C on the upper-left diagonal; 2F capacitor C-B on the upper-right diagonal; then one source hanging from each node down to the bottom rail - '4 sin t' current source #4 from A, '3 sin t' voltage source #5 from C, '2 sin t' current source #3 from B.\n\nNET MAP (4 nets, 13 terminals):\n  n1 = node A: 0.0 (2H inductor left lead at (327,348)), 1.0 (3 ohm resistor upper-left lead at (240,384)), 4.0 (4 sin t source top lead at (224,448)). The three meet at the drawn corner S5 (215,362).\n  n2 = node B: 0.1 (2H inductor right lead at (480,345)), 2.1 (2F capacitor upper-right lead at (516,403)), 3.0 (2 sin t source top lead at (625,405)). The three meet at the drawn corner S3 (608,335).\n  n3 = node C, the star centre: 1.1 (resistor lower-right lead at (380,451)), 2.0 (capacitor lower-left lead at (445,447)), 5.0 (3 sin t V-AC top lead at (414,488)). The three meet at S10 (410,467).\n  0  = the bottom rail, a single slightly-sloped run from (230,613) up to (643,500), plus the ground stub: 4.1 (4 sin t bottom lead), 5.1 (3 sin t bottom lead), 3.1 (2 sin t bottom lead), 6.0 (GND #6, whose stub drops from (428,608) to (433,631)).\n\nSITE DECISIONS (all 4 CRITICAL sites recorded explicitly):\n  S3 (608,335) J - node B. deg 3, a drawn corner where the inductor lead arrives from the left, the capacitor diagonal arrives from the lower-left and the lead to the 2 sin t source leaves downward. dot=2.5. Nothing to pass through, so junction; any other reading would strand a lead.\n  S5 (215,362) J - node A. Same kind of deg-3 corner (inductor lead right, resistor diagonal down-right, source lead down). dot=2.0.\n  S10 (410,467) J - node C, the star centre. deg 3: resistor diagonal from upper-left, capacitor diagonal from upper-right, V-AC lead down. dot=1.8. A 'Y' meeting point, not a crossing.\n  S13 (427,604) J - THE ONE JUDGEMENT CALL. This is a genuine 4-way plain X: the V-AC's bottom lead runs vertically from (428,600) down through to the GND symbol at (433,631), and the bottom rail crosses it from (425,607) on the left to (430,603) on the right. inkmap at (428,604) shows NO solder dot - the ink at the crossing is just the union of the two strokes, about 3-4 px thick on each arm with no symmetric blob - and NO hop and NO jog (hop score 2.1, i.e. nothing). So the ink prior applies and, more decisively, rule 1: reading it as a CROSSING would split off the bottom rail as a net containing only 4.1 and 3.1, i.e. two ideal current sources (4 sin t and 2 sin t) in series with nothing else, which violates KCL unless the two sources are identical, and would leave the ground net holding only the V-AC bottom and the GND symbol. That reading is electrically impossible, so JUNCTION. All four branches merge: bottom rail left, bottom rail right, V-AC lead up, GND stub down.\n  S0 (427,305), S1 (414,307), S2 (397,313) -> \"none\": strokes of the '2H' caption above the inductor.\n  S6 (500,380), S7 (485,394) -> \"none\": strokes of the '2F' caption beside the capacitor. Checked in edges.py - every branch there is a sub-25 px text stub; the capacitor's real upper-right lead is the separate 92 px diagonal (605,338)-(516,403), which is untouched.\n  S9 (692,456) -> \"none\": the '2' of the '2 sin t' caption brushing the right-hand source box.\n  S11 (164,497) -> \"none\": the 'nt' of the '4 sin t' caption brushing the left-hand source box.\n  S12 (466,527) -> \"none\": the '3s' of the '3 sin t' caption brushing the V-AC box.\n\nPORTS: no fixes needed. Every terminal already points at a real lead - checked all seven components in the _comps montage. The unused ports flagged by the tracer (#1 p2 at (380,395) = the 'ohm' glyph, #4 p2 at (178,489) = the caption 'nt', #5 p3/p4 at (461,515)/(462,529) = the '3s' glyphs) are all caption ink and are correctly left unused. No 3-terminal parts, so no pin-order questions.\n\nCLASSES - one thing worth flagging, though I did NOT override it: sources #3 and #4 are labelled '2 sin t' and '4 sin t' in the drafter's handwriting, which reads as a sinusoidal (AC) current, but the SYMBOLS as drawn are plain circles with a single straight arrow and no sine squiggle inside - the standard I-DC glyph, and visibly different from #5, whose circle does contain a drawn sine and is classed V-AC. Since the class must follow the drawn symbol and the symbol is unambiguously the DC current-source glyph, I kept the annotated class I-DC for both. If the benchmark ever prefers the caption over the glyph, #3 and #4 would become I-AC; the topology is unaffected either way.\n\nUNRESOLVED: none. ERC clean, all four nets have 3 or more terminals, GND on net '0'.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        403.7,
+        344.5,
+        146.1,
+        43.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        310.7,
+        414.3,
+        132.5,
+        73.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        480.6,
+        425.6,
+        64.5,
+        48.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-DC",
+      "bbox": [
+        632.8,
+        453.7,
+        77.8,
+        86.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-DC",
+      "bbox": [
+        220.9,
+        496.7,
+        80.6,
+        88.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-AC",
+      "bbox": [
+        421.2,
+        531.2,
+        74.5,
+        79.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        434.5,
+        657.9,
+        67.8,
+        45.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "image": "circuit_389.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "Two-rail ladder network, 11 components, 8 nets. NET MAP. n5 = left-hand node: left lead of the 5H inductor #3 (158,402) and the top of the left 4-ohm resistor #7 (145,418), joined by the corner at (140,400). n4 = second top node: right lead of #3 (298,399), top of the second 4-ohm resistor #6 (318,416) at site S9 (317,397), and the left terminal of the 60cos30t source #1 (394,397). n3 = right terminal of V-AC #1 (485,387) to the left lead of the 5H inductor #2 (514,383). n1 = third top node: right lead of #2 (656,374), top of the 60-ohm resistor #5 (680,394) at site S8 (676,372), and the left terminal of the 90sin30t current source #0 (741,366). n2 = right terminal of #0 (835,364) running right to x~889 then into the top of the 4H inductor #4 (889,371). n7 = bottom-left rail y~565-570: bottom of #7 (153,515, down to the corner at (163,570)), bottom of #6 (321,535) at site S22 (325,564), and the left plate lead of the 3F capacitor #9 (452,555). n6 = bottom-right rail: right lead of #9 (529,551) running right to S21 (702,536), the bottom lead of the 60-ohm resistor #5 (694,507 -> S20 (697,519) -> S21), and the left lead of the 13F capacitor #8 (747,533). 0 = right-hand ground node: right lead of #8 (831,521), bottom of inductor #4 (924,483) and the GND symbol #10 (937,521), all meeting at site S19 (935,511). SITES. No override was needed anywhere: every site in this drawing is either a clean T of two wire runs or a piece of handwriting brushing a symbol; there is not a single 4-way wire crossing in the sheet. Explicitly decided: S8 (676,372) junction - the 60-ohm resistor's top lead ends on the top rail (T, dot=1.4, no hop); reading it as a crossing would strand the resistor top on a one-terminal net and break the rail. S9 (317,397) junction - same shape for the second 4-ohm resistor's top lead. S21 (702,536) junction - the 60-ohm resistor's bottom lead comes down and ends on the bottom-right rail (T); a crossing reading would leave the resistor bottom dangling. S22 (325,564) junction - the second 4-ohm resistor's bottom lead ends on the bottom-left rail (T). S19 (935,511) junction - inductor #4 bottom, the 13F right lead and the GND stub all meet here; S20 (697,519) junction - a bend on the 60-ohm bottom lead. Non-critical sites left at the tracer default because they are label ink only: S2/S3/S5 ('90sin30t' over the current source), S6/S10/S11/S12 ('5H' over the two inductor coils), S13 ('4H'), S15 ('60-ohm'), S16/S17 (the two '4-ohm' labels), S23/S24 ('13F'). PORT FIXES (each one had produced a one-terminal net). #0 I-DC: t1 sat on a stroke of the 'sim' in the '90sin30t' caption at (804,319); moved to the real right-hand lead p3 (835,364), which is the same wire run (65) that enters the top of inductor #4, so n2 now has two terminals. #2 Inductor: t0 sat on the bottom of the first coil loop at (561,397); moved to the real left lead p4 (514,383), which is the same wire run (30) as the V-AC right terminal, merging the old one-terminal nets n3 and n5. #7 Resistor: t1 sat on a stroke of its '4-ohm' label at (167,472); moved to the real bottom lead p1 (153,515), which runs down to the bottom-left rail, merging the old one-terminal net n10 into n7. All other components' terminals were already on real leads (checked every crop): #3, #5, #6, #8 each have one or two extra port candidates that are handwriting ('5H', '60-ohm', '4-ohm', '13F') but their t0/t1 already point at the true leads. All two-terminal parts keep the tracer's default terminal order (unscored). No class looks wrong: two 4-ohm and one 60-ohm resistors, 5H/5H/4H inductors, 3F/13F capacitors, one V-AC (60cos30t) and one I-DC drawn as a circle with an arrow (the '90sin30t' caption suggests a sinusoidal source, i.e. arguably I-AC, but the drawn symbol is the plain arrow-in-circle that the dataset labels I-DC, so the annotation was left alone). Nothing unresolved.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        788.8,
+        368.0,
+        87.4,
+        79.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        440.1,
+        397.6,
+        84.6,
+        88.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        585.6,
+        373.6,
+        135.6,
+        40.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        227.8,
+        392.5,
+        134.5,
+        47.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        910.9,
+        428.3,
+        47.2,
+        104.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        682.6,
+        450.8,
+        42.8,
+        105.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        317.8,
+        476.9,
+        44.4,
+        111.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        143.3,
+        467.7,
+        41.1,
+        89.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Capacitor",
+      "bbox": [
+        789.5,
+        526.4,
+        76.7,
+        55.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Capacitor",
+      "bbox": [
+        490.6,
+        553.0,
+        70.0,
+        62.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "GND",
+      "bbox": [
+        935.9,
+        557.8,
+        73.9,
+        63.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}

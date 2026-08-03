@@ -1,0 +1,66 @@
+{
+  "sites": {
+    "1": "junction",
+    "4": "junction",
+    "5": "junction",
+    "9": "junction",
+    "13": "junction",
+    "16": "junction"
+  },
+  "ports": {
+    "1": {
+      "0": 1,
+      "1": 0,
+      "2": 2
+    },
+    "3": {
+      "0": 1,
+      "1": 0,
+      "2": 2
+    },
+    "4": {
+      "0": 1,
+      "1": 2,
+      "2": 0
+    },
+    "7": {
+      "0": 2,
+      "1": 0,
+      "2": 1
+    },
+    "8": {
+      "0": 2,
+      "1": 0,
+      "2": 1
+    },
+    "10": {
+      "0": 0,
+      "1": 2,
+      "2": 1
+    },
+    "12": {
+      "0": 1,
+      "1": 2,
+      "2": 0
+    },
+    "14": {
+      "0": 1,
+      "1": 2,
+      "2": 0
+    },
+    "15": {
+      "1": 3
+    }
+  },
+  "merge": [
+    [
+      "6.0",
+      "5.2"
+    ],
+    [
+      "13.1",
+      "16.0"
+    ]
+  ],
+  "notes": "CIRCUIT: a MOSFET ladder off a +5V rail. The top rail (y~130, x 45..815) is fed by the +5V arrow source #0 and carries the drains and gates of M1/M3 and the drain of M4 plus the top of the 5V zener #2. Left column: M1 source -> M7 drain -> M12 drain, M12 source down to the bottom rail and GND #17. Centre: M3 source feeds the op-amp in+, the op-amp out drives L6 into the M4-source / M10-drain node, the op-amp in- comes from M8 drain. The 5V source #9 (to GND #11) drives the gates of M7 and M8. M8/M10 sources and M14 drain meet on the y~658 rail. The V-AC 200mV/1kHz #13 (to GND #16) drives M10's gate; M12's gate drives L15 which drives M14's gate; M14 source goes to the bottom rail/GND #17. NET MAP: n1 = the +5V top rail: source #0, M1 drain and M1 gate, M3 drain and M3 gate, M4 drain, zener #2 top. n2 = M1 source (left column between y~250 and y~390) to M7 drain. n3 = zener #2 bottom to M4 gate (right lead at (763,272)). n4 = M3 source (372,303) to the op-amp in+. n5 = M4 source, right end of L6, M10 drain (the x~683 column, y 305..468). n6 = op-amp in- to M8 drain (367,409). n7 = op-amp output (547,358) and the left end of L6 - one continuous stroke, see MERGE. n8 = M7 gate (111,480), M8 gate (309,486) and the top of the 5V source #9. n9 = M7 source to M12 drain. n10 = the y~658 rail: M8 source (376,513 down), M10 source (690,594 down), M14 drain (516,693 up). n11 = M10 gate (765,567) to the top of the V-AC #13. n12 = M12 gate (146,771) to the left end of L15. n13 = right end of L15 (373,782) to M14 gate (459,787). '0' = M12 source, M14 source, the bottom rail into GND #17, the bottom of V-DC #9 into GND #11, and the bottom of the V-AC #13 into GND #16. SITES: all six CRITICAL sites are recorded explicitly and all are junctions. S1 (678,128), S4 (241,137), S13 (177,481) and S16 (515,658) are T-intersections with a visibly fattened blob (dot 2.9/3.2/2.8/3.5) where a branch lands on a rail; reading any of them as a crossing would leave the branch (M4 drain / M3 gate / the 5V source #9 / M14 drain) on a dead-end stub, which is electrically impossible. S9 (683,361) is a T where the right lead of L6 lands on the M4-source column; a crossing would strand L6's right end. S5 (370,138) is the only 4-way: the +5V arrow stem comes down, the top rail runs left-right, and the stem continues down to M3's drain. The crop shows one drawn solder blob (dot 3.0) centred on the cross and the drafter dotted the comparable rail taps at (143,135) and (241,137) the same way, so junction: +5V, both halves of the rail and M3's drain are one node. Read as a crossing it would split the rail into two halves and leave the left half (M1) unpowered while +5V fed only M3 - and it would contradict the drafter's own dotting habit on this rail. Non-critical sites S0, S2, S3, S6, S7, S10, S11, S19-S26, S29 are handwritten text ('+5V', '200mV', '1kHz', '1uH') or symbol ink brushing a wire and were left at the tracer default. PIN ORDER: every MOSFET on this sheet is drawn from the same template - three channel dashes with the drain lead off the top dash, the body arrow off the middle dash, the source lead off the bottom dash, and the body arrow always tied to the SAME wire as the bottom (source) lead while the drain lead runs to a separate wire (the column is deliberately broken between them). The gate is the lead attached to the long unbroken gate bar. Verified individually by zooming each symbol at 6x. N-channel symbols (#1,#3,#4,#7,#12) have the body arrow pointing INTO the channel dashes, P-channel (#8,#10,#14) pointing OUT of them, which matches the COCO classes, so no class corrections. Assignments to (drain, gate, source): #1 t0=p1(47,176 up to +5V) t1=p0(127,270 right, gate bar) t2=p2(46,295 down); #3 (mirrored) t0=p1(368,193 up) t1=p0(298,280 left, gate bar) t2=p2(372,303 down); #4 t0=p1(683,173) t1=p2(763,272 right) t2=p0(689,305); #7 t0=p2(47,393) t1=p0(111,480) t2=p1(52,515) (tracer already correct, recorded explicitly); #8 (mirrored, P) t0=p2(367,409) t1=p0(309,486) t2=p1(376,513) (already correct); #10 (P) t0=p0(690,468) t1=p2(765,567) t2=p1(690,594); #12 t0=p1(59,667) t1=p2(146,771) t2=p0(62,802); #14 (mirrored, P) t0=p1(516,693) t1=p2(459,787) t2=p0(520,811) (already correct). The op-amp #5 was already right: p0(402,325)='+' lead, p1(402,384)='-' lead, p2(547,358)=apex/out. PORT FIX: inductor #15 had terminal 1 sitting on a stroke of the handwritten '1 uH' label at (347,807) (one-terminal net); its real right lead is port p3 at (373,782) with an 87 px wire running to M14's gate, so t1 was pointed at p3. MERGES (two, both because a real wire exists in the pixels but no port was registered): (1) 6.0 <-> 5.2 - the inkmap at (556,358) shows one unbroken horizontal stroke from the op-amp apex through to the inductor body, but the op-amp and inductor boxes are only 13 px apart so the tracer kept a 6 px orphan edge and put L6.t0 on the '1 uH' label instead; the op-amp output and L6's left lead are the same node. (2) 13.1 <-> 16.0 - the V-AC #13 circle sits directly on top of the GND #16 box (bboxes touch at y=740), so the short stem between them is entirely inside the boxes and the tracer put both the source's lower terminal and the GND's terminal on strokes of the '200mV / 1kHz' text; the drawing plainly shows the source returning to that ground, so both are net 0. UNRESOLVED: none. NOTE for the reader: M1 and M3 each have drain and gate on the same +5V rail (n1) - that is odd electrically but it is exactly what is drawn (M1's gate bar runs right to (147,140) and up to the rail dot at (143,135); M3's gate bar runs left to (240,270) and up to the rail dot at (241,137))."
+}

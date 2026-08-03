@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "image": "circuit_96.jpg",
+  "source": "coco_geometry+manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "CIRCUIT: multi-output shunt-regulator / reference ladder. +15 V top rail feeds a 15k-15k divider (taps +10 V), then a horizontal mid rail at y~470 carrying two more 15k resistors that produce the +6 V and +5 V nodes. Each output has a PNP sense transistor whose emitter sits on the output and whose collector drives an NPN shunt to the bottom ground rail (y~888). A 2-diode string on the x~700 column sets the +5 V reference. NET MAP (final labels from finalize.py): 0 = bottom ground rail y~888 plus GND symbol #21 - emitters of Q17/Q18/Q19/Q20, collector of PNP Q13, bottom of R15 (50k) and R16 (50k). n1 = +15 V top rail y~180 - port #0, top of R1, collector of Q3. n2 = +10 V tap x~277 y~315 between R1 and R5 - port #2. n6 = node x~277 y~470, left end of the mid rail - bottom of R5, left of R9, EMITTER of PNP Q10. n7 = +6 V node x~505 y~470 - right of R9, left of R8, port #7, EMITTER of PNP Q12. n4 = +5 V node - right of R8, the whole y~470 rail right of x~745, the x~815 column from Q3's emitter down to Q17's collector, port #6, EMITTER of PNP Q14. n3 = Q3 base + D4 anode (wire y~280, x 700..800). n5 = D4 cathode + D11 anode (x~700 column, hops the mid rail at S8). n10 = D11 cathode + Q14 base + Q18 collector (x~700 column below D11, branch right at S17 y~665). n14 = Q14 collector + Q17 base. n9 = Q10 base + Q13 emitter (wire y~553 x 200..250 and x~200 column). n13 = Q13 base + top of R16 (wire y~600 x 105..165). n8 = Q10 collector + Q19 collector (x~287 column y 603..790). n15 = Q19 base + Q20 base (wire y~820 x 303..490). n12 = Q12 base + top of R15. n11 = Q12 collector + Q20 collector + Q18 base (x~493 column, jog right at y~740 to x~540, down to the y~800 wire that runs to Q18's base). JUDGEMENT CALLS: S8 (739,466) = CROSSING. 12x pixel zoom shows an unmistakable semicircular hop: the x~700 diode column jogs right to x~737 between y~450 and y~490 while the mid rail runs straight through at y~470. Reading it as a junction would merge n5 (between D4 and D11) into the +5 V node n4, i.e. short D11's anode to the regulator output and collapse the diode reference. S9 (808,466) = JUNCTION. 14x zoom shows a plain X: no solder blob (stroke width identical in both axes at the crossing) and no hop. This drafter demonstrably draws a hop when he means 'not connected' (S8 and S27 on this same sheet), so a bare X is a real junction. Reading it as a crossing would strand {right end of R8, +5 V port #6} as an isolated two-terminal net and would disconnect the +5 V label from Q3's emitter follower and Q17's shunt - electrically the wrong picture. S27 (587,802) = CROSSING. 12x zoom shows the R15 (50k) column hopping right around the y~800 wire before continuing to the ground rail. As a junction it would tie R15's grounded bottom end to Q18's base, shorting that base to ground through 0 ohm and killing the shunt. S11 (505,474) = JUNCTION (deg 4): the +6 V arrow stem and the column feeding Q12's emitter are one continuous vertical stroke; joining it to the rail is what creates the +6 V node. S2, S10, S16, S17, S22, S29, S30, S31, S32, S33, S34 are all plain T's (one wire ending on another) - junction, checked in the site crops. PIN-ORDER FIXES: all four PNPs (#10, #12, #13, #14) had t0/t2 swapped by the tracer. In every one of them the emitter arrowhead is drawn on the UPPER diagonal lead pointing back toward the base bar (PNP convention), and the physical reading agrees - the upper lead is the more positive terminal in each case (Q10 upper = divider node n6 vs lower = NPN collector; Q12 upper = +6 V vs lower = Q18 base; Q13 upper = n9 vs lower = ground; Q14 upper = +5 V vs lower = Q17 base). So emitter = upper port, collector = lower port, base = the side lead touching the bar. The five NPNs (#3, #17, #18, #19, #20) carry the arrow on the LOWER lead pointing away from the bar and were already correct (collector = top, base = side, emitter = bottom). NOT RESOLVED / ODDITIES IN THE DRAWING (netlist unaffected): (a) n15 is a floating two-terminal net - the y~820 wire joins the base bars of Q19 and Q20 and, verified at 7x zoom, touches nothing else; the drafter drew no bias for that pair. (b) Q3's base node n3 has no DC source: its only other terminal is D4's anode and both diodes point downward (anode at top, cathode bar at bottom), so no current can enter Q3's base under EITHER reading of S8. Since both readings are equally broken there, the electrical-impossibility rule cannot decide S8 and the ink (a textbook hop) does. The drawing appears to be missing a base bias resistor from the +15 V rail; I did not invent one. (c) The unused port candidates flagged for #0, #1, #8, #15, #16 are all strokes of the handwritten value labels ('+15', '15kohm', '50kohm') brushing the boxes - ignored, the real leads were already selected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC (one port)",
+      "bbox": [
+        521.8,
+        116.7,
+        40.2,
+        42.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        286.3,
+        257.5,
+        34.9,
+        79.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-DC (one port)",
+      "bbox": [
+        224.6,
+        259.2,
+        33.0,
+        34.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "BJT-NPN",
+      "bbox": [
+        806.1,
+        280.2,
+        42.6,
+        73.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Diode",
+      "bbox": [
+        722.7,
+        350.3,
+        59.3,
+        45.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        288.2,
+        377.1,
+        38.7,
+        83.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC (one port)",
+      "bbox": [
+        948.4,
+        428.8,
+        27.7,
+        30.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "V-DC (one port)",
+      "bbox": [
+        508.7,
+        436.9,
+        37.8,
+        30.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Resistor",
+      "bbox": [
+        627.0,
+        468.9,
+        95.7,
+        35.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Resistor",
+      "bbox": [
+        381.2,
+        471.8,
+        100.4,
+        39.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "BJT-PNP",
+      "bbox": [
+        277.4,
+        561.7,
+        45.9,
+        87.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        },
+        {
+          "index": 2,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Diode",
+      "bbox": [
+        719.1,
+        550.2,
+        59.8,
+        49.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n10"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "BJT-PNP",
+      "bbox": [
+        511.8,
+        598.1,
+        48.8,
+        82.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n11"
+        },
+        {
+          "index": 1,
+          "net": "n12"
+        },
+        {
+          "index": 2,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "BJT-PNP",
+      "bbox": [
+        190.1,
+        611.9,
+        44.5,
+        76.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n13"
+        },
+        {
+          "index": 2,
+          "net": "n9"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "BJT-PNP",
+      "bbox": [
+        775.1,
+        667.2,
+        47.3,
+        78.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n14"
+        },
+        {
+          "index": 1,
+          "net": "n10"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "Resistor",
+      "bbox": [
+        574.9,
+        721.0,
+        31.6,
+        79.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n12"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "Resistor",
+      "bbox": [
+        108.8,
+        739.2,
+        39.7,
+        93.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n13"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "BJT-NPN",
+      "bbox": [
+        830.8,
+        799.4,
+        60.3,
+        88.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n14"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "class": "BJT-NPN",
+      "bbox": [
+        705.7,
+        806.6,
+        45.4,
+        87.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n10"
+        },
+        {
+          "index": 1,
+          "net": "n11"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "class": "BJT-NPN",
+      "bbox": [
+        288.9,
+        819.3,
+        45.9,
+        94.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n15"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "class": "BJT-NPN",
+      "bbox": [
+        481.6,
+        820.7,
+        43.0,
+        80.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n11"
+        },
+        {
+          "index": 1,
+          "net": "n15"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "class": "GND",
+      "bbox": [
+        445.3,
+        946.0,
+        56.4,
+        56.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_1024"
+}
