@@ -1,0 +1,168 @@
+{
+ "schema_version": 1,
+ "image": "circuit_1022.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: two-source AC network on graph paper. Left block: a 12cos(t) A current source (I-AC) whose top lead runs right along the y~380 rail; a 54 ohm resistor and a 52 mH inductor sit in parallel between the x~270 column and the x~484 column. Right block: a 62 uF capacitor and a 55 ohm resistor sit in parallel between the x~596 column and the x~816 column; the right column feeds the top of the 5sin(t) V source. The two blocks are tied together by the horizontal wire at y~437 running x~484 -> x~596. A sixth (unlabelled) resistor sits in the lower rail between x~551 and x~657, with the GND symbol and the V-AC return on its right side.\n\nNET MAP (8 components, 4 nets):\n  n3 = 'node A', the left column: I-AC top terminal (2.0), left end of the 54 ohm resistor (1.0), left end of the 52 mH inductor (3.0). Runs from the source top up to y~380, right to the corner at (270,384), and down the x~270 column to the inductor.\n  n1 = the large mid net: right end of 54 ohm (1.1), right end of 52 mH (3.1) via the x~484 column, the y~437 tie wire, the left plate of the 62 uF cap (0.0), the left end of the 55 ohm (4.0) via the x~596 column, the left end of the lower unlabelled resistor (6.0), and - via the x~520 column down to the y~578 rail, left along it and around the bottom-left corner at (399,627) - the I-AC bottom terminal (2.1).\n  n2 = the right column x~816: right plate of the cap (0.1), right end of the 55 ohm (4.1), top of the 5sin(t) V-AC (5.0).\n  0  = the return: right end of the lower unlabelled resistor (6.1), the GND symbol (7.0) via the x~697 stem, and the V-AC bottom terminal (5.1) via the y~656 wire.\n\nTOPOLOGY NOTE (important, and deliberate): because the lower-left rail comes back up the x~520 column onto the same y~437 wire that ties the two blocks together, the current source ends up directly across the 54||52mH pair, and the two source loops meet at exactly one node (n1). I checked this three separate ways (zoom at 4x over x 180-580, the raw pixel dump at (520,437), and the tracer's own edge grouping) because it is an unusual topology. The pixel dump at (520,437) shows the y~435-437 horizontal running continuously through the column and the column ink starting at y=437 with NO ink above it - so the column cannot be a wire that passes over the rail; it is a genuine T. GT records the drawing, not the circuit I would have drawn.\n\nCRITICAL SITE DECISIONS:\n  S6 (270,384) -> JUNCTION. Plain T: the rail from the current source arrives from the left, the x~270 column drops away downward to the inductor, and the rail continues right into the 54 ohm. Three branches of one node. Reading it as a crossing would pass the incoming rail straight into the resistor and strand the column (and hence the inductor's left lead) on a one-terminal net.\n  S7 (816,425) -> JUNCTION. T on the right column: the column runs from the cap's right plate (y~365) down to the 55 ohm line (y~490); a short horizontal branch leaves rightward at y~425 and drops to the V-AC top. Crossing here would isolate the V-AC top terminal, leaving the voltage source with no top connection.\n  S8 (486,436) -> JUNCTION. T on the x~484 column (right side of the 54||52mH block): the y~437 tie wire departs to the right from the middle of the column. Crossing would sever the whole left block from the rest of the sheet.\n  S9 (520,436) -> JUNCTION. T: the y~437 tie wire runs through, and the x~520 column drops from it to the lower rail. Verified with inkmap - there is no ink above y=437 at this x, so the column terminates on the wire; a crossing reading would leave the column (and with it the current source's bottom terminal and the whole lower-left rail) dangling, i.e. the I-AC would have an open terminal. Electrically impossible, so junction.\n  S10 (595,439) -> JUNCTION. T: the y~437 tie wire ends on the x~596 column that carries the left plate of the capacitor down to the left end of the 55 ohm. Crossing would strand the tie wire and split the cap/resistor pair from the rest.\n  S15 (523,577) -> JUNCTION. T: the x~520 column lands on the lower rail. Crossing would leave the column dangling at both ends.\n\nNON-CRITICAL SITES (recorded explicitly = looked at and accepted; all are handwritten label ink brushing a wire, and none changes the netlist): S0 (720,313), S1 (728,313), S2 (661,314), S3 (692,319) are all the '62 uF' caption touching the capacitor plates / the wire above them; S11 (487,481) is the inductor's right lead meeting the x~484 column inside net n1; S13 (129,484) is the 'A' of '12cost A' touching the current-source circle; S16 (910,576) is the '5' of '5sint V' touching the source circle.\n\nMERGE / PORT FIXES:\n  GND (#7) had to be attached by hand. The tracer found ZERO port candidates for it, so its terminal came out null and there was no net '0'. The pixel dump at (698,665) proves the connection is real: the GND stem is unbroken ink, a 3-4 px column at x~696-700 running from y=639 down THROUGH the y=653-655 return wire and on to the top ground bar at y=672-674. The reason the tracer missed it is mechanical, not electrical - the GND bounding box starts at y=661 while the return wire sits at y~654, so the only stub reaching the box is ~6 px long and is removed by the short-spur prune (min_spur=8); with no edge tip near the box there is no port candidate, and neither 'ports' nor 'merge' can name a terminal the tracer never mapped (merge only unions terminals already present in the terminal map). I therefore pinned the return net explicitly with manual_nets {7.0, 5.1, 6.1} -> '0'. That is exactly the net the tracer had already built (its 'n4' = V-AC bottom + right end of the lower resistor); the override only adds the ground symbol to it and gives it the mandatory name '0'. No connection was invented: every one of those three terminals is joined by continuous ink along y~656 from x=697 to x=863 plus the x~697 stem.\n  No 'ports' overrides: every component here is 2-terminal (order unscored) or the 1-terminal GND. The two summary warnings are stray caption ink, not leads - component 4 (55 ohm) candidates p2@(708,517) and p3@(732,519) are the tops of the '5' and '5' in the '55 ohm' caption, and component 5 (V-AC) candidate p2@(902,585) is the '5' of '5sint V'. The tracer's t0/t1 already sit on the true leads in both cases.\n\nCLASSES: all eight agree with the drawn symbols (two-plate = Capacitor; three zig-zags = Resistors; oval with tilde AND an arrow through it = I-AC, correct for the '12cost A' label; coil = Inductor; circle with tilde only = V-AC, correct for '5sint V'; stacked bars = GND). No reclassification.\n\nUNRESOLVED: nothing. The only thing worth flagging to a reviewer is the single-node coupling between the two source loops described above - it is what the ink says, but it makes the current source's branch analytically independent of the voltage source's branch.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    674.2,
+    359.5,
+    66.0,
+    58.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    353.3,
+    390.2,
+    109.6,
+    38.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "I-AC",
+   "bbox": [
+    174.4,
+    485.5,
+    77.9,
+    99.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Inductor",
+   "bbox": [
+    397.5,
+    475.2,
+    108.5,
+    39.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Resistor",
+   "bbox": [
+    723.5,
+    490.1,
+    106.2,
+    40.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-AC",
+   "bbox": [
+    861.8,
+    585.1,
+    64.9,
+    71.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Resistor",
+   "bbox": [
+    604.4,
+    583.1,
+    98.7,
+    39.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    702.6,
+    683.0,
+    79.2,
+    44.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

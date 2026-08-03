@@ -18,7 +18,16 @@ Run everything from the repository root with the project venv
 | Preprocessed frames | `data/cleaned_1024` + `data/transforms_1024.json` (`scripts/preprocess.py`, guarded by `scripts/record_transforms.py`) |
 | Detector weights | `experiments/train_all/runs/yolov8s_640_seed{0,1,2}/weights/best.pt` |
 | Detection cache | `data/detections_1024/` (`scripts/detect_batch.py --images data/splits/test.txt --images-dir data/cleaned_1024`) |
-| Verified GT | `data/gt_1024/` (canonical topology is `data/gt_netlists_verified_v3`; `gt_1024` is the same annotation at 2x coordinates) |
+| Verified GT (test, reported) | `data/gt_test_1024/` — 192 images, `benchmark.gt_dir`; verification account in `docs/GT_VAL_VERIFICATION_REPORT.md` |
+| Verified GT (val, selection) | `data/gt_val_1024/` — 190 images; canonical topology is `data/gt_netlists_verified_v3` and `gt_val_1024` is the same annotation at 2x coordinates |
+
+**The two evaluation splits swapped names on 2026-08-03.** The 190 images
+every parameter was tuned on are now `val`; the 192 that never entered
+selection are now `test`. Sweep with `--split val --gt-dir data/gt_val_1024`;
+report with `--split test` (the default). Any artifact under `results/`
+committed before that date was computed on the 190 images and is a
+validation number regardless of what its `run_meta.json` calls it. Full
+mapping: `data/README.md` and `data/splits/splits_meta.json` → `role_swap`.
 
 **Frame size is part of the configuration.** `preprocess.target_size` is
 1024 and `preprocess.images_dir` names the matching frames; every script
@@ -144,10 +153,17 @@ topology byte-identical (`tests/test_gt_boxes.py` enforces that). Score
 against it with `--gt-dir data/gt_netlists_verified_v3` to see how much
 of a result depends on box geometry.
 
-`data/gt_1024` is v3 with every coordinate doubled, for the 1024-px
+`data/gt_val_1024` is v3 with every coordinate doubled, for the 1024-px
 frames; component count, classes, terminals and net assignments are
 identical, so it is the same ground truth expressed in the frame
 coordinates the pipeline now runs in — not a different annotation.
+
+The test GT (`data/gt_test_1024`) has no such lineage: it was annotated
+natively in the 1024 frame, from component inventory and published COCO
+boxes only, with every net traced from `null`. It is reproducible from its
+own decision records — `gt_test_1024/decisions/<stem>.json` holds the
+junction/crossing call at every critical site and the nets are recomputed
+from those, never hand-edited.
 
 ## 8. Regenerate the manuscript's numbers
 

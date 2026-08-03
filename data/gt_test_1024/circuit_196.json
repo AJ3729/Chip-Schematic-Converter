@@ -1,0 +1,108 @@
+{
+ "schema_version": 1,
+ "image": "circuit_196.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "5 components, 3 nets. A single-loop-per-branch ladder: three parallel branches strung between a left rail (x~182) and a right rail (x~677).\n\nNET MAP\nn1 = the LEFT rail, x~182 from y~370 down to y~617: left lead of the 2 mH inductor #0 (275,368), left lead of the 30 V source #2 (275,499) via S8 (181,497), left lead of the 4 mF capacitor #3 (351,614) via the bottom rail y~617.\nn2 = the short top run between the two top-branch parts: right lead of inductor #0 (379,367) to left lead of the 2 ohm resistor #1 (465,365). 2 terminals, which is expected here - it is the mid-node of a series L-R branch, not a stranded net.\n0  = the RIGHT rail, x~677 from y~372 down to y~615, plus the GND stub: right lead of resistor #1 (568,372), right lead of source #2 (351,501 running right to S9 at (678,499)), right lead of capacitor #3 (415,616 running right along the bottom rail to S10 at (643,614)), and GND #4 (644,632). Named 0 because GND #4 sits on it.\n\nJUDGEMENT CALLS\nNone of the three CRITICAL sites is ambiguous - all are clean T's with no dot and no hop, and each was checked in its own crop:\nS8 (181,497) - the left rail runs straight through top-to-bottom; the 30 V branch ends on it from the right. Junction. Reading it as anything else would strand the source's left terminal on a one-terminal net.\nS9 (678,499) - mirror image: the right rail runs through, the 30 V branch ends on it from the left. Junction.\nS10 (643,614) - the bottom rail runs through, the GND #4 stub drops off it. Junction. Reading it otherwise would leave GND floating and the capacitor with no return path.\nThe remaining sites (S2, S4, S6, S7, S12, S13, S14) are all non-critical and are lettering that touches wire ink - '2mH' descenders on the top rail (S2, S4, S7), the '2 ohm' label on the resistor lead (S6), and '4mF' on the bottom rail (S12, S13, S14). Left at the default; none of them changes the netlist.\n\nCOMPONENTS / PORTS\nAll five classes confirmed from the crops: coil = Inductor, zigzag = Resistor, circle with '+ -' = V-DC (30 V, + on the left), two parallel plates = Capacitor, hatched triangle = GND. All four two-terminal parts have their t0/t1 on the genuine left/right leads; the extra port candidates the tracer flagged (inductor p0 at (311,348), V-DC p2 at (283,468), capacitor p2/p3 at (415,644)/(347,636)) are all strokes of the handwritten labels '2mH', '30V' and '4mF' brushing the symbol boxes, not leads. No pin-order issues - there are no 3-terminal parts on this sheet. No class looks wrong. 15 gap bridges were found and none of them changes the netlist; none needed dropping. Nothing left unresolved.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Inductor",
+   "bbox": [
+    326.9,
+    368.1,
+    98.6,
+    35.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    516.3,
+    368.7,
+    97.3,
+    32.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "V-DC",
+   "bbox": [
+    313.0,
+    499.8,
+    70.8,
+    57.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Capacitor",
+   "bbox": [
+    382.8,
+    615.4,
+    58.6,
+    38.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "GND",
+   "bbox": [
+    647.4,
+    657.0,
+    69.1,
+    42.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

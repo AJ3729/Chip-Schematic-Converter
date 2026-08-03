@@ -1,0 +1,168 @@
+{
+ "schema_version": 1,
+ "image": "circuit_441.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: single series loop with one shunt capacitor. 84A current source (I-DC #5) drives, from its top terminal, a rail that runs up to y~340 and right through R89k (#0), reaching the node at x~482 where the 92uF capacitor (#4) hangs down to GND; the rail continues right through L94H (#1), L93H (#2), the 81kV source V-DC (#3), then down the right edge (x~950) and left through R88ohm (#6) to the x~690 column, which drops to the bottom rail at y~572 and runs back left to the current source's bottom terminal. The GND symbol sits on that bottom rail.\n\nNET MAP (6 nets, 8 components):\n  0  = ground rail: bottom terminal of I-DC #5, left end of R88 #6 (via the x~690 column down to the y~572 rail), bottom plate of capacitor #4, GND symbol #7.\n  n1 = left rail: top terminal of I-DC #5 up to y~340 and right to the left lead of R89k #0.\n  n2 = top mid node at (482,366): right lead of R89k #0, left lead of L94H #1, top plate of capacitor #4.\n  n3 = short span between the two inductors: right lead of L94H #1, left lead of L93H #2.\n  n4 = right lead of L93H #2 to the left (+) terminal of V-DC #3.\n  n5 = right (-) terminal of V-DC #3, down the right edge to the right lead of R88 #6.\n\nJUDGEMENT CALLS / SITES:\n  S13 (482,366) CRITICAL -> JUNCTION. The crop shows a clean T: the capacitor's top lead runs up and terminates on the horizontal top rail; there is no wire continuing above y=366 there. A T is a junction by definition. Reading it as anything else would strand the capacitor's top plate on a one-terminal net and remove the only shunt element in the circuit.\n  S18 (469,572) CRITICAL -> JUNCTION. The tracer flagged hop=5.7, but inkmap.py at (469,572) shows a plain '+' : the vertical from the capacitor's bottom plate runs straight down through the horizontal bottom rail (cols 467-471 above, cols 469-473 below, a 1-2 px pen drift, no arc and no sideways jog) and continues to the GND symbol at y~590. Stroke width is 3-4 px both above and below and the crossing region is not a symmetric blob, so there is no solder dot either; this is the 'plain X' case. Decided junction on rule 1 (electrical impossibility): reading it as a crossing would split ground into two nets - {cap bottom, GND} with no return path, and {I-DC bottom, R88 left} - leaving the capacitor branch dangling with nowhere for its current to go and leaving the GND symbol on a net that touches nothing else in the loop. The junction reading gives the textbook circuit: I-DC in parallel with (R89k + C shunt) feeding the L-L-V-R loop back to ground.\n  Non-critical sites S0,S1,S2,S3 are strokes of the handwritten '89 kohm' label brushing the top rail; S5-S8 are '94 H'; S9-S12 are '93 H'; S14 is the '9' of '92 uF' touching the capacitor box. None of them are wire intersections and all were left at the tracer default (they do not change the netlist).\n\nPORT / PIN FIXES (all four one-terminal-net warnings traced back to terminals landing on handwritten label ink, the classic failure described in the brief):\n  #1 Inductor (94H): terminal 1 was on p4@(632,343), the right upright of the letter 'H' in '94 H' sitting just above the coil box. Repointed to p5@(651,373), the actual right lead stub leaving the coil. This is what created the one-terminal net n3.\n  #2 Inductor (93H): BOTH terminals were on label ink - t0 on p1@(704,347) (the '3' of '93') and t1 on p3@(761,344) (the 'H'). Repointed to p5@(679,373) (real left lead) and p4@(788,381) (real right lead). This is what created the one-terminal nets n4 and n5.\n  #4 Capacitor (92uF): terminal 1 was on p2@(517,477), the top curl of the '9' in '92 uF' written immediately to the right of the plates. Repointed to p1@(476,488), the real bottom-plate lead going down to ground. This is what created the one-terminal net n8.\n  After these four repoints every net has >= 2 terminals and ERC is clean.\n\nCLASSES: all eight symbols match their labels - zig-zag = Resistor (x2), coils = Inductor (x2), two parallel plates = Capacitor, circle with an up arrow labelled '84 A' = I-DC, circle with '+ -' labelled '81 kV' = V-DC, three-bar stack = GND. No re-classification needed.\n\nUNRESOLVED: nothing. Both critical sites are settled by ink and by electrical necessity; no gap bridges affected the netlist (18 bridges, 0 changing nets).",
+ "components": [
+  {
+   "id": 0,
+   "class": "Resistor",
+   "bbox": [
+    373.5,
+    356.7,
+    116.2,
+    45.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Inductor",
+   "bbox": [
+    597.9,
+    369.0,
+    100.2,
+    42.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Inductor",
+   "bbox": [
+    734.1,
+    375.9,
+    102.5,
+    45.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "V-DC",
+   "bbox": [
+    871.5,
+    387.9,
+    94.4,
+    63.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Capacitor",
+   "bbox": [
+    474.5,
+    458.6,
+    73.3,
+    53.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "I-DC",
+   "bbox": [
+    226.7,
+    476.6,
+    76.7,
+    88.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Resistor",
+   "bbox": [
+    793.3,
+    509.0,
+    124.8,
+    46.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    474.8,
+    609.1,
+    91.0,
+    49.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

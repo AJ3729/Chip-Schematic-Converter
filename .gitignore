@@ -14,11 +14,16 @@ venv/
 
 # Data (raw images, cleaned images, annotations, GT netlists, per-image
 # detection caches) — provenance documented in data/README.md.
-# Exceptions: frozen split manifests and the data README are versioned —
-# they are part of the benchmark contribution (C1).
+# Exceptions: frozen split manifests, the data README and the test-split
+# ground truth are versioned — they are the benchmark contribution (C1).
+# The test GT is here rather than force-added, because it was force-added
+# under its old name and the rename silently dropped 192 files back out.
+# Its renders/ are regenerable PNGs and stay out.
 data/*
 !data/splits/
 !data/README.md
+!data/gt_test_1024/
+data/gt_test_1024/renders/
 
 # Experiment outputs (runs, logs, per-run config snapshots, legacy artifacts)
 experiments/

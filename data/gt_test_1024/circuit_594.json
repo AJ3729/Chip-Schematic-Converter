@@ -1,0 +1,288 @@
+{
+ "schema_version": 1,
+ "image": "circuit_594.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "STRUCTURE. The sheet is a grid: one horizontal top rail carrying five sources in series, six vertical columns dropping from it (A at x~25-37, B at x~145 sloping to x~122, C at x~360-376, D at x~572-579, E at x~740-779, F at x~900-940), and four horizontal rows (row1 y~455-490, row2 y~592-625, row3 y~730-767, bottom rail y~900-915) carrying the L/C elements. The drafter draws an unmistakable downward semicircular hop wherever a row crosses a column without connecting, and either a filled solder dot or a small drawn ring where the top rail meets a column. NET MAP (7 nets, 14 components). n1 = column A: from the top-rail left corner (24,208) - which is V-AC#0's left lead (68,209) - down the left edge to the bottom rail, picking up the left end of every row: row1 at S17 (37,453) -> L#9 (50mH) left (637,473); row2 at S33 (37,592) -> L#6 (10mH) left (441,602); row3 at S46 (39,730) -> L#3 (5uH) left (228,743); bottom rail -> L#1 (1uH) left (60,911). 5 terminals. n2 = column B: the solder dot at (149,207) between V-AC#0's right lead and I-AC#2's left lead (193,211), down through the row1/row2/row3 hops, jogging right at y~832 to x~155 and landing on the bottom rail at S56 (160,914), between L#1's right lead (134,912) and C#4 (5uF) left lead (240,917). 4 terminals. n3 = column C: the drawn ring at (355,227) between I-AC#2's right lead (282,223) and V-DC#5 (5V) left lead (421,225), down through the row1 hop (S25) and the row2 hop (S40), ending on row3 at S48 (376,751) between L#3's right lead (313,748) and C#7 (10uF) left lead (447,756). 4 terminals. n4 = column D + column F, tied together by the right half of row3: the solder dot at (570,227) between V-DC#5's right lead (497,228) and I-DC#8 (10A) left lead (613,223), down through the row1 hop (S27) and the row2 hop (S41), ending on row3 at S50 (579,765); row3 then runs right, uninterrupted, to column F at S51 (933,767). Column F carries V-DC#11 (15V) right lead (870,233) at the top, the right end of row1 at S23 (915,470) = C#12 (100uF) right lead (875,469), passes row2 at S38 without joining it, takes row3 at S51, and turns into the bottom rail at (940,900), which runs left to C#4 (5uF) right lead (294,917). 6 terminals. n5 = L#6 (10mH) right lead (524,606) to C#10 (50uF) left lead (636,605), the middle of row2. n6 = L#9 (50mH) right lead (719,474) to C#12 (100uF) left lead (824,468), the middle of row1 (the row hops column E in between at S26). 0 (GND) = column E + the right end of row2: the solder dot at (736,223) between I-DC#8's right lead (696,226) and V-DC#11's left lead (789,225), down through the row1 hop (S26), ending on row2 at S37 (779,608); row2 then runs left to C#10's right lead (683,609) and right through S38 to GND#13 (949,607). 4 terminals. JUDGEMENT CALLS. S38 (929,609), deg 4, plain X, dot=1.8, hop=3.6 - OVERRIDDEN to CROSSING. inkmap at (929,615) shows the column running 2-3 px wide above the rail and 4-7 px wide below it (a doubled pen stroke that persists for 30+ rows), with no symmetric blob at the intersection and no arc: no solder dot, no hop, a bare X. Rule 1 decides it: reading it as a junction puts column F and column E on one net, which places BOTH terminals of V-DC#11 (15V) on the same net - a shorted voltage source, electrically impossible. As a crossing, row2-left/GND pass through each other and column F passes through vertically, V-DC#11 sits between net 0 and n4, and the ERC is clean. This one site was responsible for the tracer's 10-terminal net 0 that shorted both V-DC#11 and I-DC#8. S25 (385,487), deg 4, default junction, dot=1.5, hop=3.6 - OVERRIDDEN to CROSSING. The 5x crop shows an unmistakable downward semicircular hop of row1 around column C, identical in shape to S21/S26/S27/S39/S40/S41/S49; the tracer simply mis-scored it (the arc is split across two skeleton branches so the hop score came out low). As a junction it merged column A with column C, which is why the tracer produced an 8-terminal net n3 that shorted inductor #3 (both 3.0 and 3.1 on the same net) - an impossible reading. As a crossing, n1 and n3 separate and every element sees two distinct nets. Every other CRITICAL site was inspected and agrees with its default: S9 (736,223), S11 (372,227), S12 (570,227) are the top-rail nodes, each drawn with a filled dot or a ring plus a column dropping = junction; S17 (37,453), S33 (37,592), S46 (39,730) are T's where a row starts on column A = junction; S23 (915,470), S51 (933,767) are T's where a row ends on column F = junction; S37 (779,608), S48 (376,751), S50 (579,765) are T's where a column ends on a row (no ink continues below the site) = junction; S56 (160,914) is the T where column B lands on the bottom rail = junction; S21 (131,472), S26 (768,487), S27 (579,490), S39 (127,612), S40 (383,625), S41 (581,624), S49 (124,758) all show the drafter's semicircular hop = crossing. Non-critical sites S0/S1/S2/S3/S6/S20/S30/S31/S43/S44/S53 are handwritten value-label strokes ('3 v', '5A 1kHz', '10A', '50uF', '10mH', '5uH', '5uF', '10uF') touching a wire and were left at their defaults; they do not change the grouping. MERGE. merge [['0.1','2.0']] is required and is not an invention: the V-AC#0 bounding box (x 73..144, y 171..244) swallowed the short stretch of column B between the solder dot at (149,207) and (143,247), so the tracer's graph has the dot's stub (e10/e11, joined at S7) and column B (e28) as two unconnected edges. The S7 crop shows a large filled solder dot exactly where the V-AC right lead, the I-AC left lead and the top of column B meet, so the three are one node. The merge restores it; without it net n2 (column B) and net n4 (the 4 px rail stub) stay apart and I-AC#2's left terminal sits on a one-terminal net. PORT FIXES (all three were terminals landing on handwritten value-label ink, the classic failure mode): #0 V-AC t0 was on p2@(78,166), a stroke of the '3 v' label; moved to p1@(68,209), the real left lead running to the top-rail corner (was one-terminal net n1). #4 Capacitor (5uF) t0 was on p2@(267,869), a stroke of the '5uF' label; moved to p1@(240,917), the real left plate lead on the bottom rail (was one-terminal net n5). #10 Capacitor (50uF) t0 was on p2@(642,576), a stroke of the '50uF' label; moved to p1@(636,605), the real left plate lead on row2 (was one-terminal net n8). No pin-order work was needed: every component here is two-terminal except GND#13, and for 2-terminal parts the order is not scored. CLASSES: all correct as annotated. The five sources on the top rail read left to right as V-AC (sine, '3 v 1 kHz'), I-AC (sine with arrow, '5 A 1 kHz'), V-DC (+/-, '5 V'), I-DC (plain arrow, '10 A'), V-DC (+/-, '15 V'); the four coils are inductors and the four plate-pairs are capacitors, matching their mH/uH and uF labels; GND#13 is the only one-terminal symbol. UNRESOLVED: nothing. Every terminal has a net, no net has fewer than two terminals, GND sits on net 0, ERC clean.",
+ "components": [
+  {
+   "id": 0,
+   "class": "V-AC",
+   "bbox": [
+    108.5,
+    207.5,
+    71.1,
+    72.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Inductor",
+   "bbox": [
+    97.5,
+    910.5,
+    67.4,
+    31.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "I-AC",
+   "bbox": [
+    237.8,
+    219.7,
+    79.4,
+    74.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Inductor",
+   "bbox": [
+    270.4,
+    741.1,
+    76.6,
+    35.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Capacitor",
+   "bbox": [
+    267.2,
+    914.4,
+    46.9,
+    72.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    458.8,
+    234.2,
+    69.2,
+    66.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Inductor",
+   "bbox": [
+    483.3,
+    599.6,
+    74.1,
+    37.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "Capacitor",
+   "bbox": [
+    472.0,
+    761.9,
+    39.4,
+    61.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "I-DC",
+   "bbox": [
+    654.7,
+    228.1,
+    75.6,
+    67.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "class": "Inductor",
+   "bbox": [
+    678.0,
+    469.1,
+    73.2,
+    35.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "class": "Capacitor",
+   "bbox": [
+    659.8,
+    606.9,
+    39.0,
+    52.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "class": "V-DC",
+   "bbox": [
+    829.9,
+    232.5,
+    72.6,
+    66.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "class": "Capacitor",
+   "bbox": [
+    850.2,
+    464.4,
+    42.5,
+    63.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n6"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "class": "GND",
+   "bbox": [
+    976.9,
+    606.3,
+    47.2,
+    87.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

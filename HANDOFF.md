@@ -7,6 +7,41 @@ corrections, resolution experiment).
 
 ## 0. STATE OF PLAY — read this first (2026-07-31)
 
+### 0.0 THE SPLITS SWAPPED NAMES ON 2026-08-03 — read before any number below
+
+The 190 images this document calls "test" are now the **validation** split;
+the 192 images it calls "val" are now the **test** split. No image moved and
+no annotation changed — only the labels. Every parameter in
+`configs/default.yaml` was selected on the 190, so anything reported on them
+is in-sample; the 192 never entered selection and now carry a fully verified
+GT (`docs/GT_VAL_VERIFICATION_REPORT.md`), so they carry the headline.
+
+**Every number in this document, and every artifact under `results/` dated
+before 2026-08-03, is a VALIDATION number** whatever it is called — including
+the 0.4421 below, the oracles, the ablations, the sweeps and the VLM anchor.
+
+Held-out result on the new test split (`results/benchmark_test192/seed0`,
+same shipped config, nothing retuned):
+
+| metric | val (190, tuned) | **test (192, held out)** | p |
+|---|---|---|---|
+| strict success | 0.4421 | **0.5156** [0.448, 0.589] | 0.150 |
+| terminal-pair F1 | 0.7889 | **0.8077** | 0.474 |
+| net F1 | 0.8714 | **0.8768** | 0.754 |
+| per-component (exact) | 0.5771 | **0.6415** | 0.123 |
+| nGED | 0.2274 | **0.1817** | 0.006 |
+
+Nothing degraded out-of-sample, which is the point of the exercise. The
+splits are matched on every difficulty proxy (mean components 13.51 vs
+13.35, crossovers 29.5% vs 28.1%, 3+-terminal parts 31.1% vs 30.2%, GT nets
+per circuit 7.92 vs 7.80), and only nGED separates them significantly, so
+treat the gap as sampling noise rather than as an improvement.
+
+Paths: `benchmark.gt_dir` is now `data/gt_test_1024` (was
+`data/gt_val_verified`); the validation GT is `data/gt_val_1024` (was
+`data/gt_1024`); `data/gt_2048` → `data/gt_val_2048`. Sweep with
+`--split val --gt-dir data/gt_val_1024`, report with `--split test`.
+
 ### 0.1 Where the pipeline is
 
 **strict end-to-end success 0.4421** (84 of 190 images fully correct), from
@@ -145,8 +180,10 @@ human-verified topology), set once in `configs/default.yaml` under
 `snapping.strategy: ports`, **`preprocess.target_size: 1024`** with
 every dimensional parameter scaled to match, `preprocess.images_dir:
 data/cleaned_1024`, `detect.cache_dir: data/detections_1024`,
-`benchmark.gt_dir: data/gt_1024` (2x the v3 boxes; v3 remains the
-canonical annotation and is what gt_1024 is generated from).
+`benchmark.gt_dir: data/gt_test_1024` (see §0.0 — this was
+`data/gt_1024` until the split swap; that directory is now
+`data/gt_val_1024`, 2x the v3 boxes, and v3 remains the validation
+split's canonical annotation).
 
 **⚠ THE 512 NUMBERS BELOW ARE SUPERSEDED — DO NOT QUOTE THEM WITH ANY
 1024 RESULT.** Every committed ablation, the oracle, and the repair

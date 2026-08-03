@@ -1,0 +1,384 @@
+{
+ "schema_version": 1,
+ "image": "circuit_711.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a 3-rail ladder. Top rail y~225-240 (x=88..940), middle rail y~423-455 (x=48..940), bottom rail y~750-770 (x=120..890), tied together by five vertical columns: left x~105 (V-AC 8V/1KHz over I-DC 2A), A x~358 (Zener5V #3 over Diode #14), B x~562 (Diode #2 over Zener5V #15), C x~780-798 (Zener5V #4 over Diode #16), D x~890-902 (Diode #6 over Diode #12). Series elements sit in the rails: 5uH (#1) and 13uF (#0) in the top rail, 9uF (#8) and 4uH (#9) in the middle rail, 1uF (#17) and 1uH (#18) in the bottom rail. The middle rail ends left at GND #7 (48,458) and right at the 2k resistor #10 down to GND #13. 19 components, 9 nets.\nNET MAP: n1 = top rail from the 5uH right lead (237,242) east to the 13uF left plate (678,220); picks up column A top (S2) and column B top (S1). n2 = top rail from the 13uF right plate (718,223) east to the top-right corner; picks up column C top (S0, 795,225) and runs on to column D top / Diode#6 anode (902,299). n3 = the top-LEFT corner wire: 5uH left lead (171,242) west to x=88 then down to the V-AC top terminal (108,324). 2 terminals. n4 = middle rail RIGHT of the 9uF cap: 9uF right plate (489,443) east through S20 (column B), S19 (column C) to the 4uH left lead (830,424); i.e. Diode#2 cathode, Zener#4 cathode, Zener#15 anode, Diode#16 anode. n5 = column D between Diode#6 cathode (901,349) and Diode#12 anode (892,556), joined at S18 (899,422) to the 4uH right lead and to the wire that runs east to x=940 and down to the 2k resistor top (956,489). n6 = I-DC bottom (110,665) down and east to the 1uF left plate (226,768). n7 = bottom rail RIGHT of the 1uH inductor: 1uH right lead (672,758) east through S27 (column C bottom, Diode#16 cathode) to column D bottom / Diode#12 cathode (890,607). n8 = bottom rail between the 1uF right plate (270,767) and the 1uH left lead (604,763); picks up S29 (column A bottom, Diode#14 cathode) and S30 (column B bottom, Zener#15 cathode). 0 = middle rail LEFT of the 9uF cap, from GND #7 (76,453) east through S22 (left column), S21 (column A) to the 9uF left plate (434,443); plus V-AC bottom, I-DC top, Zener#3 cathode, Diode#14 anode, and the separate GND #13 with the 2k resistor bottom.\nJUDGEMENT CALLS: this sheet contains no hop, no jog and only one drawn solder dot, so every site is either a T or a plain X and I read them all as junctions. Explicitly:\nS1 (561,234) -> JUNCTION. This one is decisive for reading the whole sheet: it is a T carrying a large filled solder blob (dot=2.5, clearly ~3x stroke width). It proves the drafter marks joins and never draws hops here.\nS0 (795,225), S2 (358,241) -> JUNCTION. Plain T's: a column top ends on the top rail, rail continues both ways. No alternative reading exists for a T.\nS27 (777,750), S29 (363,762), S30 (559,768) -> JUNCTION. Same geometry at the bottom rail.\nS22 (108,449) -> JUNCTION. The left column (V-AC bottom above, I-DC top below) crosses the middle rail and the GND #7 stub dead-ends on it from the left. Crossing would strand GND #7 with nothing but the 9uF cap, and would cut both sources off from ground.\nS21 (358,444) -> JUNCTION. Plain X, column A over the middle rail; inkmap shows both strokes straight through with no dot and no lateral excursion. Crossing would make column A (Zener#3 cathode to Diode#14 anode) a floating 2-terminal net and remove GND from the whole left rail's other users.\nS20 (564,436) -> JUNCTION. Plain X, column B over the middle rail, with ink pooling at the crossing (dot=2.5) that is consistent with a light dot but not clean enough to call one. Crossing would isolate Diode#2 cathode + Zener#15 anode as a 2-terminal net.\nS19 (794,423) -> JUNCTION. Plain X, column C over the middle rail. hop=3.6 is spurious: the inkmap shows only a ~3px leftward drift of the column below the rail plus a pen blob, nowhere near the semicircular excursion of a real hop. Crossing would isolate Zener#4 cathode + Diode#16 anode.\nS18 (899,422) -> JUNCTION. Plain X where the middle rail (4uH right lead from the west, and the east branch that turns down to the 2k resistor) meets column D. No dot, no hop. Crossing would split n5 into {Diode#6 cathode, Diode#12 anode} and {4uH right, 2k top}, leaving the 2k/GND leg fed only through the 4uH.\nPORT FIXES (three tracer terminals had landed on handwriting instead of the lead; each produced a 1-terminal net, which is the tell described in the brief):\n#0 Capacitor 13uF: t1 was on p3 (679,250), an 8px stroke of the '13uF' caption under the box. Moved to p1 (718,223), the real right plate lead running 75px east. Kills net n2-as-singleton.\n#3 Zener Diode: t1 was on p2 (386,335), a stroke of the '5V' caption to the right. Moved to p0 (359,342), the real cathode lead running 100px down to the middle rail at S21.\n#5 V-AC: t0/t1 were on p0 (bottom lead) and p2 (155,403) - p2 is a stroke of the '1KHz' caption. Remapped to t0=p3 (108,324, the real top lead, the same 163px wire as the 5uH left lead) and t1=p0 (106,399, the real bottom lead down to the middle rail). This also resolves n3, which was a singleton holding only the 5uH left lead.\nThe other 'unused port candidate' warnings (#8 at (486,470) = '9uF' caption, #11 at (141,623)/(141,638) = '2A' caption, #17 at (239,796) = '1uF' caption, #1 p1-p4 = '5uH' caption, #9 p1/p3 = '4uH' caption) are all correctly left unused.\nCLASSES: kept as annotated. The three parts labelled Zener (#3, #4, #15) all carry a '5V' value label and are drawn apex-up with the classic double-kinked cathode bar; the six plain Diodes have straight bars. Two I would flag as borderline but did NOT change: #12 (887,583) is drawn apex-up like the zeners and its cathode bar has a small right-hand stub, and #14 (353,628) has a hook on the right end of its cathode bar - but neither has the double kink nor a voltage label, so Diode stands.\nNo unconnected leads, no bridges dropped, no merges, no manual nets.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    698.0,
+    221.2,
+    33.9,
+    41.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Inductor",
+   "bbox": [
+    204.7,
+    242.4,
+    58.9,
+    26.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Diode",
+   "bbox": [
+    561.2,
+    293.4,
+    47.3,
+    40.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Zener Diode",
+   "bbox": [
+    356.1,
+    313.1,
+    53.8,
+    51.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Zener Diode",
+   "bbox": [
+    796.3,
+    316.7,
+    59.6,
+    56.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-AC",
+   "bbox": [
+    106.0,
+    361.3,
+    81.4,
+    69.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Diode",
+   "bbox": [
+    901.7,
+    325.0,
+    53.8,
+    42.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    48.0,
+    458.3,
+    49.8,
+    39.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "Capacitor",
+   "bbox": [
+    461.2,
+    440.6,
+    48.8,
+    43.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "class": "Inductor",
+   "bbox": [
+    858.8,
+    425.9,
+    52.4,
+    23.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "class": "Resistor",
+   "bbox": [
+    954.2,
+    514.5,
+    24.1,
+    40.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "class": "I-DC",
+   "bbox": [
+    108.0,
+    630.2,
+    60.4,
+    64.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "class": "Diode",
+   "bbox": [
+    887.4,
+    582.6,
+    51.7,
+    43.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n7"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "class": "GND",
+   "bbox": [
+    959.3,
+    574.8,
+    30.3,
+    21.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "class": "Diode",
+   "bbox": [
+    352.9,
+    628.4,
+    66.9,
+    50.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n8"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "class": "Zener Diode",
+   "bbox": [
+    561.4,
+    635.1,
+    83.0,
+    69.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n8"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "class": "Diode",
+   "bbox": [
+    778.7,
+    628.7,
+    53.8,
+    42.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n7"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "class": "Capacitor",
+   "bbox": [
+    248.6,
+    765.4,
+    37.3,
+    43.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n8"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 18,
+   "class": "Inductor",
+   "bbox": [
+    637.8,
+    760.6,
+    59.7,
+    26.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n8"
+    },
+    {
+     "index": 1,
+     "net": "n7"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

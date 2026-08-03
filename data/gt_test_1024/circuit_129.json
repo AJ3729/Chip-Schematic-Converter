@@ -1,0 +1,148 @@
+{
+ "schema_version": 1,
+ "image": "circuit_129.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a small passive network inside a drawn page border. 7 components, 4 nets. A 5V battery on the left feeds a 30uH inductor into node n1; from n1 an 80 Ohm resistor and a 50uF capacitor both return to the grounded bottom rail; on the right a 20 Ohm resistor sits in parallel with a 1A current source between the rail and node n2. The bottom rail y~593-615 carries the ground symbol at x~485.\n\nNET MAP (names as emitted by finalize.py):\n  n3 = V-DC#5 '+' top lead (123,506) up to (122,467) then right to Inductor#2 left lead (141,464). 2 terminals.\n  n1 = Inductor#2 right lead (250,464) -> S10(273,463) -> Resistor#3 (80 Ohm) left lead (287,461); at the same T the x~273 column runs UP to (273,368) and then right to Capacitor#0 left plate (353,361). 3 terminals: #2.t1, #3.t0, #0.t0.\n  0  = the ground node, drawn as: Capacitor#0 right plate (445,360) -> right and down the x~551 column to S9(551,453); from S9 right to Resistor#1 (20 Ohm) left lead (574,451) and down the x~532-548 column to S18(531,596) on the bottom rail; Resistor#3 right lead (404,458) -> right and down the x~448 column to S19(448,600) on the same rail; the rail runs from the V-DC#5 bottom lead (127,596) at the far left to the I-DC#4 bottom lead (722,576) at the far right, with the GND#6 stub dropping off it at S20(485,600). 6 terminals: #0.t1, #1.t0, #3.t1, #4.t0, #5.t1, #6.t0.\n  n2 = Resistor#1 right lead (698,452) -> right and down to I-DC#4 top lead (728,484). 2 terminals. This is the node the current source drives; 20 Ohm and the 1A source are in parallel between n2 and ground, which is the standard Norton arrangement.\n\nJUDGEMENT CALLS / SITE DECISIONS\n  There is not one wire-over-wire crossing on this sheet - every wire meeting is a drawn corner or a T. All five CRITICAL sites are degree-3 T's and all five were explicitly recorded as junctions after reading the 5x crops:\n    S9  (551,453) - the capacitor's right-hand column comes down and lands on the horizontal that joins the 20 Ohm's left lead to the x~532 column. Reading it as anything else would strand the capacitor.\n    S10 (273,463) - the capacitor's left-hand column comes down and lands on the horizontal that joins the inductor's right lead to the 80 Ohm's left lead. The crop shows the column ink stopping dead on the horizontal; there is no ink below it.\n    S18 (531,596) - the x~532 column landing on the bottom rail.\n    S19 (448,600) - the 80 Ohm's return column landing on the bottom rail.\n    S20 (485,600) - the GND#6 stub leaving the bottom rail.\n  Because each of these is a wire ENDING on another wire (degree 3, dot scores 1.4-1.8, hop scores 0.0), the crossing reading is not geometrically available: pairing 'opposite' branches at a degree-3 site would leave the third branch orphaned and would put a component on a one-terminal net. I checked each crop at 5x for a hop or jog and there is none anywhere on the sheet.\n  Non-critical sites left at their defaults, all of them handwriting touching a wire: S3/S4/S5/S6/S7/S8 (the '30uH' label sitting on top of the inductor - six spurious sites), S12 (334,500, the '80 Ohm' label, which is why its default is 'cross' with hop=147.5 - that is text curvature, not a wire hop), S14 (the '1A' label beside the current source), S15 (the '5V' label beside the battery). None of them changes the netlist. 22 gap bridges, none affect the netlist, none dropped.\n\nPORT / TERMINAL FIXES (both were causing one-terminal-net errors)\n  #4 I-DC: t1 -> p3 (728,484), the real top lead of the current source, instead of p0 (774,512) which is the '1' of the '1A' label. p3's wire is edge (728,484)->(698,452), i.e. the very same drawn segment that carries Resistor#1's right lead, so this single fix merges the tracer's one-terminal nets n2 and n4 into the correct 2-terminal node.\n  #5 V-DC: t1 -> p1 (127,596), the bottom lead of the battery, instead of p2 (177,559) which is the '5' of the '5V' label. p1's wire runs (127,596)->(127,611) onto the bottom rail, which is what the drawing shows and what puts the battery's '-' on ground.\n  Everything else already pointed at real leads; the remaining 'unused port candidate' warnings are label ink: #0 p2/p3 ('50uF'), #1 p1/p3 ('20 Ohm'), #2 p0/p3..p7 ('30uH').\n\nCLASSES: all 7 checked against the drawing and correct - Capacitor (two parallel plates, 50uF), Resistor x2 (zig-zags, 20 Ohm and 80 Ohm), Inductor (coil loops, 30uH), I-DC (circle with a plain straight arrow, no sine, so DC current source, 1A), V-DC (circle with the +/- bar symbol, 5V), GND. Nothing left unresolved; no merges, no dropped bridges, no unconnected components.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    399.2,
+    361.6,
+    84.6,
+    73.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    636.6,
+    446.6,
+    117.7,
+    45.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Inductor",
+   "bbox": [
+    195.6,
+    460.2,
+    101.5,
+    54.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Resistor",
+   "bbox": [
+    345.9,
+    457.7,
+    110.1,
+    49.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "I-DC",
+   "bbox": [
+    723.4,
+    530.6,
+    91.4,
+    85.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    126.9,
+    551.2,
+    92.8,
+    82.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "GND",
+   "bbox": [
+    487.2,
+    651.7,
+    99.7,
+    51.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

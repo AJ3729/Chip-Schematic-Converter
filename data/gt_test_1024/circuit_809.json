@@ -1,0 +1,168 @@
+{
+ "schema_version": 1,
+ "image": "circuit_809.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "Circuit: a two-source ladder. 18V source on the left and 15V source on the right share one bottom return rail; the top rail runs 18V+ -> 10kOhm -> [middle node] -> 25uH -> 40Ohm -> 15V+. Two shunt branches hang off the middle node: a 2Ohm resistor at x~440 and a 40F capacitor at x~570, both down to the bottom rail; the capacitor column continues past the rail into the GND symbol. 8 components, 5 nets.\n\nNET MAP\n  0  = bottom return rail, y~565..570, running from x~211 to x~892: bottom of the 18V source (5.1 at (211,489)), bottom of the 2Ohm shunt resistor (4.1 at (440,525)), bottom of the 40F capacitor (6.1 at (570,495)), the GND symbol (7.0 at (574,579)), and bottom of the 15V source (3.1 at (892,485)).\n  n1 = left top corner: top of the 18V source (5.0 at (211,425)) up to the y~372 top rail and right to the left lead of the 10kOhm resistor (0.0 at (291,371)).\n  n2 = the long middle node: right lead of the 10kOhm resistor (0.1 at (378,373)) running right along the y~374 top rail past the tap at (436,374) down to the 2Ohm resistor top (4.0 at (438,424)), past the tap at (566,376) down to the 40F capacitor top (6.0 at (570,440)), and on to the left lead of the 25uH inductor (1.0 at (641,373)).\n  n3 = right lead of the 25uH inductor (1.1 at (732,374)) to the left lead of the 40Ohm resistor (2.0 at (763,372)) -- a short 30px stretch of top rail between the two symbols.\n  n4 = right lead of the 40Ohm resistor (2.1 at (857,372)) right to x~888, then down to the top of the 15V source (3.0 at (888,423)).\n\nJUDGEMENT CALLS (all four CRITICAL sites; tracer default accepted at each, recorded explicitly)\n  S4 (436,374) JUNCTION. Clean T: the top rail runs straight through left-to-right and the 2Ohm shunt column terminates on it from below. The vertical does not continue above the rail, so there is no crossing to read. Reading it as a crossing/none would strand the 2Ohm resistor's top on a one-terminal net.\n  S5 (566,376) JUNCTION. Same T shape as S4, with the 40F capacitor column terminating on the top rail from below (small ink thickening at the join, dot score 2.14). The rail is continuous through the site. Any non-junction reading strands the capacitor's top terminal.\n  S24 (440,569) JUNCTION. T: the 2Ohm column comes down from y~525 and ends on the bottom return rail; the rail continues left and right. Crossing would leave the 2Ohm bottom floating and remove the shunt branch entirely.\n  S25 (573,570) JUNCTION, deg=5. The 40F capacitor column crosses the bottom return rail and continues a few pixels further down into the GND symbol at (574,579). Plain crossing -- no hop and no jog is drawn anywhere on this sheet, and the drafter's habit here (see S4/S5/S24) is a bare T. Reading it as a crossing would put the capacitor's bottom and the GND symbol alone on net 0 and leave the entire return rail -- both voltage sources and the 2Ohm resistor -- with no ground reference, i.e. a floating island. Junction is the only electrically sane reading and matches the standard 'ground tap on the return rail' idiom.\n\nNON-CRITICAL SITES (left at default; all are handwritten value-label ink brushing a symbol or the rail, none change the netlist): S0 (785,348), S1 (805,349), S3 (830,351) are the '40 Ohm' caption over the right resistor; S6 (655,397), S8 (674,396), S9 (668,403), S10 (674,402), S12 (726,405), S14 (656,406) are the '25 uH' caption under the inductor; S13 (328,406), S18 (295,409), S19 (306,408) are the '10 K Ohm' caption under the left resistor; S20 (923,467) is the '15 V' caption beside the right source.\n\nPORT FIXES (three components -- this is the label-ink failure the brief warns about; before the fix six nets had a single terminal each)\n  #0 Resistor (10kOhm): terminal 0 was on p1 (293,397), a stroke of the '10KOhm' caption with wire_len 10, giving the one-terminal net n1. Moved to p4 (291,371), the real left lead sitting on the top rail (wire_len 129, the same run that reaches the 18V source top). t1 left on p0 (378,373), the real right lead.\n  #1 Inductor (25uH): terminal 1 was on p1 (726,396), a stroke of the '25uH' caption with wire_len 7, giving the one-terminal net n3. Moved to p4 (732,374), the real right lead on the top rail (wire_len 32, the run that reaches the 40Ohm resistor). t0 left on p0 (641,373), the real left lead.\n  #2 Resistor (40Ohm): BOTH terminals were on the '40 Ohm' caption above the symbol -- p0 (787,358) wire_len 8 and p1 (826,353) wire_len 3 -- giving the two one-terminal nets n4 and n5. Moved t0 to p3 (763,372), the real left lead (wire_len 32, joins the inductor), and t1 to p2 (857,372), the real right lead (wire_len 74, joins the 15V source top). All six single-terminal warnings clear after these three fixes and the netlist now matches the drawing.\n\nOther 'unused port candidate' warnings checked and correctly left unused: #3 V-DC p1 (923,452) is the '15V' caption; #4 Resistor p2 (414,478) is the '2 Ohm' caption; #0 p2/p3 and #1 p2/p3 are further strokes of their captions.\n\nCLASSES: all eight symbols match their captions -- two zig-zag resistors on the top rail (10kOhm, 40Ohm), a vertical zig-zag resistor (2Ohm), a coiled inductor (25uH), a two-plate capacitor (40F), two circle-with-plus/minus V-DC sources (18V, 15V) and the ladder GND. Nothing to reclassify. Nothing left unresolved.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Resistor",
+   "bbox": [
+    334.4,
+    374.0,
+    80.7,
+    32.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Inductor",
+   "bbox": [
+    687.0,
+    372.3,
+    84.7,
+    29.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Resistor",
+   "bbox": [
+    809.8,
+    376.5,
+    88.5,
+    29.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "V-DC",
+   "bbox": [
+    888.4,
+    454.7,
+    56.9,
+    55.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Resistor",
+   "bbox": [
+    439.0,
+    475.4,
+    40.4,
+    92.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    212.7,
+    458.0,
+    48.1,
+    55.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Capacitor",
+   "bbox": [
+    568.8,
+    468.4,
+    46.5,
+    46.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    575.3,
+    604.6,
+    65.9,
+    41.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

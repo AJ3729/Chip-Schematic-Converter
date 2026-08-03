@@ -1,0 +1,168 @@
+{
+ "schema_version": 1,
+ "image": "circuit_486.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a small ladder. Top rail y~348 carries the 4k resistor; a left column with the 5sin30t A current source and the 5k resistor; a middle column with the 4uF and 5uF capacitors down to GND; a right column with the 20cos5t V source; the 5mH inductor bridges the left and middle columns at y~513; bottom rail y~678. 8 components, 5 nets.\n\nNET MAP:\n  n1 = top rail from the left corner (x~218) rightwards to the left end of the 4k resistor: 1.0 (top of the I-AC source), 2.1 (top plate of the 4uF cap, via the x~437 column and site S7), 0.0 (left lead of the 4k resistor).\n  n2 = top rail right of the 4k resistor, round the top-right corner and down the x~678 column: 0.1 (right lead of the 4k resistor) and 3.0 (top of the 20cos5t V-AC source).\n  n3 = left column between the I-AC source and the 5k resistor, plus the left half of the y~513 branch: 1.1, 6.0 (top of the 5k resistor), 4.0 (left end of the 5mH inductor).\n  n4 = right half of the y~513 branch joined to the middle column between the two capacitors: 4.1 (right end of the inductor), 2.0 (bottom plate of the 4uF cap), 5.0 (top plate of the 5uF cap).\n  0  = bottom rail y~678 plus the GND stub: 6.1 (bottom of the 5k resistor), 5.1 (bottom plate of the 5uF cap), 3.1 (bottom of the V-AC source), 7.0 (GND).\n\nJUDGEMENT CALLS:\n  S9 (219,511) deg=3 - JUNCTION. Clean T: the y~513 inductor branch terminates on the through-going left column (I-AC above, 5k resistor below). A crossing reading is impossible here (only three branches).\n  S10 (438,514) deg=4 - JUNCTION. inkmap at (438,514) shows the y~513 branch arriving from the left and stopping at x~454, i.e. about 16px of pen overshoot past the x~437 column, while the column runs straight through y=492..536 as an unbroken 3px stroke. No solder dot (nothing wider than the strokes in both axes) and no hop or jog. The 4th branch the tracer counts is that overshoot stub. Reading it as a crossing would split the node into {inductor right} + {4uF bottom, 5uF top} and leave the inductor's right end on a 1-terminal net with no return path, which rule 1 forbids.\n  S21 (438,676) deg=5 - JUNCTION. The middle column passes through the bottom rail and continues a few px down into the GND symbol; the extra branches are the GND hatch strokes. Junction is the only reading that grounds the bottom rail, which is required since GND must be net 0.\n  S7 (433,355) deg=3 - JUNCTION (became critical once the #2 port fix was applied). Clean T where the middle column meets the top rail.\n  Non-critical sites S2-S6 ('4kOhm' written across the resistor), S8 ('4uF'), S11-S13 ('20cos5t'), S16 ('5uF'), S18 ('5kOhm') are all handwriting touching wire or symbol ink and change no net.\n\nPORT FIXES:\n  #0 Resistor 4k (539,360): t1 had landed on p5@(589,339), a 2px stub of the handwritten 'Omega' glyph sitting above the resistor, leaving net 'n2' with one terminal. The real right lead is p6@(591,361) (wire length 198) - the same wire that reaches #3's top port p2@(674,478). Re-pointed t1 -> p6, which merges the old n2 and n6 into one 2-terminal net (resistor right + V-AC top).\n  #2 Capacitor 4uF (432,433): t1 had landed on p2@(463,427), a stroke of the '4uF' label, leaving net 'n5' with one terminal. The real upper lead is p1@(435,411) (wire length 54), which runs up the x~437 column to the top rail through S7. Re-pointed t1 -> p1.\n  Remaining unused-port warnings are label ink and need no action: #4 p2/p3/p4 on '5mH', #5 p2/p3 on '5uF', #6 p2 on '5kOhm', #0 p1-p4 on '4kOhm', #3 p1 on '20cos5t'.\n\nCLASSES: all 8 accepted as annotated - two parallel-plate capacitors, a coil inductor, two zigzag resistors, a circle-with-arrow-and-sine current source (#1, labelled '5 sin 30t A'), a circle-with-sine voltage source (#3, labelled '20 cos 5t V'), and the GND hatch.\n\nUNRESOLVED: none. Every terminal is accounted for and no net has fewer than two terminals.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Resistor",
+   "bbox": [
+    538.7,
+    360.4,
+    98.8,
+    33.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "I-AC",
+   "bbox": [
+    218.5,
+    437.7,
+    54.5,
+    60.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Capacitor",
+   "bbox": [
+    432.2,
+    432.9,
+    46.4,
+    36.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "V-AC",
+   "bbox": [
+    673.1,
+    520.1,
+    63.3,
+    73.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Inductor",
+   "bbox": [
+    335.1,
+    514.3,
+    86.8,
+    34.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "Capacitor",
+   "bbox": [
+    438.6,
+    586.4,
+    40.3,
+    47.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Resistor",
+   "bbox": [
+    220.6,
+    599.6,
+    33.3,
+    71.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    446.5,
+    710.3,
+    92.0,
+    41.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

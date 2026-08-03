@@ -8,19 +8,21 @@
 seed: 0
 
 benchmark:
-  # CANONICAL ground truth. Topology (nets/terminals/classes) is the
-  # human-verified annotation; bounding boxes were rebuilt from the
-  # published Digitize-HCD COCO annotations by scripts/fix_gt_boxes.py,
-  # because the bootstrapped boxes in _v2 were pipeline echoes — ~20%
-  # squared off, which capped their IoU against correctly-shaped
-  # detections and made alignment discard components the pipeline had
-  # actually got right (216 -> 40 unmatchable components; six images
-  # went from scoring zero to scoring normally).
-  # _v2 is retained unmodified for provenance and comparison.
-  # Coordinates are 2x the v3 boxes (verified identical topology and
-  # component count); v3 itself remains the canonical annotation and is
-  # what data/gt_1024 is generated from.
-  gt_dir: data/gt_1024
+  # CANONICAL ground truth: the 192-image TEST split, verified end to end
+  # (docs/GT_VAL_VERIFICATION_REPORT.md — per-site decision record,
+  # deterministic net reconstruction, ERC, second reader).
+  #
+  # This directory was called data/gt_val_verified until 2026-08-03, when
+  # the test and validation splits swapped names. Every parameter below
+  # was selected on the OTHER split, so reporting on that split is
+  # reporting in-sample; this one has never been used for selection.
+  # Its GT is data/gt_val_1024 (formerly data/gt_1024, projected from
+  # data/gt_netlists_verified_v3, which remains that split's canonical
+  # annotation). Sweep with --split val; report with --split test.
+  #
+  # Anything under results/ dated before the swap was computed on the
+  # 190-image split and is a VALIDATION number whatever its name says.
+  gt_dir: data/gt_test_1024
 
 preprocess:
   # 1024, not 512. At 512 a wire stroke is 1.9 px — at the survivability

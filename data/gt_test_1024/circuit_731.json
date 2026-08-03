@@ -1,0 +1,128 @@
+{
+ "schema_version": 1,
+ "image": "circuit_731.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "Circuit: the sheet is drawn upside down (all handwritten labels - '2 mA', '5H', '3F', '30Omega', '5V' - are rotated 180 degrees), but the ink itself is read as it lies. Topology from the drawing before looking at machine output: a horizontal top rail at y~465 runs from the top-left corner (352,465) to the top-right corner (765,465), with the GND symbol #0 sitting just above it at x~550 on a short stub. The 2 mA current source #3 hangs from the left end of that rail down to a bottom-left wire at y~635, which runs east through the 3F capacitor #4 to the centre column. The 5H inductor #1 sits in a vertical centre column from the top rail down to a bottom-centre node at (551,650). From that node the wire runs east through the 30Omega resistor #5 to the bottom-right corner, then north to the 5V source #2 and on up to the top-right corner. NET MAP (4 nets, 6 components): 0 = the entire top rail plus the GND stub - GND #0, top lead of the 5H inductor #1, top terminal of the 5V source #2 and top terminal of the 2 mA source #3. n3 (relabelled by finalize) = the bottom-left wire: bottom terminal of the 2 mA source #3 and the LEFT plate of the 3F capacitor #4. n1 = the bottom-centre node: right plate of the 3F capacitor #4, bottom lead of the 5H inductor #1 and left lead of the 30Omega resistor #5. n2 = right lead of the 30Omega resistor #5, the bottom-right corner and the bottom terminal of the 5V source #2. SITE DECISIONS: S1 (550,468) deg=5, CRITICAL - JUNCTION. The crop shows a clean plus: the horizontal top rail runs straight through and a vertical passes through it, GND stub above, inductor lead below. No solder dot (dot=1.8, i.e. under 2x stroke width) and no hop or jog, so it is the ambiguous plain-X case; rule 1 settles it. Reading it as a crossing would give one net {GND, inductor top} and another {I-DC top, V-DC top}: the inductor would then run from the bottom-centre node up to a net whose only other member is a GND symbol, i.e. a branch with no return path, and the top rail would carry no ground reference at all. That is electrically impossible, so JUNCTION. The ink prior points the same way. S9 (551,650) deg=3, CRITICAL - JUNCTION. Clean T: the inductor's bottom lead descends and terminates on the bottom rail, which continues both west (to the capacitor) and east (to the resistor). Reading anything else would strand the inductor's bottom terminal on a one-terminal net. NON-CRITICAL SITES left at default: S3 (308,551) and S10/S11 (448,688)/(429,689) are handwritten-label ink ('2 mA' and '3F') brushing the component boxes; S4 (524,555) is the '5H' label touching the inductor; S7 (650,617) and S8 (672,621) are the '30Omega' label touching the resistor. All 12 gap bridges sit in those same label blobs and none changes the netlist. PORT FIXES (both were the classic value-label-stroke error, and each produced one of the two single-terminal nets flagged in the warnings): (a) I-DC #3 t0 was on port p1@(315,552), a 5-pixel stub that is the vertical stroke of the 'm' in the mirrored '2 mA' label to the left of the circle. The real bottom lead is p2@(355,596) with a 93-pixel wire; remapped t0->p2 and pinned t1->p0 (the top lead at 355,523). (b) Capacitor #4 t0 was on port p2@(427,672), a 15-pixel stub belonging to the mirrored '3F' label under the symbol. The real left-plate lead is p3@(410,640), also on wire 93 - the same wire run as the current source's bottom lead, which is exactly the connection the drawing shows; remapped t0->p3 and pinned t1->p0 (the right-plate lead at 482,648). After these two fixes both one-terminal nets disappear and the 2 mA source and the capacitor share the bottom-left net, as drawn. CLASSES: all six as labelled - circle with a downward arrow = I-DC (2 mA), circle with long/short bars = V-DC (5V), coil = Inductor (5H), parallel plates = Capacitor (3F), zig-zag = Resistor (30Omega), stacked bars = GND. Nothing left unresolved.",
+ "components": [
+  {
+   "id": 0,
+   "class": "GND",
+   "bbox": [
+    546.0,
+    429.7,
+    68.1,
+    46.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Inductor",
+   "bbox": [
+    549.8,
+    566.2,
+    44.6,
+    94.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "V-DC",
+   "bbox": [
+    774.0,
+    561.0,
+    70.9,
+    72.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "I-DC",
+   "bbox": [
+    357.0,
+    560.7,
+    65.2,
+    65.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Capacitor",
+   "bbox": [
+    446.5,
+    639.7,
+    64.6,
+    56.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "Resistor",
+   "bbox": [
+    657.3,
+    646.6,
+    108.7,
+    38.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

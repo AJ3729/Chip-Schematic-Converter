@@ -1,0 +1,148 @@
+{
+ "schema_version": 1,
+ "image": "circuit_165.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a small single-loop-row parallel network drawn inside a hand-drawn page border (the outer rectangle is not part of the circuit and touches nothing). A 12 V DC source (#5) sits in the left column between the top rail (y~392) and the bottom rail (y~573). The top rail runs left-to-right: V-DC top -> R 4ohm (#1, series, x~343) -> node at the 0.5 H inductor column (S9, x=437) -> C 2uF (#0, series, x~520) -> node at the 5 ohm resistor column (S10, x=625) -> right corner down to I-DC 6 A (#4, x~740). Three shunt branches drop from the top rail to the bottom rail: L 0.5H (#3) at x~440, R 5ohm (#2) at x~632, I-DC 6A (#4) at x~740. The bottom rail is the ground rail; GND (#6) hangs off it at x~516.\n\nNET MAP (4 nets, 7 components, 13 terminals):\n  n1 = top rail between the 4 ohm resistor and the 2 uF capacitor: R4 right (1.1), inductor top (3.0), C2uF left (0.0).\n  n2 = top rail right of the 2 uF capacitor, i.e. the right-hand node: C2uF right (0.1), R5 top (2.0), I-DC top (4.0).\n  n3 = top rail left of the 4 ohm resistor: V-DC top (5.0), R4 left (1.0).\n  0  = the whole bottom rail (contains GND #6): R5 bottom (2.1), inductor bottom (3.1), I-DC bottom (4.1), V-DC bottom (5.1), GND (6.0).\n\nSITE DECISIONS (all 5 CRITICAL sites read explicitly; I agreed with the tracer default on every one, no overrides):\n  S9 (437,395) JUNCTION - clean T: the inductor column ends on the top rail from below. Degree 3, no crossing possible. The alternative would strand the inductor's top lead.\n  S10 (625,395) JUNCTION - clean T: the 5 ohm column ends on the top rail from below.\n  S13 (639,571) JUNCTION - T on the bottom rail where the 5 ohm column lands; the pen overshoots the rail by a few pixels, which is why the tracer sees a small stub, but there is no dot and no hop and the stub is a dead end, so merging all branches is correct.\n  S14 (516,573) JUNCTION - T where the GND symbol's lead meets the bottom rail. hop=3.6 is spurious: the arc the scorer picked up is the GND symbol's own horizontal bars ~15 px below the rail (visible in the crop), not a wire hopping over. Reading it as a crossing would leave GND on a one-terminal net and give the circuit no reference node at all - electrically impossible, so junction wins outright.\n  S15 (447,576) JUNCTION - T on the bottom rail where the inductor column lands. Same overshoot pattern as S13.\n  Non-critical sites S4 (542,361), S6 (326,364), S8 (500,364), S12 (662,491) are all caption ink ('2 uF', '4 ohm', '5 ohm') brushing a wire; left at the default, they change nothing.\n\nPORTS: no fixes needed. Every component's t0/t1 already point at real leads. The single warning - inductor #3 port p2 at (462,476) - is the '0.5 H' caption touching the coil, and it is correctly left unused. Checked in the component montage: #0 p2/p3/p4 are the '2 uF' caption, #1 p1 is the '4 ohm' caption, #2 p3 is the '5 ohm' caption.\n\nCLASSES: all 7 accepted. #5 is drawn as a circle with + over - (battery-style V-DC, two leads), #4 is a circle with a down arrow (I-DC), both as annotated. No 3-terminal parts, so no pin-order questions.\n\nUNRESOLVED: nothing. No ambiguous crossings exist in this drawing - every intersection is a plain T. ERC clean, no single-terminal nets.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    520.0,
+    393.3,
+    47.3,
+    37.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    342.7,
+    397.0,
+    81.7,
+    33.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Resistor",
+   "bbox": [
+    630.4,
+    482.0,
+    35.6,
+    76.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Inductor",
+   "bbox": [
+    436.8,
+    491.1,
+    33.0,
+    83.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "I-DC",
+   "bbox": [
+    740.3,
+    482.5,
+    51.9,
+    59.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    262.4,
+    496.4,
+    50.9,
+    51.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "GND",
+   "bbox": [
+    518.6,
+    607.6,
+    71.4,
+    43.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

@@ -1,0 +1,272 @@
+{
+ "schema_version": 1,
+ "image": "circuit_209.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a 5-column x 6-rail hand-drawn mesh, no GND anywhere (so no net is named '0'). Horizontal rails: R1 top y~62 (x45..825), R2 y~207 (x45..830), R3 y~395 (x45..835), R4 y~607 (x180..847), R5 y~812..832 (x428..849), R6 bottom y~950..966 (x48..850). Vertical columns: C1 x~46 (1uH #0 then 5uF #2), C2 x~182 (5uH #4 then 10uF-unlabelled #7), C3 x~428 (10uH #6 then 50uF #10), C4 x~670 (50uH #9 then 100uF #12), C5 x~840 right rail carrying five sources in series top-to-bottom: V-AC 3V/1kHz #1, I-AC 5A/1kHz #3, V-DC 5V #5, I-DC 10A #8, V-DC 15V #11.\nNET MAP (7 nets, 26 terminals):\n  n1 = R1, the top rail, plus the whole upper run of C2/C3/C4 (they hop every rail they meet on the way down): 0.0 (1uH top), 1.0 (V-AC top), 4.0 (5uH top), 6.0 (10uH top), 9.0 (50uH top).\n  n2 = R2, the y~207 rail: 0.1 (1uH bottom), 2.0 (5uF top, C1 between the two parts), 1.1 (V-AC bottom), 3.0 (I-AC top).\n  n4 = R3, the y~395 rail: 4.1 (5uH bottom) and 7.0 (10uF top) joined at the solder ring S21/22/24 (181,397), plus 3.1 (I-AC bottom) and 5.0 (V-DC 5V top) at the right rail.\n  n3 = the big lower mesh: R4 + R6 + the bare tails of C1, C2 and C3, which tie them together: 2.1 (5uF bottom, down C1 past R3 to the bottom rail), 7.1 (10uF bottom, on R4 at S35 and on down C2 to R6), 5.1 (V-DC 5V bottom) and 8.0 (I-DC top) on R4, 10.0 (50uF bottom, down C3 past R5 to R6), 12.1 (100uF bottom) and 11.1 (V-DC 15V bottom) on R6.\n  n6 = R5 only, the y~812 rail: 8.1 (I-DC bottom) and 11.0 (V-DC 15V top). Its left end dies at C3 without joining it (see judgement calls).\n  n5 = private node inside C3 between 10uH and 50uF: 6.1, 10.1 (the run hops R4 at S34).\n  n7 = private node inside C4 between 50uH and 100uF: 9.1, 12.0 (the run hops R5 at S39).\nPORT FIXES: #2 Capacitor (5uF) had t1 sitting on the '5' glyph of the '5uf' label at (90,295) -- net n3 had one terminal. Repointed t0->p1 top lead (52,248), t1->p0 bottom lead (52,302). #3 I-AC had t1 on the '5' of '5A' at (888,332); repointed t0->p2 top lead (835,281), t1->p1 bottom lead (839,359). Every other component's ->tN ports are the real leads; the remaining 'unused port candidate' warnings are all handwritten value glyphs brushing the box (#0 (74,111), #1 (879,137)/(875,128), #4 (214,328), #11 (885,885), #12 (700,899)/(704,920)).\nCLASSES: all 13 symbols match their labelled class (4 Inductor coils, 4 Capacitor plate pairs, V-AC sine-in-circle, I-AC sine+arrow, V-DC +/- circles, I-DC arrow circle). Nothing re-classed.\nJUDGEMENT CALLS:\n (a) Hop-vs-junction convention on this sheet: every column that must pass a rail is drawn with a semicircular hop or a lateral S-jog. Confirmed CROSSINGS at S10 (415,211), S11 (655,219), S26 (422,400), S27 (654,402), S33 (653,600), S39 (643,820) -- all obvious arcs at 6-16x.\n (b) S34 (419,605): the tracer defaulted to junction (hop score only 2.1) but the 8x crop shows an unambiguous S-jog: the C3 run steps left to x~418, crosses R4 at y~605 and steps back to x~432. Overridden to CROSSING. Junction here would have merged the 10uH/50uF private node n5 into the big net n3 and left 10uH and 50uF in parallel with a wire.\n (c) The hop at C2 x~180 / R2 y~207 was split by the tracer into four sites S5(180,194), S6(173,198), S7(177,205), S9(164,209) because the right-hand rail stroke starts with a short downward lead-in tick at (180,197)-(176,204) that comes within 3 px of the arc. The 6x crop and the pixel dump show a full semicircular hop: the column ends at (181,192), bulges left to x~163 and rejoins the column at (185,232), while the rail runs straight through at y~208. Expressed as explicit edge groups on S7: [[6,13,15,22,27],[14,16,17,18,19]] with S5/S6/S9 set to none -- arc + column in one group, the two rail halves + the lead-in fragments in the other. Left as the tracer had it (junction) this merged the whole top rail n1 with R2 n2, i.e. shorted the 1uH and the 3V source.\n (d) S25 (49,398), R3's left end against column C1: read as CROSSING (C1 runs straight through, R3 stops). The ink is a plain T with no dot; compare S8 (51,208) 190 px above on the same column, where the same drafter put an unmistakable filled dot for the R2 tap. Electrically decisive too: a junction here ties R3 to the bottom rail R6, and R6 is already tied to R4 by C2's tail, so V-DC 5V #5 would have both terminals on one net -- a short-circuited voltage source.\n (e) S40 (423,831)/S41 (430,835), R5's left end against column C3: read as NOT joined. Expressed as S40 none, S41 [[77,83,85],[80,82,84]] -- e77 (50uF bottom lead) + e83 (loop arc) + e85 (run down to the bottom rail) are one group, the rail stroke e80 with the two loop fragments e82/e84 the other. There is a hollow curl at (428,833) here, but the pixel dump shows it hangs BELOW the rail band (rail ink rows 829-831, curl interior x426-428 y832-836) - the rail is tangent to the curl, it does not pass through it. Contrast the ring at (181,397) (call (f)), where the rail runs straight through the hole. Electrically decisive: joining here ties R5 to R6, and V-DC 15V #11 sits between R5 and R6, so it would be short-circuited.\n (f) S21/S22/S24 (181,397): kept as JUNCTION. A symmetric ~12x12 px ring (strokes are ~4 px) centred exactly on the 4-way crossing, with the rail passing through the hole and all four branches leaving the ring - a solder dot the pen circled rather than filled, not a loop-hop. Crossing here would have made 5uH/10uF a series pair on a private node and left R3 with only two terminals.\n (g) Cross-check: circuit_588 in the verified calibration set is the same generated circuit (identical 13-part inventory and identical values 1uH/5uF/5uH/10uF/10uH/50uF/50uH/100uF + 3V-1kHz/5A-1kHz/5V/10A/15V) drawn transposed by another hand. The netlist reached here is terminal-for-terminal identical to that verified GT, which is what settled (d) and (e).\n (h) Non-critical sites left at their defaults and checked: S17 (90,285) and S20 (890,321) are the '5' glyphs of '5uf'/'5A' touching a plate/box, S36 (424,717) and S37 (703,721) are a plate stroke and the '5' of '50uH'; none of them carries a terminal after the port fixes, so joining them changes nothing. S3 (41,65) is the top-left corner, S44/S45/S46 (187,948)/(427,963)/(676,964) are the bottom-rail T-taps, S0/S1/S2 the top-rail T-taps, S8/S12/S23/S31/S38 the rail-to-right-rail T-taps - all junctions, all verified in the crops.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Inductor",
+   "bbox": [
+    50.5,
+    113.4,
+    29.7,
+    70.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "V-AC",
+   "bbox": [
+    830.4,
+    149.4,
+    80.3,
+    74.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Capacitor",
+   "bbox": [
+    53.7,
+    275.3,
+    60.5,
+    46.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "I-AC",
+   "bbox": [
+    839.4,
+    320.9,
+    82.0,
+    69.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Inductor",
+   "bbox": [
+    189.9,
+    319.3,
+    31.4,
+    65.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    835.1,
+    502.5,
+    67.8,
+    64.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Inductor",
+   "bbox": [
+    439.3,
+    513.5,
+    31.6,
+    75.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "Capacitor",
+   "bbox": [
+    182.4,
+    543.1,
+    51.6,
+    37.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "I-DC",
+   "bbox": [
+    843.2,
+    703.6,
+    63.5,
+    68.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "class": "Inductor",
+   "bbox": [
+    670.9,
+    729.8,
+    38.9,
+    70.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n7"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "class": "Capacitor",
+   "bbox": [
+    427.9,
+    750.1,
+    65.4,
+    53.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "class": "V-DC",
+   "bbox": [
+    845.4,
+    875.5,
+    65.6,
+    65.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n6"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "class": "Capacitor",
+   "bbox": [
+    667.4,
+    902.8,
+    60.0,
+    43.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n7"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

@@ -1,0 +1,208 @@
+{
+ "schema_version": 1,
+ "image": "circuit_697.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: two meshes sharing a left-hand column. Upper mesh: 5 H along the top, 3 F hanging from the top rail down to the centre node, 0.5 ohm down the right side to ground, 2 H from the centre node to that same ground node, 3 ohm down the left column, 10sin(t) V across the middle. Lower mesh: 2 ohm down the left column, the 5cos(t) A source along the bottom, and the unlabelled series resistor #7 back up to the centre node. Drawn inside a hand-drawn border rectangle whose ink touches nothing.\n\nNET MAP\n  n1 = top-left corner (212,348): left lead of the 5 H inductor (#0) and top lead of the 3 ohm resistor (#3).\n  n2 = the top rail y~330-345 from the 5 H right lead across to the right-hand corner: right lead of #0, top plate lead of the 3 F capacitor (#2) via the riser at S4 (420,337), top lead of the 0.5 ohm resistor (#1).\n  n3 = the centre node at (438-448, 497): bottom plate lead of the 3 F capacitor, right terminal of the 10sin(t) V source (#4), left lead of the 2 H inductor (#5), top lead of resistor #7.\n  n4 = the left-hand mid node at (229,500): bottom lead of the 3 ohm resistor, left terminal of the 10sin(t) V source, top lead of the 2 ohm resistor (#8).\n  0  = the right-hand ground node at (589,482): bottom lead of the 0.5 ohm resistor, right lead of the 2 H inductor, GND symbol #6.\n  n5 = bottom lead of resistor #7 down to the bottom-right corner (490,640) and left to the right terminal of the 5cos(t) A source (#9).\n  n6 = bottom lead of the 2 ohm resistor down to the bottom-left corner (245,668) and right to the left terminal of the 5cos(t) A source.\n\nSITE DECISIONS (all CRITICAL sites explicit)\n  S12 (589,482) junction - the 0.5 ohm bottom lead comes down, the 2 H right lead arrives from the left, and the stub continues down into the GND bar; one node. A crossing reading (pairing the two vertical branches) would leave the 2 H right lead on a one-terminal net and the inductor with no return, and would also mean the 0.5 ohm branch and the ground symbol were the only things joined.\n  S13 (438,497) and S14 (448,498) junction - the tracer split one drawn node into two sites 10 px apart. inkmap at (443,497) settles it: the capacitor's bottom lead descends from the upper LEFT and terminates in the horizontal band at x~437, while resistor #7's top lead leaves the band going down-RIGHT from x~448. Extending the capacitor lead's slope (dx/dy ~ 0.32) past the rail would put it at x~441 nine rows lower, not at x~450, so the two are NOT one continuous stroke passing through - they are two independent T's landing on the same horizontal wire. Both are junctions and the centre node n3 has four terminals. The alternative (reading it as one vertical crossing the horizontal) would split n3 into {cap bottom, R#7 top} and {V-AC right, 2 H left}; that is not electrically impossible (both halves still form loops), so the call rests on the ink, and the ink shows two separate strokes with no hop and no jog anywhere on this sheet.\n  S15 (229,500) junction - the 3 ohm bottom lead, the wire east to the 10sin(t) V source, and the continuation down to the 2 ohm resistor all meet; clean T. Crossing would pair the two vertical branches and leave the source's left terminal on a one-terminal net, i.e. the voltage source with no left-hand connection at all.\n  S4 (420,337) junction - T where the capacitor's top lead rises onto the top rail. The tracer did not flag it CRITICAL only because the capacitor's t0 was mis-assigned to label ink; after the port fix below it matters, and the crop shows an unambiguous T.\n  The remaining sites (S0, S1, S2 = '5H'; S6 = '0.5 ohm'; S7 = '10sin t V'; S16, S17, S18 = '2H'; S19, S20 = '2 ohm'; S23, S24 = '5cos t A') are all handwritten value-label strokes brushing a component box. None carries a terminal, so their reading does not change the netlist; they are left at the default.\n\nPORT FIXES\n  #2 (3 F capacitor): t0 was on p2@(371,432), a stroke of the '10sin t V' handwriting that brushes the left edge of the capacitor box (wire length 10), producing the one-terminal net n3 in the original run. Moved to p1@(421,367), the real top-plate lead that rises to the top rail.\n  #8 (2 ohm resistor): t1 was on p1@(208,607), the '2 ohm' label to the left of the symbol (wire length 20), producing the one-terminal net n7. Moved to p2@(239,648), the real bottom lead (wire length 98) that runs to the bottom-left corner and along the bottom rail to the current source - the same wire that the source's left port sits on, which simultaneously repaired the source's one-terminal net n8.\n  All other spare port candidates the tracer warned about (#0 at (304,319), #1 at (601,372), #2 at (471,425)/(471,409), #4's four top candidates, #9 at (426,712)/(396,713)) are value-label strokes; the real leads were already selected.\n\nCLASS CORRECTION\n  #9 was labelled I-DC in the inventory. The drawn symbol is a circle containing a sine squiggle AND a current arrow, and its value is '5cos t A' - that is an AC current source. Compare #4 in the same drawing (circle + sine, no arrow = V-AC) and the plain-arrow-in-a-circle I-DC symbols used elsewhere in this dataset. Re-classified to I-AC. Terminal count is unchanged (2), so this affects no net.\n\nUNRESOLVED: none. Resistor #7 (centre, ~(468,583)) carries no value label in the drawing, but the zigzag is unmistakably a resistor and the inventory agrees.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Inductor",
+   "bbox": [
+    307.6,
+    343.8,
+    119.9,
+    42.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    574.5,
+    385.2,
+    45.0,
+    80.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Capacitor",
+   "bbox": [
+    422.6,
+    406.0,
+    90.0,
+    70.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Resistor",
+   "bbox": [
+    217.4,
+    427.4,
+    45.0,
+    103.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "V-AC",
+   "bbox": [
+    322.6,
+    505.4,
+    110.0,
+    98.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "Inductor",
+   "bbox": [
+    513.9,
+    484.3,
+    91.6,
+    40.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "GND",
+   "bbox": [
+    600.0,
+    535.9,
+    79.4,
+    63.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "Resistor",
+   "bbox": [
+    467.6,
+    582.9,
+    53.3,
+    87.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "Resistor",
+   "bbox": [
+    236.3,
+    601.5,
+    40.5,
+    85.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "class": "I-AC",
+   "bbox": [
+    373.5,
+    660.1,
+    111.8,
+    97.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n6"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

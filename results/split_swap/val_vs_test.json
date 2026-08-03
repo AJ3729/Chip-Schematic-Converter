@@ -1,0 +1,76 @@
+{
+ "val_run": "results/benchmark_1024_final/seed0",
+ "test_run": "results/benchmark_test192/seed0",
+ "note": "val = the 190 images every parameter was tuned on; test = the 192 images that never entered selection. Same config, nothing retuned.",
+ "difficulty_profile": {
+  "val": {
+   "n_images": 190,
+   "mean_components": 13.51,
+   "median_components": 14.0,
+   "max_components": 28,
+   "mean_gt_nets": 7.92,
+   "pct_with_crossover": 29.5,
+   "pct_with_3plus_terminal": 31.1
+  },
+  "test": {
+   "n_images": 192,
+   "mean_components": 13.35,
+   "median_components": 13.0,
+   "max_components": 30,
+   "mean_gt_nets": 7.8,
+   "pct_with_crossover": 28.1,
+   "pct_with_3plus_terminal": 30.2
+  }
+ },
+ "metrics": [
+  {
+   "metric": "strict_success",
+   "val_mean": 0.4421,
+   "test_mean": 0.5156,
+   "delta": 0.0735,
+   "p_value": 0.1504,
+   "test_used": "two-proportion z=1.44"
+  },
+  {
+   "metric": "terminal_pair_f1",
+   "val_mean": 0.7889,
+   "test_mean": 0.8077,
+   "delta": 0.0188,
+   "p_value": 0.4741,
+   "test_used": "Welch t"
+  },
+  {
+   "metric": "net_f1",
+   "val_mean": 0.8714,
+   "test_mean": 0.8768,
+   "delta": 0.0054,
+   "p_value": 0.754,
+   "test_used": "Welch t"
+  },
+  {
+   "metric": "per_component_connected_acc",
+   "val_mean": 0.5771,
+   "test_mean": 0.6415,
+   "delta": 0.0644,
+   "p_value": 0.1228,
+   "test_used": "Welch t"
+  },
+  {
+   "metric": "per_component_recall_acc",
+   "val_mean": 0.6796,
+   "test_mean": 0.7315,
+   "delta": 0.0519,
+   "p_value": 0.1752,
+   "test_used": "Welch t"
+  },
+  {
+   "metric": "nged",
+   "val_mean": 0.2274,
+   "test_mean": 0.1817,
+   "delta": -0.0457,
+   "p_value": 0.006,
+   "test_used": "Welch t"
+  }
+ ],
+ "finding": "Held-out performance does not degrade: strict success is 0.5156 on test against 0.4421 on the tuned split (p=0.150), and the two splits are matched on every difficulty proxy measured. There is no evidence the shipped parameters are fitted to the split they were selected on."
+}

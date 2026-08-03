@@ -1,0 +1,488 @@
+{
+ "schema_version": 1,
+ "image": "circuit_744.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: five op-amp stages. Stage A (#2) is fed directly by the 5V source #5 with C0 (1uF) as feedback; its output drives R4 (1k) into stage B (#3), which has L1 (1uH) feedback and drives R6 (1k) into a common right-hand rail at x~915. Stage C (#11) is fed by the 10A source #15 with L9 (1uH) feedback; its output runs right/down into the long column at x~470 which feeds the in+ of stage B, R13 (1k) into stage D (#12, C10 1uF feedback) and C21 (1uF) into stage E (#20, L18 1uH feedback). Outputs of D and E reach the same right rail through R14 and R22. NET MAP: '0' = ground rail: bottom of V-DC #5, bottom of I-DC #15, the non-inverting (+) inputs of op-amps #2/#11/#12/#20 and GNDs #7,#8,#16,#17,#19,#23. n1 = top of V-DC #5, the y~232 wire left of op-amp #2, its in- and the left plate of C0. n2 = output of op-amp #2 at (438,251), right plate of C0, left end of R4. n3 = right end of R4 (see below), in- (top-left lead) of op-amp #3, left end of L1. n4 = output of op-amp #3 at (706,274), right end of L1, left end of R6. n5 = output of op-amp #11 at (351,612), right end of L9, the whole x~470 column from y~365 to y~805, the in+ (bottom-left lead) of op-amp #3, left end of R13, left plate of C21. n6 = the right-hand vertical rail at x~915 from y~272 to y~810: right ends of R6, R14 and R22 only (3-terminal floating summing node, as drawn). n7 = top of I-DC #15, in- (top-left) of op-amp #11, left end of L9. n8 = right end of R13, in- of op-amp #12, left plate of C10. n9 = output of op-amp #12 at (707,620), right plate of C10, left end of R14. n10 = right plate of C21, in- of op-amp #20, left end of L18. n11 = output of op-amp #20 at (714,813), right end of L18, left end of R22. SITES (all ten CRITICAL sites explicitly recorded, all junctions): S2 (273,229), S3 (438,251), S6 (737,273), S15 (202,596), S18 (589,606), S31 (574,808), S32 (770,814) are all clean T-intersections where a feedback-element leg lands on a horizontal wire - the leg terminates there, it does not continue past, so 'crossing' would leave that feedback leg (C0, L1, L9, C10, L18) floating on a one-terminal net; junction is the only electrically possible reading. S13 (352,551) has a fat drawn blob (dot score 3.2) where the output of op-amp #11 meets the right leg of L9; crossing would break the L9 feedback loop. S22 (896,624) is a T where the horizontal from R14 lands on the right rail; the rail is the right edge of the sheet so a crossing would strand R14.t1 alone. S19 (479,610) is the only genuine 4-way: inkmap at (479,610) shows a hand-drawn ring/blob ~8x12 px around the crossing against a 3 px stroke (dot score 3.1) - the drafter's deliberate solder dot - so junction: the x~470 column, the op-amp #11 output wire and the R13 input are one node (n5). The alternative reading (crossing) would split n5 into {op-amp #11 out, L9 right, R13 left} and {op-amp #3 in+, C21 left}, i.e. it would disconnect the C-stage output from stages D/E entirely; the drawn dot rules it out. Non-critical sites S5,S9,S10,S11,S12,S20,S21,S24,S26,S27,S28,S30,S34 are handwritten value-label ink brushing a wire or a component box and were left at the tracer default. PORT/PIN FIXES: all five op-amps needed pin reordering to the (in+, in-, out) convention. Every op-amp on this sheet is drawn with '-' on the upper input and '+' on the lower input, and every one has its feedback element returning to the upper lead, which confirms the marks. #2: t0->p2 (bottom '+', to GND #7), t1->p0 (top '-'), t2->p1 (apex/out). #3: t0->p0 (bottom '+'), t1->p2 (top '-'), t2->p1 (out). #11: t0->p2 (bottom '+', to GND #16), t1->p0 (top '-'), t2->p1 (out). #12 and #20: t0->p2 (bottom '+', to GND #17 / #23), t1->p1 (top '-'), t2->p0 (out). MERGE: resistor #4 (1k, centre (531,252)) had no right-hand port - the tracer took a stroke of the handwritten '1k ohm' label at (508,268) as terminal 1, producing a one-terminal net. The real right lead is the 12 px stub e11 (568,251)->(579,250) that runs into the in- of op-amp #3 and joins the left leg of L1 there, so 4.1 is merged onto L1.t0's net (n3). Verified in the #4 crop and with edges.py at (531,252). NOT RESOLVED / minor: nothing outstanding. All component classes agree with the drawing (5 Op-Amps, 5 Resistors, 3 Capacitors, 3 Inductors, 1 V-DC, 1 I-DC, 6 GND).",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    344.0,
+    161.5,
+    30.0,
+    30.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Inductor",
+   "bbox": [
+    656.0,
+    172.6,
+    61.3,
+    31.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Op-Amp",
+   "bbox": [
+    363.1,
+    250.5,
+    100.9,
+    101.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    },
+    {
+     "index": 2,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Op-Amp",
+   "bbox": [
+    643.2,
+    271.0,
+    120.0,
+    124.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    },
+    {
+     "index": 2,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Resistor",
+   "bbox": [
+    531.1,
+    252.2,
+    56.6,
+    25.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    198.4,
+    306.3,
+    68.7,
+    78.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Resistor",
+   "bbox": [
+    790.4,
+    275.7,
+    55.2,
+    26.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    300.8,
+    326.9,
+    31.5,
+    35.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "GND",
+   "bbox": [
+    206.5,
+    406.9,
+    44.1,
+    37.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "class": "Inductor",
+   "bbox": [
+    272.5,
+    543.1,
+    66.6,
+    36.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n7"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "class": "Capacitor",
+   "bbox": [
+    681.0,
+    544.3,
+    28.2,
+    36.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n8"
+    },
+    {
+     "index": 1,
+     "net": "n9"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "class": "Op-Amp",
+   "bbox": [
+    286.5,
+    616.5,
+    119.2,
+    106.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n7"
+    },
+    {
+     "index": 2,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "class": "Op-Amp",
+   "bbox": [
+    657.5,
+    628.9,
+    91.7,
+    107.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n8"
+    },
+    {
+     "index": 2,
+     "net": "n9"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "class": "Resistor",
+   "bbox": [
+    525.3,
+    603.4,
+    53.4,
+    29.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "n8"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "class": "Resistor",
+   "bbox": [
+    806.8,
+    620.9,
+    44.9,
+    27.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n9"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "class": "I-DC",
+   "bbox": [
+    147.9,
+    679.1,
+    75.3,
+    79.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n7"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "class": "GND",
+   "bbox": [
+    219.3,
+    675.5,
+    47.4,
+    50.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "class": "GND",
+   "bbox": [
+    583.6,
+    686.6,
+    31.4,
+    30.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 18,
+   "class": "Inductor",
+   "bbox": [
+    673.8,
+    743.1,
+    61.8,
+    31.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n10"
+    },
+    {
+     "index": 1,
+     "net": "n11"
+    }
+   ]
+  },
+  {
+   "id": 19,
+   "class": "GND",
+   "bbox": [
+    136.8,
+    765.4,
+    35.3,
+    41.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 20,
+   "class": "Op-Amp",
+   "bbox": [
+    660.4,
+    822.4,
+    100.0,
+    102.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n10"
+    },
+    {
+     "index": 2,
+     "net": "n11"
+    }
+   ]
+  },
+  {
+   "id": 21,
+   "class": "Capacitor",
+   "bbox": [
+    521.2,
+    806.6,
+    34.3,
+    34.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "n10"
+    }
+   ]
+  },
+  {
+   "id": 22,
+   "class": "Resistor",
+   "bbox": [
+    866.4,
+    818.3,
+    54.2,
+    26.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n11"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 23,
+   "class": "GND",
+   "bbox": [
+    572.7,
+    890.1,
+    37.2,
+    40.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

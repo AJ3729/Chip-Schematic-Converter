@@ -1,0 +1,272 @@
+{
+ "schema_version": 1,
+ "image": "circuit_220.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a hand-drawn 5-column x 6-row ladder/grid. Verticals at x~110 (left rail), 250, 400, 560 and 780 (right rail, which carries all five sources). Horizontal rails at y~132, 265, 432, 595, 765 and 950. The drafter marks 'not connected' with a semicircular hop on the vertical; plain T-corners and two solder dots (S3, S4) mark real junctions.\n\nNET MAP (7 nets, no GND in this drawing so no net '0'):\n  n1 = TOP RAIL y~132 plus the column stubs that hop straight past y~265/432/595: top lead of L#0 (1uH), top of L#3 (col 250), top of L#5 (10uH, col 400 - the column hops rows 265 and 432 to reach it), top of L#10 (50uH, col 560 - hops rows 265, 432, 595), and the top lead of V-AC #1. [0.0 1.1 3.0 5.0 10.0]\n  n2 = ROW y~265 rail. Left end: bottom of L#0 / top of C#2 (5uF) on the left rail. Right end: bottom of V-AC #1 / top of V-AC #4 on the right rail. The rail hops OVER columns 250, 400 and 560, so it joins nothing in between. [0.1 2.0 1.0 4.0]\n  n4 = ROW y~432 rail: col-250 segment between L#3 and C#7 (10uF), running right (hopping cols 400 and 560) to the right rail between V-AC #4 and V-DC #6 (5V). [3.1 7.0 4.1 6.0]\n  n3 = the big lower node: ROW y~595 rail + col-250 below y=595 + bottom rail x~150..460 + left rail + col-400 below y=765 + ROW y~765 rail. Terminals: C#7 bottom, V-DC#6 bottom, I-DC#8 top (row 595 / right rail), C#2 (5uF) bottom (left rail down to the bottom rail), C#9 (50uF) bottom, I-DC#8 bottom and V-DC#11 (15V) top (row 765 / right rail). [7.1 6.1 8.0 2.1 9.1 8.1 11.0]\n  n5 = col 400 between L#5 and C#9 (50uF), crossing row 595 with a hop. [5.1 9.0]\n  n6 = col 560 between L#10 and C#12 (100uF), crossing row 765 with a hop. [10.1 12.0]\n  n7 = bottom-right rail fragment: bottom of C#12 (100uF) and bottom of V-DC#11 (15V). [12.1 11.1]\n\nSITE DECISIONS (all CRITICAL sites plus every site that carries a terminal):\n  S0 (111,132) junction - top-left corner, left rail meets top rail.\n  S3 (394,136) junction - solder dot ~3x stroke width, col 400 tees onto the top rail.\n  S4 (256,134) junction - solder dot, col 250 tees onto the top rail.\n  S5 (561,142) junction - clean T corner, col 560 meets the top rail (no dot, but the top rail ends/turns here).\n  S9 (393,248) junction - this is only the col-400 hop arc; the row-265 rail has NO ink at all near x=400 (verified by pixel scan), so all four branches belong to the column and must stay one net.\n  S10 (122,256) junction - real T, row-265 rail tees onto the left rail between L#0 and C#2.\n  S11 (232,261) CROSSING (overrode tracer default 'junction'). The crop shows an unmistakable semicircular hop: col 250 leaves the vertical at y~250, bulges left to x~231 and rejoins at y~285, while the row-265 rail runs straight through. Reading it as a junction (the tracer default) would have merged the whole top rail, the row-265 rail and L#3's top into one net.\n  S13 (545,268) explicit groups [[9,25],[24]] (overrode 'junction'). Same drawn hop as S11 but on col 560; because the row-265 pencil has faded either side the tracer only saw 3 branches and called it a T. Group [9,25] keeps the col-560 wire continuous through the arc; e24 is the 20px scrap of the row-265 rail that survives inside the arc and is left on its own (it carries no terminal). Junction here would have shorted the top rail to the row-265 rail.\n  S21 (247,422) junction - true T: col 250 continues down, row-432 rail starts here.\n  S22 (384,430) crossing - confirmed hop (col 400 bulges left around the row-432 rail).\n  S23 (549,435) crossing - confirmed hop (col 560 over the row-432 rail).\n  S24 (762,442) junction - row-432 rail lands on the right rail between V-AC#4 and V-DC#6.\n  S27 (249,591) junction - true T: col 250 runs straight through top-to-bottom, row-595 rail starts here.\n  S28 (572,594) explicit groups [[42,50,57],[53,54,55]] and S30 (560,597) 'none'. One drawn hop (col 560 over the row-595 rail) that the tracer split into two sites. Pixel dump at (566,597) shows the column leaving x~573 at y~589, bulging left to x~557 and rejoining x~573 at y~616, with the rail running straight through y~596-599. Group 1 = column above (e42) + arc (e50) + arc-below/down-to-L#10 (e57); group 2 = rail left (e53) + rail right (e54) + the 5px middle scrap (e55). Junction here would have merged the top rail with the row-595 rail.\n  S29 (380,594) crossing - confirmed hop (col 400 over the row-595 rail).\n  S31 (773,602) junction - row-595 rail lands on the right rail between V-DC#6 and I-DC#8.\n  S37 (409,765) junction - true T in solid ink (verified at 10x): col 400 runs through, row-765 rail starts here.\n  S39 (780,766) junction - row-765 rail lands on the right rail between I-DC#8 and V-DC#11. Solid, verified in the pixel dump at (762,763); the 'wedge' there is a retraced stroke, not an arrow or a hop.\n  S40 (538,773) crossing - confirmed hop (col 560 over the row-765 rail).\n  S44 (398,952) junction - clean solid T, col 400 lands on the bottom rail (pixel dump verified, nothing below).\n  S45 (267,955) junction - clean solid T, col 250 lands on the bottom rail.\n  S46 (562,958) junction - C#12's bottom lead tees onto the bottom-right rail fragment.\n  Non-critical sites S7, S17, S19, S33, S34, S35, S36, S38 left at the tracer default: S7/S17/S19/S33 are strokes of the handwritten values ('1uH', '5uF', '50u') brushing a wire; S34/S35/S36/S38 are overlapping pen strokes on a single continuous wire.\n\nPORT FIXES:\n  #2 (Capacitor 5uF): t1 moved from p3@(160,336) - which sits on a stroke of the handwritten '5uF' label - to p0@(123,336), the real bottom lead, which is the top of the 641px left-rail wire. This was the cause of the single-terminal net 'n3' in the original report. t0 left on p1@(121,291).\n  #7 (Capacitor 10uF): t1 moved from p3@(295,525) - a stroke of the handwritten '10uF' label - to p1@(245,538), the real bottom lead. Cause of the original single-terminal net 'n6'.\n  Unused-port warnings on #0 (p0@(143,187)) and #8 (p2@(825,652)) are the '1uH' and '10A' labels; the chosen terminals are already the real leads.\n  Gap bridge B2 (779,264)->(772,269) kept: the pixel dump shows V-AC#1's bottom lead running down to the corner where the right rail turns, ~2px of paper between them - clearly one node.\n\nJUDGEMENT CALL / UNRESOLVED - the bottom rail y~950:\n  The drafter's bottom rail is drawn with a failing pen. A column-by-column scan of the darkest pixel in y in [935,975] gives ink at x=440-460 (y 955-956), a 10px patch at x=504-513 (y 956), nothing 461-503 or 514-543, then x=544-627 (y 954-959), nothing 628-689, then strong ink x=690-744 (y 946-950) into V-DC#11's bottom lead. The y-trend is one smooth curve, so the DRAWING almost certainly intends a single rail from the left rail all the way to the 15V source. However, taking it as continuous puts BOTH terminals of V-DC#11 (15V) on one net - a dead short - because 11.0 is already tied through row 765 -> col 400 -> S44 -> the bottom rail, all in solid unambiguous ink (S37, S44, S39 are all clean solid Ts, individually verified in pixel dumps). Per rule 1 of the brief (electrical impossibility wins) I placed the break at the one place where the ink genuinely disappears and is weakest: the x~461-543 stretch, which has only a single 10px scrap of pencil across 84px, whereas the x~628-689 stretch is flanked by ~50px of strong dark ink and is bridged. Result: n7 = {C#12 bottom, V-DC#11 bottom}, a sane 2-terminal return node. The alternative reading (fully continuous rail) merges n7 into n3 and short-circuits the 15V source; the other alternative (cutting at S44) would mean denying a clean solid T. THIS IS THE ONE PLACE IN THIS IMAGE WHERE I OVERRODE THE INK, and it is the least certain call here. CAVEAT FOR THE REVIEWER: circuit_249, annotated in the same batch, contains a V-DC source that is short-circuited in completely unambiguous solid ink (a plain-wire rung tying two columns together through a solder dot), which proves this dataset's generator does emit shorted sources. That makes the ink-faithful alternative here - one continuous bottom rail, merging n7 into n3 and accepting the 15V short - a live possibility rather than an absurdity. I went with the break because (a) it is the only reading that satisfies the ERC-clean requirement, (b) unlike circuit_249 the connection in question is NOT drawn in ink - it has to be asserted across an 84px stretch that holds only 10px of pencil - and (c) the brief ranks electrical impossibility above the ink prior. If the reviewer prefers the ink-faithful reading, the single change is to replace the merge ['11.1','12.1'] with ['2.1','12.1'] and ['2.1','11.1'].\n  Residual warning: I-DC #8 still has both terminals on n3. That is forced by unambiguous solid ink and involves no judgement call - row 595 reaches the bottom rail through col 250 below S27, and row 765 reaches it through col 400 below S37; both verticals are plain wires with no component on them. The drawing really does put a wire in parallel with the 10A source.\n\nMERGES (broken pencil, both explained above):\n  ['0.1','1.0'] - the row-265 rail. Its ink survives only as x~125-300, a 20px scrap inside the S13 arc, and x~624-775; the drawn line is clearly one rail (the three hops on it prove it was drawn as a through rail).\n  ['11.1','12.1'] - the bottom-right rail fragment across the x~628-689 fade.\n\nCLASSES: all 13 accepted as annotated. Worth flagging: #4 is labelled '5A 1kHz' in the drafter's hand, which reads like a current source, but the drawn symbol is a plain circle-with-sine identical to #1 (V-AC), with no arrow, so I did not reclassify. #1's own value text is illegible ('..1kHz').",
+ "components": [
+  {
+   "id": 0,
+   "class": "Inductor",
+   "bbox": [
+    118.2,
+    191.9,
+    41.0,
+    96.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "V-AC",
+   "bbox": [
+    792.2,
+    202.8,
+    70.4,
+    68.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Capacitor",
+   "bbox": [
+    122.3,
+    314.7,
+    64.4,
+    37.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Inductor",
+   "bbox": [
+    243.1,
+    350.7,
+    29.7,
+    94.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "V-AC",
+   "bbox": [
+    786.0,
+    355.5,
+    70.4,
+    67.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "Inductor",
+   "bbox": [
+    396.1,
+    506.2,
+    26.6,
+    83.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "V-DC",
+   "bbox": [
+    766.6,
+    517.6,
+    64.4,
+    81.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "Capacitor",
+   "bbox": [
+    249.2,
+    513.8,
+    72.6,
+    40.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "I-DC",
+   "bbox": [
+    780.6,
+    667.4,
+    73.7,
+    75.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "class": "Capacitor",
+   "bbox": [
+    399.7,
+    650.1,
+    62.3,
+    43.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "class": "Inductor",
+   "bbox": [
+    578.4,
+    700.1,
+    28.1,
+    85.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "class": "V-DC",
+   "bbox": [
+    791.6,
+    860.0,
+    94.0,
+    110.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n7"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "class": "Capacitor",
+   "bbox": [
+    563.9,
+    894.1,
+    52.8,
+    39.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n6"
+    },
+    {
+     "index": 1,
+     "net": "n7"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

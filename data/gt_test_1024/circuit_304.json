@@ -1,0 +1,148 @@
+{
+ "schema_version": 1,
+ "image": "circuit_304.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a delta of R#1 (50ohm, drawn vertical at x~245), C#0 (100mF, top branch) and C#4 (200mF, lower branch) sitting on the left, feeding one series loop: node n2 -> I-DC #3 (5A, arrow pointing right) -> L#2 (2H) -> around the right-hand side and back along the bottom rail through V-DC #5 (7V, '-' left / '+' right) to ground. GND #6 hangs off the bottom rail. The heavy rectangle around the whole page is a drawing frame, not a wire, and the tracer correctly left it out of every net.\n\nNET MAP\n  0  = the bottom-left node: bottom of R#1 -> down the x~243 stub to the y~532 rail -> left to the (185,532) corner -> down the x~185 column -> the bottom rail eastwards to the LEFT ('-') terminal of V-DC #5, with GND #6's stem dropping off it at (236,628). Terminals: 1.1, 4.1, 5.0, 6.0.\n  n1 = top of R#1 and left plate of C#0 - the short L from (243,412) up to (243,390) then right to (318,393). Only 2 terminals, but that is exactly what is drawn: nothing else reaches that corner.\n  n2 = right plate of C#0, right plate of C#4, left terminal of I-DC #3 - the x~450 column running from (450,390) down to (450,533), with the branch east at S1 (450,462) to the current source. Note C#4's LEFT plate is on net 0 and its RIGHT plate is here, so C#4 bridges the delta's bottom side.\n  n3 = right of I-DC #3, left of L#2 (the y~450 run from x 615 to 664).\n  n4 = right of L#2 -> east to (850,443) -> down the x~850 column -> west along the y~620 bottom rail to the RIGHT ('+') terminal of V-DC #5. One long 506-px wire run.\n\nJUDGEMENT CALLS / SITES\n  * S1 (450,462) CRITICAL - clean T: the x~450 column runs straight through top-to-bottom and a single horizontal branch leaves eastwards toward the current source. No hop, no jog, nothing to cross. JUNCTION. The alternative (treating it as a crossing) is not even available: the west side has no wire, so 'crossing' would strand the I-DC's left terminal on a one-terminal net.\n  * S10 (243,532) CRITICAL - clean T: R#1's bottom stub descends onto the y~532 rail, which turns west at (185,532) and runs east to C#4's left plate. JUNCTION. The other reading (rail passing under the stub) would leave R#1's bottom terminal dangling with no return path to the source - electrically impossible.\n  * S11 (236,628) CRITICAL - deg reported as 4 only because the 6-px GND stub e29 is counted twice; edges.py shows just three real branches: e27 (north, up the x~185/243 path to S10), e28 (east along the bottom rail to V-DC's left lead) and e29 (south, into GND #6). A ground symbol must connect, so JUNCTION. The small hop score (2.1) is a slight vertical kink in the hand-drawn rail where the pen restarted, not a hop arc - there is no second wire here to hop over.\n  * Non-critical sites S2 (50ohm label touching the resistor box), S3/S6/S7/S9 ('200mF' label ink over the lower branch), S4/S5 ('2H' label under the inductor) are all handwriting brushing wire and were left at their defaults; none of them changes the netlist.\n\nPORT / PIN FIXES\n  * #5 V-DC t1: the tracer had picked p1@(567,649), a 16-px stub which is the top of the handwritten 'V' in the '7V' label just below-right of the source symbol - that left net n5 with a single terminal. The real right-hand ('+') lead is p2@(565,621), whose wire run is 506 px long and is the same run that reaches the inductor's right terminal (#2 p2, also wire=506). Repointing t1 to p2 merges the old n4 and n5 into one net and closes the loop, as drawn.\n  * All other components verified against the comps montage: #0 (p1 left / p0 right), #1 (p2 top / p1 bottom; p0 is the tail of the 'ohm' glyph), #2 (p3 left / p2 right; p0,p1 are the tops of '2H'), #3 (p0 left / p1 right; p2 is the '5A' text), #4 (p1 left / p0 right), #6 GND (p0, the stem). No other repointing needed.\n\nCLASSES: all correct. #3 is unmistakably a current source (circle with a horizontal arrow, '5A'); #5 is a voltage source (circle with '-' and '+' inside, '7V'). No 3-terminal parts on this sheet, so no pin-order risk.\nUNRESOLVED: none. ERC clean, 7 components, 5 nets.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    356.1,
+    391.2,
+    69.1,
+    54.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    246.6,
+    454.1,
+    47.8,
+    75.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Inductor",
+   "bbox": [
+    727.3,
+    441.8,
+    119.5,
+    48.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "I-DC",
+   "bbox": [
+    550.8,
+    462.5,
+    123.0,
+    79.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Capacitor",
+   "bbox": [
+    350.8,
+    530.5,
+    56.3,
+    62.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    508.5,
+    620.2,
+    106.2,
+    78.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "GND",
+   "bbox": [
+    230.1,
+    665.4,
+    104.8,
+    50.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

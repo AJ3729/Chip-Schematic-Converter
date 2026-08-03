@@ -1,0 +1,188 @@
+{
+ "schema_version": 1,
+ "image": "circuit_147.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: two-loop ladder. A top rail (y~370) runs from x~240 to x~770; a bottom rail (y~570-578) runs the same span and is the ground rail. Left vertical (x~240) carries the left 12V source; right vertical (x~770) carries the right 12V source. Along the top rail, left to right: 6kOhm resistor (#2), tap node at x~418, 5Ohm resistor (#0), tap node at x~590, 5mH inductor (#1). From x~418 a branch drops through the 2uF capacitor (#3) and then the 10V source (#7) to the bottom rail. From x~590 a branch drops through the 8kOhm resistor (#5) to the bottom rail. A GND symbol (#8) hangs off the bottom rail at x~509.\n\nNET MAP (6 nets, 9 components):\n  0  = the whole bottom rail y~570-578 from x~240 to x~770, plus the GND stem at x~509. Terminals: 6.1 (bottom of left 12V), 7.1 (bottom of 10V source), 5.1 (bottom of 8k), 4.1 (bottom of right 12V), 8.0 (GND).\n  n1 = top-rail node at x~418: right end of the 6k (2.1), left end of the 5Ohm (0.0), and the vertical stub down to the top plate of the 2uF cap (3.0).\n  n2 = top-rail node at x~590: right end of the 5Ohm (0.1), left end of the 5mH inductor (1.0), and the vertical stub down to the top of the 8k (5.0).\n  n3 = top rail right of the inductor (x~700-770) down the right vertical to the top terminal of the right 12V source: 1.1, 4.0.\n  n4 = top rail left of the 6k (x~240-288) down the left vertical to the top terminal of the left 12V source: 2.0, 6.0.\n  n5 = short vertical between the bottom plate of the 2uF cap and the top terminal of the 10V source: 3.1, 7.0.\n\nJUDGEMENT CALLS / SITE DECISIONS (all five CRITICAL sites inspected in the sites crops and, for S11, in an inkmap pixel dump):\n  S11 (418,370) -> JUNCTION. Pixel dump shows a clean T: the horizontal top rail is continuous and a single vertical stub descends from it with no ink above y=369. A T cannot be a crossing. The alternative (crossing) is not even expressible here (deg=3); reading it as 'none' would strand the capacitor branch on a one-terminal net.\n  S12 (587,369) -> JUNCTION. Same clean T: vertical stub descends from the continuous top rail toward the 8k. Not joining would leave the 8k/10V branch with no top connection and no return path.\n  S22 (598,568) -> JUNCTION. T where the vertical from the bottom of the 8k lands on the bottom rail. Not joining would strand 5.1 alone.\n  S23 (423,572) -> JUNCTION. T where the vertical from the bottom of the 10V source lands on the bottom rail. Not joining would strand 7.1 alone and break the cap/10V branch's return path.\n  S24 (507,571) -> JUNCTION. T where the GND symbol's stem meets the bottom rail. This is what puts the bottom rail on net 0; not joining would leave GND on a private one-terminal net and leave the rest of the circuit floating.\n  No solder dots are used anywhere on this sheet and no hops/jogs are drawn; every intersection that matters is an unambiguous T, so no plain-X tie-breaking was needed.\n\nNON-CRITICAL SITES (left at tracer default, none change the netlist): S1-S7 and S10 are the handwritten value labels '5mH' and '6KOhm' and '5Ohm' whose ink touches the symbol/rail; S15 is '2uF' text touching the cap stem; S18 is the '8KOhm' text touching the resistor body (default crossing, harmless); S19-S21 are the '10V' text touching the source. None of these are wire-to-wire.\n\nPORTS/CLASSES: no port overrides and no class overrides. Every component is 2-terminal (or GND, 1-terminal), so terminal order is unscored. The three summary warnings about 'unused port candidates' on #1, #2 and #5 are all label-text ink touching the symbol box (e.g. the '5mH' and '6K' glyphs, and the '8' of '8KOhm' at (612,496)), not real leads; the chosen ->t0/->t1 ports are the correct horizontal/vertical leads in every case. Nothing left unresolved.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Resistor",
+   "bbox": [
+    488.1,
+    372.5,
+    66.3,
+    26.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Inductor",
+   "bbox": [
+    653.5,
+    371.1,
+    86.2,
+    24.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Resistor",
+   "bbox": [
+    330.1,
+    374.8,
+    76.6,
+    29.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Capacitor",
+   "bbox": [
+    420.3,
+    426.8,
+    44.6,
+    32.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "V-DC",
+   "bbox": [
+    769.5,
+    463.9,
+    54.4,
+    53.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "Resistor",
+   "bbox": [
+    592.0,
+    481.3,
+    30.3,
+    63.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "V-DC",
+   "bbox": [
+    241.5,
+    474.2,
+    42.6,
+    47.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "V-DC",
+   "bbox": [
+    423.9,
+    512.1,
+    42.8,
+    44.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "GND",
+   "bbox": [
+    509.3,
+    605.9,
+    61.6,
+    28.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

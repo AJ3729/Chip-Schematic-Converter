@@ -1,0 +1,108 @@
+{
+ "schema_version": 1,
+ "image": "circuit_1103.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a single series RLC loop driven by V-AC #3 (5cos(20t+30deg) V), with the loop grounded at one point. Going clockwise from the source: V-AC top (172,453) -> up the left side to the top-left corner (180,370) -> right along the top rail into R#1 10 ohm -> out of R#1 right -> into C#0 5mF -> out of C#0 right -> along the top rail to the top-right corner (652,370) -> down into L#2 20mH -> out of L#2 bottom -> down to the bottom-right corner (650,585) -> left along the bottom rail past the GND#4 stub at x=436 -> to the bottom-left corner (178,590) -> up to V-AC bottom. Everything is in series; there are no branches other than the ground tap.\n\nNET MAP (4 nets, 5 components):\n  0  = the bottom rail: bottom of V-AC #3, bottom of L#2, and GND#4. Terminals 2.1, 3.1, 4.0.\n  n3 = left side + top-left corner: top of V-AC #3 to the left lead of R#1. Terminals 1.0, 3.0.\n  n1 = short top-rail segment between the right lead of R#1 and the left plate of C#0. Terminals 0.0, 1.1.\n  n2 = top rail right of C#0 through the top-right corner down to the top of L#2. Terminals 0.1, 2.0.\n\nCRITICAL SITE DECISIONS:\n  S7 (436,584) JUNCTION. This is the only CRITICAL site on the sheet. The crop shows an unambiguous T: the GND symbol's vertical stub rises from the ground bars and terminates on the bottom rail; there is no fourth branch, so 'crossing' is not even expressible here. The alternative reading ('none') would leave GND#4 on a one-terminal net and the whole loop with no ground reference, which rule 1 forbids. Read as junction.\n  Non-critical sites S1 (328,412), S3 (305,417), S4 (316,416) are all the handwritten '10 ohm' value text brushing the underside of the resistor symbol - pure noise, left at the default.\n\nPORT / PIN FIXES: none needed. Every component has exactly two clean leads and the tracer picked both correctly (C#0 p1 left / p0 right; R#1 p0 left / p1 right; L#2 p1 top / p0 bottom; V-AC#3 p1 top / p0 bottom; GND#4 p0 top). No 3-terminal parts, so no pin-order risk.\n\nCLASSES: all 5 accepted as drawn - Capacitor (two parallel plates, '5mF'), Resistor (zigzag, '10 ohm'), Inductor (coil, '20mH'), V-AC (circle with sine, '5cos(20t+30deg) V'), GND (three stacked bars). The dashed rectangle around the whole page is the notebook/page border, not circuit ink, and is correctly excluded from every net.\n\nUNRESOLVED: nothing.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    482.1,
+    369.6,
+    41.9,
+    39.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    312.2,
+    373.9,
+    79.6,
+    37.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Inductor",
+   "bbox": [
+    652.6,
+    446.2,
+    39.6,
+    80.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "V-AC",
+   "bbox": [
+    171.9,
+    485.4,
+    53.4,
+    56.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "GND",
+   "bbox": [
+    439.7,
+    629.5,
+    101.2,
+    50.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

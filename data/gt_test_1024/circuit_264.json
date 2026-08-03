@@ -1,0 +1,188 @@
+{
+ "schema_version": 1,
+ "image": "circuit_264.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "Circuit: 3A current source (#4) drives a ladder. Top rail left-to-right: I-DC top -> R 3K (#1) -> node with C 0.7F (#6) -> R 6K (#2) -> node with R 2K (#5) -> R 8K (#0) -> V-DC 10V (#3) top. Bottom rail left-to-right: I-DC bottom -> C bottom -> GND (#8) -> R 2K bottom -> L 10mH (#7) in series -> V-DC bottom. NET MAP: n3 = left vertical rail: I-DC(#4) top terminal + left lead of R 3K(#1). n4 = top rail between R3K right and R6K left, plus the vertical drop to the top plate of C 0.7F(#6). n1 = top rail between R6K right and R8K left, plus the vertical drop to the top of R 2K(#5) (site S12). n2 = top-right rail: R8K right lead + V-DC(#3) top (+ terminal). n5 = bottom-right: V-DC bottom (- terminal) + right lead of L 10mH; the inductor is in series in the bottom rail so it splits the bottom rail into two nets. 0 = ground rail: I-DC bottom, bottom plate of C 0.7F (site S21), GND symbol stub (site S20), bottom of R 2K (site S19), left lead of L 10mH. JUDGEMENT CALLS / SITES: S12 (650,390) CRITICAL -> junction. The 2K column wire terminates on the horizontal top rail from below: a clean T, no hop, no pass-through ink above the rail. Reading it as a crossing is impossible - it would leave R2K's top on a one-terminal net and cut the 6K/8K rail. S19 (649,585) CRITICAL -> junction. The 2K column wire meets the bottom rail; hop_score 3.6 comes only from a ~6px pen overshoot below the rail (visible in the crop as a short stub), not from a semicircular hop or a sideways jog. Junction is also electrically forced: a crossing would strand R2K's bottom terminal with no return path. S20 (540,586) CRITICAL -> junction. Short vertical stub from the bottom rail down to the GND symbol - a T. The horizontal strokes lower in the crop are the GND symbol's own bars. A crossing would leave GND floating and the circuit with no reference. S21 (437,592) CRITICAL -> junction. The capacitor's bottom lead ends on the bottom rail - a T with no ink continuing below. A crossing would strand C's bottom terminal. S13 (440,399) non-critical -> junction, recorded explicitly: the capacitor's top lead ends on the top rail (T). All other sites (S0-S11, S14-S18, S22, S23) are handwritten value text ('8KO', '3KO', '6KO', '2KO', '0.7F', '3A', '10mH') brushing wire or component ink, or the resistor zigzag ink itself - none of them change the netlist and all are left at the tracer default. PORT FIXES: comp #1 (R 3K) terminal t0 was landing on port p1@(289,364), which is the pen stroke of the '3' in the '3KO' label sitting just above the resistor box, giving a one-terminal net n3 and leaving I-DC's top on its own net n6. Repointed t0 to p4@(289,395), the real left lead (a 157px wire run that goes left then down to the top of the I-DC symbol) - this merges the two singleton nets into n3. Comp #6 (C 0.7F) terminal t1 was landing on port p3@(488,508), a stroke of the '0.7F' label touching the right end of the lower capacitor plate (one-terminal net n7). Repointed t1 to p1@(436,464), the real top lead running up to the top rail at S13, so the cap top joins n4. No bridges dropped, no classes changed, no merges or manual nets needed. Classes all confirmed against the crops: #3 is a circle with +/- = V-DC, #4 is a circle with an up arrow = I-DC, #7 is a coil = Inductor, #5 is a vertical zigzag = Resistor. Result: 9 components, 6 nets, ERC clean, and the topology matches a direct read of the drawing.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Resistor",
+   "bbox": [
+    759.0,
+    386.7,
+    107.6,
+    38.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    334.5,
+    394.7,
+    84.7,
+    43.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Resistor",
+   "bbox": [
+    537.6,
+    400.3,
+    112.7,
+    43.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "V-DC",
+   "bbox": [
+    908.3,
+    476.9,
+    81.3,
+    86.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "I-DC",
+   "bbox": [
+    171.7,
+    487.2,
+    77.4,
+    86.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "Resistor",
+   "bbox": [
+    651.1,
+    502.0,
+    53.6,
+    83.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Capacitor",
+   "bbox": [
+    431.6,
+    490.8,
+    105.9,
+    45.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "Inductor",
+   "bbox": [
+    782.1,
+    570.5,
+    106.0,
+    48.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "GND",
+   "bbox": [
+    528.1,
+    634.8,
+    101.5,
+    49.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

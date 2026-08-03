@@ -1,0 +1,188 @@
+{
+ "schema_version": 1,
+ "image": "circuit_526.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "Circuit (note: the whole sheet is drawn upside-down - every value label reads mirrored/rotated 180 deg - which does not affect topology; there is also a hand-drawn page-border rectangle at x~15..1010, y~285..735 that touches no component and correctly ends up on no net). A 10V source in series with a 5mH inductor and a 10MF capacitor forms the outer left loop up to a grounded top rail; a 5A current source sits in the right leg; a 2kOhm||20Ohm pair in series with a 1Ohm resistor hangs from the grounded top rail down to the bottom rail; a 10kOhm resistor links the bottom rail to the current source. 9 components, 6 nets.\n\nNET MAP\n  0  = GND symbol #0 (stem at 631,362), the whole top rail y~371 from x=225 to x=845, the left vertical down to the capacitor #3 top plate (226,504), the right vertical down to the I-DC #5 top lead (840,536), and - via the GND column continuing down through S4 - the box top rail y~411 carrying the top of R#1 (2kOhm, 569,419) and the top of R#2 (20Ohm, 684,438).\n  n1 = box bottom rail y~518 (x 563..684): bottom of R#1 (563,505), bottom of R#2 (684,505), top lead of R#4 (1Ohm, 646,530).\n  n2 = bottom plate of capacitor #3 (226,563) down the left vertical to the bottom-left corner (~225,612) and right to the left lead of inductor #7 (292,615).\n  n3 = bottom rail between the V-DC and the 10k: right terminal of V-DC #6 (529,626), foot of R#4 (638,604), left lead of R#8 (10kOhm, 688,626).\n  n4 = right end of R#8 (792,631) to the bottom-right corner (~845,627) and up to the bottom lead of I-DC #5 (841,602).\n  n5 = right lead of inductor #7 (411,620) to the left terminal of V-DC #6 (433,621).\n\nJUDGEMENT CALLS (all four CRITICAL sites read in raw pixels with inkmap, not just the rendered crop)\n  S0 (630,371) deg5 - this looked like a plain X (GND column crossing the top rail), but the pixel dump settles it: the rail arrives from the left at rows 368-370 and departs to the right at rows 372-374, i.e. the drafter drew a small vertical jog and BOTH rail segments terminate on the GND column. That is two T's, not one line passing over another. JUNCTION. The crossing reading would isolate {GND, 2kOhm top, 20Ohm top} onto a net with no return path - the 2k||20 + 1Ohm string would hang off node n3 and dead-end at ground - and would leave the top rail (capacitor top + current-source top) as a separate floating net. Rule 1 and the ink both give junction.\n  S4 (635,411) deg3 - clean T: the GND column descends and terminates on the box top rail, which continues left to the 2kOhm and right to the 20Ohm. JUNCTION, no real alternative.\n  S8 (645,518) deg4 - T: the 1Ohm top lead rises and stops on the box bottom rail; in the pixel dump the vertical stroke extends only ~3 rows above the rail (row 515) before ending, there is no solder blob (no symmetric thickening) and no hop. The reported hop=3.6 is the mirror-written '1 Ohm' label sitting just left of the resistor, not a wire hop. JUNCTION. The crossing reading would leave the 1Ohm's top lead pointing at nothing and split the box bottom rail into two 1-terminal nets.\n  S11 (638,627) deg3 - clean T: the 1Ohm bottom lead descends and terminates on the bottom rail, which continues left to the V-DC and right to the 10kOhm. JUNCTION.\n  Non-critical sites left at the tracer default: S3 (569,407) box top-left corner; S6 (535,453), S9 (614,559), S15 (712,658) are handwritten value labels ('2kOhm', '1Ohm', '10kOhm') brushing wires or component boxes; S10 (537,626) is the V-DC right lead meeting the bottom rail; S12/S13/S14 (~317,655 / 306,655 / 335,659) are strokes of the '5mH' label touching the underside of the inductor. None of them change the grouping.\n\nPORT FIXES (both were the classic 'terminal landed on the value label' failure - each produced a 1-terminal net)\n  #3 Capacitor: t0 had been placed on p2@(184,522), a stroke of the mirror-written '10MF' label left of the box, giving the 1-terminal net n2. Repointed t0 to p1@(226,563), the real bottom-plate lead. t1 stays on p0@(226,504), the top-plate lead.\n  #7 Inductor: t0 had been placed on p1@(305,645), a stroke of the '5mH' label written under the coil, giving the 1-terminal net n6. Repointed t0 to p3@(292,615), the real left lead - and its wire id (114) is the same wire the capacitor's bottom lead sits on, which independently confirms the reading. t1 stays on p5@(411,620), the right lead. With both fixed, old n2 and n6 collapse into one 2-terminal net, exactly as drawn.\n\nCLASSES: all nine symbols agree with their labels (R 2kOhm, R 20Ohm, R 1Ohm, R 10kOhm, C 10MF, L 5mH, V-DC 10V with + / - inside the circle, I-DC 5A with the arrow inside the circle, GND). No reclassification.\n\nGAP BRIDGES: 16 reported, none changes the netlist; none dropped.\n\nUNRESOLVED: nothing.",
+ "components": [
+  {
+   "id": 0,
+   "class": "GND",
+   "bbox": [
+    635.1,
+    338.1,
+    80.3,
+    41.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    569.1,
+    462.9,
+    42.5,
+    79.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Resistor",
+   "bbox": [
+    682.7,
+    471.8,
+    35.6,
+    60.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Capacitor",
+   "bbox": [
+    227.7,
+    534.0,
+    71.1,
+    51.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Resistor",
+   "bbox": [
+    643.4,
+    567.3,
+    43.0,
+    66.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "I-DC",
+   "bbox": [
+    840.4,
+    569.6,
+    60.8,
+    59.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "V-DC",
+   "bbox": [
+    481.3,
+    622.6,
+    89.5,
+    62.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "Inductor",
+   "bbox": [
+    351.4,
+    620.6,
+    110.7,
+    43.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "Resistor",
+   "bbox": [
+    740.6,
+    628.9,
+    97.5,
+    30.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

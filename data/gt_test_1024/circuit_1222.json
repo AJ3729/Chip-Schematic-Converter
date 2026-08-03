@@ -1,0 +1,328 @@
+{
+ "schema_version": 1,
+ "image": "circuit_1222.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a 5V rail (V-DC #0, + on the left, right terminal to GND #3) feeding a chain of six MOSFETs, a 1k resistor and two AC current sources, with a ground rail along the bottom (GND #14). Two AC voltage sources on the left (#10 1V/2kHz and #9 5V/3kHz) sit between the gate rails and the ground rail; a 3V Zener (#4) sits between the top rail and the upper gate rail.\n\nNET MAP\n  n1 = top rail y~275, from the Zener's top lead across to the left terminal of the 5V source: 0.0, 1.0 (M1 drain), 2.0 (M2 drain), 4.0 (Zener top).\n  n2 = the x~355 vertical plus the y~502 horizontal that runs left from it: 1.1 (M1 gate), 12.1 (M12 gate), 9.0 (V-AC 5V/3kHz top). This is the 3kHz gate drive.\n  n3 = the y~410 rail: 2.2 (M2 source, its left end), 1.2 (M1 source, dropping in at S6), 6.0 (M6 drain, same vertical continuing down), 5.0 (M5 drain, its right end).\n  n4 = the y~460 rail plus the x~103 vertical it T's onto: 4.1 (Zener bottom), 10.0 (V-AC 1V/2kHz top), 2.1 (M2 gate, via the x~205 vertical), 6.1 (M6 gate, the rail's right end). This is the 2kHz gate drive.\n  n5 = M5's gate lead running right to x~858 and down: 5.1, 7.0 (I-AC 1A/2kHz top).\n  n6 = the x~631 vertical between M5's source and M11's drain, tapped by the resistor's right lead: 5.2, 8.1, 11.0.\n  n7 = the x~423 vertical between M6's source and M12's drain, tapped by the resistor's left lead: 6.2, 8.0, 12.0.\n  n8 = M11's gate lead running right, up to y~540 and across to I-AC #13's top: 11.1, 13.0.\n  0  = ground: GND #14 and GND #3, the bottom rail y~648, and the right terminal of the 5V source. Terminals 0.1, 3.0, 14.0, 9.1, 10.1, 11.2, 12.2, 7.1, 13.1.\n\nJUDGEMENT CALLS\n  S5 (359,410): the x~355 vertical makes a sideways S-jog around the y~410 rail. Crossing (agrees with the tracer).\n  S6 (423,409): the x~423 vertical crosses the same y~410 rail with no jog and no dot, right next to S5 where the SAME drafter DID draw a jog. That contrast is the evidence: bare crossing here means a real connection. JUNCTION. Reading it as a crossing would split M1's source off from M2's source / M5's drain / M6's drain and leave M1's source alone with M6's drain (still 2 terminals, so ERC would not catch it) - the ink is what decides, and the drafter's own habit two pixels away settles it.\n  S8 (356,454) + S9 (366,457): one drawn sideways jog that the tracer split into two deg-3 sites, both defaulting to junction. That default merged the vertical into the y~460 rail and collapsed the two gate drives into a single net (the tracer's n3 held five terminals). Expressed explicitly as edge groups: S8 = [[21,24,29],[26,27]] (e21 upper vertical + e24 jog corner + e29 lower vertical form the through-going column; e26 + e27 are the two halves of the y~460 rail), and S9 = \"none\" so it adds nothing. Result: V-AC #10 (1V 2kHz) drives the gates of M2 and M6 through the y~460 rail, and V-AC #9 (5V 3kHz) drives the gates of M1 and M12 through the x~355 column - two independent drives, which is what the drawing shows.\n  S37 (625,648) and S40 (420,651): the tracer defaulted BOTH to crossing (hop scores 12.8 and 29.7). At 9x both are plainly T's: M11's source lead and M12's source lead come down and stop on the bottom rail, overshooting it by only 8-12 px the way this drafter overshoots every T on this sheet (compare S35 and S41, where the same overshoot is present and the tracer called them junctions). Overridden to JUNCTION. Keeping them as crossings strands M11.2 and M12.2 on one-terminal nets, which is also an ERC error - so both ink and physics agree.\n  S0, S1 (top rail), S11, S12, S14, S15, S16, S18, S35, S41: plain T's, junction.\n  S2 (V-DC '5V' label), S3 (Zener '3V' label), S19, S21, S24, S25, S26, S28, S31: value text touching a symbol or a wire. Not critical, left at the default.\n\nFAINT INK\n  The bottom ground rail is drawn with a very light stroke and the skeletoniser broke it into five pieces (blank runs at x=127-187, 313-330, 386-400, 601-606, 725-746). It is unambiguously one rail - it runs at a constant y~648 with a steady slight downward drift, every MOSFET source and both AC voltage sources drop onto it, and GND #14 hangs from it. Rejoined with merge [9.1,14.0], [10.1,14.0], [7.1,14.0]; without those, 9.1 and 10.1 are one-terminal nets and the I-AC pair sits on an island. No electrical objection: nothing on the rail ends up short-circuiting a source.\n\nPORT / PIN FIXES\n  #4 Zener Diode: the tracer used p2@(138,392) as t1 - that is the '3V' label sitting against the symbol (see S3). Repointed t1 to p1@(105,406), the real bottom lead. t0 stays p0@(104,343).\n  #1 MOSFET-N: pins were (top, bottom, left) = (drain, gate?, source?) - the tracer had t1 on the bottom lead and t2 on the gate. Reordered to drain=p2 (top, to the 5V rail), gate=p0 (left lead off the gate bar), source=p1 (bottom).\n  #2 MOSFET-P: same swap. drain=p2 (top), gate=p1 (left), source=p0 (bottom).\n  #5 MOSFET-P: this one is drawn mirrored - the gate bar is on the RIGHT of the channel at x~662 and its lead exits right at y~437, while the channel's top segment takes the lead that leaves to the left at y~403 and the bottom segment takes the lead that leaves downward at x~633. Reordered to drain=p0 (left/top-of-channel), gate=p1 (right), source=p2 (bottom); the tracer had gate and source swapped.\n  #6 MOSFET-N: the tracer found only one of the three leads (p0@(425,486), the bottom/source), because the drain lead enters the bbox from above at (422,417) as a 1-px stub below site S6 and the gate lead stops ~4 px short of the bbox's left edge at (383,455). Both are unmistakable in the image: the x~422 column runs down from M1's source through S6 into the top of the symbol, and the y~460 rail runs right and dies on the gate bar (verified: no ink at y=450-472 for any x between 440 and 700 except the x~631 column). t2 pinned to p0 and t0/t1 given their nets directly (manual_nets 6.0=n3, 6.1=n4) since there is no port object to point at.\n  #11 MOSFET-P and #12 MOSFET-N: already correct - #11 drain=p0 (top), gate=p1 (right, its bar is on the right like #5), source=p2 (bottom); #12 drain=p0 (top), gate=p2 (left), source=p1 (bottom).\n  Unused port candidates on #0 ('5V'), #7 and #13 ('1A 2kHz', '3A 3kHz'), #8 ('1k Ohm'), #9 and #10 ('5V 3kHz', '1V 2kHz') are all label ink; ignored.\n\nDRAIN/SOURCE CONVENTION (stated because it is scored)\n  In every one of these symbols the body arrow sits on the MIDDLE channel segment and points at the gate bar (N) or away from it (P); it never points at either outer lead, so the drawing does not identify the source directly. I therefore used the brief's fallback - the lead at the top of the channel is the drain, the lead at the bottom is the source - which is also the physical reading for the four N-channel/ground-referenced cases (M1, M6, M11, M12 all have their bottom lead facing the ground rail or the lower half of the chain). For the two P-channel parts whose upper lead faces the 5V rail (#2) or the upper rail (#5) a strict device-physics reading would call that lead the source instead; I stayed with the drawn orientation for consistency with the other four.\n\nCLASSES\n  All 15 labels match the drawn symbols: two GND rakes, one circle-with-plus-and-minus V-DC, two circle-with-sine V-AC, two circle-with-sine-and-arrow I-AC, one zig-zag resistor, one Zener (triangle with the bent cathode bar), and six MOSFETs whose N/P labels match their body-arrow directions (arrow toward the gate on #1, #6, #12 = N; away from the gate on #2, #5, #11 = P). No class overrides.",
+ "components": [
+  {
+   "id": 0,
+   "class": "V-DC",
+   "bbox": [
+    613.0,
+    281.5,
+    79.4,
+    66.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "MOSFET-N",
+   "bbox": [
+    408.1,
+    337.1,
+    58.5,
+    72.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    },
+    {
+     "index": 2,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "MOSFET-P",
+   "bbox": [
+    247.3,
+    344.0,
+    61.8,
+    70.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    },
+    {
+     "index": 2,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "GND",
+   "bbox": [
+    723.8,
+    345.6,
+    49.4,
+    35.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Zener Diode",
+   "bbox": [
+    104.9,
+    375.4,
+    59.8,
+    54.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "MOSFET-P",
+   "bbox": [
+    648.8,
+    423.1,
+    56.9,
+    70.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    },
+    {
+     "index": 2,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "MOSFET-N",
+   "bbox": [
+    412.6,
+    450.5,
+    51.0,
+    65.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    },
+    {
+     "index": 2,
+     "net": "n7"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "I-AC",
+   "bbox": [
+    860.4,
+    539.0,
+    69.0,
+    69.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "Resistor",
+   "bbox": [
+    505.9,
+    515.9,
+    81.9,
+    40.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n7"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "class": "V-AC",
+   "bbox": [
+    199.6,
+    537.7,
+    49.1,
+    54.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "class": "V-AC",
+   "bbox": [
+    101.5,
+    540.0,
+    55.2,
+    63.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "class": "MOSFET-P",
+   "bbox": [
+    639.8,
+    590.9,
+    66.6,
+    84.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n6"
+    },
+    {
+     "index": 1,
+     "net": "n8"
+    },
+    {
+     "index": 2,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "class": "MOSFET-N",
+   "bbox": [
+    407.5,
+    586.6,
+    54.7,
+    74.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n7"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    },
+    {
+     "index": 2,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "class": "I-AC",
+   "bbox": [
+    760.1,
+    596.6,
+    66.6,
+    70.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n8"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "class": "GND",
+   "bbox": [
+    502.9,
+    690.2,
+    57.3,
+    39.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

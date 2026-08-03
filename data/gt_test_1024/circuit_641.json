@@ -1,0 +1,128 @@
+{
+ "schema_version": 1,
+ "image": "circuit_641.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "circuit_641 - 6 components, 4 nets. A single mesh: a 5-ohm resistor and a 10F capacitor form the left/top branch, a 20A DC current source sits in the middle rung, a 32-ohm resistor is the right leg, and a 10V DC source closes the bottom right; one GND hangs off the bottom rail. (The heavy rectangle around the whole drawing is a page border, not a wire - it touches nothing.)\n\nNET MAP\nn1 = the top-left corner: top lead of the 5-ohm resistor #2 (271,410) runs up to (272,395) and east into the capacitor #0 left plate (304,390). 2 terminals.\nn2 = the top rail east of the capacitor: capacitor #0 right plate (395,392) -> S1 (434,388), where the 20A source #3's top lead (440,440) drops away south -> the rail continues east to (612,371) and turns south into the 32-ohm resistor #1 top lead (620,401). 3 terminals: 0.1, 1.0, 3.0.\n0  = the bottom rail: bottom of the 5-ohm resistor #2 (288,523) runs south to (298,631) and east through S5 (393,619), where the GND #5 stub (395,635) drops away, then through S4 (463,608), where the 20A source #3's bottom lead (456,561) comes down, then east into the 10V source #4's left terminal (525,601). 4 terminals: 2.1, 3.1, 4.0, 5.0.\nn3 = the right-hand return: bottom lead of the 32-ohm resistor #1 (640,500) runs south along x~644 to y~584 and then west into the 10V source #4's right terminal (625,588). 2 terminals: 1.1, 4.1.\n\nJUDGEMENT CALLS AT INTERSECTION SITES\nThere are only three intersections on the sheet and none of them is ambiguous - no plain X, no hop, no jog anywhere in the drawing.\nS1 (434,388) deg=3 -> JUNCTION. Clean T: the 20A source's top lead terminates on the top rail from below. Crossing is not expressible at a degree-3 T; reading it as 'none' would strand the current source's top terminal on a one-terminal net and split the top rail.\nS4 (463,608) deg=3 -> JUNCTION. Clean T: the 20A source's bottom lead terminates on the bottom rail from above.\nS5 (393,619) deg=3 -> JUNCTION. Clean T: the GND symbol's stub drops out of the bottom rail. This is what names the bottom rail net 0.\n\nPORT FIX\n#4 V-DC (10V): the tracer put terminal 1 on port p2 (629,632), which is a stroke of the handwritten '10V' label brushing the bottom-right of the box, leaving two one-terminal nets (n3 = the 32-ohm resistor's bottom lead, n4 = this terminal). The real right terminal is p1 (625,588); at 6x zoom the wire leaving the source's right side runs east to x~645 and then straight north up to the bottom of the 32-ohm resistor, and the wire graph confirms it (edge e12 (642,585)->(625,588) meets edge e9 (640,500)->(644,582) at a degree-2 site, so the two are one run). Fixed t1 -> p1; that single change merges n3 and n4 into one 2-terminal net and clears both singleton warnings.\nThe other unused-port warnings are all handwritten labels touching a box: capacitor #0 at (349,347) is the '10F' text, resistor #1 at (659,465)/(654,444) is the '32' text, I-DC #3 at (496,493) is the '20A' text, and V-DC #4 at (620,639)/(600,639)/(591,639) is the '10V' text. In each of those cases the assigned terminals already point at the real leads.\n\nCLASSES\nNo class looks wrong. Two zig-zags = Resistor, a plate pair = Capacitor, circle with an up arrow = I-DC, circle with '+ -' bars = V-DC, three-bar symbol = GND.\n\nNOT FULLY RESOLVED\nNothing. Every terminal is placed and every site is a clean T.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    350.2,
+    390.4,
+    83.4,
+    72.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    624.9,
+    451.0,
+    50.0,
+    91.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Resistor",
+   "bbox": [
+    278.8,
+    466.3,
+    50.6,
+    105.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "I-DC",
+   "bbox": [
+    444.7,
+    501.0,
+    94.5,
+    114.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "V-DC",
+   "bbox": [
+    574.5,
+    591.6,
+    94.0,
+    87.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "GND",
+   "bbox": [
+    399.1,
+    670.3,
+    82.3,
+    62.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

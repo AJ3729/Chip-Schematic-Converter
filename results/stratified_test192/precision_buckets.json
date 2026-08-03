@@ -1,0 +1,73 @@
+{
+ "source": "results/benchmark_test192/seed0/per_image.csv (192 test images)",
+ "strict_success_overall": 0.5156,
+ "buckets": [
+  {
+   "precision_range": [
+    0.0,
+    0.3
+   ],
+   "n_images": 8,
+   "mean_tp_precision": 0.1716,
+   "mean_tp_recall": 0.5002,
+   "mean_tp_f1": 0.227,
+   "mean_percomp": 0.0054,
+   "strict_successes": 0,
+   "strict_rate": 0.0
+  },
+  {
+   "precision_range": [
+    0.3,
+    0.5
+   ],
+   "n_images": 18,
+   "mean_tp_precision": 0.3925,
+   "mean_tp_recall": 0.5831,
+   "mean_tp_f1": 0.4442,
+   "mean_percomp": 0.0574,
+   "strict_successes": 0,
+   "strict_rate": 0.0
+  },
+  {
+   "precision_range": [
+    0.5,
+    0.7
+   ],
+   "n_images": 31,
+   "mean_tp_precision": 0.6082,
+   "mean_tp_recall": 0.497,
+   "mean_tp_f1": 0.5047,
+   "mean_percomp": 0.1653,
+   "strict_successes": 0,
+   "strict_rate": 0.0
+  },
+  {
+   "precision_range": [
+    0.7,
+    0.9
+   ],
+   "n_images": 19,
+   "mean_tp_precision": 0.8029,
+   "mean_tp_recall": 0.8845,
+   "mean_tp_f1": 0.833,
+   "mean_percomp": 0.4558,
+   "strict_successes": 0,
+   "strict_rate": 0.0
+  },
+  {
+   "precision_range": [
+    0.9,
+    1.0
+   ],
+   "n_images": 116,
+   "mean_tp_precision": 0.9934,
+   "mean_tp_recall": 0.9713,
+   "mean_tp_f1": 0.981,
+   "mean_percomp": 0.9337,
+   "strict_successes": 99,
+   "strict_rate": 0.8534
+  }
+ ],
+ "share_of_strict_in_top_bucket": 1.0,
+ "finding": "Strict success is concentrated in the highest-precision bucket. Circuits at terminal-pair precision >= 0.9 convert at 85%; every bucket below it converts at 0%. On the failing circuits recall stays comparatively high while precision collapses, i.e. the conductors are found and then fused. The lever is therefore separating nets on specific circuits, not improving an average."
+}

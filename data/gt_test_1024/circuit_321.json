@@ -1,0 +1,168 @@
+{
+ "schema_version": 1,
+ "image": "circuit_321.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a three-node ladder on a single grounded bottom rail. V-DC #5 (100V, '+' up / '-' down) drives R#1 (10Kohm) in series along the top; R#6 (40Kohm) shunts to ground at the midpoint; L#0 (17mH) carries on to the right-hand node, where I-DC #4 (0.3A, arrow up), C#2 (2F) and I-DC #3 (7A, arrow up) all shunt to ground. GND #7 hangs off the bottom rail at x~486. The heavy rectangle around the page is a drawing frame, not a wire, and is correctly excluded from every net.\n\nNET MAP\n  0  = the bottom rail, y~625..635, running from (170,632) under the voltage source east to (900,625) under the 7A source: bottom of V-DC #5, bottom of R#6, bottom of I-DC #4, bottom of C#2, bottom of I-DC #3, and GND #7's stem at (486,643). 6 terminals.\n  n3 = top of V-DC #5 -> up the short lead from (141,463) to the corner at (133,408) -> east along y~406 to the left end of R#1 at (213,405). Just those 2 terminals; nothing else reaches this segment.\n  n1 = right end of R#1 (320,410) -> east along y~406 -> top of R#6 joining at S3 (374,406) -> on to the left end of L#0 at (444,401). Terminals: 1.1, 6.0, 0.0.\n  n2 = right end of L#0 (565,404) -> east along y~399, picking up the top lead of I-DC #4 at S2 (604,403) and the top lead of C#2 at S1 (738,399) -> continues to (900,390) and down into the top of I-DC #3. Terminals: 0.1, 4.0, 2.0, 3.1.\n\nJUDGEMENT CALLS / SITES - every CRITICAL site here is an unambiguous T; none needed an override, and each explicit key records that it was inspected on its 5x crop:\n  * S3 (374,406) JUNCTION - R#6's top lead rises and terminates on the upper rail, which runs straight through east-west. Nothing above the rail here, so 'crossing' is not even a legal reading: it would strand R#6's top terminal on a 1-terminal net with no return path.\n  * S2 (604,403) JUNCTION - same shape for I-DC #4's top lead onto the upper rail.\n  * S1 (738,399) JUNCTION - same shape for C#2's top lead. The rail is drawn in two pen strokes that abut at the node (left stroke ends at x=738, right stroke restarts at x~747), which is why the crop looks slightly broken; the tracer resolved all three branches at one site and the drawing plainly intends one node.\n  * S9 (388,628) JUNCTION - R#6's bottom lead descends onto the bottom rail (dot score 2.0, visible ink thickening).\n  * S10 (628,632) JUNCTION - I-DC #4's bottom lead descends onto the bottom rail (dot 2.5, the clearest node blob on the sheet).\n  * S8 (758,627) JUNCTION - C#2's bottom lead descends onto the bottom rail. This only became netlist-critical after the port fix on #2 below; the crop shows a clean corner-into-T with the rail continuing both sides.\n  * S12 (484,634) JUNCTION - GND #7's stem drops off the bottom rail. Reported as deg=4 because the very short stub edge is counted twice; the hop score of 2.1 is just the small vertical kink where the hand-drawn rail restarts, not a hop arc (there is no second wire here to hop over). A ground symbol must connect, so junction is forced.\n  * Non-critical, left at default: S5 (796,470) is the '2F' label brushing the capacitor box; S6 (956,514) is the '7A' label; S7 (103,523) is the 'V' of '100V'. None affects the netlist.\n  There are NO wire-over-wire crossings anywhere on this sheet - every intersection is a T - and no hop or jog is drawn anywhere.\n\nPORT / PIN FIXES - the tracer put three terminals on handwritten value-label strokes, producing three 1-terminal nets (n4, n5, n6) plus a stranded n3:\n  * #2 Capacitor t1: was p2@(790,458), a stroke of the '2F' label to the right of the symbol (2-px and 21-px stubs, p3/p2). The real bottom plate lead is p0@(749,503), a 122-px run down to the bottom rail at S8. Repointed t1 -> p0, which puts it on net 0.\n  * #3 I-DC (7A) t1: was p3@(950,514), a 3-px fragment of the '7A' label. The real top lead is p1@(897,457), a 65-px run up to the corner at (900,390) on the upper-right rail. Repointed t1 -> p1, which puts it on n2.\n  * #5 V-DC (100V) t0: was p2@(106,512), a 9-px stroke of the 'V' in the '100V' label at the left of the symbol. The real top lead is p1@(141,463), a 53-px run up to the corner at (133,408). Repointed t0 -> p1. inkmap at (133,410) confirms that corner is solid continuous ink joining the vertical to the y~406 horizontal, so this also cured the stranded n3 (R#1's left terminal) by giving it its partner.\n  * Verified and left alone: #0 (p0 left / p1 right), #1 (p0 left / p1 right; p2 is '10Kohm' ink), #4 (p1 top / p0 bottom; p2,p3 are '0.3A' ink), #6 (p0 top / p1 bottom; p2 is '40Kohm' ink), #7 GND (p0 stem).\n\nCLASSES: all correct. #3 and #4 are current sources (circles with vertical arrows, '7A' and '0.3A'); #5 is a voltage source (circle with '+' over '-', '100V'); #1 and #6 are zig-zag resistors; #0 is a coil; #2 is a two-plate capacitor. No 3-terminal parts, so no pin-order risk.\nUNRESOLVED: none. ERC clean, 8 components, 4 nets.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Inductor",
+   "bbox": [
+    505.0,
+    401.9,
+    113.3,
+    48.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    266.3,
+    405.8,
+    100.5,
+    40.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Capacitor",
+   "bbox": [
+    748.5,
+    475.1,
+    74.3,
+    49.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "I-DC",
+   "bbox": [
+    902.6,
+    498.5,
+    78.7,
+    74.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "I-DC",
+   "bbox": [
+    615.9,
+    505.2,
+    78.2,
+    78.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    156.1,
+    503.8,
+    84.3,
+    74.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Resistor",
+   "bbox": [
+    388.6,
+    521.1,
+    50.3,
+    86.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    488.8,
+    673.8,
+    87.7,
+    54.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

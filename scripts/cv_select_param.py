@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 """Cross-validated parameter selection, so a swept value is not a test-set number.
 
-THE PROBLEM THIS EXISTS FOR. Net-level ground truth in this project covers the
-test split and nothing else: data/gt_1024, gt_netlists, gt_netlists_verified and
-_v3 all overlap the 190 test images completely and the 192 val images not at all.
-So every parameter here -- bridge_span, component_mask_pad, min_blob_area, the
-snapping radii -- was chosen by sweeping the split it is then reported on. That
-is test-set selection, and a reviewer is entitled to discount any number chosen
-that way. Building a real validation set needs ~192 images of net topology
-annotated by hand, which is a [HUMAN] task.
+THE PROBLEM THIS EXISTS FOR -- AND WHAT HAS CHANGED. Net-level ground truth used
+to cover one split and nothing else, so every parameter here -- bridge_span,
+component_mask_pad, min_blob_area, the snapping radii -- was chosen by sweeping
+the split it was then reported on. That is test-set selection, and a reviewer is
+entitled to discount any number chosen that way.
 
-What CAN be done without new annotation is to stop reporting the peak of a sweep
-as if it were an out-of-sample result. For each fold of an image-grouped K-fold:
+The second split is now annotated (docs/GT_VAL_VERIFICATION_REPORT.md) and on
+2026-08-03 the two swapped names: the 190 images every parameter was tuned on are
+now the VALIDATION split, and the 192 images that never entered selection are the
+TEST split. So the structural fix is in place -- sweep with --split val, report
+with --split test -- and this script is no longer the only defence.
+
+It still earns its place. A sweep peak read on val is a peak on 190 images and is
+partly noise wherever it is read; the out-of-fold number says how much. For each
+fold of an image-grouped K-fold:
 choose the parameter on the OTHER folds only, then read this fold's score at that
 choice. No fold ever scores an image that influenced its own selection, so the
 aggregate is an honest estimate of what the selection PROCEDURE achieves -- and

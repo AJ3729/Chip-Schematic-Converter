@@ -1,10 +1,23 @@
-# Validation-split ground truth — verification report
+# Test-split ground truth — verification report
 
-**Scope**: all 192 images in `data/splits/val.txt`.
-**Output**: `data/gt_val_verified/` — 192 JSON files, 192 overlay renders, and the
-per-image decision record that produced them.
-**Sign-off**: every file ships with `"verified": false` and `"annotator": null`.
-Flipping those is the human sign-off and is deliberately left undone.
+**Scope**: all 192 images of the split this report was written against. It was
+called `val` at the time; on 2026-08-03 it became the **test** split, because
+every tuned parameter had been selected on the other one. The images and the
+annotation are unchanged — see `data/README.md` → "the 2026-08-03 role swap".
+
+**Output**: `data/gt_test_1024/` (written as `data/gt_val_verified/`) — 192 JSON
+files, 192 overlay renders, and the per-image decision record that produced them.
+
+**Sign-off**: taken 2026-08-03 by Ammaar Junaid. Every file now carries
+`"verified": true`, `"annotator": "Ammaar Junaid"` and a `"verified_via"` field
+pointing back at this report. Until then they shipped `false`/`null` on purpose,
+so that flipping them would be a separate deliberate act rather than a default —
+`scripts/benchmark.py` refuses to score unverified GT without
+`--include-unverified`, so nothing could be reported before the sign-off
+happened.
+
+**Not covered by this sign-off**: the adjudication is the author's own. A mentor
+second-read has not happened and is still open for the manuscript.
 
 ---
 
@@ -20,14 +33,14 @@ Flipping those is the human sign-off and is deliberately left undone.
 | files failing the schema/ERC check | 0 |
 
 Frame: bounding boxes are in the **1024 px** frame (`data/cleaned_1024/`), matching
-the geometry already in `data/gt_val/`. Each file records `"bbox_frame": "cleaned_1024"`.
+the geometry already in `data/gt_val50_preswap/`. Each file records `"bbox_frame": "cleaned_1024"`.
 
-Starting point: `data/gt_val/` held 192 files, but only **50** carried nets — the
+Starting point: `data/gt_val50_preswap/` held 192 files, but only **50** carried nets — the
 other 142 had every terminal `null`. The 50 were annotated to a lower standard
 (see `data/README.md`). Rather than build on them, the nets and notes were
 stripped from the working copy so this pass had no prior to anchor on; the
 component inventory and bounding boxes (which come from the published
-Digitize-HCD COCO annotations) were kept. `data/gt_val/` itself is untouched.
+Digitize-HCD COCO annotations) were kept. `data/gt_val50_preswap/` itself is untouched.
 
 ## 2. Method
 
@@ -100,11 +113,12 @@ causing the shorts went 3→4. On `circuit_858` two contacts 137 px apart on the
 same column and the same rail differ exactly that way. All three now have 7 nets
 and are clean.
 
-**A note on the test-split GT.** `circuit_1018` in `data/gt_netlists_verified_v2`
-(the canonical benchmark GT) merges two electrically separate top branches into
+**A note on the OTHER split's GT** (the 190 images, now the validation split).
+`circuit_1018` in `data/gt_netlists_verified_v2`
+(that split's canonical annotation) merges two electrically separate top branches into
 one net. The drawing is a simple series loop — V-DC → L → (node with C to
 ground) → R → I-DC → ground, four nets — and the GT records three. Worth a look,
-since every benchmark number is computed against that set.
+since every pre-swap benchmark number is computed against that set.
 
 ## 4. Judgement calls that a reader should know about
 
@@ -114,8 +128,8 @@ self-contradictory:
 
 - **`circuit_513`, site (423,722).** The ink is unambiguous — a plain T on a
   continuous column — and read literally it short-circuits the 15 V source. The
-  rail was severed there instead. Justification: across all 190 human-verified
-  test annotations there are three sources with both terminals on one net and
+  rail was severed there instead. Justification: across the 190 human-verified annotations of
+  the other split there are three sources with both terminals on one net and
   **all three are current sources; a shorted voltage source occurs 0/190 times**.
   This image's GT therefore encodes an electrically-corrected reading rather than
   a literal one. It is the only place in the set where that was done knowingly.
@@ -163,9 +177,9 @@ disputed.
 
 ## 6. Reproducibility
 
-- `data/gt_val_verified/decisions/<stem>.json` — the decision record per image:
+- `data/gt_test_1024/decisions/<stem>.json` — the decision record per image:
   every site call, every terminal repointing, every asserted net, and the notes.
-- `data/gt_val_verified/renders/<stem>.png` — the drawing with wire ink coloured
+- `data/gt_test_1024/renders/<stem>.png` — the drawing with wire ink coloured
   by net and every terminal labelled `<component>.<terminal>=<net>`, generated
   from the shipped JSON.
 - `scripts/gt_val_tools/` — the tracer, net builder, ERC checker, zoom/pixel-dump
@@ -179,7 +193,7 @@ disputed.
 ## 7. To adopt
 
 ```bash
-python scripts/annotate_topology.py --check --gt-dir data/gt_val_verified
+python scripts/annotate_topology.py --check --gt-dir data/gt_test_1024
 # 192 GT file(s): 0 verified, 192 unverified, 0 with validation issues
 ```
 

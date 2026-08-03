@@ -1,0 +1,128 @@
+{
+ "schema_version": 1,
+ "image": "circuit_1013.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: single-source AC ladder. V-AC 5cos(20t) on the left drives a top rail; 2k series resistor to a middle node; from that node a 2mH inductor drops to the bottom rail; 5k series resistor continues right to the top of the 5uF capacitor, whose bottom returns to the bottom rail. Bottom rail is the return and carries the GND symbol.\n\nNET MAP (4 nets, 6 components):\n  0  = ground / bottom return rail y~640 from x~235 to x~765: V-AC bottom terminal (2.1), inductor bottom (3.1), capacitor bottom (4.1), GND stub (5.0).\n  n1 = left vertical + top-left corner: V-AC top terminal (2.0) and left end of the 2k resistor (0.0).\n  n2 = top rail between the two resistors, x~466..583 at y~380, plus the vertical column down to the inductor: right end of 2k (0.1), left end of 5k (1.0), top of inductor (3.0).\n  n3 = top rail right of the 5k plus the right column down to the cap: right end of 5k (1.1), top of 5uF cap (4.0).\n\nCRITICAL SITE DECISIONS:\n  S0 (513,382) deg=3 -> JUNCTION. The crop shows a clean T: the vertical column that feeds the inductor terminates on the horizontal top rail; there is no fourth branch above and no hop. A T can only be read as joined. Reading it as anything else would strand the inductor top on a one-terminal net and leave the 2k/5k midpoint floating.\n  S13 (516,640) deg=4 -> JUNCTION. The inductor's bottom lead crosses the bottom rail and continues a short stub into the GND symbol; all four branches are drawn as a plain cross with no hop and no jog. Reading it as a crossing would put the GND stub and the inductor bottom on a net separate from the bottom rail, which would leave the V-AC bottom and the capacitor bottom with no ground reference and give the inductor no return path - electrically impossible. Junction is the only sane reading, and it is also what the ink prior says.\n\nNON-CRITICAL SITES (all recorded explicitly as junction = tracer default accepted; each is handwritten label ink brushing a wire or the symbol's own ink, and none changes the netlist): S1 (649,414) '5K-ohm' text touching the 5k resistor body; S2 (386,416), S5 (421,419), S6 (410,420) '2K-ohm' text touching the 2k resistor body; S8 (806,521) '5uF' text near the capacitor; S9 (541,529) and S11 (540,538) '2mH' text touching the inductor coil.\n\nPORTS: no overrides needed. All six parts are 2-terminal or 1-terminal, so terminal order is unscored. Two summary warnings are both stray label ink, not leads: component 1 (5k resistor) port p1@(642,406) is the top of the handwritten 'K' in '5KOhm'; component 2 (V-AC) port p2@(201,514) is the tail of the handwritten 'V' in '5cos20t V'. The tracer already points t0/t1 at the true left/right (or top/bottom) leads in both cases, so p1/p2 are correctly left unused.\n\nCLASSES: all six labels agree with the drawn symbols (zig-zag = Resistor x2, circle with sine = V-AC, coil = Inductor, two parallel plates = Capacitor, three-bar stack = GND). No reclassification.\n\nUNRESOLVED: none.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Resistor",
+   "bbox": [
+    403.2,
+    382.0,
+    119.8,
+    34.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    627.9,
+    384.2,
+    84.0,
+    36.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "V-AC",
+   "bbox": [
+    232.2,
+    500.1,
+    53.3,
+    62.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Inductor",
+   "bbox": [
+    505.1,
+    524.2,
+    39.7,
+    85.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Capacitor",
+   "bbox": [
+    767.1,
+    513.4,
+    61.5,
+    42.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "GND",
+   "bbox": [
+    514.2,
+    683.9,
+    96.1,
+    42.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

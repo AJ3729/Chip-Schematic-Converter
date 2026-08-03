@@ -1,0 +1,168 @@
+{
+ "schema_version": 1,
+ "image": "circuit_420.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a four-branch DC ladder. A 10V source (#4) in series with a 10 Ohm resistor (#0) drives a top rail at y~360; hanging off that rail are (a) 5MF capacitor #3 in series with 10k resistor #6 down to the bottom rail, (b) 10k resistor #1 in series with 5H inductor #5 down to the bottom rail, and (c) a 2A current source #2. The bottom rail at y~655 is the ground rail, tied to the GND symbol #7 by the stub that continues below the rail at x~504. 8 components, 5 nets.\n\nNET MAP:\n  n1 = between the source and the series resistor: TOP terminal of V-DC #4, LEFT lead of 10 Ohm resistor #0. Physically the x~145 column from y~420 up to the corner at (145,360) and right to x~180.\n  n2 = the top rail: RIGHT lead of resistor #0, TOP lead of 10k resistor #1, TOP terminal of I-DC #2, TOP plate of capacitor #3. Runs from x~349 to the corner at (887,360).\n  n3 = between 10k #1 and 5H #5: BOTTOM lead of resistor #1 (704,482), TOP lead of inductor #5 (703,501).\n  n4 = between 5MF #3 and 10k #6: BOTTOM plate of capacitor #3 (508,481), TOP lead of resistor #6 (505,504).\n  0  = the bottom rail plus the GND stub: BOTTOM terminal of V-DC #4, BOTTOM lead of resistor #6, BOTTOM lead of inductor #5, BOTTOM terminal of I-DC #2, GND #7. Runs from the corner at (143,655) to the corner at (881,655), with the stub down from (504,666) to the GND symbol at (505,692).\n\nCRITICAL SITE DECISIONS (all four recorded):\n  S4 (702,370) deg=3 - JUNCTION. Plain T: the top rail runs continuously left-right and the resistor #1 branch descends from it. There is no fourth branch, so no crossing reading exists; the branch must join the rail or resistor #1 would float.\n  S5 (502,376) deg=3 - JUNCTION. Same geometry for the capacitor branch.\n  S7 (709,663) deg=3 - JUNCTION. T with a heavy blob (dot=2.5): the inductor's bottom lead comes down and stops on the bottom rail; nothing continues below. A crossing reading is not available at degree 3, and would leave the R#1/L#5 branch open.\n  S8 (504,666) deg=4 - JUNCTION. This is the only genuine four-way on the sheet: the x~504 column passes through the bottom rail and continues down to the GND symbol. inkmap at (504,666) shows a plain X - the column is 4-5px above and 3-4px below, widening only to 7px (about 1.7x) through the crossing, with no hop and no sideways jog, so there is no crossing marker. DECIDED JUNCTION on rule 1 (electrical impossibility of the alternative): if the column merely passed over the rail, net 0 would contain nothing but GND #7 and the bottom lead of resistor #6, so the capacitor/resistor branch would have no return path and could carry no current, and the bottom rail (V-DC, I-DC, inductor) would have no ground reference at all. The ink prior (a plain crossing means connected in this dataset) points the same way. THE OTHER READING would give 6 nets and a dead branch; rejected.\n  S1 (254,315) - non-critical, left at default: a stroke of the '10 Ohm' value label brushing the top of resistor #0's box. Does not change the netlist.\n\nPORTS / CLASSES: no corrections needed. All eight symbols match their drawn class (Resistor x3, Capacitor, Inductor, V-DC, I-DC, GND) and every terminal already sits on a real lead. The unused port candidates flagged by the tracer were each checked in the component montage and are all handwriting brushing a box: (734,422) is the '1' of resistor #1's '10KOhm' label, (743,571)/(743,583) are strokes of the inductor's '5H' label, and (466,566) is the 'Ohm' glyph and its underline from resistor #6's '10KOhm' label. None of them is used by a terminal, which is correct. Two gap bridges exist and neither changes the netlist.\n\nUNRESOLVED: nothing. The drawing is unambiguous once S8 is settled.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Resistor",
+   "bbox": [
+    265.1,
+    349.0,
+    159.3,
+    57.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    698.9,
+    436.1,
+    51.7,
+    86.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "I-DC",
+   "bbox": [
+    881.2,
+    467.8,
+    98.6,
+    99.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Capacitor",
+   "bbox": [
+    512.2,
+    449.9,
+    106.4,
+    56.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "V-DC",
+   "bbox": [
+    148.9,
+    466.3,
+    96.3,
+    83.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "Inductor",
+   "bbox": [
+    706.9,
+    555.8,
+    63.6,
+    101.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Resistor",
+   "bbox": [
+    502.4,
+    557.7,
+    56.0,
+    100.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    506.4,
+    728.1,
+    109.8,
+    64.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

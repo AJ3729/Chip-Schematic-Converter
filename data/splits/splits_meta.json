@@ -9,13 +9,13 @@
   "coco_source": "data/digitize_hcd/extracted/Digitize-HCD Dataset/Component Symbol and Text Label Data/component_annotations.json",
   "counts": {
     "train": 895,
-    "val": 192,
-    "test": 190
+    "val": 190,
+    "test": 192
   },
   "achieved_ratios": {
     "train": 0.7009,
-    "val": 0.1504,
-    "test": 0.1488
+    "val": 0.1488,
+    "test": 0.1504
   },
   "class_distribution": {
     "train": {
@@ -38,25 +38,6 @@
       "Zener Diode": 353
     },
     "val": {
-      "BJT-NPN": 93,
-      "BJT-PNP": 70,
-      "Capacitor": 323,
-      "Diode": 145,
-      "GND": 315,
-      "I-AC": 61,
-      "I-DC": 119,
-      "Inductor": 327,
-      "MOSFET-N": 50,
-      "MOSFET-P": 44,
-      "Op-Amp": 119,
-      "Resistor": 476,
-      "V-AC": 96,
-      "V-DC": 151,
-      "V-DC (one port)": 99,
-      "Wire Crossover": 227,
-      "Zener Diode": 76
-    },
-    "test": {
       "BJT-NPN": 100,
       "BJT-PNP": 73,
       "Capacitor": 315,
@@ -74,6 +55,35 @@
       "V-DC (one port)": 102,
       "Wire Crossover": 223,
       "Zener Diode": 75
+    },
+    "test": {
+      "BJT-NPN": 93,
+      "BJT-PNP": 70,
+      "Capacitor": 323,
+      "Diode": 145,
+      "GND": 315,
+      "I-AC": 61,
+      "I-DC": 119,
+      "Inductor": 327,
+      "MOSFET-N": 50,
+      "MOSFET-P": 44,
+      "Op-Amp": 119,
+      "Resistor": 476,
+      "V-AC": 96,
+      "V-DC": 151,
+      "V-DC (one port)": 99,
+      "Wire Crossover": 227,
+      "Zener Diode": 76
     }
+  },
+  "role_swap": {
+    "date": "2026-08-03",
+    "what": "The split originally named 'test' (190 images) is now 'val'; the split originally named 'val' (192 images) is now 'test'. Image membership is unchanged - only the names moved.",
+    "why": "Every parameter in configs/default.yaml was selected on the 190-image split, so any figure reported on it is in-sample. The 192-image split was never used for selection and now carries fully verified ground truth, so it can carry the headline numbers honestly.",
+    "gt_dirs": {
+      "test (192)": "data/gt_test_1024 (was data/gt_val_verified)",
+      "val (190)": "data/gt_val_1024 (was data/gt_1024)"
+    },
+    "reading_older_artifacts": "Everything under results/ committed before this date was computed on the 190-image split and is therefore a VALIDATION number, whatever its filename says."
   }
 }

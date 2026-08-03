@@ -1,0 +1,168 @@
+{
+ "schema_version": 1,
+ "image": "circuit_853.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: a single-loop ladder drawn inside a printed page frame. Top rail y~355 runs left to right: R3 (0.25k, vertical) - R2 (0.75k) - the 3A source tap - C0 (2F) - the 2H inductor tap - R1 (1.5k) - the 30V source. Bottom rail y~578 is the ground return and carries the GND symbol at (627,597).\n\nNET MAP:\n  0  = the bottom rail y~578 from x=302 to x=892: bottom of R3 (302,527), bottom of the 3A source (501,537) at S31, the GND stub (627,579) at S32, bottom of the 2H inductor (716,511) at S30, bottom of the 30V source (895,513).\n  n1 = the top rail between R2 and C0: right end of R2 (463,361) -> S12 (508,362) -> left plate of C0 (536,358), with the 3A source's top lead (502,437) rising into S12.\n  n2 = the top rail between C0 and R1: right plate of C0 (613,360) -> S10 (712,359) -> left end of R1 (758,355), with the 2H inductor's top lead (709,410) rising into S10.\n  n3 = right end of R1 (867,362) -> east to (897,361), corner, then down the x~900 column to the top lead of the 30V source (900,411).\n  n4 = left end of R2 (354,354) -> west/down the corner at (304,380) -> top of R3 (304,408). Two terminals only, which is correct: it is the plain series corner at the top-left of the drawing.\n\nJUDGEMENT CALLS: there are no ambiguous crossings on this sheet - no wire anywhere passes over another. All five critical sites are plain T's and are recorded as junctions:\n  S10 (712,359) = JUNCTION. The 2H inductor's top lead ends on the C0-to-R1 rail; the rail is continuous through the crop and the lead only goes downward. Crossing would isolate the inductor's top on a 1-terminal net.\n  S12 (508,362) = JUNCTION. The 3A source's top lead ends on the R2-to-C0 rail. Same reasoning.\n  S30 (720,576) = JUNCTION. The 2H inductor's bottom lead ends on the ground rail.\n  S31 (500,581) = JUNCTION. The 3A source's bottom lead ends on the ground rail.\n  S32 (627,579) = JUNCTION. The GND symbol's stub ends on the ground rail; this is what makes the bottom rail net '0'.\n  Non-critical sites S4, S5, S6, S8, S9, S13, S14, S17, S18, S19, S20, S22, S23, S24, S26, S27 are all handwritten value labels ('0.75k ohm', '1.5k ohm', '0.25 k ohm', '2F', '2H', '30V') touching a wire, a component box or the printed page frame; they are left at the default and touch no terminal.\n  The printed rectangular page frame (y~305 top, y~740 bottom, x~10 and x~1015 sides) is traced as ink but is electrically isolated - it touches no component port, so it contributes no net.\n\nPORT / PIN FIXES:\n  V-DC 30V (#5): terminal 1 was landing on p4 (947,477), a 2-pixel fragment of the handwritten '30V' beside the circle, which left both n3 (R1's right end) and n5 (this terminal) as 1-terminal nets. Repointed to p1 (900,411), the real top lead; edge e27 (900,364)-(900,411) joins edge e24 (867,362)-(897,361) at the corner, so the source's top terminal correctly lands on n3 with R1's right end. Its other unused candidates p2 (942,472) and p3 (943,485) are also strokes of '30V'.\n  Other unused port candidates left alone, all verified as label ink: R1 p1 (813,327) and p3 (790,326) in '1.5k ohm'; R2 p1 (419,328) in '0.75k ohm'; R3 p1 (272,522) in 'k ohm'; L4 p2 (754,474) in '2H'; I6 p2 (545,530) and p3 (545,507) in '3A'.\n\nCLASSES: all accepted as annotated - two parallel plates = Capacitor, three zig-zags = Resistor, the coil = Inductor, the circle with +/- = V-DC, the circle with an arrow = I-DC, the three-bar symbol = GND.\n\nNothing left unresolved.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Capacitor",
+   "bbox": [
+    575.0,
+    357.4,
+    69.9,
+    68.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Resistor",
+   "bbox": [
+    812.8,
+    357.9,
+    100.9,
+    54.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Resistor",
+   "bbox": [
+    408.3,
+    359.0,
+    101.0,
+    47.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Resistor",
+   "bbox": [
+    305.0,
+    467.9,
+    58.8,
+    112.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Inductor",
+   "bbox": [
+    718.9,
+    461.2,
+    57.6,
+    94.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    890.0,
+    462.4,
+    95.4,
+    94.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "I-DC",
+   "bbox": [
+    495.6,
+    487.3,
+    93.2,
+    93.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    613.9,
+    630.1,
+    112.1,
+    58.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

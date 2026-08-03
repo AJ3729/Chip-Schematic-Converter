@@ -1,0 +1,16 @@
+image,n_components,net_f1,terminal_pair_f1,unmatched_pred,unmatched_gt,has_crossover,has_multiterminal,frac_squarish_gt_boxes
+circuit_211.jpg,14,0.2222,0.2273,0,0,True,False,0.143
+circuit_639.jpg,14,0.2222,0.2162,0,0,True,False,0.0
+circuit_410.jpg,24,0.3299,0.0769,5,3,False,True,0.125
+circuit_594.jpg,14,0.3704,0.2,0,0,True,False,0.143
+circuit_557.jpg,13,0.4,0.2843,0,0,True,False,0.0
+circuit_858.jpg,13,0.5,0.3303,0,0,True,False,0.154
+circuit_221.jpg,14,0.5185,0.4328,0,0,True,False,0.071
+circuit_140.jpg,23,0.5192,0.1786,4,2,True,True,0.13
+circuit_298.jpg,24,0.5532,0.2361,0,0,False,True,0.125
+circuit_77.jpg,14,0.5556,0.5354,0,0,True,False,0.0
+circuit_630.jpg,15,0.5634,0.3101,1,0,True,True,0.067
+circuit_1264.jpg,15,0.5676,0.3022,2,0,True,True,0.133
+circuit_220.jpg,13,0.5769,0.4626,0,0,True,False,0.231
+circuit_827.jpg,14,0.5806,0.3214,0,0,True,True,0.214
+circuit_985.jpg,15,0.5882,0.3276,0,0,True,True,0.133

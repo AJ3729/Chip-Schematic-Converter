@@ -1,0 +1,168 @@
+{
+ "schema_version": 1,
+ "image": "circuit_1195.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "CIRCUIT: single mesh. Left branch = 6mA I-DC (#4) between the top rail (y~369) and the bottom rail (y~601). Middle branch = 5ohm resistor (#3) between the same two rails, with the GND stem hanging off the bottom rail at x~326. Top rail carries 5mH (#1) then 2ohm (#0) left to right; right branch is the 20mF cap (#2); bottom rail carries 2ohm (#6) then the 40V V-DC (#5). The large rectangle around the whole sheet is the page border, not wire, and touches nothing.\n\nNET MAP (6 nets):\nn3 = top-rail left section: I-DC top (172,446) up to the top-left corner (172,368), right through S7 (314,371) where the 5ohm's top lead T's on, to the 5mH left lead (363,370). Terminals 4.0, 3.0, 1.0.\nn1 = short top-rail segment between the 5mH right lead (451,367) and the 2ohm(#0) left lead (511,368). Terminals 1.1, 0.0.\nn2 = top rail from the 2ohm(#0) right lead (594,371) to the top-right corner (~688,371) and down to the 20mF top plate (678,430). Terminals 0.1, 2.0.\nn4 = 20mF bottom plate (682,469) down to the bottom-right corner (~688,604) and left to the 40V right lead (595,608). Terminals 2.1, 5.1.\nn5 = short bottom-rail segment between the 40V left lead (528,603) and the 2ohm(#6) right lead (480,604). Terminals 5.0, 6.1.\n0  = bottom-rail left section: I-DC bottom (175,509) down to the bottom-left corner (172,600), right through S10 (326,601) to the 2ohm(#6) left lead (381,601), plus the stem from S10 down to the GND symbol (326,637). Terminals 4.1, 3.1, 6.0, 7.0.\n\nJUDGEMENT CALLS:\nS10 (326,601) -> JUNCTION (agrees with the tracer default). This is the only genuinely ambiguous mark on the sheet: a plain 4-way cross with no solder dot and no hop (dot metric 1.4, hop 1.4). The pixel dump at 18 px radius shows both strokes running straight through at their normal 3 px width with no thickening and no arc, so the ink alone does not decide it. Rule 1 does: reading it as a crossing would tie the 5ohm's bottom lead to the GND symbol alone, leaving the 5ohm a dead-end branch with no return path, and would leave the entire bottom rail (the 6mA source's return, the 2ohm and the 40V source) with no ground reference. It is also the obvious drafting intent - the GND stem is drawn hanging off the bottom rail. Junction merges the 5ohm bottom, the I-DC bottom, the 2ohm(#6) left lead and GND into net 0.\nS7 (314,371) -> JUNCTION (agrees with default). Plain T: the 5ohm's top lead ends on the top rail; a T has no alternative reading. The small ink blob ~25 px to its right at (340,372) is a stray pen dot lying on the rail, not a second junction, and changes nothing.\nNo hop or jog appears anywhere in this drawing.\n\nPORTS: no fixes needed - every terminal already points at a real lead. The stray port candidates flagged by the tracer are label ink: p1/p2 on #0 and p2-p5 on #1 are the '2ohm' and '5mH' captions, p0 on #2 is the '20mF' caption. Non-critical text-touch sites S0/S3/S4/S5 ('5mH','2ohm'), S8/S9 ('20mF') and S13 ('2ohm') left at default; none of them reaches a second component terminal.\nCLASSES: all 8 agree with the labels - #4 is a bare arrow in a circle marked '6mA' (I-DC), #5 a '+' in a circle marked '40V' (V-DC), #0/#3/#6 zig-zag resistors, #1 a coil, #2 a two-plate cap, #7 GND. No re-classification.\nUNRESOLVED: none.",
+ "components": [
+  {
+   "id": 0,
+   "class": "Resistor",
+   "bbox": [
+    552.5,
+    372.2,
+    77.2,
+    34.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "Inductor",
+   "bbox": [
+    406.7,
+    374.1,
+    82.3,
+    34.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "Capacitor",
+   "bbox": [
+    679.4,
+    449.6,
+    55.6,
+    30.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "Resistor",
+   "bbox": [
+    316.1,
+    483.6,
+    34.7,
+    88.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "I-DC",
+   "bbox": [
+    170.8,
+    478.5,
+    49.1,
+    54.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "V-DC",
+   "bbox": [
+    561.4,
+    602.2,
+    61.1,
+    47.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "Resistor",
+   "bbox": [
+    430.1,
+    603.2,
+    93.1,
+    30.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    },
+    {
+     "index": 1,
+     "net": "n5"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "GND",
+   "bbox": [
+    329.4,
+    664.5,
+    84.5,
+    45.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

@@ -1,0 +1,328 @@
+{
+ "schema_version": 1,
+ "image": "circuit_985.jpg",
+ "source": "coco_geometry+manual_topology",
+ "verified": true,
+ "annotator": "Ammaar Junaid",
+ "notes": "Net map (9 nets). n1 = +5V top rail: V-DC 0 plus lead, drain of MOSFET-N 1, source of MOSFET-P 2, top of Zener 4. n2 = gate-drive column at x~310 above y=466: gate of 1, gate of 11, top of V-AC 10 (5V 3kHz). n3 = the y~466 horizontal: source of 1, drain of 2, source of 5, drain of 6. n4 = zener bias line down the left edge: gate of 2, bottom of Zener 4, gate of 6, top of V-AC 9 (1V 2kHz). n5 = drain of 5 -> right rail -> top of I-AC 13. n6 = gate of 5, right end of R7, source of 8. n7 = source of 6, left end of R7, drain of 11. n8 = drain of 8 -> top of I-AC 12. 0 = bottom rail plus the right-hand return: V-DC 0 minus lead, GND 3, GND 14, source of 11, bottoms of V-AC 9/10 and I-AC 12/13.\nJudgement calls. (a) (318,466): the x~310 column crosses the y~466 horizontal with a drawn semicircular hop (the column jogs left and rejoins); read as a CROSSING. The tracer's default merged them, which would have shorted the gate-drive column n2 onto the y~466 rail n3 and left MOSFET 1 with gate and source on one net. (b) (318,552): the same column hops the y~552 horizontal, again a crossing - the hop is unmistakable at 5x. (c) (428,466): a plain X with no dot and no hop, read as a JUNCTION. The same drafter drew an explicit hop 110 px to the left on this very rail, so a bare crossing here is a deliberate connection; reading it as a crossing strands the drain of MOSFET-P 2 on a net with nothing else on it. (d) Every remaining intersection (175,231), (387,231), (52,543), (142,545), (655,625), (430,627), (440,773), (657,779), (837,788) is a plain T - one wire ending on another - and is recorded as a junction.\nTerminal order. MOSFET pin order verified from the ink at 8x, not from geometry. In this drafter's hand the gate line is the long solid vertical parallel to the three broken channel segments, and the gate lead leaves it on the side away from the channel. On MOSFETs 1, 2, 6 and 11 that lead runs left (long horizontal, 50-192 px) while the tracer's geometric default had put the gate on the short bottom stub; all four were repointed. Drain/source: for the N-channel parts the drain is the lead toward the +5V rail and the source the lead toward the bottom rail. For the P-channel parts 2's upper lead faces the +5V rail and is read as the source; for 5 and 8 the lead running to a current source is read as the drain, matching the convention used on the verified twin sheet circuit_1. The S/D choice on 5 and 8 is the one genuinely arbitrary call here and does not change the net grouping. Independent check on the result: after the repointing, both AC sources and the zener bias line land on gates only (n2 drives the gates of 1 and 11, n4 drives the gates of 2 and 6), which is the same structure as the verified sheet circuit_1.\nPorts. V-AC 10 had both terminals on strokes of its handwritten '5v 3kHz' label, giving two one-terminal nets; repointed to the real top and bottom leads.",
+ "components": [
+  {
+   "id": 0,
+   "class": "V-DC",
+   "bbox": [
+    546.9,
+    236.3,
+    90.2,
+    68.1
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "class": "MOSFET-N",
+   "bbox": [
+    373.0,
+    287.2,
+    52.5,
+    60.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    },
+    {
+     "index": 2,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "class": "MOSFET-P",
+   "bbox": [
+    160.7,
+    311.6,
+    56.8,
+    100.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    },
+    {
+     "index": 2,
+     "net": "n1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "class": "GND",
+   "bbox": [
+    731.3,
+    299.6,
+    63.5,
+    37.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "class": "Zener Diode",
+   "bbox": [
+    45.2,
+    307.2,
+    44.1,
+    50.3
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n1"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "class": "MOSFET-P",
+   "bbox": [
+    691.4,
+    514.8,
+    59.0,
+    71.9
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    },
+    {
+     "index": 2,
+     "net": "n3"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "class": "MOSFET-N",
+   "bbox": [
+    407.4,
+    534.1,
+    61.9,
+    70.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n3"
+    },
+    {
+     "index": 1,
+     "net": "n4"
+    },
+    {
+     "index": 2,
+     "net": "n7"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "class": "Resistor",
+   "bbox": [
+    529.2,
+    626.1,
+    56.6,
+    25.2
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n7"
+    },
+    {
+     "index": 1,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "class": "MOSFET-P",
+   "bbox": [
+    679.7,
+    676.0,
+    69.8,
+    64.7
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n8"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    },
+    {
+     "index": 2,
+     "net": "n6"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "class": "V-AC",
+   "bbox": [
+    60.7,
+    683.9,
+    57.3,
+    54.4
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n4"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "class": "V-AC",
+   "bbox": [
+    178.6,
+    686.3,
+    53.6,
+    53.6
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n2"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "class": "MOSFET-N",
+   "bbox": [
+    413.3,
+    694.8,
+    59.7,
+    69.8
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n7"
+    },
+    {
+     "index": 1,
+     "net": "n2"
+    },
+    {
+     "index": 2,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "class": "I-AC",
+   "bbox": [
+    827.9,
+    702.7,
+    71.1,
+    75.5
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n8"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "class": "I-AC",
+   "bbox": [
+    936.4,
+    702.7,
+    68.1,
+    69.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "n5"
+    },
+    {
+     "index": 1,
+     "net": "0"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "class": "GND",
+   "bbox": [
+    522.8,
+    803.2,
+    59.7,
+    36.0
+   ],
+   "terminals": [
+    {
+     "index": 0,
+     "net": "0"
+    }
+   ]
+  }
+ ],
+ "bbox_frame": "cleaned_1024",
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+}

@@ -54,8 +54,11 @@ DEPS: list[tuple[str, list[str], str]] = [
      "detection cache for the default config"),
     ("data/yolo_1024/labels/test/*.txt", ["data/transforms_1024.json"],
      "detection labels for the default config"),
-    ("data/gt_1024/*.json", ["data/gt_netlists_verified_v3/*.json"],
-     "canonical GT expressed in 1024 coordinates"),
+    ("data/gt_val_1024/*.json", ["data/gt_netlists_verified_v3/*.json"],
+     "validation-split GT expressed in 1024 coordinates"),
+    # The test GT is annotated natively in the 1024 frame, so it has no
+    # upstream to go stale against.
+    ("data/gt_test_1024/*.json", [], "test-split GT (benchmark.gt_dir)"),
 ]
 
 # tolerance: artifacts written in the same batch race by seconds
