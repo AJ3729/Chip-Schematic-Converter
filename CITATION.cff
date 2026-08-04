@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+title: >-
+  schematic2netlist: hand-drawn circuit schematics to SPICE netlists,
+  with a verified connectivity benchmark
+message: >-
+  If you use this software or the connectivity ground truth, please cite it.
+type: software
+authors:
+  - family-names: Junaid
+    given-names: Ammaar
+license: MIT
+repository-code: "https://github.com/REPLACE-ME/schematic2netlist"
+abstract: >-
+  A deterministic, fully local pipeline that converts photographs of
+  hand-drawn analog circuit schematics into simulation-ready SPICE netlists,
+  released with a human-verified connectivity ground truth for the
+  Digitize-HCD dataset. The ground truth covers 192 circuits (2,564
+  components, 5,090 terminals, 1,497 nets); every net was traced from null
+  rather than bootstrapped from pipeline output, and the per-image
+  adjudication record is released so each netlist is reproducible from its
+  decisions. On the held-out split the pipeline reaches 0.516 strict
+  end-to-end success, 0.877 net F1 and 0.182 normalized graph edit distance,
+  and a ledgered design-intent repair layer raises DC solvability from 0.526
+  to 0.729 without altering any component net assignment.
+keywords:
+  - circuit digitization
+  - hand-drawn schematics
+  - netlist extraction
+  - SPICE
+  - graph extraction
+  - document analysis
+  - benchmark
+references:
+  - type: data
+    title: "Digitize-HCD: A dataset for digitization of handwritten circuit diagrams"
+    authors:
+      - family-names: Ahmed
+        given-names: N.
+    doi: 10.17632/rngcz5wtv8
+    year: 2025
+    notes: Source image corpus, CC BY 4.0.
+  - type: data
+    title: "CGHD: A dataset of circuit graphs from hand-drawn diagrams"
+    url: "https://zenodo.org/records/10056817"
+    notes: Cross-dataset zero-shot material, CC BY 4.0.

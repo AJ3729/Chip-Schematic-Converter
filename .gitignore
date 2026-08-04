@@ -61,3 +61,8 @@ results/weld_adjudication/*.png
 # against a stray --jsonl-dir or --keep-jsonl putting them in the history.
 # Nothing else in the repo uses .jsonl; `git add -f` if that ever changes.
 *.jsonl
+
+# Working scratch. Per-arm sweep configs live here transiently; the
+# authoritative copy of every config is the snapshot inside each run's
+# results/<run>/run_meta.json, so nothing here needs versioning.
+scratchpad/

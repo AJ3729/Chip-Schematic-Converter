@@ -5,10 +5,10 @@ PREDICTED component whose pins all land on the same node is, on that prior,
 almost certainly a weld -- and unlike a skeleton site, its location is a
 detector box accurate to ~2 px. Measure the precision of that signal.
 """
+import argparse
 import sys, csv, json
 from pathlib import Path
 from collections import Counter
-sys.path.insert(0, 'scripts')
 import numpy as np
 from schematic2netlist.config import load_config
 from schematic2netlist.detect import load_cached_detections
@@ -19,13 +19,18 @@ from schematic2netlist.classes import canonical_class
 
 from schematic2netlist.splits import load_split
 
+ap = argparse.ArgumentParser(description=__doc__,
+                             formatter_class=argparse.RawDescriptionHelpFormatter)
+ap.add_argument("--split", default="val",
+                help="exploratory measurement, so it reads val by default and a "
+                     "prior measured here cannot leak into a reported number")
+ap.add_argument("--limit", type=int, default=None)
+args = ap.parse_args()
+
 cfg = load_config(None)
-# exploratory: reads val so a prior measured here cannot leak into a
-# reported number. Pass a split name as argv[2] to override.
-split = sys.argv[2] if len(sys.argv) > 2 else 'val'
-names = load_split(split)
-limit = int(sys.argv[1]) if len(sys.argv) > 1 else len(names)
-names = names[:limit]
+names = load_split(args.split)
+if args.limit:
+    names = names[: args.limit]
 from schematic2netlist.frames import resolve_and_check
 images_dir = resolve_and_check(None, names, cfg)
 

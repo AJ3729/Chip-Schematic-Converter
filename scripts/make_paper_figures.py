@@ -75,9 +75,17 @@ def style() -> None:
 
 
 def save(fig, name: str) -> None:
+    """Write PDF (for LaTeX) and PNG (to eyeball), reproducibly.
+
+    matplotlib stamps a CreationDate into PDF metadata, so regenerating an
+    unchanged figure produced a non-empty git diff — which trains a reader to
+    ignore diffs in exactly the directory where a diff should mean something.
+    Setting the date to a constant makes regeneration byte-identical.
+    """
     FIG.mkdir(parents=True, exist_ok=True)
-    for ext in ("pdf", "png"):        # PDF for LaTeX, PNG to eyeball quickly
-        fig.savefig(FIG / f"{name}.{ext}")
+    meta = {"pdf": {"CreationDate": None}, "png": {"Software": None}}
+    for ext in ("pdf", "png"):
+        fig.savefig(FIG / f"{name}.{ext}", metadata=meta[ext])
     plt.close(fig)
     print(f"  wrote paper/figures/{name}.pdf (+png)")
 

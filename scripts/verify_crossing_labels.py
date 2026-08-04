@@ -44,6 +44,12 @@ from collections import Counter
 import cv2
 import numpy as np
 
+import sys
+from pathlib import Path
+# scripts/ is a package, so importing a sibling needs the repo root on
+# sys.path — otherwise this file runs only via `python -m`.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import scripts.build_crossing_dataset as B  # noqa: E402  (same-dir import)
 from schematic2netlist.skeleton import intersection_sites_with_degree
 

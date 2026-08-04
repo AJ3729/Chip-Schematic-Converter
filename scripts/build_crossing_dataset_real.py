@@ -50,6 +50,12 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+import sys
+from pathlib import Path
+# scripts/ is a package, so importing a sibling needs the repo root on
+# sys.path — otherwise this file runs only via `python -m`.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import scripts.build_crossing_dataset as B
 from schematic2netlist.config import load_config
 from schematic2netlist.preprocess import preprocess_image_meta
