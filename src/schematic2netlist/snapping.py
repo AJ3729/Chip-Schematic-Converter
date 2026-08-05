@@ -210,8 +210,12 @@ def snap_boundary(
     return nodes
 
 
+_PORT_HEAD_WARNED = False
+
+
 def snap_ports(
-    det: dict, node_map: np.ndarray, cfg: dict, n_terminals: int
+    det: dict, node_map: np.ndarray, cfg: dict, n_terminals: int,
+    gray: np.ndarray | None = None,
 ) -> tuple[list, dict | None]:
     """Port-template snapping (contribution C3).
 
@@ -238,17 +242,40 @@ def snap_ports(
         if len(found) >= n_terminals:
             break
 
-    matched = ports_mod.match_ports(canonical_class(det["class"]), det, sites)
+    cls = canonical_class(det["class"])
+    matched = ports_mod.match_ports(cls, det, sites)
     if matched is not None:
         nodes, info = matched
         if len(nodes) == n_terminals:
+            # The templates place pins from wire geometry and cannot read the
+            # arrowhead or the +/- glyph, so their ORDER on a directional part
+            # is close to a coin flip on one axis. The learned head looks at
+            # the symbol and re-permutes -- it never changes WHICH nodes are in
+            # the list, so connectivity cannot move. Falls back silently.
+            if gray is not None:
+                try:
+                    from schematic2netlist import port_head as _ph
+                    r = _ph.reorder(cls, det, sites, nodes, gray, cfg)
+                    if r is not None:
+                        nodes, extra = r
+                        info = {**(info or {}), **extra}
+                except Exception as exc:      # never break the pipeline...
+                    # ...but do not fail SILENTLY either: a swallowed load
+                    # error is indistinguishable from a head that simply
+                    # agreed with the templates, and cost real debugging time.
+                    global _PORT_HEAD_WARNED
+                    if not _PORT_HEAD_WARNED:
+                        _PORT_HEAD_WARNED = True
+                        import warnings
+                        warnings.warn(f"port head disabled: {type(exc).__name__}: {exc}")
             return nodes, info
 
     return snap_boundary(det, node_map, cfg, n_terminals), None
 
 
 def build_component_pin_nets(
-    detections: list[dict], node_map: np.ndarray, cfg: dict
+    detections: list[dict], node_map: np.ndarray, cfg: dict,
+    gray: np.ndarray | None = None,
 ) -> list[dict]:
     """Snap every detected component's terminals to wire nodes.
 
@@ -296,7 +323,7 @@ def build_component_pin_nets(
             nodes = snap_boundary(det, node_map, cfg, class_terminals(det["class"]))
         elif strategy == "ports":
             nodes, port_info = snap_ports(
-                det, node_map, cfg, class_terminals(det["class"])
+                det, node_map, cfg, class_terminals(det["class"]), gray
             )
         elif strategy == "directional":
             nodes = snap_directional(det, node_map, cfg)

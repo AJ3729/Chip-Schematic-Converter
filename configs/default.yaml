@@ -297,6 +297,21 @@ nodes:
   junction_context: 3.0     # crop context, must match training
 
 snapping:
+  # Learned port identity (which crossing is which named pin).
+  # ports.py picks a pose from WIRE GEOMETRY and, in its own words, "cannot
+  # read the arrowhead at all" -- which is the only evidence separating a BJT
+  # collector from its emitter, an op-amp's two inputs, or a MOSFET gate from a
+  # channel terminal. netlist.py writes Q<c> <b> <e> / M<d> <g> <s> /
+  # E<out> 0 <in+> <in-> straight off that order, so a reversed device is
+  # emitted reversed and SIMULATES wrongly while every topology metric reports
+  # success (canonicalize_terminals sorts pin order away on both sides).
+  # The head only PERMUTES the pins snapping already found -- it never changes
+  # which nodes a component touches, so net-level topology cannot move.
+  port_head:
+    enabled: false            # flipped on once the heads are trained + validated
+    weights_dir: experiments/port_head
+    min_total_score: 0.0      # sum of per-pin responses; 0 = always trust
+
   # ports = port-template pin identity (C3). It measured only +0.013
   # terminal-pair F1 against padded masks and delivers +0.068 against
   # clean ones — the contribution was suppressed by component_mask_pad

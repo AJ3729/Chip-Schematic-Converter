@@ -1,0 +1,227 @@
+{
+ "port_head": {
+  "split": "test",
+  "gt_dir": "data/gt_test_1024",
+  "multi_terminal_matched": 98,
+  "decidable": 51,
+  "undecidable": 47,
+  "correct": 20,
+  "wrong": 31,
+  "accuracy": 0.3922,
+  "by_class": {
+   "BJT-NPN": {
+    "correct": 4,
+    "decidable": 24,
+    "accuracy": 0.1667
+   },
+   "BJT-PNP": {
+    "correct": 11,
+    "decidable": 17,
+    "accuracy": 0.6471
+   },
+   "MOSFET-N": {
+    "correct": 1,
+    "decidable": 2,
+    "accuracy": 0.5
+   },
+   "MOSFET-P": {
+    "correct": 0,
+    "decidable": 2,
+    "accuracy": 0.0
+   },
+   "Op-Amp": {
+    "correct": 4,
+    "decidable": 6,
+    "accuracy": 0.6667
+   }
+  },
+  "wrong_permutations": {
+   "(1, 0, 2)": 13,
+   "(2, 1, 0)": 10,
+   "(2, 0, 1)": 5,
+   "(1, 2, 0)": 3
+  },
+  "wrong_examples": [
+   {
+    "image": "circuit_1048",
+    "comp": 19,
+    "class": "BJT-NPN",
+    "gt": [
+     "n4",
+     "n14",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n4",
+     "n14"
+    ]
+   },
+   {
+    "image": "circuit_1048",
+    "comp": 21,
+    "class": "BJT-NPN",
+    "gt": [
+     "n11",
+     "n15",
+     "0"
+    ],
+    "pred_mapped": [
+     "n15",
+     "n11",
+     "0"
+    ]
+   },
+   {
+    "image": "circuit_1048",
+    "comp": 22,
+    "class": "BJT-NPN",
+    "gt": [
+     "n8",
+     "n15",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n8",
+     "n15"
+    ]
+   },
+   {
+    "image": "circuit_1080",
+    "comp": 7,
+    "class": "BJT-PNP",
+    "gt": [
+     "n7",
+     "n3",
+     "n9"
+    ],
+    "pred_mapped": [
+     "n3",
+     "n7",
+     "n9"
+    ]
+   },
+   {
+    "image": "circuit_1175",
+    "comp": 3,
+    "class": "BJT-NPN",
+    "gt": [
+     "n1",
+     "n3",
+     "n4"
+    ],
+    "pred_mapped": [
+     "n4",
+     "n3",
+     "n1"
+    ]
+   },
+   {
+    "image": "circuit_118",
+    "comp": 18,
+    "class": "BJT-NPN",
+    "gt": [
+     "n9",
+     "n15",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n9",
+     "n15"
+    ]
+   },
+   {
+    "image": "circuit_118",
+    "comp": 12,
+    "class": "BJT-PNP",
+    "gt": [
+     "n11",
+     "n12",
+     "n7"
+    ],
+    "pred_mapped": [
+     "n12",
+     "n7",
+     "n11"
+    ]
+   },
+   {
+    "image": "circuit_118",
+    "comp": 1,
+    "class": "BJT-NPN",
+    "gt": [
+     "n1",
+     "n2",
+     "n3"
+    ],
+    "pred_mapped": [
+     "n3",
+     "n2",
+     "n1"
+    ]
+   },
+   {
+    "image": "circuit_118",
+    "comp": 11,
+    "class": "BJT-PNP",
+    "gt": [
+     "n9",
+     "n10",
+     "n6"
+    ],
+    "pred_mapped": [
+     "n10",
+     "n6",
+     "n9"
+    ]
+   },
+   {
+    "image": "circuit_118",
+    "comp": 20,
+    "class": "BJT-NPN",
+    "gt": [
+     "n3",
+     "n14",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n14",
+     "n3"
+    ]
+   },
+   {
+    "image": "circuit_118",
+    "comp": 21,
+    "class": "BJT-NPN",
+    "gt": [
+     "n11",
+     "n15",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n15",
+     "n11"
+    ]
+   },
+   {
+    "image": "circuit_118",
+    "comp": 19,
+    "class": "BJT-NPN",
+    "gt": [
+     "n8",
+     "n11",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n8",
+     "n11"
+    ]
+   }
+  ]
+ }
+}

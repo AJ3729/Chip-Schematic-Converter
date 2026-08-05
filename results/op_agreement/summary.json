@@ -1,0 +1,6263 @@
+{
+  "_what": "DC operating-point agreement between the predicted netlist and the ground-truth netlist, with IDENTICAL placeholder component values on both sides, so every voltage difference is attributable to topology, component class, or pin order. Read REPORT.md.",
+  "config_hash": "bcdfb7339bcb",
+  "seed": 0,
+  "split": "test",
+  "gt_dir": "data/gt_test_1024",
+  "images_dir": "data/cleaned_1024",
+  "tolerance": {
+    "atol_V": 0.001,
+    "rtol": 0.0
+  },
+  "acceptance_min_f1": 0.9,
+  "chosen_policy": "hv",
+  "chosen_placeholders": {
+    "resistor": "1k",
+    "capacitor": "1u",
+    "inductor": "1m",
+    "dc_supply": "DC 15",
+    "ac_supply": "DC 15 AC 1",
+    "dc_current": "DC 1m",
+    "ac_current": "DC 1m AC 1m",
+    "diode_model": "Ddefault",
+    "zener_model": "Zdefault",
+    "mosfet_model": "NMOS"
+  },
+  "policy_selection": {
+    "_rule": "ranked ONLY by pooled detection rate on injected pin swaps (controlled test). The agreement number is recorded beside each candidate so it is visible the choice was not made on the headline. Ties break toward the earlier, more conservative policy.",
+    "candidates": {
+      "shipped": {
+        "pooled_detection_rate": 0.5728744939271255,
+        "pooled_detection_rate_on_detectable": 0.8971061093247589,
+        "undetectable_by_equipotential_terminals": 183,
+        "n_swaps": 494,
+        "detection_by_kind": {
+          "bjt_collector_emitter": 0.6932515337423313,
+          "diode_reversal": 0.7,
+          "iac_direction": 0.0,
+          "idc_direction": 0.546875,
+          "mosfet_drain_source": 0.3333333333333333,
+          "opamp_input_swap": 0.2289156626506024,
+          "vac_polarity": 0.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": 0.0
+        },
+        "detection_by_kind_on_detectable": {
+          "bjt_collector_emitter": 0.837037037037037,
+          "diode_reversal": 1.0,
+          "iac_direction": 0.0,
+          "idc_direction": 0.8292682926829268,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 1.0,
+          "vac_polarity": null,
+          "vdc_polarity": 1.0,
+          "zener_reversal": 0.0
+        },
+        "passive_control_violations": 0,
+        "degenerate_zero_op": 20,
+        "both_solve": 94,
+        "mean_f1_non_degenerate": 0.5298715684831837,
+        "mean_f1_all_both_solve": 0.6162190804729977,
+        "placeholders": {
+          "resistor": "1k",
+          "capacitor": "1u",
+          "inductor": "1m",
+          "dc_supply": "DC 5",
+          "ac_supply": "AC 1",
+          "dc_current": "DC 1m",
+          "ac_current": "AC 1m",
+          "diode_model": "Ddefault",
+          "zener_model": "Zdefault",
+          "mosfet_model": "NMOS"
+        }
+      },
+      "ac_dc_biased": {
+        "pooled_detection_rate": 0.6963562753036437,
+        "pooled_detection_rate_on_detectable": 0.9175824175824175,
+        "undetectable_by_equipotential_terminals": 130,
+        "n_swaps": 494,
+        "detection_by_kind": {
+          "bjt_collector_emitter": 0.7116564417177914,
+          "diode_reversal": 0.94,
+          "iac_direction": 0.7857142857142857,
+          "idc_direction": 0.546875,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 0.2289156626506024,
+          "vac_polarity": 1.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": 0.42857142857142855
+        },
+        "detection_by_kind_on_detectable": {
+          "bjt_collector_emitter": 0.837037037037037,
+          "diode_reversal": 1.0,
+          "iac_direction": 0.9166666666666666,
+          "idc_direction": 0.8292682926829268,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 1.0,
+          "vac_polarity": 1.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": null
+        },
+        "passive_control_violations": 0,
+        "degenerate_zero_op": 1,
+        "both_solve": 94,
+        "mean_f1_non_degenerate": 0.5712598143486264,
+        "mean_f1_all_both_solve": 0.5758208801534282,
+        "placeholders": {
+          "resistor": "1k",
+          "capacitor": "1u",
+          "inductor": "1m",
+          "dc_supply": "DC 5",
+          "ac_supply": "DC 5 AC 1",
+          "dc_current": "DC 1m",
+          "ac_current": "DC 1m AC 1m",
+          "diode_model": "Ddefault",
+          "zener_model": "Zdefault",
+          "mosfet_model": "NMOS"
+        }
+      },
+      "hv": {
+        "pooled_detection_rate": 0.7206477732793523,
+        "pooled_detection_rate_on_detectable": 0.9506849315068493,
+        "undetectable_by_equipotential_terminals": 129,
+        "n_swaps": 494,
+        "detection_by_kind": {
+          "bjt_collector_emitter": 0.7975460122699386,
+          "diode_reversal": 0.96,
+          "iac_direction": 0.7857142857142857,
+          "idc_direction": 0.546875,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 0.2289156626506024,
+          "vac_polarity": 1.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": 0.0
+        },
+        "detection_by_kind_on_detectable": {
+          "bjt_collector_emitter": 0.9259259259259259,
+          "diode_reversal": 1.0,
+          "iac_direction": 0.9166666666666666,
+          "idc_direction": 0.8333333333333334,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 1.0,
+          "vac_polarity": 1.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": null
+        },
+        "passive_control_violations": 0,
+        "degenerate_zero_op": 1,
+        "both_solve": 94,
+        "mean_f1_non_degenerate": 0.5712598143486264,
+        "mean_f1_all_both_solve": 0.5758208801534282,
+        "placeholders": {
+          "resistor": "1k",
+          "capacitor": "1u",
+          "inductor": "1m",
+          "dc_supply": "DC 15",
+          "ac_supply": "DC 15 AC 1",
+          "dc_current": "DC 1m",
+          "ac_current": "DC 1m AC 1m",
+          "diode_model": "Ddefault",
+          "zener_model": "Zdefault",
+          "mosfet_model": "NMOS"
+        }
+      },
+      "hv_lowcurrent": {
+        "pooled_detection_rate": 0.7206477732793523,
+        "pooled_detection_rate_on_detectable": 0.9506849315068493,
+        "undetectable_by_equipotential_terminals": 129,
+        "n_swaps": 494,
+        "detection_by_kind": {
+          "bjt_collector_emitter": 0.7975460122699386,
+          "diode_reversal": 0.96,
+          "iac_direction": 0.7857142857142857,
+          "idc_direction": 0.546875,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 0.2289156626506024,
+          "vac_polarity": 1.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": 0.0
+        },
+        "detection_by_kind_on_detectable": {
+          "bjt_collector_emitter": 0.9259259259259259,
+          "diode_reversal": 1.0,
+          "iac_direction": 0.9166666666666666,
+          "idc_direction": 0.8333333333333334,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 1.0,
+          "vac_polarity": 1.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": null
+        },
+        "passive_control_violations": 0,
+        "degenerate_zero_op": 1,
+        "both_solve": 94,
+        "mean_f1_non_degenerate": 0.5712598143486264,
+        "mean_f1_all_both_solve": 0.5758208801534282,
+        "placeholders": {
+          "resistor": "1k",
+          "capacitor": "1u",
+          "inductor": "1m",
+          "dc_supply": "DC 15",
+          "ac_supply": "DC 15 AC 1",
+          "dc_current": "DC 100u",
+          "ac_current": "DC 100u AC 1m",
+          "diode_model": "Ddefault",
+          "zener_model": "Zdefault",
+          "mosfet_model": "NMOS"
+        }
+      },
+      "hv_lowcurrent_10k": {
+        "pooled_detection_rate": 0.7145748987854251,
+        "pooled_detection_rate_on_detectable": 0.9452054794520548,
+        "undetectable_by_equipotential_terminals": 129,
+        "n_swaps": 494,
+        "detection_by_kind": {
+          "bjt_collector_emitter": 0.7852760736196319,
+          "diode_reversal": 0.94,
+          "iac_direction": 0.7857142857142857,
+          "idc_direction": 0.546875,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 0.2289156626506024,
+          "vac_polarity": 1.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": 0.0
+        },
+        "detection_by_kind_on_detectable": {
+          "bjt_collector_emitter": 0.9111111111111111,
+          "diode_reversal": 1.0,
+          "iac_direction": 0.9166666666666666,
+          "idc_direction": 0.8333333333333334,
+          "mosfet_drain_source": 1.0,
+          "opamp_input_swap": 1.0,
+          "vac_polarity": 1.0,
+          "vdc_polarity": 1.0,
+          "zener_reversal": null
+        },
+        "passive_control_violations": 0,
+        "degenerate_zero_op": 1,
+        "both_solve": 94,
+        "mean_f1_non_degenerate": 0.5712598143486264,
+        "mean_f1_all_both_solve": 0.5758208801534282,
+        "placeholders": {
+          "resistor": "10k",
+          "capacitor": "1u",
+          "inductor": "1m",
+          "dc_supply": "DC 15",
+          "ac_supply": "DC 15 AC 1",
+          "dc_current": "DC 100u",
+          "ac_current": "DC 100u AC 1m",
+          "diode_model": "Ddefault",
+          "zener_model": "Zdefault",
+          "mosfet_model": "NMOS"
+        }
+      }
+    }
+  },
+  "variants": {
+    "shipped": {
+      "circuits": 192,
+      "populations": {
+        "_denominator_policy": "The metric is DEFINED ONLY on both_solve. Circuits outside it are reported here and in per_image.csv, never dropped.",
+        "both_solve": 94,
+        "only_gt_solves": 22,
+        "only_pred_solves": 7,
+        "neither_solves": 69,
+        "gt_solved": 116,
+        "pred_solved": 101,
+        "pred_repaired_solved": 140,
+        "gt_categories": {
+          "ok": 116,
+          "singular_matrix": 75,
+          "parse_error": 1
+        },
+        "pred_categories": {
+          "ok": 101,
+          "singular_matrix": 90,
+          "parse_error": 1
+        }
+      },
+      "degenerate_zero_op": {
+        "_meaning": "circuits in both_solve whose REFERENCE operating point is identically 0 V on every node -- their only excitation is an AC source, whose DC value is 0. Every corresponded node agrees for free there, so the score degenerates into a node-count check and measures no voltage at all. Reported separately, never merged into the headline silently.",
+        "n": 20,
+        "stems": [
+          "circuit_1013",
+          "circuit_1022",
+          "circuit_1052",
+          "circuit_1103",
+          "circuit_1197",
+          "circuit_1234",
+          "circuit_1259",
+          "circuit_20",
+          "circuit_218",
+          "circuit_255",
+          "circuit_486",
+          "circuit_612",
+          "circuit_616",
+          "circuit_697",
+          "circuit_78",
+          "circuit_817",
+          "circuit_89",
+          "circuit_920",
+          "circuit_923",
+          "circuit_940"
+        ]
+      },
+      "aggregate_all_both_solve": {
+        "_domain": "every circuit where both sides solve",
+        "n_scored": 94,
+        "mean_f1": 0.6162190804729977,
+        "mean_recall": 0.614414591101321,
+        "mean_precision": 0.6186177903843076,
+        "exact_circuits": 35,
+        "exact_rate": 0.3723404255319149,
+        "pooled_node_recall": 0.5413669064748201,
+        "pooled_node_precision": 0.5502742230347349,
+        "pooled_nodes_gt": 556,
+        "pooled_nodes_pred": 547,
+        "pooled_nodes_agreeing": 301
+      },
+      "aggregate_non_degenerate": {
+        "_domain": "both sides solve AND the reference operating point is not identically zero -- the domain on which this is a VOLTAGE metric",
+        "n_scored": 74,
+        "mean_f1": 0.5298715684831837,
+        "mean_recall": 0.5282203364440207,
+        "mean_precision": 0.5322081841818683,
+        "exact_circuits": 18,
+        "exact_rate": 0.24324324324324326,
+        "pooled_node_recall": 0.4904862579281184,
+        "pooled_node_precision": 0.49678800856531047,
+        "pooled_nodes_gt": 473,
+        "pooled_nodes_pred": 467,
+        "pooled_nodes_agreeing": 232
+      },
+      "aggregate_degenerate_only": {
+        "_domain": "the all-zero circuits alone",
+        "n_scored": 20,
+        "mean_f1": 0.9357048748353097,
+        "mean_recall": 0.9333333333333332,
+        "mean_precision": 0.9383333333333332,
+        "exact_circuits": 17,
+        "exact_rate": 0.85,
+        "pooled_node_recall": 0.8313253012048193,
+        "pooled_node_precision": 0.8625,
+        "pooled_nodes_gt": 83,
+        "pooled_nodes_pred": 80,
+        "pooled_nodes_agreeing": 69
+      },
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 5",
+        "ac_supply": "AC 1",
+        "dc_current": "DC 1m",
+        "ac_current": "AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "overrides_vs_shipped": {},
+      "tolerance_sensitivity": [
+        {
+          "tolerance": "1nV",
+          "atol_V": 1e-09,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6162190804729977,
+          "mean_f1_non_degenerate": 0.5298715684831837,
+          "exact_circuits": 35,
+          "pooled_node_recall": 0.5413669064748201
+        },
+        {
+          "tolerance": "1uV",
+          "atol_V": 1e-06,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6162190804729977,
+          "mean_f1_non_degenerate": 0.5298715684831837,
+          "exact_circuits": 35,
+          "pooled_node_recall": 0.5413669064748201
+        },
+        {
+          "tolerance": "1mV (PRIMARY)",
+          "atol_V": 0.001,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6162190804729977,
+          "mean_f1_non_degenerate": 0.5298715684831837,
+          "exact_circuits": 35,
+          "pooled_node_recall": 0.5413669064748201
+        },
+        {
+          "tolerance": "1mV or 1% rel",
+          "atol_V": 0.001,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.6225105469566399,
+          "mean_f1_non_degenerate": 0.5378634313137562,
+          "exact_circuits": 35,
+          "pooled_node_recall": 0.5575539568345323
+        },
+        {
+          "tolerance": "10mV",
+          "atol_V": 0.01,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6189644476658597,
+          "mean_f1_non_degenerate": 0.5333589268092518,
+          "exact_circuits": 35,
+          "pooled_node_recall": 0.5485611510791367
+        },
+        {
+          "tolerance": "100mV",
+          "atol_V": 0.1,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6452487965308538,
+          "mean_f1_non_degenerate": 0.566747153745866,
+          "exact_circuits": 35,
+          "pooled_node_recall": 0.6151079136690647
+        },
+        {
+          "tolerance": "500mV",
+          "atol_V": 0.5,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6910094187120851,
+          "mean_f1_non_degenerate": 0.6224185091947517,
+          "exact_circuits": 41,
+          "pooled_node_recall": 0.7284172661870504
+        }
+      ]
+    },
+    "ac_dc_biased": {
+      "circuits": 192,
+      "populations": {
+        "_denominator_policy": "The metric is DEFINED ONLY on both_solve. Circuits outside it are reported here and in per_image.csv, never dropped.",
+        "both_solve": 94,
+        "only_gt_solves": 22,
+        "only_pred_solves": 7,
+        "neither_solves": 69,
+        "gt_solved": 116,
+        "pred_solved": 101,
+        "pred_repaired_solved": 135,
+        "gt_categories": {
+          "ok": 116,
+          "singular_matrix": 75,
+          "parse_error": 1
+        },
+        "pred_categories": {
+          "ok": 101,
+          "singular_matrix": 89,
+          "timeout": 1,
+          "parse_error": 1
+        }
+      },
+      "degenerate_zero_op": {
+        "_meaning": "circuits in both_solve whose REFERENCE operating point is identically 0 V on every node -- their only excitation is an AC source, whose DC value is 0. Every corresponded node agrees for free there, so the score degenerates into a node-count check and measures no voltage at all. Reported separately, never merged into the headline silently.",
+        "n": 1,
+        "stems": [
+          "circuit_940"
+        ]
+      },
+      "aggregate_all_both_solve": {
+        "_domain": "every circuit where both sides solve",
+        "n_scored": 94,
+        "mean_f1": 0.5758208801534282,
+        "mean_recall": 0.5745209740800445,
+        "mean_precision": 0.577660343575797,
+        "exact_circuits": 31,
+        "exact_rate": 0.32978723404255317,
+        "pooled_node_recall": 0.5017985611510791,
+        "pooled_node_precision": 0.5100548446069469,
+        "pooled_nodes_gt": 556,
+        "pooled_nodes_pred": 547,
+        "pooled_nodes_agreeing": 279
+      },
+      "aggregate_non_degenerate": {
+        "_domain": "both sides solve AND the reference operating point is not identically zero -- the domain on which this is a VOLTAGE metric",
+        "n_scored": 93,
+        "mean_f1": 0.5712598143486264,
+        "mean_recall": 0.5699459307905826,
+        "mean_precision": 0.5731190569475797,
+        "exact_circuits": 30,
+        "exact_rate": 0.3225806451612903,
+        "pooled_node_recall": 0.5009009009009009,
+        "pooled_node_precision": 0.5091575091575091,
+        "pooled_nodes_gt": 555,
+        "pooled_nodes_pred": 546,
+        "pooled_nodes_agreeing": 278
+      },
+      "aggregate_degenerate_only": {
+        "_domain": "the all-zero circuits alone",
+        "n_scored": 1,
+        "mean_f1": 1.0,
+        "mean_recall": 1.0,
+        "mean_precision": 1.0,
+        "exact_circuits": 1,
+        "exact_rate": 1.0,
+        "pooled_node_recall": 1.0,
+        "pooled_node_precision": 1.0,
+        "pooled_nodes_gt": 1,
+        "pooled_nodes_pred": 1,
+        "pooled_nodes_agreeing": 1
+      },
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 5",
+        "ac_supply": "DC 5 AC 1",
+        "dc_current": "DC 1m",
+        "ac_current": "DC 1m AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "overrides_vs_shipped": {
+        "ac_supply": "DC 5 AC 1",
+        "ac_current": "DC 1m AC 1m"
+      },
+      "tolerance_sensitivity": [
+        {
+          "tolerance": "1nV",
+          "atol_V": 1e-09,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1uV",
+          "atol_V": 1e-06,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1mV (PRIMARY)",
+          "atol_V": 0.001,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1mV or 1% rel",
+          "atol_V": 0.001,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.5821123466370705,
+          "mean_f1_non_degenerate": 0.5776189310095121,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5179856115107914
+        },
+        {
+          "tolerance": "10mV",
+          "atol_V": 0.01,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5785662473462903,
+          "mean_f1_non_degenerate": 0.5740347016188311,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5089928057553957
+        },
+        {
+          "tolerance": "100mV",
+          "atol_V": 0.1,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6048505962112845,
+          "mean_f1_non_degenerate": 0.6006016778909756,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5755395683453237
+        },
+        {
+          "tolerance": "500mV",
+          "atol_V": 0.5,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6539961313518967,
+          "mean_f1_non_degenerate": 0.6502756596460032,
+          "exact_circuits": 38,
+          "pooled_node_recall": 0.6888489208633094
+        }
+      ]
+    },
+    "hv": {
+      "circuits": 192,
+      "populations": {
+        "_denominator_policy": "The metric is DEFINED ONLY on both_solve. Circuits outside it are reported here and in per_image.csv, never dropped.",
+        "both_solve": 94,
+        "only_gt_solves": 22,
+        "only_pred_solves": 7,
+        "neither_solves": 69,
+        "gt_solved": 116,
+        "pred_solved": 101,
+        "pred_repaired_solved": 134,
+        "gt_categories": {
+          "ok": 116,
+          "singular_matrix": 75,
+          "parse_error": 1
+        },
+        "pred_categories": {
+          "ok": 101,
+          "singular_matrix": 90,
+          "parse_error": 1
+        }
+      },
+      "degenerate_zero_op": {
+        "_meaning": "circuits in both_solve whose REFERENCE operating point is identically 0 V on every node -- their only excitation is an AC source, whose DC value is 0. Every corresponded node agrees for free there, so the score degenerates into a node-count check and measures no voltage at all. Reported separately, never merged into the headline silently.",
+        "n": 1,
+        "stems": [
+          "circuit_940"
+        ]
+      },
+      "aggregate_all_both_solve": {
+        "_domain": "every circuit where both sides solve",
+        "n_scored": 94,
+        "mean_f1": 0.5758208801534282,
+        "mean_recall": 0.5745209740800445,
+        "mean_precision": 0.577660343575797,
+        "exact_circuits": 31,
+        "exact_rate": 0.32978723404255317,
+        "pooled_node_recall": 0.5017985611510791,
+        "pooled_node_precision": 0.5100548446069469,
+        "pooled_nodes_gt": 556,
+        "pooled_nodes_pred": 547,
+        "pooled_nodes_agreeing": 279
+      },
+      "aggregate_non_degenerate": {
+        "_domain": "both sides solve AND the reference operating point is not identically zero -- the domain on which this is a VOLTAGE metric",
+        "n_scored": 93,
+        "mean_f1": 0.5712598143486264,
+        "mean_recall": 0.5699459307905826,
+        "mean_precision": 0.5731190569475797,
+        "exact_circuits": 30,
+        "exact_rate": 0.3225806451612903,
+        "pooled_node_recall": 0.5009009009009009,
+        "pooled_node_precision": 0.5091575091575091,
+        "pooled_nodes_gt": 555,
+        "pooled_nodes_pred": 546,
+        "pooled_nodes_agreeing": 278
+      },
+      "aggregate_degenerate_only": {
+        "_domain": "the all-zero circuits alone",
+        "n_scored": 1,
+        "mean_f1": 1.0,
+        "mean_recall": 1.0,
+        "mean_precision": 1.0,
+        "exact_circuits": 1,
+        "exact_rate": 1.0,
+        "pooled_node_recall": 1.0,
+        "pooled_node_precision": 1.0,
+        "pooled_nodes_gt": 1,
+        "pooled_nodes_pred": 1,
+        "pooled_nodes_agreeing": 1
+      },
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "dc_current": "DC 1m",
+        "ac_current": "DC 1m AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "overrides_vs_shipped": {
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "ac_current": "DC 1m AC 1m"
+      },
+      "tolerance_sensitivity": [
+        {
+          "tolerance": "1nV",
+          "atol_V": 1e-09,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1uV",
+          "atol_V": 1e-06,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1mV (PRIMARY)",
+          "atol_V": 0.001,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1mV or 1% rel",
+          "atol_V": 0.001,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.6157599245868282,
+          "mean_f1_non_degenerate": 0.611628310872708,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.6025179856115108
+        },
+        {
+          "tolerance": "10mV",
+          "atol_V": 0.01,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5785662473462903,
+          "mean_f1_non_degenerate": 0.5740347016188311,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5089928057553957
+        },
+        {
+          "tolerance": "100mV",
+          "atol_V": 0.1,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5992225934659171,
+          "mean_f1_non_degenerate": 0.594913158987056,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5611510791366906
+        },
+        {
+          "tolerance": "500mV",
+          "atol_V": 0.5,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6532869114937407,
+          "mean_f1_non_degenerate": 0.649558813767867,
+          "exact_circuits": 38,
+          "pooled_node_recall": 0.6870503597122302
+        }
+      ]
+    },
+    "hv_lowcurrent": {
+      "circuits": 192,
+      "populations": {
+        "_denominator_policy": "The metric is DEFINED ONLY on both_solve. Circuits outside it are reported here and in per_image.csv, never dropped.",
+        "both_solve": 94,
+        "only_gt_solves": 22,
+        "only_pred_solves": 7,
+        "neither_solves": 69,
+        "gt_solved": 116,
+        "pred_solved": 101,
+        "pred_repaired_solved": 134,
+        "gt_categories": {
+          "ok": 116,
+          "singular_matrix": 74,
+          "parse_error": 1,
+          "timeout": 1
+        },
+        "pred_categories": {
+          "ok": 101,
+          "singular_matrix": 90,
+          "parse_error": 1
+        }
+      },
+      "degenerate_zero_op": {
+        "_meaning": "circuits in both_solve whose REFERENCE operating point is identically 0 V on every node -- their only excitation is an AC source, whose DC value is 0. Every corresponded node agrees for free there, so the score degenerates into a node-count check and measures no voltage at all. Reported separately, never merged into the headline silently.",
+        "n": 1,
+        "stems": [
+          "circuit_940"
+        ]
+      },
+      "aggregate_all_both_solve": {
+        "_domain": "every circuit where both sides solve",
+        "n_scored": 94,
+        "mean_f1": 0.5758208801534282,
+        "mean_recall": 0.5745209740800445,
+        "mean_precision": 0.577660343575797,
+        "exact_circuits": 31,
+        "exact_rate": 0.32978723404255317,
+        "pooled_node_recall": 0.5017985611510791,
+        "pooled_node_precision": 0.5100548446069469,
+        "pooled_nodes_gt": 556,
+        "pooled_nodes_pred": 547,
+        "pooled_nodes_agreeing": 279
+      },
+      "aggregate_non_degenerate": {
+        "_domain": "both sides solve AND the reference operating point is not identically zero -- the domain on which this is a VOLTAGE metric",
+        "n_scored": 93,
+        "mean_f1": 0.5712598143486264,
+        "mean_recall": 0.5699459307905826,
+        "mean_precision": 0.5731190569475797,
+        "exact_circuits": 30,
+        "exact_rate": 0.3225806451612903,
+        "pooled_node_recall": 0.5009009009009009,
+        "pooled_node_precision": 0.5091575091575091,
+        "pooled_nodes_gt": 555,
+        "pooled_nodes_pred": 546,
+        "pooled_nodes_agreeing": 278
+      },
+      "aggregate_degenerate_only": {
+        "_domain": "the all-zero circuits alone",
+        "n_scored": 1,
+        "mean_f1": 1.0,
+        "mean_recall": 1.0,
+        "mean_precision": 1.0,
+        "exact_circuits": 1,
+        "exact_rate": 1.0,
+        "pooled_node_recall": 1.0,
+        "pooled_node_precision": 1.0,
+        "pooled_nodes_gt": 1,
+        "pooled_nodes_pred": 1,
+        "pooled_nodes_agreeing": 1
+      },
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "dc_current": "DC 100u",
+        "ac_current": "DC 100u AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "overrides_vs_shipped": {
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "dc_current": "DC 100u",
+        "ac_current": "DC 100u AC 1m"
+      },
+      "tolerance_sensitivity": [
+        {
+          "tolerance": "1nV",
+          "atol_V": 1e-09,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1uV",
+          "atol_V": 1e-06,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1mV (PRIMARY)",
+          "atol_V": 0.001,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1mV or 1% rel",
+          "atol_V": 0.001,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.6175329742322183,
+          "mean_f1_non_degenerate": 0.6134204255680485,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.60431654676259
+        },
+        {
+          "tolerance": "10mV",
+          "atol_V": 0.01,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5785662473462903,
+          "mean_f1_non_degenerate": 0.5740347016188311,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5089928057553957
+        },
+        {
+          "tolerance": "100mV",
+          "atol_V": 0.1,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6364566360191086,
+          "mean_f1_non_degenerate": 0.6325475675892066,
+          "exact_circuits": 37,
+          "pooled_node_recall": 0.5845323741007195
+        },
+        {
+          "tolerance": "500mV",
+          "atol_V": 0.5,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.7499181171674999,
+          "mean_f1_non_degenerate": 0.7472290646639246,
+          "exact_circuits": 50,
+          "pooled_node_recall": 0.7517985611510791
+        }
+      ]
+    },
+    "hv_lowcurrent_10k": {
+      "circuits": 192,
+      "populations": {
+        "_denominator_policy": "The metric is DEFINED ONLY on both_solve. Circuits outside it are reported here and in per_image.csv, never dropped.",
+        "both_solve": 94,
+        "only_gt_solves": 22,
+        "only_pred_solves": 7,
+        "neither_solves": 69,
+        "gt_solved": 116,
+        "pred_solved": 101,
+        "pred_repaired_solved": 135,
+        "gt_categories": {
+          "ok": 116,
+          "singular_matrix": 75,
+          "parse_error": 1
+        },
+        "pred_categories": {
+          "ok": 101,
+          "singular_matrix": 90,
+          "parse_error": 1
+        }
+      },
+      "degenerate_zero_op": {
+        "_meaning": "circuits in both_solve whose REFERENCE operating point is identically 0 V on every node -- their only excitation is an AC source, whose DC value is 0. Every corresponded node agrees for free there, so the score degenerates into a node-count check and measures no voltage at all. Reported separately, never merged into the headline silently.",
+        "n": 1,
+        "stems": [
+          "circuit_940"
+        ]
+      },
+      "aggregate_all_both_solve": {
+        "_domain": "every circuit where both sides solve",
+        "n_scored": 94,
+        "mean_f1": 0.5758208801534282,
+        "mean_recall": 0.5745209740800445,
+        "mean_precision": 0.577660343575797,
+        "exact_circuits": 31,
+        "exact_rate": 0.32978723404255317,
+        "pooled_node_recall": 0.5017985611510791,
+        "pooled_node_precision": 0.5100548446069469,
+        "pooled_nodes_gt": 556,
+        "pooled_nodes_pred": 547,
+        "pooled_nodes_agreeing": 279
+      },
+      "aggregate_non_degenerate": {
+        "_domain": "both sides solve AND the reference operating point is not identically zero -- the domain on which this is a VOLTAGE metric",
+        "n_scored": 93,
+        "mean_f1": 0.5712598143486264,
+        "mean_recall": 0.5699459307905826,
+        "mean_precision": 0.5731190569475797,
+        "exact_circuits": 30,
+        "exact_rate": 0.3225806451612903,
+        "pooled_node_recall": 0.5009009009009009,
+        "pooled_node_precision": 0.5091575091575091,
+        "pooled_nodes_gt": 555,
+        "pooled_nodes_pred": 546,
+        "pooled_nodes_agreeing": 278
+      },
+      "aggregate_degenerate_only": {
+        "_domain": "the all-zero circuits alone",
+        "n_scored": 1,
+        "mean_f1": 1.0,
+        "mean_recall": 1.0,
+        "mean_precision": 1.0,
+        "exact_circuits": 1,
+        "exact_rate": 1.0,
+        "pooled_node_recall": 1.0,
+        "pooled_node_precision": 1.0,
+        "pooled_nodes_gt": 1,
+        "pooled_nodes_pred": 1,
+        "pooled_nodes_agreeing": 1
+      },
+      "placeholders": {
+        "resistor": "10k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "dc_current": "DC 100u",
+        "ac_current": "DC 100u AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "overrides_vs_shipped": {
+        "resistor": "10k",
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "dc_current": "DC 100u",
+        "ac_current": "DC 100u AC 1m"
+      },
+      "tolerance_sensitivity": [
+        {
+          "tolerance": "1nV",
+          "atol_V": 1e-09,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1uV",
+          "atol_V": 1e-06,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1mV (PRIMARY)",
+          "atol_V": 0.001,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5758208801534282,
+          "mean_f1_non_degenerate": 0.5712598143486264,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5017985611510791
+        },
+        {
+          "tolerance": "1mV or 1% rel",
+          "atol_V": 0.001,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.6157599245868282,
+          "mean_f1_non_degenerate": 0.611628310872708,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.6025179856115108
+        },
+        {
+          "tolerance": "10mV",
+          "atol_V": 0.01,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5785662473462903,
+          "mean_f1_non_degenerate": 0.5740347016188311,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5089928057553957
+        },
+        {
+          "tolerance": "100mV",
+          "atol_V": 0.1,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.5992225934659171,
+          "mean_f1_non_degenerate": 0.594913158987056,
+          "exact_circuits": 31,
+          "pooled_node_recall": 0.5611510791366906
+        },
+        {
+          "tolerance": "500mV",
+          "atol_V": 0.5,
+          "rtol": 0.0,
+          "mean_f1_both_solve": 0.6532869114937407,
+          "mean_f1_non_degenerate": 0.649558813767867,
+          "exact_circuits": 38,
+          "pooled_node_recall": 0.6870503597122302
+        }
+      ]
+    }
+  },
+  "null_controls": {
+    "pred_vs_pred": {
+      "circuits_scored": 101,
+      "mean_f1": 1.0,
+      "all_exactly_1.0": true,
+      "failures": []
+    },
+    "gt_vs_gt": {
+      "circuits_scored": 116,
+      "mean_f1": 1.0,
+      "all_exactly_1.0": true,
+      "failures": []
+    },
+    "parser_crosscheck": {
+      "_what": "the .op-table parser (which produces every number here) against a `print all` probe on the same deck. `quirk` counts decks with exactly ONE vector in the plot, where ngspice does not expand `all` and prints the literal token as the node name -- the bug that made an earlier version of this file score a deck 0.000 against itself.",
+      "decks_checked": 384,
+      "voltages_agree": 384,
+      "decks_hitting_the_print_all_quirk": 1,
+      "probe_changed_the_failure_category": 0,
+      "disagreements": []
+    }
+  },
+  "acceptance": {
+    "shipped": {
+      "_what_this_proves": "A pin swap is invisible to every topology metric in this repository (benchmark.canonicalize_terminals sorts terminals by a connectivity signature computed identically on both sides, so the swap cancels). These rows show the operating-point metric responding to the same perturbation, with the effect size and the sample size stated.",
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 5",
+        "ac_supply": "AC 1",
+        "dc_current": "DC 1m",
+        "ac_current": "AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "controlled_gt_perturbation": {
+        "_design": "swap one pin pair in the GROUND TRUTH, score against the unperturbed ground truth. Baseline is exactly 1.000, so any drop is the swap and nothing else.",
+        "circuits": 116,
+        "n_swaps": 494,
+        "ineligible_excluded": {},
+        "_ineligible_note": "unsnapped_terminal = the component has a null terminal so the writer never emits it, and the swap is byte-identical; same_net = both swapped terminals were already on one net, also byte-identical. Neither is a perturbation, so neither is counted as a miss.",
+        "correspondence_moved_under_swap": 0,
+        "_correspondence_note": "MUST be 0 (checked on the first 200 swaps). A correspondence that moved with the error would let the error cancel.",
+        "_equipotential_note": "a swap whose two terminals are at the same potential in the unperturbed solution CANNOT change the operating point -- the element sees the identical terminal voltages either way, so the two decks have the same solution. Those are counted as undetectable rather than missed, and the 'on_detectable' rate is the one that measures the metric rather than the dataset.",
+        "by_swap_kind": {
+          "bjt_collector_emitter": {
+            "n_swaps": 163,
+            "detected": 113,
+            "detection_rate": 0.6932515337423313,
+            "undetected": 50,
+            "undetected_because_terminals_equipotential": 28,
+            "undetected_unexplained": 22,
+            "n_swaps_detectable_in_principle": 135,
+            "detection_rate_on_detectable": 0.837037037037037,
+            "mean_delta_f1": -0.18285505528805474,
+            "median_delta_f1": -0.19999999999999984,
+            "worst_delta_f1": -0.5333333333333333,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1048",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n11",
+                  "n7"
+                ],
+                "v_swapped": [
+                  0.04077693,
+                  5.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.671213
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 14,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n20",
+                  "n12"
+                ],
+                "v_swapped": [
+                  5.0,
+                  1.008528e-13
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 16,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n14",
+                  "n10"
+                ],
+                "v_swapped": [
+                  1.461882,
+                  4.587362
+                ]
+              },
+              {
+                "stem": "circuit_118",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n10"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.620854
+                ]
+              },
+              {
+                "stem": "circuit_1247",
+                "comp_id": 11,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n10",
+                  "n7"
+                ],
+                "v_swapped": [
+                  4.054993,
+                  5.0
+                ]
+              },
+              {
+                "stem": "circuit_1273",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n12"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.620854
+                ]
+              },
+              {
+                "stem": "circuit_140",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n12"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.620854
+                ]
+              },
+              {
+                "stem": "circuit_43",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.620854
+                ]
+              },
+              {
+                "stem": "circuit_431",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n11",
+                  "n7"
+                ],
+                "v_swapped": [
+                  4.29338,
+                  5.0
+                ]
+              }
+            ]
+          },
+          "diode_reversal": {
+            "n_swaps": 50,
+            "detected": 35,
+            "detection_rate": 0.7,
+            "undetected": 15,
+            "undetected_because_terminals_equipotential": 15,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 35,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.10652602660497394,
+            "median_delta_f1": -0.1333333333333333,
+            "worst_delta_f1": -0.4375,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "iac_direction": {
+            "n_swaps": 14,
+            "detected": 0,
+            "detection_rate": 0.0,
+            "undetected": 14,
+            "undetected_because_terminals_equipotential": 12,
+            "undetected_unexplained": 2,
+            "n_swaps_detectable_in_principle": 2,
+            "detection_rate_on_detectable": 0.0,
+            "mean_delta_f1": 0.0,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": 0.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_985",
+                "comp_id": 12,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n8",
+                  "0"
+                ],
+                "v_swapped": [
+                  2.5,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_985",
+                "comp_id": 13,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n5",
+                  "0"
+                ],
+                "v_swapped": [
+                  5.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "idc_direction": {
+            "n_swaps": 64,
+            "detected": 35,
+            "detection_rate": 0.546875,
+            "undetected": 29,
+            "undetected_because_terminals_equipotential": 22,
+            "undetected_unexplained": 7,
+            "n_swaps_detectable_in_principle": 41,
+            "detection_rate_on_detectable": 0.8292682926829268,
+            "mean_delta_f1": -0.29698660714285724,
+            "median_delta_f1": -0.25,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_325",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_505",
+                "comp_id": 0,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "n2"
+                ],
+                "v_swapped": [
+                  -5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_657",
+                "comp_id": 6,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_776",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -10.0
+                ]
+              },
+              {
+                "stem": "circuit_812",
+                "comp_id": 2,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_837",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_999",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  -10.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "mosfet_drain_source": {
+            "n_swaps": 6,
+            "detected": 2,
+            "detection_rate": 0.3333333333333333,
+            "undetected": 4,
+            "undetected_because_terminals_equipotential": 4,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 2,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.125,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -0.375,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "opamp_input_swap": {
+            "n_swaps": 83,
+            "detected": 19,
+            "detection_rate": 0.2289156626506024,
+            "undetected": 64,
+            "undetected_because_terminals_equipotential": 64,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 16,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.05366922234392112,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "vac_polarity": {
+            "n_swaps": 28,
+            "detected": 0,
+            "detection_rate": 0.0,
+            "undetected": 28,
+            "undetected_because_terminals_equipotential": 28,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 0,
+            "detection_rate_on_detectable": null,
+            "mean_delta_f1": 0.0,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": 0.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "vdc_polarity": {
+            "n_swaps": 79,
+            "detected": 79,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 79,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.5131952435749905,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.18181818181818177,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "zener_reversal": {
+            "n_swaps": 7,
+            "detected": 0,
+            "detection_rate": 0.0,
+            "undetected": 7,
+            "undetected_because_terminals_equipotential": 6,
+            "undetected_unexplained": 1,
+            "n_swaps_detectable_in_principle": 1,
+            "detection_rate_on_detectable": 0.0,
+            "mean_delta_f1": 0.0,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": 0.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_985",
+                "comp_id": 4,
+                "class": "Zener Diode",
+                "swapped_nets": [
+                  "n1",
+                  "n4"
+                ],
+                "v_swapped": [
+                  5.0,
+                  0.0
+                ]
+              }
+            ]
+          }
+        },
+        "detected": 283,
+        "pooled_detection_rate": 0.5728744939271255,
+        "n_swaps_detectable_in_principle": 311,
+        "pooled_detection_rate_on_detectable": 0.8971061093247589,
+        "undetectable_by_equipotential_terminals": 183
+      },
+      "passive_swap_control": {
+        "_design": "the identical machinery on resistors, capacitors and inductors, whose terminal order genuinely carries no meaning. Detection rate MUST be exactly 0.",
+        "n_swaps": 665,
+        "detected": 0,
+        "detection_rate": 0.0,
+        "max_abs_delta_f1": 0.0,
+        "violations": []
+      }
+    },
+    "ac_dc_biased": {
+      "_what_this_proves": "A pin swap is invisible to every topology metric in this repository (benchmark.canonicalize_terminals sorts terminals by a connectivity signature computed identically on both sides, so the swap cancels). These rows show the operating-point metric responding to the same perturbation, with the effect size and the sample size stated.",
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 5",
+        "ac_supply": "DC 5 AC 1",
+        "dc_current": "DC 1m",
+        "ac_current": "DC 1m AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "controlled_gt_perturbation": {
+        "_design": "swap one pin pair in the GROUND TRUTH, score against the unperturbed ground truth. Baseline is exactly 1.000, so any drop is the swap and nothing else.",
+        "circuits": 116,
+        "n_swaps": 494,
+        "ineligible_excluded": {},
+        "_ineligible_note": "unsnapped_terminal = the component has a null terminal so the writer never emits it, and the swap is byte-identical; same_net = both swapped terminals were already on one net, also byte-identical. Neither is a perturbation, so neither is counted as a miss.",
+        "correspondence_moved_under_swap": 0,
+        "_correspondence_note": "MUST be 0 (checked on the first 200 swaps). A correspondence that moved with the error would let the error cancel.",
+        "_equipotential_note": "a swap whose two terminals are at the same potential in the unperturbed solution CANNOT change the operating point -- the element sees the identical terminal voltages either way, so the two decks have the same solution. Those are counted as undetectable rather than missed, and the 'on_detectable' rate is the one that measures the metric rather than the dataset.",
+        "by_swap_kind": {
+          "bjt_collector_emitter": {
+            "n_swaps": 163,
+            "detected": 116,
+            "detection_rate": 0.7116564417177914,
+            "undetected": 47,
+            "undetected_because_terminals_equipotential": 25,
+            "undetected_unexplained": 22,
+            "n_swaps_detectable_in_principle": 135,
+            "detection_rate_on_detectable": 0.837037037037037,
+            "mean_delta_f1": -0.2012599632635149,
+            "median_delta_f1": -0.19999999999999984,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 3,
+            "broke_solvability_categories": {
+              "timeout": 3
+            },
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1048",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n11",
+                  "n7"
+                ],
+                "v_swapped": [
+                  0.04077693,
+                  5.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.671213
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 14,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n20",
+                  "n12"
+                ],
+                "v_swapped": [
+                  5.0,
+                  1.008528e-13
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 16,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n14",
+                  "n10"
+                ],
+                "v_swapped": [
+                  1.461882,
+                  4.587362
+                ]
+              },
+              {
+                "stem": "circuit_118",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n10"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.620854
+                ]
+              },
+              {
+                "stem": "circuit_1247",
+                "comp_id": 11,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n10",
+                  "n7"
+                ],
+                "v_swapped": [
+                  4.054993,
+                  5.0
+                ]
+              },
+              {
+                "stem": "circuit_1273",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n12"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.620854
+                ]
+              },
+              {
+                "stem": "circuit_140",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n12"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.620854
+                ]
+              },
+              {
+                "stem": "circuit_43",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  4.620854
+                ]
+              },
+              {
+                "stem": "circuit_431",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n11",
+                  "n7"
+                ],
+                "v_swapped": [
+                  4.29338,
+                  5.0
+                ]
+              }
+            ]
+          },
+          "diode_reversal": {
+            "n_swaps": 50,
+            "detected": 47,
+            "detection_rate": 0.94,
+            "undetected": 3,
+            "undetected_because_terminals_equipotential": 3,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 47,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.3465260266049737,
+            "median_delta_f1": -0.1333333333333333,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 3,
+            "broke_solvability_categories": {
+              "timeout": 3
+            },
+            "unexplained_undetected_examples": []
+          },
+          "iac_direction": {
+            "n_swaps": 14,
+            "detected": 11,
+            "detection_rate": 0.7857142857142857,
+            "undetected": 3,
+            "undetected_because_terminals_equipotential": 2,
+            "undetected_unexplained": 1,
+            "n_swaps_detectable_in_principle": 12,
+            "detection_rate_on_detectable": 0.9166666666666666,
+            "mean_delta_f1": -0.44702380952380955,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -0.7999999999999999,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_78",
+                "comp_id": 4,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  5.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "idc_direction": {
+            "n_swaps": 64,
+            "detected": 35,
+            "detection_rate": 0.546875,
+            "undetected": 29,
+            "undetected_because_terminals_equipotential": 22,
+            "undetected_unexplained": 7,
+            "n_swaps_detectable_in_principle": 41,
+            "detection_rate_on_detectable": 0.8292682926829268,
+            "mean_delta_f1": -0.29698660714285724,
+            "median_delta_f1": -0.25,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_325",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_505",
+                "comp_id": 0,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "n2"
+                ],
+                "v_swapped": [
+                  -5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_657",
+                "comp_id": 6,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_776",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -10.0
+                ]
+              },
+              {
+                "stem": "circuit_812",
+                "comp_id": 2,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_837",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  5.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_999",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  -10.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "mosfet_drain_source": {
+            "n_swaps": 6,
+            "detected": 6,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 6,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.375,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -0.5,
+            "best_delta_f1": -0.125,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "opamp_input_swap": {
+            "n_swaps": 83,
+            "detected": 19,
+            "detection_rate": 0.2289156626506024,
+            "undetected": 64,
+            "undetected_because_terminals_equipotential": 64,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 16,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.05366922234392112,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "vac_polarity": {
+            "n_swaps": 28,
+            "detected": 28,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 28,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.6904761904761905,
+            "median_delta_f1": -0.6666666666666667,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.25,
+            "broke_solvability": 3,
+            "broke_solvability_categories": {
+              "parse_error": 3
+            },
+            "unexplained_undetected_examples": []
+          },
+          "vdc_polarity": {
+            "n_swaps": 79,
+            "detected": 79,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 79,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.5116129650939778,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.18181818181818177,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "zener_reversal": {
+            "n_swaps": 7,
+            "detected": 3,
+            "detection_rate": 0.42857142857142855,
+            "undetected": 4,
+            "undetected_because_terminals_equipotential": 4,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 0,
+            "detection_rate_on_detectable": null,
+            "mean_delta_f1": -0.42857142857142855,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          }
+        },
+        "detected": 344,
+        "pooled_detection_rate": 0.6963562753036437,
+        "n_swaps_detectable_in_principle": 364,
+        "pooled_detection_rate_on_detectable": 0.9175824175824175,
+        "undetectable_by_equipotential_terminals": 130
+      },
+      "passive_swap_control": {
+        "_design": "the identical machinery on resistors, capacitors and inductors, whose terminal order genuinely carries no meaning. Detection rate MUST be exactly 0.",
+        "n_swaps": 665,
+        "detected": 0,
+        "detection_rate": 0.0,
+        "max_abs_delta_f1": 0.0,
+        "violations": []
+      }
+    },
+    "hv": {
+      "_what_this_proves": "A pin swap is invisible to every topology metric in this repository (benchmark.canonicalize_terminals sorts terminals by a connectivity signature computed identically on both sides, so the swap cancels). These rows show the operating-point metric responding to the same perturbation, with the effect size and the sample size stated.",
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "dc_current": "DC 1m",
+        "ac_current": "DC 1m AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "controlled_gt_perturbation": {
+        "_design": "swap one pin pair in the GROUND TRUTH, score against the unperturbed ground truth. Baseline is exactly 1.000, so any drop is the swap and nothing else.",
+        "circuits": 116,
+        "n_swaps": 494,
+        "ineligible_excluded": {},
+        "_ineligible_note": "unsnapped_terminal = the component has a null terminal so the writer never emits it, and the swap is byte-identical; same_net = both swapped terminals were already on one net, also byte-identical. Neither is a perturbation, so neither is counted as a miss.",
+        "correspondence_moved_under_swap": 0,
+        "_correspondence_note": "MUST be 0 (checked on the first 200 swaps). A correspondence that moved with the error would let the error cancel.",
+        "_equipotential_note": "a swap whose two terminals are at the same potential in the unperturbed solution CANNOT change the operating point -- the element sees the identical terminal voltages either way, so the two decks have the same solution. Those are counted as undetectable rather than missed, and the 'on_detectable' rate is the one that measures the metric rather than the dataset.",
+        "by_swap_kind": {
+          "bjt_collector_emitter": {
+            "n_swaps": 163,
+            "detected": 130,
+            "detection_rate": 0.7975460122699386,
+            "undetected": 33,
+            "undetected_because_terminals_equipotential": 23,
+            "undetected_unexplained": 10,
+            "n_swaps_detectable_in_principle": 135,
+            "detection_rate_on_detectable": 0.9259259259259259,
+            "mean_delta_f1": -0.2226126902910887,
+            "median_delta_f1": -0.19999999999999984,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1048",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n11",
+                  "n7"
+                ],
+                "v_swapped": [
+                  0.03815191,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.64029
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 14,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n20",
+                  "n12"
+                ],
+                "v_swapped": [
+                  15.0,
+                  1.028781e-13
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 16,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n14",
+                  "n10"
+                ],
+                "v_swapped": [
+                  3.973165,
+                  14.55595
+                ]
+              },
+              {
+                "stem": "circuit_118",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n10"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59029
+                ]
+              },
+              {
+                "stem": "circuit_140",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n12"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59029
+                ]
+              },
+              {
+                "stem": "circuit_604",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n6"
+                ],
+                "v_swapped": [
+                  0.0,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_949",
+                "comp_id": 13,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59046
+                ]
+              },
+              {
+                "stem": "circuit_949",
+                "comp_id": 17,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n4",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_98",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n10"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59029
+                ]
+              }
+            ]
+          },
+          "diode_reversal": {
+            "n_swaps": 50,
+            "detected": 48,
+            "detection_rate": 0.96,
+            "undetected": 2,
+            "undetected_because_terminals_equipotential": 2,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 47,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.36005986119143996,
+            "median_delta_f1": -0.1333333333333333,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 3,
+            "broke_solvability_categories": {
+              "timeout": 3
+            },
+            "unexplained_undetected_examples": []
+          },
+          "iac_direction": {
+            "n_swaps": 14,
+            "detected": 11,
+            "detection_rate": 0.7857142857142857,
+            "undetected": 3,
+            "undetected_because_terminals_equipotential": 2,
+            "undetected_unexplained": 1,
+            "n_swaps_detectable_in_principle": 12,
+            "detection_rate_on_detectable": 0.9166666666666666,
+            "mean_delta_f1": -0.455952380952381,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -0.7999999999999999,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_78",
+                "comp_id": 4,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "idc_direction": {
+            "n_swaps": 64,
+            "detected": 35,
+            "detection_rate": 0.546875,
+            "undetected": 29,
+            "undetected_because_terminals_equipotential": 22,
+            "undetected_unexplained": 7,
+            "n_swaps_detectable_in_principle": 42,
+            "detection_rate_on_detectable": 0.8333333333333334,
+            "mean_delta_f1": -0.29698660714285724,
+            "median_delta_f1": -0.25,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_325",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_505",
+                "comp_id": 0,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "n2"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_657",
+                "comp_id": 6,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_776",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -30.0
+                ]
+              },
+              {
+                "stem": "circuit_812",
+                "comp_id": 2,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_837",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_999",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  -30.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "mosfet_drain_source": {
+            "n_swaps": 6,
+            "detected": 6,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 6,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.4166666666666667,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -0.625,
+            "best_delta_f1": -0.125,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "opamp_input_swap": {
+            "n_swaps": 83,
+            "detected": 19,
+            "detection_rate": 0.2289156626506024,
+            "undetected": 64,
+            "undetected_because_terminals_equipotential": 64,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 16,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.05366922234392112,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "vac_polarity": {
+            "n_swaps": 28,
+            "detected": 28,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 28,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.7038690476190476,
+            "median_delta_f1": -0.6666666666666667,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.25,
+            "broke_solvability": 1,
+            "broke_solvability_categories": {
+              "parse_error": 1
+            },
+            "unexplained_undetected_examples": []
+          },
+          "vdc_polarity": {
+            "n_swaps": 79,
+            "detected": 79,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 79,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.5163598005370158,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.18181818181818177,
+            "broke_solvability": 1,
+            "broke_solvability_categories": {
+              "parse_error": 1
+            },
+            "unexplained_undetected_examples": []
+          },
+          "zener_reversal": {
+            "n_swaps": 7,
+            "detected": 0,
+            "detection_rate": 0.0,
+            "undetected": 7,
+            "undetected_because_terminals_equipotential": 7,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 0,
+            "detection_rate_on_detectable": null,
+            "mean_delta_f1": 0.0,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": 0.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          }
+        },
+        "detected": 356,
+        "pooled_detection_rate": 0.7206477732793523,
+        "n_swaps_detectable_in_principle": 365,
+        "pooled_detection_rate_on_detectable": 0.9506849315068493,
+        "undetectable_by_equipotential_terminals": 129
+      },
+      "passive_swap_control": {
+        "_design": "the identical machinery on resistors, capacitors and inductors, whose terminal order genuinely carries no meaning. Detection rate MUST be exactly 0.",
+        "n_swaps": 665,
+        "detected": 0,
+        "detection_rate": 0.0,
+        "max_abs_delta_f1": 0.0,
+        "violations": []
+      },
+      "in_situ_pred_perturbation": {
+        "_design": "swap one pin pair in the PREDICTED netlist of a circuit where both sides already solve, re-score against GT through the UNCHANGED correspondence. Confounded (the circuit already disagrees elsewhere, so there is less headroom) but it is the literal question.",
+        "circuits": 94,
+        "n_swaps": 357,
+        "ineligible_excluded": {
+          "bjt_collector_emitter:same_net": 1
+        },
+        "by_swap_kind": {
+          "bjt_collector_emitter": {
+            "n_swaps": 163,
+            "detected": 6,
+            "detection_rate": 0.03680981595092025,
+            "undetected": 157,
+            "undetected_because_terminals_equipotential": 25,
+            "undetected_unexplained": 132,
+            "n_swaps_detectable_in_principle": 138,
+            "detection_rate_on_detectable": 0.043478260869565216,
+            "mean_delta_f1": 0.022727403031928235,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -0.2580645161290323,
+            "best_delta_f1": 0.5333333333333333,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1048",
+                "comp_id": 1,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n5",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 3,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n12",
+                  "n4"
+                ],
+                "v_swapped": [
+                  14.96282,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 4,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n13",
+                  "0"
+                ],
+                "v_swapped": [
+                  0.424876,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 7,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n14",
+                  "n5"
+                ],
+                "v_swapped": [
+                  0.6641475,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 8,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n11",
+                  "0"
+                ],
+                "v_swapped": [
+                  14.45497,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 9,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n7",
+                  "n13"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.424876
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n8"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.65802
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 15,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "0",
+                  "n12"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.96282
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 3,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n15",
+                  "n8"
+                ],
+                "v_swapped": [
+                  3.00101e-08,
+                  14.55595
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 21,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n10",
+                  "n16"
+                ],
+                "v_swapped": [
+                  15.0,
+                  1.028781e-13
+                ]
+              }
+            ]
+          },
+          "diode_reversal": {
+            "n_swaps": 46,
+            "detected": 3,
+            "detection_rate": 0.06521739130434782,
+            "undetected": 43,
+            "undetected_because_terminals_equipotential": 3,
+            "undetected_unexplained": 40,
+            "n_swaps_detectable_in_principle": 42,
+            "detection_rate_on_detectable": 0.047619047619047616,
+            "mean_delta_f1": 0.0014923888170331311,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -0.10526315789473684,
+            "best_delta_f1": 0.17391304347826086,
+            "broke_solvability": 2,
+            "broke_solvability_categories": {
+              "singular_matrix": 2
+            },
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1048",
+                "comp_id": 0,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n11",
+                  "n6"
+                ],
+                "v_swapped": [
+                  14.45497,
+                  14.67101
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 2,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n6",
+                  "n3"
+                ],
+                "v_swapped": [
+                  14.67101,
+                  14.88704
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 1,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n15",
+                  "n17"
+                ],
+                "v_swapped": [
+                  3.00101e-08,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_118",
+                "comp_id": 2,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n5",
+                  "n2"
+                ],
+                "v_swapped": [
+                  14.34942,
+                  14.77984
+                ]
+              },
+              {
+                "stem": "circuit_118",
+                "comp_id": 8,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n8",
+                  "n5"
+                ],
+                "v_swapped": [
+                  13.919,
+                  14.34942
+                ]
+              },
+              {
+                "stem": "circuit_1247",
+                "comp_id": 0,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n5",
+                  "n3"
+                ],
+                "v_swapped": [
+                  6.008777,
+                  11.99963
+                ]
+              },
+              {
+                "stem": "circuit_1247",
+                "comp_id": 1,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n11",
+                  "n5"
+                ],
+                "v_swapped": [
+                  0.01792819,
+                  6.008777
+                ]
+              },
+              {
+                "stem": "circuit_1273",
+                "comp_id": 1,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n10",
+                  "n6"
+                ],
+                "v_swapped": [
+                  13.919,
+                  14.34942
+                ]
+              },
+              {
+                "stem": "circuit_1273",
+                "comp_id": 4,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n6",
+                  "n3"
+                ],
+                "v_swapped": [
+                  14.34942,
+                  14.77984
+                ]
+              },
+              {
+                "stem": "circuit_140",
+                "comp_id": 0,
+                "class": "Diode",
+                "swapped_nets": [
+                  "n2",
+                  "n4"
+                ],
+                "v_swapped": [
+                  0.42498,
+                  0.3099408
+                ]
+              }
+            ]
+          },
+          "iac_direction": {
+            "n_swaps": 13,
+            "detected": 4,
+            "detection_rate": 0.3076923076923077,
+            "undetected": 9,
+            "undetected_because_terminals_equipotential": 2,
+            "undetected_unexplained": 7,
+            "n_swaps_detectable_in_principle": 11,
+            "detection_rate_on_detectable": 0.36363636363636365,
+            "mean_delta_f1": -0.20512820512820515,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -0.75,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1259",
+                "comp_id": 7,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -2.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_1259",
+                "comp_id": 8,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -2.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_20",
+                "comp_id": 5,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n2",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_697",
+                "comp_id": 9,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n6",
+                  "n5"
+                ],
+                "v_swapped": [
+                  13.0,
+                  2.0
+                ]
+              },
+              {
+                "stem": "circuit_78",
+                "comp_id": 0,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_920",
+                "comp_id": 7,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_920",
+                "comp_id": 8,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  -1.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "idc_direction": {
+            "n_swaps": 46,
+            "detected": 10,
+            "detection_rate": 0.21739130434782608,
+            "undetected": 36,
+            "undetected_because_terminals_equipotential": 7,
+            "undetected_unexplained": 29,
+            "n_swaps_detectable_in_principle": 39,
+            "detection_rate_on_detectable": 0.2564102564102564,
+            "mean_delta_f1": 0.06687370600414078,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 1.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1150",
+                "comp_id": 0,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n4",
+                  "n1"
+                ],
+                "v_swapped": [
+                  14.0,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_1195",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "stem": "circuit_129",
+                "comp_id": 1,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n2",
+                  "0"
+                ],
+                "v_swapped": [
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_131",
+                "comp_id": 2,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n2",
+                  "0"
+                ],
+                "v_swapped": [
+                  -17.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_165",
+                "comp_id": 1,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n1"
+                ],
+                "v_swapped": [
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "stem": "circuit_264",
+                "comp_id": 1,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  -10.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_321",
+                "comp_id": 0,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n1"
+                ],
+                "v_swapped": [
+                  0.0,
+                  8.5
+                ]
+              },
+              {
+                "stem": "circuit_321",
+                "comp_id": 2,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n1"
+                ],
+                "v_swapped": [
+                  0.0,
+                  8.5
+                ]
+              },
+              {
+                "stem": "circuit_351",
+                "comp_id": 6,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -14.0
+                ]
+              },
+              {
+                "stem": "circuit_441",
+                "comp_id": 1,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n1"
+                ],
+                "v_swapped": [
+                  0.0,
+                  17.0
+                ]
+              }
+            ]
+          },
+          "opamp_input_swap": {
+            "n_swaps": 2,
+            "detected": 0,
+            "detection_rate": 0.0,
+            "undetected": 2,
+            "undetected_because_terminals_equipotential": 2,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 0,
+            "detection_rate_on_detectable": null,
+            "mean_delta_f1": 0.0,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": 0.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "vac_polarity": {
+            "n_swaps": 22,
+            "detected": 17,
+            "detection_rate": 0.7727272727272727,
+            "undetected": 5,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 5,
+            "n_swaps_detectable_in_principle": 22,
+            "detection_rate_on_detectable": 0.7727272727272727,
+            "mean_delta_f1": -0.41287878787878785,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 1.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1259",
+                "comp_id": 5,
+                "class": "V-AC",
+                "swapped_nets": [
+                  "n4",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_218",
+                "comp_id": 10,
+                "class": "V-AC",
+                "swapped_nets": [
+                  "n5",
+                  "n7"
+                ],
+                "v_swapped": [
+                  7.5,
+                  -7.5
+                ]
+              },
+              {
+                "stem": "circuit_255",
+                "comp_id": 5,
+                "class": "V-AC",
+                "swapped_nets": [
+                  "n2",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_612",
+                "comp_id": 1,
+                "class": "V-AC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_616",
+                "comp_id": 12,
+                "class": "V-AC",
+                "swapped_nets": [
+                  "n6",
+                  "n7"
+                ],
+                "v_swapped": [
+                  14.27747,
+                  -0.722528
+                ]
+              }
+            ]
+          },
+          "vdc_polarity": {
+            "n_swaps": 61,
+            "detected": 29,
+            "detection_rate": 0.47540983606557374,
+            "undetected": 32,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 32,
+            "n_swaps_detectable_in_principle": 61,
+            "detection_rate_on_detectable": 0.47540983606557374,
+            "mean_delta_f1": 0.005737704918032795,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 1.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1025",
+                "comp_id": 0,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n1"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              },
+              {
+                "stem": "circuit_1045",
+                "comp_id": 0,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              },
+              {
+                "stem": "circuit_1195",
+                "comp_id": 0,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "n4",
+                  "n5"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_1275",
+                "comp_id": 0,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n3"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              },
+              {
+                "stem": "circuit_129",
+                "comp_id": 0,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n3"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              },
+              {
+                "stem": "circuit_131",
+                "comp_id": 3,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n3"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              },
+              {
+                "stem": "circuit_147",
+                "comp_id": 1,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n4"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              },
+              {
+                "stem": "circuit_147",
+                "comp_id": 2,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n5"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              },
+              {
+                "stem": "circuit_15",
+                "comp_id": 0,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              },
+              {
+                "stem": "circuit_165",
+                "comp_id": 0,
+                "class": "V-DC",
+                "swapped_nets": [
+                  "0",
+                  "n3"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -15.0
+                ]
+              }
+            ]
+          },
+          "zener_reversal": {
+            "n_swaps": 4,
+            "detected": 0,
+            "detection_rate": 0.0,
+            "undetected": 4,
+            "undetected_because_terminals_equipotential": 3,
+            "undetected_unexplained": 1,
+            "n_swaps_detectable_in_principle": 1,
+            "detection_rate_on_detectable": 0.0,
+            "mean_delta_f1": 0.0,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": 0.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_616",
+                "comp_id": 5,
+                "class": "Zener Diode",
+                "swapped_nets": [
+                  "n8",
+                  "0"
+                ],
+                "v_swapped": [
+                  0.7211273,
+                  0.0
+                ]
+              }
+            ]
+          }
+        },
+        "detected": 69,
+        "pooled_detection_rate": 0.19327731092436976,
+        "n_swaps_detectable_in_principle": 314,
+        "pooled_detection_rate_on_detectable": 0.21656050955414013,
+        "undetectable_by_equipotential_terminals": 43,
+        "high_agreement_subset": {
+          "min_f1": 0.9,
+          "n_swaps": 57,
+          "detected": 45,
+          "pooled_detection_rate": 0.7894736842105263,
+          "n_swaps_detectable_in_principle": 51,
+          "pooled_detection_rate_on_detectable": 0.8823529411764706,
+          "undetectable_by_equipotential_terminals": 6,
+          "by_swap_kind": {
+            "iac_direction": {
+              "n_swaps": 8,
+              "detected": 4,
+              "detection_rate": 0.5,
+              "undetected": 4,
+              "undetected_because_terminals_equipotential": 2,
+              "undetected_unexplained": 2,
+              "n_swaps_detectable_in_principle": 6,
+              "detection_rate_on_detectable": 0.6666666666666666,
+              "mean_delta_f1": -0.33333333333333337,
+              "median_delta_f1": -0.25,
+              "worst_delta_f1": -0.75,
+              "best_delta_f1": 0.0,
+              "broke_solvability": 0,
+              "broke_solvability_categories": {},
+              "unexplained_undetected_examples": [
+                {
+                  "stem": "circuit_20",
+                  "comp_id": 5,
+                  "class": "I-AC",
+                  "swapped_nets": [
+                    "n2",
+                    "0"
+                  ],
+                  "v_swapped": [
+                    15.0,
+                    0.0
+                  ]
+                },
+                {
+                  "stem": "circuit_78",
+                  "comp_id": 0,
+                  "class": "I-AC",
+                  "swapped_nets": [
+                    "n3",
+                    "0"
+                  ],
+                  "v_swapped": [
+                    15.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            "idc_direction": {
+              "n_swaps": 16,
+              "detected": 8,
+              "detection_rate": 0.5,
+              "undetected": 8,
+              "undetected_because_terminals_equipotential": 4,
+              "undetected_unexplained": 4,
+              "n_swaps_detectable_in_principle": 12,
+              "detection_rate_on_detectable": 0.6666666666666666,
+              "mean_delta_f1": -0.30669642857142854,
+              "median_delta_f1": -0.125,
+              "worst_delta_f1": -1.0,
+              "best_delta_f1": 0.0,
+              "broke_solvability": 0,
+              "broke_solvability_categories": {},
+              "unexplained_undetected_examples": [
+                {
+                  "stem": "circuit_505",
+                  "comp_id": 0,
+                  "class": "I-DC",
+                  "swapped_nets": [
+                    "n1",
+                    "n2"
+                  ],
+                  "v_swapped": [
+                    -15.0,
+                    0.0
+                  ]
+                },
+                {
+                  "stem": "circuit_657",
+                  "comp_id": 1,
+                  "class": "I-DC",
+                  "swapped_nets": [
+                    "0",
+                    "n1"
+                  ],
+                  "v_swapped": [
+                    0.0,
+                    -15.0
+                  ]
+                },
+                {
+                  "stem": "circuit_776",
+                  "comp_id": 0,
+                  "class": "I-DC",
+                  "swapped_nets": [
+                    "n2",
+                    "0"
+                  ],
+                  "v_swapped": [
+                    -30.0,
+                    0.0
+                  ]
+                },
+                {
+                  "stem": "circuit_812",
+                  "comp_id": 0,
+                  "class": "I-DC",
+                  "swapped_nets": [
+                    "n1",
+                    "0"
+                  ],
+                  "v_swapped": [
+                    -15.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            "vac_polarity": {
+              "n_swaps": 14,
+              "detected": 14,
+              "detection_rate": 1.0,
+              "undetected": 0,
+              "undetected_because_terminals_equipotential": 0,
+              "undetected_unexplained": 0,
+              "n_swaps_detectable_in_principle": 14,
+              "detection_rate_on_detectable": 1.0,
+              "mean_delta_f1": -0.6845238095238094,
+              "median_delta_f1": -0.6666666666666667,
+              "worst_delta_f1": -1.0,
+              "best_delta_f1": -0.25,
+              "broke_solvability": 0,
+              "broke_solvability_categories": {},
+              "unexplained_undetected_examples": []
+            },
+            "vdc_polarity": {
+              "n_swaps": 19,
+              "detected": 19,
+              "detection_rate": 1.0,
+              "undetected": 0,
+              "undetected_because_terminals_equipotential": 0,
+              "undetected_unexplained": 0,
+              "n_swaps_detectable_in_principle": 19,
+              "detection_rate_on_detectable": 1.0,
+              "mean_delta_f1": -0.606140350877193,
+              "median_delta_f1": -0.6666666666666667,
+              "worst_delta_f1": -1.0,
+              "best_delta_f1": -0.19999999999999984,
+              "broke_solvability": 0,
+              "broke_solvability_categories": {},
+              "unexplained_undetected_examples": []
+            }
+          }
+        }
+      }
+    },
+    "hv_lowcurrent": {
+      "_what_this_proves": "A pin swap is invisible to every topology metric in this repository (benchmark.canonicalize_terminals sorts terminals by a connectivity signature computed identically on both sides, so the swap cancels). These rows show the operating-point metric responding to the same perturbation, with the effect size and the sample size stated.",
+      "placeholders": {
+        "resistor": "1k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "dc_current": "DC 100u",
+        "ac_current": "DC 100u AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "controlled_gt_perturbation": {
+        "_design": "swap one pin pair in the GROUND TRUTH, score against the unperturbed ground truth. Baseline is exactly 1.000, so any drop is the swap and nothing else.",
+        "circuits": 116,
+        "n_swaps": 494,
+        "ineligible_excluded": {},
+        "_ineligible_note": "unsnapped_terminal = the component has a null terminal so the writer never emits it, and the swap is byte-identical; same_net = both swapped terminals were already on one net, also byte-identical. Neither is a perturbation, so neither is counted as a miss.",
+        "correspondence_moved_under_swap": 0,
+        "_correspondence_note": "MUST be 0 (checked on the first 200 swaps). A correspondence that moved with the error would let the error cancel.",
+        "_equipotential_note": "a swap whose two terminals are at the same potential in the unperturbed solution CANNOT change the operating point -- the element sees the identical terminal voltages either way, so the two decks have the same solution. Those are counted as undetectable rather than missed, and the 'on_detectable' rate is the one that measures the metric rather than the dataset.",
+        "by_swap_kind": {
+          "bjt_collector_emitter": {
+            "n_swaps": 163,
+            "detected": 130,
+            "detection_rate": 0.7975460122699386,
+            "undetected": 33,
+            "undetected_because_terminals_equipotential": 23,
+            "undetected_unexplained": 10,
+            "n_swaps_detectable_in_principle": 135,
+            "detection_rate_on_detectable": 0.9259259259259259,
+            "mean_delta_f1": -0.2226126902910887,
+            "median_delta_f1": -0.19999999999999984,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1048",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n11",
+                  "n7"
+                ],
+                "v_swapped": [
+                  0.03815191,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.64029
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 14,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n20",
+                  "n12"
+                ],
+                "v_swapped": [
+                  15.0,
+                  1.028781e-13
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 16,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n14",
+                  "n10"
+                ],
+                "v_swapped": [
+                  3.973165,
+                  14.55595
+                ]
+              },
+              {
+                "stem": "circuit_118",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n10"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59029
+                ]
+              },
+              {
+                "stem": "circuit_140",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n12"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59029
+                ]
+              },
+              {
+                "stem": "circuit_604",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n6"
+                ],
+                "v_swapped": [
+                  0.0,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_949",
+                "comp_id": 13,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59046
+                ]
+              },
+              {
+                "stem": "circuit_949",
+                "comp_id": 17,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n4",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_98",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n10"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59029
+                ]
+              }
+            ]
+          },
+          "diode_reversal": {
+            "n_swaps": 50,
+            "detected": 48,
+            "detection_rate": 0.96,
+            "undetected": 2,
+            "undetected_because_terminals_equipotential": 2,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 47,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.36005986119143996,
+            "median_delta_f1": -0.1333333333333333,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 3,
+            "broke_solvability_categories": {
+              "timeout": 3
+            },
+            "unexplained_undetected_examples": []
+          },
+          "iac_direction": {
+            "n_swaps": 14,
+            "detected": 11,
+            "detection_rate": 0.7857142857142857,
+            "undetected": 3,
+            "undetected_because_terminals_equipotential": 2,
+            "undetected_unexplained": 1,
+            "n_swaps_detectable_in_principle": 12,
+            "detection_rate_on_detectable": 0.9166666666666666,
+            "mean_delta_f1": -0.455952380952381,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -0.7999999999999999,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_78",
+                "comp_id": 4,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "idc_direction": {
+            "n_swaps": 64,
+            "detected": 35,
+            "detection_rate": 0.546875,
+            "undetected": 29,
+            "undetected_because_terminals_equipotential": 22,
+            "undetected_unexplained": 7,
+            "n_swaps_detectable_in_principle": 42,
+            "detection_rate_on_detectable": 0.8333333333333334,
+            "mean_delta_f1": -0.29698660714285724,
+            "median_delta_f1": -0.25,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_325",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_505",
+                "comp_id": 0,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "n2"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_657",
+                "comp_id": 6,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_776",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -30.0
+                ]
+              },
+              {
+                "stem": "circuit_812",
+                "comp_id": 2,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_837",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_999",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  -30.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "mosfet_drain_source": {
+            "n_swaps": 6,
+            "detected": 6,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 6,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.4583333333333333,
+            "median_delta_f1": -0.625,
+            "worst_delta_f1": -0.625,
+            "best_delta_f1": -0.125,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "opamp_input_swap": {
+            "n_swaps": 83,
+            "detected": 19,
+            "detection_rate": 0.2289156626506024,
+            "undetected": 64,
+            "undetected_because_terminals_equipotential": 64,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 16,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.05366922234392112,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "vac_polarity": {
+            "n_swaps": 28,
+            "detected": 28,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 28,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.7083333333333333,
+            "median_delta_f1": -0.7083333333333334,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.25,
+            "broke_solvability": 1,
+            "broke_solvability_categories": {
+              "parse_error": 1
+            },
+            "unexplained_undetected_examples": []
+          },
+          "vdc_polarity": {
+            "n_swaps": 79,
+            "detected": 79,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 79,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.5163598005370158,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.18181818181818177,
+            "broke_solvability": 1,
+            "broke_solvability_categories": {
+              "parse_error": 1
+            },
+            "unexplained_undetected_examples": []
+          },
+          "zener_reversal": {
+            "n_swaps": 7,
+            "detected": 0,
+            "detection_rate": 0.0,
+            "undetected": 7,
+            "undetected_because_terminals_equipotential": 7,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 0,
+            "detection_rate_on_detectable": null,
+            "mean_delta_f1": 0.0,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": 0.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          }
+        },
+        "detected": 356,
+        "pooled_detection_rate": 0.7206477732793523,
+        "n_swaps_detectable_in_principle": 365,
+        "pooled_detection_rate_on_detectable": 0.9506849315068493,
+        "undetectable_by_equipotential_terminals": 129
+      },
+      "passive_swap_control": {
+        "_design": "the identical machinery on resistors, capacitors and inductors, whose terminal order genuinely carries no meaning. Detection rate MUST be exactly 0.",
+        "n_swaps": 665,
+        "detected": 0,
+        "detection_rate": 0.0,
+        "max_abs_delta_f1": 0.0,
+        "violations": []
+      }
+    },
+    "hv_lowcurrent_10k": {
+      "_what_this_proves": "A pin swap is invisible to every topology metric in this repository (benchmark.canonicalize_terminals sorts terminals by a connectivity signature computed identically on both sides, so the swap cancels). These rows show the operating-point metric responding to the same perturbation, with the effect size and the sample size stated.",
+      "placeholders": {
+        "resistor": "10k",
+        "capacitor": "1u",
+        "inductor": "1m",
+        "dc_supply": "DC 15",
+        "ac_supply": "DC 15 AC 1",
+        "dc_current": "DC 100u",
+        "ac_current": "DC 100u AC 1m",
+        "diode_model": "Ddefault",
+        "zener_model": "Zdefault",
+        "mosfet_model": "NMOS"
+      },
+      "controlled_gt_perturbation": {
+        "_design": "swap one pin pair in the GROUND TRUTH, score against the unperturbed ground truth. Baseline is exactly 1.000, so any drop is the swap and nothing else.",
+        "circuits": 116,
+        "n_swaps": 494,
+        "ineligible_excluded": {},
+        "_ineligible_note": "unsnapped_terminal = the component has a null terminal so the writer never emits it, and the swap is byte-identical; same_net = both swapped terminals were already on one net, also byte-identical. Neither is a perturbation, so neither is counted as a miss.",
+        "correspondence_moved_under_swap": 0,
+        "_correspondence_note": "MUST be 0 (checked on the first 200 swaps). A correspondence that moved with the error would let the error cancel.",
+        "_equipotential_note": "a swap whose two terminals are at the same potential in the unperturbed solution CANNOT change the operating point -- the element sees the identical terminal voltages either way, so the two decks have the same solution. Those are counted as undetectable rather than missed, and the 'on_detectable' rate is the one that measures the metric rather than the dataset.",
+        "by_swap_kind": {
+          "bjt_collector_emitter": {
+            "n_swaps": 163,
+            "detected": 128,
+            "detection_rate": 0.7852760736196319,
+            "undetected": 35,
+            "undetected_because_terminals_equipotential": 23,
+            "undetected_unexplained": 12,
+            "n_swaps_detectable_in_principle": 135,
+            "detection_rate_on_detectable": 0.9111111111111111,
+            "mean_delta_f1": -0.2143953708007631,
+            "median_delta_f1": -0.19999999999999984,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_1048",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n11",
+                  "n7"
+                ],
+                "v_swapped": [
+                  0.03815191,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_1048",
+                "comp_id": 14,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n9"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.64029
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 14,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n20",
+                  "n12"
+                ],
+                "v_swapped": [
+                  15.0,
+                  1.28782e-12
+                ]
+              },
+              {
+                "stem": "circuit_1175",
+                "comp_id": 16,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n14",
+                  "n10"
+                ],
+                "v_swapped": [
+                  3.95841,
+                  14.55609
+                ]
+              },
+              {
+                "stem": "circuit_118",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n10"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59038
+                ]
+              },
+              {
+                "stem": "circuit_1247",
+                "comp_id": 11,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n10",
+                  "n7"
+                ],
+                "v_swapped": [
+                  12.52207,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_431",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "n11",
+                  "n7"
+                ],
+                "v_swapped": [
+                  13.26706,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_604",
+                "comp_id": 12,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n6"
+                ],
+                "v_swapped": [
+                  0.0,
+                  15.0
+                ]
+              },
+              {
+                "stem": "circuit_604",
+                "comp_id": 19,
+                "class": "BJT-NPN",
+                "swapped_nets": [
+                  "n10",
+                  "0"
+                ],
+                "v_swapped": [
+                  1.021338,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_847",
+                "comp_id": 15,
+                "class": "BJT-PNP",
+                "swapped_nets": [
+                  "0",
+                  "n10"
+                ],
+                "v_swapped": [
+                  0.0,
+                  14.59038
+                ]
+              }
+            ]
+          },
+          "diode_reversal": {
+            "n_swaps": 50,
+            "detected": 47,
+            "detection_rate": 0.94,
+            "undetected": 3,
+            "undetected_because_terminals_equipotential": 3,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 47,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.36652602660497374,
+            "median_delta_f1": -0.1333333333333333,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "iac_direction": {
+            "n_swaps": 14,
+            "detected": 11,
+            "detection_rate": 0.7857142857142857,
+            "undetected": 3,
+            "undetected_because_terminals_equipotential": 2,
+            "undetected_unexplained": 1,
+            "n_swaps_detectable_in_principle": 12,
+            "detection_rate_on_detectable": 0.9166666666666666,
+            "mean_delta_f1": -0.455952380952381,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -0.7999999999999999,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_78",
+                "comp_id": 4,
+                "class": "I-AC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "idc_direction": {
+            "n_swaps": 64,
+            "detected": 35,
+            "detection_rate": 0.546875,
+            "undetected": 29,
+            "undetected_because_terminals_equipotential": 22,
+            "undetected_unexplained": 7,
+            "n_swaps_detectable_in_principle": 42,
+            "detection_rate_on_detectable": 0.8333333333333334,
+            "mean_delta_f1": -0.29698660714285724,
+            "median_delta_f1": -0.25,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": [
+              {
+                "stem": "circuit_325",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_505",
+                "comp_id": 0,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "n2"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_657",
+                "comp_id": 6,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_776",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "0",
+                  "n2"
+                ],
+                "v_swapped": [
+                  0.0,
+                  -30.0
+                ]
+              },
+              {
+                "stem": "circuit_812",
+                "comp_id": 2,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  -15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_837",
+                "comp_id": 4,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n1",
+                  "0"
+                ],
+                "v_swapped": [
+                  15.0,
+                  0.0
+                ]
+              },
+              {
+                "stem": "circuit_999",
+                "comp_id": 5,
+                "class": "I-DC",
+                "swapped_nets": [
+                  "n3",
+                  "0"
+                ],
+                "v_swapped": [
+                  -30.0,
+                  0.0
+                ]
+              }
+            ]
+          },
+          "mosfet_drain_source": {
+            "n_swaps": 6,
+            "detected": 6,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 6,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.4583333333333333,
+            "median_delta_f1": -0.625,
+            "worst_delta_f1": -0.625,
+            "best_delta_f1": -0.125,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "opamp_input_swap": {
+            "n_swaps": 83,
+            "detected": 19,
+            "detection_rate": 0.2289156626506024,
+            "undetected": 64,
+            "undetected_because_terminals_equipotential": 64,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 16,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.05366922234392112,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          },
+          "vac_polarity": {
+            "n_swaps": 28,
+            "detected": 28,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 28,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.7083333333333333,
+            "median_delta_f1": -0.7083333333333334,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.25,
+            "broke_solvability": 1,
+            "broke_solvability_categories": {
+              "parse_error": 1
+            },
+            "unexplained_undetected_examples": []
+          },
+          "vdc_polarity": {
+            "n_swaps": 79,
+            "detected": 79,
+            "detection_rate": 1.0,
+            "undetected": 0,
+            "undetected_because_terminals_equipotential": 0,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 79,
+            "detection_rate_on_detectable": 1.0,
+            "mean_delta_f1": -0.5163598005370158,
+            "median_delta_f1": -0.5,
+            "worst_delta_f1": -1.0,
+            "best_delta_f1": -0.18181818181818177,
+            "broke_solvability": 1,
+            "broke_solvability_categories": {
+              "parse_error": 1
+            },
+            "unexplained_undetected_examples": []
+          },
+          "zener_reversal": {
+            "n_swaps": 7,
+            "detected": 0,
+            "detection_rate": 0.0,
+            "undetected": 7,
+            "undetected_because_terminals_equipotential": 7,
+            "undetected_unexplained": 0,
+            "n_swaps_detectable_in_principle": 0,
+            "detection_rate_on_detectable": null,
+            "mean_delta_f1": 0.0,
+            "median_delta_f1": 0.0,
+            "worst_delta_f1": 0.0,
+            "best_delta_f1": 0.0,
+            "broke_solvability": 0,
+            "broke_solvability_categories": {},
+            "unexplained_undetected_examples": []
+          }
+        },
+        "detected": 353,
+        "pooled_detection_rate": 0.7145748987854251,
+        "n_swaps_detectable_in_principle": 365,
+        "pooled_detection_rate_on_detectable": 0.9452054794520548,
+        "undetectable_by_equipotential_terminals": 129
+      },
+      "passive_swap_control": {
+        "_design": "the identical machinery on resistors, capacitors and inductors, whose terminal order genuinely carries no meaning. Detection rate MUST be exactly 0.",
+        "n_swaps": 665,
+        "detected": 0,
+        "detection_rate": 0.0,
+        "max_abs_delta_f1": 0.0,
+        "violations": []
+      }
+    }
+  },
+  "topologically_perfect_but_op_disagrees": [
+    {
+      "stem": "circuit_1025",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.3333333333333333,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 5.0,
+          "v_pred": -5.0,
+          "abs_dv": 10.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1045",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.5,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1048",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4666666666666667,
+      "max_abs_dv": 0.38672408999999996,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n11",
+          "v_gt": 14.53814,
+          "v_pred": 14.45497,
+          "abs_dv": 0.08317000000000085
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n13",
+          "v_gt": 0.03815191,
+          "v_pred": 0.424876,
+          "abs_dv": 0.38672408999999996
+        },
+        {
+          "gt_net": "n14",
+          "pred_net": "n14",
+          "v_gt": 0.5810939,
+          "v_pred": 0.6641475,
+          "abs_dv": 0.08305359999999995
+        },
+        {
+          "gt_net": "n15",
+          "pred_net": "n15",
+          "v_gt": 0.341747,
+          "v_pred": 0.3065235,
+          "abs_dv": 0.03522350000000002
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1150",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.75,
+      "max_abs_dv": 2.0,
+      "disagreements": [
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": 16.0,
+          "v_pred": 14.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_118",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4000000000000001,
+      "max_abs_dv": 0.1189,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n9",
+          "v_gt": 14.59029,
+          "v_pred": 14.65778,
+          "abs_dv": 0.06749000000000116
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n13",
+          "v_gt": 1.080785,
+          "v_pred": 0.9618904,
+          "abs_dv": 0.11889460000000007
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n10",
+          "v_gt": 14.03833,
+          "v_pred": 14.15722,
+          "abs_dv": 0.11889000000000038
+        },
+        {
+          "gt_net": "n14",
+          "pred_net": "n14",
+          "v_gt": 1.319009,
+          "v_pred": 1.200115,
+          "abs_dv": 0.11889400000000006
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1195",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.20000000000000004,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n3",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n2",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1247",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.3225806451612903,
+      "max_abs_dv": 14.674441810000001,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n13",
+          "v_gt": 12.52197,
+          "v_pred": 0.8601941,
+          "abs_dv": 11.6617759
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n9",
+          "v_gt": 15.0,
+          "v_pred": 14.15722,
+          "abs_dv": 0.8427799999999994
+        },
+        {
+          "gt_net": "n13",
+          "pred_net": "n11",
+          "v_gt": 12.25406,
+          "v_pred": 0.01792819,
+          "abs_dv": 12.236131810000002
+        },
+        {
+          "gt_net": "n15",
+          "pred_net": "n14",
+          "v_gt": 14.08472,
+          "v_pred": 0.4251162,
+          "abs_dv": 13.659603800000001
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1273",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4000000000000001,
+      "max_abs_dv": 0.4381599999999999,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n10",
+          "v_gt": 13.8001,
+          "v_pred": 13.919,
+          "abs_dv": 0.1189
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n11",
+          "v_gt": 14.87447,
+          "v_pred": 14.96257,
+          "abs_dv": 0.08809999999999896
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n8",
+          "v_gt": 14.59029,
+          "v_pred": 14.65778,
+          "abs_dv": 0.06749000000000116
+        },
+        {
+          "gt_net": "n14",
+          "pred_net": "n14",
+          "v_gt": 1.319009,
+          "v_pred": 1.200115,
+          "abs_dv": 0.11889400000000006
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1275",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.6666666666666666,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_129",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n2",
+          "v_gt": 1.0,
+          "v_pred": -1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_131",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.25,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 13.0,
+          "v_pred": -17.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 14.0,
+          "v_pred": -16.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_147",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4000000000000001,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -8.88178e-16,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n5",
+          "pred_net": "n5",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_15",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.5,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_165",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.3333333333333333,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_196",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_255",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.75,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n3",
+          "pred_net": "n2",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_264",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.20000000000000004,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 7.0,
+          "v_pred": -8.0,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 5.0,
+          "v_pred": -10.0,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": 6.0,
+          "v_pred": -9.0,
+          "abs_dv": 15.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_271",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n3",
+          "v_gt": 7.5,
+          "v_pred": -7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 7.5,
+          "v_pred": -7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_321",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.3333333333333333,
+      "max_abs_dv": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 7.5,
+          "v_pred": 8.5,
+          "abs_dv": 1.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 7.5,
+          "v_pred": 8.5,
+          "abs_dv": 1.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_351",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n2",
+          "v_gt": 14.0,
+          "v_pred": -14.0,
+          "abs_dv": 28.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_353",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.25,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n4",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n3",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_43",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4000000000000001,
+      "max_abs_dv": 0.4381599999999999,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n10",
+          "v_gt": 13.8001,
+          "v_pred": 13.919,
+          "abs_dv": 0.1189
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n12",
+          "v_gt": 1.080785,
+          "v_pred": 0.9618904,
+          "abs_dv": 0.11889460000000007
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n9",
+          "v_gt": 14.03833,
+          "v_pred": 14.15722,
+          "abs_dv": 0.11889000000000038
+        },
+        {
+          "gt_net": "n14",
+          "pred_net": "n14",
+          "v_gt": 1.319009,
+          "v_pred": 1.200115,
+          "abs_dv": 0.11889400000000006
+        }
+      ]
+    },
+    {
+      "stem": "circuit_431",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.38709677419354843,
+      "max_abs_dv": 13.783515,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n8",
+          "v_gt": 14.66436,
+          "v_pred": 14.65778,
+          "abs_dv": 0.006579999999999586
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n12",
+          "v_gt": 13.26742,
+          "v_pred": 0.9618904,
+          "abs_dv": 12.3055296
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n10",
+          "v_gt": 15.0,
+          "v_pred": 14.15722,
+          "abs_dv": 0.8427799999999994
+        },
+        {
+          "gt_net": "n13",
+          "pred_net": "n14",
+          "v_gt": 14.98363,
+          "v_pred": 1.200115,
+          "abs_dv": 13.783515
+        }
+      ]
+    },
+    {
+      "stem": "circuit_441",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 4.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 13.0,
+          "v_pred": 17.0,
+          "abs_dv": 4.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n2",
+          "v_gt": 14.0,
+          "v_pred": 16.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 14.0,
+          "v_pred": 16.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": 14.0,
+          "v_pred": 16.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_490",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.6666666666666666,
+      "max_abs_dv": 2.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_516",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.75,
+      "max_abs_dv": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -8.0,
+          "v_pred": -7.0,
+          "abs_dv": 1.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_517",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.25,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n3",
+          "v_gt": 5.333333,
+          "v_pred": -5.33333,
+          "abs_dv": 10.666663
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_526",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.6,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n2",
+          "pred_net": "n2",
+          "v_gt": 16.5,
+          "v_pred": -13.5,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n5",
+          "pred_net": "n5",
+          "v_gt": 16.5,
+          "v_pred": -13.5,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_579",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.6666666666666666,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_612",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -7.5,
+          "v_pred": 7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": -7.5,
+          "v_pred": 7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_616",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 30.658859,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -14.5862,
+          "v_pred": 0.7211273,
+          "abs_dv": 15.3073273
+        },
+        {
+          "gt_net": "n10",
+          "pred_net": "n10",
+          "v_gt": -14.5862,
+          "v_pred": 0.7211273,
+          "abs_dv": 15.3073273
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n11",
+          "v_gt": -14.5859,
+          "v_pred": 0.7211422,
+          "abs_dv": 15.3070422
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n4",
+          "v_gt": -14.5859,
+          "v_pred": 0.7211422,
+          "abs_dv": 15.3070422
+        }
+      ]
+    },
+    {
+      "stem": "circuit_627",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4000000000000001,
+      "max_abs_dv": 0.1189,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n9",
+          "v_gt": 13.8001,
+          "v_pred": 13.919,
+          "abs_dv": 0.1189
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n13",
+          "v_gt": 14.87447,
+          "v_pred": 14.96257,
+          "abs_dv": 0.08809999999999896
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n12",
+          "v_gt": 14.59029,
+          "v_pred": 14.65778,
+          "abs_dv": 0.06749000000000116
+        },
+        {
+          "gt_net": "n14",
+          "pred_net": "n14",
+          "v_gt": 1.319009,
+          "v_pred": 1.200115,
+          "abs_dv": 0.11889400000000006
+        }
+      ]
+    },
+    {
+      "stem": "circuit_641",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.3333333333333333,
+      "max_abs_dv": 32.0,
+      "disagreements": [
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": -16.0,
+          "v_pred": 16.0,
+          "abs_dv": 32.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_666",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 4.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 1.0,
+          "v_pred": -1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 1.0,
+          "v_pred": -1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 2.0,
+          "v_pred": -2.0,
+          "abs_dv": 4.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_686",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 2.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n4",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n1",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_695",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.3333333333333333,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_717",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.6666666666666666,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_724",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.75,
+      "max_abs_dv": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 7.0,
+          "v_pred": 8.0,
+          "abs_dv": 1.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_74",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4000000000000001,
+      "max_abs_dv": 14.0383299849999,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n9",
+          "v_gt": 14.59029,
+          "v_pred": 14.65984,
+          "abs_dv": 0.06955000000000133
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n13",
+          "v_gt": 1.319009,
+          "v_pred": 7.678796,
+          "abs_dv": 6.359787
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n14",
+          "v_gt": 1.080785,
+          "v_pred": 0.0002573645,
+          "abs_dv": 1.0805276355000002
+        },
+        {
+          "gt_net": "n13",
+          "pred_net": "n10",
+          "v_gt": 14.03833,
+          "v_pred": 1.50001e-08,
+          "abs_dv": 14.0383299849999
+        }
+      ]
+    },
+    {
+      "stem": "circuit_765",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.6666666666666666,
+      "max_abs_dv": 2.0,
+      "disagreements": [
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 14.0,
+          "v_pred": 16.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_779",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.25,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 14.0,
+          "v_pred": -16.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n3",
+          "v_gt": 14.0,
+          "v_pred": -16.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_786",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.3333333333333333,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -0.5,
+          "v_pred": 0.5,
+          "abs_dv": 1.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_809",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.25,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n3",
+          "v_gt": 10.0,
+          "v_pred": -2.77556e-16,
+          "abs_dv": 10.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n4",
+          "v_gt": 10.0,
+          "v_pred": 0.0,
+          "abs_dv": 10.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_82",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.38709677419354843,
+      "max_abs_dv": 13.781825,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n8",
+          "v_gt": 14.66436,
+          "v_pred": 14.65778,
+          "abs_dv": 0.006579999999999586
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n11",
+          "v_gt": 13.26789,
+          "v_pred": 0.9618904,
+          "abs_dv": 12.3059996
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n10",
+          "v_gt": 15.0,
+          "v_pred": 14.15722,
+          "abs_dv": 0.8427799999999994
+        },
+        {
+          "gt_net": "n13",
+          "pred_net": "n14",
+          "v_gt": 14.98194,
+          "v_pred": 1.200115,
+          "abs_dv": 13.781825
+        }
+      ]
+    },
+    {
+      "stem": "circuit_837",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.5,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_847",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4000000000000001,
+      "max_abs_dv": 0.46579999999999977,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n9",
+          "v_gt": 14.59029,
+          "v_pred": 14.65778,
+          "abs_dv": 0.06749000000000116
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n12",
+          "v_gt": 1.080785,
+          "v_pred": 0.9618904,
+          "abs_dv": 0.11889460000000007
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n10",
+          "v_gt": 14.03833,
+          "v_pred": 14.15722,
+          "abs_dv": 0.11889000000000038
+        },
+        {
+          "gt_net": "n13",
+          "pred_net": "n14",
+          "v_gt": 1.319009,
+          "v_pred": 1.200115,
+          "abs_dv": 0.11889400000000006
+        }
+      ]
+    },
+    {
+      "stem": "circuit_853",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.5,
+      "max_abs_dv": 4.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n3",
+          "v_gt": 2.0,
+          "v_pred": -2.0,
+          "abs_dv": 4.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n1",
+          "v_gt": 1.0,
+          "v_pred": -1.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_928",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.0,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n4",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n3",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_934",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.3333333333333333,
+      "max_abs_dv": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -7.0,
+          "v_pred": -8.0,
+          "abs_dv": 1.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n3",
+          "v_gt": -7.0,
+          "v_pred": -8.0,
+          "abs_dv": 1.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_98",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.4000000000000001,
+      "max_abs_dv": 0.7123299999999997,
+      "disagreements": [
+        {
+          "gt_net": "n10",
+          "pred_net": "n8",
+          "v_gt": 14.59029,
+          "v_pred": 14.65778,
+          "abs_dv": 0.06749000000000116
+        },
+        {
+          "gt_net": "n12",
+          "pred_net": "n13",
+          "v_gt": 1.080785,
+          "v_pred": 0.9618904,
+          "abs_dv": 0.11889460000000007
+        },
+        {
+          "gt_net": "n13",
+          "pred_net": "n12",
+          "v_gt": 14.03833,
+          "v_pred": 14.15722,
+          "abs_dv": 0.11889000000000038
+        },
+        {
+          "gt_net": "n14",
+          "pred_net": "n14",
+          "v_gt": 1.319009,
+          "v_pred": 1.200115,
+          "abs_dv": 0.11889400000000006
+        }
+      ]
+    },
+    {
+      "stem": "circuit_999",
+      "net_f1_topology": 1.0,
+      "terminal_pair_f1_topology": 1.0,
+      "strict_success_topology": 1,
+      "op_f1": 0.25,
+      "max_abs_dv": 30.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": -15.0,
+          "v_pred": 5.0,
+          "abs_dv": 20.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": -30.0,
+          "v_pred": 0.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    }
+  ],
+  "worst_circuits": [
+    {
+      "stem": "circuit_616",
+      "f1": 0.0,
+      "max_abs_dv": 30.658859,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -14.5862,
+          "v_pred": 0.7211273,
+          "abs_dv": 15.3073273
+        },
+        {
+          "gt_net": "n10",
+          "pred_net": "n10",
+          "v_gt": -14.5862,
+          "v_pred": 0.7211273,
+          "abs_dv": 15.3073273
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n11",
+          "v_gt": -14.5859,
+          "v_pred": 0.7211422,
+          "abs_dv": 15.3070422
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n4",
+          "v_gt": -14.5859,
+          "v_pred": 0.7211422,
+          "abs_dv": 15.3070422
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": -29.1722,
+          "v_pred": 1.486659,
+          "abs_dv": 30.658859
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1259",
+      "f1": 0.0,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 0.9375,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n3",
+          "v_gt": -7.5,
+          "v_pred": 7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": -1.0,
+          "v_pred": -2.0,
+          "abs_dv": 1.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n2",
+          "v_gt": -1.0,
+          "v_pred": -2.0,
+          "abs_dv": 1.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_129",
+      "f1": 0.0,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n2",
+          "v_gt": 1.0,
+          "v_pred": -1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_196",
+      "f1": 0.0,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_271",
+      "f1": 0.0,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n3",
+          "v_gt": 7.5,
+          "v_pred": -7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 7.5,
+          "v_pred": -7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_351",
+      "f1": 0.0,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n2",
+          "v_gt": 14.0,
+          "v_pred": -14.0,
+          "abs_dv": 28.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_612",
+      "f1": 0.0,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -7.5,
+          "v_pred": 7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": -7.5,
+          "v_pred": 7.5,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_928",
+      "f1": 0.0,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n4",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n3",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n5",
+          "pred_net": "n5",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_218",
+      "f1": 0.0,
+      "max_abs_dv": 29.1722,
+      "net_f1_topology": 0.9411764705882354,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": -14.5862,
+          "v_pred": 4.28862e-146,
+          "abs_dv": 14.5862
+        },
+        {
+          "gt_net": "n10",
+          "pred_net": "n10",
+          "v_gt": -14.5862,
+          "v_pred": 7.273673e-46,
+          "abs_dv": 14.5862
+        },
+        {
+          "gt_net": "n11",
+          "pred_net": "n9",
+          "v_gt": -14.5859,
+          "v_pred": 1.410648e-29,
+          "abs_dv": 14.5859
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n3",
+          "v_gt": -14.5862,
+          "v_pred": 1.091629e-70,
+          "abs_dv": 14.5862
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n2",
+          "v_gt": -14.5862,
+          "v_pred": -4.51554e-46,
+          "abs_dv": 14.5862
+        }
+      ]
+    },
+    {
+      "stem": "circuit_441",
+      "f1": 0.0,
+      "max_abs_dv": 4.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n1",
+          "v_gt": 13.0,
+          "v_pred": 17.0,
+          "abs_dv": 4.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n2",
+          "v_gt": 14.0,
+          "v_pred": 16.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 14.0,
+          "v_pred": 16.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": 14.0,
+          "v_pred": 16.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n5",
+          "pred_net": "n5",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_666",
+      "f1": 0.0,
+      "max_abs_dv": 4.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 1.0,
+          "v_pred": -1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 1.0,
+          "v_pred": -1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 2.0,
+          "v_pred": -2.0,
+          "abs_dv": 4.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_686",
+      "f1": 0.0,
+      "max_abs_dv": 2.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n4",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n1",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n5",
+          "pred_net": "n5",
+          "v_gt": -16.0,
+          "v_pred": -14.0,
+          "abs_dv": 2.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_1195",
+      "f1": 0.20000000000000004,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n3",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n2",
+          "v_gt": -1.0,
+          "v_pred": 1.0,
+          "abs_dv": 2.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": -15.0,
+          "v_pred": 15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_264",
+      "f1": 0.20000000000000004,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 7.0,
+          "v_pred": -8.0,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 5.0,
+          "v_pred": -10.0,
+          "abs_dv": 15.0
+        },
+        {
+          "gt_net": "n4",
+          "pred_net": "n4",
+          "v_gt": 6.0,
+          "v_pred": -9.0,
+          "abs_dv": 15.0
+        }
+      ]
+    },
+    {
+      "stem": "circuit_131",
+      "f1": 0.25,
+      "max_abs_dv": 30.0,
+      "net_f1_topology": 1.0,
+      "disagreements": [
+        {
+          "gt_net": "n1",
+          "pred_net": "n2",
+          "v_gt": 13.0,
+          "v_pred": -17.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n2",
+          "pred_net": "n1",
+          "v_gt": 14.0,
+          "v_pred": -16.0,
+          "abs_dv": 30.0
+        },
+        {
+          "gt_net": "n3",
+          "pred_net": "n3",
+          "v_gt": 15.0,
+          "v_pred": -15.0,
+          "abs_dv": 30.0
+        }
+      ]
+    }
+  ]
+}

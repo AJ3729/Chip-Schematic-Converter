@@ -209,7 +209,7 @@ def run_pipeline(
             )
         else:
             raise ValueError(f"Unknown nodes.method: {method!r}")
-        cs = build_component_pin_nets(detections, nm, cfg)
+        cs = build_component_pin_nets(detections, nm, cfg, gray)
         # the repair stage inspects node_names, so they must exist on rebuild
         for c in cs:
             c["node_names"] = [None if x is None else f"n{x}"
