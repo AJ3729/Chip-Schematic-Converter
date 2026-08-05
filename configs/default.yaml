@@ -308,9 +308,10 @@ snapping:
   # The head only PERMUTES the pins snapping already found -- it never changes
   # which nodes a component touches, so net-level topology cannot move.
   port_head:
-    enabled: false            # flipped on once the heads are trained + validated
+    enabled: true             # validated on val: every class at or above baseline
     weights_dir: experiments/port_head
-    min_total_score: 0.0      # sum of per-pin responses; 0 = always trust
+    min_total_score: 0.0
+    sample_radius: 4      # sum of per-pin responses; 0 = always trust
 
   # ports = port-template pin identity (C3). It measured only +0.013
   # terminal-pair F1 against padded masks and delivers +0.068 against

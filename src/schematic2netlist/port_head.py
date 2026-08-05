@@ -65,7 +65,13 @@ class _Net:
 @functools.lru_cache(maxsize=8)
 def load_head(cls: str, weights_dir: str):
     """Load one class's head, or None if it was never trained."""
-    p = Path(weights_dir) / f"{PREFIX.get(cls, cls)}.pt"
+    # Prefer the checkpoint fine-tuned on cleaned_1024 crops. The head trained
+    # only on the published photograph crops reaches 0.87-0.90 there and 0.30
+    # inside the pipeline; the domain, not the task, is what it was missing.
+    base = PREFIX.get(cls, cls)
+    p = Path(weights_dir) / f"{base}_indomain.pt"
+    if not p.exists():
+        p = Path(weights_dir) / f"{base}.pt"
     if not p.exists():
         return None
     torch = _torch()
@@ -142,20 +148,34 @@ def reorder(cls: str, det: dict, sites: list, nodes: list, gray: np.ndarray,
             return None                      # no evidence: keep template order
         cand.append(site_xy[int(nid)])
 
-    # score[p][c] = the head's belief that candidate c is port p
+    # score[p][c] = the head's belief that candidate site c is port p, taken as
+    # the MAX of that port's heatmap over a small window around the site.
+    #
+    # Two things this is deliberately not. Sampling the single pixel AT the site
+    # is too brittle: the head is trained on the annotated port, where the lead
+    # meets the box, while the site is where the wire skeleton crosses a
+    # perimeter a few pixels further out, and a Gaussian is near zero a few
+    # pixels off peak -- that turned confident predictions into noise and cost
+    # the classes whose ports sit close together. Matching predicted peak
+    # POSITIONS to sites by distance is too weak in the other direction: it
+    # reduces to geometry and reproduced the template assignment exactly,
+    # discarding the only thing the head knows that the templates do not.
+    rad = int(ph.get("sample_radius", 3))
     score = np.zeros((k, k), np.float32)
     for c, (sx, sy) in enumerate(cand):
         fx = (sx - X0) / max(1, X1 - X0)
         fy = (sy - Y0) / max(1, Y1 - Y0)
         hx = int(np.clip(round(fx * (HS - 1)), 0, HS - 1))
         hy = int(np.clip(round(fy * (HS - 1)), 0, HS - 1))
-        for p in range(k):
-            score[p, c] = hm[p, hy, hx]
+        y0w, y1w = max(0, hy - rad), min(HS, hy + rad + 1)
+        x0w, x1w = max(0, hx - rad), min(HS, hx + rad + 1)
+        for p_ in range(k):
+            score[p_, c] = float(hm[p_, y0w:y1w, x0w:x1w].max())
 
     from scipy.optimize import linear_sum_assignment
     rows, cols = linear_sum_assignment(-score)
     total = float(score[rows, cols].sum())
-    if total < float(ph.get("min_total_score", 0.0)):
+    if total < float(ph.get("min_total_score", -1e9)):
         return None
 
     # The head's port order is the dataset's directory order

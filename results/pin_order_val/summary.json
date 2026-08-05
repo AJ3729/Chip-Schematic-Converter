@@ -1,0 +1,456 @@
+{
+ "templates_only": {
+  "split": "val",
+  "gt_dir": "data/gt_val_1024",
+  "multi_terminal_matched": 381,
+  "decidable": 173,
+  "undecidable": 208,
+  "correct": 130,
+  "wrong": 43,
+  "accuracy": 0.7514,
+  "by_class": {
+   "BJT-NPN": {
+    "correct": 57,
+    "decidable": 73,
+    "accuracy": 0.7808
+   },
+   "BJT-PNP": {
+    "correct": 43,
+    "decidable": 57,
+    "accuracy": 0.7544
+   },
+   "MOSFET-N": {
+    "correct": 14,
+    "decidable": 15,
+    "accuracy": 0.9333
+   },
+   "MOSFET-P": {
+    "correct": 5,
+    "decidable": 11,
+    "accuracy": 0.4545
+   },
+   "Op-Amp": {
+    "correct": 11,
+    "decidable": 17,
+    "accuracy": 0.6471
+   }
+  },
+  "wrong_permutations": {
+   "(2, 1, 0)": 29,
+   "(1, 0, 2)": 6,
+   "(0, 2, 1)": 3,
+   "(2, 0, 1)": 2,
+   "(2, 2, 1)": 1,
+   "(1, 2, 0)": 1,
+   "(1, 1, 2)": 1
+  },
+  "wrong_examples": [
+   {
+    "image": "circuit_1079",
+    "comp": 18,
+    "class": "BJT-NPN",
+    "gt": [
+     "n8",
+     "n9",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n9",
+     "n8"
+    ]
+   },
+   {
+    "image": "circuit_1153",
+    "comp": 3,
+    "class": "Op-Amp",
+    "gt": [
+     "n2",
+     "n4",
+     "n3"
+    ],
+    "pred_mapped": [
+     "n4",
+     "n2",
+     "n3"
+    ]
+   },
+   {
+    "image": "circuit_1166",
+    "comp": 2,
+    "class": "BJT-PNP",
+    "gt": [
+     "n9",
+     "n10",
+     "n8"
+    ],
+    "pred_mapped": [
+     "n8",
+     "n9",
+     "n10"
+    ]
+   },
+   {
+    "image": "circuit_1166",
+    "comp": 21,
+    "class": "BJT-NPN",
+    "gt": [
+     "n3",
+     "n4",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n4",
+     "n3"
+    ]
+   },
+   {
+    "image": "circuit_1172",
+    "comp": 17,
+    "class": "BJT-PNP",
+    "gt": [
+     "n9",
+     "n10",
+     "n8"
+    ],
+    "pred_mapped": [
+     "n8",
+     "n10",
+     "n9"
+    ]
+   },
+   {
+    "image": "circuit_1172",
+    "comp": 16,
+    "class": "BJT-NPN",
+    "gt": [
+     "n3",
+     "n4",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n4",
+     "n3"
+    ]
+   },
+   {
+    "image": "circuit_1241",
+    "comp": 0,
+    "class": "BJT-PNP",
+    "gt": [
+     "n9",
+     "n10",
+     "n7"
+    ],
+    "pred_mapped": [
+     "n7",
+     "n10",
+     "n9"
+    ]
+   },
+   {
+    "image": "circuit_1241",
+    "comp": 1,
+    "class": "BJT-PNP",
+    "gt": [
+     "n5",
+     "n4",
+     "n3"
+    ],
+    "pred_mapped": [
+     "n3",
+     "n4",
+     "n5"
+    ]
+   },
+   {
+    "image": "circuit_1241",
+    "comp": 9,
+    "class": "BJT-NPN",
+    "gt": [
+     "n3",
+     "n2",
+     "n1"
+    ],
+    "pred_mapped": [
+     "n1",
+     "n2",
+     "n3"
+    ]
+   },
+   {
+    "image": "circuit_14",
+    "comp": 15,
+    "class": "BJT-PNP",
+    "gt": [
+     "n13",
+     "n7",
+     "n3"
+    ],
+    "pred_mapped": [
+     "n3",
+     "n7",
+     "n13"
+    ]
+   },
+   {
+    "image": "circuit_14",
+    "comp": 18,
+    "class": "BJT-NPN",
+    "gt": [
+     "n11",
+     "n15",
+     "0"
+    ],
+    "pred_mapped": [
+     "0",
+     "n15",
+     "n11"
+    ]
+   },
+   {
+    "image": "circuit_205",
+    "comp": 11,
+    "class": "MOSFET-P",
+    "gt": [
+     "n5",
+     "n4",
+     "n3"
+    ],
+    "pred_mapped": [
+     "n5",
+     "n3",
+     "n4"
+    ]
+   }
+  ]
+ },
+ "port_head": {
+  "split": "val",
+  "gt_dir": "data/gt_val_1024",
+  "multi_terminal_matched": 381,
+  "decidable": 173,
+  "undecidable": 208,
+  "correct": 155,
+  "wrong": 18,
+  "accuracy": 0.896,
+  "by_class": {
+   "BJT-NPN": {
+    "correct": 72,
+    "decidable": 73,
+    "accuracy": 0.9863
+   },
+   "BJT-PNP": {
+    "correct": 50,
+    "decidable": 57,
+    "accuracy": 0.8772
+   },
+   "MOSFET-N": {
+    "correct": 15,
+    "decidable": 15,
+    "accuracy": 1.0
+   },
+   "MOSFET-P": {
+    "correct": 7,
+    "decidable": 11,
+    "accuracy": 0.6364
+   },
+   "Op-Amp": {
+    "correct": 11,
+    "decidable": 17,
+    "accuracy": 0.6471
+   }
+  },
+  "wrong_permutations": {
+   "(2, 1, 0)": 10,
+   "(1, 0, 2)": 5,
+   "(1, 2, 0)": 1,
+   "(1, 2, 2)": 1,
+   "(1, 1, 2)": 1
+  },
+  "wrong_examples": [
+   {
+    "image": "circuit_1074",
+    "comp": 2,
+    "class": "Op-Amp",
+    "gt": [
+     "n9",
+     "n2",
+     "n3"
+    ],
+    "pred_mapped": [
+     "n2",
+     "n9",
+     "n3"
+    ]
+   },
+   {
+    "image": "circuit_1166",
+    "comp": 12,
+    "class": "BJT-PNP",
+    "gt": [
+     "0",
+     "n1",
+     "n2"
+    ],
+    "pred_mapped": [
+     "n2",
+     "n1",
+     "0"
+    ]
+   },
+   {
+    "image": "circuit_1166",
+    "comp": 5,
+    "class": "BJT-PNP",
+    "gt": [
+     "n14",
+     "n11",
+     "n15"
+    ],
+    "pred_mapped": [
+     "n15",
+     "n11",
+     "n14"
+    ]
+   },
+   {
+    "image": "circuit_1166",
+    "comp": 2,
+    "class": "BJT-PNP",
+    "gt": [
+     "n9",
+     "n10",
+     "n8"
+    ],
+    "pred_mapped": [
+     "n8",
+     "n10",
+     "n9"
+    ]
+   },
+   {
+    "image": "circuit_1201",
+    "comp": 1,
+    "class": "BJT-NPN",
+    "gt": [
+     "n1",
+     "n9",
+     "n5"
+    ],
+    "pred_mapped": [
+     "n5",
+     "n9",
+     "n1"
+    ]
+   },
+   {
+    "image": "circuit_1241",
+    "comp": 1,
+    "class": "BJT-PNP",
+    "gt": [
+     "n5",
+     "n4",
+     "n3"
+    ],
+    "pred_mapped": [
+     "n3",
+     "n4",
+     "n5"
+    ]
+   },
+   {
+    "image": "circuit_210",
+    "comp": 11,
+    "class": "MOSFET-P",
+    "gt": [
+     "n2",
+     "n3",
+     "n1"
+    ],
+    "pred_mapped": [
+     "n1",
+     "n3",
+     "n2"
+    ]
+   },
+   {
+    "image": "circuit_210",
+    "comp": 13,
+    "class": "MOSFET-P",
+    "gt": [
+     "n6",
+     "n7",
+     "n2"
+    ],
+    "pred_mapped": [
+     "n2",
+     "n7",
+     "n6"
+    ]
+   },
+   {
+    "image": "circuit_215",
+    "comp": 3,
+    "class": "MOSFET-P",
+    "gt": [
+     "n5",
+     "n8",
+     "n6"
+    ],
+    "pred_mapped": [
+     "n8",
+     "n6",
+     "n5"
+    ]
+   },
+   {
+    "image": "circuit_297",
+    "comp": 1,
+    "class": "BJT-PNP",
+    "gt": [
+     "n4",
+     "n11",
+     "n10"
+    ],
+    "pred_mapped": [
+     "n10",
+     "n11",
+     "n4"
+    ]
+   },
+   {
+    "image": "circuit_344",
+    "comp": 14,
+    "class": "MOSFET-P",
+    "gt": [
+     "n4",
+     "n8",
+     "n6"
+    ],
+    "pred_mapped": [
+     "n8",
+     "n4",
+     "n6"
+    ]
+   },
+   {
+    "image": "circuit_506",
+    "comp": 15,
+    "class": "BJT-PNP",
+    "gt": [
+     "n8",
+     "n6",
+     "n7"
+    ],
+    "pred_mapped": [
+     "n7",
+     "n6",
+     "n8"
+    ]
+   }
+  ]
+ }
+}
