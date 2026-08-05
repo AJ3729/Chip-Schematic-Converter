@@ -73,8 +73,20 @@ def boxes_of(gt, pad=0):
 
 
 def _nbcount(skel):
-    k = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]], np.uint8)
-    return cv2.filter2D(skel.astype(np.uint8), -1, k, borderType=cv2.BORDER_CONSTANT) * skel
+    """8-neighbour count per skeleton pixel. See the note in
+    ``../trace.py``: ``cv2.filter2D`` returns halved counts at image size on
+    some OpenCV builds, which silently collapses every net into one. This
+    numpy form is platform-independent and agrees with filter2D wherever
+    filter2D is correct."""
+    s = skel.astype(np.uint8)
+    p = np.pad(s, 1)
+    h, w = s.shape
+    out = np.zeros((h, w), np.int32)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            if dy or dx:
+                out += p[1 + dy:1 + dy + h, 1 + dx:1 + dx + w]
+    return out * s
 
 
 class Graph:

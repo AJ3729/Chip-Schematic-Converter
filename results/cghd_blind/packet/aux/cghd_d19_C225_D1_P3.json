@@ -1,0 +1,953 @@
+{
+  "stem": "cghd_d19_C225_D1_P3",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "text",
+      "bbox": [
+        743.6,
+        799.2,
+        26.0,
+        21.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        875.7,
+        235.5,
+        37.4,
+        26.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        316.5,
+        226.7,
+        28.2,
+        16.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        822.1,
+        254.6,
+        31.2,
+        15.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        629.6,
+        763.0,
+        36.2,
+        30.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        644.5,
+        252.3,
+        37.1,
+        17.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        610.6,
+        606.2,
+        23.4,
+        16.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        242.3,
+        703.5,
+        23.5,
+        13.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        473.9,
+        245.8,
+        32.1,
+        12.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        298.8,
+        201.9,
+        7.9,
+        8.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        793.1,
+        602.4,
+        27.4,
+        17.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        407.0,
+        631.2,
+        10.2,
+        10.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        390.0,
+        703.3,
+        26.9,
+        15.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        164.5,
+        216.7,
+        7.6,
+        6.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        76.8,
+        255.3,
+        8.6,
+        8.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        832.5,
+        379.3,
+        29.3,
+        19.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        253.2,
+        649.3,
+        10.5,
+        11.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        603.4,
+        329.2,
+        8.1,
+        8.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        91.1,
+        167.6,
+        6.8,
+        6.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        800.1,
+        228.4,
+        5.8,
+        7.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        803.0,
+        367.8,
+        12.0,
+        11.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        231.6,
+        791.4,
+        11.0,
+        11.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        792.4,
+        495.0,
+        9.6,
+        7.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        600.3,
+        361.6,
+        10.2,
+        10.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        430.5,
+        329.6,
+        8.8,
+        7.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        626.4,
+        225.4,
+        7.6,
+        7.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        391.7,
+        799.8,
+        9.2,
+        9.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        512.9,
+        711.3,
+        22.6,
+        16.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        589.4,
+        484.7,
+        8.4,
+        8.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        454.6,
+        217.9,
+        8.1,
+        8.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        681.6,
+        491.3,
+        10.7,
+        9.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        271.0,
+        322.3,
+        9.9,
+        9.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        457.0,
+        714.6,
+        6.8,
+        6.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        584.1,
+        799.7,
+        6.3,
+        7.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        584.2,
+        721.5,
+        8.4,
+        7.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        832.4,
+        497.6,
+        28.0,
+        17.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        26.7,
+        252.8,
+        23.5,
+        21.3
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        106.2,
+        368.6,
+        12.3,
+        11.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        116.4,
+        297.8,
+        10.5,
+        10.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        675.5,
+        526.6,
+        9.2,
+        8.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        343.1,
+        310.5,
+        24.3,
+        13.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        159.2,
+        264.3,
+        7.1,
+        7.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        1007.9,
+        357.9,
+        7.6,
+        7.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        110.5,
+        332.2,
+        9.0,
+        11.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        622.1,
+        508.7,
+        26.6,
+        15.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        527.8,
+        476.4,
+        7.9,
+        7.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        92.0,
+        373.0,
+        29.7,
+        25.5
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        517.1,
+        583.0,
+        8.1,
+        8.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        956.1,
+        523.1,
+        7.6,
+        8.1
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        516.2,
+        638.2,
+        7.6,
+        8.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        666.3,
+        466.6,
+        31.3,
+        18.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        692.7,
+        350.9,
+        21.0,
+        13.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        737.3,
+        514.5,
+        35.5,
+        14.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        789.9,
+        671.1,
+        7.6,
+        7.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        990.9,
+        748.3,
+        11.0,
+        11.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        450.5,
+        841.4,
+        8.6,
+        8.1
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        69.6,
+        306.7,
+        7.8,
+        7.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        444.5,
+        570.7,
+        19.7,
+        21.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        567.9,
+        354.0,
+        27.1,
+        22.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        436.8,
+        382.1,
+        26.3,
+        14.0
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        55.0,
+        160.4,
+        7.1,
+        7.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        551.7,
+        339.6,
+        7.5,
+        5.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        88.9,
+        210.8,
+        29.1,
+        14.6
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        846.6,
+        233.5,
+        5.5,
+        6.3
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        806.9,
+        330.8,
+        10.5,
+        11.2
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        949.6,
+        745.0,
+        8.6,
+        7.9
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        519.2,
+        658.7,
+        7.3,
+        6.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        552.0,
+        357.4,
+        6.3,
+        6.0
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        547.2,
+        410.5,
+        9.1,
+        8.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        563.6,
+        411.0,
+        26.2,
+        26.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        670.5,
+        413.9,
+        21.6,
+        17.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        664.9,
+        702.9,
+        29.5,
+        18.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        261.6,
+        369.2,
+        21.4,
+        12.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        341.5,
+        351.7,
+        21.9,
+        27.6
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        849.9,
+        498.2,
+        6.3,
+        7.6
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        457.5,
+        578.0,
+        6.6,
+        6.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        585.9,
+        645.0,
+        9.7,
+        8.9
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        450.5,
+        799.6,
+        6.0,
+        6.3
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        714.7,
+        804.8,
+        5.8,
+        5.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        933.8,
+        844.0,
+        8.3,
+        7.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        905.3,
+        332.7,
+        8.4,
+        10.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        903.4,
+        369.2,
+        6.9,
+        8.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        920.5,
+        353.6,
+        27.2,
+        18.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        890.1,
+        498.9,
+        12.4,
+        8.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        909.6,
+        518.7,
+        27.5,
+        18.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        890.9,
+        537.1,
+        11.0,
+        11.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        507.0,
+        381.9,
+        22.8,
+        15.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        523.9,
+        359.6,
+        7.5,
+        6.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        522.0,
+        402.7,
+        7.7,
+        9.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        160.6,
+        337.4,
+        13.2,
+        7.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        176.3,
+        355.5,
+        20.0,
+        15.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        155.9,
+        373.7,
+        11.7,
+        9.2
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        791.4,
+        531.2,
+        8.5,
+        10.9
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        51.1,
+        781.2,
+        15.6,
+        12.9
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        406.1,
+        652.4,
+        12.3,
+        10.8
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 5,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 8,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 9,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 11,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 14,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 15,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 16,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 17,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 18,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 19,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 20,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 21,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    }
+  ],
+  "counts": {
+    "junction": 36,
+    "crossover": 8,
+    "text": 42,
+    "terminal": 9
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

@@ -56,10 +56,20 @@ hysteresis binarization, a criticality analysis that flips every
 junction/crossing call and retains only the sites where the partition of
 terminals changes, adjudication by eye at 5--24$\times$ magnification,
 deterministic net reconstruction from the recorded decisions, an
-electrical rule check, and an independent second reader. Nets are
-recomputed from the decision record rather than hand-edited, so every
-shipped netlist is reproducible from it, and the decision records are
-released alongside the netlists.
+electrical rule check, and an automated self-consistency re-derivation.
+Nets are recomputed from the decision record rather than hand-edited, so
+every shipped netlist is reproducible from it, and the decision records
+are released alongside the netlists.
+
+Ground truth records the topology \emph{as drawn}. Where a faithful
+reading yields a circuit that cannot be simulated --- one sheet in the
+test split has a rail tip landing on a grounded column, which
+short-circuits a voltage source --- the annotation keeps the drawn
+topology and the electrical rule check reports the fault. Electrically
+motivated corrections are never folded into the topology; the
+observation that a shorted voltage source appears nowhere else in the
+annotated set is recorded in that file's notes as evidence about the
+drawing, not as a change applied to it.
 
 That protocol matters for more than rigor: ground truth seeded by the
 pipeline's own output would make any evaluation of that pipeline
@@ -72,9 +82,22 @@ value label rather than on the lead, which is why a one-terminal net is a
 hard error in the rule check; and pin order on three-terminal parts was
 wrong far more often than net grouping, a failure no net-level or
 electrical check can detect.
-\todoa{mentor second-read of ambiguous crossings/transistors — state
-here if/when done; the second reader reported in
-Table~\ref{tab:gt-verification} is the first author re-deriving blind.}
+
+The re-derivation rows of Table~\ref{tab:gt-verification} must be read
+for what they are. Each sampled file was re-derived from the drawing
+without reading the first pass's reasoning first, and the two netlists
+were compared --- but that re-derivation was performed by an \emph{AI
+assistant, not by an independent human annotator}. It is a real check on
+clerical and transcription error --- formatting faults, inconsistent
+terminal counts, duplicate nodes, one-terminal nets --- and it caught
+them: seven of the nine files flagged by the cross-checks changed. It is
+a weak check on judgement, because it shares the first pass's reasoning
+and blind spots, so agreement is evidence of consistency rather than of
+correctness. It is not an inter-annotator agreement study and we do not
+report it as one. Independent second annotation by an external annotator
+is \emph{pending}.
+\todoa{external second annotation of ambiguous crossings and
+three-terminal pin order — state the result here if/when it happens.}
 The verified GT files and decision records are released with the
 benchmark; images remain under the original Digitize-HCD license.
 
@@ -91,9 +114,13 @@ benchmark; images remain under the original Digitize-HCD license.
   \centering
   \caption{Judgement recorded while building the test-split ground truth.
   Every count is derived from the released per-image decision records by
-  \texttt{scripts/gt\_verification\_stats.py}. Second-reader rows are
-  disagreements over files re-derived from the drawing before reading the
-  first pass.}
+  \texttt{scripts/gt\_verification\_stats.py}. The lower block reports an
+  \emph{automated self-consistency re-derivation}: files re-derived from
+  the drawing before reading the first pass, by an AI assistant and
+  \emph{not} by an independent human annotator. It detects clerical and
+  transcription error; it cannot establish that a judgement call is
+  correct, because it shares the first pass's reasoning. Independent
+  human second annotation is pending.}
   \label{tab:gt-verification}
   \input{tables/gt_verification}
 \end{table}

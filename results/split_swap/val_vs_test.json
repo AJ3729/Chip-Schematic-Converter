@@ -17,7 +17,7 @@
    "mean_components": 13.35,
    "median_components": 13.0,
    "max_components": 30,
-   "mean_gt_nets": 7.8,
+   "mean_gt_nets": 7.79,
    "pct_with_crossover": 28.1,
    "pct_with_3plus_terminal": 30.2
   }
@@ -34,17 +34,17 @@
   {
    "metric": "terminal_pair_f1",
    "val_mean": 0.7889,
-   "test_mean": 0.8077,
-   "delta": 0.0188,
-   "p_value": 0.4741,
+   "test_mean": 0.8084,
+   "delta": 0.0195,
+   "p_value": 0.458,
    "test_used": "Welch t"
   },
   {
    "metric": "net_f1",
    "val_mean": 0.8714,
-   "test_mean": 0.8768,
-   "delta": 0.0054,
-   "p_value": 0.754,
+   "test_mean": 0.8772,
+   "delta": 0.0058,
+   "p_value": 0.7372,
    "test_used": "Welch t"
   },
   {

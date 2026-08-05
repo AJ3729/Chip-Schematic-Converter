@@ -1,0 +1,445 @@
+{
+  "purpose": "CROSS-DATASET blind evaluation set. NOT a same-distribution blind set and not a substitute for one. See READINESS.md.",
+  "seed": 0,
+  "n_selected": 36,
+  "distinct_drafters": 18,
+  "eligibility_rules": {
+    "one_image_per_circuit": "CGHD draws each circuit twice and photographs each drawing four times; at most one image per (drafter, circuit) is selected so the set holds no near-duplicate topologies.",
+    "vocabulary_coverage": "every electrical symbol on the sheet must map onto one of the 17 Digitize-HCD classes -- a component the vocabulary cannot express makes the netlist unscoreable",
+    "excluded_classes": {
+      "resistor.adjustable": "a potentiometer/rheostat has three terminals; our Resistor class has two, so no valid GT file can be written for it."
+    },
+    "component_count_range": [
+      5,
+      45
+    ],
+    "zero_shot_exclusion": "no circuit that contributed to results/cghd_zero_shot/ is eligible, at CIRCUIT level, not merely image level",
+    "frame_legibility": "the shipped 1024 frame must fall inside the ink-statistics envelope of the Digitize-HCD TRAIN frames. Where the chosen photograph failed, a sibling shot of the SAME circuit was used instead; where no shot passed, the circuit was replaced from the reserve. This screens photographs, never pipeline output -- but it does mean the set is conditioned on the preprocessing frontend succeeding, so it UNDERSTATES CGHD's true end-to-end difficulty. See frame_legibility_gate."
+  },
+  "frame_legibility_gate": {
+    "calibrated_on": "895 Digitize-HCD TRAIN frames in /Users/junaidahmed/Documents/Chip-Schematic-Converter/data/cleaned_1024",
+    "max_ink_fraction": 0.04701,
+    "max_largest_component_fraction": 0.03319,
+    "p99_ink_fraction": 0.03685,
+    "rule": "a CGHD frame is LEGIBLE if both statistics fall inside the range spanned by every training frame; outside it, the drawing has not survived binarisation and no human can annotate it either",
+    "photograph_swaps": [
+      {
+        "drafter": "drafter_2",
+        "circuit": 22,
+        "from": "C22_D2_P2",
+        "to": "C22_D1_P3",
+        "photographs_tried": [
+          {
+            "cghd_stem": "C22_D2_P2",
+            "ink_fraction": 0.74351,
+            "largest_component_fraction": 0.74351
+          },
+          {
+            "cghd_stem": "C22_D2_P1",
+            "ink_fraction": 0.74419,
+            "largest_component_fraction": 0.74419
+          },
+          {
+            "cghd_stem": "C22_D2_P3",
+            "ink_fraction": 0.74332,
+            "largest_component_fraction": 0.74332
+          },
+          {
+            "cghd_stem": "C22_D2_P4",
+            "ink_fraction": 0.07633,
+            "largest_component_fraction": 0.06294
+          },
+          {
+            "cghd_stem": "C22_D1_P2",
+            "ink_fraction": 0.10091,
+            "largest_component_fraction": 0.09065
+          },
+          {
+            "cghd_stem": "C22_D1_P1",
+            "ink_fraction": 0.74268,
+            "largest_component_fraction": 0.74268
+          },
+          {
+            "cghd_stem": "C22_D1_P3",
+            "ink_fraction": 0.01596,
+            "largest_component_fraction": 0.0018
+          }
+        ]
+      },
+      {
+        "drafter": "drafter_5",
+        "circuit": 56,
+        "from": "C56_D1_P1",
+        "to": "C56_D1_P2",
+        "photographs_tried": [
+          {
+            "cghd_stem": "C56_D1_P1",
+            "ink_fraction": 0.05532,
+            "largest_component_fraction": 0.0233
+          },
+          {
+            "cghd_stem": "C56_D1_P2",
+            "ink_fraction": 0.04161,
+            "largest_component_fraction": 0.01868
+          }
+        ]
+      },
+      {
+        "drafter": "drafter_5",
+        "circuit": 57,
+        "from": "C57_D1_P2",
+        "to": "C57_D2_P2",
+        "photographs_tried": [
+          {
+            "cghd_stem": "C57_D1_P2",
+            "ink_fraction": 0.05449,
+            "largest_component_fraction": 0.03063
+          },
+          {
+            "cghd_stem": "C57_D1_P1",
+            "ink_fraction": 0.05589,
+            "largest_component_fraction": 0.03419
+          },
+          {
+            "cghd_stem": "C57_D1_P3",
+            "ink_fraction": 0.08236,
+            "largest_component_fraction": 0.03149
+          },
+          {
+            "cghd_stem": "C57_D1_P4",
+            "ink_fraction": 0.04914,
+            "largest_component_fraction": 0.03085
+          },
+          {
+            "cghd_stem": "C57_D2_P2",
+            "ink_fraction": 0.04176,
+            "largest_component_fraction": 0.02207
+          }
+        ]
+      },
+      {
+        "drafter": "drafter_9",
+        "circuit": 98,
+        "from": "C98_D1_P2",
+        "to": "C98_D1_P4",
+        "photographs_tried": [
+          {
+            "cghd_stem": "C98_D1_P2",
+            "ink_fraction": 0.13911,
+            "largest_component_fraction": 0.13301
+          },
+          {
+            "cghd_stem": "C98_D1_P1",
+            "ink_fraction": 0.53576,
+            "largest_component_fraction": 0.53576
+          },
+          {
+            "cghd_stem": "C98_D1_P3",
+            "ink_fraction": 0.54078,
+            "largest_component_fraction": 0.54078
+          },
+          {
+            "cghd_stem": "C98_D1_P4",
+            "ink_fraction": 0.00767,
+            "largest_component_fraction": 0.0025
+          }
+        ]
+      },
+      {
+        "drafter": "drafter_9",
+        "circuit": 103,
+        "from": "C103_D1_P4",
+        "to": "C103_D1_P1",
+        "photographs_tried": [
+          {
+            "cghd_stem": "C103_D1_P4",
+            "ink_fraction": 0.13549,
+            "largest_component_fraction": 0.08838
+          },
+          {
+            "cghd_stem": "C103_D1_P1",
+            "ink_fraction": 0.00455,
+            "largest_component_fraction": 0.00099
+          }
+        ]
+      },
+      {
+        "drafter": "drafter_13",
+        "circuit": 147,
+        "from": "C147_D2_P2",
+        "to": "C147_D2_P1",
+        "photographs_tried": [
+          {
+            "cghd_stem": "C147_D2_P2",
+            "ink_fraction": 0.21483,
+            "largest_component_fraction": 0.1807
+          },
+          {
+            "cghd_stem": "C147_D2_P1",
+            "ink_fraction": 0.01087,
+            "largest_component_fraction": 0.0019
+          }
+        ]
+      },
+      {
+        "drafter": "drafter_13",
+        "circuit": 151,
+        "from": "C151_D1_P4",
+        "to": "C151_D1_P1",
+        "photographs_tried": [
+          {
+            "cghd_stem": "C151_D1_P4",
+            "ink_fraction": 0.14906,
+            "largest_component_fraction": 0.10371
+          },
+          {
+            "cghd_stem": "C151_D1_P1",
+            "ink_fraction": 0.02534,
+            "largest_component_fraction": 0.00291
+          }
+        ]
+      }
+    ],
+    "circuits_with_no_legible_photograph": [
+      {
+        "drafter": "drafter_2",
+        "circuit": 19,
+        "photographs_tried": [
+          {
+            "cghd_stem": "C19_D1_P2",
+            "ink_fraction": 0.13056,
+            "largest_component_fraction": 0.11748
+          },
+          {
+            "cghd_stem": "C19_D1_P1",
+            "ink_fraction": 0.07689,
+            "largest_component_fraction": 0.06155
+          },
+          {
+            "cghd_stem": "C19_D1_P3",
+            "ink_fraction": 0.74344,
+            "largest_component_fraction": 0.74344
+          },
+          {
+            "cghd_stem": "C19_D1_P4",
+            "ink_fraction": 0.26228,
+            "largest_component_fraction": 0.25289
+          },
+          {
+            "cghd_stem": "C19_D2_P2",
+            "ink_fraction": 0.18361,
+            "largest_component_fraction": 0.16927
+          },
+          {
+            "cghd_stem": "C19_D2_P1",
+            "ink_fraction": 0.06871,
+            "largest_component_fraction": 0.05364
+          },
+          {
+            "cghd_stem": "C19_D2_P3",
+            "ink_fraction": 0.22064,
+            "largest_component_fraction": 0.2083
+          },
+          {
+            "cghd_stem": "C19_D2_P4",
+            "ink_fraction": 0.21213,
+            "largest_component_fraction": 0.19921
+          }
+        ]
+      }
+    ],
+    "n_photograph_swaps": 7,
+    "n_circuits_dropped": 1
+  },
+  "rejection_counts": {
+    "circuit already used in the zero-shot detection measurement": 795,
+    "contains symbols outside our 17-class vocabulary": 1133,
+    "only 3 components (Digitize-HCD test min is 5)": 56,
+    "only 4 components (Digitize-HCD test min is 5)": 32,
+    "contains a class that cannot be represented": 88
+  },
+  "pool": {
+    "eligible_images": 320,
+    "eligible_circuits": 40,
+    "eligible_drafters": 18,
+    "strata_counts": {
+      "<=7": 10,
+      "8-13": 18,
+      "14-19": 5,
+      ">=20": 7
+    },
+    "strata_exhausted_by_selection": {
+      "<=7": true,
+      "8-13": false,
+      "14-19": true,
+      ">=20": true
+    },
+    "note": "Three of the four strata are taken in full, so the residual mismatch against the Digitize-HCD test distribution is a property of CGHD's eligible circuits, not of the sampler: no other selection of this size matches more closely."
+  },
+  "reserve_circuits": [
+    {
+      "drafter": "drafter_7",
+      "circuit": 82,
+      "cghd_stem": "C82_D1_P4",
+      "n_comp": 8
+    },
+    {
+      "drafter": "drafter_7",
+      "circuit": 83,
+      "cghd_stem": "C83_D2_P2",
+      "n_comp": 12
+    },
+    {
+      "drafter": "drafter_5",
+      "circuit": 59,
+      "cghd_stem": "C59_D2_P3",
+      "n_comp": 13
+    }
+  ],
+  "reserve_circuits_consumed": [
+    {
+      "drafter": "drafter_19",
+      "circuit": 221,
+      "cghd_stem": "C221_D1_P2",
+      "n_comp": 12
+    }
+  ],
+  "reserve_note": "Circuits held back so a sheet a human later finds unusable can be replaced without an ad-hoc substitution. Any replacement must be made and recorded BEFORE the freeze; a replacement decided after seeing pipeline output is disqualifying.",
+  "digitize_hcd_test_reference": {
+    "n_images": 192,
+    "min": 5,
+    "max": 30,
+    "mean": 13.354,
+    "median": 13,
+    "quartiles": [
+      7,
+      13,
+      19
+    ],
+    "strata_counts": {
+      "<=7": 54,
+      "8-13": 46,
+      "14-19": 52,
+      ">=20": 40
+    },
+    "strata_fractions": {
+      "<=7": 0.2812,
+      "8-13": 0.2396,
+      "14-19": 0.2708,
+      ">=20": 0.2083
+    },
+    "histogram": {
+      "5": 7,
+      "6": 19,
+      "7": 28,
+      "8": 20,
+      "9": 15,
+      "10": 2,
+      "11": 1,
+      "12": 2,
+      "13": 6,
+      "14": 20,
+      "15": 8,
+      "16": 3,
+      "17": 1,
+      "18": 7,
+      "19": 13,
+      "22": 6,
+      "23": 13,
+      "24": 17,
+      "28": 3,
+      "30": 1
+    }
+  },
+  "blind_set_distribution": {
+    "min": 5,
+    "max": 43,
+    "mean": 13.611,
+    "median": 11,
+    "quartiles": [
+      7,
+      11,
+      16
+    ],
+    "strata_counts": {
+      "<=7": 10,
+      "8-13": 14,
+      "14-19": 5,
+      ">=20": 7
+    },
+    "strata_fractions": {
+      "<=7": 0.2778,
+      "8-13": 0.3889,
+      "14-19": 0.1389,
+      ">=20": 0.1944
+    },
+    "histogram": {
+      "5": 3,
+      "6": 2,
+      "7": 5,
+      "8": 1,
+      "9": 1,
+      "10": 6,
+      "11": 5,
+      "12": 1,
+      "15": 2,
+      "16": 2,
+      "19": 1,
+      "21": 1,
+      "22": 1,
+      "23": 1,
+      "30": 1,
+      "31": 1,
+      "33": 1,
+      "43": 1
+    },
+    "ks_vs_digitize_hcd_test": {
+      "D": 0.1771,
+      "critical_value_alpha_0.05": 0.247,
+      "distinguishable_at_alpha_0.05": false,
+      "reading": "D below the critical value means the two component-count distributions are not distinguishable at the 5% level. It says nothing about the DRAWING distribution, which is unambiguously different -- different corpus, different drafters, different photography."
+    }
+  },
+  "per_drafter": {
+    "drafter_1": 4,
+    "drafter_2": 2,
+    "drafter_3": 2,
+    "drafter_4": 1,
+    "drafter_5": 4,
+    "drafter_7": 3,
+    "drafter_9": 2,
+    "drafter_10": 1,
+    "drafter_11": 1,
+    "drafter_12": 1,
+    "drafter_13": 3,
+    "drafter_16": 1,
+    "drafter_17": 1,
+    "drafter_18": 1,
+    "drafter_19": 4,
+    "drafter_20": 2,
+    "drafter_23": 1,
+    "drafter_24": 2
+  },
+  "frame_guard": {
+    "boxes_checked": 1790,
+    "boxes_outside_canvas": 0,
+    "failures": [],
+    "passed": true
+  },
+  "frame_statistics_vs_digitize_hcd": {
+    "blind_ink_fraction": {
+      "min": 0.00455,
+      "median": 0.01975,
+      "max": 0.04595
+    },
+    "digitize_hcd_test_ink_fraction": {
+      "min": 0.00655,
+      "median": 0.01783,
+      "max": 0.04212
+    },
+    "reading": "Even after the legibility gate the CGHD frames are harder than they look. Two systematic differences survive: ruled notebook paper binarises to a field of parallel lines that a wire tracer cannot distinguish from wires, and photographed page edges widen the annotation-aware crop so the drawing occupies less of the 1024 canvas -- i.e. thinner strokes at the same nominal resolution."
+  },
+  "nets_annotated": false,
+  "pipeline_output_used": false,
+  "attestation": "No detector, wire tracer or pipeline stage was executed while building this set. Every terminal in packet/gt/ is null. Component classes and boxes come from CGHD's published Pascal-VOC annotations (CC BY 4.0)."
+}

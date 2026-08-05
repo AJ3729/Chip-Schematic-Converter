@@ -165,16 +165,18 @@ the open wire-ends the box sits between rather than traced.
 
 The split every reported number is computed on, and the one no parameter
 was ever selected on. Verified end to end; the full account, including the
-method and the second-reader results, is `docs/GT_VAL_VERIFICATION_REPORT.md`.
+method and the automated re-derivation results, is
+`docs/GT_VAL_VERIFICATION_REPORT.md`.
 
 | | |
 | --- | --- |
 | images | 192 / 192 |
 | components | 2,564 |
 | terminals | 5,090 |
-| nets | 1,497 |
+| nets | 1,496 |
 | terminals with no net | 1 (a deliberately dangling op-amp input, `circuit_338` #14, flagged `"unconnected": true`) |
-| files failing the schema/ERC check | 0 |
+| files failing the schema check | 0 |
+| files carrying an explained ERC finding | 3 (`circuit_513` error, `circuit_220` and `circuit_1207` warnings) |
 
 Frame: **1024**, annotated natively in it (`"bbox_frame": "cleaned_1024"`),
 so `benchmark.gt_dir` moves between `gt_test_1024` and `gt_val_1024` with no
@@ -191,13 +193,14 @@ terminals changes (a mean of 6.8 per image out of ~19 candidates),
 adjudication by eye at 5–24× with a raw pixel dump where the call was close,
 deterministic net reconstruction from the recorded decisions (never
 hand-edited; reproducible 192/192), a six-rule electrical check, and an
-independent second reader.
+automated self-consistency re-derivation (see below — it was performed by an
+AI assistant, not by an independent human reader).
 
 Judgement actually recorded, per `gt_test_1024/decisions/`:
 
 | decision | count |
 | --- | --- |
-| intersection sites explicitly decided | 2,047 (1,707 junction, 194 crossing, 63 explicit edge groups, 83 no-join) |
+| intersection sites explicitly decided | 2,047 (1,708 junction, 194 crossing, 62 explicit edge groups, 83 no-join) |
 | terminals repointed to a different lead | 1,261 |
 | nets asserted where the box swallowed the contact | 40 |
 | wires re-joined across a scan gap | 38 |
@@ -214,19 +217,29 @@ wrong far more often than net grouping**, read from the arrowhead, the
 `+`/`−` glyphs and which lead sits on the gate bar; pin order is scored and
 no net-grouping or ERC check can catch it.
 
-Second reader, re-deriving from the drawing before reading the first pass:
-12 blind files (0 three-terminal parts, 0 disagreements); 5 stratified onto
-sheets with three-terminal parts (38 such parts, 0 disagreements); 9 files
-flagged by ERC or by disagreeing with 4+ *unanimous* verified siblings on
-net count (7 changed — the flags are where the errors were).
+**Automated self-consistency re-derivation** — performed by an AI assistant,
+**not** by an independent human annotator, and not an inter-annotator
+agreement study. Each sampled file was re-derived from the drawing without
+reading the first pass's reasoning first: 12 random files (0 three-terminal
+parts, 0 disagreements); 5 stratified onto sheets with three-terminal parts
+(38 such parts, 0 disagreements); 9 files flagged by ERC or by disagreeing
+with 4+ *unanimous* verified siblings on net count (7 changed — the flags are
+where the errors were). It catches clerical and transcription error, which is
+real and is what the flagged subset shows. It **cannot** establish that a
+judgement call is correct: it shares the first pass's reasoning and blind
+spots, so agreement is evidence of consistency, not of correctness. Genuine
+independent second annotation by an external annotator is **pending**.
 
-Two files carry an explained ERC warning: `circuit_1207` #8 and
-`circuit_220` #8 are current sources with both terminals on one net, which
-is legal and matches the drawing. One file, `circuit_513`, knowingly encodes
-an electrically-corrected reading rather than a literal one — the ink is a
-plain T that would short a 15 V source, and a shorted *voltage* source
-occurs 0 times in 190 human-verified sibling annotations. It is the only
-place in the set where that was done.
+Three files carry an explained ERC finding. `circuit_1207` #8 and
+`circuit_220` #8 are current sources with both terminals on one net, which is
+legal and matches the drawing. `circuit_513` records the drawing literally at
+site (423,722) — a plain T where a rail tip lands on a continuous grounded
+column — which puts both terminals of the 15 V source on net `"0"`, so the
+ERC reports a short-circuited voltage source and **the circuit is un-simulable
+as drawn**. That is deliberate: GT records the topology as drawn. A shorted
+*voltage* source occurs 0 times in the 190 human-verified sibling annotations,
+which is recorded in that file's notes as an observation about the drawing —
+not as a correction applied to it.
 
 ### Superseded: `gt_val50_preswap/`
 

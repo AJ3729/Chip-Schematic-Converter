@@ -37,10 +37,15 @@ At an intersection of wire ink:
 
 **Plain X with no dot and no hop — decide in this order:**
 
-1. **Electrical impossibility wins.** If one reading short-circuits a voltage
-   source, leaves a branch with no return path, strands a component on a
-   one-terminal net, or produces a disconnected island, that reading is wrong.
-   Take the other one. This overrides everything below.
+1. **WITHDRAWN 2026-08-04 — DO NOT APPLY.** This rule used to read
+   "Electrical impossibility wins ... this overrides everything below", and it
+   is the rule `circuit_220`'s notes cite when they record overriding the ink.
+   It is withdrawn: ground truth records the topology **as drawn**, even when
+   the drawing shorts a source or strands a branch. Electrical observations go
+   in the notes and in the repair ledger, never into the nets. If both readings
+   are electrically sane the ink prior below still applies; if they are not,
+   the ink still wins. See `docs/ANNOTATION_GUIDE.md` §0, which supersedes this
+   document for all new annotation.
 2. **If both readings are electrically sane, use the ink prior**: in this
    dataset the drafters draw a hop or a jog when they mean "not connected", so
    a plain crossing is usually a real junction.

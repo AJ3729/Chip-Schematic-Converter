@@ -1,0 +1,525 @@
+{
+  "schema_version": 1,
+  "image": "cghd_d19_C225_D1_P3.jpg",
+  "source": "cghd_geometry+PENDING_manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "NETS ARE UNANNOTATED. Every terminal in this file has \"net\": null and must be traced by a human against the drawing. Nothing in this file was produced by running the pipeline, the detector or the wire tracer -- component classes and boxes come from CGHD's own published Pascal-VOC annotations (human annotations by the dataset authors), projected into the 1024 frame by the project's own preprocessing transform. See results/cghd_blind/packet/README.md before annotating, and follow docs/ANNOTATION_GUIDE.md, the same guide used for the Digitize-HCD test split.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        625.3,
+        489.6,
+        39.7,
+        20.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        735.4,
+        494.4,
+        46.0,
+        19.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        586.6,
+        755.8,
+        38.4,
+        18.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Op-Amp",
+      "bbox": [
+        177.2,
+        356.5,
+        75.8,
+        73.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Op-Amp",
+      "bbox": [
+        505.9,
+        382.5,
+        66.8,
+        86.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "MOSFET-N",
+      "bbox": [
+        261.2,
+        706.3,
+        57.8,
+        46.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        661.7,
+        723.7,
+        58.2,
+        26.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Op-Amp",
+      "bbox": [
+        918.9,
+        353.2,
+        70.1,
+        84.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "MOSFET-N",
+      "bbox": [
+        769.0,
+        603.2,
+        55.5,
+        47.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "MOSFET-N",
+      "bbox": [
+        571.5,
+        588.0,
+        52.3,
+        50.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Op-Amp",
+      "bbox": [
+        905.2,
+        518.6,
+        68.0,
+        82.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "MOSFET-N",
+      "bbox": [
+        419.6,
+        711.7,
+        55.6,
+        51.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Resistor",
+      "bbox": [
+        341.8,
+        327.7,
+        46.9,
+        23.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Capacitor",
+      "bbox": [
+        663.1,
+        368.1,
+        32.5,
+        34.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "MOSFET-N",
+      "bbox": [
+        103.3,
+        212.2,
+        61.8,
+        35.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "MOSFET-N",
+      "bbox": [
+        267.0,
+        240.5,
+        65.7,
+        50.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "MOSFET-N",
+      "bbox": [
+        780.4,
+        263.1,
+        75.3,
+        45.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "MOSFET-N",
+      "bbox": [
+        441.5,
+        379.9,
+        50.3,
+        51.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "class": "MOSFET-N",
+      "bbox": [
+        425.1,
+        249.1,
+        64.3,
+        42.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "class": "MOSFET-N",
+      "bbox": [
+        595.9,
+        260.7,
+        64.5,
+        52.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "class": "MOSFET-N",
+      "bbox": [
+        253.4,
+        370.1,
+        68.5,
+        55.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "class": "MOSFET-N",
+      "bbox": [
+        522.4,
+        716.3,
+        34.3,
+        49.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cghd_blind_1024",
+  "provenance": {
+    "dataset": "CGHD (GTDB-HD), Zenodo record 10056817, CC BY 4.0",
+    "cghd_drafter": "drafter_19",
+    "cghd_circuit": 225,
+    "cghd_image": "drafter_19/images/C225_D1_P3.jpg",
+    "cghd_annotation": "drafter_19/annotations/C225_D1_P3.xml",
+    "geometry_source": "CGHD Pascal-VOC boxes projected to the 1024 frame by schematic2netlist.preprocess",
+    "topology_source": null,
+    "pipeline_output_used": false
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "image": "cghd_d11_C122_D2_P3.jpg",
+  "source": "cghd_geometry+PENDING_manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "NETS ARE UNANNOTATED. Every terminal in this file has \"net\": null and must be traced by a human against the drawing. Nothing in this file was produced by running the pipeline, the detector or the wire tracer -- component classes and boxes come from CGHD's own published Pascal-VOC annotations (human annotations by the dataset authors), projected into the 1024 frame by the project's own preprocessing transform. See results/cghd_blind/packet/README.md before annotating, and follow docs/ANNOTATION_GUIDE.md, the same guide used for the Digitize-HCD test split.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        786.1,
+        594.5,
+        36.9,
+        30.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "MOSFET-N",
+      "bbox": [
+        433.3,
+        335.8,
+        69.3,
+        72.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        282.2,
+        393.5,
+        48.0,
+        37.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "MOSFET-N",
+      "bbox": [
+        375.7,
+        593.4,
+        68.5,
+        69.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Diode",
+      "bbox": [
+        516.0,
+        362.5,
+        32.8,
+        31.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        548.9,
+        504.7,
+        29.6,
+        36.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        681.7,
+        514.5,
+        86.8,
+        47.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Diode",
+      "bbox": [
+        464.5,
+        602.0,
+        37.4,
+        35.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "V-DC",
+      "bbox": [
+        86.3,
+        337.5,
+        122.7,
+        117.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        897.3,
+        608.3,
+        50.2,
+        88.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cghd_blind_1024",
+  "provenance": {
+    "dataset": "CGHD (GTDB-HD), Zenodo record 10056817, CC BY 4.0",
+    "cghd_drafter": "drafter_11",
+    "cghd_circuit": 122,
+    "cghd_image": "drafter_11/images/C122_D2_P3.jpg",
+    "cghd_annotation": "drafter_11/annotations/C122_D2_P3.xml",
+    "geometry_source": "CGHD Pascal-VOC boxes projected to the 1024 frame by schematic2netlist.preprocess",
+    "topology_source": null,
+    "pipeline_output_used": false
+  }
+}

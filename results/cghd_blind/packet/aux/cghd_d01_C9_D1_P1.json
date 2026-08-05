@@ -1,0 +1,111 @@
+{
+  "stem": "cghd_d01_C9_D1_P1",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        170.4,
+        271.6,
+        28.9,
+        23.5
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        604.0,
+        284.1,
+        25.1,
+        30.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        820.1,
+        546.1,
+        24.9,
+        17.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        813.1,
+        285.3,
+        22.7,
+        17.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        607.7,
+        540.5,
+        23.0,
+        26.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        183.8,
+        549.0,
+        26.3,
+        21.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        48.3,
+        383.7,
+        71.0,
+        46.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        432.5,
+        214.9,
+        119.0,
+        47.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        708.8,
+        407.5,
+        121.1,
+        64.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        936.7,
+        348.3,
+        172.7,
+        46.9
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 4,
+      "cghd_class": "diode.light_emitting",
+      "defaulted_to": "Diode",
+      "lossy_mapping": true,
+      "human_must": "an LED mapped to Diode; informational."
+    }
+  ],
+  "counts": {
+    "junction": 6,
+    "crossover": 0,
+    "text": 4,
+    "terminal": 0
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

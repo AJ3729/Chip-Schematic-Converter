@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "image": "cghd_d13_C151_D1_P1.jpg",
+  "source": "cghd_geometry+PENDING_manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "NETS ARE UNANNOTATED. Every terminal in this file has \"net\": null and must be traced by a human against the drawing. Nothing in this file was produced by running the pipeline, the detector or the wire tracer -- component classes and boxes come from CGHD's own published Pascal-VOC annotations (human annotations by the dataset authors), projected into the 1024 frame by the project's own preprocessing transform. See results/cghd_blind/packet/README.md before annotating, and follow docs/ANNOTATION_GUIDE.md, the same guide used for the Digitize-HCD test split.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        257.1,
+        450.8,
+        87.2,
+        39.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        384.1,
+        436.5,
+        92.6,
+        23.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        498.1,
+        522.7,
+        36.5,
+        67.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        648.4,
+        425.7,
+        76.5,
+        21.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        578.4,
+        525.7,
+        38.8,
+        83.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        765.6,
+        424.4,
+        76.5,
+        34.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        854.6,
+        530.1,
+        41.0,
+        65.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cghd_blind_1024",
+  "provenance": {
+    "dataset": "CGHD (GTDB-HD), Zenodo record 10056817, CC BY 4.0",
+    "cghd_drafter": "drafter_13",
+    "cghd_circuit": 151,
+    "cghd_image": "drafter_13/images/C151_D1_P1.jpg",
+    "cghd_annotation": "drafter_13/annotations/C151_D1_P1.xml",
+    "geometry_source": "CGHD Pascal-VOC boxes projected to the 1024 frame by schematic2netlist.preprocess",
+    "topology_source": null,
+    "pipeline_output_used": false
+  }
+}

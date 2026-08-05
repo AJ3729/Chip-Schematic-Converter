@@ -1,0 +1,82 @@
+{
+  "seed": 20260804,
+  "git_sha": "4909c1fcbb9373b90b322b281922c443914b59b8",
+  "split": "data/splits/test.txt",
+  "split_images": 192,
+  "gt_dir": "data/gt_test_1024",
+  "packet_dir": "results/blind_review/packet",
+  "manifest": "results/blind_review/manifest.csv",
+  "n_sampled": 58,
+  "strata": {
+    "uniform": 20,
+    "multi_terminal": 20,
+    "hard_core": 18
+  },
+  "sampling_order": [
+    "uniform (from the whole split)",
+    "multi_terminal (pool minus uniform)",
+    "hard_core (pool minus the above)"
+  ],
+  "pools": {
+    "multi_terminal": {
+      "pool_size": 58,
+      "devices_total": 376,
+      "class_histogram": null
+    },
+    "hard_core": {
+      "definition": "pipeline_only_failures_FALLBACK",
+      "fallback_used": true,
+      "pool_size": 93,
+      "pipeline": {
+        "path": "results/paper_test/seeds/seed0/per_image.csv",
+        "present": true,
+        "rows": 192,
+        "stems": 192,
+        "in_split": 192,
+        "failures_total": 93,
+        "failures_in_split": 93
+      },
+      "vlm": [
+        {
+          "path": "results/vlm/claude_b/scored/per_image.csv",
+          "present": true,
+          "rows": 190,
+          "stems": 190,
+          "in_split": 0,
+          "failures_total": 103,
+          "failures_in_split": 0
+        },
+        {
+          "path": "results/vlm/openai_b/scored/per_image.csv",
+          "present": true,
+          "rows": 190,
+          "stems": 190,
+          "in_split": 0,
+          "failures_total": 99,
+          "failures_in_split": 0
+        }
+      ],
+      "vlm_overlap_with_split": {
+        "results/vlm/claude_b/scored/per_image.csv": 0,
+        "results/vlm/openai_b/scored/per_image.csv": 0
+      }
+    }
+  },
+  "sources": {
+    "raw": 58,
+    "cleaned_fallback": 0
+  },
+  "blind_safety": {
+    "byte_identity_checked": 58,
+    "source_dirs_allowed": [
+      "data/raw",
+      "data/cleaned_1024"
+    ],
+    "render_files_hashed": 1216,
+    "render_hash_collisions": 0,
+    "packet_json_files": 0,
+    "assertion": "every packet image is byte-identical (sha256) to an untouched photograph under data/raw or data/cleaned_1024, is hash-disjoint from every render/overlay directory in the repo, and the packet contains no JSON and no file other than images/, README.md and circuits.txt"
+  },
+  "manifest_not_in_packet_because": "the stratum label tells the annotator which circuits are expected to be hard, which would bias exactly the circuits the strata exist to test; the packet ships circuits.txt (stems only, shuffled)",
+  "rejected_check_saturation_heuristic": "fraction of strongly-saturated pixels does NOT separate renders from raw photographs: renders min 0.0019 over the 192 test renders, but circuit_657/circuit_420/circuit_934 raw photographs reach 0.013-0.016. Byte identity is used instead."
+}

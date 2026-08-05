@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "image": "cghd_d04_C37_D2_P4.jpg",
+  "source": "cghd_geometry+PENDING_manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "NETS ARE UNANNOTATED. Every terminal in this file has \"net\": null and must be traced by a human against the drawing. Nothing in this file was produced by running the pipeline, the detector or the wire tracer -- component classes and boxes come from CGHD's own published Pascal-VOC annotations (human annotations by the dataset authors), projected into the 1024 frame by the project's own preprocessing transform. See results/cghd_blind/packet/README.md before annotating, and follow docs/ANNOTATION_GUIDE.md, the same guide used for the Digitize-HCD test split.",
+  "components": [
+    {
+      "id": 0,
+      "class": "MOSFET-N",
+      "bbox": [
+        128.0,
+        432.6,
+        106.5,
+        74.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "MOSFET-N",
+      "bbox": [
+        338.7,
+        429.3,
+        97.8,
+        70.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "MOSFET-N",
+      "bbox": [
+        528.1,
+        437.7,
+        96.8,
+        78.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "MOSFET-N",
+      "bbox": [
+        792.8,
+        434.4,
+        84.5,
+        70.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        161.0,
+        605.4,
+        83.5,
+        45.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        503.6,
+        594.1,
+        77.3,
+        38.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        571.1,
+        298.5,
+        29.2,
+        76.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        387.3,
+        298.7,
+        33.3,
+        70.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Resistor",
+      "bbox": [
+        182.3,
+        296.7,
+        29.7,
+        63.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Resistor",
+      "bbox": [
+        798.0,
+        289.5,
+        31.2,
+        59.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Capacitor",
+      "bbox": [
+        429.1,
+        541.2,
+        60.4,
+        34.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "GND",
+      "bbox": [
+        833.0,
+        513.8,
+        45.1,
+        43.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "GND",
+      "bbox": [
+        556.8,
+        519.9,
+        41.5,
+        34.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "GND",
+      "bbox": [
+        166.1,
+        507.6,
+        37.4,
+        31.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "GND",
+      "bbox": [
+        366.8,
+        512.7,
+        44.5,
+        35.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cghd_blind_1024",
+  "provenance": {
+    "dataset": "CGHD (GTDB-HD), Zenodo record 10056817, CC BY 4.0",
+    "cghd_drafter": "drafter_4",
+    "cghd_circuit": 37,
+    "cghd_image": "drafter_4/images/C37_D2_P4.jpg",
+    "cghd_annotation": "drafter_4/annotations/C37_D2_P4.xml",
+    "geometry_source": "CGHD Pascal-VOC boxes projected to the 1024 frame by schematic2netlist.preprocess",
+    "topology_source": null,
+    "pipeline_output_used": false
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "image": "cghd_d01_C8_D2_P3.jpg",
+  "source": "cghd_geometry+PENDING_manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "NETS ARE UNANNOTATED. Every terminal in this file has \"net\": null and must be traced by a human against the drawing. Nothing in this file was produced by running the pipeline, the detector or the wire tracer -- component classes and boxes come from CGHD's own published Pascal-VOC annotations (human annotations by the dataset authors), projected into the 1024 frame by the project's own preprocessing transform. See results/cghd_blind/packet/README.md before annotating, and follow docs/ANNOTATION_GUIDE.md, the same guide used for the Digitize-HCD test split.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        229.5,
+        759.1,
+        46.5,
+        57.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "BJT-NPN",
+      "bbox": [
+        218.8,
+        578.2,
+        54.6,
+        55.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "BJT-NPN",
+      "bbox": [
+        213.1,
+        413.7,
+        57.9,
+        50.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        265.3,
+        639.5,
+        33.3,
+        24.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        393.1,
+        550.7,
+        42.7,
+        33.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        347.2,
+        408.0,
+        38.1,
+        27.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        350.9,
+        295.6,
+        35.3,
+        26.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        271.1,
+        490.3,
+        26.2,
+        33.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Capacitor",
+      "bbox": [
+        328.5,
+        485.0,
+        28.2,
+        33.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Diode",
+      "bbox": [
+        449.8,
+        533.3,
+        31.0,
+        69.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Diode",
+      "bbox": [
+        427.9,
+        377.9,
+        40.1,
+        69.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cghd_blind_1024",
+  "provenance": {
+    "dataset": "CGHD (GTDB-HD), Zenodo record 10056817, CC BY 4.0",
+    "cghd_drafter": "drafter_1",
+    "cghd_circuit": 8,
+    "cghd_image": "drafter_1/images/C8_D2_P3.jpg",
+    "cghd_annotation": "drafter_1/annotations/C8_D2_P3.xml",
+    "geometry_source": "CGHD Pascal-VOC boxes projected to the 1024 frame by schematic2netlist.preprocess",
+    "topology_source": null,
+    "pipeline_output_used": false
+  }
+}

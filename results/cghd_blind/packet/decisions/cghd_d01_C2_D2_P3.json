@@ -1,0 +1,4 @@
+{
+  "sites": {},
+  "notes": "TEMPLATE -- NOT YET ANNOTATED. Replace this text with the net map and every judgement call, exactly as in data/gt_test_1024/decisions/. \"sites\" is deliberately EMPTY: site ids are enumerated by the tracer at annotation time (scripts/gt_val_tools/pkg.py), and this packet was prepared without running any model, so no site call, no port override and no net has been pre-filled for you to accept. Record a decision for every CRITICAL site, including the ones you agree with -- an absent key is indistinguishable from not having looked. Annotate the topology AS DRAWN (docs/ANNOTATION_GUIDE.md); the older 'electrical impossibility wins' rule in scripts/gt_val_tools/BRIEF.md is withdrawn."
+}

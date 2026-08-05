@@ -67,9 +67,15 @@ Table~\ref{tab:generalization}.
   \item \textbf{Single dataset; no drafter split.} Digitize-HCD has no
   drafter metadata (Sec.~\ref{sec:dataset}); results may not transfer
   across drawing styles. \draftnote{cite CGHD zero-shot if run.}
-  \item \textbf{GT scope.} Connectivity GT covers the
-  \NumTestImages-image test split, verified by one annotator
-  \todoa{+ mentor second-read status}.
+  \item \textbf{GT scope, and a single annotator.} Connectivity GT covers
+  the \NumTestImages-image test split and was produced by one annotator.
+  The re-derivation reported in Table~\ref{tab:gt-verification} was
+  automated (an AI assistant, not an independent human reader); it can
+  catch clerical error but not a shared misjudgement, so no
+  inter-annotator agreement figure exists for this benchmark.
+  Independent second annotation is pending.
+  \todoa{state the external second-annotation result here if/when it
+  happens.}
   \item \textbf{Ground-truth boxes are not geometric ground truth.} GT
   files were bootstrapped from pipeline output and verified for
   \emph{topology}; their bounding boxes were not. Roughly a fifth are

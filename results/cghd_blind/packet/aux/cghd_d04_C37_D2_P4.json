@@ -1,0 +1,240 @@
+{
+  "stem": "cghd_d04_C37_D2_P4",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        679.9,
+        433.4,
+        14.3,
+        14.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        178.2,
+        344.0,
+        16.4,
+        18.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        249.9,
+        418.3,
+        14.3,
+        14.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        380.7,
+        361.7,
+        15.9,
+        13.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        432.4,
+        438.8,
+        13.8,
+        16.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        396.0,
+        215.3,
+        16.9,
+        16.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        192.3,
+        211.9,
+        14.8,
+        14.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        57.9,
+        430.3,
+        13.3,
+        17.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        28.7,
+        613.6,
+        14.3,
+        16.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        430.6,
+        600.0,
+        11.3,
+        12.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        673.0,
+        591.6,
+        14.8,
+        15.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        249.9,
+        345.6,
+        11.3,
+        14.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        565.8,
+        352.2,
+        15.4,
+        14.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        809.5,
+        342.0,
+        17.4,
+        17.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        577.3,
+        219.1,
+        20.0,
+        18.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        417.3,
+        180.4,
+        42.0,
+        39.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        922.6,
+        379.6,
+        75.8,
+        50.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        831.7,
+        224.5,
+        38.4,
+        31.7
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        873.2,
+        339.7,
+        18.9,
+        17.4
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        796.9,
+        232.7,
+        16.9,
+        16.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        431.6,
+        367.3,
+        18.4,
+        18.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        678.9,
+        358.9,
+        15.4,
+        15.9
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 0,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 1,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 2,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 3,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    }
+  ],
+  "counts": {
+    "junction": 17,
+    "crossover": 0,
+    "text": 3,
+    "terminal": 2
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

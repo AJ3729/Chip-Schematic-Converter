@@ -1,0 +1,112 @@
+{
+  "stem": "cghd_d01_C11_D2_P1",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        265.8,
+        299.0,
+        20.9,
+        20.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        430.8,
+        283.5,
+        26.0,
+        25.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        467.4,
+        471.5,
+        25.8,
+        22.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        291.4,
+        495.5,
+        25.3,
+        29.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        290.5,
+        721.8,
+        27.0,
+        26.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        483.6,
+        724.4,
+        30.9,
+        23.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        229.0,
+        541.9,
+        49.4,
+        122.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        221.2,
+        359.9,
+        56.3,
+        108.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        329.9,
+        206.4,
+        45.0,
+        117.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        347.1,
+        403.9,
+        44.7,
+        69.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        393.6,
+        821.2,
+        43.4,
+        118.5
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [],
+  "counts": {
+    "junction": 6,
+    "crossover": 0,
+    "text": 5,
+    "terminal": 0
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

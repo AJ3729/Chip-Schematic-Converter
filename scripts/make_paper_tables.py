@@ -581,17 +581,29 @@ def gen_gt_verification_table() -> None:
         *[f"{k} & {v} \\\\" for k, v in rowsets],
     ]
 
+    # The re-derivation block. It was performed by an AI assistant, NOT by an
+    # independent human annotator, so the heading has to say so: in an IEEE
+    # table "second reader" reads as independent human review, which would be a
+    # false claim. It is a real check on clerical and transcription error and a
+    # weak one on judgement, because it shares the first pass's reasoning.
+    # Genuine independent second annotation is reported as pending.
     sr = s.get("second_reader")
     if sr:
         out += ["\\midrule",
-                "\\multicolumn{2}{l}{\\emph{second reader, re-derived from the "
-                "drawing first}} \\\\"]
+                "\\multicolumn{2}{l}{\\emph{automated self-consistency "
+                "re-derivation (AI assistant, not an}} \\\\",
+                "\\multicolumn{2}{l}{\\emph{independent human reader) --- "
+                "disagreements / files}} \\\\"]
         for smp in sr["samples"]:
             three = ("" if smp["three_terminal_parts"] in (None, 0)
                      else f" ({smp['three_terminal_parts']} 3-terminal parts)")
             out.append(
                 f"\\quad {smp['sample']}{three} & "
                 f"{smp['disagreements']}/{smp['files']} \\\\")
+        pend = sr.get("independent_human_second_annotation")
+        if pend:
+            out.append(f"\\quad independent human second annotation & "
+                       f"{pend['status']} \\\\")
     out += ["\\bottomrule", "\\end{tabular}"]
     (TAB / "gt_verification.tex").write_text("\n".join(out) + "\n")
     print(f"wrote {TAB/'gt_verification.tex'} ({len(rowsets)} decision types)")

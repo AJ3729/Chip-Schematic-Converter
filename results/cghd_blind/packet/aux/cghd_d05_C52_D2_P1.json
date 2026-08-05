@@ -1,0 +1,237 @@
+{
+  "stem": "cghd_d05_C52_D2_P1",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "text",
+      "bbox": [
+        563.8,
+        461.3,
+        55.9,
+        54.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        480.5,
+        463.4,
+        81.9,
+        66.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        332.4,
+        527.6,
+        89.3,
+        89.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        321.3,
+        797.4,
+        69.6,
+        41.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        387.7,
+        714.0,
+        68.8,
+        56.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        585.5,
+        607.3,
+        63.9,
+        54.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        743.8,
+        597.3,
+        48.6,
+        44.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        885.9,
+        631.7,
+        60.9,
+        50.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        908.5,
+        511.5,
+        70.5,
+        60.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        799.3,
+        489.4,
+        52.8,
+        55.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        793.6,
+        341.7,
+        72.5,
+        64.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        529.3,
+        242.9,
+        443.3,
+        205.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        707.2,
+        547.2,
+        33.4,
+        35.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        610.7,
+        501.7,
+        26.3,
+        27.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        599.1,
+        395.5,
+        20.8,
+        21.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        688.5,
+        383.8,
+        28.9,
+        28.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        716.4,
+        656.9,
+        26.1,
+        26.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        631.2,
+        668.4,
+        27.3,
+        26.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        674.5,
+        661.3,
+        29.8,
+        27.9
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        392.1,
+        531.5,
+        37.5,
+        39.4
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        432.5,
+        705.4,
+        29.5,
+        32.4
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        838.9,
+        634.6,
+        37.3,
+        38.3
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        856.4,
+        523.2,
+        39.2,
+        36.3
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        762.7,
+        381.5,
+        39.8,
+        39.8
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 0,
+      "cghd_class": "transistor.bjt",
+      "defaulted_to": "BJT-NPN",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish NPN from PNP -- read the emitter arrow and set BJT-NPN or BJT-PNP."
+    }
+  ],
+  "counts": {
+    "junction": 7,
+    "crossover": 0,
+    "text": 12,
+    "terminal": 5
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

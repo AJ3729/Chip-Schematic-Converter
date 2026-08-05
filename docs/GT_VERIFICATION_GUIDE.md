@@ -1,5 +1,17 @@
 # Ground-Truth Verification Guide (the [HUMAN] pass)
 
+> **SUPERSEDED 2026-08-04 — do not follow this document for new annotation.**
+> Use [`ANNOTATION_GUIDE.md`](ANNOTATION_GUIDE.md) instead. This one is kept
+> because the shipped corpus was produced under it, so it records how those
+> decisions were actually made. Three things in it are now known to be wrong:
+> it tells you to decide sloppy crossings "from circuit sense", which the
+> as-drawn ruling withdraws; it gives a geometric pin-order heuristic
+> ("drain/collector usually toward the supply") that the verification report
+> blames for the observed pin-order error rates; and its paths and counts are
+> stale (190 images, `data/gt_netlists/`, `data/cleaned/` — the canonical set
+> is now 192 files in `data/gt_test_1024/` on `data/cleaned_1024/`).
+
+
 This is the one task in the whole publication plan that must be done by
 you, by hand. It is also the highest-leverage thing you personally
 contribute: **every benchmark number in the paper is computed against

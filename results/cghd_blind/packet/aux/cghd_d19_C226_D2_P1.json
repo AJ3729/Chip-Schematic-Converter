@@ -1,0 +1,808 @@
+{
+  "stem": "cghd_d19_C226_D2_P1",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "text",
+      "bbox": [
+        229.7,
+        169.2,
+        33.1,
+        16.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        574.3,
+        369.3,
+        54.0,
+        16.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        936.4,
+        327.4,
+        32.4,
+        14.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        764.1,
+        286.1,
+        32.2,
+        12.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        364.8,
+        400.4,
+        35.3,
+        13.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        383.1,
+        579.4,
+        25.3,
+        14.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        246.0,
+        278.6,
+        19.1,
+        14.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        836.6,
+        517.3,
+        34.4,
+        15.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        821.9,
+        432.1,
+        26.9,
+        15.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        933.4,
+        396.6,
+        37.1,
+        14.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        184.0,
+        577.0,
+        26.2,
+        14.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        247.8,
+        219.0,
+        18.7,
+        14.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        646.6,
+        489.3,
+        24.7,
+        14.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        673.8,
+        351.8,
+        9.3,
+        9.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        125.3,
+        528.8,
+        27.1,
+        13.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        251.6,
+        318.6,
+        20.4,
+        16.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        362.8,
+        351.4,
+        20.7,
+        14.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        656.3,
+        330.2,
+        22.0,
+        14.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        829.4,
+        323.9,
+        22.4,
+        13.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        610.6,
+        354.9,
+        8.2,
+        9.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        819.4,
+        364.8,
+        57.1,
+        14.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        516.0,
+        305.0,
+        27.1,
+        12.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        440.9,
+        253.4,
+        29.8,
+        11.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        863.1,
+        444.7,
+        10.7,
+        10.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        120.9,
+        482.6,
+        21.3,
+        13.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        395.6,
+        374.7,
+        8.0,
+        7.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        431.4,
+        228.6,
+        23.3,
+        11.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        270.0,
+        467.7,
+        19.1,
+        12.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        449.0,
+        357.7,
+        25.6,
+        14.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        588.0,
+        327.8,
+        19.1,
+        14.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        389.4,
+        610.6,
+        31.3,
+        10.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        254.1,
+        705.9,
+        10.4,
+        10.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        390.4,
+        288.4,
+        8.4,
+        8.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        180.4,
+        560.9,
+        20.4,
+        14.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        648.4,
+        504.4,
+        33.8,
+        13.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        781.0,
+        453.9,
+        10.0,
+        9.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        251.8,
+        233.7,
+        24.0,
+        11.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        835.2,
+        486.8,
+        26.4,
+        12.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        162.0,
+        711.8,
+        8.4,
+        9.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        654.2,
+        373.0,
+        22.7,
+        12.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        152.8,
+        502.0,
+        8.2,
+        8.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        245.2,
+        606.4,
+        12.2,
+        12.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        861.4,
+        353.0,
+        11.3,
+        10.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        259.6,
+        730.3,
+        28.4,
+        11.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        251.4,
+        334.7,
+        22.0,
+        11.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        281.0,
+        382.2,
+        9.6,
+        9.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        238.0,
+        386.0,
+        9.8,
+        7.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        787.3,
+        501.2,
+        7.6,
+        8.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        169.1,
+        290.8,
+        8.0,
+        8.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        73.0,
+        713.7,
+        7.8,
+        8.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        521.7,
+        430.6,
+        27.3,
+        11.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        464.0,
+        341.4,
+        24.4,
+        11.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        714.6,
+        369.4,
+        8.2,
+        8.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        675.6,
+        580.8,
+        32.9,
+        12.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        517.9,
+        282.3,
+        10.9,
+        9.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        314.4,
+        423.2,
+        24.4,
+        13.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        503.9,
+        227.3,
+        6.9,
+        6.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        727.6,
+        578.2,
+        32.9,
+        13.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        387.1,
+        240.7,
+        7.1,
+        7.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        167.8,
+        385.4,
+        8.4,
+        8.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        715.4,
+        456.0,
+        9.1,
+        9.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        863.9,
+        496.1,
+        8.7,
+        8.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        613.9,
+        587.3,
+        8.2,
+        8.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        607.6,
+        279.9,
+        8.0,
+        7.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        762.6,
+        422.1,
+        27.8,
+        11.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        454.6,
+        387.7,
+        18.0,
+        12.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        298.0,
+        457.7,
+        32.9,
+        12.2
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        926.2,
+        354.0,
+        24.4,
+        23.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        800.9,
+        462.4,
+        22.2,
+        10.7
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        63.0,
+        511.0,
+        26.0,
+        28.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        451.3,
+        271.6,
+        17.3,
+        12.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        457.7,
+        297.2,
+        21.1,
+        12.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        274.4,
+        652.9,
+        18.7,
+        13.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        276.4,
+        664.8,
+        18.2,
+        12.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        59.3,
+        489.7,
+        19.1,
+        12.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        309.0,
+        410.2,
+        18.9,
+        14.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        748.8,
+        350.9,
+        6.4,
+        8.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        751.3,
+        366.2,
+        7.1,
+        5.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        506.4,
+        349.1,
+        8.0,
+        9.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        513.9,
+        371.9,
+        7.3,
+        6.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        734.3,
+        489.8,
+        22.0,
+        13.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        735.1,
+        505.3,
+        20.4,
+        12.0
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 16,
+      "cghd_class": "vss",
+      "defaulted_to": "GND",
+      "lossy_mapping": true,
+      "human_must": "CGHD 'vss' is a supply-rail symbol, not necessarily ground. The mapping defaults it to GND, which would force it onto net '0'. If the drawing means a supply rail, change the class to 'V-DC (one port)' and give it its own net."
+    },
+    {
+      "component_id": 17,
+      "cghd_class": "vss",
+      "defaulted_to": "GND",
+      "lossy_mapping": true,
+      "human_must": "CGHD 'vss' is a supply-rail symbol, not necessarily ground. The mapping defaults it to GND, which would force it onto net '0'. If the drawing means a supply rail, change the class to 'V-DC (one port)' and give it its own net."
+    },
+    {
+      "component_id": 19,
+      "cghd_class": "vss",
+      "defaulted_to": "GND",
+      "lossy_mapping": true,
+      "human_must": "CGHD 'vss' is a supply-rail symbol, not necessarily ground. The mapping defaults it to GND, which would force it onto net '0'. If the drawing means a supply rail, change the class to 'V-DC (one port)' and give it its own net."
+    },
+    {
+      "component_id": 20,
+      "cghd_class": "capacitor.polarized",
+      "defaulted_to": "Capacitor",
+      "lossy_mapping": true,
+      "human_must": "polarity is lost by the mapping to Capacitor; terminal order is unscored for 2-terminal parts, so this is informational."
+    },
+    {
+      "component_id": 21,
+      "cghd_class": "vss",
+      "defaulted_to": "GND",
+      "lossy_mapping": true,
+      "human_must": "CGHD 'vss' is a supply-rail symbol, not necessarily ground. The mapping defaults it to GND, which would force it onto net '0'. If the drawing means a supply rail, change the class to 'V-DC (one port)' and give it its own net."
+    },
+    {
+      "component_id": 23,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    },
+    {
+      "component_id": 24,
+      "cghd_class": "vss",
+      "defaulted_to": "GND",
+      "lossy_mapping": true,
+      "human_must": "CGHD 'vss' is a supply-rail symbol, not necessarily ground. The mapping defaults it to GND, which would force it onto net '0'. If the drawing means a supply rail, change the class to 'V-DC (one port)' and give it its own net."
+    },
+    {
+      "component_id": 30,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    }
+  ],
+  "counts": {
+    "junction": 25,
+    "crossover": 0,
+    "text": 55,
+    "terminal": 2
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

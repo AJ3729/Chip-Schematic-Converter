@@ -3,15 +3,15 @@
  "images": 192,
  "components": 2564,
  "terminals": 5090,
- "nets": 1497,
+ "nets": 1496,
  "terminals_with_no_net": 1,
  "files_verified": 192,
  "files_unverified": 0,
  "sites_adjudicated": 2047,
  "sites": {
-  "junction": 1707,
+  "junction": 1708,
   "crossing": 194,
-  "edge_group": 63,
+  "edge_group": 62,
   "none": 83
  },
  "corrections": {
@@ -19,16 +19,21 @@
   "manual_nets": 40,
   "ports_components": 586,
   "ports_terminals": 1261,
-  "bridges": 3,
+  "bridges": 4,
   "unconnected": 1,
   "classes": 3
  },
  "second_reader": {
-  "_provenance": "Transcribed from docs/GT_VAL_VERIFICATION_REPORT.md section 5. Second-reader agreement is a fact about the verification PROCESS, not about the shipped files, so unlike every other statistic in the table it cannot be recomputed from data/gt_test_1024/decisions/. It lives here as a committed artifact so that scripts/gt_verification_stats.py can read it and no number ever gets typed straight into the manuscript.",
-  "method": "Independent re-derivation from the drawing, reading the first pass's reasoning only afterwards.",
+  "_provenance": "Transcribed from docs/GT_VAL_VERIFICATION_REPORT.md section 5. This is a fact about the verification PROCESS, not about the shipped files, so unlike every other statistic in the table it cannot be recomputed from data/gt_test_1024/decisions/. It lives here as a committed artifact so that scripts/gt_verification_stats.py can read it and no number ever gets typed straight into the manuscript. READ THIS BEFORE CITING IT: the re-derivation recorded here was performed by an AI ASSISTANT, NOT by an independent human annotator. It is not a second reader, not an expert validation, and not an inter-annotator agreement study. The filename is second_reader.json for historical reasons only; the label it carries into the report and into the manuscript is 'automated self-consistency re-derivation'.",
+  "label": "automated self-consistency re-derivation (AI assistant, not an independent human reader)",
+  "performed_by": "AI assistant",
+  "is_independent_human_review": false,
+  "method": "Each sampled file was re-derived from the drawing without reading the first pass's reasoning first, and the two netlists were compared.",
+  "what_it_can_establish": "That the shipped files are internally consistent and free of clerical error: formatting faults, inconsistent terminal counts, duplicate or mistyped node names, one-terminal nets, terminals left unassigned, a netlist that does not match its own decision record. This is a real check and it caught real mistakes (7 of the 9 flagged files changed).",
+  "what_it_cannot_establish": "That a judgement call is correct. It shares the first pass's reasoning, conventions and blind spots, so where the first pass was systematically wrong it is disposed to reach the same wrong answer and to agree. Zero disagreements is evidence of consistency, not of correctness.",
   "samples": [
    {
-    "sample": "blind random",
+    "sample": "random, re-derived without the notes",
     "files": 12,
     "three_terminal_parts": 0,
     "disagreements": 0,
@@ -39,16 +44,20 @@
     "files": 5,
     "three_terminal_parts": 38,
     "disagreements": 0,
-    "note": "pin order is the failure mode no net or ERC check can see, so it needed its own sample"
+    "note": "pin order is the failure mode no net or ERC check can see, so it needed its own sample; agreeing here means consistent, not verified"
    },
    {
-    "sample": "flagged by cross-checks",
+    "sample": "flagged by ERC or sibling cross-checks",
     "files": 9,
     "three_terminal_parts": null,
     "disagreements": 7,
-    "note": "flagged by (a) any ERC error or (b) disagreeing with 4+ unanimous verified siblings on net count; the errors were here, which is the point"
+    "note": "flagged by (a) any ERC error or (b) disagreeing with 4+ unanimous verified siblings on net count; the clerical errors were here, which is the point"
    }
   ],
+  "independent_human_second_annotation": {
+   "status": "pending",
+   "note": "No external annotator has re-read these files. Genuine independent second annotation is outstanding and is reported as pending in the manuscript."
+  },
   "sibling_calibration": {
    "claim": "\"differs from siblings\" alone is weak and was calibrated before being trusted",
    "sibling_pairs_sharing_net_count_small_sheets": 0.53,

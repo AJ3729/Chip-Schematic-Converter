@@ -144,5 +144,5 @@
   }
  ],
  "bbox_frame": "cleaned_1024",
- "verified_via": "per-site decision record + deterministic net reconstruction + ERC + second reader; see docs/GT_VAL_VERIFICATION_REPORT.md"
+ "verified_via": "per-site decision record + deterministic net reconstruction + ERC + automated self-consistency re-derivation (AI assistant, not an independent human reader); see docs/GT_VAL_VERIFICATION_REPORT.md"
 }

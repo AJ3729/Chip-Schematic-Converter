@@ -1,0 +1,169 @@
+{
+  "what_this_is": "An accuracy / latency / determinism tradeoff for the schematic2netlist pipeline against the frontier-model anchor already committed in this repository. Assembled from artifacts on disk; no model was called.",
+  "claim_policy": {
+    "host_independent_and_therefore_claimed": [
+      "accuracy",
+      "determinism"
+    ],
+    "host_dependent_and_therefore_NOT_claimed": [
+      "latency relative to any hosted model"
+    ],
+    "why": "A hosted model's response time is a property of the host -- hardware, queue depth, batching mode, load at that hour -- not of the model. It can be changed by the provider without touching the model, so a latency margin over it is not a property of this system and is not evidence about it. Accuracy and determinism are reproducible from the same inputs on any machine.",
+    "additionally_disqualifying_for_a_latency_comparison": "Both frontier runs were submitted through BATCH APIs (see results/vlm/PROVENANCE.md sections 3 and 8), whose turnaround is asynchronous and advertised in hours. Their wall time measures a scheduling policy, not inference.",
+    "sentences_that_must_not_be_written": [
+      "the pipeline is N times faster than <hosted model>",
+      "the pipeline achieves comparable accuracy at a fraction of the latency of <hosted model>",
+      "sub-50 ms per image (the retired headline; it excluded the detector, the class head and connectivity repair)"
+    ],
+    "sentences_the_evidence_supports": [
+      "the pipeline runs on a 2020 MacBook Air CPU in roughly a third of a second per image end to end, with no network dependency and no per-image cost",
+      "the pipeline is exactly reproducible: identical inputs give byte-identical netlists across independent runs, which the frontier baselines are not known to be and, being sampled with no seed or temperature set, are not expected to be"
+    ]
+  },
+  "axis_accuracy": {
+    "reportable_number_test_split_192": {
+      "system": "schematic2netlist pipeline",
+      "source": "results/benchmark_test192/seed0/summary.json",
+      "split": "test (192 images, never used for selection)",
+      "metrics": {
+        "strict_success": 0.515625,
+        "terminal_pair_f1": 0.808392,
+        "net_f1": 0.877168,
+        "nged": 0.181655
+      },
+      "note": "no frontier-model run exists on this split, so this number stands alone and is NOT a head-to-head result"
+    },
+    "the_only_head_to_head_validation_split_190": {
+      "split": "val (190 images) -- the split every parameter in configs/default.yaml was selected on, so the PIPELINE's entry here is IN-SAMPLE and a reviewer is entitled to discount it; the models are not",
+      "systems": {
+        "schematic2netlist pipeline": {
+          "source": "results/benchmark_1024_final/seed0/summary.json (its 'split: test' field is stale; the 2026-08-03 role swap renamed these 190 images to val)",
+          "metrics": {
+            "strict_success": 0.442105,
+            "terminal_pair_f1": 0.788905,
+            "net_f1": 0.871351,
+            "nged": 0.227401
+          }
+        },
+        "claude-opus-5": {
+          "source": "results/vlm/claude_b/scored/summary.json",
+          "runs": 1,
+          "metrics": {
+            "strict_success": 0.457895,
+            "terminal_pair_f1": 0.828206,
+            "net_f1": 0.88679,
+            "nged": 0.182704
+          }
+        },
+        "gpt-5.5-2026-04-23": {
+          "source": "results/vlm/openai_b/scored/summary.json",
+          "runs": 1,
+          "metrics": {
+            "strict_success": 0.478947,
+            "terminal_pair_f1": 0.856151,
+            "net_f1": 0.908173,
+            "nged": 0.170007
+          }
+        }
+      },
+      "reading_supported": "the task is hard and a small specialised pipeline is COMPETITIVE with frontier general models on it",
+      "reading_not_supported": "any ranking of the three. The gaps are small, the models have one run each, and the pipeline's entry is in-sample."
+    }
+  },
+  "axis_latency": {
+    "measured_on": {
+      "machine": "macOS-15.5-arm64-arm-64bit",
+      "processor": "arm",
+      "cpu_count": 8,
+      "accelerator": "none; CPU only, including both CNN heads",
+      "concurrency": "Other agents were running on this machine throughout. Wall-clock timings are NOISY and inflated relative to an idle host; PREFER THE MEDIANS. The cached and e2e scopes were measured interleaved image by image, so their RATIO is paired and far more robust than either absolute figure."
+    },
+    "scope_cached_downstream": {
+      "what": "detections read from the per-image JSON cache; the scope every experiment in this repo runs at",
+      "median_ms": 177.72,
+      "mean_ms": 149.39,
+      "p90_ms": 249.9,
+      "n_images": 189
+    },
+    "scope_true_end_to_end": {
+      "what": "YOLOv8s inference actually runs on the 1024 px frame at imgsz 640; the scope a user experiences",
+      "median_ms": 308.96,
+      "mean_ms": 287.68,
+      "p90_ms": 387.59,
+      "n_images": 189
+    },
+    "scope_cold_start_single_image_cli": {
+      "what": "one image from a fresh interpreter: the torch/ultralytics import, model construction and the first forward pass, none of which the steady-state figures pay",
+      "median_ms": 2657.3,
+      "note": "a user converting a SINGLE schematic waits for this, not for the steady-state figure. It is start-up cost, and it amortizes to nothing over a batch."
+    },
+    "detector_alone_median_ms": {
+      "inference_only_model_held_in_memory": 136.59,
+      "as_the_shipped_code_calls_it": 177.81,
+      "gap_is": "detect() -> detect_ultralytics([one image]) reconstructs YOLO(weights) on every call; holding the model is a free ~40 ms per image"
+    },
+    "which_to_quote": "the END-TO-END figure. The cached figure is an experimental convenience -- detections are computed once and reused so results are reproducible -- and quoting it as user-facing latency omits the detector entirely.",
+    "no_baseline_comparison": "deliberately absent; see claim_policy",
+    "per_image_marginal_cost_usd": 0.0,
+    "frontier_per_image_cost_usd_for_context": {
+      "claude-opus-5": 0.0279,
+      "gpt-5.5-2026-04-23": 0.0288,
+      "source": "results/vlm/PROVENANCE.md section 8, token-derived batch-rate ESTIMATES (~$5.31 and ~$5.47 over 190 images), not invoices",
+      "status": "context only. Cost is a provider price list, not a property of the model, and moves without notice."
+    }
+  },
+  "axis_determinism": {
+    "pipeline": {
+      "runs": 5,
+      "circuits": 192,
+      "process_isolation": "string-hash seed is fixed at interpreter startup, so set/dict ordering effects are invisible to repeats inside one process; each run here is a fresh interpreter with a different hash seed",
+      "netlist_byte_identical_fraction": 1.0,
+      "n_circuits_topology_changed": 0,
+      "full_result_dict_identical_fraction": 1.0,
+      "headline_metric_variance": {
+        "strict_success": 0.0,
+        "terminal_pair_f1": 0.0,
+        "net_f1": 0.0,
+        "nged": 0.0
+      },
+      "invalid_output_frequency": 0.005208333333333333,
+      "source": "results/determinism/summary.json"
+    },
+    "frontier_models": {
+      "status": "UNMEASURED, and not measurable from what exists",
+      "runs_available": 1,
+      "why_not_measured": "one repeat per model was run; re-running costs money and was not approved (results/vlm/PROVENANCE.md sections 6 and 12)",
+      "why_non_determinism_is_expected": "neither provider was given a seed or a temperature, and the Anthropic side records only an undated model alias, so even the model identity is not pinned (PROVENANCE.md sections 3, 4 and 13)",
+      "do_not_quote": "score_vlm.py prints SD = 0.0000 for every frontier metric. That is statistics.stdev over ONE sample, not a determinism result."
+    },
+    "the_asymmetry_that_is_the_point": {
+      "claim": "the pipeline's single run IS its distribution; each frontier number is ONE DRAW from a distribution that was never sampled twice",
+      "consequence_for_the_comparison": "every accuracy gap in axis_accuracy is measured against an unrepeated sample, so its run-to-run uncertainty is unknown and is NOT captured by the bootstrap CIs, which resample images only",
+      "why_this_is_a_result_and_not_a_footnote": "reproducibility is a requirement for an engineering artifact that feeds a simulator: a netlist that changes between runs cannot be signed off, regressed against, or debugged. The pipeline meets that bar by measurement; the hosted baselines are not known to."
+    }
+  },
+  "cross_check": {
+    "determinism_harness_reproduces_committed_benchmark": true,
+    "committed": {
+      "strict_success": 0.515625,
+      "terminal_pair_f1": 0.8083915081960252,
+      "net_f1": 0.8771682760534265,
+      "nged": 0.18165524454605383
+    },
+    "measured_here": {
+      "strict_success": 0.515625,
+      "terminal_pair_f1": 0.8083915081960252,
+      "net_f1": 0.8771682760534265,
+      "nged": 0.18165524454605383
+    },
+    "meaning": "the 5 determinism runs were scored by the same functions scripts/benchmark.py uses; matching the committed summary exactly means the determinism measurement is of the SHIPPED configuration, not of a variant"
+  },
+  "provenance": {
+    "runtime": "results/runtime_test192/summary.json (harness: results/runtime_test192/measure_runtime.py)",
+    "runtime_legacy_scope": "results/runtime_test192/legacy_scope/summary.json (unmodified scripts/benchmark_runtime.py, for comparability with the retired number)",
+    "determinism": "results/determinism/summary.json (harness: scripts/measure_determinism.py)",
+    "accuracy_test": "results/benchmark_test192/seed0/summary.json",
+    "accuracy_val_and_frontier": "results/benchmark_1024_final/seed0/summary.json, results/vlm/*/scored/summary.json, results/vlm/PROVENANCE.md",
+    "no_api_calls_made": true
+  }
+}

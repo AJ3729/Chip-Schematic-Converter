@@ -1,5 +1,5 @@
 {
- "source": "results/benchmark_test192/seed0/per_image.csv (192 test images)",
+ "source": "results/paper_test/seeds/seed0/per_image.csv (192 test images)",
  "strict_success_overall": 0.5156,
  "buckets": [
   {
@@ -33,11 +33,11 @@
     0.5,
     0.7
    ],
-   "n_images": 31,
-   "mean_tp_precision": 0.6082,
-   "mean_tp_recall": 0.497,
-   "mean_tp_f1": 0.5047,
-   "mean_percomp": 0.1653,
+   "n_images": 30,
+   "mean_tp_precision": 0.6053,
+   "mean_tp_recall": 0.4891,
+   "mean_tp_f1": 0.4976,
+   "mean_percomp": 0.1708,
    "strict_successes": 0,
    "strict_rate": 0.0
   },
@@ -59,13 +59,13 @@
     0.9,
     1.0
    ],
-   "n_images": 116,
-   "mean_tp_precision": 0.9934,
-   "mean_tp_recall": 0.9713,
-   "mean_tp_f1": 0.981,
-   "mean_percomp": 0.9337,
+   "n_images": 117,
+   "mean_tp_precision": 0.993,
+   "mean_tp_recall": 0.9696,
+   "mean_tp_f1": 0.9799,
+   "mean_percomp": 0.9257,
    "strict_successes": 99,
-   "strict_rate": 0.8534
+   "strict_rate": 0.8462
   }
  ],
  "share_of_strict_in_top_bucket": 1.0,

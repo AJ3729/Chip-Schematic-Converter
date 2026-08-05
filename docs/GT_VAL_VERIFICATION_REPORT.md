@@ -16,8 +16,11 @@ so that flipping them would be a separate deliberate act rather than a default �
 `--include-unverified`, so nothing could be reported before the sign-off
 happened.
 
-**Not covered by this sign-off**: the adjudication is the author's own. A mentor
-second-read has not happened and is still open for the manuscript.
+**Not covered by this sign-off**: the adjudication is the author's own. No
+independent human has re-read these files. The re-derivation reported in §5 was
+performed by an AI assistant, not by a second annotator (see §5). Genuine
+independent second annotation by an external annotator is **pending** and is
+still open for the manuscript.
 
 ---
 
@@ -28,9 +31,10 @@ second-read has not happened and is still open for the manuscript.
 | images | 192 / 192 |
 | components | 2564 |
 | terminals | 5090 |
-| nets | 1497 |
+| nets | 1496 |
 | terminals with no net | 1 (one deliberately dangling op-amp input, `circuit_338` #14, flagged `"unconnected": true`) |
-| files failing the schema/ERC check | 0 |
+| files failing the schema check | 0 |
+| files carrying an explained ERC finding | 3 (`circuit_513` error, `circuit_220` and `circuit_1207` warnings — see §4) |
 
 Frame: bounding boxes are in the **1024 px** frame (`data/cleaned_1024/`), matching
 the geometry already in `data/gt_val50_preswap/`. Each file records `"bbox_frame": "cleaned_1024"`.
@@ -65,14 +69,16 @@ image went through:
 5. **Electrical rule check** on every file: shorted voltage source, dangling
    branch, one-terminal net, disconnected island, GND not on net `"0"`,
    transistor with all three pins on one net, terminal count vs class.
-6. **Second reader.** Independent re-derivation of a sample and of every flagged
-   file, without reading the first pass's reasoning first.
+6. **Automated self-consistency re-derivation.** A sample, plus every flagged
+   file, re-derived from the drawing without reading the first pass's reasoning
+   first — by an AI assistant, not by an independent human reader. What that
+   can and cannot establish is stated in §5.
 
 Volume of judgement actually recorded:
 
 | decision | count |
 | --- | --- |
-| intersection sites explicitly decided | 2047 (1707 junction, 194 crossing, 63 explicit edge groups, 83 no-join) |
+| intersection sites explicitly decided | 2047 (1708 junction, 194 crossing, 62 explicit edge groups, 83 no-join) |
 | terminals repointed to a different lead | 1261 |
 | gap bridges rejected as not-touching | 4 |
 | wires re-joined across a scan gap | 38 |
@@ -95,7 +101,17 @@ Every op-amp on `circuit_1238`, `circuit_1240`, `circuit_142`, `circuit_171` and
 read from the drawn evidence — the BJT emitter from the arrowhead, the op-amp
 inputs from the `+`/`−` glyphs, the MOSFET gate from which lead sits on the gate
 bar rather than a channel segment — not from a geometric heuristic. This matters
-because pin order is scored and **no net-grouping or ERC check can catch it.**
+because **nothing in the evaluation catches it.** No net-grouping or ERC check
+can, and — contrary to what this report previously claimed — neither can the
+metric cascade: `canonicalize_terminals` sorts a component's terminals by the
+partner-component signature of each terminal's net, identically in prediction
+and ground truth, so a swapped collector/emitter is invisible. Measured on the
+shipped corpus, only 15 components have a tied signature and all 15 carry the
+same net on both terminals, so no pin swap here would move any published
+number. It still matters, because `netlist.py` emits `Q<c> <b> <e>`,
+`M<d> <g> <s>` and `E<out> 0 <in+> <in->` straight off raw terminal index: a
+circuit can score 1.000 and simulate wrongly. That gap is a limitation of the
+metric cascade (C4), not of the annotation.
 
 **Hop conventions are drafter-specific and consistent within a sheet.** Where a
 drafter marks a non-connection they do it the same way every time — a
@@ -122,17 +138,27 @@ since every pre-swap benchmark number is computed against that set.
 
 ## 4. Judgement calls that a reader should know about
 
-These are in the per-file `notes` too, but they are the ones where the
-annotation departs from a literal reading of the ink, or where the ink is
-self-contradictory:
+These are in the per-file `notes` too, but they are the ones where the ink is
+hard to read, where it is self-contradictory, or where reading it faithfully
+produces a circuit that cannot be simulated:
 
-- **`circuit_513`, site (423,722).** The ink is unambiguous — a plain T on a
-  continuous column — and read literally it short-circuits the 15 V source. The
-  rail was severed there instead. Justification: across the 190 human-verified annotations of
-  the other split there are three sources with both terminals on one net and
-  **all three are current sources; a shorted voltage source occurs 0/190 times**.
-  This image's GT therefore encodes an electrically-corrected reading rather than
-  a literal one. It is the only place in the set where that was done knowingly.
+- **`circuit_513`, site (423,722) — recorded as drawn, and un-simulable as a
+  result.** The ink is unambiguous: a plain T where the y≈722 rail's left tip
+  lands on column 3's continuous lower vertical, which runs unbroken to the
+  bottom rail. Read literally that puts both terminals of the 15 V source on
+  net `"0"`, so the sheet has 6 nets, the ERC reports a short-circuited voltage
+  source, and **the circuit is un-simulable as drawn**. That is what the GT now
+  records. Ground truth states the topology as drawn; the ERC error is the
+  correct output and is explained rather than suppressed.
+  *Electrical observation, recorded as evidence and not applied as a
+  correction*: across the 190 human-verified annotations of the other split
+  there are three components with both terminals on one net and **all three are
+  current sources; a shorted voltage source occurs 0/190 times**, so the drafter
+  probably did not intend the rail tip to land on the column. An earlier
+  revision of this file severed the rail on that reasoning; it has been
+  reverted. Electrically-motivated corrections do not belong in the topology —
+  if the corrected variant is wanted it belongs in a separate ledger keyed on
+  this site.
 - **`circuit_1175` #23**, labelled `BJT-PNP`, is drawn with the emitter arrow
   pointing away from the base bar (the NPN convention), and the circuit context
   agrees with NPN. The published class was kept. Terminal order is unaffected.
@@ -143,22 +169,48 @@ self-contradictory:
 - **Two files carry an explained ERC warning**: `circuit_1207` #8 and
   `circuit_220` #8 are current sources with both terminals on one net. That is
   legal, matches the drawing, and matches the verified test set (which contains
-  three of them).
+  three of them). `circuit_513` #8 is a third such case, alongside the
+  short-circuited voltage source above.
 
-## 5. Confidence
+## 5. Automated self-consistency re-derivation
 
-Independent second-reader re-derivation, drawing first and notes only afterwards:
+**What this is, stated plainly.** The re-derivation below was performed by an
+**AI assistant, not by an independent human annotator**. It is not a second
+reader, not an expert validation, and not an inter-annotator agreement study.
+Calling it any of those would misrepresent it, so this report does not.
+
+It is an **automated self-consistency re-derivation**: each sampled file was
+re-derived from the drawing without reading the first pass's reasoning first,
+and the two netlists were compared.
+
+- **What it can establish.** That the shipped files are internally consistent
+  and free of clerical error — formatting faults, inconsistent terminal counts,
+  duplicate or mistyped node names, one-terminal nets, terminals left unassigned,
+  a netlist that does not match its own decision record. On the flagged subset it
+  did exactly that: 7 of 9 files changed. That is a real check and it caught real
+  mistakes.
+- **What it cannot establish.** That a *judgement* is correct. It shares the
+  first pass's reasoning, conventions and blind spots, so where the first pass
+  was systematically wrong — a drafter idiom read the wrong way, a bare crossing
+  decided on circuit sense — the re-derivation is disposed to reach the same
+  wrong answer and to agree. A zero-disagreement row below is therefore evidence
+  of consistency, **not** evidence of correctness.
+
+**Genuine independent second annotation by an external annotator is PENDING.**
+No such review has taken place. Nothing in this report should be read as
+claiming one.
 
 | sample | files | 3-terminal parts | disagreements |
 | --- | --- | --- | --- |
-| blind random | 12 | 0 | 0 |
+| random, re-derived without the notes | 12 | 0 | 0 |
 | stratified on sheets with 3-terminal parts | 5 | 38 | 0 |
-| flagged by cross-checks | 9 | — | 7 changed |
+| flagged by ERC or sibling cross-checks | 9 | — | 7 changed |
+| independent human second annotation | — | — | pending |
 
-The blind sample contained no 3-terminal components, which is why the second,
+The random sample contained no 3-terminal components, which is why the second,
 stratified sample exists: pin order is the failure mode a net check cannot see,
 and 38 components were re-read from the arrowheads and glyphs with zero
-disagreements.
+disagreements — consistently, which as above is weaker than correctly.
 
 The flagged set is where the errors were, which is the point — the flags work.
 Files were flagged by (a) any ERC error, and (b) disagreeing with 4 or more
@@ -173,7 +225,9 @@ is the unanimity test: a verified file disagrees with 4+ unanimous siblings only
 Residual risk, stated plainly: a bare X crossing on a sheet with no other
 crossings to calibrate against is decided by circuit sense, not by ink. Those
 calls are individually documented, but they are the ones most likely to be
-disputed.
+disputed — and they are exactly the class of call an automated re-derivation
+cannot adjudicate, because it reasons the same way the first pass did. They
+need a human second reader, which is pending.
 
 ## 6. Reproducibility
 
@@ -189,21 +243,40 @@ disputed.
   `render_provenance.json` records which version applies to each image.
 - Every one of the 192 shipped netlists was re-derived from its decision file
   and matched exactly.
+- The tracer needs `scikit-image` (`skeletonize`), which is not in the project's
+  runtime dependencies — it was an annotation-time tool, not a pipeline stage.
+  `pip install scikit-image` to re-run it.
+- 2026-08-04: `trace._nbcount` was rewritten from `cv2.filter2D` to numpy
+  shifts. On some OpenCV builds (opencv-python 4.10.0.84 / darwin-arm64)
+  filter2D returned halved neighbour counts at 1024×1024, so no pixel reached
+  degree 3, every intersection site disappeared, and every decision record
+  reconstructed into a single net — silently, with no error. Reconstruction was
+  therefore unverifiable outside the machine the annotation was done on. Same
+  result wherever filter2D was already correct; 16 files spanning both tracer
+  versions were re-derived after the change and matched their shipped netlists
+  exactly.
 
 ## 7. To adopt
 
 ```bash
 python scripts/annotate_topology.py --check --gt-dir data/gt_test_1024
-# 192 GT file(s): 0 verified, 192 unverified, 0 with validation issues
+# 192 GT file(s): 192 verified, 0 unverified, 0 with validation issues
 ```
 
 Already run, using the project's own `schematic2netlist.gt.validate_gt` with
-the class whitelist enabled **and `strict=True` forced on** — that is, the full
-set of checks that only fire once `verified` is true (every terminal has a net
-or is marked unconnected, terminal counts match the class, GND sits on `"0"`,
-no net touches a single terminal). Result: **0 of 192 files have a validation
-issue.** So flipping the flag will not surface anything new.
+the class whitelist enabled and `strict=True` (which every file now gets
+anyway, since all 192 carry `"verified": true` after the 2026-08-03 sign-off):
+every terminal has a net or is marked unconnected, terminal counts match the
+class, GND sits on `"0"`, no net touches a single terminal. Result: **0 of 192
+files have a validation issue.**
 
-The `0 verified` is correct and intended — the sign-off is yours. Setting
-`"verified": true` and `"annotator": "<name>"` across the set is a one-line
-script once you have reviewed it.
+The electrical rule check is a *separate* pass (`scripts/gt_val_tools/erc.py`)
+and it is not clean, by design: `circuit_513` reports a short-circuited voltage
+source and `circuit_220`, `circuit_513` and `circuit_1207` report a current
+source with both terminals on one net. All four findings are properties of the
+drawings, are explained in §4 and in the per-file notes, and must not be
+suppressed.
+
+```bash
+python scripts/gt_val_tools/erc.py data/gt_test_1024
+```

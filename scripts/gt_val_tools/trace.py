@@ -73,8 +73,27 @@ def boxes_of(gt, pad=0):
 
 
 def _nbcount(skel):
-    k = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]], np.uint8)
-    return cv2.filter2D(skel.astype(np.uint8), -1, k, borderType=cv2.BORDER_CONSTANT) * skel
+    """8-neighbour count per skeleton pixel.
+
+    Done with numpy shifts rather than ``cv2.filter2D``. filter2D is not
+    portable here: on opencv-python 4.10.0.84 / darwin-arm64 it returns
+    ``floor(n/2)`` for a 1024x1024 uint8 input (correct on a 5x7 toy array,
+    wrong at image size — it takes a different internal code path). With the
+    halved counts no pixel ever reaches ``nb >= 3``, so ``Graph`` finds zero
+    branch nodes, every site vanishes, and every decision record silently
+    reconstructs into one giant net. That is a wrong netlist with no error
+    raised, which is the worst possible failure for a tool whose job is to
+    prove the shipped GT is reproducible. This form is platform-independent
+    and agrees with filter2D wherever filter2D is correct."""
+    s = skel.astype(np.uint8)
+    p = np.pad(s, 1)
+    h, w = s.shape
+    out = np.zeros((h, w), np.int32)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            if dy or dx:
+                out += p[1 + dy:1 + dy + h, 1 + dx:1 + dx + w]
+    return out * s
 
 
 class Graph:

@@ -1,0 +1,192 @@
+{
+  "stem": "cghd_d01_C2_D2_P3",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        680.5,
+        427.0,
+        15.5,
+        17.5
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        671.7,
+        288.6,
+        12.2,
+        15.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        464.3,
+        289.0,
+        12.7,
+        13.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        213.1,
+        321.9,
+        13.7,
+        19.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        214.0,
+        442.8,
+        17.5,
+        15.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        220.3,
+        637.1,
+        17.0,
+        16.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        428.2,
+        637.1,
+        15.2,
+        19.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        686.2,
+        634.8,
+        19.3,
+        15.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        685.2,
+        807.9,
+        13.7,
+        12.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        427.0,
+        817.4,
+        14.5,
+        15.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        328.5,
+        573.2,
+        26.2,
+        82.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        315.6,
+        389.5,
+        24.1,
+        84.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        276.4,
+        255.0,
+        35.3,
+        56.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        419.3,
+        367.4,
+        33.0,
+        141.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        497.8,
+        208.9,
+        44.2,
+        73.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        594.2,
+        213.1,
+        29.2,
+        102.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        560.6,
+        372.6,
+        28.7,
+        95.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        531.0,
+        573.3,
+        25.9,
+        89.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        387.0,
+        738.4,
+        33.5,
+        62.7
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 9,
+      "cghd_class": "transistor.bjt",
+      "defaulted_to": "BJT-NPN",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish NPN from PNP -- read the emitter arrow and set BJT-NPN or BJT-PNP."
+    }
+  ],
+  "counts": {
+    "junction": 10,
+    "crossover": 0,
+    "text": 9,
+    "terminal": 0
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

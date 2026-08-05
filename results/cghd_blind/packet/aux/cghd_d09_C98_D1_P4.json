@@ -1,0 +1,219 @@
+{
+  "stem": "cghd_d09_C98_D1_P4",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "text",
+      "bbox": [
+        339.9,
+        489.9,
+        62.4,
+        286.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        498.9,
+        466.4,
+        19.0,
+        24.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        471.3,
+        473.6,
+        9.0,
+        9.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        520.1,
+        469.5,
+        6.5,
+        9.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        542.2,
+        456.2,
+        19.7,
+        21.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        537.6,
+        565.5,
+        20.8,
+        65.1
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        437.9,
+        440.3,
+        20.3,
+        74.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        448.8,
+        566.4,
+        23.6,
+        72.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        517.5,
+        740.2,
+        21.5,
+        62.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        427.9,
+        691.1,
+        7.3,
+        7.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        579.8,
+        671.7,
+        7.8,
+        7.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        500.0,
+        607.0,
+        10.0,
+        9.5
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        572.1,
+        604.8,
+        9.5,
+        10.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        566.6,
+        479.0,
+        8.5,
+        9.4
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        561.3,
+        359.8,
+        10.8,
+        12.1
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        452.8,
+        365.2,
+        11.3,
+        12.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        459.5,
+        353.6,
+        11.7,
+        11.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        505.5,
+        332.4,
+        22.1,
+        39.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        559.0,
+        345.7,
+        8.2,
+        11.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        416.9,
+        483.9,
+        7.4,
+        8.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        424.2,
+        616.7,
+        7.5,
+        9.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        465.7,
+        483.9,
+        5.7,
+        7.1
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 0,
+      "cghd_class": "transistor.fet",
+      "defaulted_to": "MOSFET-N",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish N from P (and lumps JFETs in) -- read the body/channel arrow and set MOSFET-N or MOSFET-P, or reject the sheet if it is a JFET."
+    }
+  ],
+  "counts": {
+    "junction": 8,
+    "crossover": 0,
+    "text": 12,
+    "terminal": 2
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

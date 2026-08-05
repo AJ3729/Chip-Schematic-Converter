@@ -1,0 +1,320 @@
+{
+  "split": "test",
+  "n_images": 189,
+  "warmup_discarded": 3,
+  "supersedes": {
+    "file": "results/runtime_1024/summary.json",
+    "why": "that run records detector_timed: false, so its 0.28 ms 'detect' stage is a cache read and its ~46 ms total is not an end-to-end latency. Its stage list also omits the class head and connectivity repair, both enabled in the shipped config, and it covers 60 images of the split now called val.",
+    "quote_instead": "the e2e scope below for user-facing latency; the cached scope only when describing what the experiments in this repository cost to run"
+  },
+  "scopes": {
+    "cached": {
+      "detector_timed": false,
+      "what_it_measures": "detections read from the per-image JSON cache; the scope every experiment in this repo runs at",
+      "stages": {
+        "load": {
+          "mean_ms": 3.36,
+          "median_ms": 3.08,
+          "p90_ms": 4.8,
+          "share_of_total_mean": 0.0225,
+          "share_of_total_median": 0.0173
+        },
+        "detect": {
+          "mean_ms": 0.48,
+          "median_ms": 0.38,
+          "p90_ms": 0.58,
+          "share_of_total_mean": 0.0032,
+          "share_of_total_median": 0.0021
+        },
+        "class_head": {
+          "mean_ms": 80.36,
+          "median_ms": 106.86,
+          "p90_ms": 157.67,
+          "share_of_total_mean": 0.5379,
+          "share_of_total_median": 0.6013
+        },
+        "textmask": {
+          "mean_ms": 5.88,
+          "median_ms": 5.83,
+          "p90_ms": 6.33,
+          "share_of_total_mean": 0.0394,
+          "share_of_total_median": 0.0328
+        },
+        "wiremask": {
+          "mean_ms": 0.11,
+          "median_ms": 0.1,
+          "p90_ms": 0.15,
+          "share_of_total_mean": 0.0007,
+          "share_of_total_median": 0.0006
+        },
+        "wires": {
+          "mean_ms": 22.74,
+          "median_ms": 22.53,
+          "p90_ms": 27.39,
+          "share_of_total_mean": 0.1522,
+          "share_of_total_median": 0.1268
+        },
+        "stitch": {
+          "mean_ms": 26.7,
+          "median_ms": 23.74,
+          "p90_ms": 44.88,
+          "share_of_total_mean": 0.1787,
+          "share_of_total_median": 0.1336
+        },
+        "nodes": {
+          "mean_ms": 5.18,
+          "median_ms": 4.16,
+          "p90_ms": 8.52,
+          "share_of_total_mean": 0.0347,
+          "share_of_total_median": 0.0234
+        },
+        "snapping": {
+          "mean_ms": 2.36,
+          "median_ms": 1.9,
+          "p90_ms": 3.79,
+          "share_of_total_mean": 0.0158,
+          "share_of_total_median": 0.0107
+        },
+        "conn_repair": {
+          "mean_ms": 1.46,
+          "median_ms": 0.03,
+          "p90_ms": 6.1,
+          "share_of_total_mean": 0.0098,
+          "share_of_total_median": 0.0002
+        },
+        "netlist": {
+          "mean_ms": 0.02,
+          "median_ms": 0.01,
+          "p90_ms": 0.03,
+          "share_of_total_mean": 0.0001,
+          "share_of_total_median": 0.0001
+        },
+        "repair": {
+          "mean_ms": 0.07,
+          "median_ms": 0.06,
+          "p90_ms": 0.11,
+          "share_of_total_mean": 0.0005,
+          "share_of_total_median": 0.0003
+        },
+        "other": {
+          "mean_ms": 0.52,
+          "median_ms": 0.37,
+          "p90_ms": 0.9,
+          "share_of_total_mean": 0.0035,
+          "share_of_total_median": 0.0021
+        },
+        "export": {
+          "mean_ms": 0.16,
+          "median_ms": 0.15,
+          "p90_ms": 0.18,
+          "share_of_total_mean": 0.0011,
+          "share_of_total_median": 0.0008
+        },
+        "total": {
+          "mean_ms": 149.39,
+          "median_ms": 177.72,
+          "p90_ms": 249.9,
+          "share_of_total_mean": null,
+          "share_of_total_median": null
+        }
+      }
+    },
+    "e2e": {
+      "detector_timed": true,
+      "what_it_measures": "YOLOv8s inference actually runs on the 1024 px frame at imgsz 640; the scope a user experiences",
+      "detector_model_load_once_ms": 39.1,
+      "stages": {
+        "load": {
+          "mean_ms": 1.28,
+          "median_ms": 1.21,
+          "p90_ms": 1.65,
+          "share_of_total_mean": 0.0044,
+          "share_of_total_median": 0.0039
+        },
+        "detect": {
+          "mean_ms": 141.83,
+          "median_ms": 136.59,
+          "p90_ms": 153.71,
+          "share_of_total_mean": 0.493,
+          "share_of_total_median": 0.4421
+        },
+        "class_head": {
+          "mean_ms": 79.7,
+          "median_ms": 107.76,
+          "p90_ms": 157.38,
+          "share_of_total_mean": 0.277,
+          "share_of_total_median": 0.3488
+        },
+        "textmask": {
+          "mean_ms": 5.86,
+          "median_ms": 5.76,
+          "p90_ms": 6.36,
+          "share_of_total_mean": 0.0204,
+          "share_of_total_median": 0.0186
+        },
+        "wiremask": {
+          "mean_ms": 0.11,
+          "median_ms": 0.1,
+          "p90_ms": 0.14,
+          "share_of_total_mean": 0.0004,
+          "share_of_total_median": 0.0003
+        },
+        "wires": {
+          "mean_ms": 22.64,
+          "median_ms": 21.94,
+          "p90_ms": 28.1,
+          "share_of_total_mean": 0.0787,
+          "share_of_total_median": 0.071
+        },
+        "stitch": {
+          "mean_ms": 26.72,
+          "median_ms": 24.64,
+          "p90_ms": 44.3,
+          "share_of_total_mean": 0.0929,
+          "share_of_total_median": 0.0798
+        },
+        "nodes": {
+          "mean_ms": 5.08,
+          "median_ms": 4.15,
+          "p90_ms": 8.37,
+          "share_of_total_mean": 0.0177,
+          "share_of_total_median": 0.0134
+        },
+        "snapping": {
+          "mean_ms": 2.34,
+          "median_ms": 1.93,
+          "p90_ms": 3.78,
+          "share_of_total_mean": 0.0081,
+          "share_of_total_median": 0.0062
+        },
+        "conn_repair": {
+          "mean_ms": 1.42,
+          "median_ms": 0.03,
+          "p90_ms": 5.98,
+          "share_of_total_mean": 0.0049,
+          "share_of_total_median": 0.0001
+        },
+        "netlist": {
+          "mean_ms": 0.01,
+          "median_ms": 0.01,
+          "p90_ms": 0.02,
+          "share_of_total_mean": 0.0,
+          "share_of_total_median": 0.0
+        },
+        "repair": {
+          "mean_ms": 0.07,
+          "median_ms": 0.06,
+          "p90_ms": 0.12,
+          "share_of_total_mean": 0.0002,
+          "share_of_total_median": 0.0002
+        },
+        "other": {
+          "mean_ms": 0.48,
+          "median_ms": 0.38,
+          "p90_ms": 0.85,
+          "share_of_total_mean": 0.0017,
+          "share_of_total_median": 0.0012
+        },
+        "export": {
+          "mean_ms": 0.15,
+          "median_ms": 0.14,
+          "p90_ms": 0.17,
+          "share_of_total_mean": 0.0005,
+          "share_of_total_median": 0.0005
+        },
+        "total": {
+          "mean_ms": 287.68,
+          "median_ms": 308.96,
+          "p90_ms": 387.59,
+          "share_of_total_mean": null,
+          "share_of_total_median": null
+        }
+      }
+    }
+  },
+  "e2e_over_cached_total": {
+    "mean_x": 1.93,
+    "median_x": 1.74,
+    "median_delta_ms": 131.24
+  },
+  "detector_only_ms": {
+    "inference_model_preloaded": {
+      "mean": 141.83,
+      "median": 136.59,
+      "p90": 153.71,
+      "note": "what a served system pays per image"
+    },
+    "as_shipped_model_rebuilt_per_call": {
+      "mean": 188.28,
+      "median": 177.81,
+      "p90": 204.36,
+      "note": "detect() -> detect_ultralytics([one image]) reconstructs YOLO(weights) on every call"
+    },
+    "model_construction_ms_warm_process": 39.1,
+    "cold_start_one_image_cli": {
+      "repeats": 3,
+      "import_and_config_median_ms": 494.9,
+      "first_detect_call_median_ms": 2120.7,
+      "total_median_ms": 2657.3,
+      "note": "fresh interpreter per repeat; includes the torch/ultralytics import, model construction and the first forward pass"
+    }
+  },
+  "detector_vs_cache_agreement": {
+    "images": 189,
+    "same_count": 189,
+    "same_boxes_1px": 189,
+    "same_classes": 189
+  },
+  "stitch_share_of_cached_total": {
+    "mean": 0.1787,
+    "median": 0.1336
+  },
+  "stitch_share_legacy_scope": {
+    "n_images": 189,
+    "legacy_subset_total_mean_ms": 67.06,
+    "legacy_subset_total_median_ms": 62.81,
+    "stitch_share_mean": 0.3982,
+    "stitch_share_median": 0.3779,
+    "note": "denominator excludes class_head, conn_repair and the unattributed residual, matching scripts/benchmark_runtime.py"
+  },
+  "concurrency_caveat": "Other agents were running on this machine throughout. Wall-clock timings are NOISY and inflated relative to an idle host; PREFER THE MEDIANS. The cached and e2e scopes were measured interleaved image by image, so their RATIO is paired and far more robust than either absolute figure.",
+  "load_stability_check": {
+    "first_third": {
+      "n": 63,
+      "median_n_detections": 17,
+      "median_total_ms": 196.36,
+      "median_wires_ms": 23.33,
+      "median_class_head_ms_per_detection": 6.632
+    },
+    "middle_third": {
+      "n": 63,
+      "median_n_detections": 11,
+      "median_total_ms": 88.21,
+      "median_wires_ms": 21.31,
+      "median_class_head_ms_per_detection": 6.239
+    },
+    "last_third": {
+      "n": 63,
+      "median_n_detections": 14,
+      "median_total_ms": 100.05,
+      "median_wires_ms": 22.08,
+      "median_class_head_ms_per_detection": 6.276
+    },
+    "reading": "raw per-image totals move with image content; the content-normalised costs should not move if machine load was stable enough for the stage ordering to be trusted"
+  },
+  "load_average_1_5_15": {
+    "start": [
+      4.70849609375,
+      4.048828125,
+      3.9736328125
+    ],
+    "end": [
+      4.96630859375,
+      4.36962890625,
+      4.10888671875
+    ]
+  },
+  "machine": "macOS-15.5-arm64-arm-64bit",
+  "processor": "arm",
+  "cpu_count": 8
+}

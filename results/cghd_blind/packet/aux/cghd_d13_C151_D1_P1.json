@@ -1,0 +1,184 @@
+{
+  "stem": "cghd_d13_C151_D1_P1",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        183.2,
+        455.2,
+        23.0,
+        23.2
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        184.2,
+        640.6,
+        30.0,
+        18.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        168.6,
+        391.0,
+        28.7,
+        27.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        218.4,
+        551.6,
+        36.4,
+        35.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        433.6,
+        400.6,
+        49.2,
+        26.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        453.5,
+        531.4,
+        32.8,
+        34.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        623.6,
+        529.5,
+        47.4,
+        39.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        660.4,
+        400.2,
+        50.7,
+        24.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        784.9,
+        385.6,
+        45.2,
+        30.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        850.8,
+        358.7,
+        37.9,
+        33.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        761.7,
+        510.3,
+        41.2,
+        35.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        902.3,
+        517.9,
+        28.5,
+        31.5
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        502.7,
+        626.2,
+        13.2,
+        12.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        581.9,
+        623.6,
+        13.2,
+        12.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        476.8,
+        437.2,
+        13.2,
+        12.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        570.2,
+        435.5,
+        13.2,
+        12.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        844.8,
+        420.6,
+        13.2,
+        12.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        860.5,
+        607.0,
+        13.2,
+        12.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        253.3,
+        409.2,
+        31.2,
+        28.7
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [],
+  "counts": {
+    "junction": 6,
+    "crossover": 0,
+    "text": 11,
+    "terminal": 2
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

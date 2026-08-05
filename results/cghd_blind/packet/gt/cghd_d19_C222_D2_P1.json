@@ -1,0 +1,701 @@
+{
+  "schema_version": 1,
+  "image": "cghd_d19_C222_D2_P1.jpg",
+  "source": "cghd_geometry+PENDING_manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "NETS ARE UNANNOTATED. Every terminal in this file has \"net\": null and must be traced by a human against the drawing. Nothing in this file was produced by running the pipeline, the detector or the wire tracer -- component classes and boxes come from CGHD's own published Pascal-VOC annotations (human annotations by the dataset authors), projected into the 1024 frame by the project's own preprocessing transform. See results/cghd_blind/packet/README.md before annotating, and follow docs/ANNOTATION_GUIDE.md, the same guide used for the Digitize-HCD test split.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        286.7,
+        455.5,
+        33.3,
+        15.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "GND",
+      "bbox": [
+        74.5,
+        456.7,
+        43.0,
+        22.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        794.3,
+        393.5,
+        26.0,
+        47.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Diode",
+      "bbox": [
+        586.5,
+        506.3,
+        25.7,
+        22.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Diode",
+      "bbox": [
+        739.3,
+        429.0,
+        26.0,
+        18.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        325.0,
+        451.3,
+        28.7,
+        15.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Diode",
+      "bbox": [
+        601.7,
+        443.3,
+        22.0,
+        18.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        788.2,
+        297.5,
+        25.7,
+        45.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Diode",
+      "bbox": [
+        686.7,
+        283.2,
+        30.7,
+        24.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Diode",
+      "bbox": [
+        724.3,
+        493.0,
+        28.7,
+        24.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Diode",
+      "bbox": [
+        476.5,
+        523.5,
+        21.7,
+        21.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Inductor",
+      "bbox": [
+        218.2,
+        351.8,
+        31.7,
+        13.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Inductor",
+      "bbox": [
+        218.7,
+        420.2,
+        37.3,
+        13.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Capacitor",
+      "bbox": [
+        364.8,
+        447.7,
+        28.3,
+        15.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Diode",
+      "bbox": [
+        591.0,
+        221.5,
+        24.7,
+        17.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "BJT-NPN",
+      "bbox": [
+        695.2,
+        431.0,
+        54.3,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "BJT-NPN",
+      "bbox": [
+        562.2,
+        448.7,
+        41.7,
+        44.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "Diode",
+      "bbox": [
+        498.2,
+        460.2,
+        25.7,
+        17.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "class": "Resistor",
+      "bbox": [
+        178.0,
+        354.2,
+        36.7,
+        18.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "class": "Diode",
+      "bbox": [
+        484.5,
+        224.2,
+        20.3,
+        17.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "class": "BJT-NPN",
+      "bbox": [
+        448.2,
+        228.8,
+        30.3,
+        34.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "class": "Resistor",
+      "bbox": [
+        181.7,
+        425.7,
+        34.0,
+        19.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "class": "Diode",
+      "bbox": [
+        699.8,
+        212.7,
+        17.0,
+        18.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "class": "BJT-NPN",
+      "bbox": [
+        459.0,
+        461.8,
+        36.7,
+        39.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "class": "BJT-NPN",
+      "bbox": [
+        551.8,
+        224.8,
+        30.3,
+        32.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "class": "BJT-NPN",
+      "bbox": [
+        664.8,
+        221.5,
+        37.0,
+        37.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "class": "V-AC",
+      "bbox": [
+        144.3,
+        427.3,
+        26.0,
+        24.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "class": "Resistor",
+      "bbox": [
+        180.3,
+        388.2,
+        37.3,
+        18.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "class": "V-AC",
+      "bbox": [
+        138.3,
+        392.0,
+        22.7,
+        23.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "class": "V-AC",
+      "bbox": [
+        134.0,
+        358.5,
+        24.0,
+        23.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "class": "Inductor",
+      "bbox": [
+        218.5,
+        384.3,
+        33.0,
+        20.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "class": "Diode",
+      "bbox": [
+        465.7,
+        302.3,
+        26.0,
+        22.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "class": "Diode",
+      "bbox": [
+        567.8,
+        290.2,
+        29.0,
+        18.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cghd_blind_1024",
+  "provenance": {
+    "dataset": "CGHD (GTDB-HD), Zenodo record 10056817, CC BY 4.0",
+    "cghd_drafter": "drafter_19",
+    "cghd_circuit": 222,
+    "cghd_image": "drafter_19/images/C222_D2_P1.jpg",
+    "cghd_annotation": "drafter_19/annotations/C222_D2_P1.xml",
+    "geometry_source": "CGHD Pascal-VOC boxes projected to the 1024 frame by schematic2netlist.preprocess",
+    "topology_source": null,
+    "pipeline_output_used": false
+  }
+}

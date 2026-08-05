@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "image": "cghd_d17_C194_D2_P1.jpg",
+  "source": "cghd_geometry+PENDING_manual_topology",
+  "verified": false,
+  "annotator": null,
+  "notes": "NETS ARE UNANNOTATED. Every terminal in this file has \"net\": null and must be traced by a human against the drawing. Nothing in this file was produced by running the pipeline, the detector or the wire tracer -- component classes and boxes come from CGHD's own published Pascal-VOC annotations (human annotations by the dataset authors), projected into the 1024 frame by the project's own preprocessing transform. See results/cghd_blind/packet/README.md before annotating, and follow docs/ANNOTATION_GUIDE.md, the same guide used for the Digitize-HCD test split.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        453.5,
+        404.5,
+        43.1,
+        18.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        555.0,
+        271.1,
+        63.3,
+        25.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        239.8,
+        277.8,
+        51.2,
+        18.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        206.1,
+        719.9,
+        21.6,
+        61.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        393.3,
+        575.4,
+        17.5,
+        54.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        551.5,
+        193.1,
+        55.2,
+        22.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        554.0,
+        329.8,
+        61.4,
+        24.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        552.2,
+        220.5,
+        52.8,
+        22.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Capacitor",
+      "bbox": [
+        439.1,
+        489.9,
+        37.5,
+        34.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "GND",
+      "bbox": [
+        339.0,
+        267.0,
+        18.9,
+        15.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Resistor",
+      "bbox": [
+        548.2,
+        371.6,
+        39.6,
+        16.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "GND",
+      "bbox": [
+        332.4,
+        789.8,
+        24.5,
+        23.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Capacitor",
+      "bbox": [
+        805.2,
+        447.6,
+        38.3,
+        48.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Op-Amp",
+      "bbox": [
+        534.5,
+        431.8,
+        64.4,
+        91.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Resistor",
+      "bbox": [
+        165.3,
+        439.2,
+        19.7,
+        61.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "Op-Amp",
+      "bbox": [
+        255.6,
+        402.4,
+        61.2,
+        76.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        },
+        {
+          "index": 2,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "Resistor",
+      "bbox": [
+        399.2,
+        319.4,
+        13.7,
+        49.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "Capacitor",
+      "bbox": [
+        494.1,
+        296.9,
+        28.3,
+        31.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "class": "Capacitor",
+      "bbox": [
+        486.0,
+        348.3,
+        29.9,
+        30.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "class": "Capacitor",
+      "bbox": [
+        489.8,
+        245.6,
+        23.4,
+        18.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "class": "Capacitor",
+      "bbox": [
+        304.6,
+        459.3,
+        22.9,
+        29.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "class": "Capacitor",
+      "bbox": [
+        491.5,
+        206.3,
+        23.2,
+        14.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "class": "Capacitor",
+      "bbox": [
+        341.4,
+        246.3,
+        24.8,
+        17.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": null
+        },
+        {
+          "index": 1,
+          "net": null
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cghd_blind_1024",
+  "provenance": {
+    "dataset": "CGHD (GTDB-HD), Zenodo record 10056817, CC BY 4.0",
+    "cghd_drafter": "drafter_17",
+    "cghd_circuit": 194,
+    "cghd_image": "drafter_17/images/C194_D2_P1.JPG",
+    "cghd_annotation": "drafter_17/annotations/C194_D2_P1.xml",
+    "geometry_source": "CGHD Pascal-VOC boxes projected to the 1024 frame by schematic2netlist.preprocess",
+    "topology_source": null,
+    "pipeline_output_used": false
+  }
+}

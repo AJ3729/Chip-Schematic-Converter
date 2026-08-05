@@ -1,0 +1,298 @@
+{
+  "stem": "cghd_d05_C56_D1_P2",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "text",
+      "bbox": [
+        123.4,
+        308.6,
+        47.7,
+        45.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        233.8,
+        323.0,
+        48.6,
+        38.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        368.9,
+        341.7,
+        89.8,
+        32.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        537.1,
+        364.0,
+        91.1,
+        35.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        871.0,
+        381.8,
+        70.1,
+        42.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        777.6,
+        529.3,
+        45.5,
+        51.2
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        646.3,
+        521.3,
+        45.3,
+        46.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        206.7,
+        456.6,
+        53.6,
+        46.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        55.5,
+        545.8,
+        48.5,
+        33.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        162.9,
+        350.8,
+        19.6,
+        19.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        253.8,
+        415.5,
+        15.9,
+        14.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        158.2,
+        402.2,
+        15.9,
+        15.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        263.2,
+        363.1,
+        17.3,
+        20.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        306.5,
+        364.0,
+        18.4,
+        19.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        304.0,
+        402.4,
+        18.4,
+        20.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        454.5,
+        460.3,
+        22.0,
+        19.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        457.5,
+        421.2,
+        18.2,
+        14.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        518.8,
+        467.2,
+        20.9,
+        22.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        371.0,
+        454.5,
+        20.7,
+        16.1
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        610.6,
+        435.9,
+        19.4,
+        14.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        607.5,
+        474.9,
+        18.3,
+        17.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        835.3,
+        419.7,
+        17.2,
+        19.5
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        862.5,
+        420.6,
+        26.8,
+        22.2
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        879.9,
+        592.0,
+        25.8,
+        29.3
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        54.9,
+        512.0,
+        23.3,
+        24.4
+      ]
+    },
+    {
+      "cghd_class": "terminal",
+      "bbox": [
+        111.6,
+        342.6,
+        20.8,
+        20.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        378.5,
+        374.1,
+        18.3,
+        16.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        527.4,
+        389.8,
+        13.5,
+        13.5
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        605.5,
+        570.3,
+        20.8,
+        20.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        839.2,
+        496.3,
+        18.3,
+        16.0
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 5,
+      "cghd_class": "transistor.bjt",
+      "defaulted_to": "BJT-NPN",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish NPN from PNP -- read the emitter arrow and set BJT-NPN or BJT-PNP."
+    },
+    {
+      "component_id": 6,
+      "cghd_class": "transistor.bjt",
+      "defaulted_to": "BJT-NPN",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish NPN from PNP -- read the emitter arrow and set BJT-NPN or BJT-PNP."
+    }
+  ],
+  "counts": {
+    "junction": 17,
+    "crossover": 0,
+    "text": 9,
+    "terminal": 4
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

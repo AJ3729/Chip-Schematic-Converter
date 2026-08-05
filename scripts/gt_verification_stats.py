@@ -24,9 +24,12 @@ What a decision file holds, and what each field means for the table:
     classes      a published COCO class corrected against the drawn symbol.
     unconnected  a lead the drafter drew going nowhere, marked deliberate.
 
-Second-reader agreement cannot be derived this way — it is a fact about a
-process, not about the files — so it is read from a small committed JSON
-that the verification report and this table both cite.
+The automated self-consistency re-derivation cannot be derived this way —
+it is a fact about a process, not about the files — so it is read from a
+small committed JSON that the verification report and this table both cite
+(``meta/second_reader.json``, named that for historical reasons; it was an
+AI assistant re-deriving, not an independent human second reader, and the
+file says so).
 
 Usage:
     python scripts/gt_verification_stats.py --gt-dir data/gt_test_1024
@@ -73,8 +76,14 @@ def main() -> None:
             counts["ports_components"] += 1
             counts["ports_terminals"] += (len(moved)
                                           if hasattr(moved, "__len__") else 1)
-        for field in ("merge", "manual_nets", "bridges",
-                      "classes", "unconnected"):
+        # `bridges` is {"drop": [i, ...]}, so len() is 1 per file that
+        # dropped anything, not the number of bridges dropped. Descend for
+        # the same reason as `ports` above: 3 files dropped 4 bridges, and
+        # the prose report and data/README both say 4.
+        drop = (d.get("bridges") or {}).get("drop") or []
+        if drop:
+            counts["bridges"] += len(drop)
+        for field in ("merge", "manual_nets", "classes", "unconnected"):
             v = d.get(field)
             if v:
                 counts[field] += len(v) if hasattr(v, "__len__") else 1
@@ -123,8 +132,8 @@ def main() -> None:
     print("  corrections: "
           + ", ".join(f"{k} {v}" for k, v in sorted(counts.items())))
     if second_reader is None:
-        print(f"  NOTE: no {sr_path.relative_to(ROOT)}; second-reader "
-              "agreement will be absent from the table")
+        print(f"  NOTE: no {sr_path.relative_to(ROOT)}; the self-consistency "
+              "re-derivation rows will be absent from the table")
     print(f"wrote {args.out}")
 
 

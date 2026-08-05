@@ -1,0 +1,145 @@
+{
+  "stem": "cghd_d12_C137_D2_P1",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "text",
+      "bbox": [
+        514.9,
+        398.2,
+        129.5,
+        56.3
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        154.0,
+        424.4,
+        118.7,
+        72.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        712.9,
+        447.7,
+        103.9,
+        50.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        682.1,
+        559.8,
+        96.1,
+        46.0
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        932.8,
+        613.4,
+        125.4,
+        58.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        771.8,
+        500.7,
+        16.8,
+        16.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        844.3,
+        714.8,
+        20.2,
+        20.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        237.5,
+        570.4,
+        12.2,
+        12.7
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        157.7,
+        375.7,
+        67.7,
+        40.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        735.8,
+        688.0,
+        17.3,
+        16.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        858.7,
+        522.5,
+        15.8,
+        14.5
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        309.9,
+        374.2,
+        14.8,
+        14.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        707.2,
+        595.0,
+        24.5,
+        25.3
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 3,
+      "cghd_class": "capacitor.polarized",
+      "defaulted_to": "Capacitor",
+      "lossy_mapping": true,
+      "human_must": "polarity is lost by the mapping to Capacitor; terminal order is unscored for 2-terminal parts, so this is informational."
+    },
+    {
+      "component_id": 4,
+      "cghd_class": "voltage.battery",
+      "defaulted_to": "V-DC",
+      "lossy_mapping": true,
+      "human_must": "a battery mapped to V-DC; informational."
+    }
+  ],
+  "counts": {
+    "junction": 6,
+    "crossover": 0,
+    "text": 7,
+    "terminal": 0
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

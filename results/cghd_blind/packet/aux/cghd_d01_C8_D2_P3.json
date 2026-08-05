@@ -1,0 +1,267 @@
+{
+  "stem": "cghd_d01_C8_D2_P3",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "text",
+      "bbox": [
+        394.3,
+        495.1,
+        19.6,
+        70.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        346.7,
+        363.2,
+        18.8,
+        63.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        351.1,
+        234.4,
+        15.5,
+        85.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        306.8,
+        477.5,
+        18.8,
+        57.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        245.8,
+        485.7,
+        19.8,
+        47.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        187.3,
+        373.7,
+        15.0,
+        88.6
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        266.2,
+        595.2,
+        16.3,
+        72.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        216.0,
+        530.0,
+        15.0,
+        87.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        228.3,
+        819.9,
+        19.3,
+        37.3
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        266.5,
+        414.7,
+        27.7,
+        24.9
+      ]
+    },
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        329.1,
+        551.1,
+        22.3,
+        25.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        264.4,
+        323.2,
+        13.7,
+        12.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        209.7,
+        333.1,
+        14.5,
+        14.5
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        469.6,
+        264.0,
+        14.7,
+        12.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        477.7,
+        379.0,
+        13.7,
+        16.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        483.3,
+        543.9,
+        13.7,
+        13.5
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        488.6,
+        649.1,
+        11.2,
+        11.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        325.7,
+        633.8,
+        13.0,
+        11.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        322.8,
+        405.3,
+        10.7,
+        11.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        272.1,
+        549.1,
+        11.4,
+        11.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        224.5,
+        634.7,
+        11.2,
+        11.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        489.8,
+        799.7,
+        11.9,
+        12.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        157.5,
+        744.8,
+        10.2,
+        10.9
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        159.1,
+        564.3,
+        10.4,
+        11.7
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        161.0,
+        443.8,
+        10.2,
+        10.9
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 1,
+      "cghd_class": "transistor.bjt",
+      "defaulted_to": "BJT-NPN",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish NPN from PNP -- read the emitter arrow and set BJT-NPN or BJT-PNP."
+    },
+    {
+      "component_id": 2,
+      "cghd_class": "transistor.bjt",
+      "defaulted_to": "BJT-NPN",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish NPN from PNP -- read the emitter arrow and set BJT-NPN or BJT-PNP."
+    },
+    {
+      "component_id": 9,
+      "cghd_class": "diode.light_emitting",
+      "defaulted_to": "Diode",
+      "lossy_mapping": true,
+      "human_must": "an LED mapped to Diode; informational."
+    },
+    {
+      "component_id": 10,
+      "cghd_class": "diode.light_emitting",
+      "defaulted_to": "Diode",
+      "lossy_mapping": true,
+      "human_must": "an LED mapped to Diode; informational."
+    }
+  ],
+  "counts": {
+    "junction": 14,
+    "crossover": 2,
+    "text": 9,
+    "terminal": 0
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

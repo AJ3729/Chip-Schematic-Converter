@@ -1,0 +1,247 @@
+{
+  "stem": "cghd_d02_C22_D1_P3",
+  "cghd_junction_crossover_text_terminal_boxes": [
+    {
+      "cghd_class": "crossover",
+      "bbox": [
+        479.9,
+        629.4,
+        59.1,
+        37.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        145.9,
+        391.2,
+        65.5,
+        43.9
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        338.3,
+        258.3,
+        76.3,
+        39.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        599.7,
+        255.9,
+        73.9,
+        39.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        703.5,
+        373.9,
+        79.1,
+        36.5
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        587.1,
+        497.2,
+        118.2,
+        43.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        629.9,
+        598.0,
+        87.1,
+        39.4
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        394.2,
+        675.1,
+        81.2,
+        37.8
+      ]
+    },
+    {
+      "cghd_class": "text",
+      "bbox": [
+        768.0,
+        709.6,
+        89.5,
+        47.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        295.3,
+        185.3,
+        17.4,
+        19.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        411.7,
+        190.4,
+        28.2,
+        24.3
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        539.6,
+        196.7,
+        20.6,
+        18.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        515.1,
+        394.6,
+        27.2,
+        28.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        713.3,
+        412.3,
+        22.1,
+        23.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        363.2,
+        485.1,
+        27.2,
+        27.2
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        705.0,
+        645.7,
+        24.3,
+        29.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        336.3,
+        626.4,
+        26.6,
+        26.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        202.1,
+        743.9,
+        22.8,
+        24.0
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        318.2,
+        753.1,
+        25.8,
+        25.4
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        466.1,
+        760.8,
+        25.2,
+        27.8
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        689.5,
+        779.0,
+        25.1,
+        24.6
+      ]
+    },
+    {
+      "cghd_class": "junction",
+      "bbox": [
+        483.5,
+        576.7,
+        21.8,
+        23.0
+      ]
+    }
+  ],
+  "components_needing_a_human_class_call": [
+    {
+      "component_id": 1,
+      "cghd_class": "transistor.bjt",
+      "defaulted_to": "BJT-NPN",
+      "lossy_mapping": true,
+      "human_must": "CGHD does not distinguish NPN from PNP -- read the emitter arrow and set BJT-NPN or BJT-PNP."
+    },
+    {
+      "component_id": 6,
+      "cghd_class": "diode.light_emitting",
+      "defaulted_to": "Diode",
+      "lossy_mapping": true,
+      "human_must": "an LED mapped to Diode; informational."
+    },
+    {
+      "component_id": 7,
+      "cghd_class": "capacitor.polarized",
+      "defaulted_to": "Capacitor",
+      "lossy_mapping": true,
+      "human_must": "polarity is lost by the mapping to Capacitor; terminal order is unscored for 2-terminal parts, so this is informational."
+    },
+    {
+      "component_id": 8,
+      "cghd_class": "capacitor.polarized",
+      "defaulted_to": "Capacitor",
+      "lossy_mapping": true,
+      "human_must": "polarity is lost by the mapping to Capacitor; terminal order is unscored for 2-terminal parts, so this is informational."
+    },
+    {
+      "component_id": 9,
+      "cghd_class": "capacitor.polarized",
+      "defaulted_to": "Capacitor",
+      "lossy_mapping": true,
+      "human_must": "polarity is lost by the mapping to Capacitor; terminal order is unscored for 2-terminal parts, so this is informational."
+    }
+  ],
+  "counts": {
+    "junction": 13,
+    "crossover": 1,
+    "text": 8,
+    "terminal": 0
+  },
+  "_what_this_is": "CGHD's own published annotations for the meta-classes we do not score (junction, crossover, text, terminal), projected to the 1024 frame, plus the per-component mapping calls a human must confirm. These are the DATASET AUTHORS' human annotations, not pipeline output. junction/crossover boxes say WHERE the drafter's intent was recorded, not which wires join -- they are strong evidence for a site call, not a substitute for making one."
+}

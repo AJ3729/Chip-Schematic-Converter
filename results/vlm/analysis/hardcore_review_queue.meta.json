@@ -1,0 +1,25 @@
+{
+ "what": "circuits where the pipeline and BOTH VLMs fail strict success \u2014 the priority human-review queue",
+ "split": "val",
+ "split_manifest": "data/splits/val.txt",
+ "n_images_scored": 190,
+ "gt_dir": "data/gt_val_1024",
+ "warning": "This is a VALIDATION-split result. The VLM runs predate the 2026-08-03 role swap (data/README.md) and cover the 190 images now called val, not the 192-image test split. Reproducing it on test requires a new paid VLM run.",
+ "reading": "A three-way disagreement is a pointer, not a verdict. It is equally consistent with an ambiguous drawing, with a bias the three systems share, or with three independent failures. Nothing here validates the ground truth.",
+ "n_repeats_available": 1,
+ "sources": {
+  "pipeline": "results/benchmark_1024_final/seed0/per_image.csv",
+  "claude": "results/vlm/claude_b/rep0",
+  "openai": "results/vlm/openai_b/rep0"
+ },
+ "groups": {
+  "all_pass": 63,
+  "hard_core": 81,
+  "both_vlm_recoverable": 12,
+  "recoverable_by_at_least_one": 25,
+  "union": 109
+ },
+ "union_ceiling": 0.5737,
+ "queue_size": 81,
+ "ranking": "gt_outlier_margin = (mean pairwise terminal-pair F1 among the three predictions) - (mean terminal-pair F1 of each prediction against GT), descending; ties broken by the smaller consensus_delta."
+}

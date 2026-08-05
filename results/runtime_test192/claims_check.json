@@ -1,0 +1,130 @@
+{
+  "claim_1_46ms_headline": {
+    "claim": "the pipeline runs in ~46 ms per image",
+    "verdict": "RETIRED -- it is a fragment of a fragment",
+    "source_of_the_claim": "results/runtime_1024/summary.json (total mean 46.15 ms, n=60, detector_timed=False)",
+    "what_it_omitted": [
+      "the detector, which was never run (detector_timed false); its 0.28 ms 'detect' stage is a JSON cache read",
+      "the component class head, which is enabled in the shipped config and is the LARGEST downstream stage measured here",
+      "constraint-triggered connectivity repair, also enabled"
+    ],
+    "sample": "60 images, and on the 190-image split that is today called val, not the test split",
+    "replacement_numbers_median_ms": {
+      "cached_downstream": 177.72,
+      "true_end_to_end": 308.96
+    }
+  },
+  "claim_2_stitch_is_54_percent": {
+    "claim": "stitch is ~54% of downstream runtime",
+    "verdict": "DOES NOT REPLICATE at either denominator",
+    "original": {
+      "value": 0.5413,
+      "denominator": "mean total of the 11 stages scripts/benchmark_runtime.py measures",
+      "n_images": 60
+    },
+    "replication_same_scope_same_script": {
+      "value": 0.4295,
+      "how": "unmodified scripts/benchmark_runtime.py, 189 timed images of the 192-image test split -> results/runtime_test192/legacy_scope/",
+      "n_images": 189
+    },
+    "replication_same_scope_this_harness": {
+      "mean": 0.3982,
+      "median": 0.3779,
+      "how": "this harness, restricted to the same stage subset"
+    },
+    "share_of_the_pipeline_that_actually_runs": {
+      "of_cached_downstream_mean": 0.1787,
+      "of_cached_downstream_median": 0.1336,
+      "of_true_end_to_end_mean": 0.0929,
+      "of_true_end_to_end_median": 0.0798
+    },
+    "why_the_number_shrank": "the 54% denominator excluded the class head, which costs more than stitch, and excluded the detector entirely. Against what a user actually waits for, stitch is under a tenth of the budget."
+  },
+  "claim_3_removing_stitch_is_a_clean_optimisation": {
+    "claim": "stitch is an accuracy no-op, so deleting it is free speed",
+    "verdict": "the ACCURACY half holds on the split it was measured on; the SPEED half is much smaller than advertised",
+    "accuracy_evidence": {
+      "source": "results/comparisons/seed0_vs_abl_nostitch.csv",
+      "split": "190 images -- the split now called val, NOT the 192-image test split. The no-op has never been checked on test.",
+      "per_metric": {
+        "terminal_pair_f1": {
+          "with_stitch": 0.7076,
+          "without_stitch": 0.7076,
+          "delta": 0.0,
+          "wins": 0,
+          "losses": 0,
+          "ties": 190,
+          "significant": false
+        },
+        "net_f1": {
+          "with_stitch": 0.8083,
+          "without_stitch": 0.8083,
+          "delta": 0.0,
+          "wins": 0,
+          "losses": 0,
+          "ties": 190,
+          "significant": false
+        },
+        "per_component_connected_acc": {
+          "with_stitch": 0.5692,
+          "without_stitch": 0.5692,
+          "delta": 0.0,
+          "wins": 0,
+          "losses": 0,
+          "ties": 190,
+          "significant": false
+        },
+        "nged": {
+          "with_stitch": 0.1921,
+          "without_stitch": 0.1878,
+          "delta": -0.0042,
+          "wins": 0,
+          "losses": 24,
+          "ties": 166,
+          "significant": true
+        },
+        "strict_success": {
+          "with_stitch": 0.3526,
+          "without_stitch": 0.3526,
+          "delta": 0.0,
+          "wins": 0,
+          "losses": 0,
+          "ties": 190,
+          "significant": false
+        },
+        "solvable_before": {
+          "with_stitch": 0.5211,
+          "without_stitch": 0.5211,
+          "delta": 0.0,
+          "wins": 0,
+          "losses": 0,
+          "ties": 190,
+          "significant": false
+        },
+        "solvable_after": {
+          "with_stitch": 0.7421,
+          "without_stitch": 0.7421,
+          "delta": 0.0,
+          "wins": 0,
+          "losses": 0,
+          "ties": 190,
+          "significant": false
+        }
+      },
+      "reading": "identical on terminal-pair F1, net F1, per-component, strict success and DC-solvability (190 ties, zero wins, zero losses); nGED is slightly BETTER without stitch"
+    },
+    "speed_evidence": {
+      "stitch_median_ms": 23.74,
+      "end_to_end_median_ms": 308.96,
+      "end_to_end_median_ms_if_stitch_removed": 280.05,
+      "end_to_end_saving_fraction": 0.0798
+    },
+    "better_target": {
+      "stage": "class_head",
+      "median_ms": 106.86,
+      "share_of_true_end_to_end_median": 0.3488,
+      "note": "two CPU CNNs over every component crop, ensembled. It costs more than every other downstream stage combined. Unlike stitch it is NOT an accuracy no-op (configs/default.yaml records +0.0053 strict for the second head), so this is a real tradeoff rather than free speed -- but it is where the time is."
+    }
+  },
+  "caveat": "Other agents were running on this machine throughout. Wall-clock timings are NOISY and inflated relative to an idle host; PREFER THE MEDIANS. The cached and e2e scopes were measured interleaved image by image, so their RATIO is paired and far more robust than either absolute figure."
+}
