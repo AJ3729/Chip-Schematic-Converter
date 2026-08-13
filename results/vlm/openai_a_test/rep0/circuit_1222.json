@@ -1,0 +1,208 @@
+{
+ "components": [
+  {
+   "bbox": [
+    109,
+    383,
+    42,
+    55
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    108,
+    548,
+    45,
+    50
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    202,
+    548,
+    44,
+    50
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    240,
+    354,
+    72,
+    94
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n3",
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    396,
+    354,
+    74,
+    96
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n4",
+    "n3",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    413,
+    487,
+    62,
+    110
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n4",
+    "n2",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    402,
+    603,
+    67,
+    112
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n5",
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    615,
+    282,
+    52,
+    52
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    721,
+    310,
+    36,
+    28
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    518,
+    516,
+    111,
+    39
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n5",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    660,
+    435,
+    70,
+    82
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n7",
+    "n6",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    651,
+    615,
+    68,
+    104
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n8",
+    "n6",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    754,
+    618,
+    53,
+    78
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n8",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    887,
+    547,
+    58,
+    78
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n7",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    504,
+    704,
+    45,
+    27
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 5591
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

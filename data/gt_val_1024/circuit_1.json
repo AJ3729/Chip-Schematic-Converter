@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: 0 = bottom rail, reached by GND 8 (bottom centre) and GND 11 (right of V-DC 9); n1 = top +5V rail (V-DC 9 plus terminal, drains of MOSFETs 10 and 5, zener top); n2 = zener bias line \u2014 left rail below zener 14, the long horizontal at y~261, gates of 10 and 13, top of V-AC 0; n3 = centre gate column (gate of 5 and 1, top of V-AC 2); n4 = mid horizontal at y~185 (source of 10, source of 5 via junction dot at (270,184), drain of 13, top lead of 7); n5 = node joining drain of 1, source of 13 and the left end of resistor 12; n6 = feedback node: gate of 7 -> down at x~352 -> right at y~261 -> down at x~398, T-joining the right end of resistor 12 at (397,311) and continuing to the gate of 6; n7 = right rail: bottom lead of 7 -> right at y~226 -> down at x~483 to the top of I-AC 4; n8 = narrow loop from the upper channel lead of 6 up to y~238 and right to the top of I-AC 3. Judgment calls: (a) the centre column at x~208 crosses the y~185 and y~261 horizontals with drawn semicircular hops (verified at 7x) \u2014 both are crossings, NOT junctions, so the column joins only gate-column members; (b) the crossing at (270,184) DOES carry a junction dot, so the source of 5 joins the mid horizontal; (c) MOSFET-P 7: top lead read as source (it faces the NMOS source node n4), bottom lead as drain \u2014 the S/D choice does not change the net grouping; (d) MOSFET-P 6: the lead running up to I-AC 3 read as drain, the grounded lead as source; (e) zener 14 terminal order is top-then-bottom as drawn (2-terminal order does not affect any metric); (f) both I-AC sources are drawn with upward arrows and their top terminal is listed first; (g) V-AC sources carry no polarity marks, so terminal order is arbitrary.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        64.8,
+        600.7,
+        82.1,
+        87.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "MOSFET-N",
+      "bbox": [
+        549.6,
+        678.9,
+        84.9,
+        107.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-AC",
+      "bbox": [
+        276.8,
+        616.6,
+        70.8,
+        81.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-AC",
+      "bbox": [
+        888.0,
+        521.6,
+        61.3,
+        67.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-AC",
+      "bbox": [
+        939.8,
+        609.7,
+        71.6,
+        72.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "MOSFET-N",
+      "bbox": [
+        526.2,
+        239.0,
+        71.2,
+        87.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "MOSFET-P",
+      "bbox": [
+        801.1,
+        654.9,
+        77.9,
+        86.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "MOSFET-P",
+      "bbox": [
+        728.7,
+        398.7,
+        72.8,
+        89.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        407.5,
+        834.5,
+        65.1,
+        47.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "V-DC",
+      "bbox": [
+        708.9,
+        155.7,
+        121.0,
+        98.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "MOSFET-N",
+      "bbox": [
+        290.0,
+        243.8,
+        87.1,
+        110.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "GND",
+      "bbox": [
+        829.0,
+        211.3,
+        59.2,
+        45.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Resistor",
+      "bbox": [
+        681.8,
+        582.8,
+        68.0,
+        34.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "MOSFET-N",
+      "bbox": [
+        547.6,
+        464.5,
+        60.4,
+        68.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        },
+        {
+          "index": 2,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Zener Diode",
+      "bbox": [
+        70.6,
+        280.0,
+        80.7,
+        66.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

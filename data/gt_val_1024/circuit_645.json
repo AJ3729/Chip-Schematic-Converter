@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_645.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (5 nodes): 0 = the left rail, a single continuous near-vertical wire from (98,15) at the top crop edge down to the corner (107,387); it is tapped by resistor 5 (20ohm) left lead at (98,63), by the GND 6 stem going left at (100,193), by resistor 3 (10ohm) left lead at (105,248), and it ends at the bottom corner running right into the LEFT lead of V-DC 0 -- all four taps verified as clean Ts at 6x. n1 = top rail: right lead of resistor 5 runs right and slightly up to the corner (440,20), then down the right side into the TOP of resistor 7 (5ohm). n2 = the short column above the capacitor: from the top crop edge at (310,15) down to the TOP plate of capacitor 4 at (312,111). n3 = middle node: BOTTOM plate of capacitor 4 (y~127) down the x~315 column, T-joined by the right lead of resistor 3 at (315,222), continuing into the TOP of inductor 2. n4 = bottom-right node: BOTTOM of inductor 2 down to (317,386) where it T-joins the wire running from the RIGHT lead of V-DC 0 rightwards to (450,372) and up into the BOTTOM of resistor 7. Judgment calls: (a) I-DC 1 is OFF-FRAME -- its bbox centre is (195.7,-69.8), entirely above the top crop edge (bbox x 152.8..238.6, y -111.9..-27.7), so the symbol is not in the image. The drawing has exactly two open ends at the top edge, both cut at y~15: the left rail at x=98 and the capacitor column at x=310. The off-frame source sits above and between them (x centre 196), so it is read as horizontally oriented with its left lead running down to the left rail (net 0) and its right lead down to the capacitor column (net n2). This is the only pairing that leaves no dangling terminal. Terminal 0 is taken as the left lead. (b) The one and only crossing in the drawing is at (310,35), where the capacitor column passes through the top rail. A 26x pixel dump shows the vertical stroke is a uniform 3 px wide through the intersection and the horizontal 2-3 px, with no enlarged blob -- a plain X, no dot and no hop, so it is treated as a CROSSING: n1 (top rail) and n2 (I-DC to capacitor) stay separate. Supporting reasoning: every other connection in this drawing is a clean T, so this drafter never needed a dot anywhere else; and had the source been meant to feed the top rail there would have been no reason to draw a column crossing the rail to reach the capacitor. Consequence: I-DC 1 is in series with capacitor 4, injecting into node n3, rather than in parallel with resistor 5. This is the judgment a re-checker should look at first. (c) V-DC 0 is drawn as a circle with '+' inside, leads left and right; terminal 0 is the left (ground-side) lead. (d) Vertical orientations: capacitor 4 terminal 0 = top plate, inductor 2 terminal 0 = top, resistor 7 terminal 0 = top; horizontal resistors 3 and 5 have terminal 0 = left. (e) The near-vertical lines at x~10 and x~488 are scan/page-border artefacts, not wires. (f) No component was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        649.7,
+        556.5,
+        84.9,
+        85.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        187.1,
+        558.7,
+        80.4,
+        82.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        563.4,
+        450.9,
+        94.4,
+        47.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        490.2,
+        533.9,
+        50.8,
+        88.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        380.7,
+        448.7,
+        63.1,
+        54.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        306.1,
+        539.2,
+        48.0,
+        76.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        447.2,
+        693.4,
+        75.4,
+        49.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        429.9,
+        323.6,
+        120.1,
+        45.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

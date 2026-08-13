@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1018.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "IMPORTANT framing note: this 512x512 image is a hard CROP of a larger sheet. Every wire is cut exactly at y=12 (top) and y=499 (bottom) -- verified numerically: the four vertical lines end at rows 12 and 499 to the pixel -- and the annotation boxes for V-DC 0 (centre 240,-21) and I-DC 2 (centre 262,560) lie entirely OUTSIDE the frame, so neither source is drawn in the visible image. The whole sheet is also drawn rotated 90 deg (all value labels read top-to-bottom). What IS visible: four vertical wires -- L1 at x~8..20, L2 at x~143..162, L3 at x~364..359 (the branch carrying inductor 5 at y 32..137 and resistor 3 at y 352..475), L4 at x~492..504 -- plus GND 4 at x~120..138 whose lead runs right at y~245, crosses L2 at (156,247), and continues to the left plate of capacitor 1 at x~287; the right plate at x~309 runs right at y~234 and T's into L3 at (368,234), i.e. between the inductor and the resistor. Net map: 0 = GND 4 + left plate of capacitor 1 + wire L2 (and, off-image, wire L1 and the left-hand terminals of V-DC 0 and I-DC 2); n1 = the right-hand node -- top of inductor 5 (up L3 and off the top of the frame), bottom of resistor 3 (down L3 and off the bottom), wire L4, and the right-hand terminals of V-DC 0 and I-DC 2; n2 = the mid node -- bottom of inductor 5, top of resistor 3, right plate of capacitor 1. So electrically: V-DC and I-DC both sit between 0 and n1, inductor and resistor are in parallel between n1 and n2, and the capacitor closes n2 to ground. Judgment calls: (a) the crossing of the GND lead with wire L2 at (156,247) is read as a JUNCTION, not a hop. Evidence: no hop is drawn; the two vertical strokes are laterally offset by ~11 px at the horizontal and their slopes have opposite sign (upper stroke x 142->157 going down, lower stroke x 167->162 going down), so they are two strokes each ending on the horizontal rather than one line passing through; and electrically the alternative would leave the whole source/L/R network with no DC path to ground (only the capacitor), which a simulator could not solve. (b) The off-image connectivity is INFERRED, not seen. The V-DC box (x 195..284) sits horizontally between the tops of L2 (x=143) and L3 (x=364) and the I-DC box (x 220..305) sits between their bottoms, so V-DC is taken to be in series in a top rail running L1-L2-[V-DC]-L3-L4 and I-DC in series in the matching bottom rail. L1 then ties the two left-hand rail ends together and L4 ties the two right-hand ends together, which is what makes the top of the inductor and the bottom of the resistor the same net (n1). A human should re-check this against the uncropped photograph if it exists. (c) 2-terminal order as drawn: inductor 5 and resistor 3 index 0 = upper lead; capacitor 1 index 0 = left plate; for the two off-image sources index 0 is taken to be the left-facing (ground-side) terminal.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        240.0,
+        521.1,
+        77.7,
+        85.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        493.7,
+        470.9,
+        76.6,
+        56.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        810.0,
+        511.4,
+        79.4,
+        82.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        668.9,
+        407.1,
+        119.4,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        502.3,
+        638.3,
+        77.7,
+        45.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        346.0,
+        399.7,
+        102.3,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

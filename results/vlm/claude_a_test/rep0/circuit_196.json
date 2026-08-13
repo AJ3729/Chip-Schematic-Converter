@@ -1,0 +1,73 @@
+{
+ "components": [
+  {
+   "class": "Inductor",
+   "bbox": [
+    323,
+    370,
+    68,
+    22
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    518,
+    368,
+    68,
+    26
+   ],
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    315,
+    496,
+    54,
+    42
+   ],
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    381,
+    608,
+    24,
+    32
+   ],
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    646,
+    645,
+    46,
+    26
+   ],
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 310
+ },
+ "_model": "claude-opus-5"
+}

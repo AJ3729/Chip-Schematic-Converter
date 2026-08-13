@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "image": "circuit_300.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (6 nets): n1 = the left bar of the left three-branch block (x~85, y 170-274): left leads of Capacitor 1 (33uF), Inductor 2 (40mH) and Inductor 0 (41mH). This node is a genuine dead end \u2014 nothing else in the drawing reaches it (the 40mH branch overshoots ~7 px past the bar at (80,226), verified at 10x, but goes nowhere; the vertical stroke at x~5 and the long strokes at y~141/y~357 are notebook page rulings, not wires). n2 = the right bar of that block (x~178-192): right leads of Capacitor 1, Inductor 2 and Inductor 0 plus, via the bottom-right corner at (178,279), the left plate of Capacitor 4 (32F). So Capacitor 1, Inductor 2 and Inductor 0 are all in parallel between n1 and n2. 0 = the vertical ground column at x~252 running y 236 to the GND 7 symbol at y~325: right plate of Capacitor 4 (T with dot at (252,281)), GND 7, the left lead of Resistor 3 (38ohm) via the top corner at (247,236), and the left lead of I-AC 8 (T at (252,315)). n4 = right end of Resistor 3 to the left terminal of V-AC 6. n5 = right terminal of V-AC 6, right along y~240 to the corner at (447,240) and down to the top of Resistor 5 (39ohm, drawn vertically). n6 = bottom of Resistor 5 -> down to (447,348) -> left to (388,348) -> up to (388,313) -> left into the right terminal of I-AC 8. Judgment calls: (a) the top wire out of the ground column has an 11-px white gap between x=253 and x=263 at y~235 (checked pixel-by-pixel); read as a pen skip in a light stroke, not a break \u2014 the corner stub at (246-252,236) is clearly the start of that same horizontal, and treating it as a break would leave Resistor 3's left lead dangling and open the only source loop. So Resistor 3 left = 0, replacing the bootstrap's spurious 'n3'. (b) Likewise the bootstrap's 'n7' on I-AC 8 is wrong: that lead T's straight into the grounded column at (252,315), verified at 6x, so it is 0. (c) The n1 node is left floating by the drafter; per protocol I did NOT mark anything unconnected \u2014 the three leads are genuinely wired to each other, they just have no return path. A human may want to confirm the drawing was simply cropped/abandoned there rather than that I missed a wire. (d) Terminal order: all left-block elements and Capacitor 4 and Resistor 3 are horizontal (0 = left, 1 = right); Resistor 5 is vertical (0 = top, 1 = bottom); V-AC 6 has no polarity marks so its order is arbitrary (0 = left); I-AC 8's arrow points right, 0 = left lead. (e) Every component bbox centre is inside the 512x512 frame \u2014 nothing is off-frame here. Nothing was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        273.4,
+        560.6,
+        116.7,
+        46.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        253.7,
+        359.5,
+        65.8,
+        57.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        266.3,
+        463.1,
+        116.1,
+        42.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        633.0,
+        469.4,
+        117.3,
+        40.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        454.2,
+        563.2,
+        62.9,
+        60.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        897.0,
+        588.3,
+        45.8,
+        97.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-AC",
+      "bbox": [
+        805.2,
+        472.5,
+        79.5,
+        67.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        514.6,
+        662.1,
+        79.5,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-AC",
+      "bbox": [
+        708.5,
+        617.8,
+        85.2,
+        72.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

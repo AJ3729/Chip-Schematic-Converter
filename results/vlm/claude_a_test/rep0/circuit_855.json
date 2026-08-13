@@ -1,0 +1,4 @@
+{
+ "error": "errored",
+ "message": "ErrorResponse(error=InvalidRequestError(message='Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.', type='invalid_request_error', details={'error_visibility': 'user_facing'}), request_id='workerreq_01DbobeFTt1g38D6axja7iyJ', typ"
+}

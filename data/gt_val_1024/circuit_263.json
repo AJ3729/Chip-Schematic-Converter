@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_263.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is tilted ~7 deg; the inked content of the scan runs only from y~35 to y~474, so wires that stop at those two lines were cut by the crop, not left dangling. Net map: 0 = the single long left rail, continuous from its cut end at (131,36) down to its cut end at (184,474), with three T junctions on it (all verified at 12x, all show a junction blob and the rail runs straight through): (151,182) where the resistor branch leaves to the right, (161,249) where the GND 5 lead arrives from the left, and (172,342) where the capacitor branch leaves to the right. n1 = the resistor branch beyond resistor 4: right end of R4 -> up-right to the corner at (363,133) -> up the short column to the bottom of inductor 3. n3 = the top of inductor 3, whose lead is cut at the content top edge at (358,36). n2 = the capacitor branch beyond capacitor 2: right plate at x~314 -> up-right to the corner at (384,299) -> down the right rail -> corner at (410,449) -> down-left along the bottom to the right foot of I-DC 1 at (322,473). Judgment calls: (a) OFF-FRAME V-DC 0 (bbox centre (225,-60), wh 84x83, entirely above the crop). Exactly two circuit wires reach the content top edge - the left rail at x~131 and the inductor 3 top lead at x~358 (checked on a 4x crop of the whole top strip; the only other marks up there are the two page rules and the handwritten I label at x~380). The source sits at x 184-267, squarely between those two, so it bridges them: terminal 0 = net 0 (left rail), terminal 1 = n3 (inductor top). This is the only reading that leaves nothing dangling and gives the source a loop. Not marked unconnected. (b) I-DC 1 (bbox centre (297,477)) is cut in half by the content bottom edge - only the upper semicircle of its symbol and the direction arrow are inked, feet at (272,474) and (322,474). Its right foot continues up-right into the bottom run (n2); its left foot and the left rails cut end at (184,474) are the only two free ends below the crop, so off-frame the left rail turns right and lands on the I-DC left lead -> terminal 0 = net 0. Again forced: otherwise the current source has no return path. (c) Inductor 3 (bbox centre (347,28)) is only partly inked - one visible coil loop between y~40 and y~63 - but its centre is inside the frame so it is traced normally, not treated as off-frame. (d) The two dead-straight lines running the full content height at x~10..64 (left) and x~445..500 (right), parallel to the left rail, are the ruled margins of the notebook page: nothing attaches to them anywhere and no component bbox is near them. They are NOT wires. (e) Capacitor 2 is drawn with two near-vertical plates at x~302 and x~314 across the tilted branch, so its terminals are left/right; verified at 8x. (f) 2-terminal order is as drawn (left-then-right for R4, C2, I-DC 1, V-DC 0; top-then-bottom for inductor 3) and does not affect any metric. Resulting topology: two meshes sharing the grounded rail - V-DC 0 -> L3 -> R4 -> back to 0, and I-DC 1 -> C2 -> back to 0.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        167.7,
+        499.1,
+        80.5,
+        81.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        756.0,
+        498.3,
+        78.8,
+        79.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        589.1,
+        462.5,
+        79.4,
+        55.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        279.2,
+        380.3,
+        105.6,
+        50.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        408.3,
+        497.4,
+        48.6,
+        82.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        498.6,
+        666.8,
+        82.7,
+        63.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

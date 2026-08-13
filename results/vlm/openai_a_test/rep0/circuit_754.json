@@ -1,0 +1,248 @@
+{
+ "components": [
+  {
+   "bbox": [
+    386,
+    83,
+    74,
+    70
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    178,
+    546,
+    72,
+    96
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "nDC5",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    177,
+    633,
+    52,
+    52
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    846,
+    696,
+    78,
+    98
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "nAC",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    849,
+    776,
+    52,
+    54
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    526,
+    909,
+    52,
+    54
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    822,
+    176,
+    64,
+    90
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "nGATE_Z",
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    607,
+    390,
+    112,
+    63
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "nOUT",
+    "nSW"
+   ]
+  },
+  {
+   "bbox": [
+    335,
+    787,
+    142,
+    65
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "nLOWLEFT",
+    "nBOTGATE"
+   ]
+  },
+  {
+   "bbox": [
+    472,
+    359,
+    114,
+    128
+   ],
+   "class": "Op-Amp",
+   "terminals": [
+    "nOPP",
+    "nOPN",
+    "nOUT"
+   ]
+  },
+  {
+   "bbox": [
+    87,
+    191,
+    91,
+    123
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "nLEFTCOL",
+    "nLEFTCTRL",
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    82,
+    460,
+    76,
+    95
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nLEFTCOL",
+    "nLEFTCTRL",
+    "nDC5"
+   ]
+  },
+  {
+   "bbox": [
+    81,
+    745,
+    71,
+    96
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nLOWLEFT",
+    "nLEFTCTRL",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    350,
+    252,
+    72,
+    128
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "nOPP",
+    "nVDD",
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    360,
+    431,
+    70,
+    102
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nOPN",
+    "nDC5",
+    "nHALFLO"
+   ]
+  },
+  {
+   "bbox": [
+    726,
+    250,
+    70,
+    111
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "nSW",
+    "nGATE_Z",
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    725,
+    522,
+    74,
+    108
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nSW",
+    "nAC",
+    "nHALFLO"
+   ]
+  },
+  {
+   "bbox": [
+    507,
+    758,
+    74,
+    120
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nHALFLO",
+    "nBOTGATE",
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 5183
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

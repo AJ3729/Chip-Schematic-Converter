@@ -1,0 +1,203 @@
+{
+ "components": [
+  {
+   "id": 0,
+   "terminals": [
+    "nC",
+    "0",
+    "nE"
+   ]
+  },
+  {
+   "id": 1,
+   "terminals": [
+    "0",
+    "nF",
+    "nG"
+   ]
+  },
+  {
+   "id": 2,
+   "terminals": [
+    "0",
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "id": 3,
+   "terminals": [
+    "0",
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "id": 4,
+   "terminals": [
+    "nA",
+    "nB",
+    "nD"
+   ]
+  },
+  {
+   "id": 5,
+   "terminals": [
+    "0",
+    "nH",
+    "nG"
+   ]
+  },
+  {
+   "id": 6,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 7,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 8,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 9,
+   "terminals": [
+    "nE",
+    "nG"
+   ]
+  },
+  {
+   "id": 10,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 11,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 12,
+   "terminals": [
+    "nF",
+    "nG"
+   ]
+  },
+  {
+   "id": 13,
+   "terminals": [
+    "n4",
+    "nB"
+   ]
+  },
+  {
+   "id": 14,
+   "terminals": [
+    "nD",
+    "nC"
+   ]
+  },
+  {
+   "id": 15,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 16,
+   "terminals": [
+    "nD",
+    "nH"
+   ]
+  },
+  {
+   "id": 17,
+   "terminals": [
+    "nG",
+    "nG"
+   ]
+  },
+  {
+   "id": 18,
+   "terminals": [
+    "n2",
+    "nA"
+   ]
+  },
+  {
+   "id": 19,
+   "terminals": [
+    "nD",
+    "nF"
+   ]
+  },
+  {
+   "id": 20,
+   "terminals": [
+    "0",
+    "nE"
+   ]
+  },
+  {
+   "id": 21,
+   "terminals": [
+    "nG",
+    "nG"
+   ]
+  },
+  {
+   "id": 22,
+   "terminals": [
+    "nB",
+    "nD"
+   ]
+  },
+  {
+   "id": 23,
+   "terminals": [
+    "0",
+    "nE"
+   ]
+  },
+  {
+   "id": 24,
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "id": 25,
+   "terminals": [
+    "n1"
+   ]
+  },
+  {
+   "id": 26,
+   "terminals": [
+    "nB",
+    "0"
+   ]
+  },
+  {
+   "id": 27,
+   "terminals": [
+    "n3"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 3082,
+  "output": 1772
+ },
+ "_model": "claude-opus-5"
+}

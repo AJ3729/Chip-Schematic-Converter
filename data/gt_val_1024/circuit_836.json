@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_836.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Grid/ladder drawing: five vertical columns (A x~35, B x~122, C x~239, D x~343, E x~415-433) crossed by six horizontal rails (R1 y~10 top, R2 y~112 faint dash-dot, R3 y~200, R4 y~290, R5 y~387, R6 y~460 bottom). Column E is the source stack: V-AC 1 (R1-R2), I-AC 3 (R2-R3), V-DC 4 (R3-R4), I-DC 2 (R4-R5), V-DC 0 (R5-R6). Each shunt column carries an inductor over a capacitor, staggered one row per column: col A L11+C6, col B L10+C5, col C L12+C9, col D L8+C7.\n\nNet map: n1 = top rail R1 (tops of L11, L10, L12, L8 and top of V-AC 1; junction dots at cols B/C/D, corners at A and E). n2 = R2 rung (L11 bottom / C6 top at col A, V-AC 1 bottom / I-AC 3 top at col E; R2 hops cols B, C, D). n3 = R3 rung (L10 bottom / C5 top at col B, I-AC 3 bottom / V-DC 4 top at col E; R3 starts at col B and hops cols C and D). 0 = ground: the bottom rail R6 (col A bottom corner = C6 bottom, col D bottom dot = C7 bottom, col E bottom corner = V-DC 0 bottom, GND 13 attached at col C x~239) PLUS the R4 rung, which reaches ground through col B's lower run (C5 bottom -> dot at (121,291) -> plain wire down col B -> dot at (130,466) on the bottom rail); so C5 bottom, V-DC 4 bottom and I-DC 2 top are all net 0. n4 = col C internal node between L12 and C9 (untapped: R4 hops col C). n5 = R5 rung: C9 bottom at col C, I-DC 2 bottom / V-DC 0 top at col E; R5 starts at col C and hops col D. n6 = col D internal node between L8 and C7 (untapped: R5 hops col D).\n\nJudgment calls: (a) Crossing convention: this drafter marks every real connection with a filled junction dot and every crossing with a small semicircular detour (\"C\" bulge) in the vertical wire. Verified at 20-30x: bulges (no connection) at R2xB (125,112), R2xC (240,112), R2xD (347,112), R3xC (240,195), R3xD (343,191), R4xC (236,289), R4xD (339,290), R5xD (340,387); filled dots (connection) at R1xB/C/D, R2xA (34,121), R3xB (120,204), R4xB (121,291), R5xC (238,388), R5xE (413,385), R6xB (130,466), R6xC (239,457), R6xD (340,457). Each rung terminates (T-junction) at its leftmost column, so no rung endpoint can be a hop. (b) THE ONE PLACE I OVERRODE THE INK: col C's lower run from C9's bottom (y~352) down to the bottom rail is solid ink and ends in what looks like a filled dot at (239,457), right where GND 13 attaches. Read literally that makes R5 = R6 = 0, which shorts V-DC 0 (both terminals on net 0) and also shorts I-DC 2 - a Tier 1 fault. I therefore read that one crossing as NOT a connection (a missing hop by the drafter): col C's lower run is a leftover grid line passing the ground rail, and C9's bottom belongs to the R5 rung (n5). This is the single minimal change that removes both shorts. I kept the corresponding col B crossing at (130,466) as the drawn junction, because with it the R4 rung is simply grounded (V-DC 4 bottom / I-DC 2 top = 0), which is harmless, and it is what gives every node a DC path to ground; breaking both crossings instead would leave nodes n1/n2/n3/R4/n4/n6 with no DC path at all. Pixel maps of all three bottom-rail blobs (cols B, C, D) are equally filled, so the ink itself does not distinguish them - the choice is made on circuit sense, as the protocol directs. (c) The R2 rail is drawn as a faint dash-dot line rather than a solid one, but it terminates on col A with a junction dot and on col E at the V-AC/I-AC node, so it is treated as a real conductor. (d) L11 (col A) ends up in parallel with V-AC 1 (both span n1-n2); that is what the drawing shows and it is not a fault, just an ideal source across an inductor. (e) Two-terminal parts are listed top-then-bottom as drawn; order does not affect any metric. (f) No component was added, removed or re-classed.\n (g) Tier-2 simcheck finding, kept deliberately: L11 (col A, between the top rail and the R2 rung) sits in parallel with V-AC 1 (col E, also between the top rail and the R2 rung), so simcheck reports \"loop of voltage sources/inductors (n1,n2)\". This is exactly what the ink shows - col A's top is a corner into the top rail (verified in the pixel map at (33,19)), L11 spans y 52-85, and the R2 rung T-joins col A at (34,121) with a junction dot - so it is a real property of the drawing, not a trace error. Nothing else in the netlist can remove it. The R2 rung is faint and drops out of the binarisation in irregular patches, but the gaps are irregular (24/11/10/5/5/3... px) rather than a regular dash pattern, so it is a light pencil line, not a non-conductive construction line. With the reading above every net has a DC path to ground and no source is shorted.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        829.5,
+        210.3,
+        62.1,
+        51.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        108.2,
+        166.4,
+        70.1,
+        67.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        661.6,
+        202.8,
+        74.3,
+        59.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-AC",
+      "bbox": [
+        306.8,
+        180.8,
+        72.8,
+        60.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-DC",
+      "bbox": [
+        475.4,
+        192.3,
+        66.0,
+        57.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        478.8,
+        773.4,
+        46.1,
+        56.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        331.5,
+        937.6,
+        43.3,
+        51.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        826.8,
+        348.7,
+        36.4,
+        46.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        668.9,
+        335.4,
+        62.1,
+        41.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Capacitor",
+      "bbox": [
+        670.7,
+        546.5,
+        42.8,
+        51.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Inductor",
+      "bbox": [
+        331.7,
+        766.3,
+        68.7,
+        40.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Inductor",
+      "bbox": [
+        145.2,
+        930.6,
+        64.4,
+        34.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Inductor",
+      "bbox": [
+        481.0,
+        536.2,
+        67.3,
+        32.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "GND",
+      "bbox": [
+        980.2,
+        548.3,
+        39.3,
+        62.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

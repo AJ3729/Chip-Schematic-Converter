@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_6.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is rotated 90 deg (component labels read sideways); coordinates below are 512-space image coords. Net map: 0 = ground net -- GND 7 (left, y~440) whose lead runs right to the long left-hand vertical rail at x~156-166; that rail is a single wire running off BOTH the top and the bottom edge of the crop, and the bottom horizontal at y~440-458 joins it to the bottom lead of inductor 2 (4-way junction blob at (166,439) verified at 8x). n1 = upper node: bottom lead of resistor 5, top plate of capacitor 6, and the top lead of I-DC 3 via the horizontal at y~113 (x 289..366). n2 = short net from the top lead of resistor 5 off the top edge to V-DC 1. n3 = lower node: bottom plate of capacitor 6, bottom lead of I-DC 3, top lead of inductor 2 and the right-hand vertical at x~411, all tied by the horizontal at y~305-309 (T at (365,307), verified at 6x); the x~411 vertical runs off the bottom edge. n4 = short net below the bottom edge between resistor 4 and V-DC 0. Judgment calls: (a) the x~411 vertical does NOT touch the bottom horizontal at y~458 -- verified at 8x, the horizontal terminates at x~370 where the inductor lead curves up, so they are separate nets; (b) OFF-FRAME components: V-DC 1 (bbox centre y=-76.9, i.e. above the top edge, x span ~233..320) is the only component past the top edge and the only two open ends there are the left rail (x~156, net 0) and the top lead of resistor 5 (x~366), so V-DC 1 bridges them -- terminal 0 = 0 (left/rail side), terminal 1 = n2 (right/resistor side); (c) OFF-FRAME components resistor 4 (centre y=557.4, x span ~218..298) and V-DC 0 (centre y=573.8, x span ~314..380) both sit past the bottom edge, non-overlapping in x and in the same y band, and the only two open ends at the bottom edge are the left rail (x~166, net 0) and the x~411 vertical (net n3); reading them as a series chain rail -> R4 -> V-DC 0 -> x~411 vertical is the only assignment that leaves nothing dangling and gives both sources a return path, so R4 = [0, n4] and V-DC 0 = [n4, n3] with n4 the private node between them; (d) 2-terminal component order is top-then-bottom (or left-then-right for the off-frame pair) as drawn -- no polarity marks are visible and terminal order does not affect any metric; (e) the I-DC 3 arrow points toward the n3 side, so its terminal 0 is the top (n1) lead.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        889.9,
+        446.5,
+        86.0,
+        76.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        136.8,
+        524.3,
+        99.2,
+        99.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        696.7,
+        423.5,
+        87.1,
+        42.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-DC",
+      "bbox": [
+        488.1,
+        511.1,
+        92.1,
+        75.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        870.4,
+        549.4,
+        47.3,
+        92.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        279.7,
+        420.6,
+        88.8,
+        43.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        396.5,
+        419.9,
+        60.9,
+        54.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        733.4,
+        734.5,
+        74.4,
+        57.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

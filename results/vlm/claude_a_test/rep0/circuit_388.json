@@ -1,0 +1,236 @@
+{
+ "components": [
+  {
+   "class": "MOSFET-P",
+   "bbox": [
+    100,
+    375,
+    60,
+    90
+   ],
+   "terminals": [
+    "n1",
+    "0",
+    "n1"
+   ]
+  },
+  {
+   "class": "MOSFET-P",
+   "bbox": [
+    410,
+    370,
+    60,
+    90
+   ],
+   "terminals": [
+    "n1",
+    "n1",
+    "n1"
+   ]
+  },
+  {
+   "class": "MOSFET-P",
+   "bbox": [
+    700,
+    370,
+    60,
+    90
+   ],
+   "terminals": [
+    "n3",
+    "n4",
+    "n1"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    832,
+    300,
+    66,
+    36
+   ],
+   "terminals": [
+    "n3",
+    "n1"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    88,
+    548,
+    55,
+    80
+   ],
+   "terminals": [
+    "n10",
+    "0",
+    "n6"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    382,
+    545,
+    55,
+    80
+   ],
+   "terminals": [
+    "n5",
+    "n6",
+    "n4"
+   ]
+  },
+  {
+   "class": "Op-Amp",
+   "bbox": [
+    492,
+    510,
+    80,
+    80
+   ],
+   "terminals": [
+    "n5",
+    "n5",
+    "n8"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    575,
+    495,
+    60,
+    20
+   ],
+   "terminals": [
+    "n8",
+    "n4"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    215,
+    637,
+    44,
+    46
+   ],
+   "terminals": [
+    "n6",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    200,
+    700,
+    40,
+    25
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    688,
+    640,
+    55,
+    80
+   ],
+   "terminals": [
+    "n4",
+    "n4",
+    "n9"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    825,
+    748,
+    48,
+    48
+   ],
+   "terminals": [
+    "n9",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    825,
+    860,
+    50,
+    25
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    88,
+    755,
+    55,
+    80
+   ],
+   "terminals": [
+    "n12",
+    "0",
+    "n11"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    245,
+    775,
+    55,
+    18
+   ],
+   "terminals": [
+    "n11",
+    "n13"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    522,
+    755,
+    55,
+    80
+   ],
+   "terminals": [
+    "n4",
+    "n13",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    520,
+    875,
+    50,
+    25
+   ],
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 5816
+ },
+ "_model": "claude-opus-5"
+}

@@ -1,0 +1,255 @@
+{
+ "components": [
+  {
+   "bbox": [
+    112,
+    356,
+    84,
+    87
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    110,
+    558,
+    76,
+    104
+   ],
+   "class": "I-DC",
+   "terminals": [
+    "n3",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    239,
+    277,
+    67,
+    21
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    34,
+    459,
+    28,
+    36
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n10",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    212,
+    704,
+    45,
+    38
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    363,
+    345,
+    45,
+    58
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n2",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    363,
+    558,
+    45,
+    61
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n4",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    421,
+    462,
+    45,
+    48
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n2",
+    "n7"
+   ]
+  },
+  {
+   "bbox": [
+    501,
+    421,
+    43,
+    62
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n7",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    502,
+    560,
+    49,
+    59
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n4",
+    "n7"
+   ]
+  },
+  {
+   "bbox": [
+    572,
+    274,
+    45,
+    54
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n5",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    668,
+    349,
+    58,
+    72
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n7",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    667,
+    557,
+    52,
+    64
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n8",
+    "n7"
+   ]
+  },
+  {
+   "bbox": [
+    771,
+    478,
+    72,
+    27
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n7",
+    "n9"
+   ]
+  },
+  {
+   "bbox": [
+    631,
+    705,
+    71,
+    28
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n4",
+    "n8"
+   ]
+  },
+  {
+   "bbox": [
+    833,
+    386,
+    57,
+    74
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n9",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    831,
+    556,
+    56,
+    70
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n8",
+    "n9"
+   ]
+  },
+  {
+   "bbox": [
+    944,
+    535,
+    37,
+    115
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n9",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    945,
+    620,
+    46,
+    28
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 4122
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

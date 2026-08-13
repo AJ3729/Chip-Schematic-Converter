@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_901.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Layout: four vertical L-then-C branches hang off a common top rail (columns at x~22 [L 5 / C 1], x~104 [L 6 / C 2], x~195 [L 7 / C 3], x~309 [L 8 / C 4]) and a fifth column at x~436 holds five sources in series (V-AC 9, I-AC 10, V-DC 11, I-DC 12, V-DC 13) between the top rail and the bottom rail. Four horizontal rungs run from the left-hand columns across to the taps between the sources. Net map: n1 = top rail (y~7) - the top leads of inductors 5, 6, 7, 8 and the top of V-AC 9; n2 = rung 1 (y~81) - bottom of L 5, top of C 1, bottom of V-AC 9, top of I-AC 10; n3 = rung 2 (y~166..177) - bottom of L 6, top of C 2, bottom of I-AC 10, top of V-DC 11; n4 = rung 3 (y~292..305) TOGETHER WITH the bottom rail (y~465), because rung 3 lands on the column-B wire below C 2 and that wire runs straight down to the bottom rail (junction dot at (110,465)); n4 therefore holds the bottom of C 1, the bottom of C 2, the bottom of C 4, the bottom of V-DC 11, the top of I-DC 12 and the bottom of V-DC 13; n5 = the untapped L 7 / C 3 midpoint in column C; n6 = the untapped L 8 / C 4 midpoint in column D; 0 = rung 4 (y~384..399) together with the column-C wire that runs down past the bottom rail to the GND symbol 0 - so 0 holds the bottom of C 3, the bottom of I-DC 12, the top of V-DC 13 and the GND. Judgment calls: (a) this drafter marks a real mid-wire junction with a heavy filled dot and marks a crossing with a sideways semicircular bump in the vertical. Confirmed dots: (100,166) column B on rung 2, (196,399) column C on rung 4, (110,465) column B on the bottom rail. Confirmed bumps (verified at 14-26x, clear arc with an enclosed white lune): (97,81),(180,82),(290,81) on rung 1; (178,165),(291,168) on rung 2; (187,308),(302,285) on rung 3. So each left-hand column hops every rung above its own tap - which is also the only reading that does not short the top rail to rung 1 or rung 2 and kill V-AC 9. (b) rung 3 terminates (plain T, no hop) on column B BELOW capacitor 2, not on the L7/C3 midpoint: the column-C crossing at (187,308) is an unambiguous drawn hop. Consequently rung 3 and the bottom rail are the same electrical node (n4), and the L 7 / C 3 midpoint (n5) is an untapped two-terminal node. (c) rung 4 terminates (filled dot) on column C BELOW capacitor 3, and crosses column D at (303,391) with no dot and with the column visibly jogging sideways, so I read it as a crossing: the L 8 / C 4 midpoint (n6) is likewise untapped. Every confirmed connection in this drawing carries a dot; (303,391) has none. (d) column C crosses the bottom rail at (195,464) as a PLAIN X with no junction dot and then continues down to the GND symbol. I read it as a crossing, not a junction: every other bottom-rail landing in this drawing (column A corner, column B dot at (110,465), column D terminus at (309,469)) is explicitly marked, and joining them would put both terminals of V-DC 13 on net 0 - a shorted source, i.e. a certainly wrong reading. So the bottom rail (n4) is a floating rail tied to ground only through V-DC 13 / I-DC 12, and only the column-C stub carries the ground reference. (e) V-AC 9 comes out in parallel with inductor 5 (both between n1 and n2), which simcheck reports as 'id 9 (V-AC) closes a loop of voltage sources/inductors'. This is a Tier-2 finding and it is what the ink shows: the top rail is one wire (clean T's off it at x=22, 92, 178, 291 and a corner into V-AC 9 at x=436, all verified), L 5 sits between the top rail and rung 1 (clean T at (22,83)), and the bottom lead of V-AC 9 lands on rung 1 (clean T at (437,86)). A source in parallel with an inductor is only singular for a DC operating point; this is a 3V/1kHz AC problem (all five sources are drawn as an excitation stack), so the loop is kept rather than invented away. (f) all components are two-terminal or one-terminal; terminal order is top-then-bottom as drawn and does not affect any metric. (g) no component is off-frame and none is unconnected; the inventory of 14 was used unchanged.  INDEPENDENT RE-VERIFICATION PASS (second annotator, all points re-measured from the 1x greyscale with row/column ink-run scans and probe.py at 15-16 px half-window; every reading below is from ink, not from the previous pass). Rails re-located exactly: r1 top y=4..10 (x=21..436), r2 y=81..86, r3 y=165..178, r4 y=305..293 (it steps: left leg y=305..308 from x=103 to x=238, then a vertical riser at x=235..239 from y=308 up to y=282, then the right leg y=282..293 out to x=436), r5 y=397..386, r6 bottom y=466..471. The bottom rail is ONE drawn line from the column-A corner (27,466) to V-DC 13's lower lead at (433,471), sloping steadily down 1 px at a time; it has two pure pen dropouts, x=236..241 and x=370..380, which are white at threshold 210 as well as 128 and which are what split wires.py's blob 35 from blob 87. The top rail likewise drops out at x=189..198, 356..364, 383..386 and 409..414, and r2/r3/r4/r5 all fade to sub-threshold grey over their right-hand thirds; none of these is an electrical break (each rail resumes at the same slope within a few px). Crossing/junction calls re-measured: JUNCTIONS -- (20,83) column A, rail present only to the RIGHT of x=20 in rows 74..92, vertical continuous through, clean T; (97,165) column B, blob x=97..107 over rows 164..168 and no rail ink left of x=97, filled dot; (103,305) column B, rail starts at x=103 and there is no ink between x=24 and x=103 in rows 296..316, clean T (the 6-px tick at x=109, y=304..309 is a stray mark, connected to nothing); (194,397) column C, blob x=194..198 over rows 397..400, rail leaves only rightward, filled dot; (109,465) column B on the bottom rail -- 12-px blob at rows 463..466 and the vertical STOPS at y=467, nothing below, termination; (308,468) column D on the bottom rail -- vertical runs y=440..472 and stops dead (rows 473+ are empty at x=293..323), so it is a T with a 4-px pen overshoot, NOT a crossing. CROSSINGS -- (90,82) column B on r2: rail 1 px tall straight through, column 1-2 px wide throughout, no bulge, and the column detours left from x=96 to x=90 and back to x=93; (174,82) column C on r2: same detour x=181->173->181, no bulge; (284,81) column D on r2: a fully drawn semicircular hop with an enclosed white lune at x=286..293, y=75..77; (177,165) column C on r3: detour x=182->177->185, rail 1 px through, no bulge; (291,168) column D on r3: detour x=296->291->302 and the rail is broken across the column (left leg ends x=292 at y=168, right leg starts x=298 at y=169); (188,308) column C on r4: a full left loop with an enclosed white lune at x=192..193, y=303..305 -- the most unambiguous hop on the sheet; (298,287) column D on r4: detour x=303->298->309, rail steps y=286->287->288 across it, no bulge; (301,390) column D on r5: detour x=304->301->309, rail 1 px through, no bulge; (194,464) column C on the bottom rail: THE decisive one -- probe at half=15 shows the column a constant 2 px wide for y=449..479 and the rail a constant 1 px tall for x=179..209, with literally no thickening anywhere, and the column carries on unbroken to y=484 and into GND 0's bars at y=486..499. Plain X = two nets, and it is also the only reading that does not short V-DC 13. This pass confirms the previous net map unchanged. A caution for anyone re-checking: the two bottom-rail landings at (109,465) and (308,468) LOOK like 4-ways in a low-zoom render but both columns terminate there; treating either as a crossing would strand C 2 or C 4.",
+  "components": [
+    {
+      "id": 0,
+      "class": "GND",
+      "bbox": [
+        384.5,
+        967.7,
+        112.3,
+        65.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        87.3,
+        239.0,
+        101.3,
+        57.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        228.8,
+        482.9,
+        83.7,
+        59.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        394.8,
+        677.5,
+        60.6,
+        47.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        611.7,
+        824.2,
+        60.6,
+        45.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        82.4,
+        97.0,
+        41.4,
+        85.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        227.2,
+        264.0,
+        30.8,
+        85.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        398.4,
+        483.7,
+        31.3,
+        60.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        616.1,
+        632.0,
+        31.0,
+        62.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "V-AC",
+      "bbox": [
+        855.5,
+        140.6,
+        62.3,
+        74.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "I-AC",
+      "bbox": [
+        855.5,
+        278.2,
+        76.9,
+        93.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "V-DC",
+      "bbox": [
+        861.5,
+        449.7,
+        74.7,
+        82.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "I-DC",
+      "bbox": [
+        852.3,
+        641.9,
+        70.5,
+        87.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "V-DC",
+      "bbox": [
+        849.5,
+        820.9,
+        59.7,
+        74.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

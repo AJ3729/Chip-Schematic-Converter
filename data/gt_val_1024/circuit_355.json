@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_355.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Ladder of shunt sources hung off one top rail (y~180-195) and one bottom return rail (y~290-310). Net map (5 nets): n1 = top-left segment \u2014 top lead of V-AC 0 up the x~97 vertical to the corner at (97,180), then right to the left plate of Capacitor 2 (46uF). n2 = right plate of Capacitor 2 -> top rail -> T at (202,179) down into the top of Inductor 3 (the coil labelled '5kohm') -> on right to the left plate of Capacitor 4 (47uF). n3 = right plate of Capacitor 4 -> T at (298,183) down into the top of I-AC 1 -> on right to the left plate of Capacitor 7 (48uF). n4 = right plate of Capacitor 7 to the left end of Resistor 6 (2kohm). 0 = the whole bottom return: bottom lead of V-AC 0 (corner at (97,290)), bottom of Inductor 3, GND 5, bottom of I-AC 1 (junction dot at (296,303)), and the right end of Resistor 6, which runs right to the corner at (459,194), down the right edge to (459,305) and back left along the bottom rail. Judgment calls: (a) the coil at (202,219) is labelled '5kohm' by the drafter but is drawn unmistakably as an inductor coil; per the guide the symbol wins, so component 3 stays class Inductor \u2014 I did NOT re-class it. Only the zigzag at (412,189) is a Resistor. (b) At (192,297) the Inductor-3 lead, the bottom rail (both directions) and the GND 5 stem all meet in a 4-way with no hop and no gap, verified at 10x; since the vertical terminates in the ground symbol 12 px below, this is a junction and the whole bottom rail is net 0 (this is what makes the bootstrap's separate 'n5', 'n6', 'n7' wrong). (c) The bottom rail has a ~5 px white break just right of x~307 and the top rail one just right of Capacitor 4; both are pen skips in light strokes on an otherwise straight continuous run, not breaks \u2014 treating either as a break would strand a source with no return. (d) Terminal order: V-AC 0, I-AC 1 and Inductor 3 are vertical (0 = top, 1 = bottom; the I-AC arrow points up); Capacitors 2/4/7 and Resistor 6 are horizontal (0 = left, 1 = right). V-AC 0 has no polarity marks so its order is arbitrary. (e) The faint long strokes at the far left (x~8), far right (x~508), upper right (y~135) and lower left (y~360) are notebook page rulings, not wires. (f) All eight bbox centres are inside the frame \u2014 nothing off-frame, nothing unconnected, nothing added or removed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        193.1,
+        479.2,
+        82.7,
+        73.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-AC",
+      "bbox": [
+        599.6,
+        460.4,
+        85.6,
+        87.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        312.0,
+        372.3,
+        67.3,
+        59.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        400.8,
+        443.9,
+        49.6,
+        102.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        492.3,
+        366.0,
+        65.0,
+        66.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        386.5,
+        633.5,
+        75.9,
+        38.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        818.1,
+        364.3,
+        111.8,
+        37.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        700.3,
+        366.3,
+        72.5,
+        56.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

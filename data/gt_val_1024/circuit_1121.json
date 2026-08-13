@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1121.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Whole sheet is drawn rotated 90deg (all value labels read sideways). One series loop plus one shunt branch. NOTE: I-DC 0 lies OFF the top of the 512x512 frame -- its bbox is centred at y=-60.7 (y from -103 to -18.5, x from 236 to 319), so only its 'A' value label at (275,30) is inside the picture. Exactly two wire stubs run off the top edge: the long vertical at x~134 (dark at y=8) and the upper lead of Inductor 1 at x~391 (the 4mH coil starts at y~8, its bbox top is y=-2.7). Since I-DC 0 has exactly two terminals and sits above the gap between those two stubs, it must bridge them, and I have wired it that way. Net map: n1 = the long vertical at x~134..136, from the off-frame left terminal of I-DC 0 down the full height of the sheet to the corner at (138,402), then right along the bottom rail to the LEFT terminal of V-DC 6; n2 = off-frame at the top, joining the right terminal of I-DC 0 to the TOP lead of Inductor 1 (4mH); n3 = the right-hand node at (395,149): BOTTOM lead of Inductor 1 comes down into it, the right lead of Inductor 2 (6mH) comes in from the left, and the TOP of Resistor 3 (2.5k) leaves downward -- a genuine 3-way T carrying a drawn junction blob (5 px wide over 8 rows against 2-3 px strokes); n4 = BOTTOM of Resistor 3 -> down to (395,392) -> left along y~392 to the RIGHT terminal of V-DC 6 (the '+' side); n5 = the short horizontal between the RIGHT plate of Capacitor 4 (1mF) and the left lead of Inductor 2; 0 = GND 5 (bars drawn vertically at x~90, lead leaving to the right at y~148) running right along y~150..152 to the LEFT plate of Capacitor 4. Judgment calls: (a) THE key call -- the horizontal ground wire and the long vertical n1 cross at (136,151). Pixel dump shows the vertical is 3 px wide (cols 136-138) and the horizontal 3 px (rows 150-152/151-153) straight through the intersection with NO widening and no semicircular hop. Contrast the T at (395,149) in the same drawing, which does carry an obvious dot (5x8 px blob). This drafter therefore does dot real junctions, so the undotted 4-way cross is a CROSSOVER: GND 5 + Capacitor 4's left plate is its own 2-terminal net and does NOT join the I-DC/V-DC return line. The bootstrap had guessed V-DC 6's left terminal was '0'; that is the merged reading and I have rejected it on the dot evidence. Electrical consequence worth a second look: with the crossover reading the main loop (I-DC 0 -> L1 -> n3 -> R3 -> V-DC 6 -> back up n1) never touches ground, and the L2/C4 branch to GND is a dead end. If a human decides the drafter meant a junction, nets n1 and 0 merge (name the result '0') and nothing else changes. (b) The two long vertical lines at x~8 and x~503 running the full height are the scanned page border, not circuit wire -- they touch nothing. (c) Terminal order as drawn in image coordinates: I-DC 0 index 0 = the lead toward the x~134 vertical (left), index 1 = the lead toward Inductor 1 (right); Inductor 1 and Resistor 3 are vertical, index 0 = top, index 1 = bottom; Inductor 2 and Capacitor 4 are horizontal, index 0 = left, index 1 = right; V-DC 6 index 0 = left, index 1 = right ('+' glyph drawn inside the circle toward the right lead). Two-terminal order does not affect any metric. (d) No terminal is unconnected: all 13 terminals land on one of the 6 nets.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        220.9,
+        492.1,
+        77.6,
+        76.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        324.6,
+        378.9,
+        100.9,
+        43.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        421.2,
+        485.5,
+        47.6,
+        89.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        533.3,
+        381.2,
+        114.2,
+        40.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        414.0,
+        572.6,
+        108.7,
+        48.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        407.3,
+        673.0,
+        106.5,
+        54.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        638.8,
+        508.8,
+        72.0,
+        83.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,178 @@
+{
+ "components": [
+  {
+   "class": "Inductor",
+   "bbox": [
+    115,
+    190,
+    40,
+    90
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    120,
+    320,
+    60,
+    30
+   ],
+   "terminals": [
+    "n2",
+    "n7"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    247,
+    350,
+    30,
+    90
+   ],
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    250,
+    518,
+    55,
+    30
+   ],
+   "terminals": [
+    "n3",
+    "n7"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    396,
+    515,
+    30,
+    90
+   ],
+   "terminals": [
+    "n1",
+    "n7"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    400,
+    648,
+    55,
+    30
+   ],
+   "terminals": [
+    "n7",
+    "n5"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    570,
+    692,
+    30,
+    80
+   ],
+   "terminals": [
+    "n1",
+    "n6"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    567,
+    890,
+    55,
+    30
+   ],
+   "terminals": [
+    "n6",
+    "n7"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    785,
+    205,
+    52,
+    52
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    781,
+    352,
+    54,
+    54
+   ],
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    778,
+    515,
+    55,
+    55
+   ],
+   "terminals": [
+    "n3",
+    "n7"
+   ]
+  },
+  {
+   "class": "I-DC",
+   "bbox": [
+    780,
+    660,
+    55,
+    55
+   ],
+   "terminals": [
+    "n5",
+    "n7"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    784,
+    868,
+    66,
+    66
+   ],
+   "terminals": [
+    "n5",
+    "n7"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 3281
+ },
+ "_model": "claude-opus-5"
+}

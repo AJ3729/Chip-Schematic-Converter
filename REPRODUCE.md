@@ -16,8 +16,8 @@ Run everything from the repository root with the project venv
 | --- | --- |
 | Digitize-HCD | `data/raw` sha256-verified against the published archive; see `data/README.md` |
 | Preprocessed frames | `data/cleaned_1024` + `data/transforms_1024.json` (`scripts/preprocess.py`, guarded by `scripts/record_transforms.py`) |
-| Detector weights | `experiments/train_all/runs/yolov8s_640_seed{0,1,2}/weights/best.pt` |
-| Detection cache | `data/detections_1024/` (`scripts/detect_batch.py --images data/splits/test.txt --images-dir data/cleaned_1024`) |
+| Detector weights | `experiments/train_valstop/runs/yolov8s_640_seed{0,1,2}/weights/best.pt` — early-stopped on `val`; see the caveat below |
+| Detection cache | `data/detections_valstop/` (`scripts/detect_batch.py --config configs/default.yaml --sleep 0`) |
 | Verified GT (test, reported) | `data/gt_test_1024/` — 192 images, `benchmark.gt_dir`; verification account in `docs/GT_VAL_VERIFICATION_REPORT.md` |
 | Verified GT (val, selection) | `data/gt_val_1024/` — 190 images; canonical topology is `data/gt_netlists_verified_v3` and `gt_val_1024` is the same annotation at 2x coordinates |
 
@@ -28,6 +28,17 @@ report with `--split test` (the default). Any artifact under `results/`
 committed before that date was computed on the 190 images and is a
 validation number regardless of what its `run_meta.json` calls it. Full
 mapping: `data/README.md` and `data/splits/splits_meta.json` → `role_swap`.
+
+**The detector was retrained on 2026-08-05 so early stopping reads `val`.**
+The previous weights (`experiments/train_all/`) early-stopped on the split that
+is now `test`, worth +0.0169 mAP@0.5 / +0.0231 mAP@0.5:0.95 measured as the
+test-minus-val gap. The replacement was trained from a packet containing only
+`train` and `val` — the reported test images were not on the training machine —
+and its test-minus-val gap is +0.0088 / +0.0033. Both weight sets are kept;
+`experiments/train_all/` is retained only so the contamination measurement can
+be reproduced, and must not be used for a reported number. Retrain settings:
+yolov8s, 640 px, 300 epochs, patience 50, batch 32, `deterministic=True`,
+seeds 0/1/2.
 
 Every script now takes `--split` with a default set by its role — see
 `src/schematic2netlist/splits.py`. Exploratory and selection scripts default
@@ -44,10 +55,13 @@ snapshot inside that run's `run_meta.json`, so every arm keeps the exact
 configuration it is being compared against, then
 `scripts/make_paper_tables.py` turns the output into `paper/generated/`.
 
-**Caveat that belongs in the paper, not just here**: the detector was
-early-stopped on the 192 images now called `test`, which makes detection
-metrics there optimistic by a measured +0.017 mAP@0.5 against the 190 it
-never saw (`results/detection_test192/{test,val}`).
+**That caveat is now historical.** It read: "the detector was early-stopped on
+the 192 images now called `test`, which makes detection metrics there optimistic
+by a measured +0.017 mAP@0.5". The 2026-08-05 retrain removed it; the surviving
+test-minus-val gap is +0.0088 mAP@0.5 / +0.0033 mAP@0.5:0.95
+(`results/final/detection/seed{0,1,2}/{test,val}`). The pre-retrain measurement
+is preserved in `results/detection_test192/{test,val}` solely so the
+contamination estimate stays reproducible.
 
 **Frame size is part of the configuration.** `preprocess.target_size` is
 1024 and `preprocess.images_dir` names the matching frames; every script
@@ -79,8 +93,8 @@ fails if they disagree with the transforms on disk.
     --out-dir data/yolo_1024
 ./venv/bin/python scripts/eval_detector.py --split test \
     --data data/yolo_1024/dataset.yaml \
-    --weights experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt \
-    --out-dir results/detection_1024
+    --weights experiments/train_valstop/runs/yolov8s_640_seed0/weights/best.pt \
+    --out-dir results/final/detection/seed0/test
 ```
 
 `data/yolo_cleaned` is the stale 512-px dataset and must not be used;
@@ -150,7 +164,8 @@ under oracle-pose and axis-only regimes).
 ```bash
 ./venv/bin/python scripts/analyze_failures.py        # results/stratified/
 ./venv/bin/python scripts/threshold_sensitivity.py   # results/threshold_sensitivity/
-./venv/bin/python scripts/benchmark_runtime.py --limit 60   # results/runtime/
+./venv/bin/python scripts/measure_runtime.py --split test \
+    --out-dir results/final/runtime   # two scopes: cached + true end-to-end
 ./venv/bin/python scripts/explore_path_tracing.py --limit 40  # results/path_tracing_probe/
 ```
 

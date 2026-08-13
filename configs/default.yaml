@@ -59,10 +59,10 @@ preprocess:
 
 detect:
   backend: ultralytics
-  cache_dir: data/detections_1024
+  cache_dir: data/detections_valstop
   model_id: electrical-components-qpl1s/6   # Roboflow hosted model (legacy)
   api_url: https://detect.roboflow.com
-  weights: /Users/junaidahmed/Documents/Chip-Schematic-Converter/experiments/train_all/runs/yolov8s_640_seed0/weights/best.pt
+  weights: /Users/junaidahmed/Documents/Chip-Schematic-Converter/experiments/train_valstop/runs/yolov8s_640_seed0/weights/best.pt
   confidence: 0.4           # detector confidence threshold
   image_size: 640           # inference resolution (ultralytics backend)
   # Dedicated component-class head. The detector localises well and classifies

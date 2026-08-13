@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_260.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Whole drawing is rotated ~28 deg (a tilted rectangle), so left/right below means as-drawn position. Net map: 0 = the long lower-left rail, one continuous pen stroke from a bare stub at (8,13) near the top-left corner down to the bottom vertex at (241,447); GND 4 attaches to it at (133,242) and the L3/R2 chain leaves from the same point, and at the bottom vertex it runs up-right to the lower-left plate of capacitor 5. n1 = short wire between the upper-right end of inductor 3 (~ (243,182)) and the lower-left end of resistor 2 (~ (290,150)). n2 = the top-right vertex (405,92) - a genuine 3-way junction (max inscribed ink radius 2.74 px vs 1.9 for a plain corner) joining the upper-right end of resistor 2, the lower lead of the off-frame resistor 0 coming down from the top edge at (352,14), and the right side of the rectangle running (405,92) -> corner (503,302) -> the upper-right plate of capacitor 5. n3 = entirely off-frame node between the top of resistor 0 and V-AC 1. Judgment calls: (a) THE ONE REAL CALL - the meeting at (133,242) where the GND-lead/inductor line crosses the lower-left rail. Measured at 24x the ink blob there is only 2.32 px inscribed radius, the same as a plain corner elsewhere in this drawing and exactly what two ~2px strokes crossing at ~55 deg produce geometrically, so there is NO deliberately drawn dot; there is also no hop. I read it as a JUNCTION anyway, on circuit sense: (i) treating it as a crossover leaves resistor 2 and inductor 3 in a branch that terminates at a single GND symbol with no return path, i.e. two labelled components (1 ohm, 1 mH) carrying exactly zero current, which is not a circuit anyone draws; (ii) with the junction the drawing is the textbook series-parallel AC network V-AC 1 -> R0 -> node n2, then (R2 + L3 in series) parallel with C5 back to ground, which uses every part; (iii) geometrically (133,242) is the top-left corner of the tilted rectangle - the rail and the top side must meet there - and the GND symbol is simply attached by extending that same lead out past the corner to the left, a very common drafting habit. A human should re-check this one crossing. (b) OFF-FRAME components: exactly two wire ends are free - the rail stub at (8,13) and the top of resistor 0 (bbox centre (342,-22), h=127>w=94 so drawn along the tilted vertical, with only its bottom zigzag peak and lower lead inside the frame, entering at (352,14)). V-AC 1 (bbox centre (121,-76), entirely above the crop) sits between them along the rectangles missing top-left side, so it bridges the rail stub (net 0) and the top of resistor 0 (net n3). Neither is marked unconnected. (c) The rail stub at (8,13) stops ~8 px short of the frame corner rather than touching it; I read that as the crop clipping the stroke, not a genuine dead end, since the alternative would leave the source with no return path. (d) Capacitor 5 is drawn with its two plates as parallel diagonal strokes perpendicular to the tilted bottom side, verified at 8x; the lower-left plate is on net 0 and the upper-right plate on n2. (e) 2-terminal order is as drawn (lower-left/top listed first) and does not affect any metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        288.9,
+        356.7,
+        101.4,
+        37.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        162.1,
+        502.1,
+        58.4,
+        64.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        394.7,
+        440.6,
+        40.7,
+        73.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        399.9,
+        542.8,
+        40.5,
+        71.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        404.7,
+        656.2,
+        90.5,
+        47.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        596.6,
+        474.3,
+        57.5,
+        45.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

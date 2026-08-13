@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_743.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: n1 = top terminal (+) of V-DC 0 (5V) -> up x~86 -> corner (87,181) -> right along the top to the left end of resistor 1 (1K). n2 = right end of resistor 1 -> the clean T at (216,193) where the top lead of inductor 2 (8mH) drops away -> on right to the left plate of capacitor 3 (2mF). n3 = right plate of capacitor 3 -> right along y~197 -> corner (322,199) -> down to the top terminal (+) of V-DC 5 (2V). 0 = the bottom rail plus ground: bottom (-) terminal of V-DC 0 -> down x~76 -> bottom-left corner (76,292) -> right along the gently sloping rail (y 293 at x=80 to y 309 at x=318) -> corner (320,309) -> up to the bottom terminal of V-DC 5; the bottom lead of inductor 2 T's onto that rail at (213,300) and the lead of GND 4 drops off it at (148,298) down to the ground bars at y=315 and y=322.\nJudgment calls: (a) Capacitor 3 was the only pair of null terminals; it sits in the top wire between the inductor node and the right-hand corner, so left plate = n2 and right plate = n3. Everything else in the bootstrap checked out against the drawing. (b) All four meetings on the bottom rail and the one on the top rail are unambiguous T's or corners drawn as terminations (verified at 5-9x); nowhere in this drawing does one wire cross another, so there are no crossing-vs-junction calls to make. (c) V-DC 5's bottom lead overshoots ~8 px below the bottom-right corner (down to y=317); that is just a drafting overshoot, not a separate stub. (d) The four long faint lines - the diagonal across the upper right, the diagonal across the lower left, and the near-vertical lines at x~10 and x~505 - are ruled page lines; none of them touches a component lead. (e) Terminal order: V-DC 0, inductor 2 and V-DC 5 are drawn vertically and are indexed top then bottom (both sources have \"+\" on the upper half of the circle, matching); resistor 1 and capacitor 3 are horizontal and indexed left then right. (f) No component was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        161.0,
+        470.6,
+        86.6,
+        82.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        317.6,
+        391.2,
+        108.8,
+        56.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        433.6,
+        486.1,
+        58.8,
+        95.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        523.6,
+        387.3,
+        74.3,
+        70.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        294.8,
+        655.5,
+        107.6,
+        58.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-DC",
+      "bbox": [
+        641.9,
+        511.7,
+        73.2,
+        93.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

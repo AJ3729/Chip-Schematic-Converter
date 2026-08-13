@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_925.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The sheet is drawn slightly tilted, so both rails drift a few pixels downward to the right; \"top/bottom rail\" below means the drawn rail. Net map: n1 = top of V-AC 0 (10 cos t V) -> up to the corner at (104,178) -> right into the left end of Resistor 3 (1k); n2 = the whole upper rail right of Resistor 3, traced pixel by pixel from x=210 (y=187) to x=398 (y=193) and continuous apart from two 3-8 px binarisation dropouts at x=290..298 and x=354..360; it carries the right end of Resistor 3, the top of Inductor 1 (2H, T at (250,187)), the top plate of Capacitor 2 (3uF, T at (332,190)) and the left terminal of I-AC 5 (8 cos 5t A, arrow drawn pointing right, so the source sits in series in the rail); n3 = right terminal of I-AC 5 -> right to the corner at (461,196) -> down into the top of Resistor 6 (4 ohm); 0 = the bottom return rail, unbroken from the V-AC 0 bottom-lead corner at (99,297) to the Resistor 6 bottom-lead corner at (461,313), carrying the bottom of Inductor 1 (T at (252,304)), GND 4 (a short stem dropping from the rail at (285,306) into the bar stack at y=317/322), the bottom plate of Capacitor 2 (corner at (334,309)) and the bottom of Resistor 6 - because GND 4 sits on it the entire rail is net '0'. Judgment calls: (a) there are no dots, hops or crossovers anywhere in this drawing; every wire meeting is a plain T or a corner, each of which was confirmed by a column/row pixel trace (the capacitor and Resistor 6 bottom leads look broken on a coarse sample only because the columns drift 1-2 px as they descend); (b) the drawn gaps in both rails are dropout of one faint continuous pencil line - the identical dash pattern occurs in stretches where nothing else is drawn; (c) Inductor 1 and Capacitor 2 are shunt branches from the upper rail to ground, not series elements: both leads of each were traced from the rail T down to the ground rail; (d) I-AC 5's arrow points right, so index 0 is its left terminal (n2) and index 1 its right terminal (n3); V-AC 0 has no polarity marks so its top-then-bottom order is arbitrary; Capacitor 2, Inductor 1 and Resistor 6 are indexed top-then-bottom and Resistor 3 left-then-right, as drawn - 2-terminal order affects no metric; (e) the bootstrap left V-AC 0 and Capacitor 2 fully null and split the upper rail into two invented nets, and put Resistor 6's bottom on 'n5' instead of ground; those are the fixes.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        192.8,
+        504.0,
+        95.0,
+        93.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        506.0,
+        479.9,
+        48.6,
+        112.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        660.2,
+        463.9,
+        69.8,
+        50.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        378.4,
+        371.8,
+        109.3,
+        39.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        582.7,
+        639.3,
+        66.9,
+        45.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-AC",
+      "bbox": [
+        837.8,
+        371.8,
+        105.8,
+        89.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        923.6,
+        508.0,
+        49.8,
+        111.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

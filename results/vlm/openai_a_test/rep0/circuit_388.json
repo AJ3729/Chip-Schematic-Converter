@@ -1,0 +1,248 @@
+{
+ "components": [
+  {
+   "bbox": [
+    479,
+    169,
+    98,
+    110
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    118,
+    352,
+    72,
+    83
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n1",
+    "n1",
+    "n12"
+   ]
+  },
+  {
+   "bbox": [
+    117,
+    526,
+    75,
+    82
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n12",
+    "n2",
+    "n13"
+   ]
+  },
+  {
+   "bbox": [
+    118,
+    721,
+    78,
+    80
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n13",
+    "n11",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    412,
+    389,
+    58,
+    84
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n1",
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    388,
+    546,
+    68,
+    86
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n4",
+    "n2",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    480,
+    500,
+    77,
+    78
+   ],
+   "class": "Op-Amp",
+   "terminals": [
+    "n3",
+    "n4",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    586,
+    501,
+    80,
+    35
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n5",
+    "n7"
+   ]
+  },
+  {
+   "bbox": [
+    699,
+    356,
+    66,
+    94
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n1",
+    "n8",
+    "n7"
+   ]
+  },
+  {
+   "bbox": [
+    699,
+    636,
+    66,
+    87
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n7",
+    "n9",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    835,
+    304,
+    73,
+    83
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n8",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    548,
+    744,
+    69,
+    86
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n6",
+    "n10",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    236,
+    749,
+    100,
+    32
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n11",
+    "n10"
+   ]
+  },
+  {
+   "bbox": [
+    215,
+    614,
+    58,
+    103
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    213,
+    685,
+    51,
+    28
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    544,
+    839,
+    51,
+    29
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    842,
+    768,
+    80,
+    114
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n9",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    842,
+    840,
+    53,
+    27
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 7835
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

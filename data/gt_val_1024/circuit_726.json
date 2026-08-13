@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_726.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: this is a four-rung ladder between two vertical rails. 0 = LEFT rail (x~137-146), which runs off the top edge of the frame at y=10 and down to the bottom-left corner (137,456); GND 3 sits just left of it and its wire T's onto it at (142,193); on the left rail: GND 3, left end of resistor 1 (rung 1, T at (146,78)), left plate of capacitor 2 (rung 2), left end of inductor 5 (rung 3, T at (138,320)), left end of inductor 7 (rung 4, corner at (137,455)), and the left terminal of the off-frame I-DC 0. n1 = RIGHT rail (x~392-395), also running off the top edge at y=10 and down to the bottom-right corner (392,459): right end of resistor 1 (T at (395,71)), right plate of capacitor 2 (T at (394,188)), right end of resistor 4 (T at (395,318)), right end of resistor 6 (corner at (392,458)), and the right terminal of I-DC 0. n2 = the series node in rung 3 between inductor 5 (2H) and resistor 4 (5 ohm). n3 = the series node in rung 4 between inductor 7 and resistor 6.\nJudgment calls: (a) I-DC 0 is OFF-FRAME - its bbox centre is (266.3,-74.4), about 84 px above the top of the image, so the symbol is not in the picture at all. Both rails are cut by the top crop (the image has no ink above y=10 anywhere) and the source's bbox x-range 240-293 sits squarely between the two rails (x=145 and x=394), so the only possible reading is that I-DC 0 is the top rung bridging the two rails. Assigned index 0 = left terminal -> 0 (left rail), index 1 = right terminal -> n1 (right rail). This makes the circuit the obvious one: a DC current source driving four parallel branches - R1, C2, L5+R4, L7+R6 - with the left rail as the ground reference. (b) The GND wire crosses the left rail at (142,193) rather than stopping on it (the horizontal runs from the ground bar at x=117 through the rail and on to capacitor 2). There is only a faint thickening (3 px vs 1-2 px) rather than a clear dot, but I read it as a junction: if it were a crossover, net 0 would contain only GND 3 and the left plate of capacitor 2, the capacitor could carry no current, and the whole left rail would be left with no reference - the parallel-bank reading is clearly what is drawn. (c) Every other rail/rung meeting is an unambiguous T or corner - verified at pixel level at (146,78), (395,71), (394,188), (138,320), (395,318), (137,455), (392,458); the rails terminate at rung 4, nothing continues below. (d) The two long vertical lines at x~10 and x~500 are ruled page lines, not wires - they touch nothing. (e) All two-terminal parts are drawn horizontally and indexed left then right.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        188.8,
+        496.8,
+        58.3,
+        50.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        332.6,
+        491.2,
+        41.4,
+        78.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        449.1,
+        498.1,
+        41.8,
+        31.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        447.5,
+        653.1,
+        61.9,
+        32.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        572.4,
+        463.0,
+        38.8,
+        79.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        575.6,
+        553.3,
+        39.0,
+        78.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        706.7,
+        467.2,
+        39.0,
+        79.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        712.2,
+        559.2,
+        38.3,
+        90.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

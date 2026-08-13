@@ -1,0 +1,73 @@
+{
+ "components": [
+  {
+   "bbox": [
+    456,
+    374,
+    34,
+    48
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    506,
+    452,
+    101,
+    30
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    649,
+    447,
+    92,
+    38
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    548,
+    557,
+    94,
+    61
+   ],
+   "class": "I-DC",
+   "terminals": [
+    "0",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    690,
+    589,
+    71,
+    47
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 1121
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

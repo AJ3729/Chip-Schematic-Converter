@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "bbox": [
+    102,
+    112,
+    31,
+    157
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    110,
+    369,
+    38,
+    170
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    252,
+    285,
+    35,
+    105
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    251,
+    452,
+    45,
+    82
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    414,
+    457,
+    35,
+    154
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    414,
+    621,
+    46,
+    171
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n4",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    624,
+    621,
+    39,
+    160
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    626,
+    770,
+    47,
+    120
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    870,
+    111,
+    56,
+    58
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    870,
+    282,
+    55,
+    57
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    870,
+    434,
+    53,
+    59
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    871,
+    589,
+    51,
+    56
+   ],
+   "class": "I-DC",
+   "terminals": [
+    "0",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    871,
+    765,
+    52,
+    59
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "0",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    414,
+    898,
+    66,
+    62
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 7081
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

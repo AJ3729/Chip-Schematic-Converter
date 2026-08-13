@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_986.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: 0 = bottom rail / reference, set by GND 7 whose stem is the continuation of Resistor 6's bottom lead down x~206 to the bars at y=291,295; the same node carries the right lead of Resistor 3 (3k) and the left lead of Inductor 5. n1 = V-DC 0 plus (top) lead up to y~198 and right to the left end of Resistor 4 (10 ohm). n2 = top node: right end of Resistor 4 -> T at (208,204) down to the top of Resistor 6 (7 ohm) -> right to the left lead of I-DC 1 (9 mA). n3 = right lead of I-DC 1 -> right at y~205 -> down at x~312 to the top plate of Capacitor 2 (6 uF). n4 = bottom plate of Capacitor 2 -> down at x~317 to y~280 -> left to the right end of Inductor 5 (12 H). n5 = V-DC 0 minus (bottom) lead down to y~275 and right to the left end of Resistor 3.\nJudgment calls: (a) The bottom-left wire is broken in the scan: Resistor 3's right stub stops at x=176,y=278 and the next ink on that line is at x=202-207,y=277-279 where it meets the ground stem (pixel-level check at 14x; the source jpg is 4-level quantised so light pencil is dropped entirely - the same wire is dashed again between x=208-223 on its way to the inductor). I read the whole y~278 horizontal as ONE continuous wire, so Resistor 3's right end is on net 0. Rationale: leaving it open would leave the 2 V source with no return path, and would leave Resistor 6 + GND as a two-terminal dead-end branch carrying no current, i.e. a meaningless problem; the two stubs are collinear and point at each other.\n(b) The horizontal at y~278 crosses the vertical GND stem at (206,278) with no dot and no hop - the strokes simply merge. I treated it as a JUNCTION (one node) rather than a crossover, again from circuit sense: as a crossover the 7 ohm shunt would be a dead end and the ground reference would touch only one component. This is the single most consequential call in this file and is the thing a human should re-check.\n(c) Terminal order: V-DC 0 top(+) first then bottom(-); Capacitor 2 and Resistor 6 top then bottom; Resistors 3/4 and Inductor 5 left then right; the I-DC arrow points right but 2-terminal order is not metric-relevant.\n(d) No off-frame components: all 8 bbox centres are inside the frame and no circuit wire leaves the crop (the long rectangle around the whole drawing is the notebook page border, not a wire).",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        213.3,
+        474.3,
+        74.8,
+        74.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        532.0,
+        415.2,
+        70.2,
+        60.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        631.6,
+        475.5,
+        65.1,
+        44.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        306.1,
+        552.8,
+        91.4,
+        34.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        337.5,
+        400.6,
+        90.2,
+        34.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        518.0,
+        554.6,
+        103.9,
+        36.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        416.1,
+        472.6,
+        45.1,
+        85.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        415.5,
+        590.0,
+        64.5,
+        39.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,320 @@
+{
+ "components": [
+  {
+   "class": "V-DC",
+   "bbox": [
+    57,
+    345,
+    60,
+    68
+   ],
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    57,
+    440,
+    40,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    335,
+    197,
+    40,
+    40
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "Op-Amp",
+   "bbox": [
+    240,
+    275,
+    90,
+    70
+   ],
+   "terminals": [
+    "0",
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    185,
+    322,
+    40,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    516,
+    272,
+    50,
+    18
+   ],
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    783,
+    182,
+    60,
+    22
+   ],
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "class": "Op-Amp",
+   "bbox": [
+    750,
+    287,
+    90,
+    70
+   ],
+   "terminals": [
+    "n8",
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    921,
+    278,
+    50,
+    20
+   ],
+   "terminals": [
+    "n4",
+    "n5"
+   ]
+  },
+  {
+   "class": "I-DC",
+   "bbox": [
+    90,
+    745,
+    52,
+    56
+   ],
+   "terminals": [
+    "0",
+    "n9"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    90,
+    830,
+    40,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    310,
+    572,
+    62,
+    24
+   ],
+   "terminals": [
+    "n9",
+    "n8"
+   ]
+  },
+  {
+   "class": "Op-Amp",
+   "bbox": [
+    275,
+    675,
+    90,
+    70
+   ],
+   "terminals": [
+    "0",
+    "n9",
+    "n8"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    235,
+    730,
+    40,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    606,
+    566,
+    50,
+    18
+   ],
+   "terminals": [
+    "n8",
+    "n10"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    775,
+    492,
+    40,
+    40
+   ],
+   "terminals": [
+    "n10",
+    "n6"
+   ]
+  },
+  {
+   "class": "Op-Amp",
+   "bbox": [
+    730,
+    572,
+    90,
+    70
+   ],
+   "terminals": [
+    "0",
+    "n10",
+    "n6"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    663,
+    640,
+    40,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    919,
+    565,
+    50,
+    18
+   ],
+   "terminals": [
+    "n6",
+    "n5"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    610,
+    810,
+    38,
+    40
+   ],
+   "terminals": [
+    "n8",
+    "n11"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    793,
+    747,
+    62,
+    24
+   ],
+   "terminals": [
+    "n11",
+    "n12"
+   ]
+  },
+  {
+   "class": "Op-Amp",
+   "bbox": [
+    750,
+    812,
+    90,
+    70
+   ],
+   "terminals": [
+    "0",
+    "n11",
+    "n12"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    712,
+    868,
+    40,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    906,
+    800,
+    50,
+    18
+   ],
+   "terminals": [
+    "n12",
+    "n5"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 2513
+ },
+ "_model": "claude-opus-5"
+}

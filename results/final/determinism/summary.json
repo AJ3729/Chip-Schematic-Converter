@@ -1,0 +1,234 @@
+{
+  "what_this_is": "determinism of the schematic2netlist pipeline, measured over independent fresh-interpreter runs",
+  "runs": 5,
+  "split": "test",
+  "n_circuits": 192,
+  "n_errored_circuits": 0,
+  "process_isolation": {
+    "separate_processes": true,
+    "pythonhashseed_per_run": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "str_hash_probe_per_run": [
+      3692053093841819412,
+      -6942238086363776515,
+      -3994212770393019712,
+      3311231366349468998,
+      -3242230401460514314
+    ],
+    "distinct_str_hash_probes": 5,
+    "pids": [
+      45355,
+      45621,
+      45906,
+      45941,
+      45959
+    ],
+    "why": "string-hash seed is fixed at interpreter startup, so set/dict ordering effects are invisible to repeats inside one process; each run here is a fresh interpreter with a different hash seed"
+  },
+  "config_hash_all_runs": [
+    "54069dba36fa"
+  ],
+  "exact_output_agreement": {
+    "netlist_base_byte_identical_fraction": 1.0,
+    "netlist_repaired_byte_identical_fraction": 1.0,
+    "n_circuits_netlist_changed": 0,
+    "circuits_netlist_changed": [],
+    "note": "real export_spice_netlist output, hashed byte for byte"
+  },
+  "topology_changes": {
+    "n_circuits_topology_changed": 0,
+    "circuits": [],
+    "fraction_stable": 1.0,
+    "comparison": "naming-invariant partition of component terminals into nets"
+  },
+  "label_changes": {
+    "n_circuits_class_labels_changed": 0,
+    "fraction_stable": 1.0
+  },
+  "full_result_agreement": {
+    "fraction_all_runs_identical": 1.0,
+    "digest_covers": "every key of the run_pipeline dict except image, out_dir"
+  },
+  "full_result_structural_diff": {
+    "performed": true,
+    "runs_compared": [
+      0,
+      1
+    ],
+    "pythonhashseeds": [
+      "0",
+      "1"
+    ],
+    "n_images": 8,
+    "images": [
+      "circuit_1013.jpg",
+      "circuit_1238.jpg",
+      "circuit_208.jpg",
+      "circuit_338.jpg",
+      "circuit_490.jpg",
+      "circuit_641.jpg",
+      "circuit_777.jpg",
+      "circuit_89.jpg"
+    ],
+    "keys_compared": [
+      "class_head",
+      "clean_wires",
+      "components",
+      "connectivity_repair",
+      "coverage",
+      "detections",
+      "junction_info",
+      "netlist",
+      "node_map",
+      "node_name_map",
+      "nodes_method",
+      "num_wire_nodes",
+      "repair"
+    ],
+    "excluded_keys": [
+      "image",
+      "out_dir"
+    ],
+    "n_images_with_any_difference": 0,
+    "differences": {}
+  },
+  "metric_spread_across_runs": {
+    "strict_success": {
+      "values": [
+        0.53125,
+        0.53125,
+        0.53125,
+        0.53125,
+        0.53125
+      ],
+      "mean": 0.53125,
+      "stdev": 0.0,
+      "variance": 0.0,
+      "min": 0.53125,
+      "max": 0.53125,
+      "range": 0.0,
+      "all_identical": true
+    },
+    "net_f1": {
+      "values": [
+        0.883677837022,
+        0.883677837022,
+        0.883677837022,
+        0.883677837022,
+        0.883677837022
+      ],
+      "mean": 0.8836778370217848,
+      "stdev": 0.0,
+      "variance": 0.0,
+      "min": 0.8836778370217848,
+      "max": 0.8836778370217848,
+      "range": 0.0,
+      "all_identical": true
+    },
+    "terminal_pair_f1": {
+      "values": [
+        0.817211248829,
+        0.817211248829,
+        0.817211248829,
+        0.817211248829,
+        0.817211248829
+      ],
+      "mean": 0.8172112488288059,
+      "stdev": 0.0,
+      "variance": 0.0,
+      "min": 0.8172112488288059,
+      "max": 0.8172112488288059,
+      "range": 0.0,
+      "all_identical": true
+    },
+    "nged": {
+      "values": [
+        0.172979481942,
+        0.172979481942,
+        0.172979481942,
+        0.172979481942,
+        0.172979481942
+      ],
+      "mean": 0.17297948194234433,
+      "stdev": 0.0,
+      "variance": 0.0,
+      "min": 0.17297948194234433,
+      "max": 0.17297948194234433,
+      "range": 0.0,
+      "all_identical": true
+    },
+    "per_component_connected_acc": {
+      "values": [
+        0.65695207509,
+        0.65695207509,
+        0.65695207509,
+        0.65695207509,
+        0.65695207509
+      ],
+      "mean": 0.656952075090215,
+      "stdev": 0.0,
+      "variance": 0.0,
+      "min": 0.656952075090215,
+      "max": 0.656952075090215,
+      "range": 0.0,
+      "all_identical": true
+    },
+    "per_component_recall_acc": {
+      "values": [
+        0.710298727825,
+        0.710298727825,
+        0.710298727825,
+        0.710298727825,
+        0.710298727825
+      ],
+      "mean": 0.7102987278250078,
+      "stdev": 0.0,
+      "variance": 0.0,
+      "min": 0.7102987278250078,
+      "max": 0.7102987278250078,
+      "range": 0.0,
+      "all_identical": true
+    }
+  },
+  "invalid_outputs": {
+    "definition": "pipeline raised, or the exported netlist contains no element line at all (wrote_any false)",
+    "n_circuits_invalid_in_any_run": 1,
+    "circuits": [
+      "circuit_211.jpg"
+    ],
+    "total_invalid_circuit_runs": 5,
+    "total_circuit_runs": 960,
+    "invalid_frequency": 0.005208333333333333,
+    "n_errored_circuits": 0,
+    "spice_checked": false,
+    "spice_note": "not run: byte-identical netlists cannot produce different ngspice verdicts, so SPICE validity and solvability inherit the byte comparison above"
+  },
+  "wall_s_per_run": [
+    130.31,
+    63.12,
+    40.44,
+    36.56,
+    36.63
+  ],
+  "wall_s_total": 345.08,
+  "concurrency_caveat": "Other agents were running on this machine throughout. This affects the WALL TIMES only; determinism results are exact comparisons and are unaffected by load.",
+  "load_average_1_5_15": {
+    "start": [
+      5.6728515625,
+      3.537109375,
+      3.40673828125
+    ],
+    "end": [
+      6.6962890625,
+      7.94921875,
+      5.806640625
+    ]
+  },
+  "machine": "macOS-15.5-arm64-arm-64bit",
+  "python": "3.11.9"
+}

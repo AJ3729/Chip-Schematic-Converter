@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_833.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: 0 = bottom rail, carrying V-AC 4 bottom lead, Capacitor 0 bottom plate, GND 3 stem (T at x~238) and I-AC 1 bottom lead; n1 = left link, V-AC 4 top lead up to y~190 then right into the left end of Resistor 2; n2 = mid node, right end of Resistor 2 -> top plate of Capacitor 0 (clear T-junction at (216,192), verified at 7x) -> left end of Inductor 5; n3 = right link, right end of Inductor 5 -> right to x~348 -> down into the top of I-AC 1. Judgment calls: (a) the only junction in the drawing is the capacitor T at (216,192) on the top rail and the capacitor/GND Ts on the bottom rail at (215,289)/(238,289) - both confirmed as solid T-joins at 7x, there are no crossings or hops anywhere in this circuit; (b) it is a single series loop V-AC -> R -> L -> I-AC with C shunting the R/L midpoint to the grounded return rail, which is the physically sensible reading; (c) Capacitor 0 terminal order is top-then-bottom, Resistor 2 and Inductor 5 are left-then-right, V-AC 4 and I-AC 1 are top-then-bottom (the I-AC arrow points up); 2-terminal order affects no metric; (d) the bootstrap had Resistor 2 index 0 on '0' and I-AC 1 top on 'n1' - both wrong, the resistor left lead reaches only the V-AC top and never the bottom rail.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        430.4,
+        462.5,
+        90.5,
+        63.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-AC",
+      "bbox": [
+        694.9,
+        496.4,
+        93.2,
+        107.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        308.6,
+        404.5,
+        123.2,
+        43.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        487.0,
+        650.7,
+        76.0,
+        57.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-AC",
+      "bbox": [
+        206.7,
+        505.8,
+        97.1,
+        96.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        545.3,
+        380.9,
+        121.5,
+        45.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

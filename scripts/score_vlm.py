@@ -92,9 +92,35 @@ def main() -> None:
                     default="results/benchmark_1024_final/seed0/per_image.csv",
                     help="per-image CSV to join against for the same-images check")
     ap.add_argument("--out-dir", default=None)
+    # Without these two, scoring a run against the wrong split's GT is SILENT:
+    # every `gp.exists()` misses, every image is skipped, and the summary is
+    # written with n=0 and a mean of 0.0 that looks like a real result. That is
+    # exactly what a val-era run scored against test GT would have produced.
+    ap.add_argument("--gt-dir", default=None,
+                    help="override benchmark.gt_dir; REQUIRED when the run's "
+                         "split differs from the config's")
+    ap.add_argument("--split", default=None,
+                    help="assert the scored stems are exactly this split's "
+                         "manifest, so a run can never be scored against the "
+                         "wrong images without failing loudly")
     args = ap.parse_args()
 
     cfg = load_config(args.config)
+    if args.gt_dir:
+        cfg["benchmark"]["gt_dir"] = args.gt_dir
+    gt_dir = Path(cfg["benchmark"]["gt_dir"])
+    if not gt_dir.is_dir():
+        sys.exit(f"gt_dir does not exist: {gt_dir}")
+    print(f"scoring against GT: {gt_dir}")
+
+    expect = None
+    if args.split:
+        man = ROOT / "data/splits" / f"{args.split}.txt"
+        if not man.exists():
+            sys.exit(f"no split manifest: {man}")
+        expect = {Path(x).stem for x in man.read_text().split()}
+        print(f"asserting stems == {args.split} manifest ({len(expect)} images)")
+
     run = Path(args.run_dir)
     reps = sorted(p for p in run.glob("rep*") if p.is_dir())
     if not reps:
@@ -103,11 +129,14 @@ def main() -> None:
     per_rep, per_image_rows = [], []
     for rep in reps:
         rows, n_bad = [], 0
+        seen, missing_gt = set(), []
         for f in sorted(rep.glob("*.json")):
             stem = f.stem
-            gp = Path(cfg["benchmark"]["gt_dir"]) / f"{stem}.json"
+            gp = gt_dir / f"{stem}.json"
             if not gp.exists():
+                missing_gt.append(stem)
                 continue
+            seen.add(stem)
             gt = load_gt(str(gp))
             gc = gt_to_components(gt)
             by = {c["id"]: c for c in gt["components"]}
@@ -124,10 +153,31 @@ def main() -> None:
             m["image"] = f"{stem}.jpg"
             rows.append(m)
             per_image_rows.append({"rep": rep.name, **m})
+        # A run that scored nothing is a configuration error, never a result.
+        if not rows:
+            sys.exit(
+                f"\n{rep.name}: scored 0 images -- REFUSING to write a summary.\n"
+                f"  {len(missing_gt)} response(s) had no GT under {gt_dir}\n"
+                f"  e.g. {', '.join(missing_gt[:5])}\n"
+                f"  This run's images are not in that GT directory. Pass "
+                f"--gt-dir for the split this run actually covers.")
+        if expect is not None and seen != expect:
+            miss, extra = expect - seen, seen - expect
+            sys.exit(
+                f"\n{rep.name}: scored stems are not the {args.split} split.\n"
+                f"  {len(miss)} of the manifest missing, {len(extra)} unexpected\n"
+                f"  missing e.g. {', '.join(sorted(miss)[:5]) or '-'}\n"
+                f"  extra   e.g. {', '.join(sorted(extra)[:5]) or '-'}")
+        if missing_gt:
+            print(f"  {rep.name}: {len(missing_gt)} response(s) skipped for "
+                  f"missing GT: {', '.join(missing_gt[:5])}")
+
         agg = aggregate(rows)
         # aggregate() returns a FLAT dict; the "topology" nesting is added by
         # scripts/benchmark.py, not by the library.
         per_rep.append({"rep": rep.name, "n": len(rows), "unusable": n_bad,
+                        "gt_dir": str(gt_dir), "split_asserted": args.split,
+                        "skipped_missing_gt": len(missing_gt),
                         "metrics": agg})
         print(f"{rep.name}: n={len(rows)} unusable={n_bad}  "
               + "  ".join(f"{k}={agg[k]['mean']:.4f}"

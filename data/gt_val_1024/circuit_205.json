@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "image": "circuit_205.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map. 0 = ground: the long skewed vertical that enters the frame at (73,0), runs down through (82,84), (102,257), (107,299), (119,364), (132,458) and leaves the frame at (141,511). GND 6 T's onto it at (107,299) and GND 7 (bottom right, drawn rotated 90 deg with vertical bars) terminates V-DC 1's lower lead - both are net 0 per the all-grounds-are-one rule. Also on 0: V-AC 8 left lead, MOSFET 14 source, MOSFET 2 source, I-AC 3 left lead, and (off-frame, see below) V-AC 10 left lead and I-AC 0 left lead. n1 = the long horizontal gate rail: MOSFET 14 gate (up from its gate bar at (128,224) to the corner at (122,155)), running right and slightly up to (362,118) where it turns down into MOSFET 9's gate; V-AC 8's right lead T's onto it at (203,138). n2 = MOSFET 14 drain -> right at y~242 -> T at (198,240) with the top of resistor 12 -> on to MOSFET 5 source. n3 = the big shared node: MOSFET 5 drain -> right at y~228 -> 4-way junction at (341,219) with MOSFET 9's source (arriving from the right at y~217) and MOSFET 11's source line (coming down from (319,57)); the junction continues down as the skewed vertical x~345->356 to y~348 where MOSFET 4's drain arrives. n4 = MOSFET 5 gate (up from (255,214) to the top edge at (223,0)) with a T at (227,23) feeding MOSFET 11's gate; also carries the off-frame V-AC 10 and Zener 13 terminals. n5 = MOSFET 11 drain -> right at y~43 -> down the right-hand vertical -> MOSFET 9 drain T at (427,208) -> V-DC 1 top (+); the dashed vertical leaving the top edge at x=408 is on this net too. n6 = bottom of resistor 12 -> big solder dot at (213,357) -> MOSFET 2 drain (left) and MOSFET 4 source (right). n7 = MOSFET 2 gate -> down from (153,389) -> right along y~412 -> down at x~231 -> I-AC 3 right lead. n8 = MOSFET 4 gate -> down from (290,374), leaving the frame at (306,511) -> off-frame I-AC 0. Judgment calls: (a) MOSFET symbol decoding. All six transistors use the same glyph: a solid gate bar with its lead on one side, a 3-segment broken channel line parallel to it, a lead off each outer channel segment, and the body arrow on the middle segment whose tail runs into ONE of the leads. That body-tied lead is taken as the SOURCE and the opposite one as the DRAIN (verified at 8-12x on raw pixels for all six). For 14, 5, 9, 11 the gate bar sits above the channel and the leads hang below; for 2 and 4 the symbol is mirrored vertically - gate bar BELOW the channel (2: the line (183,381)->(152,388) with its lead running down at x~153; 4: the line (322,368)->(290,374) with its lead running down at x~290) and the leads run up and out. In every case the body arrow ties to the LEFT lead, so source = left lead and drain = right lead for all six. Arrow directions corroborate the classes: 14/5/9 (N) point into the channel, 11/2/4 (P) point away. (b) Crossings. Three semicircular hops are drawn and were confirmed at high zoom: the n1 gate rail hops MOSFET 5's gate line at (248,136) and hops MOSFET 11's source line at (331,124); there is also a hop on the n1 rail near (238,136) same feature. Everything else that meets is a T or a filled dot (e.g. the fat dot at (213,357), the 4-way at (341,219) which has no hop and is therefore a junction). (c) OFF-FRAME COMPONENTS - three of them, none visible in the 512x512 crop:   * V-AC 10, bbox centre (143.5,-21.3) i.e. just above the top edge spanning x 125-162. Exactly three wires leave the top edge: x=73 (the ground line), x=223 (the n4 gate line) and x=408 (the dashed n5 line). Projected up to y=-21 they sit at x~71, x~218 and x~406. V-AC 10 straddles x 125-162, i.e. it sits between the x=73 and the x=223 stubs, exactly the way the visible V-AC 8 sits with its left lead running ~46 px left onto the ground rail. So V-AC 10 left lead = 0, right lead = n4.   * Zener 13, bbox centre (360.3,-49.3), spanning x 341-379, higher up and further right. It sits between the same n4 stub (x~215 at y=-49) and the x=408 stub (x~406 at y=-49), so Zener 13 bridges n4 and n5. That means the n4 wire branches off-frame (once to V-AC 10's right lead, once to the zener), which is the only reading that leaves no stub unused and no off-frame terminal dangling.   * I-AC 0, bbox centre (241.3,547.8), below the bottom edge spanning x 219-264. Exactly two wires leave the bottom edge: the ground line at x=141 and MOSFET 4's gate line at x=306. I-AC 0 sits between them, so its left lead = 0 and its right lead = n8. This also makes the circuit symmetric: MOSFET 2's gate is driven by the visible I-AC 3 returning to ground, and MOSFET 4's gate by the off-frame I-AC 0 returning to ground. None of the three is marked unconnected - they are invisible, not dangling. (d) The stray hook of ink at (167,0)-(172,8) is part of the handwritten '5V' label belonging to off-frame V-AC 10, not a wire; it terminates in mid-air after 8 px and was excluded from the top-edge stub list. (e) The vertical leaving the top edge at x=408 is drawn dashed rather than solid; it is treated as an ordinary wire since it lands squarely on MOSFET 11's drain corner at (410,43). (f) 2-terminal parts are indexed 0 = left/top lead, 1 = right/bottom lead as drawn; order affects no metric. V-DC 1's '+' is its upper lead (index 0).",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-AC",
+      "bbox": [
+        957.0,
+        550.3,
+        60.9,
+        65.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        635.8,
+        229.4,
+        67.3,
+        53.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "MOSFET-P",
+      "bbox": [
+        694.3,
+        625.8,
+        64.9,
+        69.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-AC",
+      "bbox": [
+        821.6,
+        594.8,
+        60.2,
+        61.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "MOSFET-P",
+      "bbox": [
+        702.7,
+        426.5,
+        61.6,
+        75.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        },
+        {
+          "index": 2,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "MOSFET-N",
+      "bbox": [
+        501.7,
+        455.7,
+        54.2,
+        69.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        },
+        {
+          "index": 2,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        585.5,
+        749.2,
+        90.1,
+        47.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        791.2,
+        270.8,
+        72.9,
+        40.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "V-AC",
+      "bbox": [
+        263.8,
+        594.9,
+        55.3,
+        61.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "MOSFET-N",
+      "bbox": [
+        484.6,
+        287.6,
+        68.3,
+        83.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        },
+        {
+          "index": 2,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "V-AC",
+      "bbox": [
+        128.7,
+        586.6,
+        48.2,
+        53.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "MOSFET-P",
+      "bbox": [
+        251.0,
+        274.6,
+        61.3,
+        77.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        },
+        {
+          "index": 2,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Resistor",
+      "bbox": [
+        569.8,
+        555.6,
+        53.1,
+        30.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Zener Diode",
+      "bbox": [
+        128.0,
+        272.7,
+        58.5,
+        55.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "MOSFET-N",
+      "bbox": [
+        495.0,
+        625.3,
+        68.6,
+        81.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

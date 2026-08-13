@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "image": "circuit_35.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Ladder of four parallel branches between one continuous LEFT vertical rail (x~120, y 176..323) and one continuous RIGHT vertical rail (x~368, y 196..340). Both rails verified unbroken at 7x: the left rail shows four clean T-junctions (top row y~178, mid row y~235, third row y~292, bottom row y~323) and the right rail shows four (y~196, y~243, y~298, y~340). There are no interior vertical wires and no crossings anywhere in this drawing. Net map: n1 = LEFT rail = left lead of capacitor 7, left lead of I-DC 5, left lead of inductor 6, left lead of resistor 4. 0 = RIGHT rail plus the bottom wire running right from resistor 4 to that rail; GND 3 hangs off that bottom wire at x~315, so the whole right rail is the ground reference and therefore every branch's right-hand terminal is on '0' (right lead of inductor 9, minus lead of V-DC 0, right lead of resistor 2, right lead of resistor 4, GND 3). Top branch (left->right): n1 - C7 - n2 - R1 (1ohm) - n3 - L9 (1H) - 0. Middle branch: n1 - I-DC 5 (2A, arrow points right) - n4 - V-DC 0 (10V, '+' plate on the LEFT) - 0. Third branch: n1 - L6 (1H) - n5 - C8 (1F) - n6 - R2 (1ohm) - 0. Bottom branch: n1 - R4 (10ohm) - 0. Judgment calls: (a) the GND stem at x~315 sits on the bottom wire BETWEEN resistor 4 and the right rail, not between the left rail and resistor 4 - confirmed at 6x - so '0' is the right rail, not the left; (b) all 2-terminal parts are indexed left-lead = 0, right-lead = 1 as drawn (order does not affect any metric); the V-DC '+' is on the left (index 0 = n4) and the I-DC arrow points right; (c) no components lie outside the 512x512 crop - every bbox centre is inside the frame and the four long straight lines running off the frame corners are notebook/page rulings, not circuit wire (they never touch the schematic); (d) the bootstrap's non-null nets were almost entirely wrong (it had inductor 6 and capacitor 8 touching '0' and left the whole left rail unlabelled) and were re-derived from the drawing.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        521.2,
+        483.4,
+        115.1,
+        92.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        433.3,
+        385.3,
+        107.3,
+        37.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        588.2,
+        580.4,
+        105.6,
+        41.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        659.9,
+        697.2,
+        67.8,
+        51.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        394.1,
+        677.4,
+        132.3,
+        38.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-DC",
+      "bbox": [
+        351.6,
+        497.3,
+        111.7,
+        106.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        338.0,
+        614.3,
+        112.3,
+        52.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        299.4,
+        395.6,
+        85.1,
+        71.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Capacitor",
+      "bbox": [
+        465.3,
+        601.5,
+        85.6,
+        73.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        601.2,
+        366.7,
+        147.3,
+        49.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

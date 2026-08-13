@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "image": "circuit_312.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Two-loop DC/transient textbook mesh, all right angles, no wire crossings anywhere in the drawing. Net map: 0 = bottom node, reached by the GND symbol 7 at (205,400); it is the bottom lead of Resistor 8 (lower 10R) at (208,366), the horizontal running right from there to the left terminal of I-DC 2 (10A, arrow points right), and the ground stub itself. n1 = mid-left node: the horizontal at y~253 from the bottom lead of V-DC 3 (40V) at x~83, right through the 4-way junction at (212,255) to the left lead of Inductor 1 (5H); the junction at (212,255) is a clean thickened 4-way crossing (verified at 7x) joining the bottom of Resistor 6, the top of Resistor 8, the V-DC 3 return rail and the 5H inductor. n2 = top-left rail at y~127: top lead of V-DC 3 (+ mark up) -> right to the T junction at (213,131) where the top lead of Resistor 6 (upper 10R) joins -> on to the left plate of Capacitor 4 (0.5F) at x~307. n3 = top-right rail: right plate of Capacitor 4 at x~313 -> right to the corner at (458,143) -> down to the top of Inductor 5 (1H). n4 = short node between the right end of Inductor 1 (5H) at x~290 and the left (+) terminal of V-DC 0 (100V blob) at x~340. n5 = right node: right terminal of V-DC 0 -> right to the T junction at (450,263), where the bottom lead of Inductor 5 arrives from above and a wire leaves downward, running down the right side to the corner at (430,380) and then left to the right terminal of I-DC 2. Judgment calls: (a) all four wire meetings in this drawing are T/4-way junctions with visibly thickened ink (checked at 6-7x at (213,131), (212,255), (450,263), (430,380)); there is no X crossing and no hop anywhere, so no crossing/junction ambiguity exists. (b) Component 9 is annotated 'Capacitor' with bbox (204.9,407.5,55.9,34.6), which is the SAME object as GND 7 at (204.7,407.5,55.4,33.8) \u2014 at 7x the ink there is unmistakably a three-bar ground symbol (long bar y~399, shorter y~405, shortest y~410) hanging off the bottom of the x~208 column, and there is no capacitor drawn anywhere near it. The inventory was left untouched per protocol (no delete, no re-class); both terminals of 9 are placed on '0' because that is the only node the symbol touches. This produces the benign simcheck warning 'id 9 (Capacitor) has both terminals on net 0 \u2014 shorted out, carries no current'. A human should decide whether component 9 is a duplicate COCO box that ought to be dropped. (c) Capacitor 4 (0.5F) is the only element in the top rail, so at DC the top-right node n3 reaches ground only through Inductor 5 -> n5 -> V-DC 0 -> n4 -> Inductor 1 -> n1 -> Resistor 8; that path exists, so there is no floating node. (d) Voltage-source/inductor graph is a tree (n2-n1 via V-DC 3, n1-n4 via L1, n4-n5 via V-DC 0, n5-n3 via L5), no source/inductor loop. (e) Two-terminal orders are as drawn (left-then-right for horizontal parts, top-then-bottom for vertical parts); order does not affect any metric. V-DC 3 index 0 is its + (top) lead, V-DC 0 index 0 is its + (left) lead, I-DC 2 index 0 is the left (ground-side) lead with the arrow pointing toward index 1.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        738.8,
+        503.3,
+        138.8,
+        107.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        524.4,
+        498.3,
+        119.4,
+        53.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        606.0,
+        717.4,
+        107.2,
+        87.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        180.9,
+        370.6,
+        109.6,
+        105.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        613.5,
+        262.9,
+        72.7,
+        61.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        899.6,
+        355.7,
+        65.0,
+        109.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        424.8,
+        346.9,
+        68.2,
+        107.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        430.7,
+        799.4,
+        105.4,
+        61.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Resistor",
+      "bbox": [
+        429.4,
+        613.5,
+        59.0,
+        91.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Capacitor",
+      "bbox": [
+        431.0,
+        799.4,
+        106.1,
+        62.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

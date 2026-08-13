@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1145.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Rectangular loop: left rail (vertical at x~152 at the top drifting to x~163 by y~220 and x~160 at the bottom), right rail (x~388), a top rung at y~30-45 carrying resistor 1 '4 kohm', a middle rung at y~202-220 carrying inductor 4 '5 mH', and a plain bottom rail at y~425 joining the two rails. The right rail carries capacitor 0 '5 uF' (horizontal plates at y~95 and y~110) between the top rung and the middle rung, and resistor 5 '4 kohm' (y~225-315) between the middle rung and the bottom rail. GND 3 sits at x~110 on the left extension of the middle rung. I-AC 2 is annotated OUTSIDE the frame (bbox centre (260,-122), i.e. above the image).\n\nNet map: '0' = the ground node - GND 3, the entire left rail, the left lead of resistor 1 (its rung dead-ends on the rail at (153,45)), the left lead of inductor 4, the bottom rail and hence the bottom lead of resistor 5, and the left terminal of the off-frame I-AC 2.  n1 = the right rail above capacitor 0: right lead of resistor 1 (T-junction at (389,30)), top plate of capacitor 0, and the right terminal of I-AC 2 reached off the top of the frame.  n2 = the right rail between capacitor 0 and resistor 5: bottom plate of capacitor 0, right lead of inductor 4 (T-junction at (389,203), verified at 18x - the rung dead-ends there while the rail runs on), and the top of resistor 5.\n\nJudgment calls: (a) the one real four-way crossing in the drawing is the middle rung over the left rail at (163,219). There is no hop bump and no gap; there IS extra ink at the crossing (about +9 dark px over what two crossing strokes of this width would give, measured in a 29x29 window; a plain stretch of the same rung measures 0 and the unmistakable junction dot in the the twin layout of circuit 1135 measures +20), so the mark is a small, sloppily drawn junction dot. Circuit sense agrees and is decisive: read as a crossover, GND 3 and the left lead of inductor 4 would form a dead-end 2-terminal node with no return path, the inductor would carry no current and the ground symbol would reference nothing, while the big left rail would be unreferenced. Read as a junction the circuit is clean (I-AC 2 in parallel with resistor 1 driving capacitor 0 into the inductor 4 / resistor 5 pair). I took it as a JUNCTION - this is the single call a human should re-check.  (b) I-AC 2 cannot be traced because its symbol is outside the 512x512 crop; both rails run off the top edge (both end at y~8 without terminating) and its bbox (x 231-289) lies horizontally between them, so it bridges the rails across the top: left terminal -> left rail = '0', right terminal -> right rail above capacitor 0 = n1. Worth confirming against the uncropped sheet.  (c) The two isolated full-height verticals at x~10 and x~497 belong to neighbouring circuits on the sheet; nothing in this circuit touches them and no annotated component lies on them.  (d) Terminal order: resistor 1 and inductor 4 left-then-right, capacitor 0 top-then-bottom, resistor 5 top-then-bottom, I-AC 2 left-then-right; order does not affect any metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        364.1,
+        378.9,
+        46.0,
+        38.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        295.4,
+        492.6,
+        37.3,
+        100.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-AC",
+      "bbox": [
+        143.2,
+        502.4,
+        61.4,
+        56.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        475.0,
+        656.3,
+        81.9,
+        43.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        468.5,
+        486.9,
+        39.2,
+        68.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        527.0,
+        378.4,
+        101.3,
+        35.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

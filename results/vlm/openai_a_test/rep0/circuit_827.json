@@ -1,0 +1,194 @@
+{
+ "components": [
+  {
+   "bbox": [
+    116,
+    361,
+    55,
+    82
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    108,
+    548,
+    44,
+    70
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    254,
+    639,
+    42,
+    58
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n4",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    249,
+    340,
+    55,
+    75
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n3",
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    410,
+    339,
+    58,
+    78
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n3",
+    "n4",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    412,
+    621,
+    55,
+    80
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n2",
+    "n4",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    553,
+    289,
+    59,
+    48
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    689,
+    314,
+    58,
+    28
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    537,
+    528,
+    86,
+    35
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    693,
+    445,
+    63,
+    82
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n6",
+    "n3",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    689,
+    577,
+    61,
+    84
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n7",
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    807,
+    626,
+    43,
+    75
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n7",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    920,
+    617,
+    44,
+    90
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n6",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    559,
+    724,
+    57,
+    34
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 6597
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

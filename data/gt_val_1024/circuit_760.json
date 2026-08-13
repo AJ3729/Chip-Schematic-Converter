@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "image": "circuit_760.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: 0 = left vertical rail (the slanted line running from the top edge at (100,36) down through the GND-1 T-junction at (114,127) to the corner at (152,428) and then along the bottom horizontal to the left plate of capacitor 3); it carries GND 1, the left lead of resistor 0, the left lead of inductor 2, the left plate of capacitor 3 and one terminal of the off-frame V-AC 4. n1 = right vertical rail (from the top edge at (346,36) down past the resistor tap at (350,103) and the inductor tap at (367,239) to the bottom-right corner at (~372,~440)); it carries the right lead of resistor 0, the right lead of inductor 2, the right plate of capacitor 3 and the other terminal of V-AC 4. Circuit is a source driving a parallel R(240ohm)-L(5mH)-C bank, left side grounded. Judgment calls: (a) V-AC 4 is OFF-FRAME - its bbox centre is (216.6,-38.0), i.e. entirely above the top edge, so the symbol is not in the image. The only two open wire ends in the drawing are the tops of the two rails at (100,36) and (346,36); the V-AC bbox spans x=184..250, whose centre (217) sits almost exactly midway between those two x values (midpoint 223), so V-AC 4 is read as bridging the two rails at the top. That is also the only reading that leaves no dangling terminal and gives the parallel RLC bank a source. Terminal 0 assigned to the grounded (left) rail, terminal 1 to the right rail; 2-terminal order does not affect any metric. (b) The junction where the GND lead, the left rail and the resistor's left lead meet at (114,127) is a solid inked T/dot at 7x, so all three are one net -> that whole rail is \"0\". (c) Inductor 2's left lead makes a clean T on the left rail at (137,272) (verified at 7x). (d) Capacitor 3 is drawn with vertical plates at x~279 (left) and x~289 (right); the left plate's lead runs left to the bottom of the left rail, the right plate's lead runs right and then up the right rail (verified at 5x). (e) The two long slanted lines at the far left (x~7..67) and far right (x~442..505) run the full height of the image and touch no symbol or lead - they are page/margin rulings from the notebook, not wires, and were ignored. No components were added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        346.8,
+        518.0,
+        44.7,
+        94.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "GND",
+      "bbox": [
+        355.8,
+        685.7,
+        94.4,
+        43.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        513.3,
+        521.9,
+        39.6,
+        93.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        693.6,
+        504.2,
+        51.4,
+        58.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-AC",
+      "bbox": [
+        186.3,
+        510.7,
+        59.8,
+        65.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

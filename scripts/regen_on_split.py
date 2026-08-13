@@ -95,10 +95,20 @@ def fill_cache(cfg: dict, split: str, tmp: Path) -> None:
 
 
 def run_arm(label: str, src: Path, split: str, out_root: Path,
-            stems: list[str], tmp: Path, fill: bool, no_spice: bool) -> dict | None:
+            stems: list[str], tmp: Path, fill: bool, no_spice: bool,
+            detector: tuple[str, str] | None = None) -> dict | None:
     cfg = config_of(src)
     if label in SEED_WEIGHTS:
         cfg["detect"]["weights"] = str(ROOT / SEED_WEIGHTS[label])
+    if detector is not None:
+        # Pin EVERY arm to one detector. Without this the ablation confounds
+        # two things: the pipeline stage being added, and whatever detector
+        # that arm's historical snapshot happened to record. Pinning makes it
+        # a pipeline-stage ablation on a fixed front end, which is what the
+        # cumulative table claims to be.
+        w, cache = detector
+        cfg["detect"]["weights"] = str(ROOT / w)
+        cfg["detect"]["cache_dir"] = cache
     have, cache = cache_covers(cfg, stems)
     if have < len(stems):
         if not fill:
@@ -137,7 +147,23 @@ def main() -> None:
     ap.add_argument("--fill-caches", action="store_true",
                     help="run detection for arms whose cache is short")
     ap.add_argument("--no-spice", action="store_true")
+    ap.add_argument("--pin-detector", metavar="WEIGHTS:CACHE_DIR", default=None,
+                    help="force every arm onto one detector, e.g. "
+                         "'experiments/train_valstop/runs/yolov8s_640_seed0/"
+                         "weights/best.pt:data/detections_valstop'. Makes the "
+                         "ablation a pipeline-stage ablation on a fixed front "
+                         "end; without it each arm keeps its snapshot's detector")
     args = ap.parse_args()
+
+    detector = None
+    if args.pin_detector:
+        w, _, cache = args.pin_detector.rpartition(":")
+        if not w or not cache:
+            raise SystemExit("--pin-detector must be WEIGHTS:CACHE_DIR")
+        if not (ROOT / w).exists():
+            raise SystemExit(f"weights not found: {w}")
+        detector = (w, cache)
+        print(f"pinning every arm to {w}\n  cache {cache}\n")
 
     stems = load_stems(args.split)
     out_root = Path(args.out or f"results/paper_{args.split}")
@@ -155,7 +181,8 @@ def main() -> None:
             done[group] = [
                 r for label, src in arms
                 if (r := run_arm(label, ROOT / src, args.split, out_root / group,
-                                 stems, tmp, args.fill_caches, args.no_spice))
+                                 stems, tmp, args.fill_caches, args.no_spice,
+                                 detector))
             ]
             print()
 
@@ -164,6 +191,11 @@ def main() -> None:
         "gt_dir": GT_DIRS[args.split],
         "note": ("Each arm replays a historical run's frozen config snapshot "
                  "against this split; see scripts/regen_on_split.py."),
+        "pinned_detector": (
+            {"weights": detector[0], "cache_dir": detector[1],
+             "why": "every arm forced onto one detector so the cumulative table "
+                    "measures pipeline stages, not detector drift"}
+            if detector else None),
         "arms": {g: [{k: v for k, v in r.items() if k != "config"} for r in rs]
                  for g, rs in done.items()},
     }, indent=1) + "\n")

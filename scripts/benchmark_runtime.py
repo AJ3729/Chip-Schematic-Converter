@@ -1,5 +1,24 @@
 #!/usr/bin/env python3
-"""Per-stage runtime benchmark (Week-3 MSP: runtime/cost).
+"""DEPRECATED -- do not quote its output. Use scripts/measure_runtime.py.
+
+This script cannot answer the question it appears to answer, for two reasons
+documented at the top of scripts/measure_runtime.py:
+
+1. ``--time-detector`` is a NO-OP. It calls ``detect()``, which returns the
+   per-image cache whenever one exists; every evaluated image is cached, so the
+   flag times a JSON read and reports it as detector inference.
+2. Its stage list is NOT the pipeline. ``time_image`` re-implements a subset of
+   ``run_pipeline`` and omits the component class head and connectivity repair,
+   both ENABLED in the shipped config -- and the class head is the largest
+   downstream stage.
+
+Numbers from this script were the source of a retired "~46 ms per image"
+headline and a "stitch is 54% of runtime" claim that does not replicate. It is
+retained only so those retractions stay reproducible.
+
+Original docstring follows.
+---------------------------------------------------------------------------
+Per-stage runtime benchmark (Week-3 MSP: runtime/cost).
 
 Times each pipeline stage separately on the test split so the paper can
 report where the wall clock goes and compare against published

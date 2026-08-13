@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "bbox": [
+    106,
+    288,
+    69,
+    78
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    108,
+    533,
+    67,
+    84
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    402,
+    243,
+    55,
+    46
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n7",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    392,
+    334,
+    44,
+    52
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n7",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    390,
+    462,
+    45,
+    50
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n3",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    392,
+    707,
+    43,
+    131
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    650,
+    390,
+    73,
+    70
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n2",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    748,
+    498,
+    56,
+    53
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n3",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    746,
+    691,
+    51,
+    58
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    899,
+    684,
+    43,
+    131
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    898,
+    773,
+    51,
+    40
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    530,
+    810,
+    58,
+    39
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n4",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    105,
+    690,
+    57,
+    52
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n3",
+    "n8"
+   ]
+  },
+  {
+   "bbox": [
+    106,
+    770,
+    54,
+    57
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n4",
+    "n8"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 3480
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

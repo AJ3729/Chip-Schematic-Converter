@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_524.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is rotated ~20 deg clockwise; coordinates below are image coordinates, and 'left/right/top/bottom' are relative to the drawing's own tilted axes. Everything is inside the frame - a border scan finds ink only where the handwritten labels '30v' (top, x150-157) and '10V' (bottom, x362-368) touch the edge; no wire leaves the frame and no component bbox centre is outside it. Skeleton: an outer loop made of the left rail (corner (54,127) down through (104,269) to the bottom-left corner (181,469)), the top rail ((54,127) up-right through V-DC 2 '30V' to the corner (250,62)), the middle branch ((250,62) down through Resistor 4 '10 ohm' to (297,179), on to the T at (279,205)), the right rail ((297,179) -> corner (346,164) -> down through Inductor 5 '2H' and Capacitor 6 '10uF' -> corner (433,384)) and the bottom rail ((433,384) left through V-DC 0 '10V' to (181,469)). A cross bar runs from GND 7 through the 4-way at (104,269) on the left rail, through I-DC 1 '10A', to the T at (279,205) on the middle branch; and a smaller loop hangs below that cross bar - down from the T at (157,252), along the bottom through Resistor 3 '3 ohm', and back up to the T at (279,205) via the corner (306,280) - so Resistor 3 sits in PARALLEL with the 10A source. Net map: 0 = the left rail in its entirety plus GND 7, the left part of the cross bar (from the GND stem, through the 4-way at (104,269), to the left lead of I-DC 1), the left side of the small loop (T at (157,252) down to the left lead of Resistor 3), the top rail from the corner (54,127) to the '-' lead of V-DC 2, and the bottom rail from the corner (181,469) to the '-' lead of V-DC 0. Terminals: GND 7, V-DC 2 '-', I-DC 1 left, Resistor 3 left, V-DC 0 '-'. n1 = top rail from the '+' lead of V-DC 2 to the corner (250,62) and down to the top of Resistor 4 (terminals: V-DC 2 '+', Resistor 4 top). n2 = everything from the bottom of Resistor 4 down the middle branch to the 3-way at (279,205), plus the right lead of I-DC 1, plus the right side of the small loop (corner (306,280) up to that same 3-way, and down to the right lead of Resistor 3), plus the spur that leaves the middle branch at (297,179) and runs via the corner (346,164) down the right rail to the top of Inductor 5 (terminals: Resistor 4 bottom, I-DC 1 right, Resistor 3 right, Inductor 5 top). n3 = right rail between Inductor 5 and Capacitor 6 (terminals: Inductor 5 bottom, Capacitor 6 top). n4 = right rail below Capacitor 6, round the corner at (433,384) and left along the bottom rail to the '+' lead of V-DC 0 (terminals: Capacitor 6 bottom, V-DC 0 '+'). Judgment calls: (a) The intersection at (104,269) is a genuine 4-way JUNCTION - at 8x four distinct arms meet at one point (left rail from above, left rail continuing below, the GND stem arriving from the left, the cross bar leaving to the upper right) and the GND stem visibly terminates there, so it cannot be a crossover; this is what makes the whole left rail the ground net. (b) There are NO ambiguous crossings anywhere else in this drawing: every other intersection resolves at 8x into a clean corner or a 3-arm T - (250,62) corner, (54,127) corner, (157,252) T (small loop taps the cross bar), (279,205) T (middle branch, cross bar and small-loop right side meet), (297,179) T (right-rail spur leaves the middle branch), (346,164) corner, (306,280) corner, (181,469) corner, (433,384) corner. No wire hops and no dotted crossovers are drawn. (c) Resistor 3 is in parallel with I-DC 1, not in series: the small loop taps the cross bar at (157,252), which is on the ground side of the current source, and rejoins at (279,205), which is on the far side of it. (d) Both V-DC symbols are circles containing a tilted '-' on the left and a '+' on the right (checked at 5x), so for each one index 0 = the '-' lead (the left one, on net 0) and index 1 = the '+' lead. 2-terminal order does not affect any metric. (e) I-DC 1's arrow points up-and-right in the image, i.e. from net 0 toward n2; index 0 = left lead, index 1 = right lead. (f) Resistors 3 and 4, Inductor 5 and Capacitor 6 are indexed with index 0 = the lead nearer the top/left of the drawing. (g) The bootstrap's non-null values were largely wrong (I-DC 1 had both terminals on '0', which would short the source; Resistor 3 index 1 was on '0'; Inductor 5 index 1 was on a net 'n1' that does not exist in this partition); all were re-derived from the drawing.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        833.1,
+        448.7,
+        115.7,
+        127.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        453.6,
+        479.6,
+        109.2,
+        112.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-DC",
+      "bbox": [
+        189.0,
+        483.7,
+        145.9,
+        135.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        589.5,
+        504.2,
+        71.4,
+        101.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        340.0,
+        353.2,
+        108.1,
+        51.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        589.9,
+        253.7,
+        99.9,
+        52.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        737.0,
+        254.6,
+        70.5,
+        71.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        453.4,
+        818.4,
+        107.9,
+        70.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

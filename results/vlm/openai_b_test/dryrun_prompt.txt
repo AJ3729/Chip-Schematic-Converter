@@ -1,0 +1,29 @@
+MODEL: gpt-5.5-2026-04-23
+
+SYSTEM:
+You are an expert at reading hand-drawn circuit schematics. You trace conductors carefully and you know the standard notations: a junction dot or a plain T-intersection means two wires CONNECT; a semicircular hop (one wire bulging over another) means they do NOT connect. Different people draw differently — some mark every non-connection with a hop, others draw bare crossings and rely on the reader's circuit knowledge. Read what is actually on the page.
+
+============================================================
+USER:
+This is a hand-drawn circuit schematic. Every component has already been located for you and is outlined in the image with its ID number. Your ONLY job is to determine the electrical connectivity.
+
+An electrical NET is a maximal set of terminals joined by conductor. Two terminals joined by any unbroken conductive path share one net. A crossing WITHOUT a junction — especially one drawn as a hop — does NOT join nets.
+
+Components in this image:
+  id 0: V-AC — 2 terminal(s), in order: terminal 0, terminal 1
+  id 1: GND — 1 terminal(s), in order: terminal 0
+  id 2: Capacitor — 2 terminal(s), in order: terminal 0, terminal 1
+  id 3: Resistor — 2 terminal(s), in order: terminal 0, terminal 1
+  id 4: Resistor — 2 terminal(s), in order: terminal 0, terminal 1
+  id 5: Inductor — 2 terminal(s), in order: terminal 0, terminal 1
+
+For each component, give the net of each of its terminals, in the listed terminal order.
+
+Rules:
+- Net names are arbitrary labels ('n1', 'n2', ...). Only the GROUPING matters, not the names.
+- The net that a GND symbol touches MUST be named exactly "0". If there is no GND symbol, no net is named "0".
+- Two terminals get the same net name if and only if a conductor joins them.
+- Return exactly the terminal count listed for each component, in that order.
+- Every component in the list must appear in your answer, even if you are unsure.
+
+Trace each conductor from end to end before answering. Where wires cross, decide deliberately whether the drawing joins them.

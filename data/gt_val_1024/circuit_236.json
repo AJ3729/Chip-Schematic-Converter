@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_236.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Upright drawing (text readable), all 7 components inside the frame, no off-frame parts. Three horizontal branches spanned between a grounded left node and a common right rail. Net map: 0 = GND 6 (drawn rotated, its bars vertical at x~24 and x~43 with the lead running right) -> horizontal at y~224 -> T at (64,224) where the left vertical rises to the top-left corner (59,52) and runs right into the left end of resistor 1 -> and the same horizontal continues right to the left terminal of V-DC 3. n3 = short top-horizontal segment between the right end of resistor 1 (x~285) and the left end of inductor 0 (x~300); 2 terminals only. n2 = the right rail at x~425, a single unbranched vertical from the top-right corner (425,43) down to the bottom-right corner (426,411); it collects the right end of inductor 0 (top horizontal), the right end of resistor 2 via the T at (425,222), and the right end of resistor 4 (bottom horizontal). n1 = the node right of V-DC 3: middle horizontal from the source to the left end of resistor 2, with a T at (192,223) dropping a vertical to the bottom-left corner (197,415) and then right to the left plate of capacitor 5. n4 = short bottom-horizontal segment between the right plate of capacitor 5 (x~274) and the left end of resistor 4 (x~308); 2 terminals only. Judgment calls: (a) all four multi-way meetings - (64,224), (192,223), (425,222) and the two corners - were checked at 8-10x and every one is a T/corner with a thickened junction blob; there are no X crossings and no hops anywhere in this drawing, so there is nothing to disambiguate; (b) the vertical stroke at x~43 that appears to cross the y~224 horizontal is the long bar of the rotated GND symbol, not a wire crossing - the ground lead terminates on it; (c) capacitor 5 is drawn with vertical plates at x~254 and x~274 so its terminals are left/right, not top/bottom; (d) V-DC 3 is marked - on the left and + on the right, so index 0 (left) is the grounded terminal and index 1 (right) is n1; (e) 2-terminal order is left-then-right as drawn throughout and does not affect any metric; (f) the dead-straight full-height verticals at x~10 and x~500 are page rules from the scan, not wires. Resulting topology: V-DC 3 from 0 to n1; branch 1 (top): 0 -R1- n3 -L0- n2; branch 2 (middle): n1 -R2- n2; branch 3 (bottom): n1 -C5- n4 -R4- n2.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        309.3,
+        424.7,
+        66.4,
+        119.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        322.1,
+        528.9,
+        63.1,
+        99.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        481.2,
+        450.8,
+        50.9,
+        114.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        479.0,
+        624.8,
+        84.2,
+        82.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        653.0,
+        419.7,
+        57.5,
+        89.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        658.6,
+        503.4,
+        79.7,
+        61.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        482.8,
+        714.6,
+        103.0,
+        40.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

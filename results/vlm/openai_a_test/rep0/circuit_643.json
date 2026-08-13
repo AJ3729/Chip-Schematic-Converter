@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "bbox": [
+    132,
+    219,
+    68,
+    68
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    284,
+    219,
+    82,
+    82
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    468,
+    220,
+    70,
+    70
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    686,
+    218,
+    70,
+    70
+   ],
+   "class": "I-DC",
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    833,
+    218,
+    68,
+    68
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    109,
+    652,
+    88,
+    46
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    228,
+    731,
+    38,
+    78
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    287,
+    524,
+    48,
+    102
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    459,
+    642,
+    38,
+    80
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    501,
+    513,
+    48,
+    92
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    656,
+    501,
+    98,
+    50
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    650,
+    615,
+    42,
+    76
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n1",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    810,
+    612,
+    46,
+    76
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    911,
+    535,
+    58,
+    58
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 11240
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_383.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Simple 4-node ladder, all 8 components in-frame. Net map: 0 = the bottom rail, one unbroken run (verified at 6x) from the left corner at (73,329) rising slightly to the right through the I-DC 1 tap at (193,314), the GND 3 stem at (262,310), the V-DC 0 tap at (289,306) and ending at (402,301) under Capacitor 2 -- so the lower leads of Inductor 4, I-DC 1, V-DC 0 and Capacitor 2 all sit on ground; n1 = left corner (68,195): left end of Resistor 5 (1 ohm) and the upper lead of Inductor 4 (1 H); n2 = T at (192,196): right end of Resistor 5, left end of Resistor 6 (2 ohm), upper lead of I-DC 1 (1 A, arrow up); n3 = T at (285,198): right end of Resistor 6, left end of Resistor 7 (3 ohm), upper (+) lead of V-DC 0 (1 V); n4 = right corner (399,197): right end of Resistor 7 and the upper plate of Capacitor 2 (1 F). Judgment calls: (a) the top-rail segment between Resistor 5 and the node at (192,196) is drawn with very light pressure and comes out dashed after binarisation; at 10x it is clearly one continuous wire run (three collinear dashes on the rail line, no hop and no gap in the surrounding geometry), so R5's right end and the I-DC/R6 node are the same net; (b) all four vertical branches meet the top and bottom rails as plain T-junctions -- there is not a single crossover in this drawing; (c) the GND 3 bars hang off a short stub dropping from the bottom rail at (262,310), which makes the whole bottom rail net '0'; (d) the long straight lines at the far left (x~5, y 145..365), across the top (y~140, x 120..505) and across the bottom (y~368) are page-border / ruled lines -- they touch no symbol and are ignored; (e) 2-terminal index order is index0 = left (horizontal parts) or top (vertical parts) as drawn; V-DC 0 index0 is its '+' (upper) lead and I-DC 1 index0 is the arrow-head (upper) lead. Order affects no metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        572.2,
+        509.0,
+        97.7,
+        105.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        381.9,
+        507.2,
+        94.4,
+        95.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        801.3,
+        494.5,
+        84.1,
+        64.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        517.7,
+        672.0,
+        129.6,
+        59.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        148.8,
+        512.6,
+        66.6,
+        119.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        244.7,
+        397.8,
+        112.0,
+        54.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        476.7,
+        394.5,
+        107.6,
+        56.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        679.8,
+        391.7,
+        131.9,
+        53.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "image": "circuit_795.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Clean two-rail ladder, everything inside the frame. Net map: n1 = the top rail at y~192, continuous from the V-DC 0 top lead at (143,192) right through the inductor-4 tap (210,192), the capacitor-5 tap (284,192) and the I-DC 1 top lead (359,192) to the left lead of resistor 6 (~385,193). 0 = the bottom rail at y~309, continuous from the V-DC 0 bottom lead (134,309) right through the resistor-3 tap (199,309), the capacitor-5 bottom tap (280,309), the GND-2 drop at (316,310) and the I-DC 1 bottom lead (359,308) to the left lead of inductor 7 (~387,307); GND 2 is on it, so it is 0. n2 = short link from the right lead of resistor 6 (418,198) along y~199 to (462,199) and down to the top plate of capacitor 8 at (462,247). n3 = from the bottom plate of capacitor 8 (462,256) down to (461,305) and left along y~306 to the right lead of inductor 7 (422,307). n4 = the mid-point of the left vertical branch, between the bottom lead of inductor 4 (207,267) and the top of resistor 3; nothing else touches it (checked at 10x). Judgment calls: (a) the top rail has a faint, nearly-dry pen stretch between x=264 and x=275 (dashes at 14x). It is one continuous drawn rail - the segments are collinear, the same weight, and there is no symbol there - so it was treated as one net, not a break. (b) Inductor 4 (1H) and resistor 3 (1k) are in series in one vertical branch, giving n4 its two terminals. (c) Capacitor 8 (1F) is in series in the right-hand vertical, so it separates n2 from n3 (verified at 6x); resistor 6 (1k) is in series in the top rail and inductor 7 (1H) in the bottom rail, forming a right-hand loop n1-R6-n2-C8-n3-L7-0. (d) V-DC 0 terminal 0 = top (the '+' side, on n1), terminal 1 = bottom; I-DC 1 terminal 0 = top (arrow points up), terminal 1 = bottom; 2-terminal order affects no metric. (e) The four long slanted strokes at the far left, far right, upper right and lower left are notebook page rulings that touch no symbol; ignored. No components were added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        276.8,
+        520.4,
+        100.3,
+        101.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        713.7,
+        488.7,
+        84.2,
+        90.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "GND",
+      "bbox": [
+        639.0,
+        656.6,
+        120.0,
+        61.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        407.5,
+        569.1,
+        60.2,
+        88.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        417.3,
+        458.6,
+        58.9,
+        99.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        561.8,
+        477.9,
+        92.9,
+        64.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        794.4,
+        364.6,
+        118.1,
+        47.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        819.2,
+        581.1,
+        131.2,
+        55.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Capacitor",
+      "bbox": [
+        919.9,
+        465.1,
+        80.0,
+        77.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

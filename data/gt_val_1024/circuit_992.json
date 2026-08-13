@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_992.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is a rotated (90-deg) page and the crop is tight: two wires leave the top edge (x=145 and x=389) and two leave the bottom edge (x=168 and x=399); nothing leaves the left or right edges (checked pixel-wise on rows 0-2 and 509-511 and columns 0-1, 510-511).\nNet map: 0 = the whole left-hand vertical wire plus everything hanging off it - GND 6 (drawn rotated, bars at x~105-120, lead running right at y~345), the left end of Resistor 2 (5k) via the T at (150,122), the left plate of Capacitor 4 via the junction dot at (157,345), and the two off-frame ends (up the left vertical to V-DC 3, down the left vertical to Inductor 5). n1 = right vertical between the bottom of Resistor 0 (top-right, cut by the crop) and the top of Resistor 1 (2k), joined by the T at (390,122) to the right end of Resistor 2. n2 = right vertical below Resistor 1: bottom of Resistor 1 -> T at (390,332) with the right plate of Capacitor 4 -> continues off the bottom edge at x=399 to Inductor 5. n3 = top lead of Resistor 0 off the top edge at x=389 to one terminal of V-DC 3. Resulting circuit: V-DC in series with Resistor 0 feeding node n1, Resistor 2 (5k) from n1 to ground, Resistor 1 (2k) from n1 to n2, and Capacitor 4 (5 mH label sits under the inductor; cap is the 4 uF part) in parallel with Inductor 5 from n2 to ground - a source-fed divider into a parallel LC, which is coherent.\nOFF-FRAME COMPONENTS (not visible in the image at all):\n - V-DC 3, bbox centre (248.2,-113.7), i.e. above the top edge spanning x~217-280. It is the only component that can close the top of the loop, and the only two wires crossing the top edge are the left vertical (x=145, net 0) and the Resistor 0 lead (x=389, net n3). Inferred: terminal 0 = the lead facing left -> net 0, terminal 1 = the lead facing right -> n3. The +/- orientation is unknowable from the crop; 2-terminal order is not metric-relevant.\n - Inductor 5, bbox centre (253.1,548.8), below the bottom edge spanning x~208-298. The only two wires crossing the bottom edge are the left vertical (x=168, net 0) and the right vertical (x=399, net n2), and the inductor sits between them. Inferred: terminal 0 = left -> net 0, terminal 1 = right -> n2. Neither is marked unconnected: they are cut off by the crop, not dangling.\n - Resistor 0 is only partially visible (bbox y -11.6..91.2): its zigzag body is in frame, its top lead is not. Top terminal = n3 (to V-DC), bottom terminal = n1.\nJudgment calls: (a) the horizontal at y~345 CROSSES the left vertical rather than ending on it, but there is an unmistakable junction blob at (157,345) at 10x, so GND / left vertical / capacitor left plate are one node - this is what makes the whole left rail net 0; (b) both right-hand meetings, (390,122) and (390,332), are plain Ts (the horizontal ends on the vertical), so they are junctions; (c) two-terminal order: verticals listed top-then-bottom (Resistors 0 and 1), horizontals left-then-right (Resistor 2, Capacitor 4, and the two off-frame parts).",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        317.8,
+        362.1,
+        92.7,
+        32.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        486.5,
+        358.9,
+        91.6,
+        32.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        386.2,
+        473.3,
+        33.7,
+        76.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        177.9,
+        488.0,
+        49.2,
+        56.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        588.4,
+        462.2,
+        53.7,
+        42.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        777.0,
+        489.0,
+        36.0,
+        81.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        590.4,
+        616.5,
+        70.6,
+        34.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

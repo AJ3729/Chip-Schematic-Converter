@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "image": "circuit_438.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is a hand-drawn LADDER/MESH GRID rotated ~25 deg CW: three 'columns' running down-right (slope dx/dy~0.47) crossed by six 'rows' running up-right (slope dy/dx~-0.46). Every component sits either on a column segment (between two rows) or on a row segment (between two columns), and the 19-component inventory maps onto that grid exactly. Columns: A (left, through cap 7 and inductor 2), B (centre, through cap 17 and inductor 1), C (right, through inductor 0 and cap 16). Rows top->bottom: R1 (I-DC 6 | V-AC 5), R2 (diode 11 | zener 8), R3 (zener 10 | diode 12), R4 (diode 13 | zener 9), R5 (diode 15 | diode 14), R6 (resistor 18, A-B only). NET MAP: 0 = the ground net, formed by two grid nodes that both carry a GND symbol and are therefore one reference: (i) node B1/B2 - top of column B, where GND 3 hangs, joining I-DC 6 right lead, V-AC 5 left lead, diode 11 right lead, zener 8 left lead and cap 17 top plate (column B carries no series element between R1 and R2, so B1 and B2 are one node); and (ii) node A4/A5/A6 - bottom of column A below inductor 2, where GND 4 hangs, joining diode 13 left lead, diode 15 left lead and resistor 18 left lead (no series element on column A between R4, R5 and R6). n1 = node A1, top of column A: cap 7 top plate + I-DC 6 left lead. n2 = node A2/A3: cap 7 bottom plate, diode 11 left lead, zener 10 left lead, inductor 2 top. n3 = node B3/B4, centre of column B: cap 17 bottom plate, zener 10 right lead, diode 12 left lead, diode 13 right lead, zener 9 left lead, inductor 1 top. n4 = node B5/B6, bottom of column B: inductor 1 bottom, diode 15 right lead, diode 14 left lead, resistor 18 right lead. n5 = node C1, top of column C: V-AC 5 right lead + inductor 0 top. n6 = node C2/C3: inductor 0 bottom, zener 8 right lead, diode 12 right lead, cap 16 top plate. n7 = node C4/C5, bottom of column C: cap 16 bottom plate, zener 9 right lead, diode 14 right lead (column C ends at R5 - the ink shows a corner at (508,416), not a T). JUDGMENT CALLS: (a) all four in-frame 4-way crossings lie on column B - (221,165), (276,272), (330,379), (380,481) - and every one was checked at 12x: each shows a clearly thickened filled blob, i.e. a junction dot, not a hop. So each row genuinely ties into column B. (b) the row/column meetings on columns A and C are plain T's or corners (checked at 12x at (96,219), (149,327), (197,439), (350,104), (405,211), (457,317), (508,416)) - junctions. (c) OFF-FRAME COMPONENTS. The visible ink is bounded by roughly y=22 at the top and y=488 at the bottom (all wire ends stop there), so the whole of row R1, all of row R6 and the left half of row R5 are outside the drawn area. Five components were placed from their bbox centres projected into the grid's rotated (u = along-row, v = along-column) coordinates: GND 3 (u=124,v=-9) sits at column B's u just above row R1 -> grounds node B1; V-AC 5 (u=206,v=38) sits exactly on row R1 between column B (u~128) and column C (u~273); I-DC 6 (u=56,v=35) sits on row R1 between column A (u~-3) and column B - its left lead is the only piece of R1 that is actually inked, the short stub running up-right from column A's top corner (8,37) to (40,22); inductor 0 (u=273,v=139) sits on column C between R1 and R2 (its lower lead is the inked line ending at (310,23)); diode 15 (u=70,v=594) sits on row R5 between columns A and B (row R5's left branch is inked from the B5 junction down-left only as far as (364,488), where the drawn area ends); resistor 18 (u=70,v=660) and GND 4 (u=-34,v=657) form row R6 below R5: resistor 18 between columns A and B, GND 4 at column A's bottom end. This is the only reading that leaves no terminal dangling and that uses every component exactly once in the grid; every other pairing strands either the I-DC or the V-AC. (d) Tier-2 note: node n1 (cap 7 top + I-DC 6 left) has no DC path to ground - it is reached only through a capacitor and a current source. That is exactly what the drawing shows (this is an AC problem: uF/uH values, a V-AC source and a 3A source), so it is kept. (e) all components here are 2-terminal, so index order carries no information; index 0 is the upper/left lead as drawn in the rotated frame, index 1 the lower/right lead. (f) no component was added, removed or re-classed; nothing is marked unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        245.5,
+        281.9,
+        76.0,
+        29.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        782.4,
+        450.2,
+        72.0,
+        24.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        623.3,
+        648.0,
+        66.8,
+        32.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        49.7,
+        480.7,
+        55.0,
+        62.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        944.5,
+        695.0,
+        65.1,
+        40.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-AC",
+      "bbox": [
+        111.5,
+        370.8,
+        52.7,
+        62.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "I-DC",
+      "bbox": [
+        110.3,
+        572.3,
+        47.8,
+        57.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        238.3,
+        659.3,
+        44.7,
+        46.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Zener Diode",
+      "bbox": [
+        387.5,
+        377.8,
+        54.6,
+        50.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Zener Diode",
+      "bbox": [
+        704.2,
+        357.5,
+        59.4,
+        49.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Zener Diode",
+      "bbox": [
+        545.7,
+        554.3,
+        48.6,
+        38.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Diode",
+      "bbox": [
+        384.6,
+        562.6,
+        48.9,
+        38.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Diode",
+      "bbox": [
+        547.9,
+        334.7,
+        44.3,
+        44.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Diode",
+      "bbox": [
+        707.5,
+        546.0,
+        42.0,
+        44.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Diode",
+      "bbox": [
+        863.1,
+        346.8,
+        50.3,
+        45.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "Diode",
+      "bbox": [
+        858.1,
+        555.6,
+        46.3,
+        50.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "Capacitor",
+      "bbox": [
+        634.4,
+        266.1,
+        35.2,
+        35.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "Capacitor",
+      "bbox": [
+        473.1,
+        464.6,
+        31.8,
+        39.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "class": "Resistor",
+      "bbox": [
+        946.8,
+        555.2,
+        32.9,
+        60.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,178 @@
+{
+ "components": [
+  {
+   "bbox": [
+    52,
+    124,
+    30,
+    98
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    53,
+    268,
+    42,
+    84
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    181,
+    285,
+    38,
+    118
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    181,
+    522,
+    38,
+    70
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    422,
+    508,
+    42,
+    155
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    426,
+    721,
+    48,
+    88
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    676,
+    707,
+    54,
+    138
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    669,
+    894,
+    48,
+    112
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n4",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    824,
+    151,
+    60,
+    66
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    834,
+    302,
+    58,
+    66
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    837,
+    492,
+    58,
+    66
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n3",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    838,
+    687,
+    58,
+    78
+   ],
+   "class": "I-DC",
+   "terminals": [
+    "n3",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    838,
+    879,
+    58,
+    78
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n3",
+    "n3"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 6449
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

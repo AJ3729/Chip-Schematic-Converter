@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1077.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Series-parallel AC network: V-AC 1 -> R 0 (4k) -> node that splits into two series branches, R 3 (4k) + C 4 (0.2uF) and R 5 (2k) + L 6 (5mH), which rejoin at the bottom return node carrying GND 2. Net map: n1 = source lead, the wire leaving the top terminal of R 0 at (365,34) and running off the top edge of the crop to V-AC 1; n2 = upper node of the parallel box, the near-horizontal wire y~186-190 from (326,190) to (424,186), T-joined from above by the lower lead of R 0 at (380,188) and dropping at each end to the top of R 5 (left, x~327) and the top of R 3 (right, x~426); n3 = short vertical link x~435 from the bottom lead of R 3 (y~284) down to the top plate of C 4 (y~327); n4 = short vertical link x~346 from the bottom lead of R 5 (y~300) down to the top lead of L 6 (y~322); 0 = bottom return node = box bottom wire from the L 6 bottom lead (355,401) across to the C 4 bottom plate (440,362), plus the stub that T's off that wire at (407,439) and runs down to the bottom edge of the crop at (411,477), plus the long left-hand line that GND 2 T's into at (192,231) and the second V-AC terminal. Judgment calls: (a) V-AC 1 is NOT visible - its bbox is (201..256, -68..0), entirely above the top of this 512 crop, and the ink in the image starts abruptly at y=34 and stops abruptly at y=477 (four separate strokes end at y=34: x=6, x=163, x=365, x=449; three end at y=477), which is a crop boundary, not four coincidental line ends. So the source and its wiring were cut off and its two terminals had to be inferred from circuit sense. (b) The R 0 top lead is the only conductor leaving the top of the crop anywhere near the V-AC bbox on the right, so it is taken as one source terminal (n1). (c) The GND 2 symbol is wired to the right by a short horizontal run that dead-ends in a clean T on the long left-hand line at (192,231) - verified at 16x, the long line continues above and below the T, so this is a junction, not a crossing. That long line runs the whole height of the crop, (163,34) to (229,477). Since a ground net must return to the source and the box's bottom node also sends a stub off the bottom edge at (411,477), the two off-crop wires are read as meeting below the frame: GND, the box bottom node and the second V-AC terminal are all one net, named 0. (d) The other two full-height lines, x=6->(51,380) on the far left (which dead-ends in mid-air) and x=449->(505,477) on the far right, touch no component and no other wire (separate connected components even after a 3px close), so they are treated as ink from a neighbouring drawing on the same page and are not part of any net. If (c) is wrong the alternative is that the right-hand line carries the return instead of the left-hand one, but the net partition is identical either way. (e) 2-terminal parts are indexed top-then-bottom as drawn; order does not affect any metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        365.8,
+        370.5,
+        100.6,
+        39.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        210.1,
+        502.2,
+        65.8,
+        49.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "GND",
+      "bbox": [
+        475.2,
+        626.9,
+        72.5,
+        41.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        520.9,
+        333.0,
+        77.3,
+        30.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        617.0,
+        332.1,
+        43.8,
+        38.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        529.8,
+        427.7,
+        67.8,
+        31.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        632.2,
+        425.3,
+        74.1,
+        33.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

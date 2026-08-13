@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "image": "circuit_856.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Topology: a 3-rail x 4-rung ladder. Three near-horizontal rails (top y~150-180, middle y~232-258, bottom y~326-333) run left to right; four vertical rungs at x~141 (A), x~233 (B), x~310 (C), x~402 (D) each carry one diode/zener above the middle rail and one below it. The left edge carries V-AC 0 (top rail -> middle rail) and I-DC 1 (middle rail -> bottom rail); the right edge carries Resistor 16 from the middle rail down to GND 12.\n\nNet map: n1 = top-left corner, V-AC 0 top lead + left lead of Inductor 3 (5uH). n2 = top rail between Inductor 3 and Capacitor 15, i.e. inductor 3 right lead + top of rung A (Zener 8) + top of rung B (Diode 5) + left plate of Capacitor 15. n3 = top rail right of Capacitor 15: right plate of 15 + top of rung C (Zener 2) + top of rung D (Diode 7); the rail dead-ends by turning down into rung D at (410,180). n4 = middle rail left of Capacitor 13: V-AC 0 bottom + I-DC 1 top (T-junction at (22,234)) + bottom of Zener 8 + top of Diode 14 (junction dot at (143,243)) + left plate of Capacitor 13. n5 = middle rail between Capacitor 13 and Inductor 9: right plate of 13 + rung B middle (Diode 5 bottom, Zener 4 top; junction dot at (235,262)) + rung C middle (Zener 2 bottom, Diode 6 top; junction dot at (312,268)) + left lead of Inductor 9. n6 = middle rail right of Inductor 9: right lead of 9 + rung D middle (Diode 7 bottom, Diode 11 top; junction dot at (404,258)) + top of Resistor 16, the rail turning down at (462,258). n7 = bottom-left corner: I-DC 1 bottom lead + left plate of Capacitor 17 (3uF). n8 = bottom rail between Capacitor 17 and Inductor 10: right plate of 17 + bottom of Diode 14 (junction at (138,331)) + bottom of Zener 4 (junction at (226,331)) + left lead of Inductor 10. n9 = bottom rail right of Inductor 10: right lead of 10 + bottom of Diode 6 (junction at (305,330)) + bottom of Diode 11, the rail dead-ending by turning up into rung D at (396,330). 0 = ground: bottom of Resistor 16 + GND 12 (the only GND symbol).\n\nJudgment calls: (a) all eight rail/rung crossings were zoomed at 7-8x; every one carries a clearly filled junction dot (rungs A/B/C/D on the middle rail) or a solid T/corner (rungs on the top and bottom rails). There is NOT a single semicircular hop or dotless X anywhere in this drawing, so no crossing was read as an insulated crossover. (b) The middle rail is rendered as a broken/dashed line in several stretches (x~40-140 and x~415-455) - this is binarisation dropout of a faint pencil line, not a gap: the segments are collinear with the rest of the rail and the rail must reach the V-AC/I-DC node on the left and the Resistor 16 corner on the right, so it is traced as one continuous conductor split only by Capacitor 13 and Inductor 9. (c) Component 15 (x=270,y=164, in the top rail) is drawn as two parallel plates = Capacitor, but the drafter's handwritten value beside it reads \"25uH\". The symbol wins over the label; class left as Capacitor per the published inventory. Likewise 14 and 11 are labelled Diode in the inventory though their cathode bars are drawn with slightly bent ends; the bend is not clean enough to re-class as Zener, and diode-vs-zener does not change the net partition. Nothing was added, removed or re-classed. (d) Two-terminal terminal order is index 0 = left/top as drawn, index 1 = right/bottom; this does not affect any metric. (e) Rung ordering top-to-bottom: A = Zener 8 / Diode 14, B = Diode 5 / Zener 4, C = Zener 2 / Diode 6, D = Diode 7 / Diode 11.\n\nSimulation note (Tier 2, kept deliberately): net n7 touches only I-DC 1 and Capacitor 17, both open at DC, so simcheck reports \"no DC path to ground\" for n7. This is what the ink unambiguously shows - the 3A current source's lower lead runs straight down to the bottom-left corner at (14,327) and then right into the 3uF capacitor, with nothing else on that corner. It is a legal AC-analysis topology (current source in series with a capacitor) and was not altered; no wire was invented to give n7 a DC return. n7 does have a proper AC return path back through the ladder, so the current source is not stranded.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        47.6,
+        408.8,
+        49.1,
+        57.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        51.9,
+        556.2,
+        55.8,
+        67.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Zener Diode",
+      "bbox": [
+        617.9,
+        395.8,
+        47.6,
+        42.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        158.1,
+        320.5,
+        76.8,
+        29.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Zener Diode",
+      "bbox": [
+        465.2,
+        558.5,
+        48.1,
+        48.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Diode",
+      "bbox": [
+        471.8,
+        402.4,
+        47.1,
+        43.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Diode",
+      "bbox": [
+        613.3,
+        564.1,
+        45.5,
+        37.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Diode",
+      "bbox": [
+        795.8,
+        397.3,
+        55.3,
+        33.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Zener Diode",
+      "bbox": [
+        290.2,
+        384.5,
+        61.4,
+        58.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        687.0,
+        480.7,
+        61.9,
+        26.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Inductor",
+      "bbox": [
+        534.3,
+        629.6,
+        66.5,
+        29.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Diode",
+      "bbox": [
+        790.6,
+        578.2,
+        43.0,
+        38.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "GND",
+      "bbox": [
+        908.9,
+        635.8,
+        63.5,
+        52.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Capacitor",
+      "bbox": [
+        383.3,
+        481.5,
+        30.7,
+        41.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Diode",
+      "bbox": [
+        292.2,
+        553.1,
+        50.2,
+        42.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "Capacitor",
+      "bbox": [
+        528.9,
+        321.1,
+        26.1,
+        46.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "Resistor",
+      "bbox": [
+        902.7,
+        548.8,
+        31.7,
+        60.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "Capacitor",
+      "bbox": [
+        196.5,
+        660.9,
+        31.7,
+        38.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

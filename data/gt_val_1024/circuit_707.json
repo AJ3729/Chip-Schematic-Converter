@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "image": "circuit_707.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (3 nets, no GND symbol anywhere in this drawing, so no net is named \"0\" - net names here are arbitrary labels, cf. the guide \"names are arbitrary except ground\"): n1 = the top rail between the two elements, i.e. right end of resistor 0 (2K), left end of inductor 3 (0.1H) and the top plate of capacitor 1, which hangs down from that rail at x=275. n2 = left rail: left end of resistor 0 -> top-left corner (161,183) -> down x~161 -> bottom-left corner (160,311) -> right along the bottom to the \"-\" (left) terminal of source 2. n3 = right rail + the mid horizontal: right end of inductor 3 -> top-right corner (372,183) -> down x~372 -> bottom-right corner (372,312) -> left along the bottom to the \"+\" (right) terminal of source 2; the mid horizontal at y=264-267 T-terminates on that right rail at (372,267) and carries the bottom plate of capacitor 1 (lead down x=274 to y=265).\nCOMPONENT RE-CLASS: component 2 was bootstrapped as \"I-DC\"; the symbol is a circle containing \"-\" and \"+\" with the label \"50V\" underneath (verified at 8x) - unmistakably a DC voltage source, not a current source (no arrow). Re-classed to V-DC. Terminal count is 2 either way, so nothing else changed; index 0 = left (\"-\") lead, index 1 = right (\"+\") lead.\nJudgment calls: (a) THE KEY CALL - the mid horizontal (y=264) crosses the left rail (x=161-163) and overshoots ~6 px past it to x=155. There is no junction dot (both strokes are 2 px and the blob is 2 px; at y=263 there is even a 3 px gap between the overshoot stub and the rail, they only touch on row 264). I read it as a plain crossing, NOT a junction, because the junction reading puts the mid horizontal in parallel with the bottom rail and therefore short-circuits source 2 across its own terminals (the bootstrap did exactly that - it had both source terminals on one net) which is electrically absurd. With the crossing reading the drawing is the standard textbook circuit: 50 V source -> 2 K resistor -> 0.1 H inductor in parallel with 2 mF capacitor -> back to the source. A human should re-check this one crossing; the 6 px overshoot is the only thing that argues the other way. (b) The mid horizontal's right end genuinely terminates on the right rail (verified at 6x and pixel level - no ink to the right of x=372), so that end IS a junction. (c) The four long faint lines that run off the image edges (top right, far left, far right, bottom left) are ruled/edge lines on the paper, not circuit wires - they touch no component. (d) Two-terminal parts are indexed left->right except capacitor 1, which is drawn vertically and is indexed top plate then bottom plate.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        441.7,
+        368.0,
+        136.6,
+        45.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        546.4,
+        438.3,
+        103.8,
+        52.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-DC",
+      "bbox": [
+        252.6,
+        314.5,
+        57.5,
+        44.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        632.0,
+        360.6,
+        109.4,
+        47.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

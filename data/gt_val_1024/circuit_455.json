@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_455.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is rotated ~90 deg and tilted a few degrees on the page (labels '5k ohm', '20V', '5A', '5mH' read sideways); everything below is in image coordinates. Structure: a left rail (runs from the top edge at x=110 down-right to the bottom edge at x=192) and a middle rail (from the top edge at x=277 down-right to the bottom corner at (343,485)) with Resistor 2 (5k) in series in the middle rail; five branches bridge them. Net map: 0 = the ENTIRE left rail plus the top horizontal, reached by GND 3 - the left rail runs from the top-edge stub at (110,0) through the T at (116,58) where the top horizontal starts, through the 4-way at (152,309) where the GND lead comes in from the left and the 20V branch leaves to the right, through the T at (168,398) where the inductor branch leaves, to the T at (191,505) where the bottom/capacitor branch leaves (the rail overshoots ~6px below that to the frame edge - a pen overshoot, not a connection); the top horizontal runs (116,58) -> crossing at (284,36) -> corner at (353,31) -> down the right branch to the top lead of I-DC 4. Terminals on 0: GND 3, Resistor 5 left, V-DC 6 '-' lead, I-DC 7 '-' lead, Inductor 1 left, Capacitor 0 left, I-DC 4 top. n1 = the short middle-rail stub above Resistor 2, i.e. from the top frame edge at (277,0) down past the (284,36) crossing to the top of the 5k resistor at y~86 - only two terminals: Resistor 5 right and Resistor 2 top. n2 = the middle rail BELOW Resistor 2 (from y~177 down through the 4-way at (319,294), the inductor-branch T at (329,377), to the bottom corner at (343,485)) together with the right-hand part of the 20V horizontal out to the corner at (382,286) and up the right branch to the bottom lead of I-DC 4; terminals: Resistor 2 bottom, V-DC 6 '+' lead, I-DC 7 '+' lead, I-DC 4 bottom, Inductor 1 right, Capacitor 0 right. So electrically: (Resistor 5 + Resistor 2) in series, the 20V source, the 5A source, the 5mH inductor and the capacitor are all in parallel between node 0 and node n2. Judgment calls: (a) OFF-FRAME COMPONENT - Resistor 5 has bbox centre (208.2,-52.2), above the top edge, so it is not drawn in the image. A pixel scan of all four frame borders finds exactly two wires leaving the frame, both at the top: x=110-111 (top of the left rail) and x=276-277 (top of the middle rail); no wire leaves the left, right or bottom edge (the three bottom-edge marks at x=190-192 and x=273-275/287-289 are the left-rail overshoot and the two long capacitor plates, not wires). Resistor 5's bbox spans x 167-250, i.e. horizontally between those two stubs, so it is inferred to bridge them off-frame. (b) The 4-way crossing at (284,36) (top horizontal vs middle rail) is read as a CROSSOVER, no connection, even though the pen left a small blob there. Reason: if it were a junction the middle-rail top stub would be the same node as the left-rail top stub, and off-frame Resistor 5 would be a dead short across a plain wire - a pointless element. Reading it as a crossover makes Resistor 5 series with the 5k Resistor 2 and gives a well-posed circuit with no redundant or dangling element, so per the protocol's 'prefer the reading that makes the circuit function' rule it is a crossover. THIS IS THE ONE CALL A HUMAN SHOULD RE-CHECK. (c) The 4-way crossing at (319,294) (20V horizontal vs middle rail) IS a junction: if it were a crossover, the 20V source and the 5A source would form an isolated two-source loop and the R-L-C loop would have no source at all. (d) The 4-way at (152,309) (GND lead / 20V branch vs left rail) IS a junction: if it were a crossover, net '0' would consist of only GND 3 and one source lead, leaving the 20V source with no return path. (e) DUPLICATE ANNOTATION: components 6 (V-DC) and 7 (I-DC) have essentially identical bboxes, (252.2,297.0) and (251.9,297.0). Zooming that region at 7x shows exactly ONE drawn symbol - a circle containing a rotated '-' and '+', i.e. the 20V DC voltage source - and every other listed component maps to a distinct drawn symbol (5k resistor, 5A source, 5mH inductor, capacitor, GND) plus the off-frame resistor. So id 7 is a duplicate/mis-class of the same circle. Per the 'never delete a component' rule both are KEPT and given the same two nets (the nodes the single symbol sits between); a human should decide whether to drop id 7. (f) V-DC 6 polarity read at 7x: the '-' bar faces the left rail, the '+' faces the middle rail, so index 0 = 0 (negative) and index 1 = n2; same index convention used for the duplicate id 7. (g) I-DC 4 arrow points downward in image orientation, i.e. from net 0 toward n2. (h) The bootstrap had Inductor 1, I-DC 4, V-DC 6 and I-DC 7 with both terminals on '0' (which would short each of them) and Capacitor 0 on 'n1'; all were re-derived from the drawing.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        811.9,
+        490.7,
+        102.0,
+        64.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        681.6,
+        482.7,
+        63.7,
+        99.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        374.9,
+        401.1,
+        111.7,
+        54.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        564.8,
+        685.3,
+        99.2,
+        71.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-DC",
+      "bbox": [
+        442.6,
+        322.7,
+        123.7,
+        97.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        133.7,
+        481.0,
+        61.5,
+        101.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        568.5,
+        488.9,
+        108.6,
+        91.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "I-DC",
+      "bbox": [
+        568.5,
+        489.2,
+        108.6,
+        90.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

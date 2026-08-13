@@ -1,0 +1,196 @@
+{
+ "components": [
+  {
+   "bbox": [
+    77,
+    389,
+    45,
+    62
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n3",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    68,
+    677,
+    67,
+    68
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n3",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    223,
+    722,
+    65,
+    70
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n4",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    566,
+    255,
+    64,
+    64
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    657,
+    282,
+    40,
+    32
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    235,
+    352,
+    58,
+    118
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n5",
+    "n3",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    454,
+    366,
+    58,
+    112
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n5",
+    "n4",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    455,
+    525,
+    58,
+    86
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n5",
+    "n3",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    452,
+    707,
+    56,
+    92
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n6",
+    "n4",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    544,
+    599,
+    96,
+    35
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n6",
+    "n7"
+   ]
+  },
+  {
+   "bbox": [
+    665,
+    493,
+    58,
+    78
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n8",
+    "n5",
+    "n7"
+   ]
+  },
+  {
+   "bbox": [
+    659,
+    699,
+    54,
+    88
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n7",
+    "n9",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    740,
+    707,
+    66,
+    72
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n9",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    897,
+    669,
+    68,
+    76
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n8",
+    "n2"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 5058
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

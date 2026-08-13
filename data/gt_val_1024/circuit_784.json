@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "image": "circuit_784.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The whole sheet is drawn rotated ~90 deg (all value labels read sideways); rotating the image 90 deg CCW turns it into a normal two-rail rectangle, which is how the trace below was confirmed. Coordinates quoted are in the ORIGINAL 512x512 frame. Ink is hard-cut at y=22 (top) and y=489 (bottom) - everything above/below is white padding, so any lead reaching those rows runs off the crop. Net map: 0 = the long slanted rail on the left (the 'bottom rail' once un-rotated): open end at (214,23) -> corner (187,33) -> down through the inductor-5 T at (204,128), the GND-6 lead T at (227,390) and the resistor-8 lead T at (231,450) -> cut end at (237,489). Carries GND 6, the left lead of inductor 5, the lower lead of resistor 8, the in-frame terminal of the off-frame inductor 7, and the far plate of the off-frame capacitor 0. n1 = node at (374,79): the lead coming down from the visible bottom arc of V-AC 2, the right lead of inductor 5, and the top lead of resistor 1 (clean T at 9x). n2 = node at (395,262): bottom lead of resistor 1, upper-left lead of resistor 8, top lead of inductor 3 (solid blob at 9x). n3 = bottom lead of inductor 3: runs down from the coil at x~420 to the cut end at (428,489), with a second wire T-ing off it at (420,453) that runs down-left to the cut end at (275,489); it also carries the near plate of the off-frame capacitor 0. nA = off-frame link between inductor 7 and resistor 4; nB = off-frame link between resistor 4 and the top terminal of V-AC 2. Judgment calls / off-frame reasoning: (a) FOUR components are outside the crop. Inductor 7 (bbox centre (199,-4)), resistor 4 (centre (285,-111)) and V-AC 2 (centre (362,-12), only the bottom of its circle is visible at y=22..30) all sit above the top edge; capacitor 0 (centre (372,552)) sits below the bottom edge. Un-rotated they line up as the left-hand and right-hand vertical branches of a rectangle: the top edge has exactly two things needing a home - the rail's open end at (214,23) and V-AC 2's upper terminal - and the two fully off-frame parts (L7 at x=172..227, R4 at x=239..331) sit between them in x, in that order, so they were read as a single series chain rail-end -> L7 -> R4 -> V-AC 2. That makes the source branch V-AC + R4 + L7 in series between the two rails, which is the only reading that gives the source a return path and leaves nothing dangling. (b) Capacitor 0 (bbox x=337..407, y=508..596) is below the cut. Three wires reach the bottom cut: (237,489) on net 0, and (275,489) + (428,489) which are the SAME net (they are joined inside the frame by the T at (420,453) - verified at 14x, a solid three-arm blob, and by the pixel runs which show the branch peeling off the vertical at y=452..455). So the capacitor can only bridge net 0 and net n3; that is also the only reading in which it is not short-circuited, and it makes the circuit a clean textbook ladder (source+R4+L7 | L5 3H | R1 2Omega then R8 3Omega | L3 5H + C0). Its terminal 0 is taken as the plate on the n3 side, terminal 1 on the 0 side (2-terminal order affects no metric). (c) UNCERTAIN, flagged for a human: the wire from n3 that exits at (275,489) heads down-left and, if extrapolated straight, would meet the net-0 rail's extension roughly 7-9 px below the cut. If the drafter really joined them there, n3 would collapse into net 0 and capacitor 0 would be shorted, which cannot be the intent - so it was read as passing by / rejoining the capacitor branch rather than as a junction with the rail. This is the single judgment call in this file that a human should re-check against the uncropped original. (d) The two long lines at x~37 and x~503 span the full image height and touch nothing - notebook page rulings, not wires; ignored. No components were added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        807.0,
+        416.3,
+        81.7,
+        63.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        449.2,
+        379.4,
+        123.9,
+        39.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-AC",
+      "bbox": [
+        257.0,
+        391.6,
+        96.1,
+        87.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "nB"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        653.4,
+        368.0,
+        102.2,
+        45.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        156.1,
+        460.0,
+        44.4,
+        87.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "nA"
+        },
+        {
+          "index": 1,
+          "net": "nB"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        367.5,
+        466.4,
+        60.6,
+        110.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        641.5,
+        598.9,
+        76.1,
+        53.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        254.7,
+        550.3,
+        112.8,
+        46.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "nA"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Resistor",
+      "bbox": [
+        603.2,
+        444.4,
+        111.9,
+        81.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

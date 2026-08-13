@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_607.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map. The drawing is upright and clean: one series loop with two parallel pairs in it. 0 = ground node - the bottom edge of the left box (the horizontal at y~268 running x 87..168), the vertical dropping from it at x=105 down to GND 7 (bars at y=325 and y=331), and the horizontal at y~313 running right from that junction to the left end of I-DC 0. Holds GND 7, the lower plate of capacitor 3, the lower plate of capacitor 4 and the left terminal of I-DC 0. n1 = the top edge of the left box (horizontal at y=187 running x 84..171) plus the stub at x=131 that rises from it to y~172: upper plate of capacitor 3, upper plate of capacitor 4, left lead of resistor 6 (50 ohm). n2 = the wire from the right lead of resistor 6 along y~180 to x=335, down the stub at x=333 to the top edge of the right box (horizontal at y=202 running x 296..371): right lead of resistor 6, upper lead of inductor 2 (15 mH), upper lead of inductor 1 (30 uH). n3 = the bottom edge of the right box (horizontal at y=283 running x 296..365), the stub at x=341 dropping from it to y~316, and the wire left along y~316 to the right lead of resistor 5 (30 ohm): lower lead of inductor 2, lower lead of inductor 1, right lead of resistor 5. n4 = the short wire between the right terminal of I-DC 0 and the left lead of resistor 5. So: 7 A source -> 30 ohm -> (15 mH || 30 uH) -> 50 ohm -> (50 uF || 20 mF) -> back to ground.\nJudgment calls: (a) capacitors 3 and 4 are drawn as VERTICAL two-terminal parts (their bboxes are wider than tall only because the plates are horizontal strokes); capacitor 3 sits in the left side of the left box with plates at y=214 and y=223, capacitor 4 in the right side with plates at y=223 and y=232. They are therefore in parallel between n1 and 0, not in series along the top edge. Verified on a 3-px map of x 75-200 / y 175-280.\n(b) Same for the right box: inductors 2 and 1 sit in its left (x~296) and right (x~371) sides, so they are in parallel between n2 and n3.\n(c) All four box corners and the three T-junctions (x=131 into the top edge, x=105 into the bottom edge, x=341 into the right box's bottom edge) are drawn as solid corners/tees with continuous ink - no dots and no hops anywhere in this drawing, and no two wires cross at all.\n(d) The GND symbol hangs below the y~313 rail on the x=105 stub; the rail continues right from that same point to I-DC 0, so the whole rail is net 0.\n(e) No component is off-frame: every one of the eight symbols is fully drawn inside the crop.\n(f) The long near-horizontal diagonal at the top right ((240,135)->(505,150)), the one at the bottom left ((0,357)->(265,370)) and the short vertical at the far left (x~5-15, y 140-350) touch no component or lead (nearest circuit ink is 25+ px away); they are neighbouring drawings/page rules clipped in by the crop and get no net.\n(g) Terminal order: I-DC 0, resistor 5 and resistor 6 are horizontal and listed left-then-right (I-DC 0's arrow points right, so its left terminal is the one on the ground rail); inductors 1 and 2 and capacitors 3 and 4 are vertical and listed top-then-bottom. Order does not affect any metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        375.7,
+        637.4,
+        160.3,
+        68.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        743.7,
+        466.4,
+        51.6,
+        96.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        600.0,
+        471.1,
+        64.2,
+        91.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        164.8,
+        456.2,
+        86.2,
+        51.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        336.5,
+        467.1,
+        94.0,
+        49.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        562.7,
+        626.4,
+        123.1,
+        44.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        452.0,
+        353.5,
+        115.0,
+        42.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        211.1,
+        675.2,
+        106.6,
+        53.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

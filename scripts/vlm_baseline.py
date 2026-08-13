@@ -134,6 +134,102 @@ def project_cost(n_requests: int, thinking: bool, effort: str) -> tuple[float, i
     return per * n_requests * BATCH_DISCOUNT, out_tok
 
 
+def record_provenance(out: Path, args, cfg, names: list) -> Path:
+    """Everything needed to judge or repeat this run, written BEFORE submission.
+
+    The previous run's reasoning settings were not recoverable from its
+    artifacts -- `results/vlm/PROVENANCE.md` section 4 records them as MISSING,
+    because nothing persisted the resolved request parameters and the observed
+    token counts sat between two of the measured constants. One JSON write at
+    submission time closes that permanently, so it happens here and it happens
+    before a single request leaves the machine.
+    """
+    import hashlib
+    import platform
+    import subprocess
+
+    prompts_path = ROOT / "configs/vlm_prompts.json"
+    probe = build_task(Path(names[0]).stem, args.variant, cfg)
+    params = params_for(probe, args.effort, args.thinking)
+
+    def sha(b: bytes) -> str:
+        return hashlib.sha256(b).hexdigest()
+
+    try:
+        git = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True,
+                             timeout=5, cwd=ROOT).stdout.decode().strip()
+    except Exception:
+        git = "unknown"
+    try:
+        import anthropic
+        sdk = anthropic.__version__
+    except Exception:
+        sdk = "unknown"
+
+    rec = {
+        "_what": "resolved request provenance for this run, written before "
+                 "submission. Section 4 of PROVENANCE.md was MISSING for the "
+                 "earlier run; this file is the fix.",
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "git_sha": git,
+        "model_requested": MODEL,
+        "sdk": {"anthropic": sdk, "python": platform.python_version(),
+                "platform": platform.platform()},
+        "reasoning_settings": {
+            "thinking": params["thinking"],
+            "effort": args.effort,
+            "max_tokens": params["max_tokens"],
+            "temperature": "not set (provider default)",
+            "seed": "not supported / not set -- runs are NOT deterministic",
+        },
+        "output_schema": params["output_config"]["format"]["schema"],
+        "structured_output": params["output_config"]["format"]["type"],
+        "prompts": {
+            "file": str(prompts_path.relative_to(ROOT)),
+            "sha256": sha(prompts_path.read_bytes()),
+            "system": probe["system"],
+            "user_template_rendered_for_first_image": probe["text"],
+        },
+        "run_shape": {
+            "variant": args.variant,
+            "split": args.split,
+            "n_images": len(names),
+            "n_repeats": args.repeat,
+            "n_requests": len(names) * args.repeat,
+            "mode": "sync" if args.sync else "batch",
+            "batch_discount": BATCH_DISCOUNT if not args.sync else 1.0,
+        },
+        "inputs": {
+            "images_dir": cfg["preprocess"]["images_dir"],
+            "detections_dir": cfg["detect"]["cache_dir"],
+            "_variant_b_note": (
+                "variant B renders OUR detected boxes onto the frame, so the "
+                "bytes sent depend on the detector. request_manifest_rep*.json "
+                "hashes the exact bytes, which pins the detector state."
+            ) if args.variant == "b" else "variant A sends the frame unmodified",
+        },
+        "invalid_output_handling": {
+            "refusal": "recorded as {'error':'refusal', category}",
+            "no_text": "recorded as {'error':'no_text', stop_reason}",
+            "bad_json": "recorded as {'error':'bad_json', message}",
+            "batch_error": "recorded as {'error': <result type>, message}",
+            "cached_errors_are_not_done": "is_done() treats an error file as "
+                                          "not done, so reruns retry it",
+            "scoring": "score_vlm.py counts an unusable response as a failure "
+                       "with an empty prediction, never drops it",
+        },
+        "pricing_used_for_projection": {
+            "input_usd_per_mtok": PRICE_IN, "output_usd_per_mtok": PRICE_OUT,
+            "note": "list rates committed in this file; the projection is an "
+                    "ESTIMATE, not an invoice",
+        },
+    }
+    p = out / "request_provenance.json"
+    p.write_text(json.dumps(rec, indent=1) + "\n")
+    print(f"wrote {p}")
+    return p
+
+
 def run_batch(client, names, args, cfg, out: Path) -> None:
     from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
     from anthropic.types.messages.batch_create_params import Request
@@ -183,11 +279,34 @@ def run_batch(client, names, args, cfg, out: Path) -> None:
             print(f"rep{rep}: complete after draining {len(bids)} batch(es)")
             continue
 
-        reqs = [Request(custom_id=Path(nm).stem,
-                        params=MessageCreateParamsNonStreaming(
-                            **params_for(build_task(Path(nm).stem, args.variant, cfg),
-                                         args.effort, args.thinking)))
-                for nm in todo]
+        # Build the tasks explicitly rather than inline, so the EXACT bytes
+        # sent for each image can be hashed. For variant B those bytes carry
+        # our detector's boxes, so this manifest is what pins which detector
+        # state the anchor was measured against.
+        import hashlib
+        reqs, manifest = [], {}
+        for nm in todo:
+            stem = Path(nm).stem
+            task = build_task(stem, args.variant, cfg)
+            manifest[stem] = {
+                "image_sha256": hashlib.sha256(task["image_bytes"]).hexdigest(),
+                "media_type": task["media_type"],
+                "bytes": len(task["image_bytes"]),
+                "n_detections": task["n_detections"],
+                "n_components": task["n_components"],
+                "user_text_sha256": hashlib.sha256(
+                    task["text"].encode()).hexdigest(),
+            }
+            reqs.append(Request(
+                custom_id=stem,
+                params=MessageCreateParamsNonStreaming(
+                    **params_for(task, args.effort, args.thinking))))
+        (out / f"request_manifest_rep{rep}.json").write_text(
+            json.dumps({"rep": rep, "n": len(manifest),
+                        "detections_dir": cfg["detect"]["cache_dir"],
+                        "images_dir": cfg["preprocess"]["images_dir"],
+                        "images": manifest}, indent=1) + "\n")
+
         batch = client.messages.batches.create(requests=reqs)
         bid = batch.id
         bids.append(bid)
@@ -341,6 +460,8 @@ def main() -> None:
     except ImportError:
         sys.exit("pip install anthropic")
     client = anthropic.Anthropic()
+
+    record_provenance(out, args, cfg, names)
 
     if args.sync:
         run_sync(client, names, args, cfg, out)

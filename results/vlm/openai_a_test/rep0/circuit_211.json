@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "bbox": [
+    78,
+    154,
+    43,
+    132
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    74,
+    384,
+    62,
+    70
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    227,
+    409,
+    50,
+    128
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    222,
+    612,
+    60,
+    70
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    391,
+    635,
+    48,
+    112
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    393,
+    791,
+    66,
+    72
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n4",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    580,
+    776,
+    55,
+    120
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    584,
+    878,
+    66,
+    74
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    814,
+    174,
+    58,
+    58
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    816,
+    413,
+    56,
+    56
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    815,
+    609,
+    55,
+    55
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    815,
+    762,
+    55,
+    55
+   ],
+   "class": "I-DC",
+   "terminals": [
+    "n5",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    815,
+    876,
+    55,
+    55
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    391,
+    929,
+    70,
+    58
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 6493
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

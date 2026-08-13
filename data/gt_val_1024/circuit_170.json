@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "image": "circuit_170.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Simple two-rail network: a top rail at y~180 and a bottom rail at y~260, closed at the left by I-DC 8, bridged in the middle by Resistor 3 (with the ground tap) and by I-DC 7, and closed at the right by Capacitor 2. Only 7 nodes; there are no crossovers anywhere in this drawing, every intersection is a plain T that I checked at 8-14x. Net map: n1 = top-left corner node - I-DC 8 top lead runs up to the corner at (82,179) and right into the left end of Resistor 1 (3 ohm). n2 = top rail between Resistor 1 and Resistor 0 - right end of R1, T-tap down at (209,179) into the top of the vertical Resistor 3, and the left end of Resistor 0 (4 ohm). n3 = top rail between Resistor 0 and Inductor 9 - right end of R0, T-tap down at (324,182) into the top of I-DC 7 (10A), and the left end of Inductor 9 (5H). n4 = top-right corner node - right end of L9 running right to the corner at (426,182) and down into the top plate of Capacitor 2 (6F). n5 = bottom-left corner node - I-DC 8 bottom lead down to the corner at (88,264) and right into the left end of Resistor 4 (2 ohm). 0 = the bottom-rail centre node at (211,261), a clean four-way junction verified at 14x: right end of Resistor 4, bottom of Resistor 3, left end of Inductor 6, and a short stub down to the GND symbol 5 at (214,276). n6 = bottom rail right of Inductor 6 - right end of L6, I-DC 7 bottom lead landing at (322,259), and the run right to the corner at (426,259) up into the bottom plate of Capacitor 2. Judgment calls: (a) the four diagonal strokes in the image corners (upper-left x~10 y~280-450, upper-right running from (250,135) to (505,165), lower-left from (0,340) to (255,370), lower-right x~500 y~300-370) are bleed-through of neighbouring sheets/page rules, NOT circuit wire - none of them touches any component lead, so they are ignored. (b) Both I-DC sources are drawn with the arrow pointing up; their top lead is listed as index 0 and the bottom lead as index 1. Horizontal 2-terminal parts are listed left-then-right, vertical ones top-then-bottom; order does not affect any metric. (c) Capacitor 2 is drawn with horizontal plates at the right edge of the loop, in series between the top-rail right end (n4) and the bottom-rail right end (n6) - it is not a shunt to ground. (d) No component is off-frame; every bbox centre is well inside the 512 frame. (e) Nothing is unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        517.0,
+        363.0,
+        113.9,
+        42.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        303.9,
+        377.7,
+        107.8,
+        40.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        836.2,
+        410.8,
+        83.3,
+        58.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        406.5,
+        440.6,
+        40.7,
+        95.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        273.1,
+        543.6,
+        110.6,
+        45.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        433.1,
+        571.9,
+        66.1,
+        53.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        517.8,
+        511.9,
+        114.5,
+        55.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "I-DC",
+      "bbox": [
+        633.6,
+        441.0,
+        88.1,
+        106.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-DC",
+      "bbox": [
+        160.6,
+        483.4,
+        94.6,
+        107.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        741.7,
+        338.0,
+        113.3,
+        45.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

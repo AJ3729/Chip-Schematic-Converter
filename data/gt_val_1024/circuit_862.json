@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_862.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: 0 = bottom return rail at y~302, running from the I-DC 6 bottom lead (corner at (84,303)) right to the V-DC 3 bottom lead at x~405, picking up Resistor 5 bottom (x~165), Resistor 4 bottom (x~254) and GND 7 (the R4 column continues straight through the rail at (253,302) down into the GND symbol at y~320, a 4-way junction verified at 7x); n1 = top-left node, I-DC 6 top lead (freehand diagonal up to the corner at (79,191)) -> horizontal at y~190 -> Resistor 5 top lead (T at (162,190)) -> left plate of Capacitor 0; n2 = mid-top node, right plate of Capacitor 0 -> horizontal at y~192 -> Resistor 4 (20 ohm) top lead (clean T at (251,192), verified at 7x) -> left end of Inductor 1; n3 = Inductor 1 right end -> left end of Resistor 2 (6 ohm); n4 = Resistor 2 right end -> right to x~395 -> down the x~405 column into the V-DC 3 (+) terminal. Judgment calls: (a) the drawing is a hard-binarised faint pencil, so the horizontals are dotted; the top rail shows white gaps at x=148..161 and x=192..203 and the bottom rail shows gaps of similar width all along its length - these are dropout of one continuous line, not breaks, since the same 12-14 px gaps occur mid-run where no component sits, and the alternative would leave the capacitor's left plate dangling; (b) there are no crossings and no hops anywhere in this circuit - every meeting of two wires is a T or a 4-way at a corner; (c) V-DC 3 is drawn with '+' at the top, so index 0 is the top (+) terminal on n4 and index 1 the bottom on the ground rail; I-DC 6 arrow points up and its index 0 is the top terminal; (d) 2-terminal order elsewhere is left-then-right for the horizontal parts (C0, L1, R2) and top-then-bottom for the vertical ones (R4, R5) - order affects no metric; (e) the bootstrap invented nets n5..n9 for terminals that are actually on n1/n2/0 (e.g. R5 bottom was 'n9', I-DC bottom was 'n7'); all of those collapse onto the ground rail or the top-left node.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        426.6,
+        384.7,
+        38.2,
+        33.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        574.5,
+        382.6,
+        84.3,
+        27.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        708.7,
+        382.9,
+        81.8,
+        32.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        810.0,
+        498.5,
+        53.6,
+        60.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        502.1,
+        489.6,
+        34.6,
+        84.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        327.6,
+        496.5,
+        32.9,
+        69.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "I-DC",
+      "bbox": [
+        162.1,
+        492.7,
+        49.1,
+        61.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        509.8,
+        648.1,
+        107.2,
+        42.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1087.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "50 V source with a 5k shunt feeding a 500ohm + 2mH series arm into node n3, which carries a 100uF shunt capacitor to ground and a 50mH + 50ohm branch closed by the 2 A current source. Net map: n1 = short vertical at x~177 (y 167-220): the left lead of R 7 (500 ohm) at the top, the right lead of R 6 (5k) T-ing in at (177,216), and the horizontal at y~216 running right to (200,216) then down to the + (top) terminal of V-DC 0. n2 = the ~4 px link at (247,170) between the right lead of R 7 and the left lead of Inductor 4 (2 mH) - both bboxes nearly touch, so the wire itself is almost entirely covered by them. n3 = right lead of Inductor 4 -> right to (324,207) -> down at x~324, crossing/joining the horizontal at y~222-223 (junction, ink continuous, checked at 14x); that horizontal runs left to the junction dot at (298,222) and right to the left lead of Inductor 8 (50 mH); from the dot at (298,222) a vertical drops to the junction at (295,302) on the lower rail, which runs left to the right plate of Capacitor 2 and right to the left terminal of I-DC 1. n4 = right lead of Inductor 8 -> right to (437,222) -> down to the top lead of R 3 (50 ohm). n5 = bottom lead of R 3 -> down to (435,305) -> left along the lower-right rail to the right terminal of I-DC 1. 0 = left lead of R 6 -> left to (92,207) -> down the left side to (92,297) -> right along the bottom rail at y~298, through the cross junction at (197,298) where the V-DC 0 minus (bottom) terminal drops to GND 5, and on to the left plate of Capacitor 2 at (226,299). Judgment calls: (a) (197,298) is a genuine four-way junction, not a hop - at 14x the horizontal rail and the V-DC-to-GND vertical share solid ink with no arc or break; the same is true of the crossing at (324,223) and the T at (295,302). (b) V-DC 0 is drawn as an oval with + above and - below, so terminal 0 = top (+) = n1 and terminal 1 = bottom (-) = 0. I-DC 1's arrow points right; terminal 0 = left = n3, terminal 1 = right = n5. Other 2-terminal parts are indexed left-then-right (top-then-bottom for the vertical R 3) as drawn. (c) Four long straight lines touching the image border - x~0-13 (y 139-272), the top diagonal x 239-512 (y 139-166), x~500-512 (y 253-373) and the bottom-left diagonal x 0-263 (y 347-373) - are paper/page edges from the photo. None of them touches any component or any circuit wire (each is its own connected component even after a 5 px close), so they carry no net. (d) The capacitor splits the bottom rail: everything left of its left plate is ground, everything right of its right plate is n3.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        395.4,
+        522.1,
+        77.0,
+        85.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        738.1,
+        590.1,
+        105.3,
+        76.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        499.4,
+        601.5,
+        75.3,
+        63.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        870.5,
+        493.5,
+        57.1,
+        94.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        537.8,
+        339.6,
+        101.1,
+        47.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        395.7,
+        655.3,
+        123.2,
+        52.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        276.4,
+        439.5,
+        104.3,
+        44.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        421.2,
+        342.0,
+        109.8,
+        42.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        742.1,
+        423.8,
+        112.3,
+        48.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

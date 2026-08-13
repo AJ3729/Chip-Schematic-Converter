@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_910.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is a 4-branch series-LC bank hung off a bottom source chain; the whole sheet is rotated ~13 deg CW, so all coordinates below are given in the ORIGINAL 512x512 frame. Structure: one bottom rail carrying, left to right, V-DC 9 (15V), I-DC 10 (10A), V-DC 11 (5V), I-AC 12 (5A), V-AC 13 (3V) in SERIES, with four vertical taps dropping onto the rail between consecutive sources; four horizontal rows above, each a capacitor then an inductor, and a left and a right boundary vertical. Net map: 0 = GND 8 plus the row that leaves it: that row CROSSES the left boundary vertical at (54,306) with no dot and no hop, runs on to a clean T at (95,320) where the tap descends to the rail segment between V-DC 9 and I-DC 10, and ends at the left plate of Capacitor 5. So 0 = {GND 8, V-DC 9 right terminal, I-DC 10 left terminal, Cap 5 left plate}. n1 = the left boundary vertical (top-left corner (72,72) down to the bottom-left corner (106,455)) plus everything T-ing onto it: top row left segment to Cap 7 left plate; row-C left segment (which T's on at (69,163) and carries a JUNCTION DOT at (271,133) where the second tap descends) to Cap 6 left plate; row-A left segment (T at (75,344)) to Cap 4 left plate; and, at the bottom, the rail left of V-DC 9. Because the second tap lands on the rail between I-DC 10 and V-DC 11, n1 = {V-DC 9 left, I-DC 10 right, V-DC 11 left, Cap 4 left, Cap 6 left, Cap 7 left}. n2 = third tap: JUNCTION DOT at (298,140)-in-rotated-frame = orig (274,168) on row C between Cap 6 and Inductor 1, down to the rail between V-DC 11 and I-AC 12. n2 = {Cap 6 right, Ind 1 left, V-DC 11 right, I-AC 12 left}. n3 = fourth tap: JUNCTION DOT at orig (331,27) on the top row between Cap 7 and Inductor 0, down (hopping under row C and over-hopped by rows B and A) to the rail between I-AC 12 and V-AC 13. n3 = {Cap 7 right, Ind 0 left, I-AC 12 right, V-AC 13 left}. n4 = the right boundary vertical: top-right corner (402,6) down to the rail right of V-AC 13, with rows C, B and A all T-ing onto it. n4 = {Ind 0 right, Ind 1 right, Ind 2 right, Ind 3 right, V-AC 13 right}. n5 = floating midpoint of row A: {Cap 4 right, Ind 3 left}. n6 = floating midpoint of row B: {Cap 5 right, Ind 2 left}. Judgment calls: (a) The crossing of the GND row over the left boundary vertical at orig ~(54,306) is the ONE crossing in this drawing with neither a hop nor a dot; at 14x both strokes are thin and there is no thickening at the intersection, so it is read as a plain crossing (two nets). This is also the only reading that works: joining them would put both terminals of V-DC 9 on the same net (shorted source). (b) Every other row/vertical crossing is drawn with an unmistakable semicircular hop and was verified at 6-14x: row A hops all four taps (orig ~(113,364),(203,341),(297,317),(383,294)); row B hops taps 2, 3 and 4; row C hops tap 4 at orig ~(355,109). Hops = no connection. (c) The three connections that ARE dots were each verified as heavy blobs at 8-14x: (271,133) [row C to tap 2], (274,168)-ish i.e. rot (298,140) [row C to tap 3], and (331,27) [top row to tap 4]. Taps 1 and 2's other ends and all four tap-to-rail landings are clean T's. (d) All rows terminate on the left and/or right boundary verticals as T's, verified at 4-6x. (e) 2-terminal order is left-then-right as drawn in the rotated (upright) frame; order does not affect any metric. V-DC 9 and V-DC 11 both carry their '+' on the right-hand side of the circle. (f) TIER 2, kept deliberately: Inductor 0 sits directly in parallel with V-AC 13 (both span n3-n4), which simcheck reports as an L/V loop. The ink is unambiguous - Ind 0 runs from the tap-4 dot to the top-right corner, and that corner is the same vertical that the rail joins on the right of V-AC 13 - so the loop is a real property of the drawing, not a trace error. (g) I-DC 10 sits directly across V-DC 9 (0 to n1, opposite orientation); again this follows directly from the series rail plus tap 1 and tap 2, and both current sources have a return path.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        75.2,
+        105.8,
+        45.5,
+        96.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        265.3,
+        298.3,
+        43.7,
+        110.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        470.5,
+        512.7,
+        44.9,
+        112.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        659.4,
+        702.8,
+        44.1,
+        123.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        640.7,
+        860.9,
+        59.9,
+        53.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        463.6,
+        695.4,
+        69.9,
+        51.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        264.1,
+        464.7,
+        100.0,
+        47.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        62.8,
+        299.8,
+        74.5,
+        54.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        445.4,
+        956.9,
+        101.1,
+        47.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "V-DC",
+      "bbox": [
+        834.5,
+        858.8,
+        80.1,
+        93.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "I-DC",
+      "bbox": [
+        842.8,
+        673.4,
+        78.0,
+        97.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "V-DC",
+      "bbox": [
+        851.2,
+        488.2,
+        72.1,
+        85.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "I-AC",
+      "bbox": [
+        864.7,
+        298.0,
+        67.8,
+        91.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "V-AC",
+      "bbox": [
+        871.3,
+        133.7,
+        62.1,
+        90.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

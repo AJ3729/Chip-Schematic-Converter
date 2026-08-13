@@ -1,0 +1,500 @@
+{
+  "schema_version": 1,
+  "image": "circuit_895.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The drawing is rotated 90 deg in the 512x512 frame (page-up is image-left); all coordinates below are given in IMAGE space (x,y of circuit_895.jpg) with the electrically-meaningful description in page terms. Net map: 0 = the ground rail (the long run down the left side of the image at x~57, i.e. the bottom rail of the upright page) reached by GND 4 and carrying the emitters of BJT 5, 6, 8, 15, 17 and the far ends of R 9 and R 11; n1 = +15V supply rail (V-DC 18, top of R 13, collector of BJT 14); n2 = +10V node (R 13 - R 16 junction, V-DC 23); n3 = node between R 16 and R 0 (150 ohm), also the emitter of PNP 12; n4 = +6V node (R 0 - R 3 junction, V-DC 19, emitter of PNP 7); n5 = +5V output node (R 3 far end, V-DC 21, emitter of BJT 14, collectors of BJT 10 and BJT 5); n6 = base of BJT 14 with the anode of diode 1; n7 = between the two series diodes 1 and 2; n8 = cathode of diode 2, base of BJT 10, collector of BJT 6; n9 = base of BJT 6, collector of BJT 17, collector of PNP 7; n10 = emitter of BJT 10 to base of BJT 5; n11 = left +3V node (V-DC 20, base of PNP 8, top of R 9); n12 = base of PNP 12 with the emitter of PNP 8; n13 = collector of PNP 12 with the collector of BJT 15; n14 = centre +3V node (V-DC 22, base of PNP 7, top of R 50k = R 11); n15 = the wire tying the bases of BJT 15 and BJT 17 together. Judgment calls: (a) the crossing at image (302,243) - where the V-DC 19 (+6V) stem / PNP-7 lead column meets the R0-R3 horizontal - is a plain cross with a thickened blob and NO drawn hop. This drafter draws explicit semicircular hops elsewhere (see (b),(c)), so a plain crossing is read as a junction: R0, R3, V-DC 19 and the PNP-7 emitter are one node (n4). (b) the crossing at image (313,375) is an unmistakable semicircular hop (clean arc with an enclosed white lune), so the diode-1-cathode / diode-2-anode column (n7) does NOT touch the R3 horizontal. (c) the crossing at image (113,301) is the same drawn semicircular hop (arc plus white lune, verified at 30x): the R 11 / V-DC 22 / PNP-7-base column passes OVER the BJT17-collector-to-BJT6-base wire without connecting. Reading it as a junction would ground the +3V node and both collectors and kill the circuit, so both the ink and circuit sense agree. (d) the crossing at image (313,428) DOES carry a visible junction dot, so the BJT-14 emitter column joins the R3 / V-DC 21 (+5V) horizontal (n5). (e) all six 'V-DC (one port)' symbols are the labelled supply arrows (+15V, +10V, +6V, +5V and two +3V); each is attached to the node its arrow stem lands on. (f) PNP terminal order (collector, base, emitter): PNP 8 and PNP 12 both carry a clearly drawn arrowhead on the lead that runs toward the more positive node, so emitter = that lead. PNP 7 is drawn mirrored (base lead to the right) and its arrowhead is a 2-3 px blob that cannot be resolved as up- or down-lead; I assigned emitter = the lead going to the +6V node (n4) and collector = the lead going down to n9, matching the other two PNPs and making the stage function (base at +3V, emitter at +6V -> on, collector drives the base of BJT 6). The opposite reading leaves PNP 7 reverse-biased and nothing able to pull n9 up. This choice does not change the net partition. (g) NPN terminal order: BJT 5, 6, 15, 17 all have the arrowed emitter lead running to the ground rail; BJT 14 has its collector on the +15V rail and its arrowed emitter on n5; BJT 10 has its arrowed emitter feeding the base of BJT 5. (h) diode 1 and diode 2 are both drawn apex-down with the bar below, so the anode is the upper (page) terminal; listed anode-then-cathode. (i) no component is off-frame and none is unconnected; the inventory of 24 was used unchanged.  INDEPENDENT RE-VERIFICATION PASS (second annotator; every node re-traced from the ink at 5-14x plus row/column ink-run scans at threshold 170, because large parts of this sheet are drawn in light pencil that binarises into dashes -- the long ground rail at x~54..65, the +15V rail at x~431..444, the BJT15-to-BJT17 base link and the V-DC 21 stem are ALL dashed lines, not broken wires. Their continuity was proved run-by-run: ground rail (54,29)->(56,96)->(55,142)->(56,306)->(57,335)->(59,379)->(64,423) into GND 4's bars; +15V rail (431,95)->(438,189)->(440,299)->(442,392)->(444,426) where it corners into BJT 14's collector lead; base link (132,112)->(123,238) between BJT 15 and BJT 17; V-DC 21 stem (316,428)->(320,495) into the +5V arrow.) The 16-net partition above is CONFIRMED unchanged. Two corrections to the wording of the judgment calls, which named the wrong arm at two crossings even though the resulting nets were right: (b-corrected) at (313,375) the VERTICAL is R 3's lower lead (n5) running down to the +5V rail, and the HORIZONTAL is the diode-1-cathode / diode-2-anode link (n7); it is the HORIZONTAL that makes the drawn U-shaped detour down and under, so n7 does not touch n5. (c-corrected) at (113,301) the VERTICAL is the BJT-17-collector-to-BJT-6-base column (n9) and the HORIZONTAL is the ground-rail-to-R-11-left-lead wire (net 0); again the HORIZONTAL makes the U-detour (with a 1-px enclosed white lune at (113,307), visible at 14x), so R 11's far end is on ground and the n9 column runs past it untouched. This drafter's hop glyph is therefore always 'the horizontal dips in a V/U at the crossing'; it appears exactly twice on this sheet, at (313,375) and (113,301), and nowhere else. Contrast the two real 4-way junctions: (302,243) -- R 0 lower lead / R 3 upper lead vertical, PNP 7 emitter from the left, +6V arrow to the right -- where the horizontal is straight and 2 rows thick (y=243 AND y=244) right across the vertical with no detour at all; and (315,428) -- R 3 lower lead from above, the +5V rail left and right, V-DC 21's stem below -- which carries an unmistakable filled dot (a 3x3 blob at x=314..316, y=427..429, against 1-px arms), confirmed at 14x. (f-resolved) PNP 7's arrowhead IS readable at 12x after all: the base bar is the horizontal at y=250..251, x=258..275, the base lead drops from it at x=267, and the arrowhead sits on the UPPER-RIGHT lead (the one that runs east to the +6V node), pointing down-left into the bar. So emitter = n4 and collector = n9 by ink, not by inference -- the same assignment as before. Terminal-order spot checks re-done from the symbols: BJT 5 emitter-arrow lead runs west to the ground rail, base stem rises at x=122 to BJT 10's emitter, collector runs east to the +5V rail; BJT 6 base stem rises at x=114 into the n9 column, emitter-arrow lead runs west to ground, collector runs east at y~381 to diode 2 and to BJT 10's base; BJT 10 emitter-arrow lead runs west at y~416 to BJT 5's base, collector runs east then down at x=250 onto the +5V rail; BJT 14 base stem rises at x=400 to diode 1, emitter-arrow lead drops onto the +5V rail, collector runs east at y~427 to the +15V rail; BJT 15 and BJT 17 both have the arrowed emitter on the wire back to the ground rail; PNP 8's arrowed lead is the one running south-east to PNP 12's base (n12) and its plain lead runs west to ground; PNP 12's arrowed lead runs east to n3 (R16 / R0) and its plain lead runs west to BJT 15's collector (n13). Both diodes are drawn with the cathode bar on the IMAGE-LEFT and the triangle apex pointing left, so anode = image-right for both: D1 anode = n6 (BJT 14 base), cathode = n7; D2 anode = n7, cathode = n8. That puts them in series the same way round, n6 -> n7 -> n8, which is the sensible reading. simcheck is clean (no Tier 1 and no Tier 2 finding). No component is off-frame, none is unconnected, and the inventory of 24 was used unchanged.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        343.2,
+        401.6,
+        82.5,
+        37.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Diode",
+      "bbox": [
+        730.4,
+        301.4,
+        61.6,
+        46.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Diode",
+      "bbox": [
+        732.1,
+        471.0,
+        66.0,
+        47.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        624.7,
+        399.5,
+        71.2,
+        34.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        844.7,
+        887.3,
+        55.9,
+        46.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "BJT-NPN",
+      "bbox": [
+        829.3,
+        743.5,
+        45.0,
+        67.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n10"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "BJT-NPN",
+      "bbox": [
+        720.2,
+        757.3,
+        46.1,
+        75.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "BJT-PNP",
+      "bbox": [
+        497.3,
+        474.0,
+        31.1,
+        45.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n9"
+        },
+        {
+          "index": 1,
+          "net": "n14"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "BJT-PNP",
+      "bbox": [
+        137.5,
+        512.4,
+        39.4,
+        66.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n11"
+        },
+        {
+          "index": 2,
+          "net": "n12"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Resistor",
+      "bbox": [
+        76.5,
+        700.7,
+        32.5,
+        62.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n11"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "BJT-NPN",
+      "bbox": [
+        791.3,
+        613.5,
+        28.8,
+        49.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        },
+        {
+          "index": 2,
+          "net": "n10"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Resistor",
+      "bbox": [
+        578.7,
+        656.1,
+        27.8,
+        66.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n14"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "BJT-PNP",
+      "bbox": [
+        218.6,
+        465.6,
+        41.5,
+        69.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n13"
+        },
+        {
+          "index": 1,
+          "net": "n12"
+        },
+        {
+          "index": 2,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Resistor",
+      "bbox": [
+        236.0,
+        204.0,
+        30.2,
+        53.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "BJT-NPN",
+      "bbox": [
+        826.2,
+        242.1,
+        37.9,
+        57.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        },
+        {
+          "index": 2,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "BJT-NPN",
+      "bbox": [
+        234.2,
+        701.6,
+        40.5,
+        75.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n13"
+        },
+        {
+          "index": 1,
+          "net": "n15"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "Resistor",
+      "bbox": [
+        232.1,
+        331.1,
+        29.6,
+        59.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "BJT-NPN",
+      "bbox": [
+        479.4,
+        731.0,
+        45.3,
+        76.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n9"
+        },
+        {
+          "index": 1,
+          "net": "n15"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "class": "V-DC (one port)",
+      "bbox": [
+        545.6,
+        144.0,
+        24.0,
+        23.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "class": "V-DC (one port)",
+      "bbox": [
+        492.5,
+        371.9,
+        28.7,
+        32.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "class": "V-DC (one port)",
+      "bbox": [
+        75.2,
+        499.5,
+        28.2,
+        30.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n11"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "class": "V-DC (one port)",
+      "bbox": [
+        952.1,
+        370.8,
+        29.0,
+        30.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "class": "V-DC (one port)",
+      "bbox": [
+        607.1,
+        556.1,
+        27.9,
+        33.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n14"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "class": "V-DC (one port)",
+      "bbox": [
+        161.9,
+        226.8,
+        24.6,
+        28.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

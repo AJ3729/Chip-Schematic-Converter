@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_327.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: n1 = the big junction node at (264,175) where a 12-px filled dot joins all four legs (verified by pixel measurement: 12-20 px wide ink blob vs 3-px strokes elsewhere) -- its NW leg runs up to the frame top at x=114, its NE leg runs up to the bottom lead of Resistor 2, its SE leg runs down to the top of Inductor 3, and its SW leg runs down the left vertical (through the crossing at (147,441)) and off the bottom frame edge at x=150. n2 = right node: bottom lead of Inductor 3 -> vertical at x~372 -> T-junction at (372,424) with the right lead of Resistor 4 -> continues down and off the bottom edge at x=378. 0 = the GND rail: GND 5 and the slanted horizontal running right from it (y 442 at x=150 rising to y 437 at x=270) into the LEFT lead of Resistor 4. n3 = off-frame link above the top edge between V-DC 1 and the top lead of Resistor 2. Judgment calls: (a) the crossing of the left vertical and the ground rail at (147,441) carries NO dot -- both strokes stay 3 px wide through the intersection, whereas the drafter drew an unmistakable 12-px dot at (264,175) -- so it is a plain crossover and the ground rail does NOT join n1; (b) the junction dot at (264,175) really is a junction, so V-DC 1 + Resistor 2 form a series loop that returns to n1; the topology is degenerate but it is what is drawn and I did not merge/split anything to make it prettier; (c) OFF-FRAME components: V-DC 1 (bbox centre (227.9,-82.6), entirely above the crop), Resistor 2 (centre (350.4,-13.3), only its lower zigzag is inside the frame -- its ink crosses row 0 at x=344..359) and Capacitor 0 (centre (313.6,567.6), entirely below the crop). The frame has exactly three open wire ends -- top x=114, bottom x=150, bottom x=378 (checked by scanning rows 0-3 and 505-511) -- so: V-DC 1 sits between the x=114 stub and Resistor 2's top lead, giving V-DC 1 = (n1, n3) and Resistor 2 = (n3 top, n1 bottom); Capacitor 0's bbox (54.5 wide x 84.3 tall = a horizontally-drawn cap, tall vertical plates) sits between the two bottom stubs at x=150 and x=378, so Capacitor 0 = (n1 left, n2 right). This pairing leaves no terminal dangling. (d) 2-terminal order is as drawn (top-then-bottom for Inductor 3 and Resistor 2, left-then-right for Resistor 4 and Capacitor 0); it does not affect any metric. Nothing was marked unconnected; no component was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        848.0,
+        442.1,
+        86.4,
+        52.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        154.8,
+        490.7,
+        81.5,
+        78.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        236.1,
+        365.5,
+        109.3,
+        47.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        598.3,
+        366.8,
+        120.0,
+        46.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        701.2,
+        447.0,
+        46.9,
+        91.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        711.9,
+        665.2,
+        86.3,
+        48.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

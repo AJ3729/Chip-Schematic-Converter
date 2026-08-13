@@ -1,0 +1,206 @@
+{
+ "components": [
+  {
+   "class": "V-AC",
+   "bbox": [
+    118,
+    490,
+    60,
+    60
+   ],
+   "terminals": [
+    "n_ac1",
+    "n_ac2"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    231,
+    396,
+    44,
+    38
+   ],
+   "terminals": [
+    "n1",
+    "n_ac1"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    231,
+    586,
+    38,
+    38
+   ],
+   "terminals": [
+    "n2",
+    "n_ac2"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    366,
+    426,
+    44,
+    38
+   ],
+   "terminals": [
+    "n1",
+    "n_ac2"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    366,
+    586,
+    38,
+    38
+   ],
+   "terminals": [
+    "n2",
+    "n_ac2"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    497,
+    405,
+    46,
+    30
+   ],
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    497,
+    558,
+    26,
+    70
+   ],
+   "terminals": [
+    "n3",
+    "n2"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    607,
+    390,
+    20,
+    55
+   ],
+   "terminals": [
+    "n1",
+    "n4"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    607,
+    545,
+    40,
+    38
+   ],
+   "terminals": [
+    "n2",
+    "n4"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    712,
+    483,
+    45,
+    60
+   ],
+   "terminals": [
+    "n7",
+    "n4",
+    "n8"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    735,
+    568,
+    50,
+    28
+   ],
+   "terminals": [
+    "n8",
+    "n2"
+   ]
+  },
+  {
+   "class": "Op-Amp",
+   "bbox": [
+    822,
+    442,
+    80,
+    70
+   ],
+   "terminals": [
+    "n7",
+    "n6",
+    "n5"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    827,
+    505,
+    45,
+    38
+   ],
+   "terminals": [
+    "n5",
+    "n6"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    908,
+    472,
+    26,
+    60
+   ],
+   "terminals": [
+    "n1",
+    "n5"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    888,
+    566,
+    20,
+    55
+   ],
+   "terminals": [
+    "n5",
+    "n2"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 2199
+ },
+ "_model": "claude-opus-5"
+}

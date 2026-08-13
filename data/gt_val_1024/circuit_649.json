@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_649.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The sheet is drawn rotated ~90deg (all labels read sideways). Structure: one vertical column at x~380-390 carries, top to bottom, inductor 4 (45H), then resistor 3 (43ohm), then capacitor 2 (4F); three sources sit to the LEFT of that column and each feeds it through a horizontal lead. Net map: 0 = ground -- GND 6 (multi-bar symbol at x 140..155, y 222..273) with its lead running right at y~247 into the LEFT terminal of I-AC 5, plus the far (left) terminals of the two off-frame sources (see (a)). n1 = column above the inductor: from the cut end at (379,23) down into the TOP of inductor 4. n2 = column between inductor and resistor: BOTTOM of inductor 4, the RIGHT lead of I-AC 5 which T-joins the column at (390,224) (clean T verified at 10x), and the TOP of resistor 3. n3 = BOTTOM of resistor 3 straight down to the TOP plate of capacitor 2 at (386,452). n4 = BOTTOM plate of capacitor 2 (y~471) down to the cut end at (386,488). Judgment calls: (a) TWO components are OFF-FRAME: I-AC 0, bbox centre (265.2,-26.8) entirely above the top edge, and V-AC 1, bbox centre (289.2,602.7) entirely below the bottom edge. The drawing has exactly two cut wire ends, both on the column: (379,23) at the top and (386,488) at the bottom (a wide 3x sweep of the top and bottom strips shows no other stub; the four long thin near-vertical curves at x~10, 170, 185 and 472-500 are ruled-page/scan artefacts that cross wires without touching them). Each off-frame source therefore contributes one terminal to the column: I-AC 0's right lead to n1 and V-AC 1's right lead to n4. That accounts for 2 of their 4 terminals. (b) The remaining two terminals (the LEFT leads of I-AC 0 and V-AC 1) are put on net 0. Reasoning: the one source we can see, I-AC 5, is drawn exactly this way -- circle to the left of the column, right lead to the column, left lead running left to a ground symbol -- and both off-frame sources sit at the same horizontal offset from the column as I-AC 5 (their bbox right edges are 66-77 px left of the column, vs 55 px for I-AC 5), so they are drawn in the same posture with their left leads running off to their own ground symbols, which lie further left and were cut away. The decisive argument is functional: if instead the two off-frame sources were tied to each other on a private net, the ground node would carry only I-AC 5's single terminal, i.e. a current source with no return path, which is degenerate. Tying them to 0 gives every source a return path and every node at least two elements: 0 (3 sources), n1 (I-AC 0 + L), n2 (L + I-AC 5 + R), n3 (R + C), n4 (C + V-AC 1). (c) Terminal 0 of both off-frame sources is taken as the left (ground-side) lead, matching I-AC 5. (d) Inductor 4 and resistor 3 are both drawn as plain zigzags; the adjacent labels '45H' and '43ohm' confirm the annotation's classes, so nothing was re-classed. (e) Vertical parts: terminal 0 is the top for inductor 4, resistor 3 and capacitor 2. (f) There are no crossings-with-wires anywhere in this drawing, so no dot-vs-hop calls. (g) No component was added or removed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-AC",
+      "bbox": [
+        232.7,
+        482.4,
+        89.2,
+        96.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        857.0,
+        502.1,
+        77.8,
+        72.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        724.1,
+        397.2,
+        63.5,
+        62.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        608.6,
+        385.5,
+        111.5,
+        42.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        371.6,
+        371.5,
+        102.9,
+        43.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-AC",
+      "bbox": [
+        497.4,
+        472.1,
+        85.8,
+        92.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        500.3,
+        622.5,
+        84.6,
+        43.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

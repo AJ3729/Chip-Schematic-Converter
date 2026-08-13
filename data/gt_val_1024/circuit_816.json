@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_816.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Ink is hard-cut at y=51 (top) and y=460 (bottom); rows outside are pure white, so any line reaching those rows runs off the crop. Four long parallel slanted lines cross the sheet: A (7,51)->(85,460), B (88,51)->(172,460), C (336,51)->(418,460), D (421,51)->(505,460). A and D touch no symbol or lead anywhere and are notebook page rulings; B and C are real wires - every wire in the drawing terminates on one of them with a visible T/blob (checked at 12x). Net map: 0 = rail B plus the horizontal that runs from GND 2 at (91,233) east to the left lead of resistor 1; it carries GND 2, the left lead of resistor 1, the left lead of inductor 5 (T on B at (157,377)), one terminal of the off-frame I-DC 0 (top cut at (88,51)) and one terminal of the off-frame resistor 7 (bottom cut at (172,460)). n1 = rail C, from the top cut (336,51) down through the T with the upper horizontal at (359,170) (fat junction blob at 12x) and the T with the lower horizontal at (387,310) to the top of resistor 3 at (393,349); it carries the other I-DC 0 terminal, the right lead of resistor 1, the right lead of resistor 4 and the top of resistor 3. n2 = the plain wire between the right end of inductor 5 and the left end of resistor 4 (~(252,345)); nothing else touches it. n3 = between the bottom of resistor 3 (411,399) and the top plate of capacitor 6 (410..431, y~445). n4 = the capacitor 6 bottom plate (418..436, y~456) running off the bottom cut at ~(420,460) to the far terminal of the off-frame resistor 7. Judgment calls: (a) KEY CALL - the GND horizontal crosses rail B at (125,227). There is no textbook dot, but a 6-7 px ink blob sits on the intersection at y=226 (rail B is only 1-2 px wide there and the horizontal at that row is at x=136..146, so the blob is extra ink), and circuit sense settles it: if it were a plain crossing, GND would touch only resistor 1 and R1 would be a dead-end branch carrying no current, while as a junction the drawing becomes a clean 5 A source across three parallel branches - R1 (1k), L5+R4 (5mH+2k) and R3+C6+R7 (2k+C+R). Read as a JUNCTION. A human should re-check this one point. (b) OFF-FRAME: I-DC 0 (bbox centre (232.9,14.9), x=200..266) is entirely above the top cut. The only two wire ends at the top cut are rail B at x=88 and rail C at x=336, and the I-DC sits between them in x, so it bridges them - which is also the only reading that gives the source a return path. (c) OFF-FRAME: resistor 7 (bbox centre (329.2,549.9), x=289..369, drawn horizontal) is entirely below the bottom cut. The two wire ends at the bottom cut are rail B at x=172 and the capacitor-6 bottom lead at x~420, and R7 sits between them, so it closes the R3+C6 branch back to net 0. (d) Capacitor 6 is only half visible (bbox y=432..477, cut at 460): both plates are drawn (y~445 and y~456) and rail C runs into the upper plate, so C6 is in series in that branch, not a stub. (e) GND 2 is drawn rotated 90 deg (bars vertical, lead entering from the right) like the rest of the sheet. No components were added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        243.2,
+        483.3,
+        55.5,
+        63.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        444.5,
+        507.1,
+        38.4,
+        76.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "GND",
+      "bbox": [
+        452.3,
+        697.1,
+        97.8,
+        45.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        673.9,
+        377.9,
+        78.8,
+        33.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        605.5,
+        487.2,
+        40.4,
+        77.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        613.9,
+        578.7,
+        41.5,
+        85.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        765.5,
+        376.3,
+        42.6,
+        41.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        850.2,
+        496.2,
+        37.4,
+        84.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,196 @@
+{
+ "components": [
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    60,
+    385,
+    55,
+    50
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    601,
+    297,
+    60,
+    42
+   ],
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    718,
+    352,
+    42,
+    30
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    57,
+    625,
+    50,
+    50
+   ],
+   "terminals": [
+    "n2",
+    "n7"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    170,
+    635,
+    48,
+    48
+   ],
+   "terminals": [
+    "n2",
+    "n7"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    213,
+    362,
+    60,
+    70
+   ],
+   "terminals": [
+    "n1",
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    377,
+    372,
+    60,
+    70
+   ],
+   "terminals": [
+    "n1",
+    "n4",
+    "n5"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    377,
+    520,
+    60,
+    70
+   ],
+   "terminals": [
+    "n5",
+    "n4",
+    "n6"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    377,
+    660,
+    60,
+    70
+   ],
+   "terminals": [
+    "n6",
+    "n7",
+    "n7"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    505,
+    585,
+    60,
+    26
+   ],
+   "terminals": [
+    "n6",
+    "n3"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    725,
+    470,
+    62,
+    70
+   ],
+   "terminals": [
+    "n10",
+    "n3",
+    "n9"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    718,
+    665,
+    60,
+    70
+   ],
+   "terminals": [
+    "n11",
+    "n3",
+    "n7"
+   ]
+  },
+  {
+   "class": "I-AC",
+   "bbox": [
+    812,
+    645,
+    48,
+    48
+   ],
+   "terminals": [
+    "n11",
+    "n7"
+   ]
+  },
+  {
+   "class": "I-AC",
+   "bbox": [
+    890,
+    645,
+    48,
+    48
+   ],
+   "terminals": [
+    "n9",
+    "n7"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 2638
+ },
+ "_model": "claude-opus-5"
+}

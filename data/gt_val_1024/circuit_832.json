@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_832.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Ink is hard-cut at y=39 (top); the drawing is a simple rectangle drawn rotated ~90 deg (labels sideways). Net map: 0 = the left rail plus the wire it crosses at (152,144): the rail runs from the top cut (136,39) down to the corner at (185,321) and then east along the bottom to the left plate of capacitor 3 (x~250); the horizontal through (152,144) carries GND 5 on its left end and the left lead of inductor 2 on its right. So net 0 = GND 5, left lead of inductor 2, left plate of capacitor 3 and one terminal of the off-frame V-DC 0. n1 = the right rail, from the top cut (369,39) down through the T where the upper horizontal lands at (375,117) to the corner at (399,292) where the bottom horizontal arrives; carries the right lead of resistor 1 (6 Ohm), the right lead of resistor 4 (4k) and the other V-DC 0 terminal. n2 = the plain wire between the right end of inductor 2 (2H) and the left end of resistor 1. n3 = the plain wire between the right plate of capacitor 3 and the left end of resistor 4. Judgment calls: (a) the GND horizontal crosses the left rail at (152,144); at 14x there is an unmistakable fat ink blob at the intersection, much heavier than either stroke, so it is a JUNCTION - GND, the rail and the inductor lead are one net. Circuit sense agrees: as a junction the drawing is a source across two parallel branches (L2+R1 and C3+R4), whereas as a crossing the L2/R1 branch would hang off an isolated GND node and carry no current. (b) OFF-FRAME: V-DC 0 (bbox centre (242.1,-49.2), x=208..276) sits entirely above the top cut. The only two wire ends reaching the cut are the left rail at x=136 and the right rail at x=369, and the V-DC's x-span lies between them (its centre 242 vs their midpoint 252), so it bridges the two rails and is the circuit's source. Terminal 0 assigned to the grounded left rail, terminal 1 to the right rail; 2-terminal order affects no metric. (c) Both bottom corners ((185,321) left, (399,292) right) are plain L corners, not junctions - nothing else attaches there (verified at 14x). (d) The four faint broken slanted lines at x~6..49, x~443..506 (and their dashed continuations) run the full sheet height and touch no symbol - notebook page rulings, ignored. No components were added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        174.5,
+        478.5,
+        56.7,
+        67.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        370.4,
+        419.8,
+        35.6,
+        80.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        373.2,
+        532.0,
+        37.0,
+        70.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        579.6,
+        520.2,
+        47.2,
+        43.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        573.7,
+        437.3,
+        37.6,
+        80.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        370.6,
+        648.7,
+        81.5,
+        44.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

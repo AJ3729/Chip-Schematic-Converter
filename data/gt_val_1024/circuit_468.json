@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_468.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Hand-drawn rectangular MESH: five near-vertical 'columns' (C1 x~20 leaning to x~6 at the bottom, C2 x~92->84, C3 x~190->176, C4 x~310->291, C5 x~447->419) crossed by six near-horizontal 'rows' (A top y~22->9, B y~113->106, C y~201->187, D y~283->271, E y~386->366, F bottom y~487->453). C5 is the source stack: rowA -[V-AC 9]- rowB -[I-AC 10]- rowC -[V-DC 11]- rowD -[I-DC 12]- rowE -[V-DC 13]- rowF, so the six row taps must be six distinct nodes. C1 carries inductor 0 (between rows A and B) and capacitor 4 (B..F); C2 inductor 1 (B..C) and capacitor 5 (C..D); C3 inductor 2 (C..D) and capacitor 6 (D..E); C4 inductor 3 (D..E) and capacitor 7 (E..F). NET MAP: 0 = the bottom rail (row F) plus everything tied to it: GND 8 hangs off column 3 just below the rail, the bottom plates of capacitors 4, 6 and 7, the bottom of V-DC 13, and - through column 2's lower run - the bottom plate of capacitor 5 together with the row-D tap (V-DC 11 bottom / I-DC 12 top). n1 = the top rail (row A): tops of inductors 0, 1, 2, 3 and the top of V-AC 9. n2 = row B: inductor 0 bottom, capacitor 4 top, V-AC 9 bottom, I-AC 10 top. n3 = row C: inductor 1 bottom, capacitor 5 top, I-AC 10 bottom, V-DC 11 top. n4 = row E: I-DC 12 bottom and V-DC 13 top only (see judgment call (c)). n5 = column 3's middle node: inductor 2 bottom + capacitor 6 top. n6 = column 4's middle node: inductor 3 bottom + capacitor 7 top. JUDGMENT CALLS (every crossing was inspected at 14-30x and several as raw pixel maps): (a) The drafter marks a non-connection with a small left-going semicircular/angular HOP on the vertical wire. Eight such hops are unmistakable: C2xrowB (185,108-ish -> the row B wire passes column 2 without touching, which is what keeps V-AC 9 from being shorted), C3xrowB, C3xrowC, C3xrowD, C4xrowB, C4xrowC, C4xrowD, C4xrowE. Everything drawn as a T, a corner or a blob is a junction. (b) C3xrowE (178,384) is a perfectly clean plain '+' crossing - both strokes continuous, no dot, no bump. Read as NOT connected (protocol: a plain X with no dot = two nets). It has to be: column 3's lower run also meets row F, and if both met, rows E and F would be one node and V-DC 13 would be a shorted voltage source. (c) C2xrowE (85,386): row E's left end stops one pixel short of column 2 (verified in the raw pixel map: at y=386 there is ink at x<=85 and x>=87, none at x=86), whereas rows C and D merge into column 2 with solid overlapping ink. Read as NOT connected. Again it has to be: column 2's lower run continues to the bottom rail (C2xrowF at (85,483) is a full-overlap crossing with a 4 px overshoot, i.e. a T), so if row E also joined it, rows E and F would be one node and V-DC 13 would be shorted. Consequence: row E connects only to the source stack, giving n4 just two terminals, and the drawn row-E wire west of column 5 is an unconnected stub. That is the only reading of these two ambiguous marks that shorts nothing. (d) C2xrowF and C3xrowF are plain crossings with no hop; both read as junctions. C3xrowF must be one, because GND 8 sits on column 3 immediately below the bottom rail and grounding the bottom rail is the only reading that gives the rest of the circuit a DC path to the reference (the alternative puts '0' behind capacitor 6 and floats everything). (e) Row D does join column 2 (solid, overlapping ink at (86,282)), and column 2 runs on down to the bottom rail, so the row-D tap is electrically the ground rail. (f) Tier-2 finding that is real and kept: inductor 0 (column 1, rows A-B) sits directly across V-AC 9 (column 5, rows A-B), so simcheck reports a voltage-source/inductor loop. That is exactly what is drawn - an inductor in parallel with an AC source is normal in an AC problem - and no re-reading of the ink removes it. (g) All components except GND 8 are 2-terminal; index 0 is the upper lead as drawn, index 1 the lower. No component was added, removed or re-classed; nothing is marked unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        58.1,
+        147.4,
+        30.5,
+        90.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        190.5,
+        337.6,
+        38.1,
+        82.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        370.7,
+        478.6,
+        30.4,
+        58.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        600.3,
+        642.6,
+        31.8,
+        66.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        52.7,
+        308.1,
+        47.1,
+        36.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        178.6,
+        479.6,
+        45.4,
+        39.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        366.0,
+        646.6,
+        48.5,
+        39.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        589.9,
+        829.1,
+        52.6,
+        47.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        362.5,
+        975.5,
+        66.2,
+        48.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "V-AC",
+      "bbox": [
+        860.0,
+        139.5,
+        65.0,
+        64.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "I-AC",
+      "bbox": [
+        856.2,
+        313.5,
+        78.2,
+        78.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "V-DC",
+      "bbox": [
+        850.6,
+        464.9,
+        59.5,
+        75.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "I-DC",
+      "bbox": [
+        847.2,
+        635.4,
+        52.5,
+        73.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "V-DC",
+      "bbox": [
+        844.2,
+        806.2,
+        60.9,
+        67.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

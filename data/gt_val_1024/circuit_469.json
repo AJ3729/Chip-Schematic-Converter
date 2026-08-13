@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_469.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is rotated ~90 deg on the page (labels '4k ohm', '2mH', '5uF', '4nF', '5k ohm' read sideways); coordinates below are image coordinates. Skeleton: an outer loop - top horizontal (96,19)->(153,13), left rail (96,19)->(140,465), bottom rail (140,465)->V-AC 6->(430,450), right rail (418,221)->(430,450) with Resistor 5 (5k) in series - plus a middle horizontal at y~232-242 running from the GND stem across the left rail, through Capacitor 4 (5uF), past the T where Inductor 1's bottom lead lands, through Capacitor 0 (4nF), to the corner (418,221) on the right rail. Inductor 1 (2mH) hangs from the top horizontal down to that middle horizontal. Net map: 0 = GND 3 + the whole left rail + the top horizontal out to the bare stub at (153,13) + the bottom rail from the corner (140,465) rightwards to the LEFT lead of V-AC 6 + the piece of middle horizontal from the left-rail junction out to the left plate of Capacitor 4 (terminals: GND 3, Resistor 2 left, Capacitor 4 left, V-AC 6 left). n1 = the short stub from (271,13) down to the top of Inductor 1 (terminals: Resistor 2 right, Inductor 1 top) - only two terminals, but that is what the drawing shows. n2 = middle horizontal between the right plate of Capacitor 4 (x~227) and the left plate of Capacitor 0 (x~348), including the T at (287,233) where Inductor 1's bottom lead lands (terminals: Capacitor 4 right, Inductor 1 bottom, Capacitor 0 left). n3 = middle horizontal from the right plate of Capacitor 0 (x~360) to the corner at (418,221) and down the right rail to the top of Resistor 5 (terminals: Capacitor 0 right, Resistor 5 top). n4 = right rail below Resistor 5, round the bottom-right corner at (430,450) and left along the bottom rail to the RIGHT lead of V-AC 6 (terminals: Resistor 5 bottom, V-AC 6 right). Judgment calls: (a) OFF-FRAME COMPONENT - Resistor 2 (4k) bbox is (185.2,7.3) w69.3 h36.1, i.e. y from -10.8 to +25.4, and a row-by-row pixel scan shows image rows 0-12 are COMPLETELY blank: the resistor symbol was cut away by the preprocessing crop and is not drawn at all. The only two bare wire ends in the whole drawing are at (153,13) - the right end of the top horizontal - and (271,13) - the top of Inductor 1's lead; the resistor's bbox spans x 151-220 horizontally between/above them, so it is inferred to bridge those two stubs. That also completes the only loop the inductor could otherwise not participate in, and leaves no dangling lead anywhere. (b) The 4-way at (123,242) where the left rail crosses the GND stem / middle horizontal is read as a JUNCTION: the GND stem visibly terminates there (nothing left of the three ground bars at x=82/90/100), and if it were a crossover, net 0 would be just GND plus one capacitor plate with no return path, and the whole outer loop would float. (c) The inductor's bottom lead terminates ON the middle horizontal at (287,233) - verified in the pixel map, no ink below y=236 at that x - so it is a T-junction, not a crossing. (d) The right rail overshoots ~5px above the corner at (418,221) and the left rail runs a few px past the top-left corner; both are pen overshoots, not connections. (e) V-AC 6 carries no polarity marks (just a '~'), so its terminal order is arbitrary: index 0 = left lead (net 0), index 1 = right lead (n4). (f) Capacitors 0 and 4 are indexed left plate = 0, right plate = 1; Resistor 5 and Inductor 1 top = 0, bottom = 1. (g) The bootstrap had Resistor 5 index 1 on '0' - that is wrong: the bottom rail is split by V-AC 6, so only the piece LEFT of the source is ground; the piece right of it (n4) carries the resistor's bottom lead. Inductor 1's bootstrap nets n1/n2 happened to be right and were kept.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        491.7,
+        419.5,
+        46.3,
+        45.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        378.7,
+        486.4,
+        70.5,
+        33.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        272.1,
+        568.8,
+        31.1,
+        64.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        490.1,
+        668.8,
+        74.9,
+        37.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        497.5,
+        548.5,
+        51.6,
+        40.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        597.9,
+        362.2,
+        84.9,
+        34.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-AC",
+      "bbox": [
+        702.6,
+        491.2,
+        61.1,
+        62.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

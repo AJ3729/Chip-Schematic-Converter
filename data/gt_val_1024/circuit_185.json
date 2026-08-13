@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "image": "circuit_185.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Single series loop drawn rotated ~90 deg (all text sideways). Net map: 0 = the long left vertical rail (runs from off the top edge at x~154 down to the bottom-left corner at (167,459) and then right into the left lead of inductor 4); GND 3 T-joins that rail at (165,210), verified at 10x. n3 = bottom-right run: right lead of inductor 4 -> right to the bottom-right corner (~x 402,y 452) -> up the right rail to the bottom plate of capacitor 1. n2 = short right-rail segment between the top plate of capacitor 1 and the bottom end of resistor 0. n1 = right rail above resistor 0, which runs off the top edge at x~398. Judgment calls: (a) OFF-FRAME V-AC 2 (bbox centre (280,-69), wh 60x57, entirely above the crop): exactly two wires leave the top edge, the left rail at x~154 and the right rail at x~398 (checked on a 6x crop of the whole top strip), and the source spans x 249-310, i.e. between them, so it closes the loop between net 0 and net n1 -> terminals 0 and n1; without it the loop is open and the source has no return path, so this is the only sensible reading. It is inferred, not seen, and is deliberately NOT marked unconnected. (b) The right rail is one continuous unbranched line from the top edge down through resistor 0 and capacitor 1 to the bottom-right corner (checked on a 4x strip crop) - no junction dots or hops anywhere on it, so the loop is purely series: V-AC 2 - R0 - C1 - L4 - back to the grounded left rail. (c) The dashed vertical tick marks at the extreme left and right edges of the scan are page/scan artifacts, not wires. (d) 2-terminal order is as drawn (top-then-bottom for the vertical parts R0 and C1, left-then-right for the horizontal inductor 4 and for the off-frame V-AC) and does not affect any metric. (e) The handwritten 2u(10t+30) V and 4 ohm / 5 mF labels are values, not components.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        394.8,
+        378.1,
+        92.4,
+        34.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        540.6,
+        376.4,
+        46.0,
+        40.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-AC",
+      "bbox": [
+        210.5,
+        488.1,
+        52.3,
+        56.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        467.6,
+        642.3,
+        83.4,
+        40.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        698.2,
+        490.0,
+        38.1,
+        95.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

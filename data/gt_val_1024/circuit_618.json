@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_618.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (4 nodes, all elements carry current): 0 = ground reference -- GND 6 (left, drawn as a single vertical plate at x~66), the LEFT lead of resistor 4, the left plate of capacitor 1 and the left lead of inductor 3, all tied by the long near-vertical wire that runs from the top-left corner (66,25) down to (97,463) and then right into the inductor, crossing the GND->R4 wire at (85,244). n1 = top node, off the top edge: the upper lead of V-DC 0 (x~274), the upper lead of resistor 5 (x~399) and the right plate of capacitor 1 (x~167) all leave the frame at y~6-10 and join above the crop. n2 = middle node: lower lead of V-DC 0, right lead of resistor 4 (T-junction confirmed at (279,231)), top lead of I-DC 2. n3 = bottom node: bottom lead of I-DC 2 down to (281,439), then left along the bottom wire to the right lead of inductor 3 and right along the same wire to (403,439) and up the right side to the bottom lead of resistor 5. Judgment calls: (a) the crossing at (85,244) between the long left wire and the GND->R4 lead is read as a JUNCTION -- at 20x there is a blob wider than either stroke, and more decisively, treating it as a plain crossing would leave resistor 4 with its left terminal touching only GND (no current path) and would leave the capacitor/inductor branch with a node of its own, which is not a sensible circuit; as a junction every one of the four nodes has exactly three elements on it. (b) Capacitor 1 is cut by the top crop: only the lower parts of its two vertical plates (x~148 and x~167, y 10..42) are inside the frame and its bbox centre (154,5) sits 1 px inside the top edge with the bbox running up to y=-46. Its left plate is fed by the horizontal wire at y~15 coming from the top-left corner; its right plate has no lead drawn inside the frame, so that lead must run up and off the top. The only other open ends in the drawing are the two stubs that leave the top edge at x~274 (V-DC) and x~399 (resistor 5), so all three are joined above the crop as n1 -- the reading that leaves nothing dangling and gives the 12V source a return path. (c) V-DC 0 is drawn with '-' at the top and '+' at the bottom of the circle; terminal 0 is the top (n1) lead, terminal 1 the bottom (n2) lead. (d) I-DC 2 arrow points up, terminal 0 is its top lead. (e) 2-terminal ordering elsewhere is left/right or top/bottom as drawn and does not affect any metric. (f) No component was added, removed or re-classed; the vertical bars at the extreme left and right of the image (x~10 and x~498) are scan-border artefacts, not wires.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        372.9,
+        490.0,
+        100.0,
+        81.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        277.4,
+        602.8,
+        93.3,
+        58.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        593.3,
+        488.6,
+        86.0,
+        74.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        698.3,
+        593.6,
+        52.5,
+        88.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        499.2,
+        576.6,
+        52.0,
+        81.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        393.8,
+        378.8,
+        107.3,
+        45.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        500.8,
+        697.8,
+        79.9,
+        39.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

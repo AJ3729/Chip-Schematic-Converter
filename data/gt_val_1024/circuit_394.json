@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_394.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Layout: a 5-rail x 6-column grid. Horizontal rails A(y~66, the five sources), B(y~148), C(y~248), D(y~373), E(y~490). Vertical columns V1(x~19 down to x~5, left border), V2(x~102->92), V3(x~199), V4(x~295), V5(x~402->397), V6(x~491->480, right border). None of the six verticals contains a component, so each vertical is a single node. Rail A carries, left to right: V-AC 6 (3V) between V1 and V2, I-AC 4 (5A) between V2 and V3, V-DC 0 (5V) between V3 and V4, I-DC 3 (10A) between V4 and V5, V-DC 1 (15V) between V5 and V6. Crossings verified at 12-16x: rail B hops over V2 (dip y149-159 @x101), V3 (@x198), V4 (@x294) and V5 (@x400); rail C hops over V2 (@x95), V3 (@x197) and V4 (@x293); rail D hops over V2 (@x93). All of these are unmistakable semicircular hops, so those rails do NOT join those columns. V3 and V4 terminate on rail D (clean dotted T's at (199,371) and (293,372)); V5 terminates on rail C (clean T at (397,249)); V2 terminates on rail E (T at (93,490)). V1 and V6 are the border wires and T into every rail they meet. Net map: n1 = left border V1 + the left stub of every rail: V-AC 6 left, Inductor 12 (50uH) left, Inductor 13 (10uH) left, Inductor 11 (5uH) left, Inductor 8 (1uH) left. n2 = column V2: V-AC 6 right, I-AC 4 left, Inductor 8 right, Capacitor 2 (5uF) left. n3 = column V3 + rail-D segment between Inductor 11 and Capacitor 5: I-AC 4 right, V-DC 0 left, Inductor 11 right, Capacitor 5 (10uF) left. n4 = column V4 + the right border V6 (they are joined by the component-free right-hand stretch of rail D) + the right ends of rails A, B and E: V-DC 0 right, I-DC 3 left, Capacitor 5 right, V-DC 1 right, Capacitor 9 (206uF) right, Capacitor 2 right. 0 = column V5 + the right-hand stretch of rail C, which carries the only GND symbol (7, drawn rotated at x~508 just outside the right border): I-DC 3 right, V-DC 1 left, Capacitor 10 (50uF) right, GND 7. n5 = rail-B middle segment between Inductor 12 and Capacitor 9. n6 = rail-C middle segment between Inductor 13 and Capacitor 10. Judgment calls: (a) THE ONE FORCED CALL: rail C crosses the right border V6 at (483,247) on its way out to GND 7. There is a small ink bulge there (x482-486, y245-249) but it is no larger than the ordinary pooling this drafter leaves at plain meetings, and no hop is drawn. I read it as a CROSSING, not a junction, because the junction reading is electrically impossible: it would make rail-C-right = V5 = V6, putting BOTH terminals of V-DC 1 (15V) on one net (fatal shorted source) and shorting I-DC 3 as well. Every other way of breaking that short was checked against the ink and rejected - V5's top is an unmistakable filled junction on rail A at (402,66), V5's bottom is a clean T on rail C at (397,249), rail C is unbroken ink from Capacitor 10 to the GND lead (x343..502), and V6 is unbroken ink from the rail-A corner (491,65) to the rail-E corner (480,485). Treating rail D x V6 at (481,373) as the crossing instead was also tried and rejected: it leaves six nets with no DC path to ground. So (483,247) is the crossing and the GND sits on rail C's outboard end. (b) V1 (left border) is read as ONE continuous wire from the rail-A corner down to the rail-E corner. The binarised image drops it for 14 rows (y144-157) immediately below rail B, but the line is a faint 1px pencil stroke that also drops for 7 rows at y180-186 and for 2-3 rows in several other places, it resumes exactly collinear (x18->17->16->15 smooth drift), and the alternative would leave the lower segment's top end dangling in mid-air, which the drawing never does elsewhere. (c) Known Tier-2 finding, kept because the ink is unambiguous: Inductor 8 (1uH, rail E) sits between n1 and n2, exactly in parallel with V-AC 6 (3V, rail A), because V1 and V2 are both component-free wires. simcheck reports this as 'id 8 closes a loop of voltage sources/inductors'. That is genuinely what is drawn - an inductor across an AC source is ordinary in an AC-analysis problem - and no re-reading of the ink removes it. (d) All 2-terminal parts are indexed 0 = left as drawn, 1 = right; order does not affect any metric. (e) No component is off-frame: GND 7's bbox centre (507.7,247.1) is inside the 512x512 frame, and its symbol is visible at the right edge. No components were added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        430.1,
+        162.4,
+        64.7,
+        60.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        819.5,
+        160.8,
+        70.6,
+        65.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        248.9,
+        924.7,
+        42.5,
+        62.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-DC",
+      "bbox": [
+        630.6,
+        162.2,
+        58.4,
+        51.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-AC",
+      "bbox": [
+        265.6,
+        174.9,
+        56.1,
+        51.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        423.3,
+        712.0,
+        37.6,
+        48.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-AC",
+      "bbox": [
+        133.5,
+        176.2,
+        57.0,
+        54.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        925.8,
+        486.0,
+        36.2,
+        56.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        90.7,
+        932.1,
+        65.6,
+        37.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Capacitor",
+      "bbox": [
+        803.6,
+        308.4,
+        30.8,
+        40.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Capacitor",
+      "bbox": [
+        626.0,
+        490.7,
+        30.3,
+        31.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Inductor",
+      "bbox": [
+        288.5,
+        712.9,
+        56.6,
+        26.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Inductor",
+      "bbox": [
+        648.0,
+        308.1,
+        58.8,
+        29.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Inductor",
+      "bbox": [
+        433.0,
+        494.6,
+        55.2,
+        23.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

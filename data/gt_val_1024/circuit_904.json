@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "image": "circuit_904.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The whole drawing is rotated about 40 deg clockwise inside the 512x512 frame; the descriptions below are in page terms (all five op-amps are drawn apex-down, so their two inputs are on the upper edge - '+' on the left, '-' on the right, the +/- pencil marks are legible on op-amps 1, 2, 6 and 15 - and the output is the lower apex). Coordinates quoted are IMAGE coordinates of circuit_904.jpg. Net map: 0 = the common reference. All six GND symbols (7, 8, 12, 13, 16, 17) are one node per the GT rule, and they carry: in+ of op-amp 1 (GND 7), in+ of op-amp 6 (GND 8), in+ of op-amp 15 (GND 12), in+ of op-amp 2 (GND 16), the far lead of I-DC 5 (GND 13) and the (+) lead of V-DC 0 (GND 17). Each of those is a separate short stub in the drawing; they are joined only through the ground reference. n1 = op-amp 15 summing node: in- of op-amp 15, the driven lead of I-DC 5 and the top of inductor 4 (T-junction verified at image (126,199)). n2 = output node of op-amp 15: its apex, the far lead of inductor 4 (so inductor 4 is op-amp 15's feedback element), plus in- of op-amp 2, the near plate of capacitor 10, the near plate of capacitor 9 and in+ of op-amp 3 - see judgment call (a). n3 = op-amp 1 summing node: in- of op-amp 1, the far plate of capacitor 9 and the top of inductor 14 (inductor 14 is op-amp 1's feedback element). n4 = the common output rail: apex of op-amp 1, apex of op-amp 2, apex of op-amp 3, apex of op-amp 6, plus in- of op-amp 3 (tied straight back to its own apex through a bare wire, verified Y-junctions at image (405,217) and (445,288)), plus the return plates of capacitors 10 and 11 and the far end of inductor 14. n5 = op-amp 6 summing node: in- of op-amp 6, the far lead of V-DC 0 and the near plate of capacitor 11 (T-junction verified in the rotated view at rot (436,123)). Judgment calls: (a) THE ONE AMBIGUOUS CROSSING. At image (219,283) the wire running from the op-amp 15 output / inductor 4 node down to the in- of op-amp 2 crosses the wire running from the near plate of capacitor 9 across to in+ of op-amp 3. At 28x the mark is a 2-3 px blob with a short sideways detour and a pinhole of white - it could be read either as a junction dot or as a very small hop, and I could not settle it from the ink. I read it as a JUNCTION, because the hop reading leaves capacitor 9's near plate connected only to the high-impedance in+ of op-amp 3, i.e. capacitor 9 would carry no current at all and that node would have no DC path to ground. Per the 'choose the reading that makes the circuit function' rule the junction reading wins; with it, op-amp 15's output fans out to op-amp 2's summing node, through capacitor 9 into op-amp 1's summing node, and to op-amp 3's non-inverting input, and simcheck is clean. This is the single call a human should re-check. (b) TWO WIRE ENDS LEAVE THE FRAME. The op-amp 1 output wire runs off the bottom edge at image (225,511) heading down-right, and the long bottom wire that carries the op-amp 2 and op-amp 3 outputs runs off the bottom edge at image (265,511) heading down-left. Extending both, they meet about 15 px below the crop, so I joined them: op-amp 1's output is part of n4. No component bbox centre is outside the frame, so there is no off-frame component to pair them with - these are simply two ends of one wire that the 512x512 crop cut. If they were left separate the only change would be to split n4 into {op-amp 1 apex, inductor 14 far lead} and the rest; nothing else moves. (c) op-amp 3 is drawn as a bare unity-gain follower: a plain wire from its apex back to its in-, and that same node also carries op-amp 6's apex. Four op-amp outputs therefore sit on n4. That is electrically odd but it is unambiguously what the ink shows (three separate Y-junctions verified at native resolution), so it is recorded as drawn rather than invented away. (d) op-amp terminal order is (in+, in-, out). In every op-amp the lead arriving at the left end of the upper edge is the '+' input (confirmed by the pencil '+' marks) and the lead arriving at the right end is the '-' input. (e) two-terminal parts (capacitors 9/10/11, inductors 4/14, V-DC 0, I-DC 5) are listed in drawn order; that order does not affect any metric. (f) nothing is marked unconnected; the inventory of 18 was used unchanged.  INDEPENDENT RE-VERIFICATION PASS (second annotator). Method: the sheet is drawn in very light pencil that binarises into dashes at the default 128 threshold, so everything below was re-traced at threshold 205 in de-rotated windows (the page tilt is about -31 deg at the bottom-left, -33 deg in the middle and -35..-38 deg at the top-right; the drawing curves, so no single angle works everywhere). Every net was re-derived from scratch and the 6-net partition above is CONFIRMED unchanged, terminal orders included. Trace, in image coordinates: op-amp 15 -- in+ at the left end of its flat edge runs west to GND 12; in- at the right end runs north-west to I-DC 5 and carries a T at (123,199) from which the inductor-4 branch leaves; the apex (output) at about (147,259) runs to the corner (165,281), east to the T at (199,257), and up through inductor 4 back to the in- -- so inductor 4 is op-amp 15's feedback element and n1/n2 are its two ends. From that same T at (199,257) the wire continues south-east and becomes op-amp 2's in- at (275,371), passing through the crossing at (218,285). op-amp 2 -- in+ west to GND 16; in- from the north-west; apex south to (299,425), east and north through capacitor 10 back to the in-; the apex wire continues south-east to (334,476). op-amp 1 -- in+ west to GND 7; in- north through capacitor 9, then north-east as the long straight run (133,346)->(218,285)->(255,260)-> peak (329,207) -> valley (362,256) -> peak (396,228) -> op-amp 3's in+ at (403,245); a T on the in- lead feeds inductor 14, which returns to op-amp 1's apex wire; the apex wire runs south-east and leaves the frame at (225,511). op-amp 6 -- in+ west to GND 8; in- north to V-DC 0 (whose other lead is GND 17) with a branch at (308,38) up to capacitor 11; apex south-east to (364,153), where a branch runs north-east to capacitor 11's far plate at (405,123) and THE MAIN WIRE CONTINUES south-east to op-amp 3's in- at (416,236). (Note for re-checkers: (364,153) is a T, not a corner -- reading it as a corner would strand op-amp 6.) op-amp 3 -- in- at (416,236) carries a T at (404,218) whose branch goes (431,200)->(474,264) and back west to the apex wire at (443,285), i.e. a bare wire from output to inverting input; the apex wire then runs south-east to the corner at about (493,360) and back south-west as the long bottom rail, collecting op-amp 2's output at (334,476) and leaving the frame at (266,511). Frame edges re-scanned: the ONLY ink crossing a frame edge is those two wire ends at the bottom, (225,511) and (266,511); nothing leaves the left, right or top edge (the ink at row 0 is V-DC 0's clipped circle and the corner of its lead at (283,0), both arms of which are visible). Extrapolating the two bottom ends at their measured slopes (dx/dy = +0.625 and -2.1, from rows 495..511) they intersect at about (235,527), 16 px below the crop -- so joining them, as this file does, is the only reading that does not leave two open ends. THE ONE CALL A HUMAN SHOULD RE-CHECK IS STILL THE CROSSING AT (218,285), and here is the hard measurement of it. The two wires there are: the op-amp-15-output -> op-amp-2-in- run (steep, slope dy/dx = +1.4, stroke 2 px) and the capacitor-9 -> op-amp-3-in+ run (shallow, slope dy/dx = -0.81, stroke 2 px). Neither is a hop glyph of the kind seen on other sheets: neither wire makes a semicircular detour and returns. What is there is a 7x8 px clump spanning x=216..224, y=281..289 containing 30 px of ink (two 2-px lines crossing at 94 deg would themselves produce about 28 px, so there is almost NO excess ink -- this is NOT a filled dot; a filled dot of this size would be about 50 px), and it contains two enclosed white pockets, 6 px at x=219..220 y=283..286 and 2 px at x=219 y=287..288, both of which survive a threshold sweep to 250 (they are pure paper, not light graphite). Each wire is also displaced about 3.5 px perpendicular across the mark: the shallow wire holds slope -0.81 consistently over x=180..216 and x=224..257 but its right-hand half sits 4.5 px low in y relative to the left half's extrapolation, and the steep wire's lower half sits 6 px low in y relative to its upper half's. So the ink is genuinely equivocal: too little ink for a dot, no detour-and-return for a hop, but two real enclosed pockets and two real step offsets. This drawing contains NO OTHER 4-way crossing (checked: every other meeting on the sheet is a T or a corner), so there is no sample of this drafter's convention to compare against; his T-junctions (measured at (199,257), (404,218), (334,476), (123,199), (308,38)) carry no dot and no excess ink, so 'he always dots junctions' cannot be established either way. Under the protocol's rule for an equivocal mark -- choose the reading that makes the circuit function -- the JUNCTION reading is kept, because the hop reading isolates {capacitor 9 near plate, op-amp 3 in+} as a node with no DC path to ground and, with op-amp 3's in+ being an infinite-impedance input, leaves capacitor 9 carrying exactly zero current, op-amp 1 with no input drive at all and inductor 14 (op-amp 1's feedback) carrying no current -- five of the eighteen components dead. The junction reading instead makes op-amp 15's output fan out to three loads and every component live, and simcheck is clean. If a human with the original sheet can see a loop at that mark, the correction is to split n2 into n2 = {op-amp 15 out, inductor 4 far, op-amp 2 in-, capacitor 10 near} and a new n6 = {capacitor 9 near, op-amp 3 in+}; nothing else in the file changes.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        93.9,
+        233.6,
+        67.0,
+        69.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Op-Amp",
+      "bbox": [
+        671.3,
+        824.0,
+        66.1,
+        79.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Op-Amp",
+      "bbox": [
+        770.2,
+        619.0,
+        92.7,
+        94.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Op-Amp",
+      "bbox": [
+        687.2,
+        212.6,
+        68.0,
+        69.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        376.9,
+        596.6,
+        63.5,
+        31.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-DC",
+      "bbox": [
+        155.7,
+        721.0,
+        76.1,
+        82.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Op-Amp",
+      "bbox": [
+        313.8,
+        189.3,
+        110.8,
+        111.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        },
+        {
+          "index": 2,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        625.5,
+        920.9,
+        44.3,
+        45.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "GND",
+      "bbox": [
+        224.7,
+        278.2,
+        47.2,
+        37.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Capacitor",
+      "bbox": [
+        579.1,
+        812.3,
+        34.9,
+        43.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Capacitor",
+      "bbox": [
+        720.6,
+        548.3,
+        34.2,
+        32.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Capacitor",
+      "bbox": [
+        342.9,
+        98.5,
+        28.3,
+        37.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "GND",
+      "bbox": [
+        279.6,
+        812.1,
+        40.7,
+        32.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "GND",
+      "bbox": [
+        146.4,
+        853.4,
+        28.8,
+        38.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Inductor",
+      "bbox": [
+        679.6,
+        761.5,
+        49.5,
+        27.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "Op-Amp",
+      "bbox": [
+        358.7,
+        677.8,
+        111.8,
+        117.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        },
+        {
+          "index": 2,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "GND",
+      "bbox": [
+        689.1,
+        700.3,
+        40.4,
+        48.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "GND",
+      "bbox": [
+        88.8,
+        322.0,
+        36.9,
+        44.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

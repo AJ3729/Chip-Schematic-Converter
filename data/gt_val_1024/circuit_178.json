@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_178.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is a 3-node RLC network drawn rotated ~90 deg (all text sideways). Net map: 0 = the long left vertical rail, which runs the full height of the frame and off both the top (x~80) and bottom (x~111) edges; GND 6 T-joins it at (92,210), the left plate of capacitor 1 joins it at (80,63), and the left lead of inductor 4 joins it at (99,322). n1 = top node: right plate of capacitor 1 -> top horizontal -> 4-way junction at (354,44) -> up the x~352 column off the top edge, down to the top of resistor 2, and right to the top of the x~443 right rail carrying V-AC 3. n2 = lower-right node: bottom of resistor 2 -> down the x~366 column -> 4-way junction at (366,317) with the bottom horizontal (right lead of inductor 4, and right rail down to the bottom of V-AC 3) -> the column continues down off the bottom edge at x~372. Judgment calls: (a) both 4-way crossings, (354,44) and (366,317), carry a clear thickened junction blob at 12x, so both are junctions, not hops - this makes the x~352/366 column electrically continuous with the top horizontal above and the bottom horizontal below; (b) the T at (80,63) and the T at (99,322) both show junction thickening, so the top and bottom horizontals both land on the left rail; (c) OFF-FRAME I-AC 0 (bbox centre (203,-117), entirely above the crop): the only two wires leaving the top edge are the left rail at x~80 and the resistor-2 column at x~352, and the I-AC spans x 166-241, i.e. squarely between them, so it is the element bridging those two stubs -> terminals 0 (=left lead) and n1 (=right lead); this leaves no dangling end and gives the source a return path; (d) OFF-FRAME Resistor 5 (bbox centre (239,531), w=103, entirely below the crop): the only two wires leaving the bottom edge are the left rail at x~111 and the column at x~372, and the resistor is drawn horizontally spanning x 187-290 between them, so it bridges them -> 0 (left lead) and n2 (right lead); (e) neither off-frame part is marked unconnected - both are inferred from stub pairing, not seen; (f) the small arrowhead-shaped blot on the top horizontal near (415,38) and the letter A near (150,20) are drafting annotations, not components; (g) 2-terminal order is as-drawn (left-then-right for the horizontal parts, top-then-bottom for the vertical ones) and does not affect any metric. Resulting topology: I-AC 0 || C1 between 0 and n1; R2 || V-AC 3 between n1 and n2; L4 || R5 between 0 and n2.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-AC",
+      "bbox": [
+        176.5,
+        538.6,
+        62.7,
+        64.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        332.3,
+        529.6,
+        49.9,
+        41.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        437.2,
+        410.1,
+        117.3,
+        32.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-AC",
+      "bbox": [
+        436.4,
+        338.4,
+        66.7,
+        53.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        572.3,
+        531.6,
+        38.8,
+        82.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        758.5,
+        528.5,
+        32.6,
+        91.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        463.0,
+        682.6,
+        103.0,
+        44.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

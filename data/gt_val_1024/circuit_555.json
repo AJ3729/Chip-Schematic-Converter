@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_555.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (drawing is rotated ~90 deg on the page; the value labels read bottom-to-top). The circuit is a rectangle: a LEFT rail at x~192-205 running the full height, a RIGHT rail at x~406-422 running the full height, joined at the bottom by inductor 6 (8 mH) and across the middle by the capacitor 4 / resistor 2 branch. 0 = the left rail: GND 5 (its lead runs right from the ground bars at x~164-172 and T's into the rail at (196,225), verified on a pixel map), the left plate of capacitor 4 (the mid branch leaves the same junction at y=222), the left lead of inductor 6 at (205,400), and the left terminal of V-DC 3. n1 = the right rail above resistor 0, from the top edge at (408,13) down to y~88: resistor 0 upper lead and the right terminal of V-DC 3. n2 = the right rail between resistor 0 (bottom y~159) and resistor 1 (top y~267); the resistor-2 branch T's into it at (414,205). Holds resistor 0 lower lead, resistor 1 upper lead, resistor 2 right lead. n3 = the mid-branch node between the right plate of capacitor 4 (x~268) and the left end of resistor 2 (x~326), i.e. the wire at y~216-218. n4 = the right rail below resistor 1 (y~344) down to (420,386), then left along the bottom to the right lead of inductor 6: resistor 1 lower lead and inductor 6 right lead. Reads as a sensible circuit: V-DC -> 1 ohm -> node n2 -> 5 ohm -> 8 mH -> back to ground, with a 4 kohm + 2 F series branch from n2 to ground.\nJudgment calls: (a) V-DC 3 is CLIPPED by the crop, not absent: its bbox centre (302.8,10.9) is inside the frame but the box spans y -12.6..34.5, and only the bottom arc of its circle is inked (a U from (286,14) through (300,24) to (320,14)). Its two leads are above the crop line, so the connections are inferred: the left rail runs up and turns right, exiting the top edge at (220,13) heading toward the source, and the right rail runs straight up and exits at (408,13); those are the ONLY two wire ends leaving the top edge, and V-DC 3 sits horizontally between them, so terminal 0 (left) = 0 and terminal 1 (right) = n1. Its +/- marks are cut off, so the polarity/terminal order is arbitrary here and is recorded left-then-right as drawn.\n(b) The junction at (196,222-226) is a genuine 4-way node, not a crossing: a pixel map of x 185-300 / y 190-245 shows the GND lead, the rail above, the rail below and the capacitor branch all in one connected ink blob, with no hop and no separate strokes.\n(c) Capacitor 4 is horizontal (plates are the two vertical bars at x~253 and x~268); its left plate faces the ground rail and its right plate faces resistor 2, so terminals are listed left-then-right.\n(d) The two full-height vertical lines at the extreme left (x~8-24) and extreme right (x~486-502) touch no component or lead anywhere in the frame (checked by pixel probe on rows 18/60/130/200/260/340/400); they belong to neighbouring drawings on the same page that the crop clipped in and get no net.\n(e) Resistors 0 and 1 are vertical and listed top-then-bottom; resistor 2 and inductor 6 are horizontal and listed left-then-right. Order does not affect any metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        387.1,
+        353.6,
+        69.9,
+        25.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        567.6,
+        353.9,
+        75.4,
+        30.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        468.3,
+        417.6,
+        37.9,
+        72.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        271.7,
+        456.6,
+        44.9,
+        50.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        475.9,
+        506.5,
+        53.1,
+        37.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        483.7,
+        600.5,
+        66.3,
+        35.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        650.4,
+        464.0,
+        33.2,
+        87.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

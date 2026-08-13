@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "image": "circuit_19.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Clean two-rail ladder, coordinates in 512-space. Net map: n1 = V-DC 1 (+, top) lead up to the top-rail corner (72,192) and right to the left lead of resistor 6 (3k). n2 = top-rail node A at (195,198): right lead of resistor 6, left lead of inductor 5 (0.7mH), top lead of inductor 8 (1mH) -- clear T verified at 8x. n3 = top-rail node B at (287,198): right lead of inductor 5, left lead of resistor 3 (2k), top lead of inductor 7 (13mH) -- clear T verified at 8x. n4 = right lead of resistor 3 -> corner (404,198) -> down to the top of I-DC 0 (2A). n5 = LEFT segment of the bottom rail: V-DC 1 (-) bottom lead down to (65,285) and right to (191,296) where inductor 8's bottom lead T's in, continuing to the left lead of resistor 4 (10k). 0 = RIGHT segment of the bottom rail: right lead of resistor 4 -> (284,296) where inductor 7's bottom lead T's in -> (359,297) where the GND 2 stub drops to the ground bars (verified at 9x) -> (401,298) up into the bottom of I-DC 0. Judgment calls: (a) resistor 4 (10k) sits IN SERIES in the bottom rail, so the bottom rail is two distinct nets, not one -- verified at 7x across the whole rail (150..420, y~296); the ground symbol taps only the right segment, so only that one is net 0; (b) the long horizontal near the top of the frame (y~140, x 215..512), the vertical at x~5 and the horizontal at y~362 on the left are scan/page-border artifacts, well clear of the circuit and connected to no component -- ignored; (c) V-DC 1 is drawn with + up, so terminal 0 is the + (top, n1) terminal and terminal 1 the - (bottom, n5); (d) I-DC 0 arrow points up (toward n4); its terminal 0 is the top lead; (e) horizontal 2-terminal parts are listed left-then-right, vertical ones top-then-bottom, as drawn.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        798.8,
+        505.5,
+        82.1,
+        86.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        134.0,
+        509.4,
+        91.5,
+        82.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "GND",
+      "bbox": [
+        721.0,
+        652.8,
+        94.0,
+        49.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        713.2,
+        384.8,
+        116.1,
+        40.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        479.8,
+        588.7,
+        126.5,
+        45.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        473.6,
+        391.6,
+        94.0,
+        48.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        255.9,
+        395.6,
+        110.3,
+        54.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        563.6,
+        488.1,
+        56.7,
+        102.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        396.3,
+        490.8,
+        50.4,
+        97.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

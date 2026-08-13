@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_356.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is rotated ~90 deg (all text reads sideways); described here in image coordinates. Two long rails carry everything: a LEFT rail running from (173,21) at the top down to the corner at (194,454), and a RIGHT rail from (368,21) down to the corner at (391,437). Net map (4 nets): 0 = the entire left rail \u2014 GND 3, whose stem T's into it from the left at (183,216) (verified at 7x), plus the left end of Resistor 1 (2kohm, T at (181,119)), the left lead of V-DC 5 (T at (188,312)), the left lead of Inductor 6 at the bottom corner, and one lead of the off-frame I-DC 0. n1 = upper right rail: right end of Resistor 1 (T at (375,109)), top of Resistor 2 (4ohm, drawn vertically in the rail), and the other lead of I-DC 0. n2 = lower right rail: bottom of Resistor 2, down past the T at (387,301) where the capacitor branch lands, to the bottom corner and the right lead of Inductor 6. n3 = the short link between the right lead of V-DC 5 and the left plate of Capacitor 4 (2uF). Judgment calls: (a) OFF-FRAME I-DC 0 (bbox centre (268.3,-23.4), spanning x 239-298, y -47..0 \u2014 entirely above the top of the image, so the symbol is not visible at all). A full border scan finds NO wire crossing any of the four frame edges; the only open wire ends anywhere in the drawing are the two rail tops, which stop at y=21 against the scan's white margin: the left rail at x=173 and the right rail at x=368. The I-DC's x-range sits squarely between them, so it is the top element closing the loop: terminal 0 = its left lead on net 0 (left rail), terminal 1 = its right lead on n1 (upper right rail). This also makes the circuit function \u2014 a current source in parallel with the 2kohm Resistor 1, feeding the 4ohm Resistor 2 / capacitor / inductor mesh \u2014 and leaves nothing dangling. Lead order is inferred from position since the symbol cannot be read. (b) Both rails are single unbroken strokes through every junction (each of the four T's re-verified at 7-9x); Resistor 2 is the only element in a rail, which is why the right rail splits into n1 above and n2 below it while the left rail is one node. (c) The near-vertical strokes at x~7-37 and x~475-505 are notebook page rulings, not wires; the '6' below the inductor is a page number. (d) Terminal order: Resistor 1, V-DC 5, Capacitor 4 and Inductor 6 are horizontal (0 = left, 1 = right); Resistor 2 is vertical (0 = top, 1 = bottom). V-DC 5's '+' is drawn on the right half of the circle, so its right lead is the + terminal, but 2-terminal order does not affect any metric. (e) Nothing was added, removed, re-classed or marked unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        227.6,
+        480.8,
+        44.8,
+        57.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        363.0,
+        483.1,
+        36.3,
+        83.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        486.7,
+        382.6,
+        103.8,
+        30.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        475.2,
+        617.5,
+        72.5,
+        43.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        567.0,
+        463.8,
+        46.4,
+        40.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-DC",
+      "bbox": [
+        566.0,
+        542.8,
+        38.2,
+        42.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        714.8,
+        497.3,
+        33.3,
+        82.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

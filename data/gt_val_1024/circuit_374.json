@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_374.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is rotated ~14 deg clockwise; the two 'vertical' branches run down-right. Two components are OFF-FRAME: I-DC 0 (bbox centre (240.5,1.3), box spans y -41..43, i.e. almost entirely above the top edge) and V-DC 1 (bbox centre (346.6,525.2), box spans y 485..565, below the bottom edge). Neither symbol is visible in the 512x512 image. Net map: n1 = top of the LEFT branch -- open stub whose visible end is (166,57) running up off the top edge -- joined to the upper lead of Inductor 4 and to one terminal of the off-frame I-DC 0; n3 = top of the RIGHT branch -- open stub ending at (342,57) -- joined to the upper lead of Resistor 3 and the other terminal of I-DC 0; 0 = the 4-way node at (204,285) (verified at 12x): lower lead of Inductor 4, the GND 5 bars reached by the short stem going down-left, the left lead of Inductor 7, and the wire continuing down to the upper plate of Capacitor 2 -- ground, so net '0'; n4 = the T-junction at (375,236) on the right branch (verified at 12x): lower lead of Resistor 3, right lead of Inductor 7, and down to the upper plate of Capacitor 6; n2 = lower plate of Capacitor 2 -> stub ending at (240,454) -> off-frame V-DC 1; n5 = lower plate of Capacitor 6 -> stub ending at (418,454) -> off-frame V-DC 1. Judgment calls: (a) OFF-FRAME I-DC 0 -- the only two open leads at the top of the frame are the branch stubs at (166,57) and (342,57); projected up along their ~14-deg tilt they reach x~153 and x~331 at y=0 and x~143 / x~321 at y=-40, and the I-DC bbox spans x 198..283 at y -41..43, i.e. exactly between them. I therefore read I-DC 0 as bridging the two branch tops (n1 to n3). This leaves no dangling lead; (b) OFF-FRAME V-DC 1 -- symmetrically, the only two open leads at the bottom are (240,454) and (418,454); projected down to y=525 they reach x~257 and x~435, and the V-DC bbox spans x 307..387, between them. So V-DC 1 bridges the two branch bottoms (n2 to n5). The result is a closed two-mesh circuit (I-DC - L4 - node0 - C2 - V-DC - C6 - nodeD - R3 - back, with L7 bridging node0 and nodeD), which is what a textbook problem with these values would be; neither off-frame part is marked unconnected; (c) the two very long straight lines near the left edge ((7,57)->(102,447)) and the right edge ((414,52)->(505,430)) are ruled notebook/page lines, not wires -- they never touch any symbol; ignored; (d) Inductor 4, Resistor 3, Capacitor 2 and Capacitor 6 were each confirmed at 4-6x to be plain series elements with no extra taps; (e) 2-terminal index order is index0 = electrically-upper (or left, for Inductor 7) lead as drawn; for the two off-frame sources index0 is the left-branch side. Order affects no metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        209.0,
+        459.5,
+        84.0,
+        84.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        852.8,
+        479.0,
+        80.6,
+        80.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        676.4,
+        581.9,
+        80.0,
+        64.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        382.2,
+        360.0,
+        119.5,
+        43.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        363.1,
+        561.3,
+        138.4,
+        51.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        530.9,
+        610.8,
+        90.9,
+        46.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        661.8,
+        372.1,
+        78.3,
+        65.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        534.9,
+        479.5,
+        55.5,
+        112.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

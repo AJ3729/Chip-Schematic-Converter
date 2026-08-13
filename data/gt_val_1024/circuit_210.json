@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "image": "circuit_210.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (coords in the 512x512 frame of circuit_210.jpg). 0 = ground. Two GND symbols, both on it: GND 6 (bottom centre, hangs off the bottom rail at (283,366)) and GND 14 (top right, below V-DC 0 at (384,144)). The bottom rail runs at y~356-378 from x~19 to x~466 and carries: bottom of V-AC 3, bottom of V-AC 5 (dot at (107,358)), source of MOSFET-N 12 (dot at (240,363)), GND 6, drain of MOSFET-P 8 (dot at (367,374)), bottom of I-AC 2 (dot at (424,378)) and bottom of I-AC 1 (464,378); the minus terminal of V-DC 0 reaches it through GND 14. n1 = top rail y~115 from x~22 to the V-DC 0 (5V) circle: cathode of Zener 9, source of MOSFET-P 11 (dot at (106,115)), drain of MOSFET-N 7 (dot at (250,115)), plus terminal of V-DC 0. V-DC 0's minus side goes right and down to GND 14, so the rail sits at +5 V. n2 = the big node at the junction dot (247,177): source of MOSFET-N 7, drain of MOSFET-P 11 (reached by the y~175 horizontal running left to (105,175)), drain of MOSFET-N 10 (down the x~246 column), and the y~178 horizontal running right to x~378 then down to the source of MOSFET-P 13. n3 = gate-bias node on the left: anode (bottom) of Zener 9 -> down x~20 -> dot at (20,223) -> top of V-AC 3 continues down the same column -> the y~223..232 horizontal right through the dot at (78,223) (gate of MOSFET-P 11 comes left from (92,159) and down x~81) and on to the gate of MOSFET-N 10 at (227,232). n4 = the other gate-drive node: gate of MOSFET-N 7 leaves left at y~159 to x~197, runs down x~184..193, picks up the top of V-AC 5 at the junction dot (185,260), and continues down to y~346 then right to the gate of MOSFET-N 12. n5 = junction dot (242,272): source of MOSFET-N 10, left end of Resistor 4 (1k), drain of MOSFET-N 12. n6 = junction dot (373,277): right end of Resistor 4, drain of MOSFET-P 13, source of MOSFET-P 8. n7 = gate of MOSFET-P 13 (leaves the gate bar to the right at (391,229)) -> right at y~228 -> down x~466 -> top of I-AC 1. n8 = gate of MOSFET-P 8 (leaves right at (382,328)) -> right to x~404 -> up -> right at y~306 -> top of I-AC 2. Judgment calls: (a) Two 4-way crossings carry NO junction dot and were read as crossings: (197,175) where the MOSFET-7 gate column crosses the n2 horizontal, and (191,232) where that same gate column crosses the n3 horizontal. Verified on the raw pixels: this drafter's real junctions are unmistakable 5-6 px x 4-5 px pen blobs (e.g. (20,223), (78,223), (185,260), (242,272), (247,177), (373,277)), whereas at (197,175) and (191,232) both strokes stay 2 px wide through the crossing. Circuit sense agrees: making (197,175) a junction would tie MOSFET 7's gate to its own source (device permanently off), and making (191,232) a junction would put V-AC 3 and V-AC 5 in parallel and drive all four gates from one node. As read, V-AC 3 (+ Zener 9) drives the gates of MOSFET-P 11 and MOSFET-N 10 while V-AC 5 drives the gates of MOSFET-N 7 and MOSFET-N 12, which is a coherent two-input arrangement. (b) Zener 9 is drawn with the triangle apex UP touching the bent-ended cathode bar at y~156, so the cathode is the top lead (to the +5 V rail) and the anode the bottom lead (to n3). Index 0 = top, 1 = bottom; 2-terminal order affects no metric. (c) MOSFET terminal order is [drain, gate, source] throughout. For the three N-channel devices (7, 10, 12) the upper lead is the drain and the lower lead the source (drain toward the +5 V rail, source toward ground - MOSFET 12's source literally lands on the ground rail). For the three P-channel devices (8, 11, 13) the reading is inverted, as it must be for a PMOS: the upper lead is the source and the lower lead the drain (MOSFET 11's source is on the +5 V rail; MOSFET 8's drain is on the ground rail). The S/D choice does not change the net partition, only which index carries which net. (d) MOSFETs 8 and 13 are drawn mirrored (gate bar on the right of the channel), so their gate leads exit to the RIGHT while their drain/source/body leads exit to the LEFT. That is why the wires to I-AC 1 and I-AC 2 are gate connections, not channel connections - checked at 16x. (e) TIER 2, kept deliberately: n7 and n8 each touch only a MOSFET gate and one terminal of an AC current source, so simcheck reports 'no DC path to ground' for both. That is exactly what the ink shows (I-AC 1's top goes only to MOSFET 13's gate, I-AC 2's top goes only to MOSFET 8's gate) and it is the normal shape of an AC small-signal exercise, so it was not altered. (f) The bootstrap had GND 14 on 'n2'; every net touching a GND symbol is '0', so it was moved. (g) No component is off-frame (every bbox centre is well inside 512x512), nothing is marked unconnected, and no component was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        643.9,
+        251.9,
+        67.8,
+        46.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-AC",
+      "bbox": [
+        910.3,
+        573.2,
+        45.7,
+        50.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-AC",
+      "bbox": [
+        844.9,
+        662.8,
+        39.3,
+        49.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-AC",
+      "bbox": [
+        64.8,
+        635.9,
+        50.8,
+        61.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        605.6,
+        540.6,
+        82.3,
+        29.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-AC",
+      "bbox": [
+        235.1,
+        617.6,
+        44.6,
+        45.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        573.6,
+        790.0,
+        70.7,
+        45.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "MOSFET-N",
+      "bbox": [
+        481.3,
+        308.5,
+        44.8,
+        56.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        },
+        {
+          "index": 2,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "MOSFET-P",
+      "bbox": [
+        746.6,
+        622.9,
+        40.3,
+        54.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        },
+        {
+          "index": 2,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Zener Diode",
+      "bbox": [
+        65.1,
+        354.0,
+        82.3,
+        61.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "MOSFET-N",
+      "bbox": [
+        474.5,
+        456.2,
+        48.3,
+        59.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        },
+        {
+          "index": 2,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "MOSFET-P",
+      "bbox": [
+        209.3,
+        315.1,
+        47.4,
+        63.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        },
+        {
+          "index": 2,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "MOSFET-N",
+      "bbox": [
+        477.7,
+        636.7,
+        43.7,
+        50.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        },
+        {
+          "index": 2,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "MOSFET-P",
+      "bbox": [
+        755.8,
+        431.1,
+        48.3,
+        61.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        },
+        {
+          "index": 2,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "GND",
+      "bbox": [
+        750.7,
+        299.3,
+        45.8,
+        29.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

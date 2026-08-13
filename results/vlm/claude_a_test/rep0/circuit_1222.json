@@ -1,0 +1,208 @@
+{
+ "components": [
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    100,
+    375,
+    52,
+    40
+   ],
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    613,
+    283,
+    52,
+    44
+   ],
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    720,
+    340,
+    28,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    490,
+    690,
+    30,
+    22
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    98,
+    538,
+    44,
+    44
+   ],
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    200,
+    538,
+    44,
+    44
+   ],
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "class": "MOSFET-P",
+   "bbox": [
+    243,
+    352,
+    60,
+    70
+   ],
+   "terminals": [
+    "n4",
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "class": "MOSFET-P",
+   "bbox": [
+    410,
+    332,
+    60,
+    72
+   ],
+   "terminals": [
+    "n4",
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    410,
+    452,
+    60,
+    72
+   ],
+   "terminals": [
+    "n4",
+    "n3",
+    "n5"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    410,
+    578,
+    60,
+    72
+   ],
+   "terminals": [
+    "n5",
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    505,
+    518,
+    66,
+    30
+   ],
+   "terminals": [
+    "n5",
+    "n6"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    652,
+    425,
+    60,
+    72
+   ],
+   "terminals": [
+    "n7",
+    "n4",
+    "n6"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    652,
+    580,
+    60,
+    72
+   ],
+   "terminals": [
+    "n6",
+    "n8",
+    "0"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    760,
+    595,
+    44,
+    44
+   ],
+   "terminals": [
+    "n8",
+    "0"
+   ]
+  },
+  {
+   "class": "I-AC",
+   "bbox": [
+    860,
+    530,
+    44,
+    44
+   ],
+   "terminals": [
+    "n7",
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 2756
+ },
+ "_model": "claude-opus-5"
+}

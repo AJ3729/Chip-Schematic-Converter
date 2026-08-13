@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_417.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Single series loop (RLC driven by an AC source), all 7 components in-frame. Net map: 0 = the bottom rail -- one lightly-drawn but continuous run (verified at 6x; it only looks dashed because the light pencil broke up under binarisation) from the lower lead of V-AC 5 at the left corner (122,307) rightwards to the lower lead of Resistor 1 at (412,320), with the GND 6 stem dropping to the ground bars at (272,313); n1 = left corner (130,184): upper lead of V-AC 5 up the left column and right into the left end of Resistor 0 (5 kohm); n2 = Resistor 0 right end to Inductor 2 (10 mH) left lead; n3 = Inductor 2 right lead to Resistor 3 (10 kohm) left end; n4 = Resistor 3 right end to the left plate of Capacitor 4 (5 nF); n5 = right plate of Capacitor 4 -> top-right corner (415,202) -> down the right column to the upper lead of Resistor 1 (10 kohm). Judgment calls: (a) the top rail was traced at 7x and is a plain series chain R0 -> L2 -> R3 -> C4 with no taps or crossings; the left and right columns were traced at 8x and each contains exactly one series element (V-AC 5 on the left, Resistor 1 on the right); (b) the bottom rail's broken appearance is a rendering artefact of light pencil, not a real break -- the fragments are collinear along a single slightly-sloping line and there is no hop or gap in the surrounding geometry, and reading it as broken would leave the source with no return path; (c) the GND 6 stem meets the bottom rail as a plain T at (272,313), so the whole bottom rail is net '0'; (d) the long straight diagonals at the far left (x~8-12), across the upper right ((240,140) to (505,163)) and across the lower left are page-border / ruled lines -- they touch no symbol and are ignored; (e) all 7 bbox centres are inside the 512x512 frame -- no off-frame components; (f) V-AC 5 carries no polarity marks, so its terminal order is arbitrary; index0 is taken as the upper lead. Other 2-terminal parts use index0 = left (horizontal) or top (vertical) as drawn. Order affects no metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        387.0,
+        386.0,
+        80.8,
+        38.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        826.4,
+        525.0,
+        40.7,
+        90.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        507.0,
+        384.5,
+        92.9,
+        33.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        635.5,
+        385.1,
+        70.3,
+        32.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        729.0,
+        381.9,
+        40.5,
+        45.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-AC",
+      "bbox": [
+        245.8,
+        510.7,
+        55.6,
+        61.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        558.9,
+        675.8,
+        116.1,
+        50.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,251 @@
+{
+ "components": [
+  {
+   "class": "Resistor",
+   "bbox": [
+    210,
+    222,
+    20,
+    70
+   ],
+   "terminals": [
+    "n_top",
+    "n10"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    210,
+    335,
+    20,
+    70
+   ],
+   "terminals": [
+    "n10",
+    "n3"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    287,
+    442,
+    60,
+    22
+   ],
+   "terminals": [
+    "n3",
+    "n5v"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    615,
+    455,
+    60,
+    24
+   ],
+   "terminals": [
+    "n5v",
+    "n5v"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    548,
+    650,
+    20,
+    60
+   ],
+   "terminals": [
+    "nE",
+    "0"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    35,
+    730,
+    20,
+    60
+   ],
+   "terminals": [
+    "n3v",
+    "0"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    755,
+    405,
+    36,
+    40
+   ],
+   "terminals": [
+    "nA",
+    "n5v"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    755,
+    540,
+    36,
+    40
+   ],
+   "terminals": [
+    "n5v",
+    "nB"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    878,
+    893,
+    36,
+    24
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    118,
+    620,
+    40,
+    44
+   ],
+   "terminals": [
+    "nc1",
+    "n3v",
+    "0"
+   ]
+  },
+  {
+   "class": "BJT-PNP",
+   "bbox": [
+    203,
+    538,
+    44,
+    44
+   ],
+   "terminals": [
+    "n5",
+    "nc1",
+    "n3"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    242,
+    730,
+    44,
+    44
+   ],
+   "terminals": [
+    "nD",
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    478,
+    738,
+    44,
+    44
+   ],
+   "terminals": [
+    "nE",
+    "nD",
+    "0"
+   ]
+  },
+  {
+   "class": "BJT-PNP",
+   "bbox": [
+    498,
+    558,
+    44,
+    44
+   ],
+   "terminals": [
+    "nE",
+    "n5v",
+    "n6v"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    866,
+    362,
+    44,
+    44
+   ],
+   "terminals": [
+    "n_top",
+    "nA",
+    "n5v"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    812,
+    655,
+    44,
+    44
+   ],
+   "terminals": [
+    "nH",
+    "nB",
+    "0"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    746,
+    770,
+    44,
+    44
+   ],
+   "terminals": [
+    "nB",
+    "nD",
+    "0"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    872,
+    780,
+    44,
+    44
+   ],
+   "terminals": [
+    "nH",
+    "nH",
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 3789
+ },
+ "_model": "claude-opus-5"
+}

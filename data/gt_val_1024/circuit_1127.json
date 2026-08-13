@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1127.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is tilted ~11 deg clockwise; the two long straight lines at x~8 and x~438 are the photographed page edges, not wires. The cleaned image is also cropped: rows 0-41 are pure white, and component 4 (Capacitor, bbox centre (168.6,-17.8)) lies entirely in the removed strip above the crop.\nSkeleton: a left rail running (119,42) -> (137,130) -> V-DC 6 -> (167,268) -> (195,400); a middle rail running (262,42) -> resistor 1 (y 126-195) -> (296,247) -> (317,371); a short right rail (363,52) -> I-DC 0 -> (391,230). Three rungs join them: the top rung from the left rail at (134,102) through resistor 2 (1k) and across the middle rail at (267,72) to the right rail top at (363,52); the middle rung from GND 5 at (138,273) across the left rail at (167,268), through resistor 3 (5 ohm), across the middle rail at (296,247) to the right rail bottom at (391,230); the bottom rung from the left rail corner (195,400) through inductor 7 (5mH) to the middle rail corner (317,371).\nNet map: 0 = ground rung - GND 5, the minus (bottom) terminal of V-DC 6, the left end of resistor 3 and the left end of inductor 7 (both reached through the left rail below V-DC 6). n1 = supply node - plus (top) terminal of V-DC 6, up the left rail to the top-rung T at (134,102), left end of resistor 2, and (through the stub that runs off the top of the crop at (119,42)) the left terminal of capacitor 4. n2 = mid node - right end of resistor 2, the middle-rail crossing at (267,72) and so the top of resistor 1, the top terminal of I-DC 0 via the top rung, and the right terminal of capacitor 4 through the middle-rail stub that runs off the top of the crop at (262,42). n3 = lower node - bottom of resistor 1, bottom terminal of I-DC 0, right end of resistor 3 and right end of inductor 7, all tied by the middle rail below resistor 1 and the middle rung. The resulting circuit is the textbook ladder 90V -> (1k || C) -> n2 -> (6 ohm || 2mA source) -> n3 -> (5 ohm || 5mH) -> ground.\nJudgment calls: (a) the three genuine crossings - top rung x middle rail (267,72), middle rung x left rail (167,268), middle rung x middle rail (296,247) - are all drawn as plain crosses with a small ink blob and no explicit dot or hop (inspected at 18x). All three are read as junctions: that is the only reading in which every element sits in a sensible parallel pair, and no hop symbol is used anywhere in this drawing. (b) Capacitor 4 is invisible (above the crop). Both the left rail and the middle rail end in short stubs pointing up that stop exactly at the crop line y=42 at x=119 and x=262 and connect to nothing inside the frame; capacitor 4's annotated box (x 147-190, y -40 to 5) sits between the upward extrapolations of those two stubs, so it is read as bridging them, i.e. in parallel with resistor 2. This is the least certain call in the file and is the thing to re-check against the raw photo. (c) V-DC 6 is drawn with the + mark in the upper half of the circle, so index 0 (top) is the plus terminal on n1 and index 1 (bottom) is the minus terminal on 0. (d) I-DC 0's arrow points down the page; index 0 is its top terminal. (e) Two-terminal parts are ordered top-then-bottom (0,1,6) or left-then-right (2,3,4,7) as drawn.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        410.0,
+        367.9,
+        59.8,
+        46.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        415.4,
+        468.2,
+        70.6,
+        26.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        325.2,
+        546.0,
+        31.0,
+        69.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        509.9,
+        540.3,
+        31.6,
+        65.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        209.2,
+        557.6,
+        42.9,
+        39.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        509.7,
+        641.7,
+        62.5,
+        37.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        412.3,
+        610.4,
+        53.3,
+        46.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        650.2,
+        543.4,
+        28.3,
+        80.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,85 @@
+{
+ "_what": "resolved request provenance for this run, written before submission. Section 4 of PROVENANCE.md was MISSING for the earlier run; this file is the fix.",
+ "timestamp_utc": "2026-08-06T02:05:31Z",
+ "git_sha": "943764f2df27a02a49ccc82eae6c443bff84618e",
+ "model_requested": "claude-opus-5",
+ "sdk": {
+  "anthropic": "0.120.2",
+  "python": "3.11.9",
+  "platform": "macOS-15.5-arm64-arm-64bit"
+ },
+ "reasoning_settings": {
+  "thinking": {
+   "type": "adaptive"
+  },
+  "effort": "low",
+  "max_tokens": 16000,
+  "temperature": "not set (provider default)",
+  "seed": "not supported / not set -- runs are NOT deterministic"
+ },
+ "output_schema": {
+  "type": "object",
+  "properties": {
+   "components": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "properties": {
+      "id": {
+       "type": "integer"
+      },
+      "terminals": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     },
+     "required": [
+      "id",
+      "terminals"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "required": [
+   "components"
+  ],
+  "additionalProperties": false
+ },
+ "structured_output": "json_schema",
+ "prompts": {
+  "file": "configs/vlm_prompts.json",
+  "sha256": "e1d49fa5c968e6b4dafeb6c37e273fc40e90eace119735ef41f7bc5395feaa8f",
+  "system": "You are an expert at reading hand-drawn circuit schematics. You trace conductors carefully and you know the standard notations: a junction dot or a plain T-intersection means two wires CONNECT; a semicircular hop (one wire bulging over another) means they do NOT connect. Different people draw differently \u2014 some mark every non-connection with a hop, others draw bare crossings and rely on the reader's circuit knowledge. Read what is actually on the page.",
+  "user_template_rendered_for_first_image": "This is a hand-drawn circuit schematic. Every component has already been located for you and is outlined in the image with its ID number. Your ONLY job is to determine the electrical connectivity.\n\nAn electrical NET is a maximal set of terminals joined by conductor. Two terminals joined by any unbroken conductive path share one net. A crossing WITHOUT a junction \u2014 especially one drawn as a hop \u2014 does NOT join nets.\n\nComponents in this image:\n  id 0: V-AC \u2014 2 terminal(s), in order: terminal 0, terminal 1\n  id 1: GND \u2014 1 terminal(s), in order: terminal 0\n  id 2: Capacitor \u2014 2 terminal(s), in order: terminal 0, terminal 1\n  id 3: Resistor \u2014 2 terminal(s), in order: terminal 0, terminal 1\n  id 4: Resistor \u2014 2 terminal(s), in order: terminal 0, terminal 1\n  id 5: Inductor \u2014 2 terminal(s), in order: terminal 0, terminal 1\n\nFor each component, give the net of each of its terminals, in the listed terminal order.\n\nRules:\n- Net names are arbitrary labels ('n1', 'n2', ...). Only the GROUPING matters, not the names.\n- The net that a GND symbol touches MUST be named exactly \"0\". If there is no GND symbol, no net is named \"0\".\n- Two terminals get the same net name if and only if a conductor joins them.\n- Return exactly the terminal count listed for each component, in that order.\n- Every component in the list must appear in your answer, even if you are unsure.\n\nTrace each conductor from end to end before answering. Where wires cross, decide deliberately whether the drawing joins them."
+ },
+ "run_shape": {
+  "variant": "b",
+  "split": "test",
+  "n_images": 192,
+  "n_repeats": 3,
+  "n_requests": 576,
+  "mode": "batch",
+  "batch_discount": 0.5
+ },
+ "inputs": {
+  "images_dir": "data/cleaned_1024",
+  "detections_dir": "data/detections_valstop",
+  "_variant_b_note": "variant B renders OUR detected boxes onto the frame, so the bytes sent depend on the detector. request_manifest_rep*.json hashes the exact bytes, which pins the detector state."
+ },
+ "invalid_output_handling": {
+  "refusal": "recorded as {'error':'refusal', category}",
+  "no_text": "recorded as {'error':'no_text', stop_reason}",
+  "bad_json": "recorded as {'error':'bad_json', message}",
+  "batch_error": "recorded as {'error': <result type>, message}",
+  "cached_errors_are_not_done": "is_done() treats an error file as not done, so reruns retry it",
+  "scoring": "score_vlm.py counts an unusable response as a failure with an empty prediction, never drops it"
+ },
+ "pricing_used_for_projection": {
+  "input_usd_per_mtok": 5.0,
+  "output_usd_per_mtok": 25.0,
+  "note": "list rates committed in this file; the projection is an ESTIMATE, not an invoice"
+ }
+}

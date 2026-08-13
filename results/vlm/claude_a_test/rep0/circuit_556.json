@@ -1,0 +1,181 @@
+{
+ "components": [
+  {
+   "class": "V-DC (one port)",
+   "bbox": [
+    778,
+    265,
+    45,
+    45
+   ],
+   "terminals": [
+    "n1"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    845,
+    335,
+    40,
+    25
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    45,
+    388,
+    40,
+    40
+   ],
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "class": "MOSFET-P",
+   "bbox": [
+    285,
+    388,
+    50,
+    70
+   ],
+   "terminals": [
+    "n1",
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "MOSFET-P",
+   "bbox": [
+    590,
+    348,
+    50,
+    70
+   ],
+   "terminals": [
+    "n1",
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    790,
+    530,
+    50,
+    70
+   ],
+   "terminals": [
+    "n4",
+    "n5",
+    "nb"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    782,
+    730,
+    45,
+    60
+   ],
+   "terminals": [
+    "n7",
+    "n5",
+    "nb"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    556,
+    700,
+    45,
+    60
+   ],
+   "terminals": [
+    "n3",
+    "n8",
+    "nb"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    645,
+    615,
+    60,
+    20
+   ],
+   "terminals": [
+    "n3",
+    "n5"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    58,
+    650,
+    32,
+    32
+   ],
+   "terminals": [
+    "n2",
+    "nb"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    200,
+    650,
+    32,
+    32
+   ],
+   "terminals": [
+    "n8",
+    "nb"
+   ]
+  },
+  {
+   "class": "I-AC",
+   "bbox": [
+    880,
+    740,
+    30,
+    30
+   ],
+   "terminals": [
+    "n7",
+    "nb"
+   ]
+  },
+  {
+   "class": "I-AC",
+   "bbox": [
+    945,
+    740,
+    30,
+    30
+   ],
+   "terminals": [
+    "n7",
+    "nb"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 2902
+ },
+ "_model": "claude-opus-5"
+}

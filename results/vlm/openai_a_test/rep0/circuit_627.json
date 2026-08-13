@@ -1,0 +1,311 @@
+{
+ "components": [
+  {
+   "bbox": [
+    627,
+    132,
+    48,
+    108
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n15"
+   ]
+  },
+  {
+   "bbox": [
+    232,
+    294,
+    58,
+    111
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n10"
+   ]
+  },
+  {
+   "bbox": [
+    536,
+    468,
+    55,
+    92
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    941,
+    498,
+    59,
+    96
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    88,
+    628,
+    58,
+    104
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    885,
+    899,
+    61,
+    49
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    350,
+    255,
+    35,
+    159
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n15",
+    "n10"
+   ]
+  },
+  {
+   "bbox": [
+    350,
+    423,
+    35,
+    175
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n10",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    432,
+    509,
+    96,
+    32
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n1",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    681,
+    506,
+    163,
+    35
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n6",
+    "n8"
+   ]
+  },
+  {
+   "bbox": [
+    88,
+    766,
+    33,
+    216
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    652,
+    675,
+    44,
+    179
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n12",
+    "n13"
+   ]
+  },
+  {
+   "bbox": [
+    191,
+    688,
+    74,
+    124
+   ],
+   "class": "BJT-PNP",
+   "terminals": [
+    "0",
+    "n3",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    333,
+    623,
+    76,
+    126
+   ],
+   "class": "BJT-PNP",
+   "terminals": [
+    "n4",
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    367,
+    760,
+    73,
+    142
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n4",
+    "n5drive",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    522,
+    773,
+    75,
+    186
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n11",
+    "n5drive",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    564,
+    611,
+    82,
+    177
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n12",
+    "n6",
+    "n11"
+   ]
+  },
+  {
+   "bbox": [
+    724,
+    772,
+    77,
+    160
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n10r",
+    "n13",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    813,
+    668,
+    78,
+    139
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n5",
+    "n10r",
+    "n14"
+   ]
+  },
+  {
+   "bbox": [
+    843,
+    805,
+    77,
+    151
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n5",
+    "n14",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    858,
+    439,
+    84,
+    132
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n15",
+    "n9",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    815,
+    450,
+    74,
+    50
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n8",
+    "n9"
+   ]
+  },
+  {
+   "bbox": [
+    805,
+    585,
+    62,
+    70
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n10r",
+    "n8"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 7316
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

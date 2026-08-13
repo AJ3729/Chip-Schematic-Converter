@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_591.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (the page is rotated ~22 deg, so every \"vertical\" rail runs down-right with slope dx/dy ~ 0.42; the inked area is only the band y=88..422, everything above and below is blank crop padding). Skeleton: a LEFT RAIL running from (90,88) at the top of the band down through (194,334) to a corner at (229,415) and on to (231,422) at the bottom of the band; a RIGHT RAIL running from a T at (350,270) down through a T at (387,358) and off the bottom of the band at (414,422); an UPPER BRANCH from the GND lead at (170,342) rising right through I-AC 3 to the T at (350,270); a LOWER BRANCH from the left-rail corner (229,415) rising right through capacitor 5 to the T at (387,358); and a series string resistor 0 -> inductor 2 hanging off the top, from (276,88) down to the T at (350,270).\n0 = the left rail plus the grounded end of the upper branch: GND 4, the lower-left terminal of I-AC 3, the lower-left plate of capacitor 5, and the two off-band terminals inferred below (V-AC 1 left, resistor 6 left). n1 = the wire between the lower end of resistor 0 (~(310,163)) and the upper end of inductor 2 (~(315,185)) - a single clean diagonal, nothing else touches it. n2 = the stub above the band: upper lead of resistor 0 leaving at (276,88) plus one terminal of off-band V-AC 1. n3 = the right rail: lower lead of inductor 2, upper-right terminal of I-AC 3 (they meet at the T at (350,270), verified at 10x), the upper-right plate of capacitor 5 (T at (387,358), verified at 10x), and one terminal of off-band resistor 6. Electrically this is a one-node AC problem: V-AC + 20 kohm + 3 mH in series from ground to n3, with the 6cos10t A source, the 4 F capacitor and resistor 6 all in parallel from n3 back to ground.\nJudgment calls: (a) KEY CALL - the crossing at (194,334), where the left rail and the ground lead/upper branch meet, is drawn as a plain X with NO junction dot and no hop (checked on a 1-px map and at 22x: the rail is continuous above and below, the branch is continuous left and right, the ink is only slightly thickened at the intersection). I nevertheless read it as a JUNCTION, on circuit sense: if it were a crossing, net 0 would consist of the GND symbol and the left terminal of current source I-AC 3 and nothing else, i.e. a current source with no return path, which the guide says is almost always wrong; and the whole rest of the circuit would then float. Reading it as a junction gives the textbook single-node network described above. The ground symbol sitting just left of a rail with its lead running onto that rail, with the branch continuing beyond, is standard drafting.\n(b) OFF-BAND COMPONENTS - V-AC 1 (bbox centre (157,52)) and resistor 6 (bbox centre (337,482)) have bbox centres inside 512x512 but lie in the blank padding above/below the inked band, so neither symbol is drawn and neither can be traced. Exactly two wire ends leave the top of the band: the left rail at (90,88) and the upper lead of resistor 0 at (276,88); extrapolating both up the 0.42 slope to y=52 puts them at x~77 and x~261, whose midpoint (169) is close to V-AC 1's bbox centre x (157), so V-AC 1 bridges them: terminal 0 (left) = 0, terminal 1 (right) = n2. Exactly two wire ends leave the bottom of the band: the left rail at (231,422) and the right rail at (414,422); extrapolated to y=482 they sit at x~255 and x~439, midpoint 347, against resistor 6's bbox centre x of 337 - so resistor 6 bridges them: terminal 0 (left) = 0, terminal 1 (right) = n3. Both readings leave no wire end dangling.\n(c) The third mark reaching the bottom of the band near x=306 is NOT a wire: a 2-px map of x 255-340 / y 380-424 shows it is the handwritten \"4 F\" value label under the capacitor (a \"4\" glyph with its cross-stroke at y=408), disconnected from the lower branch.\n(d) The three long parallel diagonals at the far left ((3,84)->(144,420) and, further in, nothing), i.e. the extreme-left line (3,84)->(144,420) and the extreme-right line (366,84)->(504,420), carry no terminal anywhere in the frame; they are rails of the neighbouring drawings on the same page clipped in by the crop and get no net. The middle diagonal (90,88)->(231,422) is NOT an artifact: the GND lead, the upper branch and the lower branch all terminate exactly on it, so it is this circuit's ground rail.\n(e) Terminal order: resistor 0 and inductor 2 are listed top-then-bottom as drawn; I-AC 3, capacitor 5, V-AC 1 and resistor 6 are listed lower-left-then-upper-right (i.e. left-then-right). Order does not affect any metric, and the +/- of V-AC 1 cannot be read because the symbol is not in the image.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        358.6,
+        401.9,
+        107.2,
+        41.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        204.1,
+        529.4,
+        59.7,
+        63.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        496.2,
+        400.4,
+        96.4,
+        42.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-AC",
+      "bbox": [
+        584.4,
+        515.2,
+        61.5,
+        64.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        575.5,
+        673.0,
+        91.7,
+        51.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        706.3,
+        516.0,
+        55.2,
+        42.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        839.5,
+        527.5,
+        40.9,
+        86.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

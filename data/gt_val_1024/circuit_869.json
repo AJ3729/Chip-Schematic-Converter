@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_869.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (four parallel branches hung between two rails): n1 = top rail, one unbroken pencil line from the left corner at (30,139) to the right corner at (425,141), verified pixel-continuous end to end; it carries the top of Resistor 5 (10 ohm), the top of I-DC 0 (5A), the top of Resistor 3 (4 ohm) and the (+) terminal of V-DC 6 (10V). 0 = bottom rail, the slightly down-slanted line from (36,341) to (428,339); it carries the bottom plate of Capacitor 1, the bottom of I-DC 0, the bottom of Inductor 4, the bottom of V-DC 6 and GND 2, whose stem drops from the rail at x~176 into the ground symbol at y~365 - so the whole rail is net '0'. n2 = right-branch mid node, bottom of Resistor 3 down the x~325 link to the top of Inductor 4. n3 = left-branch mid node, bottom of Resistor 5 down the x~33 link to the top plate of Capacitor 1 (plates at y=228 and y=241, the lead enters the top plate at x=32 and leaves the bottom plate at x=32, so R5 and C1 are in series in the left branch, not in parallel - the plates are just drawn much wider than the wire). Judgment calls: (a) no crossings, dots or hops exist in this drawing; every branch meets the rails at a plain T; (b) Capacitor 1's wide left-overhanging plates initially look like a separate horizontal element, but the branch wire visibly enters the top plate and exits the bottom plate at the same x, so it is a series capacitor; (c) V-DC 6 is drawn with '+' above '-' inside the circle, so index 0 = top (+) on n1 and index 1 = bottom on the ground rail; I-DC 0's arrow points up and its index 0 is the top terminal; (d) all other 2-terminal parts are indexed top-then-bottom as drawn - order affects no metric; (e) the bootstrap left Capacitor 1 and V-DC 6 fully null and had Resistor 5's bottom null; those resolve to n3/0 and n1/0 respectively.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        334.0,
+        392.0,
+        107.1,
+        94.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        88.2,
+        459.9,
+        130.3,
+        75.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "GND",
+      "bbox": [
+        364.5,
+        712.2,
+        132.5,
+        62.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        622.8,
+        396.3,
+        72.7,
+        115.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        635.8,
+        545.7,
+        69.9,
+        111.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        83.8,
+        364.8,
+        59.1,
+        103.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        818.4,
+        402.1,
+        133.3,
+        105.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

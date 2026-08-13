@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "image": "circuit_9.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Whole drawing is tilted ~15 deg clockwise; coordinates below are 512-space image coords. Net map: n1 = the source node -- top lead of V-DC 6 runs up-right to the corner at (107,131) and on to a T at (141,146) where the diagonal up to the top-left corner (161,101) joins; so n1 = V-DC 6 top terminal + left lead of resistor 5 (2 ohm) + left lead of I-DC 1 (5A, reached along the top run (161,101)->(262,145)). n2 = resistor 5 right lead to inductor 2 left lead. n3 = inductor 2 right lead to the left lead of I-DC 0 (2A) -- one unbroken diagonal (230,183)->(303,206), verified at 7x, nothing taps it. n4 = right lead of I-DC 0 -> corner (346,229) -> down-left to the top plate of capacitor 3 (60uF) at (328,271). n5 = right lead of I-DC 1 (5A) to the left lead of resistor 8 (10 ohm). n6 = right lead of resistor 8 -> corner (435,212) -> down to the top plate of capacitor 4 (10mF) at (418,269). 0 = ground rail: bottom plate of capacitor 3 -> down to GND 7 (bars at (286,392)-(300,410)), and the long bottom diagonal from the V-DC 6 bottom lead (corner (57,272)) running right-down to (366,396) where it turns up into the bottom plate of capacitor 4. Judgment calls: (a) the bottom diagonal crosses the capacitor-3 / GND vertical at (294,365); at 14x that intersection is a filled black blob (clearly heavier than either line), i.e. a junction dot, so the bottom rail IS the ground net -- this also the only reading that gives I-DC 0 (2A) a return path, otherwise the whole 2ohm/100mH/2A/60uF branch dead-ends; (b) the two short right-down strokes just past resistor 8 at (387,171)-(409,180) are the tail of the '10 ohm' label, not wire -- confirmed at 9x, the wire is the lower diagonal; (c) all 2-terminal parts are listed left-then-right as drawn (top-then-bottom for the two capacitors and V-DC 6); V-DC 6 carries + on the upper side so its terminal 0 (n1) is the + terminal; (d) both current-source arrows point along the branch away from n1, which is consistent with the series branches drawn.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        598.9,
+        396.5,
+        80.1,
+        76.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        458.8,
+        316.0,
+        112.0,
+        83.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        443.2,
+        388.7,
+        93.6,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        663.8,
+        504.6,
+        80.8,
+        56.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        822.2,
+        436.2,
+        102.8,
+        66.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        309.2,
+        393.0,
+        93.6,
+        45.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        176.9,
+        499.0,
+        125.5,
+        105.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        659.9,
+        749.3,
+        132.6,
+        70.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Resistor",
+      "bbox": [
+        626.9,
+        304.0,
+        107.8,
+        47.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

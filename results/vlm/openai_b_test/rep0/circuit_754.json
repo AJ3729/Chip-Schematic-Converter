@@ -1,0 +1,148 @@
+{
+ "components": [
+  {
+   "id": 0,
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "id": 1,
+   "terminals": [
+    "n9",
+    "n8",
+    "n4"
+   ]
+  },
+  {
+   "id": 2,
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "id": 3,
+   "terminals": [
+    "n6",
+    "n7",
+    "n8"
+   ]
+  },
+  {
+   "id": 4,
+   "terminals": [
+    "n6",
+    "n5",
+    "n3"
+   ]
+  },
+  {
+   "id": 5,
+   "terminals": [
+    "0",
+    "n13",
+    "n6"
+   ]
+  },
+  {
+   "id": 6,
+   "terminals": [
+    "n1",
+    "n1",
+    "n10"
+   ]
+  },
+  {
+   "id": 7,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 8,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 9,
+   "terminals": [
+    "n10",
+    "n7",
+    "n11"
+   ]
+  },
+  {
+   "id": 10,
+   "terminals": [
+    "n7",
+    "0"
+   ]
+  },
+  {
+   "id": 11,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 12,
+   "terminals": [
+    "n1",
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "id": 13,
+   "terminals": [
+    "n1"
+   ]
+  },
+  {
+   "id": 14,
+   "terminals": [
+    "n4",
+    "n3"
+   ]
+  },
+  {
+   "id": 15,
+   "terminals": [
+    "n11",
+    "n12",
+    "0"
+   ]
+  },
+  {
+   "id": 16,
+   "terminals": [
+    "n12",
+    "n13"
+   ]
+  },
+  {
+   "id": 17,
+   "terminals": [
+    "n14",
+    "n15",
+    "n16"
+   ]
+  },
+  {
+   "id": 18,
+   "terminals": [
+    "n1",
+    "n1",
+    "n9"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2070,
+  "output": 9439
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

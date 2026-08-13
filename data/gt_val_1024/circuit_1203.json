@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1203.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Single-loop-per-branch ladder: one horizontal top rail (y~185 on the left, sagging to y~192 on the right), one bottom rail (y~321 left, y~328 right), and four vertical branches. The pencil is very light and the rails render as dashes; every crop below was thresholded at grey<245 to recover the faint strokes. Net map: n1 = top-left corner node at (108,185) joining the upper lead of V-AC 1 (2000 angle 0 V, vertical at x~108) to the left lead of Resistor 0 (5 kohm, horizontal at y~185); n2 = rail segment from the right lead of Resistor 0 (x~174) rightward, T-ing down at (211,186) to the top of Inductor 2 (50 mH) and continuing to the left lead of V-AC 3 (the small circle at x 258-287, drawn in series in the rail, not as a shunt); n3 = rail segment from the right side of V-AC 3 (x~287) rightward to the corner at (320,191) where it turns down to the upper plate of Capacitor 4 (5 uF) and also continues right to the top-right corner at (425,193), which turns down into the top of Resistor 6 (4 kohm); 0 = the bottom rail, joining the lower lead of V-AC 1, the bottom of Inductor 2, the lower plate of Capacitor 4, GND 5 (hanging one step below the rail on the capacitor column at x~317, y~337-343) and the bottom of Resistor 6. Judgment calls: (a) V-AC 3 is a series element in the top rail, so the rail is split into n2 and n3 -- it is the only 2-terminal part in the horizontal run and its right lead has nowhere else to go; (b) the drawing leaves a ~15 px unpencilled gap between the right edge of the V-AC 3 circle (x~287) and the resumption of the rail at x~302, and similar gaps at (334-360) on the bottom rail; these are gaps in a faint line, not intentional breaks -- treated as continuous, since otherwise V-AC 3, Capacitor 4 and Resistor 6 would each be left dangling; (c) the capacitor column at x~319 passes through the bottom rail and continues down to the GND bars, so the whole bottom rail is net 0; (d) there are no crossovers or hops anywhere in this drawing -- every intersection is a T; (e) 2-terminal order convention: index 0 = top for the vertical parts (V-AC 1, Inductor 2, Capacitor 4, Resistor 6) and left for the horizontal parts (Resistor 0, V-AC 3); neither V-AC carries a polarity mark, so their order is arbitrary; (f) the bootstrap had a phantom net n4 on Resistor 6 and had Resistor 0's leads swapped relative to this convention -- the partition above was re-derived from the drawing.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        308.4,
+        373.6,
+        74.2,
+        38.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        221.2,
+        513.0,
+        59.4,
+        54.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        430.8,
+        508.8,
+        31.8,
+        89.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-AC",
+      "bbox": [
+        543.4,
+        377.7,
+        56.9,
+        48.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        639.5,
+        503.8,
+        53.5,
+        34.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        637.8,
+        676.5,
+        75.6,
+        33.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        848.3,
+        526.9,
+        41.1,
+        95.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

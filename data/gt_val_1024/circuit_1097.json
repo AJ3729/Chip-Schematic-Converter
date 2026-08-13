@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1097.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Two-mesh AC ladder. Left loop: 3ohm Resistor 2 (vertical, x~122) bridges a top branch (4H Inductor 1 -> 3F Capacitor 7) and a bottom branch (2F Capacitor 9 -> 3H Inductor 5), both of which land on the centre column. Right loop: V-AC 6 -> 10F Capacitor 0 -> I-AC 8 back to the ground node. Net map: n1 = top-left corner at (125,164) joining the TOP lead of Resistor 2 to the left lead of Inductor 1; n2 = between the right lead of Inductor 1 and the left (straight) plate of Capacitor 7 at x~238; n3 = the y~182 horizontal from the right (curved) plate of Capacitor 7 to the left side of V-AC 6, with a hard T at (282,182) where the centre column drops -- so n3 also holds the TOP lead of Resistor 3 (2ohm); n4 = right lead of V-AC 6 -> right to x~398 -> down to the top plate of Capacitor 0 (10F); n5 = bottom (curved) plate of Capacitor 0 -> down x~398 -> left along y~303 to the right lead of I-AC 8; 0 = the bottom node: the centre column continues through the bottom rail at (286,298) and terminates in GND 4 at (286,323), and the same rail carries the right lead of Inductor 5 and the left lead of I-AC 8 -- four terminals (R3 bottom, L5 right, I-AC 8 left, GND 4); n6 = right (curved) plate of Capacitor 9 to the left lead of Inductor 5; n7 = bottom-left corner at (121,277) joining the BOTTOM lead of Resistor 2 to the left (straight) plate of Capacitor 9. Judgment calls: (a) at 8x the centre column at x~282..286 is a genuine T at the top (it starts on the C7/V-AC horizontal, no hop) and a genuine cross-through at the bottom (it passes the bottom rail and runs on into the GND bar), so the 2ohm resistor bridges n3 and 0 and the bottom rail is a single 4-terminal ground node; (b) both electrolytic-style capacitors (7 and 9) are drawn straight-plate-left / curved-plate-right, and I list index 0 = left plate; Capacitor 0 (10F) is drawn horizontally-plated i.e. vertical orientation, so index 0 = top plate, index 1 = bottom (curved) plate; (c) vertical resistors 2 and 3 are indexed top-then-bottom; (d) I-AC 8's arrow points right (toward the 10F branch) and V-AC 6 carries no polarity marks, so source terminal order is arbitrary and does not affect any metric; (e) the large tilted quadrilateral crossing the frame edges is the scanned page border -- at the top it passes ~60 px above the C7/V-AC horizontal and never touches a lead; (f) no terminal is left unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        779.9,
+        426.9,
+        93.2,
+        61.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        336.7,
+        359.8,
+        132.0,
+        47.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        233.3,
+        469.9,
+        46.0,
+        123.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        557.8,
+        482.1,
+        50.5,
+        108.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        585.2,
+        648.6,
+        69.9,
+        55.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        479.5,
+        584.8,
+        135.9,
+        49.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-AC",
+      "bbox": [
+        607.6,
+        363.1,
+        99.0,
+        105.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        465.3,
+        365.2,
+        81.9,
+        84.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-AC",
+      "bbox": [
+        684.5,
+        571.7,
+        119.8,
+        109.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Capacitor",
+      "bbox": [
+        333.9,
+        595.2,
+        67.6,
+        93.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1268.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is a 5-row x 6-column mesh, drafted rotated 90 deg (all text reads bottom-to-top). Six vertical bus columns V0..V5 (x ~= 11, 118, 217, 316, 417, 482 in 512-space) and five horizontal rows A..E (row A y~118 carries the five sources; rows B..E y~190/280/365/463 each carry one inductor and one capacitor). NET MAP: n1 = LEFT bus V0 (x~11) -- ties the left end of row A (left lead of source 13) to the left ends of rows B, C, D and E; terminals: 13.left, 6.left, 10.left, 12.left, 7.left. n2 = column V1 (x~118) -- row A between sources 13 and 4, down to its T on row E at (110,466); terminals: 13.right, 4.left, 7.right, 3.left. n3 = column V2 (x~217) -- row A between sources 4 and 1, down to its T on row D at (215,364); terminals: 4.right, 1.left, 12.right, 11.left. n4 = column V3 (x~316) + column V5 (x~482) -- these are ONE net because the right-hand stretch of row D (x 314..479, y~365) is bare wire T-ing onto both; n4 therefore also carries the right end of row B and the right end of row E and row A right of source 0; terminals: 1.right, 5.left, 0.right, 11.right, 9.right, 3.right. 0 = column V4 (x~417) -- row A between sources 5 and 0, down to its T-with-dot on row C at (417,269), then right along row C (step down at x~454 to y~290) to the GND symbol 2 at x~499; terminals: 5.right, 0.left, 8.right, GND 2. n5 = row B mid-segment between inductor 6 and capacitor 9 (crosses column V4 at (418,180) without connecting). n6 = row C mid-segment between inductor 10 and capacitor 8 (crosses column V3 at (316,266) without connecting). JUDGMENT CALLS: (a) The drafter's crossover mark in this sheet is a shallow downward U-dip in the horizontal wire whose bottom still touches the vertical (he never lifted the pen clear). Verified at 10-20x at (218,183), (317,176), (418,180) on row B; (116,285), (217,272), (316,266) on row C; (112,362) on row D. All seven are read as HOPS, not junctions. This is forced by circuit sense as well as by ink: every one of these sits on a bare stretch of row between two column taps that straddle a source on row A, so calling any of them a junction shorts that source. (b) Genuine junctions are drawn differently: a filled 4-6 px dot where a column TERMINATES on a row - (417,269) V4 on row C, (215,364) V2 on row D, (314,364) V3 on row D, (479,365) row D right end on V5, (110,466) V1 on row E, (476,462) row E right end on V5, (487,180) row B right end on V5, and the four row-A T's at (123,117), (220,113), (320,113), (418,116), (489,123). (c) (118,191), column V1 crossing row B, is the one genuinely ambiguous mark: there is a thick 5x8 px blob there rather than a clean U-dip. Read as a HOP. Reasons: the column runs straight through and continues to row E (all confirmed junctions in this sheet are column TERMINATIONS); the horizontal steps down 7 px (y 193 -> y 200) across the column exactly the way the other crossovers step; and the pixel map shows a white sliver at x=118, y=192-193 separating blob from column. Decisively, reading it as a dot shorts source 13 (its two leads are n1 and n2, which that segment of row B would then join directly). (d) (482,290), column V5 crossing the row-C/GND run, is a plain thin X with no dot and no dip -> HOP. Reading it as a junction would short V-DC 0 (leads on nets 0 and n4). (e) The left bus n1 has a 38 px binarisation dropout between the left end of row A (13,122) and the top of the visible column ink (12,161); the same column is dashed again at y 177-188 and 224-227, so dropout on this faint stroke is established. Read as continuous: otherwise the left lead of source 13 dangles as a one-terminal net. (f) RE-CLASSED component 13 from V-DC to V-AC. The symbol is a circle containing a sine wave (verified at 14x) with no +/- marks, unlike sources 1 and 0 which plainly show + and -, and its label reads '3v 1kHz'; the neighbouring 1 kHz source 4 is already annotated I-AC. Net partition is unaffected by this change. (g) Consequence of (b): row D joins V3 and V5, so I-DC 5 (10 A) and V-DC 0 (15 V) end up in parallel between nets n4 and 0 (opposed polarity, i.e. in series around the loop V3-5-V4-0-V5). The ink is unambiguous - row D from x=314 to x=479 is one bare wire with a T at each end - so this is kept. It is simulable (an ideal current source across an ideal voltage source). (h) 2-terminal components are listed index 0 = left as drawn, index 1 = right; polarity does not affect the net partition. TIER-2 SIMCHECK FINDING (kept, genuine): inductor 7 (1 uH, row E, left end on the n1 bus, right end on the V1 column) sits directly in parallel with source 13 (row A, same two nodes), so simcheck reports a voltage-source/inductor loop n1-n2 (singular at a DC operating point). This is what the ink shows and no alternative reading survives: V1 touches only row A (between 13 and 4) and its terminus-with-dot on row E, and row E from the left bus to that terminus contains only inductor 7. Every alternative (calling (118,191) a dot, or cutting the n1 bus at the dropout) produces a Tier-1 fault instead - a shorted or stranded source 13. The sheet is a 1 kHz phasor problem (sources 13 and 4 are both labelled 1 kHz), where an inductor across the source is normal; only a DC .OP would choke.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        889.5,
+        248.3,
+        84.2,
+        73.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        549.3,
+        237.7,
+        78.7,
+        67.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "GND",
+      "bbox": [
+        969.6,
+        573.6,
+        62.1,
+        109.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        342.5,
+        904.1,
+        52.7,
+        74.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-AC",
+      "bbox": [
+        347.1,
+        236.4,
+        79.3,
+        60.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-DC",
+      "bbox": [
+        736.6,
+        244.5,
+        75.0,
+        62.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        717.4,
+        357.5,
+        83.5,
+        35.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        108.3,
+        897.4,
+        89.7,
+        42.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Capacitor",
+      "bbox": [
+        696.2,
+        525.9,
+        48.5,
+        55.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Capacitor",
+      "bbox": [
+        872.3,
+        364.7,
+        37.9,
+        49.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Inductor",
+      "bbox": [
+        511.6,
+        544.1,
+        77.5,
+        39.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Capacitor",
+      "bbox": [
+        540.6,
+        715.0,
+        68.7,
+        61.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Inductor",
+      "bbox": [
+        335.0,
+        711.1,
+        70.6,
+        32.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "V-AC",
+      "bbox": [
+        84.0,
+        124.9,
+        51.7,
+        48.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

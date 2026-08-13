@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_87.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawing is rotated ~90deg (labels read bottom-to-top). Layout: FIVE horizontal rows plus a left vertical rail (x~58-60) and a right vertical rail (x~471), and four vertical 'tap' wires that drop from an upper row to the bottom row. Rows (each is capacitor-then-inductor in series, left to right): row1 y~5..19 = C7(x354)+L9(x436); row2 y~112..117 = C6(x279)+L11(x359); row3 y~194..201 = C8(x189)+L12(x276); row4 y~307..316 = C3(x102)+L10(x196); row5 (bottom) y~430..436 = the source chain V-DC 2 (x108), I-DC 5 (x192), V-DC 1 (x283), I-AC 0 (x358), V-AC 13 (x437). Taps, all verified pixel-by-pixel: x~142 T's onto row3 (y197) and onto row5 between V2 and I5; x~232 T's onto row2 (y115) and onto row5 between I5 and V1; x~327 T's onto row2 (y118) and onto row5 between V1 and I0; x~397 T's onto row1 (y19) and onto row5 between I0 and V13. Every place a tap crosses a row it is NOT feeding, that row is drawn with a clear semicircular HOP over it, each verified at pixel level: row4 hops x142 (apex y302), row3 hops x232 (apex y190), row4 hops x232, row3 hops x327 (apex y190), row4 hops x327 (apex y298), row2 hops x397 (apex y106), row3 hops x397 (apex y190), row4 hops x397 (apex y296). No hop is drawn at any of the four T's listed above, and each of those shows the thick junction blob typical of this drafter. Net map: 0 = GND 4 (x34,y191) -> its lead runs right at y~191, CROSSES the left rail at x~58, and continues as row3's left segment to the tap at x142 and on to capacitor 8's left plate; so 0 = {GND 4, C8 left, V-DC 2 right, I-DC 5 left}. n1 = the LEFT RAIL, one continuous slanted stroke from row1's top-left corner (67,7) down through (58,190) and (55,300) to row5's bottom-left corner (60,433); it carries C7 left (row1), C3 left (row4), V-DC 2 left (row5), C6 left via the short lead that drops from row2's left end down to the rail, and - through the x232 tap on row2's left segment - I-DC 5 right and V-DC 1 left. n2 = row2's middle segment (C6 right, L11 left) plus the x327 tap, hence also V-DC 1 right and I-AC 0 left. n3 = row1's middle segment (C7 right, L9 left) plus the x397 tap, hence also I-AC 0 right and V-AC 13 left. n4 = row3's middle segment = C8 right + L12 left. n5 = row4's middle segment = C3 right + L10 left. n6 = the RIGHT RAIL at x~471: the right ends of L9 (row1), L11 (row2), L12 (row3), L10 (row4) and V-AC 13 (row5) all stop on the same vertical line x=470..473; the pen was failing in the right half of the sheet so the rail survives only as collinear fragments (y19-46 and 60 below row1, y111-120 at row2, y321-348 below row4, y405-413 above row5, plus row5's corner turning up at (470,430)). JUDGMENT CALLS: (a) THE LEFT PILE-UP at (57-63, 190-196) is the one genuinely ambiguous spot in this drawing - the left rail, the GND/row3 horizontal, and row2's dropping lead all land inside a 6x6 px blob. It is read as a CROSSING of two lines, not a single 5-way node: the rail's segments above (x=60@y120 -> 58@y189) and below (58@y197 -> 55@y250) are exactly collinear, so the rail passes straight through; and the GND lead overshoots 5 px past the rail (ink at y191 runs x50..63) before sloping down into row3 at y194-196, which is the signature of a wire crossing rather than terminating. No hop and no dot is drawn there, so per the crossing rule this is two nets. The decisive check is circuit sense: if the rail and the GND/row3 wire were one node, then the x142 tap would put V-DC 2's two terminals on the same net AND the x232 tap would put I-DC 5's two terminals on the same net - two dead-shorted sources, which cannot be the intended netlist. (b) row2's dropping lead (the second, parallel vertical at x=62-63, y110-189, drawn with pen skips at y129-138 and a 3 px break at its top where it meets row2 at (63,112)) is read as joining the RAIL rather than the GND/row3 wire; joining the GND wire instead would again short I-DC 5 end to end. Under the reading adopted here V-DC 2 and I-DC 5 end up in parallel between n1 and 0 (opposite orientations), which is a normal textbook motif. (c) the right rail is inferred from four collinear ink fragments plus the fact that the right ends of all five rows would otherwise dangle; no component is off-frame in this drawing (every bbox centre is inside 512x512) and nothing at all is drawn beyond x=473, so those ends cannot be leaving the crop. (d) all 2-terminal parts are indexed left-lead = 0, right-lead = 1 as drawn; V-DC 2 and V-DC 1 are both drawn with '+' toward the left, I-DC 5 and I-AC 0 with arrows pointing right. (e) the bootstrap's non-null nets were nearly all wrong (it had L10 and L12 touching '0' and no ground at all on GND 4) and were discarded.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-AC",
+      "bbox": [
+        846.6,
+        297.4,
+        76.1,
+        84.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        851.1,
+        441.4,
+        75.1,
+        73.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-DC",
+      "bbox": [
+        858.9,
+        777.2,
+        75.1,
+        73.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        631.9,
+        790.9,
+        84.3,
+        48.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        390.7,
+        922.5,
+        74.2,
+        48.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-DC",
+      "bbox": [
+        850.5,
+        617.1,
+        68.8,
+        69.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        251.0,
+        453.0,
+        77.1,
+        51.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        62.0,
+        309.9,
+        70.9,
+        49.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Capacitor",
+      "bbox": [
+        406.8,
+        624.9,
+        67.8,
+        56.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        61.8,
+        152.0,
+        37.0,
+        73.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Inductor",
+      "bbox": [
+        615.5,
+        611.0,
+        40.1,
+        82.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Inductor",
+      "bbox": [
+        250.7,
+        299.6,
+        33.8,
+        78.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Inductor",
+      "bbox": [
+        405.8,
+        458.6,
+        33.9,
+        81.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "V-AC",
+      "bbox": [
+        843.1,
+        145.9,
+        73.0,
+        75.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

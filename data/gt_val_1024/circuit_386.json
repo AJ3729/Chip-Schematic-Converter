@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "image": "circuit_386.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: n1 = the central top node at (234,168), where five things meet in one ink blob: the top rail arriving from the left through Inductor 4 (6mH), the top rail leaving to the right through Inductor 3 (3mH), the vertical dropping to V-DC 0's upper terminal (234,168)->(234,200), the diagonal running down-left to (165,202) and then down the short column x~162 to Resistor 9's top (5 ohm), and the diagonal running down-right to (310,202) and then down the column x~313 to Resistor 8's top (2 ohm). n2 = the top plate of Capacitor 1 (1uF) with Inductor 4's left lead: top-left corner at (72,167) -> down the column x=75 to the upper plate at y=211. n3 = the top plate of Capacitor 2 (2.2uF) with Inductor 3's right lead: top-right corner at (398,166) -> down the column x=398 to the upper plate at y=210. 0 = everything else, anchored on GND 7 whose stem rises from (231,318) to the star node at (232,314). That node collects V-DC 0's lower lead (the column x=233 from y=245), the bottom rail running left through I-DC 6 and right through I-DC 5, and two long diagonals: one up-left to (73,253) and one up-right to (316,276). Judgment calls: (a) BOTH CURRENT SOURCES ARE SHORT-CIRCUITED AS DRAWN, and I did not 'repair' the circuit. On the left, Capacitor 1's lower plate drops down the column x=72 to a three-way corner at (68,250): from there one stroke continues down the column x=66 to (67,310) and turns right along the bottom rail into I-DC 6's left terminal, while a second stroke leaves the same corner as a straight diagonal (constant slope 0.39) through (150,283) and (200,304) into the ground star at (232,314) -- and I-DC 6's right terminal runs right along that same bottom rail (dashed but continuous, x=144..204) into the same star. So both I-DC 6 terminals land on 0. The right side is the mirror image: Resistor 8's lower lead reaches (316,275), where a horizontal runs right to the column x~395 (which carries Capacitor 2's lower plate down to (396,315) and then left into I-DC 5's right terminal) and a diagonal runs down-left into the ground star, which also receives I-DC 5's left terminal. Both I-DC 5 terminals land on 0. I verified the corners at (68,250) and (316,275) and the star at (232,314) pixel by pixel at native scale: every stroke genuinely touches, there is no hop, no gap and no dot-free crossing anywhere on these paths. Shorting two 2A sources is electrically degenerate, so a human may want to confirm the drafter's intent, but merging or cutting nets to make the circuit 'work' would be inventing topology the drawing does not show. (b) Resistor 9's lower lead runs down the column x~158 from y=252 and stops exactly on the left diagonal at (158,284) -- a T, not a crossing (there is no ink below y=284 on that column), so R9's bottom is on 0. Resistor 8's lower lead behaves the same way at (316,275). (c) Capacitors 1 and 2 are drawn with horizontal plates and vertical leads despite their bboxes being wider than tall; index 0 is the upper plate, index 1 the lower. Inductors 3 and 4 are horizontal: index 0 = left lead, index 1 = right lead. V-DC 0 has '+' on top, so index 0 = upper (n1) and index 1 = lower (0). (d) I-DC 6's arrow points left and I-DC 5's arrow points right; index 0 = left lead, index 1 = right lead for both. Both sources sit on the bottom rail. (e) The dashed horizontal band across the lower third of the image (y~350..380) and the words '6mH' and '05H' below it are the ruled edge of the notebook page and stray annotation text, not conductors; no component lead reaches them. No component was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        470.8,
+        471.6,
+        95.7,
+        92.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        162.5,
+        466.7,
+        96.8,
+        63.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        789.2,
+        454.6,
+        108.9,
+        58.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        611.4,
+        355.2,
+        92.2,
+        40.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        270.0,
+        362.4,
+        104.3,
+        47.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "I-DC",
+      "bbox": [
+        678.0,
+        651.7,
+        87.0,
+        64.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "I-DC",
+      "bbox": [
+        276.3,
+        645.9,
+        92.8,
+        63.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        470.5,
+        699.5,
+        76.6,
+        39.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Resistor",
+      "bbox": [
+        627.8,
+        505.8,
+        44.2,
+        89.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Resistor",
+      "bbox": [
+        326.7,
+        505.9,
+        64.5,
+        79.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_885.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The whole sheet is drawn tilted, so \"vertical\"/\"horizontal\" below mean the drawn rails, not exact image axes. Net map: 0 = ground node - GND 5 (three bars at x~134/140/144, wire leaving the longest bar to the right) -> horizontal at y~186 -> SOLID JUNCTION DOT at (170,188) where the long left rail passes through (verified at 8x, it is an unmistakable filled blob, not a plain crossing) -> the left rail both upward to its open end at (152,25) and downward to the bottom-left corner at (190,425) -> along the bottom to the left end of Inductor 3; the same horizontal also continues right from the dot to the LEFT plate of Capacitor 1 (plates at x=276 and x=287). n1 = right node: right plate of Capacitor 1 -> horizontal at y~180 -> T at (382,179) on the right rail -> up the rail to the bottom of Resistor 0 (5 ohm) and down the rail to the top of Resistor 2 (1 ohm); the rail was traced pixel by pixel from y=100 to y=200 and is unbroken through the T. n2 = bottom-right node: bottom of Resistor 2 -> down to the corner at (402,405) -> left along the bottom to the right end of Inductor 3. n3 = top node, only two terminals: the open top end of Resistor 0 at (358,25) and one terminal of the off-frame V-DC 4.\nOFF-FRAME: V-DC 4 has bbox centre (250.5,-74.2), i.e. it sits entirely above the top of the crop and is not in the image at all. Rows y=0..24 of the image are completely blank (verified: zero dark pixels), so the drawing was cut at y=25. Exactly two wire ends stop dead at that cut line: the left rail at x=151-152 and the top lead of Resistor 0 at x=358-361. V-DC 4's bbox spans x=219..282, i.e. between those two ends, so the source bridges them: index 0 (left-hand terminal) joins the left rail and is therefore on net '0', index 1 (right-hand terminal) joins Resistor 0's top on n3. This is the only reading that leaves no dangling lead and it makes the circuit function: V-DC + Resistor 0 in series from ground up to the n1 node, Capacitor 1 in parallel from n1 back to ground, and Resistor 2 + Inductor 3 in series as the return branch from n1 to ground. Polarity is unknowable (the symbol is off-frame) so the 2-terminal order is arbitrary; it affects no metric.\nOther judgment calls: (a) the only junction dot in the drawing is at (170,188); there are no crossovers or hops anywhere; (b) GND 5's bbox is centred on the bar cluster, and the wire leaves it to the right, so its single terminal is the y~186 horizontal; (c) 2-terminal order elsewhere is top-then-bottom for Resistors 0 and 2, left-then-right for Capacitor 1 and Inductor 3, as drawn; (d) the bootstrap left Capacitor 1 and V-DC 4 entirely null and Resistor 0 index 0 null - those are the three fixes; the non-null bootstrap values (R2, L3, GND) happened to be right.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        319.7,
+        385.1,
+        100.5,
+        32.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        443.2,
+        478.2,
+        51.5,
+        31.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        542.5,
+        380.5,
+        89.5,
+        32.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        676.6,
+        493.1,
+        34.3,
+        92.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "V-DC",
+      "bbox": [
+        183.2,
+        488.9,
+        55.7,
+        58.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        430.8,
+        626.2,
+        71.1,
+        39.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

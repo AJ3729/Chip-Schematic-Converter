@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_730.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: 0 = the bottom rail and the ground: bottom lead of V-AC 1 down to the bottom-left corner (112,337), right along y~335-340 past the ground, on (as a very light, broken pencil stroke) to (385,334) where the right branch comes down; on it are V-AC 1 bottom, GND 2, the bottom lead of I-AC 3 (its lead runs down x=228, crosses the rail at (228,335) and ends on the top bar of the ground symbol at y=346), and the bottom lead of inductor 7. n1 = left top corner: top lead of V-AC 1 -> up x~116 -> corner (116,226) -> right to the left end of resistor 0 (33 ohm). n3 = the centre top node at (228,227): right end of resistor 0, top lead of I-AC 3 (clean T), left end of resistor 4 (4K). n2 = right end of resistor 4 -> left plate of capacitor 5 (2nF). n4 = right plate of capacitor 5 -> right along the top -> corner (384,230) -> down to the top of resistor 6 (4K). n5 = series node between resistor 6 and inductor 7 (5mH) in the right vertical branch.\nJudgment calls: (a) the bottom rail to the right of the ground symbol is drawn with such light pencil that binarisation breaks it into segments (gaps x=256-268, 288-292, 327-333 and 355-376 survive even at threshold 200). The segments are exactly collinear with the solid part of the rail on the left and land on the bottom of the right branch, so I read it as one continuous wire, not a dashed annotation; without it inductor 7's bottom lead would dangle and the right branch would carry no current. (b) I-AC 3's bottom lead crosses the bottom rail at (228,335) on its way down to the ground symbol, with no junction dot. I treat it as a junction (rail = ground): if it were a crossover, GND 2 would be reachable only through the current source, i.e. the current source would have no return path, and the bottom rail would float. (c) The GND symbol's own bars are at y=345/350/353 (bbox y 340-358); the longer line at y=335 above them is the bottom rail wire, not a ground bar. (d) The faint long lines at y~143 (upper right), y~367 (lower left) and the verticals at x~10 and x~508 are ruled page lines, not wires - none of them touches a component lead. (e) Terminal order: resistors 0 and 4 and capacitor 5 are horizontal, indexed left then right; V-AC 1, I-AC 3, resistor 6 and inductor 7 are vertical, indexed top then bottom. Neither source carries polarity marks that would change this, and 2-terminal order does not affect any metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        360.1,
+        456.5,
+        98.9,
+        36.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        226.1,
+        574.2,
+        58.9,
+        59.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "GND",
+      "bbox": [
+        463.8,
+        699.3,
+        85.2,
+        35.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-AC",
+      "bbox": [
+        452.8,
+        570.4,
+        65.4,
+        72.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        523.4,
+        457.1,
+        98.2,
+        37.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        624.5,
+        455.2,
+        49.0,
+        36.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        763.0,
+        539.3,
+        40.0,
+        70.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        768.8,
+        613.5,
+        40.5,
+        67.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

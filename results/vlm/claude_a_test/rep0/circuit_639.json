@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "class": "V-AC",
+   "bbox": [
+    126,
+    160,
+    42,
+    42
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "I-AC",
+   "bbox": [
+    325,
+    175,
+    42,
+    42
+   ],
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    553,
+    178,
+    42,
+    42
+   ],
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "class": "I-DC",
+   "bbox": [
+    735,
+    172,
+    42,
+    42
+   ],
+   "terminals": [
+    "n5",
+    "n4"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    833,
+    177,
+    40,
+    40
+   ],
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    730,
+    376,
+    70,
+    26
+   ],
+   "terminals": [
+    "n4",
+    "n5"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    845,
+    376,
+    24,
+    50
+   ],
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    540,
+    582,
+    70,
+    26
+   ],
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    737,
+    585,
+    24,
+    50
+   ],
+   "terminals": [
+    "n4",
+    "n5"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    348,
+    766,
+    70,
+    26
+   ],
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    562,
+    762,
+    24,
+    50
+   ],
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    126,
+    957,
+    70,
+    26
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    352,
+    952,
+    24,
+    50
+   ],
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    973,
+    582,
+    26,
+    40
+   ],
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 5051
+ },
+ "_model": "claude-opus-5"
+}

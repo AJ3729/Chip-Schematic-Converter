@@ -45,6 +45,104 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from vlm_task import build_task, split_names
 
 
+def record_provenance(out: Path, args, cfg, names: list) -> Path:
+    """Everything needed to judge or repeat this run, written BEFORE submission.
+
+    The mirror of the same function in ``vlm_baseline.py``. The earlier runs of
+    BOTH providers left their resolved reasoning settings unrecorded --
+    ``results/vlm/PROVENANCE.md`` section 4 marks them MISSING and notes the
+    OpenAI gap too (code's measured 1681 output tokens at effort=low against an
+    observed mean of 1272). One JSON write at submission closes it.
+    """
+    import hashlib
+    import platform
+    import subprocess
+
+    prompts_path = ROOT / "configs/vlm_prompts.json"
+    probe = build_task(Path(names[0]).stem, args.variant, cfg)
+    body = body_for(probe, args.model, args.max_tokens, args.effort)
+
+    try:
+        git = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True,
+                             timeout=5, cwd=ROOT).stdout.decode().strip()
+    except Exception:
+        git = "unknown"
+    try:
+        import openai as _oai
+        sdk = _oai.__version__
+    except Exception:
+        sdk = "unknown"
+
+    manifest = {}
+    for nm in names:
+        stem = Path(nm).stem
+        t = build_task(stem, args.variant, cfg)
+        manifest[stem] = {
+            "image_sha256": hashlib.sha256(t["image_bytes"]).hexdigest(),
+            "media_type": t["media_type"], "bytes": len(t["image_bytes"]),
+            "n_detections": t["n_detections"], "n_components": t["n_components"],
+            "user_text_sha256": hashlib.sha256(t["text"].encode()).hexdigest(),
+        }
+
+    rec = {
+        "_what": "resolved request provenance, written before submission. "
+                 "Section 4 of PROVENANCE.md was MISSING for the earlier run.",
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "git_sha": git,
+        "model_requested": args.model,
+        "sdk": {"openai": sdk, "python": platform.python_version(),
+                "platform": platform.platform()},
+        "reasoning_settings": {
+            "reasoning_effort": body.get("reasoning_effort",
+                                         "omitted (provider default)"),
+            "max_completion_tokens": body["max_completion_tokens"],
+            "temperature": "not set -- several reasoning models reject it",
+            "seed": "not set -- runs are NOT deterministic",
+        },
+        "output_schema": body["response_format"]["json_schema"]["schema"],
+        "structured_output": "json_schema, strict=True",
+        "prompts": {
+            "file": str(prompts_path.relative_to(ROOT)),
+            "sha256": hashlib.sha256(prompts_path.read_bytes()).hexdigest(),
+            "system": probe["system"],
+            "user_template_rendered_for_first_image": probe["text"],
+        },
+        "run_shape": {
+            "variant": args.variant, "split": args.split,
+            "n_images": len(names), "n_repeats": args.repeat,
+            "n_requests": len(names) * args.repeat,
+            "mode": "batch", "batch_discount": 0.5,
+            "completion_window": args.completion_window,
+        },
+        "inputs": {
+            "images_dir": cfg["preprocess"]["images_dir"],
+            "detections_dir": cfg["detect"]["cache_dir"],
+            "_variant_b_note": (
+                "variant B renders OUR detected boxes onto the frame, so the "
+                "bytes sent depend on the detector; the hashes below pin it"
+            ) if args.variant == "b" else "variant A sends the frame unmodified",
+            "images": manifest,
+        },
+        "invalid_output_handling": {
+            "non_success": "recorded as {'error': ...} in the per-image cache",
+            "cached_errors_are_not_done": "is_done() treats an error file as "
+                                          "not done, so reruns retry it",
+            "scoring": "score_vlm.py counts an unusable response as a failure "
+                       "with an empty prediction, never drops it",
+        },
+        "pricing_used_for_projection": {
+            "input_usd_per_mtok": args.price_in,
+            "output_usd_per_mtok": args.price_out,
+            "note": "argparse defaults are a deliberately PESSIMISTIC flagship "
+                    "rate; the projection is an ESTIMATE, not an invoice",
+        },
+    }
+    p = out / "request_provenance.json"
+    p.write_text(json.dumps(rec, indent=1) + "\n")
+    print(f"wrote {p} ({len(manifest)} image hashes)")
+    return p
+
+
 def body_for(task: dict, model: str, max_tokens: int,
              effort: str | None = None) -> dict:
     """Chat Completions body for one image.
@@ -228,6 +326,7 @@ def main() -> None:
                  "can reach; this script will not guess a model id for you.")
 
     client = openai.OpenAI()
+    record_provenance(out, args, cfg, names)
 
     pending = sum(1 for rep in range(args.repeat) for nm in names
                   if not is_done(out / f"rep{rep}" / f"{Path(nm).stem}.json"))

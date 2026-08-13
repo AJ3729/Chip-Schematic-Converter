@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "image": "circuit_575.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The inked drawing occupies rows 19-491 / cols 7-505 of the 512x512 frame; everything outside that is blank, so every wire that stops at y~19 or y~491 is a cut end, not a dangling lead. In-frame trace: I-DC 7 hangs on a near-vertical branch - its top lead is a bare stub ending at (204,19), its bottom lead runs down to a heavy junction blob at (241,359) (confirmed at 8x) where it meets the GND 6 lead coming in from the left and the left end of Inductor 5, and continues on down to the top plate of Capacitor 2; Capacitor 2's bottom lead is a bare stub ending at (267,491). V-AC 9 hangs on the right branch - top lead a bare stub at (366,19), bottom lead straight into Resistor 4 (13k), whose bottom lead reaches the T at (403,302) together with the right end of Inductor 5 and the top of Inductor 8 (1mH); Inductor 8's bottom lead is a bare stub at (424,491). Two further long, perfectly isolated wires run the full height of the inked area with no in-frame connection at all: the LEFT line from (8,20) to (34,491) and the RIGHT line from (478,20) to (505,491). Net map: 0 = the junction at (241,359): GND 6, I-DC 7 bottom, Capacitor 2 top plate, Inductor 5 left. n1 = the left conductor: the whole LEFT long line, plus I-DC 7's top stub, plus Capacitor 2's bottom stub, plus the lower terminal of off-frame Capacitor 0 and the left terminal of off-frame Resistor 3. n2 = the right conductor: the whole RIGHT long line, plus Inductor 8's bottom stub, plus the upper terminal of Capacitor 0, the upper terminal of Inductor 1 and the right terminal of Resistor 3. n3 = Inductor 1 lower terminal -> V-AC 9 top stub at (366,19). n4 = V-AC 9 bottom -> Resistor 4 top (a plain two-terminal series link, no branch). n5 = the T at (403,302): Resistor 4 bottom, Inductor 5 right, Inductor 8 top. Judgment calls: (a) OFF-FRAME components. Three bbox centres are outside the frame: Capacitor 0 (271,-106), Inductor 1 (365,-40) above, Resistor 3 (356,534) below. None of the three has any ink in the image. There are exactly four bare wire ends at the top of the inked area - x=8 (left line), x=204 (I-DC top), x=366 (V-AC top), x=478 (right line) - and exactly four at the bottom - x=34 (left line), x=267 (Capacitor 2), x=424 (Inductor 8), x=505 (right line). Pairing by bbox: Inductor 1 (x 341-388, tall bbox 47x110 so drawn on a vertical run) sits directly over the x=366 stub, so it is in series in the V-AC branch. Capacitor 0 (x 239-303, bbox 64x85 - the same 'taller than wide' shape as in-frame Capacitor 2, so also on a vertical run) sits between the x=204 and x=366 stubs and breaks the upper conductor in two. Resistor 3 (x 316-396, bbox 81x48 - wide, so on a horizontal run, like in-frame Inductor 5) sits between the x=267 and x=424 stubs and breaks the lower conductor in two. (b) The two long isolated lines are read as CIRCUIT WIRES - the left and right sides of an outer loop whose top and bottom runs were cropped away - not as page/border ink. Consequences: the left line ties I-DC 7's top stub to Capacitor 2's bottom stub (net n1) and the right line ties Inductor 8's bottom stub to the Inductor-1/Capacitor-0 node (net n2). Reasons: they are the same pen weight as every other wire; a generated schematic does not contain two long wires that connect nothing; and this is the reading that leaves no bare stub unexplained. The resulting netlist simulates with zero faults - every node has a DC path to ground and there is no inductor/source loop - whereas discarding the two lines leaves node {I-DC top, Capacitor 0} with no DC path to ground. If a reviewer decides the two lines are border ink, the only change is that n1 splits into {I-DC 7 top, Capacitor 0 lower} + {Capacitor 2 bottom, Resistor 3 left} and n2 splits into {Capacitor 0 upper, Inductor 1 upper} + {Inductor 8 bottom, Resistor 3 right}. This is the one call in the file worth a second pair of eyes. (c) Geometry of the off-frame upper conductor: n1 runs at roughly y=-63 (left line up, I-DC stub up, across to x=271), Capacitor 0 sits on the short VERTICAL segment from (271,-63) up to (271,-148), and n2 runs on from there rightwards, dropping at x=365 into Inductor 1 and at x=478 into the right line. That routing is what makes Capacitor 0's bbox taller than wide while it still separates the two conductors. (d) The junction at (241,359) is a genuine 4-way node - a clearly thickened blob at 8x, not a crossing; GND 6 is drawn as a two-bar ground whose lead runs right into it, so that whole node is net 0. (e) 2-terminal ordering convention: index 0 = top for a vertically drawn part, left for a horizontally drawn part; order affects no metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        149.3,
+        475.9,
+        82.8,
+        60.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        220.1,
+        385.3,
+        109.0,
+        41.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        687.1,
+        518.4,
+        78.9,
+        63.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        797.7,
+        425.9,
+        44.5,
+        78.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        473.6,
+        368.6,
+        134.5,
+        37.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        592.1,
+        437.6,
+        57.8,
+        84.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        618.7,
+        601.3,
+        72.3,
+        59.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "I-DC",
+      "bbox": [
+        386.6,
+        539.0,
+        104.0,
+        81.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        693.7,
+        351.5,
+        128.7,
+        42.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "V-AC",
+      "bbox": [
+        342.2,
+        384.5,
+        87.3,
+        72.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

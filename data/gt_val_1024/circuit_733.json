@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_733.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map: n1 = the whole top rail (y~168-176), from the top-left corner (56,169) across to the left end of resistor 3 (40 ohm): top lead of resistor 4 (10 ohm), top lead of I-DC 0 (T at (150,168)), top plate of capacitor 1 (T at (267,176)), left end of resistor 3. n2 = right end of resistor 3 -> top-right corner (405,179) -> down to the top of inductor 5 (0.125H). n3 = bottom plate of capacitor 1 -> straight down -> top (+) terminal of V-DC 2 (10V); nothing else on it. 0 = the whole bottom rail (y~331-336) plus GND 6: bottom-left corner (54,331), bottom lead of resistor 4, bottom lead of I-DC 0 (its lead runs down x=148, through the rail at (148,333) and on to the ground bars at y=357/364/367), bottom terminal of V-DC 2 (T at (268,335)), bottom of inductor 5 at the bottom-right corner (405,331).\nJudgment calls: (a) the bootstrap had the bottom rail split into three nets (n4 on the left of the ground stub, 0 at the stub, n5 on the right). It is one wire: the rail is unbroken from (54,331) to (405,331) and the I-DC's ground lead simply passes through it at (148,333) on its way to the ground symbol below (there is a small thickening just above the rail but no clear dot). Reading that as a crossover would leave GND 6 reachable only through the current source, i.e. the source with no return path, and would split a plainly continuous straight wire - so it is a junction and the whole rail is \"0\". (b) Everything else is unambiguous: four clean T/corner meetings on the top rail and four on the bottom rail, all verified at 5-6x. (c) Terminal order: resistor 3 and the capacitor's plates are drawn horizontally/vertically respectively - resistor 3 indexed left then right; capacitor 1, V-DC 2, resistor 4, inductor 5 and I-DC 0 are all vertical and indexed top then bottom. V-DC 2 has \"+\" on the top half of its circle and I-DC 0's arrow points up, matching the top-first indexing; 2-terminal order does not affect any metric anyway. (d) No component was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        301.3,
+        494.2,
+        94.6,
+        90.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        533.8,
+        456.3,
+        95.7,
+        48.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-DC",
+      "bbox": [
+        534.9,
+        566.1,
+        84.5,
+        69.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        660.5,
+        374.2,
+        121.7,
+        46.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        121.7,
+        527.5,
+        51.9,
+        109.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        800.9,
+        502.9,
+        57.1,
+        108.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        310.4,
+        749.7,
+        92.9,
+        53.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

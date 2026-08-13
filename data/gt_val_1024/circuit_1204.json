@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1204.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "IMPORTANT ORIENTATION NOTE: this image is the source drawing rotated 90 deg (all value labels -- 3mH, 9F, 10 ohm, 2 uA -- read bottom-to-top), so what looks like a column of vertical lines is really a set of horizontal rails. All coordinates below are in the 512x512 image frame as stored. Drawn content occupies only y=30..480; five near-vertical lines are cut off cleanly at both of those edges, i.e. the frame crops the drawing. Consistent with that, two annotated components lie outside the frame: V-DC 0 (bbox centre y=-29.4, i.e. just above the top edge = just off the LEFT end of the drawing in reading orientation) and Resistor 6 (bbox centre y=518.2, just below the bottom edge = just off the RIGHT end). Nothing else in the inventory is missing: the five visible symbols are Inductor 2, Capacitor 3, GND 4, Resistor 5 and I-DC 1.\n\nThe five long lines, left-to-right in this frame: L1 (x 7@y30 -> 52@y480) and L4 (x 458 -> 504) run edge to edge with NOTHING attached at any row (checked every 10 px); L2 (x 163 -> 199) is the return rail; Lm (x 334 -> 365) is the main rail and carries Inductor 2 (coil at y 70..145) and I-DC 1 (circle at y 356..451) in series; L3 (x 409@y30 -> 418@y313) carries Resistor 5 (10 ohm, y 178..288) and then elbows left at (415,313) to land on Lm at (354,322).\n\nNet map: n1 = the stub of Lm above the inductor, (334,30)-(337,70), i.e. Inductor 2's upper lead, continued off-frame to the + side of V-DC 0 and to the upper end of the Resistor 5 rail L3, (409,30)-(409,178); n2 = the main node on Lm between the inductor and the current source -- Inductor 2's lower lead at (348,155), the T where Capacitor 3's right lead lands at (350,203), the T where the Resistor 5 return elbow lands at (354,322), and I-DC 1's upper lead at (357,356); n3 = the stub of Lm below the I-DC, (360,451)-(365,480), continued off-frame to one lead of Resistor 6; 0 = rail L2 plus the capacitor's left lead: from (163,30) down the whole rail to (199,480), joined at (180,230) by the horizontal wire that runs left from Capacitor 3's left plate to GND 4 (three vertical bars at x 148..162, y 205..250).\n\nJudgment calls: (a) the intersection of rail L2 and the capacitor's ground lead at (180,230) is read as a JUNCTION, not a crossover. Pixel evidence: both strokes are 2 px wide but the intersection is a filled 5x6 px blob (rows 228-236, x 177-182) -- a deliberate node dot. Circuit evidence: if it were a hop, the capacitor would hang from n2 to an isolated ground stub carrying no return current, and rail L2 (the only return path for V-DC 0 and Resistor 6) would have no reference at all. Junction is the only sensible reading, and it is what makes the whole of L2 net 0. (b) The two T-junctions on Lm, at (350,203) for the capacitor lead and at (354,322) for the Resistor 5 return elbow, were both confirmed at 12-20x: in each case the incoming wire terminates on the rail with an ink blob and the rail passes straight through. There are no crossovers anywhere in this drawing. (c) V-DC 0's placement: its bbox spans y -69..10 (reading orientation: vertically centred between rail Lm and rail L2 at their left ends, whose midpoint is 3.5 px from the bbox centre) and it is a 2-terminal source, so it is read as the source bridging the Lm stub (n1) and the return rail L2 (0) just off the left end of the drawing. (d) Resistor 6 likewise: bbox spans y 492..544, centred between the right-hand ends of Lm and L2 (midpoint within 6 px of the bbox centre), so it bridges the Lm stub below the I-DC (n3) and the return rail (0). (e) The upper end of the Resistor 5 rail L3 runs off the top edge and is merged into n1. Rationale: L3 sits immediately beside Lm's upper stub on the same side of the return rail, so reaching n1 needs no crossing, whereas reaching L2 would require crossing Lm; electrically this puts the 10 ohm resistor in parallel with the 3 mH inductor between the source node and n2, a standard textbook combination. This is the one genuinely off-frame inference in the file -- see 'uncertain' below. (f) L1 and L4 carry no terminal of any component in this inventory anywhere along their length, so they contribute no net; they are most likely rails of a neighbouring drawing on the same page that bleed into this crop. They were deliberately NOT merged into any net. (g) Terminal order in this stored frame: index 0 = top for the parts that are vertical here (Inductor 2, Resistor 5, I-DC 1) and left for the parts that are horizontal here (Capacitor 3, and the off-frame V-DC 0 and Resistor 6). Because of the 90 deg rotation, 'left' in this frame is the return-rail side for V-DC 0 and Resistor 6. The I-DC 1 arrow points down in this frame (i.e. from n2 toward n3); 2-terminal order does not affect any metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        210.7,
+        484.5,
+        77.7,
+        73.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        678.2,
+        419.9,
+        93.1,
+        77.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        363.2,
+        403.9,
+        100.5,
+        37.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        472.0,
+        485.9,
+        65.7,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        474.0,
+        622.7,
+        76.5,
+        42.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        504.0,
+        340.4,
+        112.5,
+        45.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        789.8,
+        518.4,
+        44.5,
+        103.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

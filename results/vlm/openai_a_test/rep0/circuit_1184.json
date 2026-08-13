@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "bbox": [
+    126,
+    145,
+    45,
+    160
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n_top",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    121,
+    497,
+    55,
+    120
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    330,
+    290,
+    45,
+    125
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n_top",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    312,
+    431,
+    62,
+    145
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    507,
+    441,
+    55,
+    155
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n_top",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    505,
+    602,
+    70,
+    135
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    717,
+    630,
+    58,
+    160
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n_top",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    717,
+    810,
+    80,
+    140
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n4",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    874,
+    160,
+    60,
+    105
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n_top",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    866,
+    286,
+    70,
+    110
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    867,
+    466,
+    58,
+    92
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    866,
+    636,
+    60,
+    115
+   ],
+   "class": "I-DC",
+   "terminals": [
+    "0",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    866,
+    822,
+    60,
+    105
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "0",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    506,
+    921,
+    60,
+    48
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 7094
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

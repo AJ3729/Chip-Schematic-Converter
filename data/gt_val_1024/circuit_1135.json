@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1135.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Single loop, drawn as a tall rectangle whose top and bottom sides fall OUTSIDE the 512x512 crop. Visible inside the frame: the left rail (a straight vertical at x~150 running the full height), the right rail (x~400, carrying resistor 0 '6 ohm' at y~26-115 and inductor 1 '2 H' at y~183-285), and one horizontal rung at y~389 that starts at GND 4 (x~110, drawn rotated with its bars vertical and its stem pointing right), crosses the left rail at (150,389) and ends on the right rail at (401,390) after passing through resistor 3 '3 ohm'.\n\nNet map: '0' = the ground node - GND 4, the whole left rail, the left lead of resistor 3, and the two off-frame leads that the left rail runs to (V-DC 2 and capacitor 5). n1 = the right rail above resistor 0, i.e. resistor 0 top plus the V-DC 2 terminal it reaches off the top of the frame. n2 = the short piece of right rail between resistor 0 and inductor 1. n3 = the right rail below inductor 1: inductor 1 bottom, the right lead of resistor 3 (T-junction at (401,390), verified at 16x - the rung dead-ends there and the rail continues past it), and the capacitor 5 terminal it reaches off the bottom of the frame.\n\nJudgment calls: (a) the crossing of the rung and the left rail at (150,389) carries a clear junction DOT - at 34x the crossing is a filled blob about 7x9 px against 2-3 px line width - so it is a junction, not a crossover; that is what puts GND on the left rail. (b) V-DC 2 (bbox centre y = -105) and capacitor 5 (bbox centre y = 573) are annotated outside the image, so their symbols cannot be traced. Both bboxes sit horizontally (x 239-303 and x 249-290) between the two rails, and the left rail and the right rail both run off the frame edge (to y~8 at the top, y~506 at the bottom) without terminating, so the only reading that closes the loop is: V-DC 2 bridges the two rails across the top (left lead -> left rail = '0', right lead -> right rail above resistor 0 = n1) and capacitor 5 bridges them across the bottom (left lead -> '0', right lead -> n3). Both are listed left-then-right; a human re-checking this circuit should confirm those two off-frame parts against the uncropped sheet. (c) The two isolated full-height verticals at x~8 and x~497 belong to neighbouring circuits on the sheet - they touch nothing in this circuit and no annotated component lies on them, so they are ignored. (d) 2-terminal parts are listed top-then-bottom (resistor 0, inductor 1) or left-then-right (resistor 3, V-DC 2, capacitor 5) as drawn; terminal order does not affect any metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        335.1,
+        373.1,
+        84.5,
+        34.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        492.1,
+        372.6,
+        98.1,
+        35.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-DC",
+      "bbox": [
+        165.2,
+        494.4,
+        44.9,
+        60.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        640.5,
+        503.5,
+        38.1,
+        89.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        637.1,
+        656.1,
+        81.7,
+        39.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        816.5,
+        501.2,
+        43.7,
+        38.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

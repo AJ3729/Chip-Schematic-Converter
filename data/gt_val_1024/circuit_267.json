@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_267.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (4 nets): n1 = top-left segment \u2014 V-DC 0 top lead runs up the x~100 vertical to y~188 then right to the left end of Resistor 5. n2 = centre top node at (208,188), a clean T verified at 7x: right end of Resistor 5 + left end of Inductor 3 + top plate lead of Capacitor 2 (its vertical drops from that T at x~208). n3 = right top segment: right end of Inductor 3 runs right to x~337 and down to the top of I-DC 1. 0 = bottom rail at y~305 from x~100 to x~337: bottom lead of V-DC 0, bottom plate lead of Capacitor 2, bottom lead of I-DC 1, and the GND 4 stem which T's off the rail at x~229 (confirmed at 7x). Judgment calls: (a) the drafter's text labels are swapped relative to the symbols \u2014 '14F' is written over the coil (component 3, drawn unmistakably as an inductor) and '60H' next to the parallel-plate symbol (component 2, drawn unmistakably as a capacitor); I kept the classes from the symbols as the guide requires, and did not re-class either. (b) The long strokes at the far left (x~5), far right (x~510), top-right (y~141) and bottom-left (y~357) are notebook page/ruling edges, not wires \u2014 none of them touches the circuit, so they carry no net. (c) V-DC 0 and I-DC 1 are drawn vertically; terminal 0 = top lead, terminal 1 = bottom lead (I-DC arrow points up). Capacitor 2 terminal 0 = top plate, 1 = bottom plate. Resistor 5 and Inductor 3 are horizontal, terminal 0 = left, 1 = right. (d) No component bbox falls outside the 512x512 frame, so nothing was inferred off-frame.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        202.0,
+        508.4,
+        83.2,
+        81.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        672.9,
+        488.6,
+        83.2,
+        82.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        424.6,
+        486.3,
+        87.1,
+        55.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        520.7,
+        379.4,
+        114.0,
+        46.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        464.5,
+        654.5,
+        86.6,
+        51.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        284.6,
+        385.0,
+        104.5,
+        41.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

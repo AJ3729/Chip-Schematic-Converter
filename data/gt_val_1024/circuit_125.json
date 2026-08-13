@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_125.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The whole drawing is rotated 90 deg (all value labels read top-to-bottom), so what look like vertical rails are the horizontal rails of the circuit. It is a series-parallel RLC ladder driven by a current source at one end and a voltage source at the other. Net map: 0 = the long left rail (x~123 at the top, drifting to x~127 at the bottom, running the full drawn height y~13..489). Three T-junctions hang off it, all confirmed at 6-8x: (122,140) -> right into resistor 6's left lead (the drafter put a small arrowhead blob there), (127,231) -> left to the wire of GND 7 (a 90-deg-rotated ground symbol whose bars are vertical at x~80..96), and (128,328) -> right into capacitor 3's left plate. The rail's two open ends carry the off-image sources (see judgment call (a)), so 0 also holds one terminal of I-DC 2 and one of V-DC 0. n1 = capacitor 4's top plate (a bare plate at y~17 with no drawn lead, sitting at the very top of the inked area) plus the far terminal of I-DC 2. n2 = the upper node of the right-hand chain: capacitor 4's bottom plate -> lead down at x~369 -> T at (370,117) with resistor 6's right lead -> continues down into the top of inductor 1. n3 = the lower node of the right-hand chain: bottom of inductor 1 -> down at x~374 -> T at (374,318) with capacitor 3's right plate -> continues down into the top of resistor 5. n4 = resistor 5's bottom lead, running down to the open end at (364,488), plus the far terminal of V-DC 0. Judgment calls: (a) THE BIG ONE - components 2 (I-DC) and 0 (V-DC) have bboxes that fall outside this 512x512 crop: I-DC 2 is centred at (241.5,-78.7) (entirely above the frame) and V-DC 0 at (262.2,535.7) (entirely below it). The other six bboxes land exactly on their drawn symbols, so the annotation frame is right and the crop simply lost the top and bottom of the sheet. They are placed by inference, not by sight: the inked area has EXACTLY two open ends at the top - the left rail at (116,13) and capacitor 4's bare top plate at (~365,17) - and EXACTLY two at the bottom - the left rail at (129,489) and resistor 5's lead at (364,488). I-DC 2 spans x 202..280, which is squarely in the gap between the two top open ends; V-DC 2 spans x 222..302, squarely between the two bottom ones. Reading each source as bridging the pair of open ends next to it closes the circuit into a sensible current-source-fed / voltage-source-fed RLC ladder and leaves no dangling terminal. A human should re-check this against the raw uncropped photo if it is available; the alternative (marking both sources unconnected) would also strand capacitor 4's top plate and resistor 5's bottom lead on one-terminal nets. (b) Terminal order for the two off-image sources follows their bbox x-extent: index 0 = the left-hand lead (the one facing the left rail, net 0), index 1 = the right-hand lead. Their drawn polarity/arrow direction is not visible, and 2-terminal order does not affect any metric. (c) Capacitor 4's upper plate genuinely has no drawn lead - the ink stops at the top edge of the inked area - which is itself evidence that the sheet continues above the crop. (d) The near-vertical strokes at x~9..20 (far left) and x~480..491 (far right) run the full drawn height, touch nothing, and carry no component bbox; they are sheet/page rules or bleed from neighbouring drawings and are not part of this netlist. (e) There are no wire crossings anywhere in this drawing - every meeting of two runs is a T. (f) In-image 2-terminal order: inductor 1 and resistor 5 are drawn vertically (index 0 = top, 1 = bottom); resistor 6 and capacitor 3 horizontally (index 0 = left, 1 = right); capacitor 4 has horizontal plates so index 0 = top plate, 1 = bottom plate.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        786.1,
+        512.2,
+        81.5,
+        76.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        483.8,
+        395.8,
+        101.1,
+        46.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        183.4,
+        516.7,
+        81.0,
+        74.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        579.3,
+        469.0,
+        76.5,
+        55.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        287.5,
+        399.5,
+        62.5,
+        58.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        677.3,
+        401.7,
+        101.6,
+        45.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        389.7,
+        493.5,
+        53.6,
+        83.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "GND",
+      "bbox": [
+        482.4,
+        677.2,
+        87.1,
+        58.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

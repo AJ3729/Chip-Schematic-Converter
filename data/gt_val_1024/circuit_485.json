@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_485.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Clean upright drawing, fully inside the frame (all ink in rows 123-388 / cols 7-505; a border scan shows no wire leaving any edge, and no component bbox centre is outside the frame). Layout: a rectangle with a top rail at y~175-181 and a bottom rail at y~333-346, a left branch at x~95 carrying V-DC 3 ('10v'), a right branch at x~408 carrying V-DC 0 ('10v'), and a middle branch at x~263 carrying Inductor 4 ('20mH'), continuing below the bottom rail to GND 5. Resistor 1 ('100 ohm') and Capacitor 2 ('2 uF') sit in the top rail, one on each side of the middle branch. Net map: n1 = top rail from the corner at (98,175) at the head of the left branch rightwards to the left lead of Resistor 1 (terminals: V-DC 3 top/+, Resistor 1 left). n2 = top rail from the right lead of Resistor 1, through the T at (261,175) where the middle branch drops away, to the left plate of Capacitor 2 (terminals: Resistor 1 right, Inductor 4 top, Capacitor 2 left). n3 = top rail from the right plate of Capacitor 2 to the corner at (408,181) and down the right branch to the top of V-DC 0 (terminals: Capacitor 2 right, V-DC 0 top/+). 0 = the whole bottom rail, from the corner at (93,333) at the foot of the left branch, through the 4-way at (264,343), to the corner at (407,346) at the foot of the right branch, plus the stub continuing down from that 4-way to the GND 5 bars at y~378/385 (terminals: V-DC 3 bottom, Inductor 4 bottom, V-DC 0 bottom, GND 5). Judgment calls: (a) The intersection at (261,175) is a T, not a crossing - verified at 10x, the vertical exists only below the rail - so the inductor's top lead is on the same net as the resistor's right lead and the capacitor's left plate. (b) The intersection at (264,343) is a genuine 4-way JUNCTION: it carries a clear pen blob at 8x and the vertical continues below it to the ground bars, so the bottom rail is the ground net; if it were treated as a crossover the two 10V sources would have no return path and the inductor's lower lead would only see the GND symbol. (c) Both V-DC symbols are circles containing a '+' drawn slightly above centre, so the upper lead is the positive terminal for each; index 0 = top/positive, index 1 = bottom. 2-terminal order does not affect any metric. (d) Resistor 1 and Capacitor 2 are indexed left lead = 0, right lead = 1; Inductor 4 top = 0, bottom = 1. (e) The bootstrap's guesses were all wrong or incomplete (GND 5 had a null net, Resistor 1 was on '0', Inductor 4 had its bottom on '0' but its top on the wrong segment); the partition here was re-derived from the drawing.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        809.7,
+        414.7,
+        120.1,
+        110.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        340.1,
+        274.0,
+        161.4,
+        72.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        651.3,
+        274.5,
+        116.4,
+        89.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        197.5,
+        428.3,
+        125.2,
+        110.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        529.0,
+        389.2,
+        75.8,
+        139.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        540.5,
+        685.7,
+        111.9,
+        76.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

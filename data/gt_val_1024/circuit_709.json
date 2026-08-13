@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_709.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Ladder network. Five vertical columns (all slightly slanted, x drifts ~5 px left\ngoing down) crossed by six horizontal runs (each drifts ~10 px up going right):\n  col A x~13-17: Inductor 7 (y 34-64), Capacitor 11 (y 125-147)\n  col B x~96-102: Inductor 10 (y 115-163), Capacitor 6 (y 207-228)\n  col C x~187-195: Inductor 13 (y 211-245), Capacitor 12 (y 320-344)\n  col D x~311-322: Inductor 9 (y 312-344), Capacitor 8 (y 416-444)\n  col E x~444-454: V-AC 0 (y 26-57), I-AC 1 (y 111-148), V-DC 3 (y 204-241),\n                   I-DC 2 (y 303-335), V-DC 5 (y 404-448)\n  R0 top rail y~5-11; R1 y~88(left)..74(right); R2 y~182..178; R3 y~271..278;\n  R4 y~376..369; R5 bottom rail y~470-477.\n\nNet map:\nn1 = top rail R0. T-junctions on col A (14,7), col B (102,6), col C (195,4) and\n     col D (322,5); it turns down at (452,11) into V-AC 0. Terminals: tops of\n     Inductors 7, 10, 13 and 9, and the top of V-AC 0.\nn2 = rung R1. T's into col A at (17,87) between Inductor 7 and Capacitor 11;\n     hops col B, col C and col D; T's into col E at (450,74) between V-AC 0 and\n     I-AC 1. Terminals: L7 bottom, C11 top, V-AC 0 bottom, I-AC 1 top.\nn3 = rung R2. T's into col B at (100,182) between Inductor 10 and Capacitor 6\n     (heavy filled dot); hops col C and col D; T's into col E at (446,178)\n     between I-AC 1 and V-DC 3. Terminals: L10 bottom, C6 top, I-AC 1 bottom,\n     V-DC 3 top.\nn4 = rung R3 PLUS the whole bottom rail R5. R3 T's into col B at (103,271),\n     below Capacitor 6; hops col C and col D; T's into col E at (454,278)\n     between V-DC 3 and I-DC 2. Col B then continues uninterrupted from (103,271)\n     down to the bottom rail, where it ends in a T at (95,473) - that is what\n     merges R3 with the bottom rail. The bottom rail runs from the corner under\n     col A (13,470) right to the corner under col E (444,472), taking col B's\n     end, crossing col C at (188,476) (see judgment call b) and taking col D's\n     end at (311,473). Terminals: C6 bottom, V-DC 3 bottom, I-DC 2 top,\n     C11 bottom, C8 bottom, V-DC 5 bottom (6 terminals).\n0  = rung R4 plus the lower part of col C plus GND 4. R4 T's into col C at\n     (187,376) on a big filled dot below Capacitor 12; hops col D at (311,373);\n     T's into col E at (448,369) between I-DC 2 and V-DC 5. Col C runs down from\n     that dot, crosses the bottom rail at (188,476) WITHOUT joining it, and ends\n     in the GND 4 symbol at y~500. Terminals: C12 bottom, I-DC 2 bottom,\n     V-DC 5 top, GND 4.\nn5 = col C between Inductor 13 and Capacitor 12 (rung R3 hops over it at\n     (185,272)). Two terminals only: L13 bottom, C12 top.\nn6 = col D between Inductor 9 and Capacitor 8 (rung R4 hops over it at\n     (311,373)). Two terminals only: L9 bottom, C8 top.\n\nJudgment calls:\n(a) Every column/rung crossing except one is drawn as an unmistakable\n    semicircular detour in the COLUMN, bulging left (R1 x col B at (95,88),\n    R1 x col C, R1 x col D, R2 x col C, R2 x col D, R3 x col C, R3 x col D,\n    R4 x col D). All checked at 16-25x and on the raw pixel grid; all are\n    crossings, not junctions. Junctions in this drawing are drawn as a T (the\n    rung simply starts on the column) or as a heavy filled dot, e.g. R2 x col B\n    at (100,182) and R4 x col C at (187,376), where the blob is ~8x8 px against\n    a 1-2 px line width.\n(b) THE ONE HARD CALL: where col C crosses the bottom rail at (188,476) the\n    column runs dead straight through - no semicircular detour - and the only\n    extra ink is the 4-5 px overlap of the two rail arms (which are drawn 2 px\n    apart in y, left arm at y=477, right arm at y=475) with the 2 px column.\n    I read it as a plain 4-way X with no junction dot, i.e. TWO NETS: the\n    col C / GND wire (net 0) passes over the bottom rail (net n4).\n    Reasons: (i) it is the only 4-way crossing in the drawing, and the protocol\n    rule is that a plain X with no dot is two nets - the blob here is an order of\n    magnitude smaller than the two real junction dots elsewhere in the same\n    drawing; (ii) the alternative reading is fatal. If that point were a\n    junction then the bottom rail, rung R3 (through col B) and rung R4 (through\n    col C) would all be one node, which puts BOTH terminals of V-DC 5 on it -\n    a shorted voltage source, singular matrix - and also shorts I-DC 2. With the\n    crossing reading every source sits between two distinct nodes and the\n    netlist simulates. A human re-checking this file should look here first.\n(c) Consequence of (b) worth stating plainly: the bottom rail is NOT the ground\n    node in this drawing. Ground (net 0) is the col C stub below Capacitor 12,\n    which carries rung R4 and ends in GND 4. Net 0 still reaches the bottom rail\n    at DC through V-DC 5, so there is no floating-node problem.\n(d) Tier-2 simcheck finding, kept deliberately: Inductor 7 closes a loop of\n    voltage sources/inductors, because L7 (col A, top rail -> n2) sits directly\n    in parallel with V-AC 0 (col E, top rail -> n2). Both connections are clean\n    T's on unambiguous ink (top rail corner at (14,7) and T at (17,87) for L7;\n    top rail corner at (452,11) and T at (450,74) for V-AC 0), so this is what\n    the drafter drew - an inductor across an AC source, normal in an AC problem.\n    No Tier 1 fault, and every net has a DC path to ground.\n(e) Terminal order for the 2-terminal parts is top-then-bottom as drawn. V-DC 3\n    and V-DC 5 both have the \"+\" plate uppermost, so index 0 is the + terminal;\n    I-AC 1 and I-DC 2 both have their arrow pointing up and index 0 is the top\n    lead. None of this affects the net partition.\n(f) The pencil is faint and every long run has 8-14 px binarisation dropouts\n    (worst: the bottom rail at x=212-219, rung R1 at x=190-250). Each was\n    checked at high zoom: the surviving fragments stay on the same slanted line,\n    so each run is treated as one continuous wire. No rung extends past the\n    column where it starts on the left, and none extends past col E on the right.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        881.8,
+        93.6,
+        58.5,
+        58.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-AC",
+      "bbox": [
+        875.5,
+        258.2,
+        72.5,
+        68.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        881.8,
+        614.3,
+        58.0,
+        58.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-DC",
+      "bbox": [
+        878.5,
+        433.9,
+        78.6,
+        69.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        398.9,
+        971.0,
+        76.7,
+        57.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "V-DC",
+      "bbox": [
+        876.3,
+        814.3,
+        69.4,
+        81.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        224.9,
+        429.6,
+        51.7,
+        39.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        67.5,
+        115.2,
+        38.8,
+        57.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Capacitor",
+      "bbox": [
+        636.2,
+        823.8,
+        51.7,
+        50.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        640.2,
+        632.9,
+        38.8,
+        58.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Inductor",
+      "bbox": [
+        219.4,
+        282.3,
+        41.4,
+        88.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Capacitor",
+      "bbox": [
+        72.3,
+        278.3,
+        48.5,
+        40.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Capacitor",
+      "bbox": [
+        390.2,
+        642.5,
+        47.9,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Inductor",
+      "bbox": [
+        384.5,
+        448.0,
+        40.7,
+        64.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

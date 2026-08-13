@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1256.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "LAYOUT. A rotated rhombic lattice. Five long 'rail' wires run down-right (direction ~(50,61)); every component sits on a branch line running up-right (direction ~(50,-38)). Where a branch lead LANDS on a rail the drafter draws a T, or - mid-rail - a small stepped meeting in which the two branch arms stop on the rail a few pixels apart. Where a branch merely CROSSES a rail, the branch is one unbroken straight stroke through it. Those are the only two kinds of meeting in the drawing. NET MAP. 0 = rail C: starts at the GND lead (199,137), runs down-right through the crossings at (204,143), (255,205), (300,266) and (340,316) and ends at (369,369), where V-DC 16's left lead and I-AC 17's upper lead land. n1 = rail B: (202,50) [I-AC 0 lower lead] - (254,106) crossing - (300,162) JUNCTION [Capacitor 2 left lead + Capacitor 3 right lead] - (347,221) JUNCTION [Inductor 9 left lead + Resistor 13 right lead] - (390,275) T [Inductor 10 right lead] - (436,335) end [V-DC 16 upper-right lead]. n2 = rail D: (147,189) end [Resistor 14 left lead, reached round the corner there] - (196,249) crossing - (246,313) JUNCTION [Capacitor 5 left lead + Resistor 12 upper lead] - (287,361) JUNCTION [Capacitor 6 left lead, and the V-DC 15 lead that crosses rail E at (217,416)] - (318,410) T [I-AC 17 lower lead + Capacitor 7 upper lead]. n3 = rail E joined to the lower part of rail F: (128,308) T [Capacitor 4 right lead + Inductor 8 left lead] - (172,359) T [Resistor 12 lower lead] - (217,416) crossing - (252,462) T/end [Capacitor 7 lower lead] - bottom corner (197,510) - (152,462) T [Inductor 11 lower lead + V-DC 15 lower lead]. n4 = rail A, the right-most rail: (270,7) [I-AC 0 upper lead] - (319,64) T [Resistor 14's lead lands here, after crossing rail C at (204,143) and rail B at (254,106)] - (368,123) T [Capacitor 2 upper lead] - (411,180) end [Inductor 9 upper lead]. n5 = branch wire that crosses rail C at (255,205) and rail D at (196,249): Capacitor 3 left lead to Inductor 8 right lead, so Cap 3 and Ind 8 are in series between n1 and n3. n6 = the corner at (67,355) joining Capacitor 4 left lead and Inductor 11 upper lead. n7 = short branch wire crossing rail C at (300,266): Capacitor 5 right lead to Resistor 13 left lead (Cap 5 and Res 13 in series between n2 and n1). n8 = short branch wire crossing rail C at (340,316): Capacitor 6 right lead to Inductor 10 left lead (Cap 6 and Ind 10 in series between n2 and n1). JUDGMENT CALLS. (a) THE CENTRAL DECISION - which of the eleven four-way meetings connect. Read as CROSSINGS (no connection): (254,106), (204,143), (255,205), (196,249), (300,266), (340,316), (217,416). Read as JUNCTIONS: (300,162), (347,221), (246,313), (287,361). Ink evidence: at the seven crossings the branch is one straight unbroken stroke straight through the rail. Resistor 14's lead is a single straight line from (157,181) through (204,143) and (254,106) to (319,64); the Capacitor-3-to-Inductor-8 wire is a single straight line from (265,197) through (255,205) and (196,249) to (193,253). Fitting each branch arm separately and measuring the perpendicular mismatch at the meeting gives 0.2 px at (254,106), 0.1 px at (217,416), 0.6 px at (300,266), 1.7 px at (340,316), ~2 px at (255,205) and (204,143). At 18-20x each of these is a plain X: the ink thickening is the overlap of two crossing 2-3 px strokes, with no detour and no enclosed white hole. At the four junctions the two branch arms do NOT line up - each stops on the rail at its own point, and a short stepped stroke along the rail joins them, leaving a small enclosed triangle of white that is clearly visible at 14-20x at (300,162), (347,221), (246,313) and (287,361). (b) Cross-check, because the ink alone is marginal at some of these: this is the only reading that simulates. Treating the six blobbier crossings as junction dots merges all five rails and shorts I-AC 0, Resistor 14, V-DC 15, V-DC 16 and I-AC 17 - two shorted voltage sources. Treating all eleven as crossings leaves 10 of 13 nets with no DC path to ground. Treating (340,316) as a junction too puts V-DC 16 in parallel with Inductor 10 (a voltage-source/inductor loop, singular at DC). The partition recorded here is the unique reading that has no shorted component, no island, no single-terminal net, a DC path to ground for every net, and no V/L loop. (c) The GND lead at (199,137) is simply the upper end of rail C, so net 0 is that whole rail. Only one GND symbol is drawn. (d) Rail A between (270,7) and (368,123) is drawn very faintly and binarises into four fragments; at 9x it is one continuous stroke, so it is one net. Same for the small dropout gaps at (331,200), (258,462) and (355,337). (e) V-DC 16's leads attach at the circle's left point (~(388,360) -> net 0) and its upper right (~(433,341) -> n1). I-AC 17's attach at the circle's lower left (~(330,405) -> n2) and its upper right (~(369,370) -> net 0). (369,369) is a genuine three-way meeting: the end of rail C, V-DC 16 and I-AC 17. (f) Capacitor 4 and Inductor 11 are in PARALLEL between n6 (the corner at (67,355)) and n3: Cap 4 runs (77,347)-(121,310) into (128,308); Inductor 11 runs (87,379)-(140,442) into (152,462), which reaches rail E through the bottom corner (197,510)-(252,462). n6 therefore carries only those two terminals - an LC loop hung off the rail. That is what the ink shows, and n6 still has a DC path to ground through Inductor 11. (g) Terminal order for every two-terminal part is 'lower-left lead first, upper-right lead second' as drawn (Inductor 11: upper-left then lower-right). Two-terminal order affects no metric. (h) The squiggle at (205,0)-(230,19) above I-AC 0 is handwritten label text clipped by the top of the frame, not a component and not a wire. No component bbox centre lies outside the 512x512 frame, so nothing is off-frame and no component is unconnected. (i) INDEPENDENT RE-CHECK of judgment call (a), by a method that does not depend on eyeballing: for each of the eleven meetings I sampled the ink on a circle of radius 16 px about the meeting, clustered it into arms, and measured the angle between the up-right branch arm and the down-left branch arm. At all seven meetings read as CROSSINGS the branch arms are opposite to within 0-13 deg (openings 167.7-180.0 deg) and the chord joining them passes within 0.0-1.7 px of the meeting centre - i.e. the branch is one straight stroke through the rail: (254,106) 167.7deg/1.71px, (204,143) 177.4/0.36, (255,205) 180.0/0.00, (196,249) 175.5/0.63, (300,266) 177.4/0.36, (340,316) 180.0/0.00, (217,416) 174.2/0.81. At all four meetings read as JUNCTIONS the branch arms are NOT opposite - the opening is 133-138 deg, a ~45 deg kink - because each arm stops on the rail at its own point and a short stepped stroke along the rail joins them: (300,162) arms at 14.5/241.3 deg (opening 133.2), (347,221) 17.2/241.3 (135.9), (246,313) 59.8/198.2 (138.4), (287,361) 62.0/200.3 (138.3). In every one of the eleven cases the RAIL arms remain opposite (169.7-180.0 deg), so the rail is continuous everywhere. The separation between the two groups is clean with no overlap, which settles the central decision independently of the electrical cross-check in (b). Scratch script: /tmp/work/scratch/fin3/arms.py.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-AC",
+      "bbox": [
+        177.7,
+        217.8,
+        81.8,
+        81.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "GND",
+      "bbox": [
+        238.3,
+        418.6,
+        52.0,
+        58.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        463.9,
+        202.4,
+        56.6,
+        35.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        461.4,
+        345.4,
+        55.8,
+        38.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        458.8,
+        794.3,
+        72.8,
+        54.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        599.0,
+        468.1,
+        50.2,
+        39.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        723.5,
+        477.5,
+        52.1,
+        43.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Capacitor",
+      "bbox": [
+        854.3,
+        628.8,
+        52.3,
+        48.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        461.4,
+        626.9,
+        45.4,
+        90.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        613.4,
+        214.6,
+        34.1,
+        95.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Inductor",
+      "bbox": [
+        733.6,
+        351.7,
+        34.1,
+        90.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Inductor",
+      "bbox": [
+        605.2,
+        869.6,
+        120.9,
+        46.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Resistor",
+      "bbox": [
+        597.3,
+        665.7,
+        48.4,
+        62.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Resistor",
+      "bbox": [
+        601.7,
+        359.8,
+        36.6,
+        60.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Resistor",
+      "bbox": [
+        306.6,
+        481.0,
+        37.7,
+        67.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "V-DC",
+      "bbox": [
+        728.9,
+        805.1,
+        78.9,
+        88.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "class": "V-DC",
+      "bbox": [
+        876.2,
+        358.2,
+        62.9,
+        78.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "class": "I-AC",
+      "bbox": [
+        851.9,
+        488.6,
+        82.6,
+        88.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

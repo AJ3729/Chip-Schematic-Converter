@@ -1,0 +1,77 @@
+{
+ "run_dir": "results/vlm/openai_a_test",
+ "variant": "a",
+ "n_repeats": 1,
+ "per_repeat": [
+  {
+   "rep": "rep0",
+   "n": 192,
+   "unusable": 8,
+   "gt_dir": "data/gt_test_1024",
+   "split_asserted": "test",
+   "skipped_missing_gt": 0,
+   "metrics": {
+    "n_images": 192,
+    "terminal_pair_f1": {
+     "mean": 0.5047434907654008,
+     "ci95_lo": 0.45943673494854453,
+     "ci95_hi": 0.5461812498027271
+    },
+    "net_f1": {
+     "mean": 0.671168170068094,
+     "ci95_lo": 0.6304365950923119,
+     "ci95_hi": 0.707034737009947
+    },
+    "per_component_connected_acc": {
+     "mean": 0.2528343580104153,
+     "ci95_lo": 0.20862415319050107,
+     "ci95_hi": 0.2985955620660797
+    },
+    "per_component_recall_acc": {
+     "mean": 0.25872337798696393,
+     "ci95_lo": 0.21352421824149234,
+     "ci95_hi": 0.3054831297361961
+    },
+    "nged": {
+     "mean": 0.2313088271711087,
+     "ci95_lo": 0.20292433325041215,
+     "ci95_hi": 0.2653629224736326
+    },
+    "strict_success": {
+     "mean": 0.125,
+     "ci95_lo": 0.078125,
+     "ci95_hi": 0.16666666666666666
+    }
+   }
+  }
+ ],
+ "across_repeats": {
+  "terminal_pair_f1": {
+   "mean": 0.5047434907654008,
+   "sd": 0.0
+  },
+  "net_f1": {
+   "mean": 0.671168170068094,
+   "sd": 0.0
+  },
+  "per_component_connected_acc": {
+   "mean": 0.2528343580104153,
+   "sd": 0.0
+  },
+  "nged": {
+   "mean": 0.2313088271711087,
+   "sd": 0.0
+  },
+  "strict_success": {
+   "mean": 0.125,
+   "sd": 0.0
+  }
+ },
+ "agreement_vs_pipeline": {
+  "both_strict": 21,
+  "pipeline_only": 81,
+  "vlm_only": 3,
+  "neither": 87,
+  "n": 192
+ }
+}

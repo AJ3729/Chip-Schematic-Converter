@@ -1,0 +1,182 @@
+{
+ "components": [
+  {
+   "bbox": [
+    53,
+    390,
+    45,
+    58
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    59,
+    656,
+    43,
+    52
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    201,
+    661,
+    45,
+    55
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n4",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    285,
+    388,
+    55,
+    82
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n4",
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    584,
+    363,
+    51,
+    83
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n4",
+    "n4",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    557,
+    683,
+    50,
+    82
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n2",
+    "n4",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    650,
+    653,
+    72,
+    28
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n2",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    781,
+    549,
+    53,
+    90
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n4",
+    "n5",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    784,
+    719,
+    55,
+    85
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n6",
+    "n7",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    876,
+    780,
+    43,
+    57
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n7",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    958,
+    780,
+    42,
+    57
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n6",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    782,
+    267,
+    61,
+    57
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    849,
+    300,
+    37,
+    33
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 3962
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

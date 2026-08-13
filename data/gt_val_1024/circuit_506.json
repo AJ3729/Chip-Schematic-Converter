@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "image": "circuit_506.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "The whole sheet is drawn rotated ~90deg (all the value text reads bottom-to-top), so the two DC rails run VERTICALLY down the left and right edges and every branch is a horizontal run between them. Bridge rectifier (diodes 1-4) fed by the off-frame V-AC 0, then an L-C filter, a zener-referenced BJT-PNP 15 / Op-Amp 7 / BJT-NPN 8 series regulator. THERE IS NO GND SYMBOL in this drawing or in the inventory, so no net is named '0'; n1 (left rail) is the negative DC rail and n2 (right rail) the positive one. Net map: n1 = left vertical rail, x~93-100, tapped by four T-junctions at y~48 (diode 3 anode), y~118 (diode 4 anode), y~182 (inductor 10 left), y~238 (zener 5 anode) and y~327 (capacitor 12 left), then cornering right at y~490 into resistor 13. n2 = right vertical rail, x~414-418, tapped at y~48 (diode 1 cathode), y~118 (diode 2 cathode), y~200 (capacitor 11 right), y~256 (resistor 14 right) and y~506 (BJT-NPN 8 collector). n3 = upper AC node: the middle segment of the y~48 horizontal, between diode 3's cathode (x~184) and diode 1's anode (x~346), T-joined at (309,48) by the right-hand lead of the off-frame V-AC 0. n4 = lower AC node: middle segment of the y~118 horizontal between diode 4's cathode and diode 2's anode, T-joined at (207,118) by V-AC 0's left-hand lead. n5 = inductor 10 right / capacitor 11 left (nothing taps between them). n6 = the T at (271,256): zener 5 cathode + resistor 14 left + base of BJT-PNP 15 (its base lead runs straight up from the base bar at y~302). n7 = capacitor 12 right / emitter of BJT-PNP 15. n8 = collector of BJT-PNP 15: right at y~332 to x~374, then down to the op-amp's non-inverting input. n9 = zener 6 cathode: up from the zener at x~176 to the corner at (174,354), then right and down into the op-amp's inverting input. n10 = op-amp output (bottom apex) down to the base of BJT-NPN 8. n11 = the T at (185,490): resistor 13 right + zener 6 anode + inductor 9 left. n12 = inductor 9 right / emitter of BJT-NPN 8. OFF-FRAME COMPONENT: V-AC 0 has bbox centre (256.7, -38.0) - it is entirely ABOVE the 512x512 crop and is not drawn in the image at all. Exactly two wire ends run off the top edge of the frame, at x~206.5 and x~309.5; they are symmetric about x~258, i.e. they straddle the V-AC's bbox x-span (226.5-287.0), and they are the only open ends anywhere in the drawing. I therefore paired them with V-AC 0's two terminals (index 0 = left lead -> n4, index 1 = right lead -> n3). This is also the only reading that makes the circuit work: it puts the AC source across the two AC corners of the bridge and leaves no dangling terminal. V-AC 0 is NOT marked unconnected. Judgment calls: (a) the only wire crossing in the sheet is at (206.5,48), where V-AC 0's left lead is drawn with a clear semicircular hop over the upper bridge horizontal (verified at 10x), so n3 and n4 stay separate; every other meeting of wires here is a T or a corner. (b) all four rectifier diodes are drawn horizontally with the triangle pointing RIGHT and the cathode bar on the right, giving the canonical bridge: 3 and 4 conduct from n1 into the AC nodes, 1 and 2 conduct from the AC nodes into n2, so left rail = DC-, right rail = DC+. Diode/zener terminal order is left-lead then right-lead (or top-then-bottom for the vertical zener 6) as drawn. (c) zener 5 is horizontal with its cathode bar on the right; zener 6 is vertical with its cathode bar on top. (d) BJT-PNP 15 is drawn with a horizontal base bar and the base lead leaving upward; the emitter arrow (pointing back into the bar) is on the LEFT-hand descending lead, so emitter = left lead (to capacitor 12) and collector = right lead (to the op-amp +). (e) BJT-NPN 8 likewise has a horizontal base bar with the base lead leaving upward to the op-amp output; the arrow on the LEFT descending lead points away from the bar, so emitter = left lead (to inductor 9) and collector = right lead (to n2). (f) Op-Amp 7 points downward: the input edge is its horizontal top edge and the output is the bottom apex. Because the page is rotated, the '-' mark shows as a vertical bar; it sits at x~343 and the '+' at x~363, so the input lead entering the top edge at x~340 is in- (index 1) and the one at x~373 is in+ (index 0). This is the one call worth a second look: if the +/- marks were read the other way round, n8 and n9 would swap on the op-amp only.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        59.6,
+        525.6,
+        73.2,
+        96.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Diode",
+      "bbox": [
+        190.9,
+        356.5,
+        77.7,
+        75.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Diode",
+      "bbox": [
+        302.7,
+        337.3,
+        69.3,
+        64.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Diode",
+      "bbox": [
+        203.4,
+        656.0,
+        82.2,
+        77.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Diode",
+      "bbox": [
+        309.8,
+        645.3,
+        66.1,
+        72.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Zener Diode",
+      "bbox": [
+        513.3,
+        594.8,
+        95.3,
+        82.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Zener Diode",
+      "bbox": [
+        810.3,
+        622.9,
+        86.3,
+        92.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n9"
+        },
+        {
+          "index": 1,
+          "net": "n11"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Op-Amp",
+      "bbox": [
+        732.9,
+        350.4,
+        85.8,
+        111.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        },
+        {
+          "index": 2,
+          "net": "n10"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "BJT-NPN",
+      "bbox": [
+        887.5,
+        363.1,
+        77.5,
+        104.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n10"
+        },
+        {
+          "index": 2,
+          "net": "n12"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        899.1,
+        511.5,
+        49.6,
+        115.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n11"
+        },
+        {
+          "index": 1,
+          "net": "n12"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Inductor",
+      "bbox": [
+        426.5,
+        530.0,
+        47.2,
+        107.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Capacitor",
+      "bbox": [
+        425.5,
+        365.9,
+        67.5,
+        50.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "Capacitor",
+      "bbox": [
+        638.1,
+        596.6,
+        58.4,
+        53.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Resistor",
+      "bbox": [
+        885.6,
+        680.5,
+        43.0,
+        95.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n11"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "class": "Resistor",
+      "bbox": [
+        519.7,
+        342.2,
+        37.8,
+        70.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "class": "BJT-PNP",
+      "bbox": [
+        618.7,
+        497.3,
+        85.8,
+        107.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        },
+        {
+          "index": 2,
+          "net": "n7"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

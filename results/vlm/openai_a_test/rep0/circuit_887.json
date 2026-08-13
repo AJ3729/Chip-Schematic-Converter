@@ -1,0 +1,248 @@
+{
+ "components": [
+  {
+   "bbox": [
+    348,
+    128,
+    42,
+    70
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    62,
+    253,
+    58,
+    96
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "nL1",
+    "nVDD",
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    62,
+    550,
+    58,
+    112
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nL1",
+    "nBias5",
+    "nL2"
+   ]
+  },
+  {
+   "bbox": [
+    62,
+    744,
+    58,
+    96
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nL2",
+    "nIndL",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    344,
+    334,
+    54,
+    118
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "nOpPlus",
+    "nVDD",
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    343,
+    575,
+    55,
+    124
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nOpMinus",
+    "nBias5",
+    "nLowBus"
+   ]
+  },
+  {
+   "bbox": [
+    424,
+    418,
+    132,
+    116
+   ],
+   "class": "Op-Amp",
+   "terminals": [
+    "nOpPlus",
+    "nOpMinus",
+    "nOpOut"
+   ]
+  },
+  {
+   "bbox": [
+    573,
+    431,
+    112,
+    36
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "nOpOut",
+    "nSwitch"
+   ]
+  },
+  {
+   "bbox": [
+    310,
+    786,
+    206,
+    50
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "nIndL",
+    "nBotGate"
+   ]
+  },
+  {
+   "bbox": [
+    523,
+    798,
+    56,
+    112
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nLowBus",
+    "nBotGate",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    704,
+    250,
+    56,
+    142
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "nSwitch",
+    "nZGate",
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    704,
+    578,
+    56,
+    124
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "nSwitch",
+    "nACGate",
+    "nLowBus"
+   ]
+  },
+  {
+   "bbox": [
+    888,
+    193,
+    56,
+    82
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "nZGate",
+    "nVDD"
+   ]
+  },
+  {
+   "bbox": [
+    188,
+    641,
+    78,
+    102
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "nBias5",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    190,
+    724,
+    46,
+    36
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    557,
+    875,
+    52,
+    48
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    815,
+    720,
+    76,
+    104
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "nACGate",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    815,
+    789,
+    46,
+    36
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 4673
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

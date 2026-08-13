@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_318.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Simple single-loop AC circuit. Net map (4 nets): n1 = left rail \u2014 top lead of V-AC 3 up the x~80 vertical to the corner at (80,182), then right to the left end of Resistor 2 (30ohm). n2 = right end of Resistor 2 to the left bar of the parallel block at x~209, which feeds the left ends of Resistor 0 (50ohm, upper branch) and Capacitor 1 (50uF, lower branch) \u2014 verified at 8x that the block is a closed rectangle with the incoming lead landing mid-height on the left bar. n3 = right bar of that block at x~287: right ends of Resistor 0 and Capacitor 1, then right along y~183 to the corner at (357,186) and down into the top of Inductor 5 (2mH). 0 = bottom rail at y~312-315 from x~80 to x~357: bottom of Inductor 5, bottom lead of V-AC 3, and GND 4 whose stem T's down off the rail at x~217 (verified at 8x). Judgment calls: (a) Resistor 0 and Capacitor 1 are in PARALLEL, not series \u2014 the block's two vertical bars at x~209 and x~287 tie their like ends together; the drafter's labels '50ohm' and '50uF' sit above and below the block respectively. (b) The long faint horizontal strokes at y~140 and y~365 and the verticals at x~5 and x~510 are notebook page rulings; none touches the circuit. (c) Terminal order: V-AC 3 and Inductor 5 are vertical (0 = top, 1 = bottom); Resistors 0 and 2 and Capacitor 1 are horizontal (0 = left, 1 = right). V-AC 3 carries no polarity marks so its order is arbitrary. (d) All six component bboxes are inside the frame \u2014 nothing off-frame, nothing unconnected, and nothing was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        490.3,
+        342.6,
+        87.2,
+        30.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        477.2,
+        399.9,
+        44.1,
+        40.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        275.6,
+        369.5,
+        89.7,
+        37.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "V-AC",
+      "bbox": [
+        160.2,
+        499.9,
+        57.9,
+        61.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "GND",
+      "bbox": [
+        434.7,
+        670.3,
+        94.7,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        711.2,
+        491.7,
+        38.0,
+        78.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

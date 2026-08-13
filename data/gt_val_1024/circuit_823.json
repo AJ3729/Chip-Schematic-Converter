@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "image": "circuit_823.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (coords in 512-space): 0 = bottom rail y~325 running x~133..415, plus the stub down to GND 6 at (211,348); it collects V-DC 0 minus terminal (left vertical x~72), R9 60ohm bottom, C4 0.4F bottom (x~310), I-DC 1 bottom (x~365) and C2 0.33F bottom (x~412). n1 = V-DC 0 plus terminal -> up the left vertical to the corner (72,180) -> right to the left end of R10 12ohm. n2 = supply node: right end of R10 -> right to (162,186) -> down to (162,226) -> right along y~226 to the 4-way at (215,226); the vertical there runs up to the corner (215,180) into the left end of R8 2ohm and down through R9 60ohm to ground, and the horizontal continues right into the left end of R5 5ohm. n3 = right end of R8 -> top rail y~180 -> left end of L3 3H. n4 = right end of L3 -> corner (418,183) -> down the right vertical to the TOP plate of C2 0.33F. n5 = right end of R5 -> horizontal y~231 -> T at (307,231) into the top of L7 2H -> continues right to the corner (367,231) -> down into the top of I-DC 1. n6 = bottom of L7 2H -> top plate of C4 0.4F. Judgment calls: (a) the crossing at (215,226) is drawn as a plain dotless 4-way with no hop; I read it as a JUNCTION. This drafter draws every confirmed junction dotless - the bottom-rail/GND crossing at (211,325) is a dotless 4-way that must be a junction - and reading (215,226) as a crossover would leave the R8/L3/C2 branch a source-less passive loop and give R9 no path to the source, so both ink convention and circuit sense agree. Checked at 20x: no semicircular hop, both lines continuous. (b) the y~231 horizontal ENDS at x~367 and turns down into I-DC 1; it does not reach the right vertical at x~412..420 (verified at 7x - there is a binarisation dropout in that run near x~351..366 but the corner is clearly at 367). Hence C2's top plate is on n4 with L3, NOT on n5 as the bootstrap had it. (c) bootstrap errors corrected: V-DC 0 lower terminal was 'n6' (it is the bottom rail = 0), I-DC 1 lower terminal was 'n7' (bottom rail = 0), C2 top was 'n5' (is n4) and C2 bottom was null (is 0), C4 both null (n6 / 0), L7 lower was null (n6). (d) 2-terminal order is as drawn: V-DC index 0 = the '+' (top) lead; C2/C4/L7/R9 index 0 = the upper lead; R5/R8/R10/L3 index 0 = the left lead. Order does not affect any metric. (e) simcheck Tier 2: none expected - the two capacitor nodes n4 and n6 each have a DC path to ground through their series inductor (L3 and L7 respectively), and I-DC 1 has a return path via n5 -> R5 -> n2 -> R9 -> 0. Circuit reads as the standard textbook problem: 24V behind 12ohm feeding a 60ohm shunt, a 2ohm/3H/0.33F branch and a 5ohm branch feeding a 2H+0.4F leg and a 2A source.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        152.3,
+        500.0,
+        82.1,
+        77.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        720.2,
+        541.0,
+        67.3,
+        61.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        815.1,
+        511.8,
+        82.2,
+        54.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        752.4,
+        389.1,
+        98.5,
+        44.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        612.8,
+        615.9,
+        67.9,
+        40.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        520.1,
+        474.8,
+        100.5,
+        39.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        422.8,
+        722.1,
+        98.6,
+        52.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        612.8,
+        537.6,
+        46.9,
+        72.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Resistor",
+      "bbox": [
+        551.6,
+        386.2,
+        91.8,
+        43.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Resistor",
+      "bbox": [
+        421.8,
+        559.8,
+        58.9,
+        82.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "Resistor",
+      "bbox": [
+        259.8,
+        394.8,
+        106.3,
+        44.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

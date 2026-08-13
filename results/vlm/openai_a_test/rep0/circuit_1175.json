@@ -1,0 +1,413 @@
+{
+ "components": [
+  {
+   "bbox": [
+    121,
+    448,
+    28,
+    45
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n3v"
+   ]
+  },
+  {
+   "bbox": [
+    126,
+    556,
+    32,
+    118
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n3v",
+    "n_left_diode_top"
+   ]
+  },
+  {
+   "bbox": [
+    126,
+    655,
+    38,
+    55
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n_left_diode_top",
+    "n_left_bottom"
+   ]
+  },
+  {
+   "bbox": [
+    184,
+    518,
+    50,
+    88
+   ],
+   "class": "BJT-PNP",
+   "terminals": [
+    "n_left_bottom",
+    "n_left_pnp_base",
+    "n3v"
+   ]
+  },
+  {
+   "bbox": [
+    259,
+    428,
+    100,
+    28
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_left_pnp_base",
+    "n_upper_bjt_base"
+   ]
+  },
+  {
+   "bbox": [
+    252,
+    684,
+    122,
+    28
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_left_bottom",
+    "n_lower_left_bjt_base"
+   ]
+  },
+  {
+   "bbox": [
+    319,
+    151,
+    44,
+    48
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n10"
+   ]
+  },
+  {
+   "bbox": [
+    585,
+    83,
+    31,
+    62
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n15"
+   ]
+  },
+  {
+   "bbox": [
+    376,
+    169,
+    31,
+    98
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n15",
+    "n10"
+   ]
+  },
+  {
+   "bbox": [
+    378,
+    268,
+    34,
+    100
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n10",
+    "n_a"
+   ]
+  },
+  {
+   "bbox": [
+    361,
+    466,
+    58,
+    92
+   ],
+   "class": "BJT-PNP",
+   "terminals": [
+    "n_b",
+    "n_upper_bjt_base",
+    "n_a"
+   ]
+  },
+  {
+   "bbox": [
+    489,
+    319,
+    103,
+    30
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_a",
+    "n_top_diode_anode"
+   ]
+  },
+  {
+   "bbox": [
+    553,
+    320,
+    40,
+    31
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n_top_diode_anode",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    383,
+    604,
+    36,
+    166
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_b",
+    "n_c"
+   ]
+  },
+  {
+   "bbox": [
+    365,
+    718,
+    55,
+    94
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n_c",
+    "n_lower_left_bjt_base",
+    "n_left_bottom"
+   ]
+  },
+  {
+   "bbox": [
+    482,
+    515,
+    140,
+    29
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_b",
+    "n_mid_bjt_base"
+   ]
+  },
+  {
+   "bbox": [
+    596,
+    313,
+    29,
+    47
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    610,
+    432,
+    35,
+    119
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n6",
+    "n_mid_bjt_collector"
+   ]
+  },
+  {
+   "bbox": [
+    582,
+    532,
+    53,
+    76
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n_mid_bjt_collector",
+    "n_mid_bjt_base",
+    "n_mid_bjt_emitter"
+   ]
+  },
+  {
+   "bbox": [
+    579,
+    641,
+    38,
+    145
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_mid_bjt_emitter",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    493,
+    800,
+    86,
+    24
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_left_bottom",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    804,
+    316,
+    80,
+    112
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n15",
+    "n6",
+    "n_out"
+   ]
+  },
+  {
+   "bbox": [
+    728,
+    356,
+    48,
+    63
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n_clamp_mid",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    729,
+    432,
+    49,
+    57
+   ],
+   "class": "Diode",
+   "terminals": [
+    "n_out",
+    "n_clamp_mid"
+   ]
+  },
+  {
+   "bbox": [
+    919,
+    515,
+    45,
+    45
+   ],
+   "class": "V-DC (one port)",
+   "terminals": [
+    "n_out"
+   ]
+  },
+  {
+   "bbox": [
+    849,
+    642,
+    36,
+    136
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_out",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    849,
+    823,
+    45,
+    42
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    734,
+    516,
+    111,
+    30
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_right_sense",
+    "n_out"
+   ]
+  },
+  {
+   "bbox": [
+    662,
+    580,
+    76,
+    76
+   ],
+   "class": "BJT-PNP",
+   "terminals": [
+    "n_right_pull",
+    "n_right_control",
+    "n_right_sense"
+   ]
+  },
+  {
+   "bbox": [
+    759,
+    675,
+    35,
+    146
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n_right_pull",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    614,
+    754,
+    71,
+    74
+   ],
+   "class": "BJT-NPN",
+   "terminals": [
+    "n_right_control",
+    "n_c",
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 7284
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

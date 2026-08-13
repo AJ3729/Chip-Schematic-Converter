@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1094.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Simple 4-node loop drawn as two stacked meshes. Net map: n1 = left vertical rail at x~155 joining the left terminal of I-DC 0 (3A) to the left terminal of Inductor 5 (20uH); n2 = short horizontal from the right terminal of I-DC 0 to the left terminal of Resistor 2 (750R); n3 = node at x~311 where the right terminal of Resistor 2 arrives, turns UP to y~198 and runs right into the left plate of Capacitor 4 (3uF), and also continues right into the '-' terminal of V-DC 1 (7V) -- verified at 7x, the vertical at x~311 is one unbroken stroke from the resistor/V-DC horizontal up to the capacitor horizontal, so cap-left, R-right and V-DC(-) are one net; 0 = the whole bottom/right return path: right terminal of Inductor 5 -> down -> bottom rail at y~305..315 -> GND 3 (T-stub dropping off the rail at x~277) -> continues right to x~404 -> up the right vertical, where the '+' terminal of V-DC 1 T-joins at y~258, and on up to y~211 and left into the right plate of Capacitor 4. Judgment calls: (a) the right vertical at x~404 is a single continuous stroke from the bottom rail to the capacitor's right lead (7x crop confirms no break and no hop), so Capacitor 4 right plate, V-DC 1 '+' and the GND rail are all net 0 -- the capacitor sits directly across the 7V source; (b) the large tilted quadrilateral running off all four edges of the frame is the scanned page border, not circuit wire; at 7x it passes ~50 px above the top-right circuit corner and below-left of the bottom rail and never touches a component lead; (c) 2-terminal index order is left-then-right as drawn for I-DC 0, Resistor 2, Capacitor 4 and Inductor 5, and '-'-then-'+' for V-DC 1 (order does not affect any metric); (d) I-DC 0 arrow points right, so conventional current flows into the resistor node; (e) no component is unconnected -- every lead lands on one of the four nets.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-DC",
+      "bbox": [
+        403.6,
+        469.4,
+        108.3,
+        64.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        692.5,
+        468.4,
+        128.0,
+        77.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        532.0,
+        470.6,
+        109.9,
+        45.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        566.5,
+        632.3,
+        118.9,
+        49.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        702.4,
+        369.2,
+        76.9,
+        60.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        422.6,
+        591.4,
+        119.7,
+        59.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,297 @@
+{
+ "components": [
+  {
+   "class": "V-DC (one port)",
+   "bbox": [
+    510,
+    140,
+    30,
+    55
+   ],
+   "terminals": [
+    "n1"
+   ]
+  },
+  {
+   "class": "V-DC (one port)",
+   "bbox": [
+    190,
+    255,
+    35,
+    60
+   ],
+   "terminals": [
+    "n2"
+   ]
+  },
+  {
+   "class": "V-DC (one port)",
+   "bbox": [
+    530,
+    385,
+    30,
+    60
+   ],
+   "terminals": [
+    "n4"
+   ]
+  },
+  {
+   "class": "V-DC (one port)",
+   "bbox": [
+    888,
+    405,
+    35,
+    55
+   ],
+   "terminals": [
+    "n5"
+   ]
+  },
+  {
+   "class": "V-DC (one port)",
+   "bbox": [
+    152,
+    555,
+    35,
+    55
+   ],
+   "terminals": [
+    "n3v"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    272,
+    238,
+    20,
+    75
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    280,
+    395,
+    20,
+    80
+   ],
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    430,
+    440,
+    60,
+    20
+   ],
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    640,
+    447,
+    60,
+    22
+   ],
+   "terminals": [
+    "n4",
+    "n5"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    155,
+    710,
+    20,
+    80
+   ],
+   "terminals": [
+    "n3v",
+    "0"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    662,
+    645,
+    22,
+    60
+   ],
+   "terminals": [
+    "n16",
+    "n14"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    680,
+    396,
+    40,
+    30
+   ],
+   "terminals": [
+    "n6",
+    "n5"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    702,
+    575,
+    38,
+    28
+   ],
+   "terminals": [
+    "n5",
+    "n16"
+   ]
+  },
+  {
+   "class": "BJT-PNP",
+   "bbox": [
+    800,
+    370,
+    45,
+    50
+   ],
+   "terminals": [
+    "n1",
+    "n6",
+    "n5"
+   ]
+  },
+  {
+   "class": "BJT-PNP",
+   "bbox": [
+    272,
+    508,
+    50,
+    50
+   ],
+   "terminals": [
+    "n7",
+    "n8",
+    "n3"
+   ]
+  },
+  {
+   "class": "BJT-PNP",
+   "bbox": [
+    218,
+    578,
+    48,
+    48
+   ],
+   "terminals": [
+    "0",
+    "n7",
+    "n3v"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    570,
+    532,
+    48,
+    50
+   ],
+   "terminals": [
+    "n4",
+    "n10",
+    "n11"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    322,
+    758,
+    48,
+    48
+   ],
+   "terminals": [
+    "n7",
+    "n12",
+    "n13"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    532,
+    782,
+    48,
+    48
+   ],
+   "terminals": [
+    "n11",
+    "n13",
+    "0"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    725,
+    730,
+    48,
+    48
+   ],
+   "terminals": [
+    "n14",
+    "n15",
+    "0"
+   ]
+  },
+  {
+   "class": "BJT-NPN",
+   "bbox": [
+    836,
+    722,
+    48,
+    48
+   ],
+   "terminals": [
+    "n5",
+    "n14",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    875,
+    845,
+    30,
+    25
+   ],
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 3326
+ },
+ "_model": "claude-opus-5"
+}

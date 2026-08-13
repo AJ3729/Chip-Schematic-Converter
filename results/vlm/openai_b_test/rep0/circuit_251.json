@@ -1,0 +1,50 @@
+{
+ "components": [
+  {
+   "id": 0,
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "id": 1,
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "id": 2,
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "id": 3,
+   "terminals": [
+    "0",
+    "n2"
+   ]
+  },
+  {
+   "id": 4,
+   "terminals": [
+    "0",
+    "n1"
+   ]
+  },
+  {
+   "id": 5,
+   "terminals": [
+    "0",
+    "n1"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1765,
+  "output": 984
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

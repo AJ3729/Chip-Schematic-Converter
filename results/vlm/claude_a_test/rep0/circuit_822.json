@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "class": "V-AC",
+   "bbox": [
+    105,
+    295,
+    60,
+    60
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    110,
+    530,
+    62,
+    62
+   ],
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    105,
+    705,
+    42,
+    42
+   ],
+   "terminals": [
+    "n3",
+    "n5"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    105,
+    800,
+    42,
+    42
+   ],
+   "terminals": [
+    "n6",
+    "n5"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    392,
+    236,
+    44,
+    40
+   ],
+   "terminals": [
+    "n1",
+    "n8"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    392,
+    350,
+    52,
+    26
+   ],
+   "terminals": [
+    "n8",
+    "n2"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    390,
+    490,
+    42,
+    36
+   ],
+   "terminals": [
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    398,
+    745,
+    24,
+    80
+   ],
+   "terminals": [
+    "n3",
+    "n6"
+   ]
+  },
+  {
+   "class": "Diode",
+   "bbox": [
+    515,
+    835,
+    44,
+    42
+   ],
+   "terminals": [
+    "n6",
+    "n7"
+   ]
+  },
+  {
+   "class": "I-AC",
+   "bbox": [
+    645,
+    420,
+    66,
+    64
+   ],
+   "terminals": [
+    "n2",
+    "n4"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    735,
+    485,
+    44,
+    40
+   ],
+   "terminals": [
+    "n4",
+    "n3"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    716,
+    675,
+    50,
+    26
+   ],
+   "terminals": [
+    "n3",
+    "n7"
+   ]
+  },
+  {
+   "class": "Resistor",
+   "bbox": [
+    894,
+    720,
+    26,
+    72
+   ],
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    876,
+    840,
+    40,
+    26
+   ],
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 1636
+ },
+ "_model": "claude-opus-5"
+}

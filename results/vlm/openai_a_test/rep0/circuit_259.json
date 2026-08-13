@@ -1,0 +1,208 @@
+{
+ "components": [
+  {
+   "bbox": [
+    49,
+    310,
+    32,
+    54
+   ],
+   "class": "Zener Diode",
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    78,
+    606,
+    33,
+    70
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    147,
+    620,
+    46,
+    86
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    156,
+    371,
+    80,
+    98
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n3",
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    390,
+    361,
+    62,
+    117
+   ],
+   "class": "MOSFET-P",
+   "terminals": [
+    "n4",
+    "n3",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    389,
+    532,
+    58,
+    58
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n4",
+    "n2",
+    "n5"
+   ]
+  },
+  {
+   "bbox": [
+    389,
+    661,
+    56,
+    48
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n5",
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    537,
+    588,
+    46,
+    18
+   ],
+   "class": "Resistor",
+   "terminals": [
+    "n5",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    549,
+    279,
+    62,
+    51
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    647,
+    328,
+    36,
+    24
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    444,
+    742,
+    39,
+    30
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    624,
+    483,
+    55,
+    88
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n4",
+    "n7",
+    "n6"
+   ]
+  },
+  {
+   "bbox": [
+    625,
+    648,
+    58,
+    64
+   ],
+   "class": "MOSFET-N",
+   "terminals": [
+    "n6",
+    "n8",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    786,
+    743,
+    43,
+    63
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n8",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    976,
+    737,
+    45,
+    68
+   ],
+   "class": "I-AC",
+   "terminals": [
+    "n7",
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 5397
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

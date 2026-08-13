@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "bbox": [
+    104,
+    124,
+    35,
+    82
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    88,
+    305,
+    52,
+    58
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n1",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    273,
+    287,
+    43,
+    166
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    270,
+    462,
+    61,
+    58
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    478,
+    477,
+    42,
+    169
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "bbox": [
+    478,
+    626,
+    78,
+    61
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    726,
+    638,
+    47,
+    124
+   ],
+   "class": "Inductor",
+   "terminals": [
+    "n1",
+    "n4"
+   ]
+  },
+  {
+   "bbox": [
+    727,
+    767,
+    70,
+    67
+   ],
+   "class": "Capacitor",
+   "terminals": [
+    "n4",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    870,
+    102,
+    58,
+    58
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n1",
+    "n1"
+   ]
+  },
+  {
+   "bbox": [
+    871,
+    291,
+    58,
+    61
+   ],
+   "class": "V-AC",
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "bbox": [
+    871,
+    483,
+    57,
+    66
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    872,
+    645,
+    58,
+    64
+   ],
+   "class": "I-DC",
+   "terminals": [
+    "0",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    872,
+    762,
+    58,
+    68
+   ],
+   "class": "V-DC",
+   "terminals": [
+    "0",
+    "0"
+   ]
+  },
+  {
+   "bbox": [
+    477,
+    888,
+    72,
+    74
+   ],
+   "class": "GND",
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 1906,
+  "output": 8245
+ },
+ "_model": "gpt-5.5-2026-04-23"
+}

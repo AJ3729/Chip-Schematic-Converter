@@ -1,0 +1,190 @@
+{
+ "components": [
+  {
+   "class": "Inductor",
+   "bbox": [
+    70,
+    110,
+    26,
+    80
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    75,
+    295,
+    60,
+    30
+   ],
+   "terminals": [
+    "n2",
+    "0"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    237,
+    285,
+    26,
+    80
+   ],
+   "terminals": [
+    "n1",
+    "n3"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    236,
+    455,
+    58,
+    30
+   ],
+   "terminals": [
+    "n3",
+    "0"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    430,
+    455,
+    26,
+    80
+   ],
+   "terminals": [
+    "n1",
+    "n4"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    430,
+    637,
+    56,
+    28
+   ],
+   "terminals": [
+    "n4",
+    "0"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    595,
+    635,
+    26,
+    80
+   ],
+   "terminals": [
+    "n1",
+    "n5"
+   ]
+  },
+  {
+   "class": "Capacitor",
+   "bbox": [
+    595,
+    805,
+    58,
+    28
+   ],
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    795,
+    115,
+    80,
+    80
+   ],
+   "terminals": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "class": "I-AC",
+   "bbox": [
+    822,
+    275,
+    78,
+    80
+   ],
+   "terminals": [
+    "n3",
+    "n2"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    822,
+    450,
+    72,
+    78
+   ],
+   "terminals": [
+    "n3",
+    "n4"
+   ]
+  },
+  {
+   "class": "I-DC",
+   "bbox": [
+    830,
+    625,
+    72,
+    74
+   ],
+   "terminals": [
+    "n5",
+    "n4"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    832,
+    800,
+    74,
+    78
+   ],
+   "terminals": [
+    "n5",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    280,
+    945,
+    60,
+    60
+   ],
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 3152
+ },
+ "_model": "claude-opus-5"
+}

@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1262.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Rotated page, very tight crop: the ink spans rows 15-496 / cols 7-505, and exactly two circuit wires leave the drawing at the top (the left rail at x~95 and the lead of Resistor 3 at x~387) and exactly two at the bottom (the left rail at x~119 and the lead of Inductor 5 at x~392-405). The long straight lines at x~7-27 and x~487-505 are the notebook page rules, not wires.\nNet map: 0 = the left rail, the only ground node: it runs unbroken from the top edge (x~95) down to the bottom edge (x~119), takes the T at (111,350) that carries the horizontal running right into the left lead of I-AC 0 (2cos4t A), and takes the GND 6 lead T-ing in at (116,408) (GND is drawn rotated, bars around x 48-107, lead running right). n1 = the right column at the junction dot (393,311): right lead of I-AC 0, bottom plate lead of Capacitor 2 (0.5 F) coming down from y~203, and the top lead of Inductor 5 (2 H) going down to y~399. n2 = right column between the bottom of Resistor 3 (1 ohm) at y~103 and the top plate of Capacitor 2 at y~184. n3 = top lead of Resistor 3 leaving the top edge at x~387 to one terminal of V-AC 1. n4 = bottom lead of Inductor 5 leaving the bottom edge at x~400 to one terminal of Resistor 4.\nCircuit as read: V-AC in series with the 1 ohm resistor charging the 0.5 F cap into node n1, the 2cos4t A source injecting into n1 from ground, and the 2 H inductor returning through the off-frame resistor to ground. Every part has a return path.\nOFF-FRAME COMPONENTS (not visible in the image at all):\n - V-AC 1, bbox centre (255.0,-55.7) spanning x~216-294 ABOVE the top edge. The only two wires crossing the top edge are the left rail (x~95, net 0) and Resistor 3's top lead (x~387, net n3), and the source sits horizontally between them. Inferred: terminal 0 = the lead facing left -> 0, terminal 1 = the lead facing right -> n3. V-AC has no polarity marks anyway and 2-terminal order is not metric-relevant.\n - Resistor 4, bbox centre (272.7,625.8) spanning x~221-325 BELOW the bottom edge. The only two wires crossing the bottom edge are the left rail (x~119, net 0) and Inductor 5's bottom lead (x~392-405, net n4), and the resistor sits horizontally between them. Inferred: terminal 0 = left -> 0, terminal 1 = right -> n4. Without it the 2 H inductor and the whole right column would have no return to ground.\n - Resistor 3 is only partly visible (bbox y -13.8..103): its zigzag body is in frame, its top lead is cut off. Top terminal = n3 (to V-AC 1), bottom terminal = n2 (to the capacitor). Inductor 5 is likewise clipped at the bottom (bbox y 398.6..512.8); top = n1, bottom = n4.\n Neither off-frame part is marked unconnected - they are outside the crop, not dangling.\nJudgment calls: (a) (393,311) is a genuine junction - at 8x the crossing carries a distinct ink blob and the vertical continues both above and below, so I-AC's right lead, the capacitor and the inductor are one node; (b) (111,350) is a corner-plus-continuation: the left rail keeps going down past the point where the horizontal leaves, verified at 8x, so the rail above and below the horizontal is one net; (c) the GND lead meets the rail at (116,408) as a plain T = junction, which is what makes the whole left rail net 0; (d) two-terminal order: verticals (Resistor 3, Capacitor 2, Inductor 5) listed top-then-bottom, horizontals (I-AC 0 and the two off-frame parts) left-then-right; the I-AC arrow points right.",
+  "components": [
+    {
+      "id": 0,
+      "class": "I-AC",
+      "bbox": [
+        588.0,
+        511.1,
+        91.7,
+        83.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        204.1,
+        501.2,
+        77.3,
+        74.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        456.0,
+        375.8,
+        64.7,
+        55.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        308.0,
+        371.7,
+        114.0,
+        43.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        878.4,
+        507.5,
+        53.1,
+        101.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        714.6,
+        378.1,
+        111.2,
+        47.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        667.7,
+        693.3,
+        105.6,
+        54.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

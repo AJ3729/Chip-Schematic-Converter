@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "image": "circuit_230.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Drawn rotated ~90 deg (all text sideways). Two vertical rails carry everything. Net map: 0 = the LEFT rail (x~151 at the top edge, x~160 at the bottom edge, continuous top-to-bottom); GND 5 T-joins it at (155,262), the left lead of V-DC 0 T-joins at (158,135) and the left lead of I-DC 1 T-joins at (163,368) - all three checked at 10x and all three show a thickened junction blob with the rail running straight through. The right rail (x~383 top, ~390 bottom) is split into three segments by the two in-line elements on it: n1 = upper right-rail segment, from the top edge down past the V-DC 0 right-lead T at (390,118) to the top of resistor 7; n2 = middle right-rail segment, from the bottom of resistor 7 down past the I-DC 1 right-lead T at (392,350) to the top of inductor 6; n3 = the right rail below inductor 6, which is off the bottom edge. n4 = an entirely off-frame node above the top edge, between resistor 3 and capacitor 2. Judgment calls: (a) OFF-FRAME components. Exactly two circuit wires leave the top edge (left rail x~151, right rail x~383; verified on a 5x crop of the full top strip) and exactly two leave the bottom edge (left rail x~160, and the lower lead of inductor 6 at x~390 - the inductor coil is cut in half by the bottom edge). Above the frame sit Resistor 3 (bbox centre (275,-125), w=97>h=60 so drawn horizontally, spanning x 227-324) and Capacitor 2 (bbox centre (384,-10), h=68>w=55 so drawn vertically, sitting directly on the x~384 column). Four off-frame terminals and two stubs force a series chain: left rail -> R3 -> n4 -> C2 -> right-rail top. This is the only wiring that leaves nothing dangling. (b) Below the frame sits Resistor 4 (bbox centre (286,590), w=96>h=52 so horizontal, spanning x 238-334) between the left-rail bottom stub (x~160) and the inductor 6 lower lead (x~390) - again forced, and it gives I-DC 1 and V-DC 0 a return path. (c) None of the three off-frame parts is marked unconnected; each is inferred from stub pairing and bbox position, not seen. (d) The two dead-straight full-height vertical lines at x~9 and x~491 are notebook/page rules from the scan, not wires: no component bbox is anywhere near them and nothing attaches to them at any height. (e) Resistor 7 and inductor 6 are in-line (series) on the right rail, not shunts. (f) 2-terminal order is as drawn - left-then-right for the horizontal parts (V-DC 0, I-DC 1, R3, R4) and top-then-bottom for the vertical ones (C2, L6, R7) - and does not affect any metric; the +/- on V-DC 0 and the arrow on I-DC 1 both point toward the right rail. Resulting topology: V-DC 0 between 0 and n1; R7 between n1 and n2; I-DC 1 between 0 and n2; L6 between n2 and n3; R4 between n3 and 0; and the off-frame R3+C2 series branch between 0 and n1.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        392.7,
+        489.7,
+        84.4,
+        77.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "I-DC",
+      "bbox": [
+        616.2,
+        488.3,
+        81.0,
+        72.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        266.1,
+        388.5,
+        62.6,
+        50.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        158.7,
+        488.8,
+        54.8,
+        89.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        823.6,
+        486.0,
+        47.5,
+        88.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        523.5,
+        635.5,
+        68.8,
+        46.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        729.2,
+        386.8,
+        103.4,
+        44.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        488.5,
+        385.7,
+        91.7,
+        37.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_931.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "NET MAP (512-space). Layout: five vertical columns - A x=77..89, B x=167..183, C x=221..231, D x=267..283, E (source column) x=364..373 - crossed by four horizontal rungs at y=55-59, y=177-183, y=333-341 and y=445-450. Column E carries the whole source stack in series: V-AC 11 (top, off-frame) / rung1 / I-AC 8 / rung2 / V-DC 7 / rung3 / I-DC 9 / rung4 / V-DC 10 / off bottom edge. NETS: n1 = the OFF-FRAME TOP RAIL: inductor 0 top lead, V-AC 11 top lead (both symbols straddle y=0), and the bare column stubs that leave the top edge at x=183 (col B), x=231 (col C), x=283 (col D). n2 = rung1 (y=55): inductor 0 bottom, capacitor 3 top, V-AC 11 bottom, I-AC 8 top. T-junctions at (89,55) col A and (373,57) col E. n3 = rung2 (y=178): inductor 1 bottom, capacitor 2 top, I-AC 8 bottom, V-DC 7 top. T at (178,178) col B and (371,180) col E. 0  = rung3 (y=334) PLUS the whole lower part of column B PLUS the off-frame bottom ground rail: capacitor 2 bottom, V-DC 7 bottom, I-DC 9 top, capacitor 3 bottom (column A runs bare from the capacitor down to the bottom edge at x=77), V-DC 10 bottom lead (leaves the bottom edge at x=365) and GND 12. GND 12's bbox centre is (165,582), i.e. ~70 px BELOW the crop, and x=165 lines up with column B's bottom stub (x=167 at y=511); column B runs unbroken from capacitor 2's bottom plate (y=231) through the rung3 T down to y=511, so rung3 IS the ground node. n4 = rung4 (y=447): capacitor 4 bottom, I-DC 9 bottom, V-DC 10 top, plus inductor 5's lower lead (off-frame, see (d)). T at (222,445) col C and (366,449) col E; column C runs on below the rung to the bottom edge at x=221, so col C's bottom stub is electrically rung4. n5 = column C between inductor 13 and capacitor 4 (y=267..377), hopping rung3. n6 = column D between inductor 6 and inductor 5 (y=417..488), hopping rung4. JUDGMENT CALLS: (a) ADDED COMPONENT id 13 (Inductor). A coil labelled '10 uH' is unmistakably drawn on column C spanning y=232..262 (verified at 8x). The supplied inventory listed 13 components and contained only four of the five drawn coils; the sheet's labels are 1uH, 5uH, 10uH, 50uH, 0.1mH and 5uF, 10uF, 50uF, so a fifth inductor is required. Bbox entered as (230,245,22,40). Nothing was deleted, nothing re-classed. (b) HOP-vs-JUNCTION. The drafter's crossover mark is a semicircular lateral bulge in the VERTICAL wire; at 512 px the two inks touch, so wires.py merges them into one huge blob (#3), but the arc is unmistakable at 6x-8x. The eight hops are (177,57),(224,58),(275,59) on rung1; (223,179),(271,180) on rung2; (236,335),(270,338) on rung3; (268,446) on rung4. The eight T-junctions are (89,55),(373,57),(178,178),(371,180),(176,334),(367,341),(222,445),(366,449). Reading the bulges as junctions is self-contradictory: columns C and D carry no element between rung1 and rung2, so it would make n1=n2=n3 and short both I-AC 8 and V-DC 7. xing2 calls two of the eight 'DOT' only because the arc displaces the arm into the measuring window; probe/crop at 6x-8x shows the arc plainly in all eight. (c) BINARISATION DROPOUTS. This scan drops single pixels along faint strokes. Column B is broken into three blobs between capacitor 2 and y=511, and there is a 1 px gap at (175,333) between column B and the left end of rung3, and another at (178,176) between column B and rung2. Both are dropouts, not gaps: the horizontal terminates exactly on the vertical in each case (a T, 3 arms), and the alternative leaves the rung end dangling. (d) OFF-FRAME CLOSURE - the only genuinely ambiguous part; all in-frame ink is clean. Five wires leave the TOP edge (inductor 0, x=183, x=231, x=283, V-AC 11) and five leave the BOTTOM edge (col A x=77, col B x=167, col C x=221, inductor 5's lower lead x=277, V-DC 10's lower lead x=365). The five top stubs are taken as one rail (n1): that is the only reading that leaves no terminal dangling. At the bottom, a SINGLE rail joining all five stubs was REJECTED: column C's stub is electrically rung4 and column B's stub is ground, so one common rail would make rung4 = 0, which shorts V-DC 10 (both terminals on '0') and shorts I-DC 9 - a Tier-1 fault, and per the protocol almost certainly the wrong reading of ink we cannot see. The adopted reading is: the ground rail below the crop catches column A, column B (with GND 12 hanging from it) and V-DC 10's lower lead, while column C's tail and inductor 5's lower lead - the two adjacent stubs at x=221 and x=277 - join each other just below the frame and are therefore part of rung4 (n4). This leaves no dangling terminal, no shorted source, and a DC path to ground from every node. It does require one off-frame crossing (the ground rail passing under the col-C/inductor-5 link); every alternative closure either dangles a wire end or shorts a source. (e) EXPECTED TIER-2 FINDINGS, both real properties of the drawing: inductor 0 sits directly across V-AC 11 (both run from the top rail n1 to rung1 n2), and n1-L1-n3-V7-0-V10-n4-L5-n6-L6-n1 is a loop of inductors and voltage sources. Both follow directly from the ink and are ordinary in an AC textbook problem (all sources are 1 kHz, all reactances uH/uF), so they are kept. (f) Terminal order for every 2-terminal part is top-then-bottom as drawn; order does not affect any metric. No component is marked unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        130.5,
+        709.3,
+        75.3,
+        33.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Inductor",
+      "bbox": [
+        294.7,
+        577.5,
+        66.9,
+        31.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        422.3,
+        585.6,
+        42.9,
+        55.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        258.2,
+        718.1,
+        44.4,
+        53.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        669.3,
+        509.6,
+        30.2,
+        37.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        845.8,
+        432.3,
+        68.0,
+        36.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        671.6,
+        430.9,
+        73.6,
+        30.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "V-DC",
+      "bbox": [
+        458.5,
+        308.8,
+        74.3,
+        54.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-AC",
+      "bbox": [
+        285.6,
+        306.1,
+        59.9,
+        51.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "I-DC",
+      "bbox": [
+        638.8,
+        309.2,
+        71.5,
+        52.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "V-DC",
+      "bbox": [
+        801.5,
+        305.7,
+        61.0,
+        44.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "V-AC",
+      "bbox": [
+        118.9,
+        308.0,
+        63.9,
+        48.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "GND",
+      "bbox": [
+        950.5,
+        590.5,
+        44.9,
+        73.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Inductor",
+      "bbox": [
+        232.0,
+        253.6,
+        29.6,
+        17.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

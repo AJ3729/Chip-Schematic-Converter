@@ -1,0 +1,40 @@
+MODEL: gpt-5.5-2026-04-23
+
+SYSTEM:
+You are an expert at reading hand-drawn circuit schematics. You trace conductors carefully and you know the standard notations: a junction dot or a plain T-intersection means two wires CONNECT; a semicircular hop (one wire bulging over another) means they do NOT connect. Different people draw differently — some mark every non-connection with a hop, others draw bare crossings and rely on the reader's circuit knowledge. Read what is actually on the page.
+
+============================================================
+USER:
+This is a hand-drawn circuit schematic. Identify every electrical component and determine the complete circuit connectivity.
+
+For each component report:
+- its class, from exactly this list: Resistor, Capacitor, Inductor, Diode, Zener Diode, GND, V-DC, V-DC (one port), V-AC, I-DC, I-AC, MOSFET-N, MOSFET-P, BJT-NPN, BJT-PNP, Op-Amp
+- its bounding box in image pixel coordinates as [center_x, center_y, width, height]. The image is 1024 by 1024 pixels, origin at the TOP-LEFT.
+- the net of each of its terminals, in the terminal order given below
+
+Terminal counts by class:
+  Resistor: 2 — terminal 0, terminal 1
+  Capacitor: 2 — terminal 0, terminal 1
+  Inductor: 2 — terminal 0, terminal 1
+  Diode: 2 — Anode, Cathode
+  Zener Diode: 2 — Anode, Cathode
+  GND: 1 — terminal 0
+  V-DC: 2 — Positive, Negative
+  V-DC (one port): 1 — terminal 0
+  V-AC: 2 — terminal 0, terminal 1
+  I-DC: 2 — Flowing From, Flowing To
+  I-AC: 2 — terminal 0, terminal 1
+  MOSFET-N: 3 — Drain, Gate, Source
+  MOSFET-P: 3 — Drain, Gate, Source
+  BJT-NPN: 3 — Collector, Base, Emitter
+  BJT-PNP: 3 — Collector, Base, Emitter
+  Op-Amp: 3 — In+, In-, Out
+
+An electrical NET is a maximal set of terminals joined by conductor. A crossing WITHOUT a junction — especially one drawn as a hop — does NOT join nets.
+
+Rules:
+- Net names are arbitrary labels ('n1', 'n2', ...). Only the GROUPING matters.
+- The net a GND symbol touches MUST be named exactly "0".
+- Do NOT report wire crossings, junction dots, or text labels as components — only the electrical components in the class list.
+
+Trace each conductor from end to end before answering.

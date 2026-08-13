@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_384.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Two-mesh ladder, all 7 components in-frame. Net map: n1 = the left vertical column -- left corner of the top rail at (148,178), down past the T at (148,231) where the middle rail starts (junction verified at 12x: the vertical is continuous through it and carries a small blob), and on down to the upper lead of Resistor 4 (50 ohm). So n1 = {Resistor 2 left, Capacitor 1 left, Resistor 4 top}; n2 = top rail between Resistor 2 (100 ohm) right end and Resistor 3 (400 ohm) left end; n3 = right side: Resistor 3 right end -> right corner (351,181) -> down x~352 -> left along y~229 to the right lead of Inductor 0 (2.2 H); n4 = middle rail right of the capacitor: right plate of Capacitor 1, the T at (245,232) where the V-DC 6 branch drops down, and the left lead of Inductor 0; 0 = bottom rail from the lower lead of Resistor 4 at (147,336) running right/slightly up to (246,328), where the lower (-) lead of V-DC 6 joins and the stub continues down to the GND 5 bars at (246,340). Judgment calls: (a) the key call is the left column at (148,231): at 12x it is an unmistakable T (vertical unbroken, horizontal starting at it, with a junction blob), NOT a crossover, so the top-left corner, the capacitor's left plate and the top of the 50-ohm resistor are one node; (b) the node at (245,232) is likewise a plain T -- the middle rail runs straight through toward the inductor while the V-DC branch drops, so Capacitor 1, Inductor 0 and V-DC 6 share n4; (c) V-DC 6 is drawn + on top, - on bottom, so index0 = top lead (n4), index1 = bottom lead (ground); (d) the big rectangle enclosing everything (approximately x 5..505, y 140..368) is the page border, not a wire -- it touches no symbol and is ignored; (e) no crossovers anywhere in this drawing; (f) all 7 bbox centres are inside the 512x512 frame -- no off-frame components; (g) other 2-terminal parts use index0 = left (horizontal) or top (vertical) as drawn, which affects no metric.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Inductor",
+      "bbox": [
+        588.0,
+        452.3,
+        105.4,
+        47.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        393.7,
+        462.3,
+        81.0,
+        65.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        403.7,
+        359.6,
+        118.7,
+        46.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        580.8,
+        360.7,
+        102.0,
+        48.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        298.2,
+        584.9,
+        58.8,
+        93.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        486.4,
+        692.1,
+        115.4,
+        51.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "V-DC",
+      "bbox": [
+        489.2,
+        576.1,
+        96.5,
+        93.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

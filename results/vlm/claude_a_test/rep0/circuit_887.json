@@ -1,0 +1,236 @@
+{
+ "components": [
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    65,
+    275,
+    60,
+    80
+   ],
+   "terminals": [
+    "n1",
+    "n1",
+    "n5"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    355,
+    295,
+    55,
+    75
+   ],
+   "terminals": [
+    "n1",
+    "n1",
+    "n4"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    715,
+    245,
+    60,
+    75
+   ],
+   "terminals": [
+    "n1",
+    "n2",
+    "n3"
+   ]
+  },
+  {
+   "class": "Zener Diode",
+   "bbox": [
+    890,
+    205,
+    45,
+    55
+   ],
+   "terminals": [
+    "n2",
+    "n1"
+   ]
+  },
+  {
+   "class": "Op-Amp",
+   "bbox": [
+    443,
+    437,
+    80,
+    90
+   ],
+   "terminals": [
+    "n4",
+    "n7",
+    "n12"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    556,
+    430,
+    90,
+    30
+   ],
+   "terminals": [
+    "n12",
+    "n3"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    72,
+    573,
+    60,
+    75
+   ],
+   "terminals": [
+    "n5",
+    "n6",
+    "n9"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    352,
+    565,
+    60,
+    75
+   ],
+   "terminals": [
+    "n7",
+    "n7",
+    "n8"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    700,
+    565,
+    60,
+    80
+   ],
+   "terminals": [
+    "n3",
+    "n11",
+    "n8"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    533,
+    780,
+    60,
+    80
+   ],
+   "terminals": [
+    "n8",
+    "n10",
+    "0"
+   ]
+  },
+  {
+   "class": "MOSFET-N",
+   "bbox": [
+    65,
+    812,
+    60,
+    80
+   ],
+   "terminals": [
+    "n9",
+    "n10",
+    "0"
+   ]
+  },
+  {
+   "class": "Inductor",
+   "bbox": [
+    305,
+    850,
+    105,
+    30
+   ],
+   "terminals": [
+    "n10",
+    "n10"
+   ]
+  },
+  {
+   "class": "V-DC",
+   "bbox": [
+    205,
+    700,
+    60,
+    65
+   ],
+   "terminals": [
+    "n6",
+    "0"
+   ]
+  },
+  {
+   "class": "V-AC",
+   "bbox": [
+    815,
+    715,
+    55,
+    60
+   ],
+   "terminals": [
+    "n11",
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    190,
+    760,
+    45,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    815,
+    790,
+    45,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  },
+  {
+   "class": "GND",
+   "bbox": [
+    545,
+    960,
+    45,
+    20
+   ],
+   "terminals": [
+    "0"
+   ]
+  }
+ ],
+ "_usage": {
+  "input": 2622,
+  "output": 2486
+ },
+ "_model": "claude-opus-5"
+}

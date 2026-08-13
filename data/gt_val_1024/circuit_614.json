@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_614.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (page rotated ~90 deg; all value labels read bottom-to-top). Skeleton: a LEFT RAIL running the full height of the inked area, from (150,10) at the top edge slanting down to (137,503) at the bottom edge; a RIGHT RAIL at x~368-384 running from (382,8) at the top edge down through inductor 2 (coil y 41..128), past the T with the mid horizontal at (380,200), through capacitor 4 (plates at y~300 and y~320), through resistor 5 (zigzag y 406..499) and off the bottom edge at (368,503); and a MID HORIZONTAL at y~204 carrying GND 3 (bars at x 96, 106 and 114) and I-AC 6 (ellipse x 210..290) from the ground symbol across to the right rail.\n0 = the left rail plus the ground lead: GND 3, the left terminal of I-AC 6, and the two off-frame terminals inferred below (resistor 1 left, V-AC 0 left). n1 = the right rail above inductor 2, from the top edge at (382,8) down to y~41: upper lead of inductor 2 plus one terminal of off-frame resistor 1. n2 = the right rail between the bottom of inductor 2 (y~128) and the top plate of capacitor 4 (y~300), including the T at (380,200): lower lead of inductor 2, right terminal of I-AC 6, upper plate of capacitor 4. n3 = the right rail between the bottom plate of capacitor 4 (y~320) and the top of resistor 5 (y~406): lower plate of capacitor 4 and upper lead of resistor 5. n4 = the right rail below resistor 5 (y~499) to the bottom edge at (368,503): lower lead of resistor 5 plus one terminal of off-frame V-AC 0. Electrically: node n2 is driven by the 32 sin t A source from ground, with a 67 mH + resistor-1 branch back to ground and a 63 F + 63 ohm + 5 cos t branch back to ground.\nJudgment calls: (a) KEY CALL - the mid horizontal crosses the left rail at (137,204) and the crossing is drawn as a plain X: at 16x and on a 1-px map the vertical is a uniform 3 px through the intersection, the horizontal is a uniform 3 px, and there is NO dot and NO hop. I nevertheless read it as a JUNCTION on circuit sense: if it were a crossing, net 0 would consist of GND 3 and the left terminal of current source I-AC 6 and nothing else - a current source with no return path, which the guide says is almost always wrong - and the rest of the circuit would reduce to a floating series loop with the source contributing nothing. Read as a junction, the ground symbol simply sits on the left rail with the source branch continuing to the right, which is ordinary drafting and gives the two-source node problem above. FLAGGED for a human re-check.\n(b) OFF-FRAME COMPONENTS - resistor 1 (bbox centre (287,-83), spanning x 234..339 above the top edge) and V-AC 0 (bbox centre (241,606), spanning x 201..280 below the bottom edge) are outside the 512x512 crop and are not drawn at all. Exactly two wire ends leave the top edge, the left rail at (150,10) and the right rail at (382,8); resistor 1 lies horizontally between them, so it bridges them: terminal 0 (left) = 0, terminal 1 (right) = n1. Exactly two wire ends leave the bottom edge, the left rail at (137,503) and the right rail at (368,503); V-AC 0 lies between them (bbox centre x 241 vs a midpoint of 252), so it bridges them: terminal 0 (left) = 0, terminal 1 (right) = n4. This is corroborated by the value labels: \"5 cos t\" is written at x 229-263, y 430-500, i.e. directly alongside where V-AC 0 sits just below the crop, and the other four labels (\"32 sin t A\", \"67 mH\", \"63 F\", \"63 ohm\") each sit alongside their in-frame component. Neither inference leaves a wire end dangling.\n(c) The horizontal terminates on the right rail at (380,200) - the run of dark pixels on row 200 ends at x=380 while the rail continues above and below - so that is an unambiguous T, not a crossing.\n(d) The two full-height vertical lines at the extreme left (x 8-10) and extreme right (x 501-504) touch no component or lead on any probed row (5/12/20/100/160/180/200/250/300/320/400/430/500); they are neighbouring drawings on the same page clipped in by the crop and get no net.\n(e) Terminal order: inductor 2, capacitor 4 and resistor 5 are vertical and listed top-then-bottom; I-AC 6, resistor 1 and V-AC 0 are horizontal and listed left-then-right (I-AC 6's arrow points left, i.e. toward the ground rail). Order does not affect any metric, and V-AC 0's polarity cannot be read because the symbol is not in the image.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        841.2,
+        526.6,
+        66.9,
+        73.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        194.2,
+        481.4,
+        49.8,
+        99.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Inductor",
+      "bbox": [
+        350.7,
+        389.0,
+        109.8,
+        44.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        471.4,
+        653.0,
+        85.8,
+        44.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        563.8,
+        403.0,
+        61.2,
+        58.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        703.9,
+        409.0,
+        104.7,
+        41.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "I-AC",
+      "bbox": [
+        466.8,
+        517.4,
+        77.8,
+        92.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

@@ -1,0 +1,14 @@
+{
+ "0": [
+  {
+   "batch_id": "batch_6a73dde4128481909d5b5e3de6acc566",
+   "input_file_id": "file-2mp8BrBa8CP83D4LafEKEq",
+   "model": "gpt-5.5-2026-04-23"
+  },
+  {
+   "batch_id": "batch_6a73ef846ab48190a38427f4439dc859",
+   "input_file_id": "file-XZRYnuoRJ8PKZXeJxrk2DZ",
+   "model": "gpt-5.5-2026-04-23"
+  }
+ ]
+}

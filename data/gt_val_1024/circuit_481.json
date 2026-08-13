@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "image": "circuit_481.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Faint, thin drawing rotated ~36 deg on the page: the 'horizontal' rails run down-right and the 'vertical' branches run down-left. All ink lies in image rows 139-372 - rows 0-138 and 373-511 are pure white - so the source strip was clipped top and bottom and letterboxed onto the 512x512 canvas; two wire runs are cut by those clip lines (see judgment call (a)). Topologically it is a 3-branch ladder: branch 1 at the left (Capacitor 0 above, V-AC 1 below), branch 2 in the middle (I-AC 4 above, Capacitor 3 '4nF' below, GND 6 hanging off its bottom), branch 3 at the right (Resistor 7 '5k' above, I-AC 8 below); a top rail joins the three branch tops, a bottom rail joins the three branch bottoms, and a middle rail carries Resistor 2 ('5k', between branches 1 and 2) and Inductor 5 ('5mH', between branches 2 and 3). Net map: 0 = the bottom rail - from the corner at (98,250) at the foot of branch 1, down-right through the 4-way at (208,325) where branch 2 comes down and the GND stem continues below it, on down-right to the bottom clip at (278,372) and (off-frame) up to the lower lead of I-AC 8 (terminals: V-AC 1 bottom, Capacitor 3 bottom, GND 6, I-AC 8 bottom). n1 = the top rail - from the bare end at (228,139) on the top clip line, down-right through the T at (298,189) where branch 2 hangs, to the corner at (409,269) and down into branch 3; plus, off-frame above the clip, its continuation left and down to the bare end at (176,139) which is the top of branch 1 (terminals: Capacitor 0 top, I-AC 4 top, Resistor 7 top). n2 = branch 1 between Capacitor 0 and V-AC 1, including the T at (145,183) where the middle rail starts, out to the left lead of Resistor 2 (terminals: Capacitor 0 bottom, V-AC 1 top, Resistor 2 left). n3 = the middle rail from the right lead of Resistor 2, through the 4-way at (254,257) where branch 2 crosses, to the left lead of Inductor 5 (terminals: Resistor 2 right, I-AC 4 bottom, Capacitor 3 top, Inductor 5 left). n4 = the middle rail from the right lead of Inductor 5 to the T at (359,333) on branch 3, plus branch 3 between Resistor 7 and I-AC 8 (terminals: Inductor 5 right, Resistor 7 bottom, I-AC 8 top). Judgment calls: (a) CLIPPED (effectively off-frame) WIRING - no component bbox centre falls outside the frame, but two connections do. (i) At the top clip, exactly two bare wire ends exist, at (176,139) (top of branch 1, just above Capacitor 0) and (228,139) (left end of the top rail); rows 100-138 are completely blank, so the corner joining them was cut away. Projected into the drawing's own rotated axes the two ends meet at about (195,114), just above the clip, so they are one node (n1). Nothing else could terminate there and leaving them apart would strand Capacitor 0's top lead. (ii) At the bottom clip the bottom rail runs off at (278,372) and I-AC 8's circle is itself cut in half by the clip line, its lower lead entirely gone; projecting the bottom rail along its own direction reaches branch 3 at about (308,403), just below the clip, so the bottom rail and I-AC 8's lower lead are one node (0). (b) The 4-way at (208,325) (bottom rail x branch 2 / GND stem) is a JUNCTION: if it were a crossover, Capacitor 3's lower plate would only see the GND symbol and would carry no current, i.e. a dangling element, and the bottom rail would float. (c) The 4-way at (254,257) (middle rail x branch 2) is also read as a JUNCTION. Both crossings in this drawing are drawn the same way - a plain X with a 2-3 px thickening at the centre, no hop and no big dot - and (b) is provably a junction, so the drafter's convention here is 'plain X = connection'. It is also the only reading that makes the middle rail behave like a ladder rung at all three branches (it demonstrably T-terminates on branch 1 at (145,183) and on branch 3 at (359,333), verified in the pixel map). A human may want to re-check this one. (d) The GND symbol is drawn as three/four short bars across the continuation of branch 2 below the bottom rail; its net is the bottom rail, hence '0'. (e) Component 1 is labelled '20 cos 5t mA' on the page, which reads like a current, but the drawn symbol is a plain circle with a tilde (the AC-voltage symbol) whereas components 4 and 8 are circles containing arrows; the published class V-AC is therefore kept unchanged. (f) 2-terminal order convention used here: for the three branch pairs index 0 is the lead toward the top rail and index 1 the lead toward the bottom rail; for the two middle-rail parts index 0 is the left (branch-1 side) lead. Order does not affect any metric. (g) The bootstrap's only non-null guesses (Inductor 5 index 0 = 'n2', Resistor 7 index 0 = 'n1') were discarded and re-derived.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Capacitor",
+      "bbox": [
+        247.0,
+        446.7,
+        52.7,
+        36.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        249.9,
+        597.9,
+        58.7,
+        62.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        344.8,
+        520.7,
+        91.3,
+        35.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Capacitor",
+      "bbox": [
+        515.3,
+        595.7,
+        50.6,
+        35.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "I-AC",
+      "bbox": [
+        502.5,
+        437.6,
+        61.0,
+        64.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Inductor",
+      "bbox": [
+        599.0,
+        511.5,
+        97.0,
+        32.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        516.0,
+        706.2,
+        96.6,
+        39.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        764.7,
+        433.0,
+        40.4,
+        78.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-AC",
+      "bbox": [
+        771.7,
+        593.9,
+        50.1,
+        59.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

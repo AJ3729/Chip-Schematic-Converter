@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_665.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Net map (4 nodes): n1 = top rail -- upper lead of V-DC 0 (47kV) up to the corner (127,185), then right along y~185, T-tapped at (211,185) by the top lead of inductor 3 (57mH), and on into the LEFT terminal of I-DC 2 (49A) at x~281. n2 = RIGHT terminal of I-DC 2 across to the LEFT plate of capacitor 1 (60uF) at x~356. n3 = RIGHT plate of capacitor 1 (x~367) right to the corner (449,196), down the right side to (449,264) and left along y~262 into the RIGHT end of resistor 4 (54ohm). 0 = ground -- lower lead of V-DC 0 down to (124,304), right along the bottom wire at y~304, T-joined at (210,304) by the bottom lead of inductor 3, continuing right to the vertical at x~269; that vertical runs from the LEFT end of resistor 4 at (269,255) down through the bottom wire to the GND 5 plate at (269,322). Judgment calls: (a) this drawing is in faint pencil and most of the long wires are rendered as broken/dashed runs of pixels after binarisation (the top rail, the bottom wire, the capacitor-to-right-side lead and the bottom of the right loop are all dashed). Every one of those gaps was checked at 7-8x: the segments are collinear, evenly spaced and end-to-end with no symbol between them, so they are single continuous wires, not breaks. Reading any of them as a break would strand a component. (b) The junction where the bottom wire meets the resistor-4/GND vertical at (269,305) is a clean T (the vertical is continuous from y=255 to y=317 and the horizontal arrives from the left and stops), so resistor 4's left end, the GND, the V-DC lower lead and the inductor's lower lead are one node. (c) There are no wire crossings anywhere in this drawing, so no dot-vs-hop calls. (d) I-DC 2's arrow points right; terminal 0 is its left lead. V-DC 0 and inductor 3 are vertical, terminal 0 = top; capacitor 1 and resistor 4 are horizontal, terminal 0 = left. (e) The long thin lines at x~5, y~140 (upper right) and y~365 (lower left) are page/scan-border artefacts and touch no component. (f) No component is off-frame; nothing was added, removed or re-classed.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        250.6,
+        479.7,
+        76.8,
+        83.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Capacitor",
+      "bbox": [
+        719.3,
+        384.5,
+        75.1,
+        64.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-DC",
+      "bbox": [
+        592.6,
+        384.8,
+        100.3,
+        71.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Inductor",
+      "bbox": [
+        424.0,
+        468.2,
+        47.6,
+        100.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        643.6,
+        513.2,
+        125.6,
+        43.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "GND",
+      "bbox": [
+        543.5,
+        645.7,
+        80.3,
+        47.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

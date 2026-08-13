@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "image": "circuit_427.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "RE-CLASSIFICATION: component 6 was listed as \"Capacitor\" (bbox centre 242,290) but the drawn symbol is unmistakably an earth GROUND: one lead coming down at x~240 into three stacked horizontal bars of decreasing length at y~285/292/297 (verified at 12x and 6x). A capacitor has two equal parallel plates; this has three bars, shortening downward. It has therefore been re-classed to \"GND\" and its terminal list reduced from 2 to 1. This is the drawing's only ground reference, and it is what makes the bootstrap's own \"0\" labels on inductor 9 sensible. Component 5 (the real capacitor, \"50mF\") is two equal plates at y~190/197 - clearly different.\nNet map (ladder/bridge, drawn almost perfectly rectilinear; every node checked at 16x):\nn1 = top rail at y~162 running from the left corner (146,162) to the right corner (329,162): Resistor 4 top, Capacitor 5 top (T-junction with dot at (243,161)), Resistor 2 top.\nn2 = left middle node (142,245), a T with the vertical continuing down: Resistor 4 bottom, Inductor 9 left, Resistor 3 top.\n0  = centre node (240,243), a 4-way crossing carrying an unmistakable junction dot: Capacitor 5 bottom (down the centre column from the top rail), Inductor 9 right, Inductor 8 left, and the lead going down to GND 6. Every net touching a GND symbol is \"0\", so this whole node is \"0\".\nn3 = right middle node (325,240), junction dot: Resistor 2 bottom, Inductor 8 right, Resistor 7 top.\nn4 = left source node: Resistor 3 bottom down to V-DC 0 (\"10V\") + terminal at (139,308).\nn5 = right source node: Resistor 7 bottom down to V-DC 1 (\"20V\") + terminal at (325,307).\nn6 = bottom rail at y~345-350: V-DC 0 minus terminal down to (139,350), east along the rail to (326,345) and up into V-DC 1 minus terminal.\nJudgment calls:\n(a) There are no crossovers or hops anywhere in this drawing; all four interior nodes are plain T/cross junctions and three of them carry a visible dot. Nothing had to be inferred.\n(b) Both V-DC symbols are drawn with \"+\" above the \"-\" bar inside the circle, so index 0 = top = plus, index 1 = bottom = minus.\n(c) The long horizontal at y~132 (upper right), the vertical at x~5 (far left) and the horizontal at y~372 (lower left) are page-edge / scan artefacts of the original sheet, not wires: none of them touches any component lead, and they are outside every net. They were ignored.\n(d) Two-terminal order is as drawn (vertical parts top-then-bottom, horizontal parts left-then-right); this does not affect any metric.\n(e) No component is off-frame and none is unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        279.8,
+        651.9,
+        80.1,
+        76.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        649.1,
+        639.7,
+        77.6,
+        72.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        655.9,
+        411.2,
+        51.4,
+        92.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        284.1,
+        560.1,
+        43.2,
+        94.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        287.7,
+        395.0,
+        47.1,
+        97.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        480.8,
+        386.6,
+        84.4,
+        44.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "GND",
+      "bbox": [
+        242.8,
+        290.4,
+        55.9,
+        28.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        651.5,
+        549.6,
+        46.9,
+        90.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        568.2,
+        475.9,
+        96.3,
+        44.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        367.5,
+        484.1,
+        95.9,
+        43.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

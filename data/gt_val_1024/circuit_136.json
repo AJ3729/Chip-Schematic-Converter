@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "image": "circuit_136.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Whole sheet is rotated ~52 deg (I re-rendered it upright to read the labels: 5uF, 5 ohm, 6 ohm, 2mH); all coordinates below are 512-space image coords of the un-rotated file. Two long parallel diagonals (blob at (0,148)-(207,374) and the one at (306,135)-(512,365)) are page/scan borders, not wires -- they run parallel to and clear of the circuit and touch nothing. Net map: n1 = the source node -- open wire end at (165,137) (top of the short stub off the left end of the bottom rail) plus the open left lead of resistor 0 at (249,138). n2 = 3-way node at (274,164): right lead of resistor 0, top lead of capacitor 4 (5uF, whose other plate runs down-left to the bottom rail at (208,226)), and the left lead of resistor 1 (5 ohm). n3 = 3-way node at (343,238) (verified at 14x): right lead of resistor 1, top lead of resistor 5 (6 ohm), and the run down-right to the corner (394,297) and on through inductor 6 (2mH, coil ink at (370,312)). 0 = the bottom rail, the only net touching GND 3: it starts at the corner (144,157), runs down-right through the capacitor-4 T at (208,226), the GND 3 tap at (243,263) (bars at (222,268)-(238,282)), the resistor-5 T at (280,302) and ends at the corner (327,356) where inductor 6's lower lead comes in; the short stub (144,157)->(165,137) is its left extension. Judgment calls: (a) V-DC 2 IS NOT DRAWN IN THE IMAGE -- its annotated bbox (164,105)-(201,142) contains only 3 dark pixels and those belong to the stub end at (165,137); the pencil symbol and its lead to resistor 0 were lost in preprocessing. I did NOT mark it unconnected: there are exactly two open wire ends in the whole drawing, the stub end (165,137) and resistor 0's left lead (249,138), and the missing V-DC's bbox sits between them, so V-DC 2 is placed across those two ends. That is also the only reading that gives the circuit a source and leaves nothing dangling. Its terminal 0 is the resistor-0 side (n1) and terminal 1 the bottom-rail side (0); the polarity marks are not visible, and 2-terminal order does not affect any metric. (b) The annotated bboxes in this file sit up-left of the ink they cover (e.g. resistor 0's bbox is (228,116)-(266,156) but its zigzag ink is (249,137)-(265,153)); I matched components to symbols by ink, not by bbox centre. (c) 2-terminal parts are listed source/upper-side first, ground side second.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        321.1,
+        363.0,
+        82.7,
+        27.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "Resistor",
+      "bbox": [
+        492.0,
+        358.3,
+        95.5,
+        27.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "V-DC",
+      "bbox": [
+        215.8,
+        442.4,
+        53.4,
+        50.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        508.8,
+        581.2,
+        61.9,
+        41.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        401.9,
+        447.0,
+        42.9,
+        39.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        603.8,
+        439.2,
+        34.8,
+        79.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Inductor",
+      "bbox": [
+        754.1,
+        433.6,
+        33.2,
+        72.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

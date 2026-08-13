@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1209.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "REPAIR PASS. Previous trace left V-DC 12 (15 V) and I-DC 3 (10 A) with both terminals on '0'. Root cause: it assumed the bottom rail is ground because GND 10 hangs below column C. In fact column C's lower leg CROSSES the bottom rail at (236,463) and carries on down to GND 10; the rail itself is a separate node. Evidence at 1x greyscale: column B stops dead on the rail -- vertical at x=144-145 ends at y=456, nothing below (x[132..160] y[446..476]); column D likewise ends at y=476 (x[324..352] y[464..494]); both landings carry the drafter's thickened T blob. Column C (x[222..250] y[452..486]) instead runs straight through -- x=235-236 above the rail, x=236-241 continuing unbroken from y=467 down to GND 10's bars at y~486-494 -- and the crossing shows NO blob at all, just the two 2-px lines overlapping. Unmarked 4-way = crossover. The junction reading (previous pass) dead-shorts two of the five sources, which cannot be the intended netlist. \n\nNet map. Five vertical branches A..E left to right: A = L9 + C4 (x~18), B = L7 + C5 (x~134), C = L8 + C6 (x~235), D = L13 + C11 (x~334), E = the series source chain V-AC 0, I-AC 2, V-DC 1, I-DC 3, V-DC 12 top to bottom (x~400). Four slanted rungs plus a top rail and a bottom rail. n1 = TOP RAIL (y~18), T-joining the tops of all five columns (L9, L7, L8, L13, V-AC 0). n2 = rung 1 ((15,104) -> (397,121)): left end T's column A between L9 and C4 (junction dot at (16,104)), right end joins column E between V-AC 0 and I-AC 2. It crosses column B at (132,110) as a plain X -- no hop bulge and no junction blob, whereas every real junction on this sheet shows a 4-6 px blob -- so column B carries the top rail straight down to L7 and rung 1 links only column A to column E. n3 = rung 2 ((135,210) -> (400,213)): left end T's column B between L7 and C5, right end joins column E between I-AC 2 and V-DC 1. n4 = column C's interior only: L8 bottom + C6 top (rung 3 hops column C at (250,303), the vertical swinging x=235->253->239 across y=290..319). n5 = column D's interior only: L13 bottom + C11 top (rung 4 hops column D at (347,403), identical detour). n6 = BOTTOM RAIL ((18,442) -> (144,455) -> (234,463) -> (336,475) -> (394,480)) TOGETHER WITH column B's lower leg and rung 3. Column B runs unbroken from C5's bottom plate through rung 3's junction dot at (134,303) down to its termination on the rail at (144,454), so rung 3 -- which hops columns C and D and lands between V-DC 1 and I-DC 3 -- sits on the rail node. n6 = {C4 bottom, C5 bottom, C11 bottom, V-DC 1 bottom, I-DC 3 top, V-DC 12 bottom}. 0 = COLUMN C's LOWER LEG + rung 4 + GND 10: from C6's bottom plate down through rung 4's junction dot at (234,402), across the bottom rail at (236,463) WITHOUT joining it, to GND 10 (236,494). Rung 4 hops column D and lands between I-DC 3 and V-DC 12. 0 = {C6 bottom, GND 10, I-DC 3 bottom, V-DC 12 top}. \n\nJudgment calls: (a) THE decisive one is (236,463), argued above -- the only 4-way on the bottom rail, drawn with no dot, while the two genuine landings are blobbed T's. (b) Consequence: V-DC 12 and I-DC 3 sit in PARALLEL between n6 and 0 in opposite orientations -- the same motif this drafter uses in circuit_87, circuit_153 and circuit_470 (470 is this identical circuit drawn upright, and its GND column crosses the bottom rail in exactly the same way). (c) The seven rung/column crossings on columns C and D are all drawn semicircular hops (pixel-traced, e.g. column C swings from x=235 at y=290 out to x=253 at y=305 and back to x=239 at y=319 around rung 3; column D swings 329->345->330 over the same rung). (d) All components are drawn vertically in their columns; index 0 is the upper lead, index 1 the lower lead. Order does not affect any metric. (e) The small ink blob on the bottom rail near (294,470) is a stray drafting mark -- no wire meets the rail there. (f) Remaining Tier-2 finding: Inductor 9 sits in parallel with V-AC 0 (both n1-n2), a source/inductor loop that is singular at DC. That is inherent to the drawing -- the top rail is both the source-stack top and every inductor's top -- and is a genuine AC-textbook property, not a trace error.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-AC",
+      "bbox": [
+        783.2,
+        202.7,
+        99.3,
+        76.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        789.7,
+        547.5,
+        79.8,
+        64.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "I-AC",
+      "bbox": [
+        797.3,
+        351.6,
+        77.3,
+        66.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "I-DC",
+      "bbox": [
+        793.1,
+        705.5,
+        76.7,
+        66.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Capacitor",
+      "bbox": [
+        59.3,
+        266.8,
+        70.5,
+        46.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        285.3,
+        459.5,
+        71.5,
+        45.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Capacitor",
+      "bbox": [
+        454.0,
+        700.9,
+        66.3,
+        46.3
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Inductor",
+      "bbox": [
+        277.0,
+        288.2,
+        48.1,
+        70.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "Inductor",
+      "bbox": [
+        475.5,
+        525.4,
+        44.8,
+        68.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        64.0,
+        103.7,
+        48.3,
+        65.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "GND",
+      "bbox": [
+        466.4,
+        968.5,
+        42.6,
+        33.6
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Capacitor",
+      "bbox": [
+        649.5,
+        875.5,
+        47.5,
+        37.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "V-DC",
+      "bbox": [
+        766.6,
+        865.4,
+        83.4,
+        63.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Inductor",
+      "bbox": [
+        662.8,
+        699.4,
+        43.5,
+        64.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

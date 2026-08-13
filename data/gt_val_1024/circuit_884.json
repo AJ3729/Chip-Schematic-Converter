@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "image": "circuit_884.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Single planar loop-network, no wire crossings anywhere in the drawing (every wire meeting is a corner or a T; verified by scanning all four rails and all six verticals at 10x and in the raw pixel map). Net map, going clockwise from the top-left corner:\n\nn1 = top-left corner node (65,127): top of R6 (4 ohm) + left end of R3 (2 ohm).\nn2 = top rail between R3 and V-DC 0 (4V).\nn3 = top rail node at (317,134): right side of V-DC 0, top of R2 (7k), left end of R4 (9k). Verified as a clean T at 10x - the rail runs straight through and R2 drops out of it.\nn4 = top-right corner (438,135): right end of R4 + top of L9 (8mH).\nn5 = right side between L9 and V-DC 1 (6V).\nn6 = left side between R6 and V-DC 10 (10V).\nn7 = left node at (63,291): bottom of V-DC 10, left end of R7 (1k), top of R13 (6k). Clean T (left vertical continuous, R7 joins from the right).\nn8 = middle horizontal node at (192,289): right end of R7, left plate of C5 (10uF), top of R11 (8k). Clean T.\nn9 = middle horizontal node at (318,289): right plate of C5, bottom of R2, top of I-DC 8 (8A). Clean T.\n0 = bottom rail y~378-382 from x=68 to x=443, carrying the bottom of R13 (bottom-left corner), the bottom of R11, the bottom of I-DC 8, and the bottom of V-DC 1 (bottom-right corner); GND 12 hangs off it at x~191.\n\nJudgment calls: (a) At (191,381) R11's vertical runs straight down THROUGH the bottom rail and on into the GND symbol - a plain four-way crossing with no dot and no hop. Read as a junction, not a crossing: the drawing contains no hop symbols at all, the vertical visibly thickens at the intersection in the raw pixel map (rows 378-383), and the alternative (rail not grounded) would put GND on a two-terminal net with R11 alone while leaving the whole bottom rail unreferenced, which no reading of the drawing supports. So every terminal on the bottom rail is net \"0\". (b) All 2-terminal parts are listed left-then-right for horizontal symbols and top-then-bottom for vertical ones; the +/- marks on the three V-DC sources were not used to reorder terminals since 2-terminal order affects no metric. (c) Nothing is off-frame: all 14 bbox centres lie well inside the 512x512 crop and no wire runs to a frame edge. (d) No component was added, removed, re-classed, or marked unconnected.",
+  "components": [
+    {
+      "id": 0,
+      "class": "V-DC",
+      "bbox": [
+        439.5,
+        263.7,
+        118.2,
+        94.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-DC",
+      "bbox": [
+        866.6,
+        558.1,
+        96.7,
+        98.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n5"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Resistor",
+      "bbox": [
+        627.7,
+        358.5,
+        60.7,
+        109.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "Resistor",
+      "bbox": [
+        285.0,
+        238.4,
+        115.5,
+        54.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Resistor",
+      "bbox": [
+        736.7,
+        257.4,
+        119.0,
+        56.0
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n3"
+        },
+        {
+          "index": 1,
+          "net": "n4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Capacitor",
+      "bbox": [
+        466.3,
+        549.6,
+        75.8,
+        63.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "n9"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "class": "Resistor",
+      "bbox": [
+        153.1,
+        281.4,
+        42.4,
+        84.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n1"
+        },
+        {
+          "index": 1,
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "class": "Resistor",
+      "bbox": [
+        254.7,
+        550.3,
+        110.1,
+        54.2
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "n8"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "class": "I-DC",
+      "bbox": [
+        632.2,
+        650.6,
+        95.8,
+        96.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n9"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "class": "Inductor",
+      "bbox": [
+        866.9,
+        384.5,
+        61.6,
+        125.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n4"
+        },
+        {
+          "index": 1,
+          "net": "n5"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "class": "V-DC",
+      "bbox": [
+        158.9,
+        415.0,
+        111.6,
+        115.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n6"
+        },
+        {
+          "index": 1,
+          "net": "n7"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "class": "Resistor",
+      "bbox": [
+        379.5,
+        629.5,
+        55.0,
+        104.5
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n8"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "class": "GND",
+      "bbox": [
+        382.5,
+        785.9,
+        93.4,
+        66.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "class": "Resistor",
+      "bbox": [
+        134.9,
+        626.8,
+        59.9,
+        103.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n7"
+        },
+        {
+          "index": 1,
+          "net": "0"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}

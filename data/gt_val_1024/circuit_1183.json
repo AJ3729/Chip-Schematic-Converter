@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "image": "circuit_1183.jpg",
+  "source": "coco+pipeline_bootstrap",
+  "verified": true,
+  "annotator": "Ammaar Junaid",
+  "notes": "Series-fed parallel RLC. Net map: 0 = the left/return rail \u2014 the long near-vertical line running x~103 (top) to x~148 (bottom) plus the GND-3 stem that runs right at y~195; it collects GND 3, the left plate of capacitor 2 (the stem continues right past the rail to the plate at x~234), the left lead of inductor 4 (terminates on the rail at (138,353)), the left lead of resistor 5 (leaves the zigzag at (268,478) and runs off the bottom content edge back to the rail foot \u2014 only the fragments at x151-169, y483-484 survive binarisation) and the return lead of the off-image V-AC 1. n1 = the right rail: from the bottom lead of resistor 0 at (373,78) down through (378,161) and (392,314) to (407,462), then left along y~470 into resistor 5; it T-joins the right plate of capacitor 2 (via the wire y~160-183), the right lead of inductor 4 and the right lead of resistor 5 \u2014 so C 5uF, L 4mH and R 5 sit in parallel between n1 and 0. n2 = the link from the top end of resistor 0 (2k), a bare wire end at (373,26) on the top content edge, up to V-AC 1. Judgment calls: (a) V-AC 1's bbox (centre (230,-50)) lies entirely ABOVE the 512x512 crop, so the source itself is not visible; its x-span 197-263 sits between the top of the left rail (x=103) and the top lead of resistor 0 (x=373), so it is read as the source bridging those two off-image leads \u2014 return terminal on 0, hot terminal on n2. That is the only reading that closes the loop, and it yields the classic Vs-Rs-into-parallel-RLC circuit the printed values 2K\u03a9 / 5uF / 4mH imply. (b) The crossing of the GND stem with the left rail at (117,194) is a JUNCTION, not a hop: at 20x both strokes run unbroken through the crossing and there is no semicircular arc \u2014 the ~5-px white nick at (120,193) is a pen-lift where the drafter restarted the horizontal 2 px higher, and it sits to the RIGHT of the vertical rather than centred on it. Reading it as a hop would leave the capacitor branch with no return path, so circuit sense agrees with the ink. (c) The two OTHER full-height near-vertical lines, at x~7..48 and x~464..505, are page-ruling artefacts, not wire: connected-component analysis shows each is an isolated blob touching no symbol and no lead, so they carry no net. Only the middle line is used as a rail, and it is used as one because two component leads terminate exactly on it (inductor 4 at (138,353), resistor 5 at its foot). (d) The right rail looks broken at y~209-222 and y~442-458, but those are faint-ink dropouts \u2014 1-px fragments at (384,210-215) and (405-407,442-457) survive, so it is one continuous wire. (e) Every component here is 2-terminal, so terminal order carries no metric weight; index 0 is the left/top lead as drawn, index 1 the right/bottom lead.",
+  "components": [
+    {
+      "id": 0,
+      "class": "Resistor",
+      "bbox": [
+        312.7,
+        377.0,
+        75.4,
+        41.4
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "n2"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "class": "V-AC",
+      "bbox": [
+        193.6,
+        509.6,
+        56.3,
+        64.1
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "class": "Capacitor",
+      "bbox": [
+        436.8,
+        520.2,
+        77.7,
+        43.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "class": "GND",
+      "bbox": [
+        435.5,
+        690.0,
+        101.8,
+        46.9
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "class": "Inductor",
+      "bbox": [
+        596.0,
+        515.5,
+        38.4,
+        93.8
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "class": "Resistor",
+      "bbox": [
+        746.9,
+        493.6,
+        38.2,
+        94.7
+      ],
+      "terminals": [
+        {
+          "index": 0,
+          "net": "0"
+        },
+        {
+          "index": 1,
+          "net": "n1"
+        }
+      ]
+    }
+  ],
+  "bbox_frame": "cleaned_v2",
+  "bbox_source": "digitize_hcd_coco_projected"
+}
