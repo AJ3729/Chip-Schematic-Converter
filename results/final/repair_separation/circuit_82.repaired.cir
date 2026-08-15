@@ -1,0 +1,35 @@
+* REPAIRED DECK -- interventions applied, listed below.
+* The literal reconstruction is in the .literal.cir beside this file.
+* interventions: 2
+*   [assumption/behaviour-changing] placeholder_values: assigned per-class placeholder values (no OCR)
+*   [assumption/behaviour-changing] no_dc_path_to_ground: added shunt R 1e+09 from n15 to 0
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+D1 n6 n3 Ddefault
+Q1 0 n13 n8 QPNPdefault
+Q2 n1 n3 n5 QNPNdefault
+D2 n9 n6 Ddefault
+Q3 n12 n8 n4 QPNPdefault
+Q4 n14 n9 n5 QPNPdefault
+Q5 n5 n14 0 QNPNdefault
+Q6 n11 n10 n7 QPNPdefault
+Q7 n9 n11 0 QNPNdefault
+Q8 n12 n15 0 QNPNdefault
+R1 n4 n7 1k
+Q9 n11 n15 0 QNPNdefault
+V1 n7 0 DC 15
+R2 n2 n4 1k
+V2 n2 0 DC 15
+R3 n1 n2 1k
+R4 n10 0 1k
+R5 n7 n5 1k
+V3 n1 0 DC 15
+V4 n13 0 DC 15
+R6 n13 0 1k
+V5 n5 0 DC 15
+.model Ddefault D
+.model QNPNdefault NPN
+.model QPNPdefault PNP
+
+.op
+.end

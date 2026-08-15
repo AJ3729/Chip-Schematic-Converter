@@ -1,0 +1,2431 @@
+{
+ "_what": "Every declared repair intervention, classified by the type it records. Categories are read from the ledgers, not invented.",
+ "separation_verified": {
+  "_what": "Checked against the source, not asserted.",
+  "checks": {
+   "scorer_library_never_imports_repair": true,
+   "topology_prediction_builder_ignores_repair": true,
+   "scorer_reads_node_names": true,
+   "node_names_assigned_before_repair": true,
+   "pipeline_repairs_after_netlist_export": true,
+   "repair_declares_topology_untouched": true
+  },
+  "conclusion": "Verified in source: the scorer reads `node_names`; assign_node_names() writes them BEFORE repair_circuit() is called; repair only appends SPICE lines; the scoring LIBRARY never imports repair; and while the benchmark CLI does import it -- to build the ledger and the solvability block -- the function that builds the topology predictions does not reference it. Strict success, terminal-pair F1, net F1, per-component accuracy and nGED therefore cannot be influenced by repair."
+ },
+ "n_circuits": 192,
+ "n_dual_decks_written": 192,
+ "solvable_before_repair": 102,
+ "solvable_after_repair": 141,
+ "solvable_before_rate": 0.53125,
+ "solvable_after_rate": 0.734375,
+ "interventions_by_issue": {
+  "placeholder_values": 192,
+  "ground_selection": 180,
+  "ideal_inductor_dc": 161,
+  "unset_current_direction": 142,
+  "no_dc_path_to_ground": 119,
+  "unsnapped_terminal": 1
+ },
+ "interventions_by_category": {
+  "gauge": 322,
+  "assumption": 473
+ },
+ "behaviour_changing_issues": [
+  "no_dc_path_to_ground",
+  "placeholder_values"
+ ],
+ "non_behaviour_changing_issues": [
+  "ground_selection",
+  "ideal_inductor_dc",
+  "unset_current_direction",
+  "unsnapped_terminal"
+ ],
+ "issue_detail": {
+  "ground_selection": {
+   "category": "gauge",
+   "behavior_changing": false,
+   "example_action": "used the GND symbol's net as reference (0)",
+   "example_evidence": "a GND symbol is present in the drawing",
+   "alternatives": []
+  },
+  "placeholder_values": {
+   "category": "assumption",
+   "behavior_changing": true,
+   "example_action": "assigned per-class placeholder values (no OCR)",
+   "example_evidence": "component values are not read from the drawing",
+   "alternatives": [
+    "OCR-extracted values (future work)"
+   ]
+  },
+  "ideal_inductor_dc": {
+   "category": "assumption",
+   "behavior_changing": false,
+   "example_action": "none applied (DC short is well-posed); .nodeset available if singular",
+   "example_evidence": "1 ideal inductor(s) short at the DC operating point",
+   "alternatives": [
+    "series Rdc",
+    ".nodeset"
+   ]
+  },
+  "unset_current_direction": {
+   "category": "gauge",
+   "behavior_changing": false,
+   "example_action": "kept drawn current-source reference direction",
+   "example_evidence": "1 current source(s) have only a sign convention",
+   "alternatives": [
+    "reverse reference direction"
+   ]
+  },
+  "no_dc_path_to_ground": {
+   "category": "assumption",
+   "behavior_changing": true,
+   "example_action": "added shunt R 1e+09 from n1 to 0",
+   "example_evidence": "subnet ['n1', 'n2', 'n3', 'n4', 'n5'] has no DC path to reference",
+   "alternatives": [
+    "gmin step",
+    ".nodeset n1=0"
+   ]
+  },
+  "unsnapped_terminal": {
+   "category": "assumption",
+   "behavior_changing": false,
+   "example_action": "flagged only \u2014 not auto-repaired (would change topology)",
+   "example_evidence": "3 component(s) have an unsnapped terminal",
+   "alternatives": []
+  }
+ },
+ "per_circuit": {
+  "circuit_1013": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1022": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1025": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1028": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1045": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1048": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_1052": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1059": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1080": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 0,
+   "issues": [
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1095": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1103": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_115": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1150": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1156": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1175": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 1,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values"
+   ]
+  },
+  "circuit_118": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_1182": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1184": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1187": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1195": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1197": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1207": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "unset_current_direction",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1222": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_1234": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1238": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1240": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1247": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 0,
+   "issues": [
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_1253": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1259": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_1264": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_1273": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_1275": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_129": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_131": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_132": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_140": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_142": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_147": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_15": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_150": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_154": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_156": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_165": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_171": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_179": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_181": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_196": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_20": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_208": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_209": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "unset_current_direction",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_21": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_211": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_218": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 0,
+   "issues": [
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_220": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 5,
+   "num_gauge": 1,
+   "issues": [
+    "unset_current_direction",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_221": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_225": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_249": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_251": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_255": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_257": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_259": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_264": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_270": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_271": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_278": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_298": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_304": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_308": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_321": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_325": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_33": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_331": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_338": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_347": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_351": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_353": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_366": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_388": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_389": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_39": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_398": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_402": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_410": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 5,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_412": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_420": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_429": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_43": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_431": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 0,
+   "issues": [
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_432": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_441": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_442": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_447": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_450": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_474": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_483": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_486": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_490": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_50": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_505": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_513": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_516": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_517": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_526": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_541": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_553": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_556": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_557": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_578": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_579": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_590": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_594": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_603": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_604": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_612": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_616": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 0,
+   "issues": [
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_624": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_627": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_630": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_639": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_64": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_641": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 1,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values"
+   ]
+  },
+  "circuit_643": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_657": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_659": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_666": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_677": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_686": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_695": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_697": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_706": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_71": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_711": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_717": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_721": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_724": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_731": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_74": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_744": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_754": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 4,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_76": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_763": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_765": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_77": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_776": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_777": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_778": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_779": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_78": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_786": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_792": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_809": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_810": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_812": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_817": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_82": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 0,
+   "issues": [
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_822": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_827": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_83": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_831": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_837": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_843": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_847": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_848": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_853": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_855": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_857": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "unset_current_direction",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_858": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 5,
+   "num_gauge": 1,
+   "issues": [
+    "unset_current_direction",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_887": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_89": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_891": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_896": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_914": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_916": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_919": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "unset_current_direction",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_920": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_923": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_927": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_928": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_930": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_934": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_936": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_940": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_941": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_949": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_958": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_96": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_98": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_981": {
+   "solvable_before": false,
+   "solvable_after": false,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_985": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 3,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "no_dc_path_to_ground"
+   ]
+  },
+  "circuit_988": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 1,
+   "issues": [
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  },
+  "circuit_991": {
+   "solvable_before": false,
+   "solvable_after": true,
+   "num_assumptions": 4,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "no_dc_path_to_ground",
+    "ideal_inductor_dc",
+    "unsnapped_terminal"
+   ]
+  },
+  "circuit_999": {
+   "solvable_before": true,
+   "solvable_after": true,
+   "num_assumptions": 2,
+   "num_gauge": 2,
+   "issues": [
+    "unset_current_direction",
+    "ground_selection",
+    "placeholder_values",
+    "ideal_inductor_dc"
+   ]
+  }
+ },
+ "_reading": "Two categories with very different standing. GAUGE choices (ground selection, current reference direction) fix an arbitrary convention and change no behaviour. ASSUMPTIONS (placeholder values, shunt resistors to tie a floating node) do change what the deck simulates and are the honest cost of the post-repair solvability figure. The pre-repair rate is the floor and should be foregrounded."
+}

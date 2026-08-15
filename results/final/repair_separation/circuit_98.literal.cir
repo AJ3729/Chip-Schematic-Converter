@@ -1,0 +1,30 @@
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+D1 n6 n3 Ddefault
+D2 n10 n6 Ddefault
+Q1 n11 n8 n5 QPNPdefault
+Q2 n10 n13 0 QNPNdefault
+Q3 n7 n12 n13 QPNPdefault
+Q4 n14 n10 n4 QPNPdefault
+Q5 n13 n15 0 QNPNdefault
+R1 n7 n4 1k
+Q6 n4 n14 0 QNPNdefault
+Q7 n8 n9 0 QPNPdefault
+V1 n4 0 DC 15
+R2 n5 n7 1k
+R3 n2 n5 1k
+Q8 n1 n3 n4 QNPNdefault
+V2 n2 0 DC 15
+V3 n9 0 DC 15
+R4 n1 n2 1k
+Q9 n11 n15 0 QNPNdefault
+V4 n1 0 DC 15
+R5 n9 0 1k
+R6 n12 0 1k
+V5 n7 0 DC 15
+.model Ddefault D
+.model QNPNdefault NPN
+.model QPNPdefault PNP
+
+.op
+.end

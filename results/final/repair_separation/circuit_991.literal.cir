@@ -1,0 +1,13 @@
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+I1 n2 0 DC 1m AC 1m
+V1 n4 0 DC 15 AC 1
+* UNSNAPPED Resistor raw_nodes=[0, 1]
+* UNSNAPPED Resistor raw_nodes=[0, 1]
+C1 n3 0 1u
+* UNSNAPPED Inductor raw_nodes=[0, 1]
+L1 n1 n3 1m
+R1 n2 0 1k
+
+.op
+.end

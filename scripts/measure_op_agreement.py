@@ -125,7 +125,14 @@ TOLERANCE_SWEEP = [
     ("10mV", 1e-2, 0.0),
     ("100mV", 1e-1, 0.0),
     ("500mV", 5e-1, 0.0),
+    # --- D3: max(10 mV, 1% of the reference circuit's max |V|), swept ---
+    ("D3 1/3x  max(3.33mV, 0.333% circuit)", 10e-3 / 3, 1e-2 / 3),
+    ("D3 1x    max(10mV, 1% circuit)", 10e-3, 1e-2),
+    ("D3 3x    max(30mV, 3% circuit)", 30e-3, 3e-2),
 ]
+
+# Sweep entries whose label starts with "D3 " use the per-CIRCUIT scale rule.
+D3_PREFIX = "D3 "
 
 # ---------------------------------------------------------------------------
 # candidate placeholder policies
@@ -411,13 +418,24 @@ def build_correspondence(pred: list[dict], gt: list[dict],
 # scoring
 # ---------------------------------------------------------------------------
 
-def close(a: float, b: float, atol: float, rtol: float) -> bool:
-    return abs(a - b) <= max(atol, rtol * max(abs(a), abs(b)))
+def close(a: float, b: float, atol: float, rtol: float,
+          scale: float | None = None) -> bool:
+    """Agreement test for one corresponded node pair.
+
+    `rtol` is taken against `scale` when one is given, otherwise against the
+    node's own magnitude. The distinction matters: the D3 rule scales by the
+    REFERENCE CIRCUIT's maximum absolute node voltage, so a 5 V error on a
+    30 V circuit is judged against 30 V rather than against 5 V. Scaling per
+    node would make a small node's large relative error look acceptable.
+    """
+    ref = scale if scale is not None else max(abs(a), abs(b))
+    return abs(a - b) <= max(atol, rtol * ref)
 
 
 def score_op(gt_v: dict, pred_v: dict, corr: dict[str, str],
              atol: float = PRIMARY_ATOL, rtol: float = PRIMARY_RTOL,
-             include_ground: bool = False) -> dict:
+             include_ground: bool = False,
+             circuit_scale: bool = False) -> dict:
     """Compare two operating points over the corresponded nets.
 
     The node sets are the nodes ngspice actually reported. ngspice never reports
@@ -438,6 +456,10 @@ def score_op(gt_v: dict, pred_v: dict, corr: dict[str, str],
         gv.setdefault("0", 0.0)
         pv.setdefault("0", 0.0)
 
+    # D3 rule: scale the relative term by the reference circuit's largest
+    # absolute node voltage, computed once per circuit.
+    scale = max((abs(v) for v in gv.values()), default=0.0) if circuit_scale else None
+
     n_gt, n_pred = len(gv), len(pv)
     agree, n_corr = 0, 0
     deltas: list[float] = []
@@ -449,7 +471,7 @@ def score_op(gt_v: dict, pred_v: dict, corr: dict[str, str],
         n_corr += 1
         d = abs(gv[g] - pv[p])
         deltas.append(d)
-        if close(gv[g], pv[p], atol, rtol):
+        if close(gv[g], pv[p], atol, rtol, scale):
             agree += 1
         else:
             disagreements.append({"gt_net": g_net, "pred_net": p_net,
@@ -693,7 +715,8 @@ def tolerance_sweep(rows: list[dict], circuits_by_stem: dict) -> list[dict]:
         f1s, f1s_live, ex, agree, ngt = [], [], 0, 0, 0
         for r in both:
             corr = circuits_by_stem[r["stem"]]["corr"]
-            sc = score_op(r["_gt_voltages"], r["_pred_voltages"], corr, atol, rtol)
+            sc = score_op(r["_gt_voltages"], r["_pred_voltages"], corr, atol,
+                          rtol, circuit_scale=label.startswith(D3_PREFIX))
             f1s.append(sc["f1"])
             ex += int(sc["exact"])
             agree += sc["n_agree"]

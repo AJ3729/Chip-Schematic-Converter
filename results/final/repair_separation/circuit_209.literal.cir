@@ -1,0 +1,18 @@
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+I1 n2 0 DC 1m AC 1m
+V1 n1 n2 DC 15 AC 1
+* SAME_NODE_SKIPPED V-DC both_on=0
+* SAME_NODE_SKIPPED I-DC both_on=0
+* SAME_NODE_SKIPPED V-DC both_on=0
+L1 n1 n4 1m
+C1 n2 0 1u
+C2 n3 0 1u
+C3 n4 0 1u
+* SAME_NODE_SKIPPED Capacitor both_on=0
+L2 n1 0 1m
+L3 n1 n3 1m
+L4 n1 n2 1m
+
+.op
+.end

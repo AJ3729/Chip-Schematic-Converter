@@ -1,0 +1,17 @@
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+I1 n1 n2 DC 1m AC 1m
+* SAME_NODE_SKIPPED V-AC both_on=n1
+I2 n5 0 DC 1m
+V1 0 n5 DC 15
+C1 n3 n5 1u
+V2 n2 0 DC 15
+L1 n1 n3 1m
+C2 n2 0 1u
+C3 n4 0 1u
+C4 n1 0 1u
+L2 n1 n4 1m
+L3 n1 n2 1m
+
+.op
+.end

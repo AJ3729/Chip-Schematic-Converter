@@ -1,0 +1,30 @@
+* REPAIRED DECK -- interventions applied, listed below.
+* The literal reconstruction is in the .literal.cir beside this file.
+* interventions: 2
+*   [assumption/behaviour-changing] placeholder_values: assigned per-class placeholder values (no OCR)
+*   [assumption] ideal_inductor_dc: none applied (DC short is well-posed); .nodeset available if singular
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+V1 n4 n7 DC 15 AC 1
+Q1 n9 n8 n1 QNPNdefault
+E1 n6 0 n8 n2 100k
+D1 0 n7 Ddefault
+Q2 n2 n3 n10 QPNPdefault
+D2 n3 0 Zdefault
+D3 n8 n9 Zdefault
+D4 n4 n1 Ddefault
+D5 0 n4 Ddefault
+C1 n10 0 1u
+L1 n5 0 1m
+C2 n1 n5 1u
+R1 n1 n3 1k
+R2 n9 0 1k
+L2 n9 n6 1m
+D6 n1 n7 Ddefault
+.model Ddefault D
+.model QNPNdefault NPN
+.model QPNPdefault PNP
+.model Zdefault D(bv=5.1)
+
+.op
+.end

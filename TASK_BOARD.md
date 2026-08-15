@@ -26,11 +26,11 @@ Annotations accepted so far: **0**
 | C3 | Annotation dashboard | READY |  |  |
 | D1 | Pin symmetry template (author authors the real file) *(needs review)* | AWAITING_REVIEW |  |  |
 | D2 | Pin aware scorer | BLOCKED | `spec/pin_symmetry.yaml` |  |
-| D3 | Perturbation sensitivity and tolerance definitions *(needs review)* | READY |  |  |
+| D3 | Perturbation sensitivity and tolerance definitions *(needs review)* | AWAITING_REVIEW |  |  |
 | D4 | Multistability control | READY |  |  |
 | D5 | Multi condition agreement | READY |  |  |
 | D6 | Full structural recomputation | BLOCKED | `metrics/pin_aware.py` |  |
-| D7 | Repair separation | READY |  |  |
+| D7 | Repair separation | DONE |  |  |
 | D8 | Repair intent evaluation | BLOCKED | `data/cghd/annotations/normalized_interventions.json` |  |
 | E1 | Incremental scoring harness | READY |  |  |
 | E2 | Cross corpus transfer results | BLOCKED | `data/cghd/annotations/accepted/*.json` |  |
@@ -44,7 +44,7 @@ Annotations accepted so far: **0**
 
 ## Counts
 
-- AWAITING_REVIEW: 2
+- AWAITING_REVIEW: 3
 - BLOCKED: 7
-- DONE: 8
-- READY: 16
+- DONE: 9
+- READY: 14

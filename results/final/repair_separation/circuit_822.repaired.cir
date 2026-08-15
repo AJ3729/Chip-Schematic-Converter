@@ -1,0 +1,28 @@
+* REPAIRED DECK -- interventions applied, listed below.
+* The literal reconstruction is in the .literal.cir beside this file.
+* interventions: 5
+*   [gauge] unset_current_direction: kept drawn current-source reference direction
+*   [gauge] ground_selection: used the GND symbol's net as reference (0)
+*   [assumption/behaviour-changing] placeholder_values: assigned per-class placeholder values (no OCR)
+*   [assumption/behaviour-changing] no_dc_path_to_ground: added shunt R 1e+09 from n1 to 0
+*   [assumption] ideal_inductor_dc: none applied (DC short is well-posed); .nodeset available if singular
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+I1 n3 n4 DC 1m AC 1m
+I2 n1 n3 DC 1m AC 1m
+D1 n1 n2 Zdefault
+D2 n4 n5 Zdefault
+V1 n3 n5 DC 15
+D3 n7 n5 Ddefault
+C1 n2 n3 1u
+D4 n5 n3 Ddefault
+D5 n8 n7 Ddefault
+L1 n5 n8 1m
+C2 n5 n6 1u
+R1 n5 0 1k
+D6 n8 n6 Ddefault
+.model Ddefault D
+.model Zdefault D(bv=5.1)
+
+.op
+.end

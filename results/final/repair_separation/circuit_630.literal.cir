@@ -1,0 +1,21 @@
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+I1 n5 n9 DC 1m AC 1m
+V1 n2 n9 DC 15 AC 1
+I2 n8 n9 DC 1m AC 1m
+V2 n3 n9 DC 15 AC 1
+M1 n7 n2 n9 n9 NMOSdefault
+M2 n4 n5 n6 n6 PMOSdefault
+M3 n6 n8 n9 n9 PMOSdefault
+D1 n1 n3 Zdefault
+M4 n7 n3 n4 n4 NMOSdefault
+M5 n1 n3 n4 n4 PMOSdefault
+V3 n1 0 DC 15
+M6 n1 n2 n4 n4 NMOSdefault
+R1 n7 n6 1k
+.model NMOSdefault NMOS
+.model PMOSdefault PMOS
+.model Zdefault D(bv=5.1)
+
+.op
+.end

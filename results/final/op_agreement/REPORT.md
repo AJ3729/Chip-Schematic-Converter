@@ -166,6 +166,9 @@ The pred-vs-pred control is not decoration. An earlier version of this file read
 | 10mV | 0.6314 | 0.6353 | 32 |
 | 100mV | 0.6349 | 0.6389 | 32 |
 | 500mV | 0.6532 | 0.6569 | 37 |
+| D3 1/3x  max(3.33mV, 0.333% circuit) | 0.6314 | 0.6353 | 32 |
+| D3 1x    max(10mV, 1% circuit) | 0.6445 | 0.6483 | 32 |
+| D3 3x    max(30mV, 3% circuit) | 0.6517 | 0.6555 | 37 |
 
 Flat across nine orders of magnitude. That is the signature of a metric whose disagreements are *large* — a node is either the same node or a completely different one — not marginal. The tolerance is therefore not a tuning knob and cannot be used to move the number.
 

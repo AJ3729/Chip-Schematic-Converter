@@ -421,6 +421,33 @@
           "mean_f1_non_degenerate": 0.6120099980923469,
           "exact_circuits": 42,
           "pooled_node_recall": 0.7559633027522936
+        },
+        {
+          "tolerance": "D3 1/3x  max(3.33mV, 0.333% circuit)",
+          "atol_V": 0.0033333333333333335,
+          "rtol": 0.0033333333333333335,
+          "mean_f1_both_solve": 0.6759097947048097,
+          "mean_f1_non_degenerate": 0.5845192884113806,
+          "exact_circuits": 37,
+          "pooled_node_recall": 0.7009174311926606
+        },
+        {
+          "tolerance": "D3 1x    max(10mV, 1% circuit)",
+          "atol_V": 0.01,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.6759097947048097,
+          "mean_f1_non_degenerate": 0.5845192884113806,
+          "exact_circuits": 37,
+          "pooled_node_recall": 0.7009174311926606
+        },
+        {
+          "tolerance": "D3 3x    max(30mV, 3% circuit)",
+          "atol_V": 0.03,
+          "rtol": 0.03,
+          "mean_f1_both_solve": 0.6880289366786364,
+          "mean_f1_non_degenerate": 0.6001247588982258,
+          "exact_circuits": 37,
+          "pooled_node_recall": 0.7321100917431193
         }
       ]
     },
@@ -575,6 +602,33 @@
           "mean_f1_non_degenerate": 0.6531890926892173,
           "exact_circuits": 37,
           "pooled_node_recall": 0.7185741088180112
+        },
+        {
+          "tolerance": "D3 1/3x  max(3.33mV, 0.333% circuit)",
+          "atol_V": 0.0033333333333333335,
+          "rtol": 0.0033333333333333335,
+          "mean_f1_both_solve": 0.6353395131257789,
+          "mean_f1_non_degenerate": 0.6313758121814939,
+          "exact_circuits": 32,
+          "pooled_node_recall": 0.6622889305816135
+        },
+        {
+          "tolerance": "D3 1x    max(10mV, 1% circuit)",
+          "atol_V": 0.01,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.6353395131257789,
+          "mean_f1_non_degenerate": 0.6313758121814939,
+          "exact_circuits": 32,
+          "pooled_node_recall": 0.6622889305816135
+        },
+        {
+          "tolerance": "D3 3x    max(30mV, 3% circuit)",
+          "atol_V": 0.03,
+          "rtol": 0.03,
+          "mean_f1_both_solve": 0.6475889684541628,
+          "mean_f1_non_degenerate": 0.6437584137634471,
+          "exact_circuits": 32,
+          "pooled_node_recall": 0.6941838649155723
         }
       ]
     },
@@ -729,6 +783,33 @@
           "mean_f1_non_degenerate": 0.6531890926892173,
           "exact_circuits": 37,
           "pooled_node_recall": 0.7185741088180112
+        },
+        {
+          "tolerance": "D3 1/3x  max(3.33mV, 0.333% circuit)",
+          "atol_V": 0.0033333333333333335,
+          "rtol": 0.0033333333333333335,
+          "mean_f1_both_solve": 0.6353395131257789,
+          "mean_f1_non_degenerate": 0.6313758121814939,
+          "exact_circuits": 32,
+          "pooled_node_recall": 0.6622889305816135
+        },
+        {
+          "tolerance": "D3 1x    max(10mV, 1% circuit)",
+          "atol_V": 0.01,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.6482826902717139,
+          "mean_f1_non_degenerate": 0.6444596760355369,
+          "exact_circuits": 32,
+          "pooled_node_recall": 0.6960600375234521
+        },
+        {
+          "tolerance": "D3 3x    max(30mV, 3% circuit)",
+          "atol_V": 0.03,
+          "rtol": 0.03,
+          "mean_f1_both_solve": 0.6554845504739211,
+          "mean_f1_non_degenerate": 0.6517398173268985,
+          "exact_circuits": 37,
+          "pooled_node_recall": 0.7148217636022514
         }
       ]
     },
@@ -885,6 +966,33 @@
           "mean_f1_non_degenerate": 0.7537325709500872,
           "exact_circuits": 48,
           "pooled_node_recall": 0.7861163227016885
+        },
+        {
+          "tolerance": "D3 1/3x  max(3.33mV, 0.333% circuit)",
+          "atol_V": 0.0033333333333333335,
+          "rtol": 0.0033333333333333335,
+          "mean_f1_both_solve": 0.6353395131257789,
+          "mean_f1_non_degenerate": 0.6313758121814939,
+          "exact_circuits": 32,
+          "pooled_node_recall": 0.6622889305816135
+        },
+        {
+          "tolerance": "D3 1x    max(10mV, 1% circuit)",
+          "atol_V": 0.01,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.673730718945549,
+          "mean_f1_non_degenerate": 0.6701843137166963,
+          "exact_circuits": 36,
+          "pooled_node_recall": 0.7110694183864915
+        },
+        {
+          "tolerance": "D3 3x    max(30mV, 3% circuit)",
+          "atol_V": 0.03,
+          "rtol": 0.03,
+          "mean_f1_both_solve": 0.7384594608681864,
+          "mean_f1_non_degenerate": 0.7356166289211015,
+          "exact_circuits": 46,
+          "pooled_node_recall": 0.7729831144465291
         }
       ]
     },
@@ -1041,6 +1149,33 @@
           "mean_f1_non_degenerate": 0.653890354961307,
           "exact_circuits": 37,
           "pooled_node_recall": 0.7204502814258912
+        },
+        {
+          "tolerance": "D3 1/3x  max(3.33mV, 0.333% circuit)",
+          "atol_V": 0.0033333333333333335,
+          "rtol": 0.0033333333333333335,
+          "mean_f1_both_solve": 0.6353395131257789,
+          "mean_f1_non_degenerate": 0.6313758121814939,
+          "exact_circuits": 32,
+          "pooled_node_recall": 0.6622889305816135
+        },
+        {
+          "tolerance": "D3 1x    max(10mV, 1% circuit)",
+          "atol_V": 0.01,
+          "rtol": 0.01,
+          "mean_f1_both_solve": 0.6482826902717139,
+          "mean_f1_non_degenerate": 0.6444596760355369,
+          "exact_circuits": 32,
+          "pooled_node_recall": 0.6960600375234521
+        },
+        {
+          "tolerance": "D3 3x    max(30mV, 3% circuit)",
+          "atol_V": 0.03,
+          "rtol": 0.03,
+          "mean_f1_both_solve": 0.6569182422301935,
+          "mean_f1_non_degenerate": 0.6531890926892173,
+          "exact_circuits": 37,
+          "pooled_node_recall": 0.7185741088180112
         }
       ]
     }

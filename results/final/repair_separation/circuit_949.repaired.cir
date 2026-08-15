@@ -1,0 +1,36 @@
+* REPAIRED DECK -- interventions applied, listed below.
+* The literal reconstruction is in the .literal.cir beside this file.
+* interventions: 4
+*   [gauge] ground_selection: used the GND symbol's net as reference (0)
+*   [assumption/behaviour-changing] placeholder_values: assigned per-class placeholder values (no OCR)
+*   [assumption/behaviour-changing] no_dc_path_to_ground: added shunt R 1e+09 from n14 to 0
+*   [assumption/behaviour-changing] no_dc_path_to_ground: added shunt R 1e+09 from n7 to 0
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+Q1 n10 n8 n6 QPNPdefault
+Q2 0 n11 n8 QPNPdefault
+Q3 n12 n9 n5 QPNPdefault
+D1 n4 n13 Ddefault
+V1 n11 0 DC 15
+D2 n4 n3 Ddefault
+Q4 n4 n13 0 QNPNdefault
+V2 n2 0 DC 15
+R1 n6 n5 1k
+Q5 n12 n14 0 QNPNdefault
+R2 n1 n2 1k
+Q6 n1 n3 n4 QNPNdefault
+V3 n5 0 DC 15
+R3 n2 n6 1k
+Q7 n10 n14 0 QNPNdefault
+R4 n5 n7 1k
+Q8 n13 n12 0 QNPNdefault
+R5 n11 0 1k
+R6 n9 0 1k
+V4 n1 0 DC 15
+V5 n4 0 DC 15
+.model Ddefault D
+.model QNPNdefault NPN
+.model QPNPdefault PNP
+
+.op
+.end

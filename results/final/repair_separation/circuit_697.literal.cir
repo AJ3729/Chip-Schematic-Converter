@@ -1,0 +1,14 @@
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+V1 n4 n3 DC 15 AC 1
+I1 n6 n5 DC 1m AC 1m
+C1 n1 n3 1u
+L1 n2 n1 1m
+L2 n3 0 1m
+R1 n2 n4 1k
+R2 n3 n5 1k
+R3 n4 n6 1k
+R4 n1 0 1k
+
+.op
+.end
