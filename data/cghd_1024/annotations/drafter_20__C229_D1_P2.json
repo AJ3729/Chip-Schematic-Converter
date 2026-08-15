@@ -1,0 +1,333 @@
+{
+ "schema_version": 1,
+ "image": "drafter_20__C229_D1_P2.jpg",
+ "source": "cghd_v12_voc",
+ "source_path": "data/cghd/extracted/drafter_20/images/C229_D1_P2.jpeg",
+ "drafter": 20,
+ "drawing_group": "drafter_20__C229_D1",
+ "picture": 2,
+ "pool": "detection",
+ "bbox_frame": "cghd_1024",
+ "components": [
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    420.75,
+    305.75,
+    20.5,
+    62.5
+   ],
+   "bbox_xyxy": [
+    410.5,
+    274.5,
+    431.0,
+    337.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    608.75,
+    667.5,
+    19.5,
+    37.0
+   ],
+   "bbox_xyxy": [
+    599.0,
+    649.0,
+    618.5,
+    686.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    739.0,
+    276.5,
+    21.0,
+    54.0
+   ],
+   "bbox_xyxy": [
+    728.5,
+    249.5,
+    749.5,
+    303.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    667.75,
+    485.75,
+    20.5,
+    41.5
+   ],
+   "bbox_xyxy": [
+    657.5,
+    465.0,
+    678.0,
+    506.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    546.75,
+    293.75,
+    21.5,
+    72.5
+   ],
+   "bbox_xyxy": [
+    536.0,
+    257.5,
+    557.5,
+    330.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    532.75,
+    661.5,
+    25.5,
+    53.0
+   ],
+   "bbox_xyxy": [
+    520.0,
+    635.0,
+    545.5,
+    688.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    448.0,
+    499.5,
+    17.0,
+    53.0
+   ],
+   "bbox_xyxy": [
+    439.5,
+    473.0,
+    456.5,
+    526.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    708.0,
+    391.5,
+    46.0,
+    70.0
+   ],
+   "bbox_xyxy": [
+    685.0,
+    356.5,
+    731.0,
+    426.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    497.0,
+    399.75,
+    54.0,
+    72.5
+   ],
+   "bbox_xyxy": [
+    470.0,
+    363.5,
+    524.0,
+    436.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    714.5,
+    591.25,
+    51.0,
+    58.5
+   ],
+   "bbox_xyxy": [
+    689.0,
+    562.0,
+    740.0,
+    620.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    621.0,
+    361.75,
+    47.0,
+    66.5
+   ],
+   "bbox_xyxy": [
+    597.5,
+    328.5,
+    644.5,
+    395.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    596.0,
+    761.0,
+    63.0,
+    66.0
+   ],
+   "bbox_xyxy": [
+    564.5,
+    728.0,
+    627.5,
+    794.0
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    211.5,
+    578.0,
+    44.0,
+    31.0
+   ],
+   "bbox_xyxy": [
+    189.5,
+    562.5,
+    233.5,
+    593.5
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    617.25,
+    446.25,
+    30.5,
+    27.5
+   ],
+   "bbox_xyxy": [
+    602.0,
+    432.5,
+    632.5,
+    460.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    716.75,
+    893.75,
+    47.5,
+    24.5
+   ],
+   "bbox_xyxy": [
+    693.0,
+    881.5,
+    740.5,
+    906.0
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    326.75,
+    451.75,
+    34.5,
+    31.5
+   ],
+   "bbox_xyxy": [
+    309.5,
+    436.0,
+    344.0,
+    467.5
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    332.25,
+    395.25,
+    32.5,
+    30.5
+   ],
+   "bbox_xyxy": [
+    316.0,
+    380.0,
+    348.5,
+    410.5
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    263.25,
+    629.0,
+    45.5,
+    36.0
+   ],
+   "bbox_xyxy": [
+    240.5,
+    611.0,
+    286.0,
+    647.0
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    625.5,
+    528.5,
+    30.0,
+    25.0
+   ],
+   "bbox_xyxy": [
+    610.5,
+    516.0,
+    640.5,
+    541.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    238.0,
+    451.75,
+    10.0,
+    8.5
+   ],
+   "bbox_xyxy": [
+    233.0,
+    447.5,
+    243.0,
+    456.0
+   ]
+  }
+ ]
+}

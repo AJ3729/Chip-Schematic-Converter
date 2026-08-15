@@ -1,0 +1,2605 @@
+{
+ "schema_version": 1,
+ "image": "drafter_20__C235_D1_P1.jpg",
+ "source": "cghd_v12_voc",
+ "source_path": "data/cghd/extracted/drafter_20/images/C235_D1_P1.jpeg",
+ "drafter": 20,
+ "drawing_group": "drafter_20__C235_D1",
+ "picture": 1,
+ "pool": "detection",
+ "bbox_frame": "cghd_1024",
+ "components": [
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    210.5,
+    314.0,
+    16.0,
+    22.0
+   ],
+   "bbox_xyxy": [
+    202.5,
+    303.0,
+    218.5,
+    325.0
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    218.25,
+    723.5,
+    25.5,
+    18.0
+   ],
+   "bbox_xyxy": [
+    205.5,
+    714.5,
+    231.0,
+    732.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    908.5,
+    852.5,
+    30.0,
+    18.0
+   ],
+   "bbox_xyxy": [
+    893.5,
+    843.5,
+    923.5,
+    861.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    519.5,
+    850.5,
+    25.0,
+    17.0
+   ],
+   "bbox_xyxy": [
+    507.0,
+    842.0,
+    532.0,
+    859.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    612.0,
+    700.25,
+    26.0,
+    47.5
+   ],
+   "bbox_xyxy": [
+    599.0,
+    676.5,
+    625.0,
+    724.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    436.75,
+    793.5,
+    13.5,
+    32.0
+   ],
+   "bbox_xyxy": [
+    430.0,
+    777.5,
+    443.5,
+    809.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    557.25,
+    188.0,
+    44.5,
+    16.0
+   ],
+   "bbox_xyxy": [
+    535.0,
+    180.0,
+    579.5,
+    196.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    437.5,
+    844.25,
+    15.0,
+    32.5
+   ],
+   "bbox_xyxy": [
+    430.0,
+    828.0,
+    445.0,
+    860.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    555.5,
+    532.25,
+    24.0,
+    16.5
+   ],
+   "bbox_xyxy": [
+    543.5,
+    524.0,
+    567.5,
+    540.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    547.25,
+    312.25,
+    12.5,
+    36.5
+   ],
+   "bbox_xyxy": [
+    541.0,
+    294.0,
+    553.5,
+    330.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    703.5,
+    353.75,
+    28.0,
+    46.5
+   ],
+   "bbox_xyxy": [
+    689.5,
+    330.5,
+    717.5,
+    377.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    804.5,
+    536.75,
+    16.0,
+    32.5
+   ],
+   "bbox_xyxy": [
+    796.5,
+    520.5,
+    812.5,
+    553.0
+   ]
+  },
+  {
+   "cghd_class": "diode",
+   "class": "Diode",
+   "bbox": [
+    479.75,
+    666.0,
+    32.5,
+    22.0
+   ],
+   "bbox_xyxy": [
+    463.5,
+    655.0,
+    496.0,
+    677.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    612.0,
+    438.75,
+    18.0,
+    35.5
+   ],
+   "bbox_xyxy": [
+    603.0,
+    421.0,
+    621.0,
+    456.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    825.75,
+    660.25,
+    15.5,
+    32.5
+   ],
+   "bbox_xyxy": [
+    818.0,
+    644.0,
+    833.5,
+    676.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    563.75,
+    732.5,
+    14.5,
+    33.0
+   ],
+   "bbox_xyxy": [
+    556.5,
+    716.0,
+    571.0,
+    749.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    161.25,
+    445.5,
+    12.5,
+    28.0
+   ],
+   "bbox_xyxy": [
+    155.0,
+    431.5,
+    167.5,
+    459.5
+   ]
+  },
+  {
+   "cghd_class": "diode",
+   "class": "Diode",
+   "bbox": [
+    588.5,
+    488.0,
+    25.0,
+    20.0
+   ],
+   "bbox_xyxy": [
+    576.0,
+    478.0,
+    601.0,
+    498.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    175.0,
+    750.25,
+    26.0,
+    29.5
+   ],
+   "bbox_xyxy": [
+    162.0,
+    735.5,
+    188.0,
+    765.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    196.0,
+    440.25,
+    13.0,
+    28.5
+   ],
+   "bbox_xyxy": [
+    189.5,
+    426.0,
+    202.5,
+    454.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    906.25,
+    217.0,
+    28.5,
+    21.0
+   ],
+   "bbox_xyxy": [
+    892.0,
+    206.5,
+    920.5,
+    227.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    46.0,
+    542.75,
+    15.0,
+    26.5
+   ],
+   "bbox_xyxy": [
+    38.5,
+    529.5,
+    53.5,
+    556.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    369.0,
+    825.0,
+    25.0,
+    40.0
+   ],
+   "bbox_xyxy": [
+    356.5,
+    805.0,
+    381.5,
+    845.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    348.75,
+    329.25,
+    18.5,
+    14.5
+   ],
+   "bbox_xyxy": [
+    339.5,
+    322.0,
+    358.0,
+    336.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    970.75,
+    562.0,
+    16.5,
+    39.0
+   ],
+   "bbox_xyxy": [
+    962.5,
+    542.5,
+    979.0,
+    581.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    568.25,
+    877.25,
+    46.5,
+    17.5
+   ],
+   "bbox_xyxy": [
+    545.0,
+    868.5,
+    591.5,
+    886.0
+   ]
+  },
+  {
+   "cghd_class": "inductor",
+   "class": "Inductor",
+   "bbox": [
+    923.5,
+    490.25,
+    38.0,
+    14.5
+   ],
+   "bbox_xyxy": [
+    904.5,
+    483.0,
+    942.5,
+    497.5
+   ]
+  },
+  {
+   "cghd_class": "diode",
+   "class": "Diode",
+   "bbox": [
+    589.5,
+    529.25,
+    25.0,
+    18.5
+   ],
+   "bbox_xyxy": [
+    577.0,
+    520.0,
+    602.0,
+    538.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    827.0,
+    372.0,
+    12.0,
+    31.0
+   ],
+   "bbox_xyxy": [
+    821.0,
+    356.5,
+    833.0,
+    387.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    281.25,
+    673.25,
+    22.5,
+    17.5
+   ],
+   "bbox_xyxy": [
+    270.0,
+    664.5,
+    292.5,
+    682.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    196.25,
+    594.0,
+    13.5,
+    28.0
+   ],
+   "bbox_xyxy": [
+    189.5,
+    580.0,
+    203.0,
+    608.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    709.5,
+    696.25,
+    36.0,
+    53.5
+   ],
+   "bbox_xyxy": [
+    691.5,
+    669.5,
+    727.5,
+    723.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    410.75,
+    306.5,
+    35.5,
+    51.0
+   ],
+   "bbox_xyxy": [
+    393.0,
+    281.0,
+    428.5,
+    332.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    926.0,
+    507.25,
+    40.0,
+    11.5
+   ],
+   "bbox_xyxy": [
+    906.0,
+    501.5,
+    946.0,
+    513.0
+   ]
+  },
+  {
+   "cghd_class": "diode",
+   "class": "Diode",
+   "bbox": [
+    560.0,
+    661.25,
+    25.0,
+    19.5
+   ],
+   "bbox_xyxy": [
+    547.5,
+    651.5,
+    572.5,
+    671.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    169.0,
+    595.25,
+    12.0,
+    28.5
+   ],
+   "bbox_xyxy": [
+    163.0,
+    581.0,
+    175.0,
+    609.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    757.75,
+    460.5,
+    38.5,
+    17.0
+   ],
+   "bbox_xyxy": [
+    738.5,
+    452.0,
+    777.0,
+    469.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    419.25,
+    256.0,
+    15.5,
+    32.0
+   ],
+   "bbox_xyxy": [
+    411.5,
+    240.0,
+    427.0,
+    272.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    191.75,
+    241.25,
+    14.5,
+    32.5
+   ],
+   "bbox_xyxy": [
+    184.5,
+    225.0,
+    199.0,
+    257.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    135.25,
+    441.0,
+    13.5,
+    26.0
+   ],
+   "bbox_xyxy": [
+    128.5,
+    428.0,
+    142.0,
+    454.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    742.25,
+    374.0,
+    14.5,
+    27.0
+   ],
+   "bbox_xyxy": [
+    735.0,
+    360.5,
+    749.5,
+    387.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    495.5,
+    248.75,
+    21.0,
+    15.5
+   ],
+   "bbox_xyxy": [
+    485.0,
+    241.0,
+    506.0,
+    256.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    166.5,
+    820.0,
+    13.0,
+    28.0
+   ],
+   "bbox_xyxy": [
+    160.0,
+    806.0,
+    173.0,
+    834.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    396.25,
+    446.75,
+    29.5,
+    14.5
+   ],
+   "bbox_xyxy": [
+    381.5,
+    439.5,
+    411.0,
+    454.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    245.25,
+    807.25,
+    15.5,
+    16.5
+   ],
+   "bbox_xyxy": [
+    237.5,
+    799.0,
+    253.0,
+    815.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    835.0,
+    425.5,
+    36.0,
+    17.0
+   ],
+   "bbox_xyxy": [
+    817.0,
+    417.0,
+    853.0,
+    434.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    520.75,
+    640.75,
+    38.5,
+    13.5
+   ],
+   "bbox_xyxy": [
+    501.5,
+    634.0,
+    540.0,
+    647.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    800.0,
+    485.25,
+    17.0,
+    32.5
+   ],
+   "bbox_xyxy": [
+    791.5,
+    469.0,
+    808.5,
+    501.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    718.25,
+    487.5,
+    18.5,
+    34.0
+   ],
+   "bbox_xyxy": [
+    709.0,
+    470.5,
+    727.5,
+    504.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    391.25,
+    413.25,
+    33.5,
+    15.5
+   ],
+   "bbox_xyxy": [
+    374.5,
+    405.5,
+    408.0,
+    421.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    218.0,
+    769.75,
+    23.0,
+    17.5
+   ],
+   "bbox_xyxy": [
+    206.5,
+    761.0,
+    229.5,
+    778.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    484.0,
+    560.25,
+    30.0,
+    40.5
+   ],
+   "bbox_xyxy": [
+    469.0,
+    540.0,
+    499.0,
+    580.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    389.0,
+    574.75,
+    33.0,
+    11.5
+   ],
+   "bbox_xyxy": [
+    372.5,
+    569.0,
+    405.5,
+    580.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    760.75,
+    558.0,
+    40.5,
+    15.0
+   ],
+   "bbox_xyxy": [
+    740.5,
+    550.5,
+    781.0,
+    565.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    360.5,
+    648.0,
+    16.0,
+    22.0
+   ],
+   "bbox_xyxy": [
+    352.5,
+    637.0,
+    368.5,
+    659.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    549.0,
+    354.25,
+    10.0,
+    9.5
+   ],
+   "bbox_xyxy": [
+    544.0,
+    349.5,
+    554.0,
+    359.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    784.0,
+    352.75,
+    31.0,
+    40.5
+   ],
+   "bbox_xyxy": [
+    768.5,
+    332.5,
+    799.5,
+    373.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    529.25,
+    532.25,
+    14.5,
+    22.5
+   ],
+   "bbox_xyxy": [
+    522.0,
+    521.0,
+    536.5,
+    543.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    873.5,
+    478.25,
+    15.0,
+    29.5
+   ],
+   "bbox_xyxy": [
+    866.0,
+    463.5,
+    881.0,
+    493.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    136.5,
+    590.0,
+    16.0,
+    21.0
+   ],
+   "bbox_xyxy": [
+    128.5,
+    579.5,
+    144.5,
+    600.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    315.75,
+    672.75,
+    23.5,
+    15.5
+   ],
+   "bbox_xyxy": [
+    304.0,
+    665.0,
+    327.5,
+    680.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    747.25,
+    661.75,
+    13.5,
+    30.5
+   ],
+   "bbox_xyxy": [
+    740.5,
+    646.5,
+    754.0,
+    677.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    156.0,
+    402.75,
+    22.0,
+    36.5
+   ],
+   "bbox_xyxy": [
+    145.0,
+    384.5,
+    167.0,
+    421.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    599.5,
+    355.75,
+    29.0,
+    43.5
+   ],
+   "bbox_xyxy": [
+    585.0,
+    334.0,
+    614.0,
+    377.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    831.0,
+    448.25,
+    20.0,
+    20.5
+   ],
+   "bbox_xyxy": [
+    821.0,
+    438.0,
+    841.0,
+    458.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    617.25,
+    617.75,
+    13.5,
+    35.5
+   ],
+   "bbox_xyxy": [
+    610.5,
+    600.0,
+    624.0,
+    635.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    471.5,
+    249.75,
+    18.0,
+    11.5
+   ],
+   "bbox_xyxy": [
+    462.5,
+    244.0,
+    480.5,
+    255.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    363.75,
+    490.0,
+    14.5,
+    22.0
+   ],
+   "bbox_xyxy": [
+    356.5,
+    479.0,
+    371.0,
+    501.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    876.75,
+    532.0,
+    18.5,
+    30.0
+   ],
+   "bbox_xyxy": [
+    867.5,
+    517.0,
+    886.0,
+    547.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.polarized",
+   "class": "Capacitor",
+   "bbox": [
+    826.75,
+    214.5,
+    37.5,
+    31.0
+   ],
+   "bbox_xyxy": [
+    808.0,
+    199.0,
+    845.5,
+    230.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    865.25,
+    680.5,
+    30.5,
+    50.0
+   ],
+   "bbox_xyxy": [
+    850.0,
+    655.5,
+    880.5,
+    705.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    835.0,
+    614.25,
+    31.0,
+    11.5
+   ],
+   "bbox_xyxy": [
+    819.5,
+    608.5,
+    850.5,
+    620.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.polarized",
+   "class": "Capacitor",
+   "bbox": [
+    249.75,
+    770.25,
+    27.5,
+    22.5
+   ],
+   "bbox_xyxy": [
+    236.0,
+    759.0,
+    263.5,
+    781.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    976.0,
+    681.25,
+    31.0,
+    18.5
+   ],
+   "bbox_xyxy": [
+    960.5,
+    672.0,
+    991.5,
+    690.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    282.75,
+    716.25,
+    14.5,
+    14.5
+   ],
+   "bbox_xyxy": [
+    275.5,
+    709.0,
+    290.0,
+    723.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    482.75,
+    471.75,
+    26.5,
+    37.5
+   ],
+   "bbox_xyxy": [
+    469.5,
+    453.0,
+    496.0,
+    490.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    906.5,
+    244.75,
+    20.0,
+    15.5
+   ],
+   "bbox_xyxy": [
+    896.5,
+    237.0,
+    916.5,
+    252.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    825.5,
+    245.75,
+    20.0,
+    15.5
+   ],
+   "bbox_xyxy": [
+    815.5,
+    238.0,
+    835.5,
+    253.5
+   ]
+  },
+  {
+   "cghd_class": "diode",
+   "class": "Diode",
+   "bbox": [
+    915.0,
+    345.75,
+    26.0,
+    23.5
+   ],
+   "bbox_xyxy": [
+    902.0,
+    334.0,
+    928.0,
+    357.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    865.5,
+    349.5,
+    33.0,
+    55.0
+   ],
+   "bbox_xyxy": [
+    849.0,
+    322.0,
+    882.0,
+    377.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    835.0,
+    601.0,
+    13.0,
+    13.0
+   ],
+   "bbox_xyxy": [
+    828.5,
+    594.5,
+    841.5,
+    607.5
+   ]
+  },
+  {
+   "cghd_class": "diode",
+   "class": "Diode",
+   "bbox": [
+    903.0,
+    629.75,
+    23.0,
+    23.5
+   ],
+   "bbox_xyxy": [
+    891.5,
+    618.0,
+    914.5,
+    641.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    970.75,
+    641.75,
+    21.5,
+    20.5
+   ],
+   "bbox_xyxy": [
+    960.0,
+    631.5,
+    981.5,
+    652.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    872.5,
+    506.25,
+    7.0,
+    6.5
+   ],
+   "bbox_xyxy": [
+    869.0,
+    503.0,
+    876.0,
+    509.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    802.5,
+    507.0,
+    7.0,
+    6.0
+   ],
+   "bbox_xyxy": [
+    799.0,
+    504.0,
+    806.0,
+    510.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    718.0,
+    509.0,
+    6.0,
+    7.0
+   ],
+   "bbox_xyxy": [
+    715.0,
+    505.5,
+    721.0,
+    512.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    802.25,
+    615.5,
+    4.5,
+    6.0
+   ],
+   "bbox_xyxy": [
+    800.0,
+    612.5,
+    804.5,
+    618.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    801.75,
+    638.0,
+    6.5,
+    8.0
+   ],
+   "bbox_xyxy": [
+    798.5,
+    634.0,
+    805.0,
+    642.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    789.75,
+    685.0,
+    34.5,
+    51.0
+   ],
+   "bbox_xyxy": [
+    772.5,
+    659.5,
+    807.0,
+    710.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    718.75,
+    559.5,
+    8.5,
+    9.0
+   ],
+   "bbox_xyxy": [
+    714.5,
+    555.0,
+    723.0,
+    564.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    612.5,
+    466.75,
+    7.0,
+    5.5
+   ],
+   "bbox_xyxy": [
+    609.0,
+    464.0,
+    616.0,
+    469.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    715.0,
+    462.5,
+    5.0,
+    4.0
+   ],
+   "bbox_xyxy": [
+    712.5,
+    460.5,
+    717.5,
+    464.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    727.0,
+    462.75,
+    5.0,
+    6.5
+   ],
+   "bbox_xyxy": [
+    724.5,
+    459.5,
+    729.5,
+    466.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    797.5,
+    425.5,
+    8.0,
+    8.0
+   ],
+   "bbox_xyxy": [
+    793.5,
+    421.5,
+    801.5,
+    429.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    614.5,
+    510.25,
+    8.0,
+    8.5
+   ],
+   "bbox_xyxy": [
+    610.5,
+    506.0,
+    618.5,
+    514.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    589.5,
+    509.75,
+    7.0,
+    6.5
+   ],
+   "bbox_xyxy": [
+    586.0,
+    506.5,
+    593.0,
+    513.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    555.5,
+    510.75,
+    7.0,
+    6.5
+   ],
+   "bbox_xyxy": [
+    552.0,
+    507.5,
+    559.0,
+    514.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    555.0,
+    491.75,
+    21.0,
+    13.5
+   ],
+   "bbox_xyxy": [
+    544.5,
+    485.0,
+    565.5,
+    498.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    476.5,
+    512.25,
+    10.0,
+    7.5
+   ],
+   "bbox_xyxy": [
+    471.5,
+    508.5,
+    481.5,
+    516.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    557.25,
+    558.75,
+    6.5,
+    9.5
+   ],
+   "bbox_xyxy": [
+    554.0,
+    554.0,
+    560.5,
+    563.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    602.5,
+    558.0,
+    5.0,
+    5.0
+   ],
+   "bbox_xyxy": [
+    600.0,
+    555.5,
+    605.0,
+    560.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    613.75,
+    559.0,
+    6.5,
+    7.0
+   ],
+   "bbox_xyxy": [
+    610.5,
+    555.5,
+    617.0,
+    562.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    558.25,
+    642.25,
+    8.5,
+    8.5
+   ],
+   "bbox_xyxy": [
+    554.0,
+    638.0,
+    562.5,
+    646.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    479.0,
+    642.75,
+    8.0,
+    8.5
+   ],
+   "bbox_xyxy": [
+    475.0,
+    638.5,
+    483.0,
+    647.0
+   ]
+  },
+  {
+   "cghd_class": "diode",
+   "class": "Diode",
+   "bbox": [
+    553.5,
+    414.5,
+    24.0,
+    21.0
+   ],
+   "bbox_xyxy": [
+    541.5,
+    404.0,
+    565.5,
+    425.0
+   ]
+  },
+  {
+   "cghd_class": "diode",
+   "class": "Diode",
+   "bbox": [
+    477.75,
+    397.75,
+    20.5,
+    15.5
+   ],
+   "bbox_xyxy": [
+    467.5,
+    390.0,
+    488.0,
+    405.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    522.0,
+    305.0,
+    17.0,
+    16.0
+   ],
+   "bbox_xyxy": [
+    513.5,
+    297.0,
+    530.5,
+    313.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    561.0,
+    697.75,
+    8.0,
+    8.5
+   ],
+   "bbox_xyxy": [
+    557.0,
+    693.5,
+    565.0,
+    702.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    434.5,
+    699.25,
+    8.0,
+    5.5
+   ],
+   "bbox_xyxy": [
+    430.5,
+    696.5,
+    438.5,
+    702.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    431.75,
+    644.25,
+    6.5,
+    8.5
+   ],
+   "bbox_xyxy": [
+    428.5,
+    640.0,
+    435.0,
+    648.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    424.25,
+    739.0,
+    35.5,
+    49.0
+   ],
+   "bbox_xyxy": [
+    406.5,
+    714.5,
+    442.0,
+    763.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    481.25,
+    822.75,
+    20.5,
+    14.5
+   ],
+   "bbox_xyxy": [
+    471.0,
+    815.5,
+    491.5,
+    830.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    520.0,
+    821.0,
+    22.0,
+    14.0
+   ],
+   "bbox_xyxy": [
+    509.0,
+    814.0,
+    531.0,
+    828.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.polarized",
+   "class": "Capacitor",
+   "bbox": [
+    479.0,
+    848.0,
+    27.0,
+    23.0
+   ],
+   "bbox_xyxy": [
+    465.5,
+    836.5,
+    492.5,
+    859.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.polarized",
+   "class": "Capacitor",
+   "bbox": [
+    839.0,
+    842.0,
+    30.0,
+    25.0
+   ],
+   "bbox_xyxy": [
+    824.0,
+    829.5,
+    854.0,
+    854.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    838.5,
+    815.25,
+    18.0,
+    15.5
+   ],
+   "bbox_xyxy": [
+    829.5,
+    807.5,
+    847.5,
+    823.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    907.5,
+    817.25,
+    19.0,
+    14.5
+   ],
+   "bbox_xyxy": [
+    898.0,
+    810.0,
+    917.0,
+    824.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    560.25,
+    772.0,
+    20.5,
+    16.0
+   ],
+   "bbox_xyxy": [
+    550.0,
+    764.0,
+    570.5,
+    780.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    443.5,
+    508.25,
+    20.0,
+    13.5
+   ],
+   "bbox_xyxy": [
+    433.5,
+    501.5,
+    453.5,
+    515.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    417.5,
+    510.75,
+    27.0,
+    48.5
+   ],
+   "bbox_xyxy": [
+    404.0,
+    486.5,
+    431.0,
+    535.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    423.75,
+    414.25,
+    6.5,
+    7.5
+   ],
+   "bbox_xyxy": [
+    420.5,
+    410.5,
+    427.0,
+    418.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    365.0,
+    514.0,
+    9.0,
+    7.0
+   ],
+   "bbox_xyxy": [
+    360.5,
+    510.5,
+    369.5,
+    517.5
+   ]
+  },
+  {
+   "cghd_class": "resistor.adjustable",
+   "class": "Resistor",
+   "bbox": [
+    366.0,
+    545.75,
+    14.0,
+    33.5
+   ],
+   "bbox_xyxy": [
+    359.0,
+    529.0,
+    373.0,
+    562.5
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    218.75,
+    701.0,
+    24.5,
+    15.0
+   ],
+   "bbox_xyxy": [
+    206.5,
+    693.5,
+    231.0,
+    708.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    274.25,
+    461.5,
+    12.5,
+    27.0
+   ],
+   "bbox_xyxy": [
+    268.0,
+    448.0,
+    280.5,
+    475.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    277.75,
+    580.0,
+    12.5,
+    28.0
+   ],
+   "bbox_xyxy": [
+    271.5,
+    566.0,
+    284.0,
+    594.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    275.25,
+    516.5,
+    9.5,
+    8.0
+   ],
+   "bbox_xyxy": [
+    270.5,
+    512.5,
+    280.0,
+    520.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    230.5,
+    471.0,
+    7.0,
+    6.0
+   ],
+   "bbox_xyxy": [
+    227.0,
+    468.0,
+    234.0,
+    474.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    213.5,
+    472.5,
+    8.0,
+    9.0
+   ],
+   "bbox_xyxy": [
+    209.5,
+    468.0,
+    217.5,
+    477.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    243.0,
+    517.25,
+    7.0,
+    7.5
+   ],
+   "bbox_xyxy": [
+    239.5,
+    513.5,
+    246.5,
+    521.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    231.5,
+    516.75,
+    7.0,
+    7.5
+   ],
+   "bbox_xyxy": [
+    228.0,
+    513.0,
+    235.0,
+    520.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    75.75,
+    519.5,
+    27.5,
+    12.0
+   ],
+   "bbox_xyxy": [
+    62.0,
+    513.5,
+    89.5,
+    525.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    107.0,
+    541.75,
+    23.0,
+    15.5
+   ],
+   "bbox_xyxy": [
+    95.5,
+    534.0,
+    118.5,
+    549.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    46.5,
+    577.5,
+    17.0,
+    13.0
+   ],
+   "bbox_xyxy": [
+    38.0,
+    571.0,
+    55.0,
+    584.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    106.5,
+    573.25,
+    19.0,
+    13.5
+   ],
+   "bbox_xyxy": [
+    97.0,
+    566.5,
+    116.0,
+    580.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    161.0,
+    632.0,
+    25.0,
+    40.0
+   ],
+   "bbox_xyxy": [
+    148.5,
+    612.0,
+    173.5,
+    652.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    200.75,
+    631.75,
+    23.5,
+    41.5
+   ],
+   "bbox_xyxy": [
+    189.0,
+    611.0,
+    212.5,
+    652.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    217.75,
+    807.0,
+    17.5,
+    14.0
+   ],
+   "bbox_xyxy": [
+    209.0,
+    800.0,
+    226.5,
+    814.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    246.5,
+    684.75,
+    11.0,
+    32.5
+   ],
+   "bbox_xyxy": [
+    241.0,
+    668.5,
+    252.0,
+    701.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    217.25,
+    684.0,
+    15.5,
+    13.0
+   ],
+   "bbox_xyxy": [
+    209.5,
+    677.5,
+    225.0,
+    690.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    198.75,
+    401.0,
+    22.5,
+    39.0
+   ],
+   "bbox_xyxy": [
+    187.5,
+    381.5,
+    210.0,
+    420.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    212.5,
+    432.75,
+    12.0,
+    29.5
+   ],
+   "bbox_xyxy": [
+    206.5,
+    418.0,
+    218.5,
+    447.5
+   ]
+  },
+  {
+   "cghd_class": "diode.zener",
+   "class": "Zener Diode",
+   "bbox": [
+    211.5,
+    336.0,
+    21.0,
+    17.0
+   ],
+   "bbox_xyxy": [
+    201.0,
+    327.5,
+    222.0,
+    344.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    167.25,
+    293.75,
+    25.5,
+    31.5
+   ],
+   "bbox_xyxy": [
+    154.5,
+    278.0,
+    180.0,
+    309.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    154.5,
+    239.75,
+    12.0,
+    28.5
+   ],
+   "bbox_xyxy": [
+    148.5,
+    225.5,
+    160.5,
+    254.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.bjt",
+   "class": "COARSE:bjt",
+   "bbox": [
+    352.25,
+    241.75,
+    27.5,
+    38.5
+   ],
+   "bbox_xyxy": [
+    338.5,
+    222.5,
+    366.0,
+    261.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    194.0,
+    293.25,
+    8.0,
+    8.5
+   ],
+   "bbox_xyxy": [
+    190.0,
+    289.0,
+    198.0,
+    297.5
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    192.5,
+    269.0,
+    7.0,
+    6.0
+   ],
+   "bbox_xyxy": [
+    189.0,
+    266.0,
+    196.0,
+    272.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    348.5,
+    306.75,
+    8.0,
+    7.5
+   ],
+   "bbox_xyxy": [
+    344.5,
+    303.0,
+    352.5,
+    310.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    212.25,
+    358.5,
+    13.5,
+    10.0
+   ],
+   "bbox_xyxy": [
+    205.5,
+    353.5,
+    219.0,
+    363.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    250.5,
+    345.0,
+    14.0,
+    14.0
+   ],
+   "bbox_xyxy": [
+    243.5,
+    338.0,
+    257.5,
+    352.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    268.75,
+    342.75,
+    12.5,
+    12.5
+   ],
+   "bbox_xyxy": [
+    262.5,
+    336.5,
+    275.0,
+    349.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    250.75,
+    318.5,
+    19.5,
+    15.0
+   ],
+   "bbox_xyxy": [
+    241.0,
+    311.0,
+    260.5,
+    326.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.polarized",
+   "class": "Capacitor",
+   "bbox": [
+    275.0,
+    313.75,
+    25.0,
+    23.5
+   ],
+   "bbox_xyxy": [
+    262.5,
+    302.0,
+    287.5,
+    325.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    229.0,
+    349.25,
+    12.0,
+    25.5
+   ],
+   "bbox_xyxy": [
+    223.0,
+    336.5,
+    235.0,
+    362.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    415.5,
+    210.25,
+    13.0,
+    27.5
+   ],
+   "bbox_xyxy": [
+    409.0,
+    196.5,
+    422.0,
+    224.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.polarized",
+   "class": "Capacitor",
+   "bbox": [
+    468.0,
+    212.5,
+    23.0,
+    30.0
+   ],
+   "bbox_xyxy": [
+    456.5,
+    197.5,
+    479.5,
+    227.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    494.0,
+    215.5,
+    22.0,
+    26.0
+   ],
+   "bbox_xyxy": [
+    483.0,
+    202.5,
+    505.0,
+    228.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    362.0,
+    719.25,
+    25.0,
+    16.5
+   ],
+   "bbox_xyxy": [
+    349.5,
+    711.0,
+    374.5,
+    727.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    527.25,
+    490.0,
+    15.5,
+    25.0
+   ],
+   "bbox_xyxy": [
+    519.5,
+    477.5,
+    535.0,
+    502.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    217.75,
+    602.75,
+    9.5,
+    23.5
+   ],
+   "bbox_xyxy": [
+    213.0,
+    591.0,
+    222.5,
+    614.5
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    195.0,
+    822.25,
+    16.0,
+    29.5
+   ],
+   "bbox_xyxy": [
+    187.0,
+    807.5,
+    203.0,
+    837.0
+   ]
+  }
+ ]
+}

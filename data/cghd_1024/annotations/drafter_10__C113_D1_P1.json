@@ -1,0 +1,61 @@
+{
+ "schema_version": 1,
+ "image": "drafter_10__C113_D1_P1.jpg",
+ "source": "cghd_v12_voc",
+ "source_path": "data/cghd/extracted/drafter_10/images/C113_D1_P1.jpg",
+ "drafter": 10,
+ "drawing_group": "drafter_10__C113_D1",
+ "picture": 1,
+ "pool": "detection",
+ "bbox_frame": "cghd_1024",
+ "components": [
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    735.528537681497,
+    519.3778190554685,
+    136.2385136316242,
+    56.66896182839349
+   ],
+   "bbox_xyxy": [
+    667.4092808656849,
+    491.0433381412718,
+    803.6477944973091,
+    547.7122999696653
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    527.6348257220006,
+    344.5117309366751,
+    167.84202333493965,
+    55.72129124856923
+   ],
+   "bbox_xyxy": [
+    443.71381405453076,
+    316.6510853123905,
+    611.5558373894704,
+    372.3723765609597
+   ]
+  },
+  {
+   "cghd_class": "voltage.battery",
+   "class": "V-DC",
+   "bbox": [
+    227.9666081981968,
+    491.4815271066218,
+    120.9505875071923,
+    65.97526080677835
+   ],
+   "bbox_xyxy": [
+    167.49131444460065,
+    458.4938967032326,
+    288.44190195179294,
+    524.469157510011
+   ]
+  }
+ ]
+}

@@ -1,0 +1,141 @@
+# CGHD (53 classes) -> Digitize-HCD pipeline vocabulary (17 classes)
+#
+# Task B2. Every CGHD class maps to exactly one of:
+#   <a pipeline class>   scoreable directly
+#   COARSE:<group>       scoreable only after collapsing pipeline classes
+#   NOT_A_COMPONENT      structural annotation; the pipeline handles it, but
+#                        never as a component with terminals
+#   OUT_OF_VOCABULARY    no counterpart; a circuit containing one is excluded
+#   AMBIGUOUS            could map several ways; treated as OUT_OF_VOCABULARY
+#                        for exclusion, but counted separately so the cost of
+#                        the ambiguity is visible
+#
+# ---------------------------------------------------------------------------
+# THE FINDING THAT SHAPES THIS FILE
+#
+# CGHD does not annotate transistor polarity. Its labels are `transistor.bjt`
+# and `transistor.fet` with no NPN/PNP or n-/p-channel distinction, and the
+# Pascal VOC XML carries no sub-attribute -- verified by reading the raw
+# annotations, not assumed from the class list.
+#
+# The pipeline predicts BJT-NPN, BJT-PNP, MOSFET-N, MOSFET-P as four separate
+# classes. So a strict 17-class comparison is IMPOSSIBLE for transistors on
+# this corpus, through no fault of either side.
+#
+# Resolution: score transistors at COARSE granularity, collapsing the
+# pipeline's four classes into two (`bjt`, `fet`) on both sides of the
+# comparison. This measures localisation and coarse classification honestly and
+# says nothing about polarity. The manuscript must state that cross-corpus
+# detection transfer does not evaluate transistor polarity, and that the
+# polarity result stands on Digitize-HCD alone.
+# ---------------------------------------------------------------------------
+
+schema_version: 1
+cghd_version: 12
+pipeline_classes: 17
+cghd_classes: 53
+
+# Pipeline classes collapsed for coarse scoring. Applied to BOTH sides.
+coarse_groups:
+  bjt: [BJT-NPN, BJT-PNP]
+  fet: [MOSFET-N, MOSFET-P]
+
+mapping:
+
+  # ---- structural annotation, not components ------------------------------
+  __background__: {to: NOT_A_COMPONENT, why: "background class of the label set"}
+  text:      {to: NOT_A_COMPONENT, why: "handwritten labels; the pipeline suppresses text ink before tracing rather than detecting it as a component"}
+  junction:  {to: NOT_A_COMPONENT, why: "the pipeline decides junctions structurally from the conductor graph; it does not consume a junction detection"}
+  terminal:  {to: NOT_A_COMPONENT, why: "terminal markers; the pipeline derives terminals from component boxes plus boundary crossings"}
+  probe.current: {to: NOT_A_COMPONENT, why: "measurement annotation, not an element of the circuit"}
+  probe.voltage: {to: NOT_A_COMPONENT, why: "measurement annotation, not an element of the circuit"}
+
+  # ---- direct one-to-one --------------------------------------------------
+  crossover: {to: Wire Crossover, why: "same concept: the drawn hop marking a non-connection"}
+  gnd:       {to: GND, why: "direct equivalent; the net it touches is named 0 on both sides"}
+  resistor:  {to: Resistor, why: "direct equivalent"}
+  capacitor.unpolarized: {to: Capacitor, why: "direct equivalent; symmetric on both sides"}
+  inductor:  {to: Inductor, why: "direct equivalent"}
+  diode:     {to: Diode, why: "direct equivalent"}
+  diode.zener: {to: Zener Diode, why: "direct equivalent"}
+  voltage.dc: {to: V-DC, why: "direct equivalent"}
+  voltage.ac: {to: V-AC, why: "direct equivalent"}
+  operational_amplifier: {to: Op-Amp, why: "direct equivalent"}
+
+  # ---- defensible many-to-one --------------------------------------------
+  voltage.battery:
+    {to: V-DC, why: "a battery is a DC source; the pipeline has no separate battery symbol and would emit the same SPICE card"}
+  diode.light_emitting:
+    {to: Diode, why: "electrically a diode and emitted as one; the pipeline has no LED class. Loses the emission property, which no metric here scores"}
+  resistor.photo:
+    {to: Resistor, why: "an LDR is a two-terminal resistance; the pipeline emits a resistor card"}
+  operational_amplifier.schmitt_trigger:
+    {to: Op-Amp, why: "drawn as an op-amp with hysteresis annotation; three terminals, same card"}
+
+  # ---- coarse: polarity not annotated by CGHD -----------------------------
+  transistor.bjt:
+    {to: "COARSE:bjt", why: "CGHD does not annotate NPN vs PNP and the XML has no sub-attribute. Scoreable only against the pipeline's BJT-NPN and BJT-PNP collapsed together"}
+  transistor.fet:
+    {to: "COARSE:fet", why: "CGHD does not annotate n- vs p-channel. Scoreable only against MOSFET-N and MOSFET-P collapsed together"}
+
+  # ---- ambiguous: could map several ways ----------------------------------
+  vss:
+    {to: AMBIGUOUS, why: "a supply-rail reference, not earth. Mapping it to GND would force it onto net 0 and silently merge the supply rail with ground, changing the circuit. The 17-class vocabulary has no separate rail reference"}
+  resistor.adjustable:
+    {to: AMBIGUOUS, detection_ok: Resistor,
+     why: "a rheostat is two-terminal and maps to Resistor; a potentiometer is three-terminal and has no counterpart. CGHD does not distinguish them, so TERMINAL COUNT is undetermined -- which blocks netlist scoring but not detection, where only the box and coarse class are judged"}
+  capacitor.polarized:
+    {to: AMBIGUOUS, detection_ok: Capacitor,
+     why: "electrically a Capacitor, but POLARISED -- terminal order is physical. The pipeline's Capacitor is declared symmetric in spec/pin_symmetry.yaml, so mapping it there would forgive a reversal that matters. Blocks netlist scoring; does NOT block detection, where the box and class are determinate. It is by far the largest single exclusion driver (1,991 occurrences), so the distinction is worth drawing"}
+  unknown:
+    {to: AMBIGUOUS, why: "the dataset's own escape hatch; contents unknown by construction"}
+
+  # ---- classes present in the ANNOTATIONS but absent from classes.json -----
+  # Found by parsing the XML rather than trusting the shipped class table:
+  # six labels are in use that classes.json does not list. Recorded as a
+  # documented-versus-actual discrepancy in reports/cghd_inventory.md.
+  capacitor.adjustable:
+    {to: Capacitor, why: "a trimmer/variable capacitor is two-terminal and electrically a capacitor; unlike resistor.adjustable there is no three-terminal variant, so the terminal count is determined"}
+  inductor.ferrite:
+    {to: Inductor, why: "a ferrite-core inductor is two-terminal and emits the same card; the core material is not modelled"}
+  probe:
+    {to: NOT_A_COMPONENT, why: "measurement annotation, consistent with probe.current and probe.voltage"}
+  magnetic: {to: OUT_OF_VOCABULARY, why: "magnetic element; no counterpart"}
+  optical: {to: OUT_OF_VOCABULARY, why: "optical element; no counterpart"}
+  mechanical: {to: OUT_OF_VOCABULARY, why: "mechanical element; no counterpart"}
+
+  # ---- out of vocabulary ---------------------------------------------------
+  transformer: {to: OUT_OF_VOCABULARY, why: "four terminals with magnetic coupling; no counterpart and no SPICE card the pipeline can emit"}
+  diode.thyrector: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  diac: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  triac: {to: OUT_OF_VOCABULARY, why: "three-terminal thyristor; no counterpart"}
+  thyristor: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  varistor: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  transistor.photo: {to: OUT_OF_VOCABULARY, why: "phototransistor; no counterpart"}
+  optocoupler: {to: OUT_OF_VOCABULARY, why: "four-terminal composite; no counterpart"}
+  integrated_circuit: {to: OUT_OF_VOCABULARY, why: "arbitrary pin count; no counterpart"}
+  integrated_circuit.ne555: {to: OUT_OF_VOCABULARY, why: "eight-pin IC; no counterpart"}
+  integrated_circuit.voltage_regulator: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  xor: {to: OUT_OF_VOCABULARY, why: "logic gate; the pipeline is analog-only"}
+  and: {to: OUT_OF_VOCABULARY, why: "logic gate; the pipeline is analog-only"}
+  or: {to: OUT_OF_VOCABULARY, why: "logic gate; the pipeline is analog-only"}
+  not: {to: OUT_OF_VOCABULARY, why: "logic gate; the pipeline is analog-only"}
+  nand: {to: OUT_OF_VOCABULARY, why: "logic gate; the pipeline is analog-only"}
+  nor: {to: OUT_OF_VOCABULARY, why: "logic gate; the pipeline is analog-only"}
+  switch: {to: OUT_OF_VOCABULARY, why: "state-dependent; no counterpart"}
+  relay: {to: OUT_OF_VOCABULARY, why: "composite; no counterpart"}
+  socket: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  fuse: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  speaker: {to: OUT_OF_VOCABULARY, why: "transducer; no counterpart"}
+  motor: {to: OUT_OF_VOCABULARY, why: "transducer; no counterpart"}
+  lamp: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  microphone: {to: OUT_OF_VOCABULARY, why: "transducer; no counterpart"}
+  antenna: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+  crystal: {to: OUT_OF_VOCABULARY, why: "no counterpart"}
+
+# Pipeline classes with no CGHD counterpart. They simply never appear in a
+# CGHD comparison; this is recorded so their absence is not read as a failure.
+pipeline_classes_absent_from_cghd:
+  - {name: I-DC, why: "CGHD has no current-source class"}
+  - {name: I-AC, why: "CGHD has no current-source class"}
+  - {name: V-DC (one port), why: "CGHD draws supply rails as vss, mapped AMBIGUOUS above"}

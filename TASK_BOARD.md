@@ -14,10 +14,10 @@ Annotations accepted so far: **0**
 | A3 | Statistics utilities | DONE |  |  |
 | A4 | Bibliography and template scrub *(needs review)* | READY |  |  |
 | B1 | Acquire and inventory CGHD | DONE |  |  |
-| B2 | Class taxonomy mapping *(needs review)* | READY |  |  |
-| B3 | Format adapter | READY |  |  |
+| B2 | Class taxonomy mapping *(needs review)* | AWAITING_REVIEW |  |  |
+| B3 | Format adapter | DONE |  |  |
 | B4 | Imaging characterization of both corpora | READY |  |  |
-| B5 | Detection transfer, scored immediately | READY |  |  |
+| B5 | Detection transfer, scored immediately | DONE |  |  |
 | B6 | Netlist prediction over the evaluable pool | READY |  |  |
 | B7 | Capture invariance experiment | READY |  |  |
 | B8 | Annotation sampling design *(needs review)* | READY |  |  |
@@ -44,7 +44,7 @@ Annotations accepted so far: **0**
 
 ## Counts
 
-- AWAITING_REVIEW: 1
+- AWAITING_REVIEW: 2
 - BLOCKED: 7
-- DONE: 5
-- READY: 20
+- DONE: 7
+- READY: 17

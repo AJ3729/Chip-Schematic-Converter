@@ -1,0 +1,45 @@
+{
+ "schema_version": 1,
+ "image": "drafter_14__C167_D1_P4.jpg",
+ "source": "cghd_v12_voc",
+ "source_path": "data/cghd/extracted/drafter_14/images/C167_D1_P4.jpg",
+ "drafter": 14,
+ "drawing_group": "drafter_14__C167_D1",
+ "picture": 4,
+ "pool": "detection",
+ "bbox_frame": "cghd_1024",
+ "components": [
+  {
+   "cghd_class": "voltage.battery",
+   "class": "V-DC",
+   "bbox": [
+    272.9372540445799,
+    440.0681446992649,
+    96.29745253691183,
+    87.18611118757929
+   ],
+   "bbox_xyxy": [
+    224.78852777612397,
+    396.47508910547526,
+    321.0859803130358,
+    483.66120029305455
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    477.60992280934374,
+    407.3798985077656,
+    59.951578797993704,
+    74.83343633523691
+   ],
+   "bbox_xyxy": [
+    447.63413341034686,
+    369.9631803401471,
+    507.58571220834057,
+    444.79661667538403
+   ]
+  }
+ ]
+}

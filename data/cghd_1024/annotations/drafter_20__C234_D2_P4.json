@@ -1,0 +1,573 @@
+{
+ "schema_version": 1,
+ "image": "drafter_20__C234_D2_P4.jpg",
+ "source": "cghd_v12_voc",
+ "source_path": "data/cghd/extracted/drafter_20/images/C234_D2_P4.jpeg",
+ "drafter": 20,
+ "drawing_group": "drafter_20__C234_D2",
+ "picture": 4,
+ "pool": "detection",
+ "bbox_frame": "cghd_1024",
+ "components": [
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    79.5,
+    729.0,
+    41.0,
+    35.0
+   ],
+   "bbox_xyxy": [
+    59.0,
+    711.5,
+    100.0,
+    746.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    794.75,
+    763.5,
+    50.5,
+    30.0
+   ],
+   "bbox_xyxy": [
+    769.5,
+    748.5,
+    820.0,
+    778.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    179.25,
+    663.0,
+    58.5,
+    54.0
+   ],
+   "bbox_xyxy": [
+    150.0,
+    636.0,
+    208.5,
+    690.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    191.0,
+    736.0,
+    44.0,
+    36.0
+   ],
+   "bbox_xyxy": [
+    169.0,
+    718.0,
+    213.0,
+    754.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    568.75,
+    685.25,
+    46.5,
+    30.5
+   ],
+   "bbox_xyxy": [
+    545.5,
+    670.0,
+    592.0,
+    700.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    937.5,
+    389.25,
+    65.0,
+    26.5
+   ],
+   "bbox_xyxy": [
+    905.0,
+    376.0,
+    970.0,
+    402.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    941.25,
+    451.5,
+    50.5,
+    30.0
+   ],
+   "bbox_xyxy": [
+    916.0,
+    436.5,
+    966.5,
+    466.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    552.75,
+    617.75,
+    54.5,
+    64.5
+   ],
+   "bbox_xyxy": [
+    525.5,
+    585.5,
+    580.0,
+    650.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    899.25,
+    765.0,
+    57.5,
+    33.0
+   ],
+   "bbox_xyxy": [
+    870.5,
+    748.5,
+    928.0,
+    781.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    853.5,
+    440.5,
+    19.0,
+    42.0
+   ],
+   "bbox_xyxy": [
+    844.0,
+    419.5,
+    863.0,
+    461.5
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    51.0,
+    518.0,
+    39.0,
+    27.0
+   ],
+   "bbox_xyxy": [
+    31.5,
+    504.5,
+    70.5,
+    531.5
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    51.0,
+    469.25,
+    47.0,
+    27.5
+   ],
+   "bbox_xyxy": [
+    27.5,
+    455.5,
+    74.5,
+    483.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    122.0,
+    278.5,
+    24.0,
+    47.0
+   ],
+   "bbox_xyxy": [
+    110.0,
+    255.0,
+    134.0,
+    302.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    853.0,
+    272.0,
+    21.0,
+    42.0
+   ],
+   "bbox_xyxy": [
+    842.5,
+    251.0,
+    863.5,
+    293.0
+   ]
+  },
+  {
+   "cghd_class": "gnd",
+   "class": "GND",
+   "bbox": [
+    415.25,
+    696.0,
+    40.5,
+    32.0
+   ],
+   "bbox_xyxy": [
+    395.0,
+    680.0,
+    435.5,
+    712.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    704.75,
+    405.0,
+    44.5,
+    49.0
+   ],
+   "bbox_xyxy": [
+    682.5,
+    380.5,
+    727.0,
+    429.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    771.0,
+    547.75,
+    50.0,
+    53.5
+   ],
+   "bbox_xyxy": [
+    746.0,
+    521.0,
+    796.0,
+    574.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    89.75,
+    666.5,
+    45.5,
+    63.0
+   ],
+   "bbox_xyxy": [
+    67.0,
+    635.0,
+    112.5,
+    698.0
+   ]
+  },
+  {
+   "cghd_class": "capacitor.unpolarized",
+   "class": "Capacitor",
+   "bbox": [
+    109.0,
+    507.5,
+    24.0,
+    40.0
+   ],
+   "bbox_xyxy": [
+    97.0,
+    487.5,
+    121.0,
+    527.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    694.75,
+    320.75,
+    46.5,
+    44.5
+   ],
+   "bbox_xyxy": [
+    671.5,
+    298.5,
+    718.0,
+    343.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    288.0,
+    416.0,
+    50.0,
+    62.0
+   ],
+   "bbox_xyxy": [
+    263.0,
+    385.0,
+    313.0,
+    447.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    691.25,
+    217.75,
+    45.5,
+    46.5
+   ],
+   "bbox_xyxy": [
+    668.5,
+    194.5,
+    714.0,
+    241.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    93.25,
+    221.0,
+    45.5,
+    54.0
+   ],
+   "bbox_xyxy": [
+    70.5,
+    194.0,
+    116.0,
+    248.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    398.25,
+    444.25,
+    41.5,
+    51.5
+   ],
+   "bbox_xyxy": [
+    377.5,
+    418.5,
+    419.0,
+    470.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    285.75,
+    323.75,
+    49.5,
+    59.5
+   ],
+   "bbox_xyxy": [
+    261.0,
+    294.0,
+    310.5,
+    353.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    288.0,
+    210.25,
+    46.0,
+    50.5
+   ],
+   "bbox_xyxy": [
+    265.0,
+    185.0,
+    311.0,
+    235.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    871.25,
+    208.25,
+    50.5,
+    43.5
+   ],
+   "bbox_xyxy": [
+    846.0,
+    186.5,
+    896.5,
+    230.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    483.25,
+    277.25,
+    48.5,
+    52.5
+   ],
+   "bbox_xyxy": [
+    459.0,
+    251.0,
+    507.5,
+    303.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    555.5,
+    437.5,
+    43.0,
+    44.0
+   ],
+   "bbox_xyxy": [
+    534.0,
+    415.5,
+    577.0,
+    459.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    880.5,
+    694.5,
+    48.0,
+    60.0
+   ],
+   "bbox_xyxy": [
+    856.5,
+    664.5,
+    904.5,
+    724.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    805.25,
+    691.5,
+    40.5,
+    67.0
+   ],
+   "bbox_xyxy": [
+    785.0,
+    658.0,
+    825.5,
+    725.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    778.25,
+    281.0,
+    24.5,
+    21.0
+   ],
+   "bbox_xyxy": [
+    766.0,
+    270.5,
+    790.5,
+    291.5
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    425.75,
+    630.5,
+    34.5,
+    51.0
+   ],
+   "bbox_xyxy": [
+    408.5,
+    605.0,
+    443.0,
+    656.0
+   ]
+  },
+  {
+   "cghd_class": "crossover",
+   "class": "Wire Crossover",
+   "bbox": [
+    182.75,
+    272.0,
+    20.5,
+    18.0
+   ],
+   "bbox_xyxy": [
+    172.5,
+    263.0,
+    193.0,
+    281.0
+   ]
+  },
+  {
+   "cghd_class": "transistor.fet",
+   "class": "COARSE:fet",
+   "bbox": [
+    211.75,
+    573.0,
+    46.5,
+    48.0
+   ],
+   "bbox_xyxy": [
+    188.5,
+    549.0,
+    235.0,
+    597.0
+   ]
+  }
+ ]
+}

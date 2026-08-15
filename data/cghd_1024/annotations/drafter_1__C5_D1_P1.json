@@ -1,0 +1,61 @@
+{
+ "schema_version": 1,
+ "image": "drafter_1__C5_D1_P1.jpg",
+ "source": "cghd_v12_voc",
+ "source_path": "data/cghd/extracted/drafter_1/images/C5_D1_P1.jpg",
+ "drafter": 1,
+ "drawing_group": "drafter_1__C5_D1",
+ "picture": 1,
+ "pool": "detection",
+ "bbox_frame": "cghd_1024",
+ "components": [
+  {
+   "cghd_class": "voltage.dc",
+   "class": "V-DC",
+   "bbox": [
+    433.99999999999994,
+    722.0,
+    238.66666666666663,
+    230.66666666666663
+   ],
+   "bbox_xyxy": [
+    314.66666666666663,
+    606.6666666666666,
+    553.3333333333333,
+    837.3333333333333
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    415.3333333333333,
+    382.66666666666663,
+    145.33333333333337,
+    74.66666666666669
+   ],
+   "bbox_xyxy": [
+    342.66666666666663,
+    345.3333333333333,
+    488.0,
+    420.0
+   ]
+  },
+  {
+   "cghd_class": "resistor",
+   "class": "Resistor",
+   "bbox": [
+    634.0,
+    372.0,
+    121.33333333333337,
+    77.33333333333331
+   ],
+   "bbox_xyxy": [
+    573.3333333333333,
+    333.3333333333333,
+    694.6666666666666,
+    410.66666666666663
+   ]
+  }
+ ]
+}
