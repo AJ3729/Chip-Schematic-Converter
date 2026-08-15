@@ -1,0 +1,128 @@
+{
+ "_what": "Paired significance for the frontier-model comparison. Every system sees the same 192 drawings, so McNemar (exact binomial, conditioning on discordant pairs) and a paired bootstrap over circuits are the right tests.",
+ "n_circuits": 192,
+ "pipeline_strict_success": 0.53125,
+ "comparisons": {
+  "claude_A": {
+   "n_paired": 192,
+   "n_repeats_in_run": 1,
+   "vlm_strict_success": 0.125,
+   "pipeline_minus_vlm": 0.40625,
+   "paired_delta_ci95": [
+    0.328125,
+    0.484375
+   ],
+   "delta_ci_excludes_zero": true,
+   "mcnemar": {
+    "both": 18,
+    "pipeline_only": 84,
+    "vlm_only": 6,
+    "neither": 84,
+    "n_discordant": 90,
+    "p_exact": 1.081216606236162e-18
+   },
+   "sentence": "pipeline vs claude_A: 84 circuits only pipeline solves, 6 only claude_A, 18 both, 84 neither. exact McNemar p = 1.081e-18 -> distinguishable at alpha=0.05."
+  },
+  "gpt_A": {
+   "n_paired": 192,
+   "n_repeats_in_run": 1,
+   "vlm_strict_success": 0.125,
+   "pipeline_minus_vlm": 0.40625,
+   "paired_delta_ci95": [
+    0.3333333333333333,
+    0.4791666666666667
+   ],
+   "delta_ci_excludes_zero": true,
+   "mcnemar": {
+    "both": 21,
+    "pipeline_only": 81,
+    "vlm_only": 3,
+    "neither": 87,
+    "n_discordant": 84,
+    "p_exact": 1.0221367431741194e-20
+   },
+   "sentence": "pipeline vs gpt_A: 81 circuits only pipeline solves, 3 only gpt_A, 21 both, 87 neither. exact McNemar p = 1.022e-20 -> distinguishable at alpha=0.05."
+  },
+  "claude_B": {
+   "n_paired": 192,
+   "n_repeats_in_run": 3,
+   "vlm_strict_success": 0.5520833333333334,
+   "pipeline_minus_vlm": -0.020833333333333332,
+   "paired_delta_ci95": [
+    -0.09375,
+    0.052083333333333336
+   ],
+   "delta_ci_excludes_zero": false,
+   "mcnemar": {
+    "both": 79,
+    "pipeline_only": 23,
+    "vlm_only": 27,
+    "neither": 63,
+    "n_discordant": 50,
+    "p_exact": 0.6718110337653656
+   },
+   "sentence": "pipeline vs claude_B: 23 circuits only pipeline solves, 27 only claude_B, 79 both, 63 neither. exact McNemar p = 0.6718 -> NOT distinguishable at alpha=0.05."
+  },
+  "gpt_B": {
+   "n_paired": 192,
+   "n_repeats_in_run": 1,
+   "vlm_strict_success": 0.6822916666666666,
+   "pipeline_minus_vlm": -0.15104166666666666,
+   "paired_delta_ci95": [
+    -0.21875,
+    -0.08333333333333333
+   ],
+   "delta_ci_excludes_zero": true,
+   "mcnemar": {
+    "both": 91,
+    "pipeline_only": 11,
+    "vlm_only": 40,
+    "neither": 50,
+    "n_discordant": 51,
+    "p_exact": 5.703811637403078e-05
+   },
+   "sentence": "pipeline vs gpt_B: 11 circuits only pipeline solves, 40 only gpt_B, 91 both, 50 neither. exact McNemar p = 5.704e-05 -> distinguishable at alpha=0.05."
+  }
+ },
+ "pipeline_strict_success_ci95": [
+  0.4583333333333333,
+  0.5989583333333334
+ ],
+ "holm_family": [
+  {
+   "comparison": "gpt_A",
+   "p_raw": 1.0221367431741194e-20,
+   "p_adjusted": 4.0885469726964775e-20,
+   "significant_after_correction": true
+  },
+  {
+   "comparison": "claude_A",
+   "p_raw": 1.081216606236162e-18,
+   "p_adjusted": 3.243649818708486e-18,
+   "significant_after_correction": true
+  },
+  {
+   "comparison": "gpt_B",
+   "p_raw": 5.703811637403078e-05,
+   "p_adjusted": 0.00011407623274806156,
+   "significant_after_correction": true
+  },
+  {
+   "comparison": "claude_B",
+   "p_raw": 0.6718110337653656,
+   "p_adjusted": 0.6718110337653656,
+   "significant_after_correction": false
+  }
+ ],
+ "the_assisted_frontier_question": {
+  "question": "Is the assisted frontier result (Claude, variant B, 0.5295 +/- 0.0167) distinguishable from the pipeline (0.5312, seed 0)?",
+  "mcnemar_p_exact": 0.6718110337653656,
+  "holm_adjusted_p": 0.6718110337653656,
+  "paired_delta": -0.020833333333333332,
+  "paired_delta_ci95": [
+   -0.09375,
+   0.052083333333333336
+  ],
+  "answer": "NO -- not distinguishable. The paired difference is -0.0208 with 95% CI [-0.0938, +0.0521], which contains zero, and exact McNemar gives p = 0.672. The manuscript must not describe either system as ahead of the other on the assisted task."
+ }
+}
