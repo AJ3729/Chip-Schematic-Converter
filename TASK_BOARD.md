@@ -9,7 +9,7 @@ Annotations accepted so far: **0**
 | ID | Title | State | Prerequisite (if blocked) | Commit |
 | --- | --- | --- | --- | --- |
 | A0 | Board and sync infrastructure | DONE |  |  |
-| A1 | Repository and artifact inventory | READY |  |  |
+| A1 | Repository and artifact inventory | DONE |  |  |
 | A2 | Reproduce and freeze | DONE |  |  |
 | A3 | Statistics utilities | DONE |  |  |
 | A4 | Bibliography and template scrub *(needs review)* | READY |  |  |
@@ -46,5 +46,5 @@ Annotations accepted so far: **0**
 
 - AWAITING_REVIEW: 1
 - BLOCKED: 7
-- DONE: 3
-- READY: 22
+- DONE: 4
+- READY: 21
