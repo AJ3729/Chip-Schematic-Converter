@@ -13,7 +13,7 @@ Annotations accepted so far: **0**
 | A2 | Reproduce and freeze | DONE |  |  |
 | A3 | Statistics utilities | DONE |  |  |
 | A4 | Bibliography and template scrub *(needs review)* | READY |  |  |
-| B1 | Acquire and inventory CGHD | READY |  |  |
+| B1 | Acquire and inventory CGHD | DONE |  |  |
 | B2 | Class taxonomy mapping *(needs review)* | READY |  |  |
 | B3 | Format adapter | READY |  |  |
 | B4 | Imaging characterization of both corpora | READY |  |  |
@@ -46,5 +46,5 @@ Annotations accepted so far: **0**
 
 - AWAITING_REVIEW: 1
 - BLOCKED: 7
-- DONE: 4
-- READY: 21
+- DONE: 5
+- READY: 20
