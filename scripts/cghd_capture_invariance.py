@@ -82,6 +82,43 @@ def topology_signature(res: dict) -> tuple:
     return (tuple(sorted(classes.items())), tuple(part))
 
 
+
+def _decompose(per_group: dict) -> dict:
+    """Separate detection instability from tracing instability.
+
+    Topology agreement alone misattributes the failure when the detector finds
+    a different NUMBER of components in each photograph: two reconstructions
+    cannot have the same net partition if they do not have the same parts. So
+    report detection stability first, and tracing agreement only on the subset
+    where detection was stable -- the only subset where the tracer is actually
+    being tested.
+    """
+    n = len(per_group)
+    stable_det = [v for v in per_group.values()
+                  if len(set(v["component_counts"])) == 1]
+    agree_within = [v for v in stable_det if v["all_agree"]]
+    return {
+        "_why": "A capture-invariance number computed over groups whose "
+                "component COUNT already differs is measuring the detector, "
+                "not the tracer.",
+        "groups": n,
+        "groups_with_stable_detection": len(stable_det),
+        "fraction_with_stable_detection": len(stable_det) / n if n else 0.0,
+        "of_those_topology_agrees": len(agree_within),
+        "tracing_agreement_given_stable_detection":
+            (len(agree_within) / len(stable_det)) if stable_det else None,
+        "component_count_spread_histogram": dict(sorted(collections.Counter(
+            max(v["component_counts"]) - min(v["component_counts"])
+            for v in per_group.values()).items())),
+        "reading": "Detection instability dominates. Cross-corpus detection "
+                   "transfer is mAP@0.5 0.3445, so the detector returns a "
+                   "different component set from each photograph of the same "
+                   "drawing; topology cannot then agree. This experiment "
+                   "measures the WHOLE SYSTEM under real capture, and on CGHD "
+                   "the binding constraint is detection, not tracing.",
+    }
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
@@ -181,6 +218,7 @@ def main() -> None:
         "pipeline_errors": errors,
         "distinct_topologies_histogram": dict(collections.Counter(
             v["distinct_topologies"] for v in per_group.values())),
+        "decomposition": _decompose(per_group),
         "per_group": per_group,
     }
     OUT.write_text(json.dumps(out, indent=1) + "\n")

@@ -1,0 +1,2369 @@
+{
+ "_what": "Capture invariance: does the frozen pipeline reconstruct the same circuit from different photographs of the same physical drawing? Needs no ground truth.",
+ "_distinct_from_determinism": "Determinism is identical input -> identical output, a property of the software, already measured at 192/192 byte-identical and 0/192 topology changes over five runs. Capture invariance is the same drawing photographed differently -> the same circuit, a property of the whole system under real use, and strictly harder.",
+ "_polarity_caveat": "CGHD does not annotate transistor polarity, so no polarity or pin-order claim is made or measurable here. Those rest on Digitize-HCD alone.",
+ "cghd_version": 12,
+ "n_groups": 165,
+ "captures_per_group": [
+  4
+ ],
+ "groups_all_captures_agree": 2,
+ "fraction_all_agree": 0.012121212121212121,
+ "fraction_all_agree_ci95": [
+  0.0,
+  0.030303030303030304
+ ],
+ "pairwise_topology_agreement": 0.08484848484848485,
+ "pairwise_pairs": 990,
+ "pipeline_errors": 0,
+ "distinct_topologies_histogram": {
+  "4": 121,
+  "3": 26,
+  "2": 16,
+  "1": 2
+ },
+ "per_group": {
+  "drafter_10__C109_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    2,
+    1,
+    3
+   ]
+  },
+  "drafter_10__C109_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    2,
+    2,
+    2
+   ]
+  },
+  "drafter_10__C110_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    4,
+    4,
+    5
+   ]
+  },
+  "drafter_10__C110_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    4,
+    4,
+    4
+   ]
+  },
+  "drafter_10__C111_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    5,
+    5,
+    4
+   ]
+  },
+  "drafter_10__C111_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    5,
+    6,
+    5
+   ]
+  },
+  "drafter_10__C112_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    5,
+    5,
+    4
+   ]
+  },
+  "drafter_10__C112_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 2,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    4,
+    5,
+    5
+   ]
+  },
+  "drafter_10__C113_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    3,
+    3,
+    1
+   ]
+  },
+  "drafter_10__C113_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    2,
+    3,
+    3
+   ]
+  },
+  "drafter_10__C114_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    3,
+    4,
+    3
+   ]
+  },
+  "drafter_10__C114_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    3,
+    3,
+    4
+   ]
+  },
+  "drafter_10__C115_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    4,
+    3,
+    4
+   ]
+  },
+  "drafter_10__C115_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 2,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    3,
+    4,
+    3
+   ]
+  },
+  "drafter_11__C122_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    0,
+    1,
+    8
+   ]
+  },
+  "drafter_11__C122_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    4,
+    5,
+    7
+   ]
+  },
+  "drafter_12__C134_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    5,
+    4,
+    4
+   ]
+  },
+  "drafter_12__C134_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    3,
+    0,
+    4
+   ]
+  },
+  "drafter_12__C135_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    5,
+    5,
+    3
+   ]
+  },
+  "drafter_12__C135_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    7,
+    5,
+    4,
+    3
+   ]
+  },
+  "drafter_12__C137_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": true,
+   "distinct_topologies": 1,
+   "pairwise_agree": 6,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    5,
+    5,
+    5
+   ]
+  },
+  "drafter_12__C137_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    4,
+    5,
+    3
+   ]
+  },
+  "drafter_13__C147_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    9,
+    7,
+    4
+   ]
+  },
+  "drafter_13__C147_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    4,
+    0,
+    6
+   ]
+  },
+  "drafter_13__C151_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    7,
+    7,
+    8
+   ]
+  },
+  "drafter_13__C151_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    7,
+    1,
+    11
+   ]
+  },
+  "drafter_13__C152_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    9,
+    13,
+    11
+   ]
+  },
+  "drafter_13__C152_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    10,
+    11,
+    12,
+    11
+   ]
+  },
+  "drafter_13__C156_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    8,
+    4,
+    4
+   ]
+  },
+  "drafter_13__C156_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    5,
+    5,
+    9
+   ]
+  },
+  "drafter_14__C158_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    6,
+    5,
+    4
+   ]
+  },
+  "drafter_14__C158_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    4,
+    4,
+    7
+   ]
+  },
+  "drafter_14__C159_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    11,
+    3,
+    14,
+    9
+   ]
+  },
+  "drafter_14__C159_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    12,
+    1,
+    12,
+    9
+   ]
+  },
+  "drafter_14__C166_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    3,
+    7,
+    4
+   ]
+  },
+  "drafter_14__C166_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    2,
+    3,
+    3
+   ]
+  },
+  "drafter_14__C167_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    2,
+    1,
+    0
+   ]
+  },
+  "drafter_14__C167_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    1,
+    1,
+    3
+   ]
+  },
+  "drafter_15__C172_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    20,
+    17,
+    19,
+    16
+   ]
+  },
+  "drafter_15__C172_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    12,
+    17,
+    19,
+    18
+   ]
+  },
+  "drafter_16__C189_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    19,
+    24,
+    14,
+    20
+   ]
+  },
+  "drafter_17__C194_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    23,
+    18,
+    24,
+    26
+   ]
+  },
+  "drafter_17__C194_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    22,
+    24,
+    23,
+    10
+   ]
+  },
+  "drafter_17__C197_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    10,
+    10,
+    9,
+    3
+   ]
+  },
+  "drafter_17__C197_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    13,
+    9,
+    20,
+    7
+   ]
+  },
+  "drafter_18__C206_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    4,
+    3,
+    3
+   ]
+  },
+  "drafter_18__C206_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    6,
+    8,
+    8
+   ]
+  },
+  "drafter_19__C221_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    7,
+    13,
+    5
+   ]
+  },
+  "drafter_19__C221_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    10,
+    9,
+    6
+   ]
+  },
+  "drafter_19__C222_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    22,
+    9,
+    8,
+    25
+   ]
+  },
+  "drafter_19__C222_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    20,
+    16,
+    21,
+    25
+   ]
+  },
+  "drafter_19__C225_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    12,
+    8,
+    19,
+    14
+   ]
+  },
+  "drafter_19__C225_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    23,
+    14,
+    16,
+    2
+   ]
+  },
+  "drafter_1__C10_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    4,
+    4,
+    5
+   ]
+  },
+  "drafter_1__C10_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    5,
+    3,
+    2
+   ]
+  },
+  "drafter_1__C11_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    5,
+    6,
+    5
+   ]
+  },
+  "drafter_1__C11_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    6,
+    6,
+    7,
+    5
+   ]
+  },
+  "drafter_1__C2_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    10,
+    9,
+    10
+   ]
+  },
+  "drafter_1__C2_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    0,
+    5,
+    0
+   ]
+  },
+  "drafter_1__C3_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    3,
+    3,
+    3
+   ]
+  },
+  "drafter_1__C3_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    1,
+    1,
+    0
+   ]
+  },
+  "drafter_1__C4_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    4,
+    4,
+    5
+   ]
+  },
+  "drafter_1__C4_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    4,
+    0,
+    4
+   ]
+  },
+  "drafter_1__C5_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    6,
+    2,
+    8
+   ]
+  },
+  "drafter_1__C5_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    2,
+    1,
+    3
+   ]
+  },
+  "drafter_1__C8_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    10,
+    11,
+    8,
+    9
+   ]
+  },
+  "drafter_1__C8_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    9,
+    7,
+    8
+   ]
+  },
+  "drafter_1__C9_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    6,
+    7,
+    6,
+    6
+   ]
+  },
+  "drafter_1__C9_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    6,
+    2,
+    6,
+    4
+   ]
+  },
+  "drafter_20__C229_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    15,
+    14,
+    13,
+    15
+   ]
+  },
+  "drafter_20__C229_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    17,
+    15,
+    16,
+    17
+   ]
+  },
+  "drafter_20__C230_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    28,
+    29,
+    29,
+    28
+   ]
+  },
+  "drafter_20__C230_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    23,
+    23,
+    23,
+    25
+   ]
+  },
+  "drafter_20__C231_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    23,
+    22,
+    21,
+    24
+   ]
+  },
+  "drafter_20__C231_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    23,
+    19,
+    18,
+    22
+   ]
+  },
+  "drafter_20__C234_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    30,
+    31,
+    28,
+    28
+   ]
+  },
+  "drafter_20__C234_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    32,
+    34,
+    39,
+    34
+   ]
+  },
+  "drafter_20__C235_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    87,
+    72,
+    95,
+    95
+   ]
+  },
+  "drafter_20__C235_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    65,
+    66,
+    62,
+    59
+   ]
+  },
+  "drafter_20__C238_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    15,
+    20,
+    18,
+    24
+   ]
+  },
+  "drafter_20__C238_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    22,
+    22,
+    24,
+    21
+   ]
+  },
+  "drafter_22__C258_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    30,
+    34,
+    29,
+    36
+   ]
+  },
+  "drafter_22__C258_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    28,
+    27,
+    23,
+    29
+   ]
+  },
+  "drafter_23__C271_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    18,
+    23,
+    19,
+    20
+   ]
+  },
+  "drafter_23__C271_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    17,
+    23,
+    21,
+    18
+   ]
+  },
+  "drafter_23__C274_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    6,
+    4,
+    7,
+    5
+   ]
+  },
+  "drafter_23__C274_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    8,
+    6,
+    5
+   ]
+  },
+  "drafter_23__C275_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    20,
+    28,
+    26,
+    29
+   ]
+  },
+  "drafter_23__C275_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    21,
+    14,
+    12,
+    19
+   ]
+  },
+  "drafter_24__C278_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    2,
+    3,
+    3
+   ]
+  },
+  "drafter_24__C278_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    4,
+    3,
+    4
+   ]
+  },
+  "drafter_24__C279_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  "drafter_24__C279_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    2,
+    2,
+    0
+   ]
+  },
+  "drafter_24__C280_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    4,
+    1,
+    3
+   ]
+  },
+  "drafter_24__C280_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    4,
+    4,
+    3
+   ]
+  },
+  "drafter_24__C282_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    1,
+    0,
+    0,
+    1
+   ]
+  },
+  "drafter_24__C282_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    1,
+    2,
+    2
+   ]
+  },
+  "drafter_24__C285_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    19,
+    5,
+    0,
+    1
+   ]
+  },
+  "drafter_24__C285_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    9,
+    5,
+    4
+   ]
+  },
+  "drafter_2__C14_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    0,
+    14,
+    15
+   ]
+  },
+  "drafter_2__C14_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    13,
+    13,
+    7,
+    0
+   ]
+  },
+  "drafter_2__C19_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    12,
+    0,
+    4
+   ]
+  },
+  "drafter_2__C19_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    9,
+    6,
+    10
+   ]
+  },
+  "drafter_2__C20_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    4,
+    0,
+    0
+   ]
+  },
+  "drafter_2__C20_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    2,
+    0,
+    0,
+    3
+   ]
+  },
+  "drafter_2__C21_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    12,
+    11,
+    11,
+    10
+   ]
+  },
+  "drafter_2__C21_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    12,
+    0,
+    0,
+    5
+   ]
+  },
+  "drafter_2__C22_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    9,
+    10,
+    10
+   ]
+  },
+  "drafter_2__C22_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    0,
+    0,
+    10
+   ]
+  },
+  "drafter_2__C23_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": true,
+   "distinct_topologies": 1,
+   "pairwise_agree": 6,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "drafter_2__C23_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    16,
+    15,
+    16,
+    0
+   ]
+  },
+  "drafter_3__C26_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    7,
+    7,
+    5,
+    5
+   ]
+  },
+  "drafter_3__C26_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    2,
+    4,
+    7
+   ]
+  },
+  "drafter_3__C27_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    15,
+    14,
+    12,
+    13
+   ]
+  },
+  "drafter_3__C27_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    14,
+    4,
+    0,
+    9
+   ]
+  },
+  "drafter_3__C30_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    7,
+    4,
+    5
+   ]
+  },
+  "drafter_3__C30_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    7,
+    7,
+    8,
+    7
+   ]
+  },
+  "drafter_3__C33_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    10,
+    10,
+    10,
+    10
+   ]
+  },
+  "drafter_3__C33_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    9,
+    10,
+    10
+   ]
+  },
+  "drafter_4__C37_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    15,
+    0,
+    16,
+    0
+   ]
+  },
+  "drafter_4__C37_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    13,
+    8,
+    12,
+    12
+   ]
+  },
+  "drafter_4__C42_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    1,
+    9,
+    9,
+    10
+   ]
+  },
+  "drafter_4__C42_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    10,
+    11,
+    0,
+    9
+   ]
+  },
+  "drafter_5__C50_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    2,
+    5,
+    4
+   ]
+  },
+  "drafter_5__C50_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    2,
+    5,
+    4
+   ]
+  },
+  "drafter_5__C52_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    4,
+    4,
+    4
+   ]
+  },
+  "drafter_5__C52_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    3,
+    3,
+    3
+   ]
+  },
+  "drafter_5__C56_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    2,
+    3,
+    2
+   ]
+  },
+  "drafter_5__C56_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    2,
+    2,
+    2
+   ]
+  },
+  "drafter_5__C57_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    1,
+    1,
+    0
+   ]
+  },
+  "drafter_5__C57_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    5,
+    4,
+    3
+   ]
+  },
+  "drafter_5__C59_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    1,
+    1,
+    0,
+    3
+   ]
+  },
+  "drafter_5__C59_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    4,
+    4,
+    4
+   ]
+  },
+  "drafter_5__C60_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    0,
+    2,
+    2
+   ]
+  },
+  "drafter_5__C60_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    1,
+    5,
+    0
+   ]
+  },
+  "drafter_7__C73_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    7,
+    9,
+    8
+   ]
+  },
+  "drafter_7__C73_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    9,
+    9,
+    7
+   ]
+  },
+  "drafter_7__C74_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    3,
+    3,
+    2
+   ]
+  },
+  "drafter_7__C74_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    3,
+    2,
+    3
+   ]
+  },
+  "drafter_7__C75_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    10,
+    7,
+    8
+   ]
+  },
+  "drafter_7__C75_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    10,
+    5,
+    9,
+    6
+   ]
+  },
+  "drafter_7__C76_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    3,
+    3,
+    3
+   ]
+  },
+  "drafter_7__C76_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    2,
+    2,
+    3
+   ]
+  },
+  "drafter_7__C77_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    8,
+    12,
+    10
+   ]
+  },
+  "drafter_7__C77_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    12,
+    12,
+    9,
+    8
+   ]
+  },
+  "drafter_7__C78_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 2,
+   "pairwise_agree": 3,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    4,
+    5,
+    5
+   ]
+  },
+  "drafter_7__C78_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    4,
+    5,
+    2,
+    3
+   ]
+  },
+  "drafter_7__C79_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    6,
+    6,
+    7,
+    8
+   ]
+  },
+  "drafter_7__C79_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    8,
+    8,
+    8
+   ]
+  },
+  "drafter_7__C80_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    7,
+    4,
+    6,
+    3
+   ]
+  },
+  "drafter_7__C80_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    7,
+    6,
+    8,
+    7
+   ]
+  },
+  "drafter_7__C81_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    5,
+    7,
+    2,
+    8
+   ]
+  },
+  "drafter_7__C81_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    8,
+    3,
+    5
+   ]
+  },
+  "drafter_7__C82_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    6,
+    7,
+    7,
+    5
+   ]
+  },
+  "drafter_7__C82_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    7,
+    8,
+    7,
+    4
+   ]
+  },
+  "drafter_7__C83_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    6,
+    9,
+    4,
+    5
+   ]
+  },
+  "drafter_7__C83_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    6,
+    8,
+    8
+   ]
+  },
+  "drafter_7__C84_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    12,
+    11,
+    15
+   ]
+  },
+  "drafter_7__C84_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    9,
+    7,
+    12
+   ]
+  },
+  "drafter_9__C103_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    4,
+    0,
+    3
+   ]
+  },
+  "drafter_9__C103_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    3,
+    2,
+    2,
+    3
+   ]
+  },
+  "drafter_9__C107_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    7,
+    9,
+    10,
+    5
+   ]
+  },
+  "drafter_9__C107_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    9,
+    11,
+    2,
+    13
+   ]
+  },
+  "drafter_9__C98_D1": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 3,
+   "pairwise_agree": 1,
+   "pairwise_total": 6,
+   "component_counts": [
+    0,
+    3,
+    0,
+    4
+   ]
+  },
+  "drafter_9__C98_D2": {
+   "n_captures": 4,
+   "n_ok": 4,
+   "all_agree": false,
+   "distinct_topologies": 4,
+   "pairwise_agree": 0,
+   "pairwise_total": 6,
+   "component_counts": [
+    8,
+    9,
+    0,
+    7
+   ]
+  }
+ },
+ "decomposition": {
+  "_why": "A capture-invariance number computed over groups whose component COUNT already differs is measuring the detector, not the tracer.",
+  "groups": 165,
+  "groups_with_stable_detection": 6,
+  "fraction_with_stable_detection": 0.03636363636363636,
+  "of_those_topology_agrees": 2,
+  "tracing_agreement_given_stable_detection": 0.3333333333333333,
+  "component_count_spread_histogram": {
+   "0": 6,
+   "1": 32,
+   "2": 27,
+   "3": 21,
+   "4": 15,
+   "5": 19,
+   "6": 6,
+   "7": 6,
+   "8": 4,
+   "9": 6,
+   "10": 5,
+   "11": 5,
+   "12": 2,
+   "13": 2,
+   "14": 2,
+   "15": 1,
+   "16": 2,
+   "17": 1,
+   "19": 1,
+   "21": 1,
+   "23": 1
+  },
+  "reading": "Detection instability dominates. Cross-corpus detection transfer is mAP@0.5 0.3445, so the detector returns a different component set from each photograph of the same drawing; topology cannot then agree. This experiment measures the WHOLE SYSTEM under real capture, and on CGHD the binding constraint is detection, not tracing."
+ }
+}
