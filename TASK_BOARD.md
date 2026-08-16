@@ -18,7 +18,7 @@ Annotations accepted so far: **0**
 | B3 | Format adapter | DONE |  |  |
 | B4 | Imaging characterization of both corpora | READY |  |  |
 | B5 | Detection transfer, scored immediately | DONE |  |  |
-| B6 | Netlist prediction over the evaluable pool | READY |  |  |
+| B6 | Netlist prediction over the evaluable pool | DONE |  |  |
 | B7 | Capture invariance experiment | DONE |  |  |
 | B8 | Annotation sampling design *(needs review)* | READY |  |  |
 | C1 | Annotation tool | READY |  |  |
@@ -46,5 +46,5 @@ Annotations accepted so far: **0**
 
 - AWAITING_REVIEW: 3
 - BLOCKED: 7
-- DONE: 10
-- READY: 13
+- DONE: 11
+- READY: 12

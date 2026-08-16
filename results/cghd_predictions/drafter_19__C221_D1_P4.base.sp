@@ -1,0 +1,11 @@
+* Auto-generated SPICE netlist (NO TEXT OCR USED)
+
+R1 n1 0 1k
+* SAME_NODE_SKIPPED Resistor both_on=0
+D1 n2 0 Zdefault
+D2 0 n2 Zdefault
+D3 n3 0 Zdefault
+.model Zdefault D(bv=5.1)
+
+.op
+.end
