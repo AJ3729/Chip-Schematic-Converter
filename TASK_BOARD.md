@@ -20,7 +20,7 @@ Annotations accepted so far: **0**
 | B5 | Detection transfer, scored immediately | DONE |  |  |
 | B6 | Netlist prediction over the evaluable pool | DONE |  |  |
 | B7 | Capture invariance experiment | DONE |  |  |
-| B8 | Annotation sampling design *(needs review)* | READY |  |  |
+| B8 | Annotation sampling design *(needs review)* | AWAITING_REVIEW |  |  |
 | C1 | Annotation tool | READY |  |  |
 | C2 | Schema validator and ingest | READY |  |  |
 | C3 | Annotation dashboard | READY |  |  |
@@ -44,7 +44,7 @@ Annotations accepted so far: **0**
 
 ## Counts
 
-- AWAITING_REVIEW: 3
+- AWAITING_REVIEW: 4
 - BLOCKED: 7
 - DONE: 11
-- READY: 12
+- READY: 11
