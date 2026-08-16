@@ -1,0 +1,87 @@
+# Ablation arms: internal name -> what it actually changed (task A4).
+#
+# The internal names are historical run directories and at least one of them is
+# actively MISLEADING: `v5_plus_crossover_DEFAULT` did not add crossover
+# handling -- crossover arrived in v4 -- it added the port templates, and it is
+# the single largest contribution in the whole table. A figure or a sentence
+# written from the internal names alone gets that backwards, and the first draft
+# of the manuscript did: it credited "crossover-aware junction resolution" as a
+# top-two contributor when crossover moves strict success by exactly 0.0000.
+#
+# So this file is the one place the mapping lives. scripts/make_paper_tables.py
+# and the ablation figure both read reader-facing labels from here, and any new
+# arm must be added or it will be dropped from the table rather than silently
+# mislabelled.
+#
+# `delta_strict` is recorded for orientation only. It is NOT the source for any
+# published number -- those are computed from results/final/ablation/index.json
+# at build time by scripts/manuscript_numbers.py.
+
+arms:
+  - id: v1_classical_directional
+    label: "classical (Canny + directional snap)"
+    changed: "baseline: edge-detected wires, terminals snapped along the lead direction"
+    delta_strict: 0.0000
+
+  - id: v2_ink_boundary_snap
+    label: "+ ink wires, boundary snap"
+    changed: "wires taken from ink rather than edges; terminals snapped to the component boundary"
+    delta_strict: +0.0833
+
+  - id: v3_plus_stitching
+    label: "+ mask-hole stitching"
+    changed: "closes holes left in the wire mask where component boxes were erased"
+    delta_strict: +0.0573
+
+  - id: v4_plus_crossover
+    label: "+ crossover-aware nets"
+    changed: "junction vs crossing decided per site instead of merging every intersection"
+    delta_strict: 0.0000        # moves terminal-pair F1 (+0.0322), not strict
+
+  - id: v5_plus_crossover_DEFAULT
+    label: "+ port templates"
+    changed: >-
+      per-class port templates fix WHICH terminal is which on multi-terminal
+      devices. The directory name says crossover; it is not crossover.
+    delta_strict: +0.3177        # the largest single contribution in the table
+
+  - id: v6_plus_bridge_span7
+    label: "+ bridge span 7"
+    changed: "widens the gap a bridge may span from 5 px to 7 px"
+    delta_strict: -0.0104        # negative on strict, positive on terminal-pair
+
+  - id: v7_plus_connectivity_repair
+    label: "+ connectivity repair"
+    changed: "declared repair pass; every intervention recorded in the ledger"
+    delta_strict: +0.0260
+
+  - id: v8_plus_snap_expand80
+    label: "+ snap window 80"
+    changed: "expands the terminal snap search window"
+    delta_strict: 0.0000
+
+  - id: v9_plus_blob_thresholds
+    label: "+ blob filtering"
+    changed: "drops ink blobs that touch no component box (labels, page borders)"
+    delta_strict: +0.0156
+
+  - id: v10_plus_sauvola
+    label: "+ Sauvola binarisation"
+    changed: "local adaptive threshold in place of a global one"
+    delta_strict: +0.0156
+
+  - id: v11_plus_class_head
+    label: "+ class head"
+    changed: "component class re-decided by a dedicated head; boxes untouched"
+    delta_strict: 0.0000
+
+  - id: v12_plus_head_ensemble
+    label: "+ port-head ensemble (shipped)"
+    changed: "ensemble of port heads; the shipped configuration"
+    delta_strict: +0.0260
+
+# Superseded 512-px-era arms, kept so older variants still table.
+legacy:
+  v2_newpreproc: "+ fixed preprocessing"
+  v3_ink_boundary_snap: "+ ink wires, boundary snap"
+  v4_plus_stitching: "+ mask-hole stitching"

@@ -249,7 +249,42 @@ REGISTRY: list[Q] = [
 ]
 
 
+def _ablation_deltas() -> dict[str, float]:
+    """Per-arm change in strict success, computed rather than transcribed.
+
+    The manuscript's first draft named the top-two contributors from the arms'
+    internal directory names and got it wrong: `v5_plus_crossover_DEFAULT` adds
+    port templates, not crossover, and crossover moves strict success by exactly
+    zero. Deriving the deltas here means a sentence about which stage matters
+    cannot disagree with the table beside it.
+    """
+    idx = json.loads((ROOT / "results/final/ablation/index.json").read_text())
+    out, prev = {}, None
+    for a in idx["arms"]["ablation"]:
+        s = float(a["topology"]["strict_success"]["mean"])
+        out[a["label"]] = 0.0 if prev is None else s - prev
+        prev = s
+    return out
+
+
+class AblationQ(Q):
+    """A quantity read from the ablation deltas rather than from a JSON key."""
+
+
+for _label, _macro in (("v5_plus_crossover_DEFAULT", "AblPortTemplates"),
+                       ("v2_ink_boundary_snap", "AblInkSnap"),
+                       ("v4_plus_crossover", "AblCrossover"),
+                       ("v6_plus_bridge_span7", "AblBridgeSpan")):
+    REGISTRY.append(AblationQ(_macro, "results/final/ablation/index.json",
+                              f"__delta__.{_label}", table="fig:ablation"))
+
+
 def value_of(q: Q) -> tuple[float | None, str]:
+    if isinstance(q, AblationQ):
+        try:
+            return _ablation_deltas()[q.key.split(".", 1)[1]], ""
+        except Exception as e:                                # noqa: BLE001
+            return None, f"{type(e).__name__}: {e}"
     try:
         return read_value(q) * q.scale, ""
     except FileNotFoundError as e:
@@ -345,6 +380,44 @@ def check(tex_path: Path, show_unregistered: bool) -> int:
     return 1 if (stale or unresolved) else 0
 
 
+_CITE_RE = re.compile(r"\\cite\{([^}]*)\}")
+_BIBKEY_RE = re.compile(r"^\s*@\w+\s*\{\s*([^,\s]+)\s*,", re.M)
+
+
+def check_cites(tex_path: Path, bib_path: Path | None) -> int:
+    """Every \\cite key, and whether the bibliography defines it.
+
+    An undefined key compiles to a bold [?] that is easy to miss in a long
+    document and impossible to miss in review. The bibliography is maintained
+    outside this repository, so without --bib this only enumerates what the .bib
+    must contain.
+    """
+    text = tex_path.read_text()
+    keys: list[str] = []
+    for group in _CITE_RE.findall(text):
+        keys.extend(k.strip() for k in group.split(",") if k.strip())
+    used = sorted(set(keys))
+    print(f"\ncitations: {len(used)} distinct keys, {len(keys)} uses")
+
+    if bib_path is None:
+        print("  no --bib given; the bibliography must define each of:")
+        for k in used:
+            print(f"    {k}  ({keys.count(k)} use(s))")
+        return 0
+
+    defined = set(_BIBKEY_RE.findall(bib_path.read_text()))
+    missing = [k for k in used if k not in defined]
+    unused = sorted(defined - set(used))
+    print(f"  bibliography: {bib_path} defines {len(defined)} entries")
+    print(f"  MISSING (would compile to [?]): {len(missing)}")
+    for k in missing:
+        print(f"    {k}")
+    if unused:
+        print(f"  defined but never cited: {len(unused)} "
+              f"({', '.join(unused[:8])}{' ...' if len(unused) > 8 else ''})")
+    return 1 if missing else 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -352,6 +425,10 @@ def main() -> int:
     ap.add_argument("--check", metavar="TEX")
     ap.add_argument("--unregistered", action="store_true",
                     help="also list \\num{} literals no registry entry explains")
+    ap.add_argument("--cites", action="store_true",
+                    help="with --check, also audit \\cite keys")
+    ap.add_argument("--bib", metavar="BIB",
+                    help="bibliography to resolve \\cite keys against")
     a = ap.parse_args()
     if not a.emit and not a.check:
         ap.error("give --emit or --check")
@@ -360,6 +437,9 @@ def main() -> int:
         rc |= emit()
     if a.check:
         rc |= check(Path(a.check), a.unregistered)
+        if a.cites or a.bib:
+            rc |= check_cites(Path(a.check),
+                              Path(a.bib) if a.bib else None)
     return rc
 
 

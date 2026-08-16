@@ -12,7 +12,7 @@ Annotations accepted so far: **0**
 | A1 | Repository and artifact inventory | DONE |  |  |
 | A2 | Reproduce and freeze | DONE |  |  |
 | A3 | Statistics utilities | DONE |  |  |
-| A4 | Bibliography and template scrub *(needs review)* | READY |  |  |
+| A4 | Bibliography and template scrub *(needs review)* | DONE |  |  |
 | B1 | Acquire and inventory CGHD | DONE |  |  |
 | B2 | Class taxonomy mapping *(needs review)* | AWAITING_REVIEW |  |  |
 | B3 | Format adapter | DONE |  |  |
@@ -46,5 +46,5 @@ Annotations accepted so far: **0**
 
 - AWAITING_REVIEW: 4
 - BLOCKED: 5
-- DONE: 19
-- READY: 5
+- DONE: 20
+- READY: 4
