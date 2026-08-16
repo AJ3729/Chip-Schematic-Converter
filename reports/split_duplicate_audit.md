@@ -72,3 +72,36 @@ It is recorded here because it looked reasonable and was not.
    drafters when drafter metadata exists.
 3. **Treat the val/test gap as a lower bound on optimism.** Model selection saw
    39% of the reported split's topologies.
+
+## Sensitivity: does the paper's central finding survive the leakage?
+
+The 117 test circuits whose topology does **not** appear in validation were
+scored separately. They are **not** a drop-in replacement for the test split --
+they are systematically easier and unrepresentative: mean components per circuit
+falls from 13.4 to 10.0, three-terminal devices from 376 to 131, and the diode
+share falls to **zero**. The repeated topologies are the complex ones. Reporting
+on this subset would trade a leakage bias for a difficulty bias.
+
+It is still the right sensitivity check, and the result is decisive:
+
+| | full test (192) | topology-disjoint (117) |
+| --- | --- | --- |
+| pin-blind strict | 0.5312 [0.4583, 0.5990] | 0.7436 [0.6667, 0.8205] |
+| pin-aware strict | 0.1875 [0.1354, 0.2448] | 0.2906 [0.2137, 0.3761] |
+| accepted by pin-blind only | 66 | 53 |
+| accepted by pin-aware only | **0** | **0** |
+| exact McNemar p | 2.7e-20 | 2.2e-16 |
+| overestimation ratio | 2.83x | 2.56x |
+
+**The absolute numbers move enormously and the finding does not.** Pin-blind
+strict success rises by 21 points on the easier subset -- which is exactly why
+absolute accuracy figures from this corpus should be read with the split
+caveat -- while the disagreement stays perfectly one-sided, the overestimation
+ratio stays near 2.6-2.8x, and significance is unchanged at p < 1e-15.
+
+This is the practical consequence: the paper's **contribution** (that pin-blind
+metrics overestimate netlist accuracy, and by how much) is invariant to the
+leakage, because it compares two metrics on the same circuits and any inflation
+applies to both. The paper's **absolute accuracy numbers** are not invariant and
+should be presented as characterising this pipeline on this corpus with the
+overlap stated.
