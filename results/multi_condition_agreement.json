@@ -1,0 +1,3514 @@
+{
+ "_what": "Operating-point agreement under more than one probe. The published number is one DC operating point at one bias, which is structurally blind to the reactive network: at DC an inductor is a short and a capacitor an open.",
+ "_conditions": {
+  "op_primary": "the published probe -- .op under the hv policy",
+  "op_low_bias": "the same .op at DC 1 instead of DC 15; nonlinear devices sit in a different region",
+  "ac_1khz": ".ac at 1 kHz, comparing node voltage magnitude, where reactances are finite and the L/C network is visible"
+ },
+ "_domain": "unchanged from the published metric: circuits where both sides genuinely solve. No condition applies rshunt or gmin stepping to rescue a singular deck -- those voltages are an artefact of the fallback, not an operating point.",
+ "tolerances": {
+  "op_atol_V": 0.001,
+  "op_rtol": 0.0,
+  "ac_atol": 0.0001,
+  "ac_rtol": 0.01
+ },
+ "n_circuits": 192,
+ "summary": {
+  "op_primary": {
+   "n_in_domain": 93,
+   "n_informative": 92,
+   "n_degenerate": 1,
+   "mean_f1": {
+    "mean": 0.6313758121814939,
+    "ci95": [
+     0.557418158080458,
+     0.7036243431739342
+    ]
+   },
+   "exact_rate": {
+    "mean": 0.33695652173913043,
+    "ci95": [
+     0.2391304347826087,
+     0.43478260869565216
+    ]
+   }
+  },
+  "op_low_bias": {
+   "n_in_domain": 94,
+   "n_informative": 93,
+   "n_degenerate": 1,
+   "mean_f1": {
+    "mean": 0.6228526343214864,
+    "ci95": [
+     0.549868071336438,
+     0.6944653677831608
+    ]
+   },
+   "exact_rate": {
+    "mean": 0.3333333333333333,
+    "ci95": [
+     0.23655913978494625,
+     0.43010752688172044
+    ]
+   }
+  },
+  "ac_1khz": {
+   "n_in_domain": 152,
+   "n_informative": 51,
+   "n_degenerate": 101,
+   "mean_f1": {
+    "mean": 0.601430884167457,
+    "ci95": [
+     0.4832187758722286,
+     0.7144161272326233
+    ]
+   },
+   "exact_rate": {
+    "mean": 0.4117647058823529,
+    "ci95": [
+     0.27450980392156865,
+     0.5490196078431373
+    ]
+   }
+  },
+  "_reclassification": {
+   "op_low_bias": {
+    "n_compared": 92,
+    "exact_under_both": 31,
+    "exact_only_under_op_primary": [],
+    "exact_only_under_this": [],
+    "mcnemar": {
+     "n_only_op_primary": 0,
+     "n_only_this": 0,
+     "p_value": 1.0
+    }
+   },
+   "ac_1khz": {
+    "n_compared": 19,
+    "exact_under_both": 13,
+    "exact_only_under_op_primary": [],
+    "exact_only_under_this": [
+     "circuit_20",
+     "circuit_255",
+     "circuit_612"
+    ],
+    "mcnemar": {
+     "n_only_op_primary": 0,
+     "n_only_this": 3,
+     "p_value": 0.25
+    }
+   }
+  },
+  "_coverage": {
+   "_meaning": "the published metric is defined only where a DC operating point exists on both sides. A linear network that is singular at DC can still be well defined at 1 kHz, so AC measures circuits the DC probe cannot -- these are added circuits, not rescued ones",
+   "informative_under_op_primary": 92,
+   "informative_under_ac_1khz": 51,
+   "informative_under_both": 19,
+   "added_by_ac_alone": [
+    "circuit_1028",
+    "circuit_1059",
+    "circuit_1184",
+    "circuit_1207",
+    "circuit_179",
+    "circuit_209",
+    "circuit_220",
+    "circuit_221",
+    "circuit_249",
+    "circuit_331",
+    "circuit_389",
+    "circuit_39",
+    "circuit_412",
+    "circuit_50",
+    "circuit_513",
+    "circuit_553",
+    "circuit_557",
+    "circuit_594",
+    "circuit_624",
+    "circuit_639",
+    "circuit_643",
+    "circuit_659",
+    "circuit_721",
+    "circuit_77",
+    "circuit_83",
+    "circuit_843",
+    "circuit_848",
+    "circuit_858",
+    "circuit_927",
+    "circuit_958",
+    "circuit_981",
+    "circuit_991"
+   ],
+   "n_added_by_ac_alone": 32,
+   "informative_under_either": 124,
+   "excluded_nonlinear_without_dc": [
+    "circuit_1080",
+    "circuit_1095",
+    "circuit_1156",
+    "circuit_1187",
+    "circuit_132",
+    "circuit_140",
+    "circuit_156",
+    "circuit_208",
+    "circuit_218",
+    "circuit_257",
+    "circuit_347",
+    "circuit_432",
+    "circuit_474",
+    "circuit_578",
+    "circuit_711",
+    "circuit_76",
+    "circuit_810",
+    "circuit_822",
+    "circuit_855",
+    "circuit_896",
+    "circuit_930",
+    "circuit_941"
+   ]
+  }
+ },
+ "per_circuit": [
+  {
+   "stem": "circuit_1013",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1022",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1025",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1028",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.8333333333333333,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1045",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1048",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.896551724137931,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.7586206896551724,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.9655172413793104,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1052",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1059",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.1818181818181818,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1080",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_1095",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_1103",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_115",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1150",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.75,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.75,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1156",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_1175",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8421052631578947,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8421052631578947,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_118",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1182",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1184",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.9090909090909091,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1187",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_1195",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.20000000000000004,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.20000000000000004,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1197",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1207",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1222",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_1234",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1238",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1240",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1247",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.3225806451612903,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3225806451612903,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.967741935483871,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1253",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1259",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_1264",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_1273",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_1275",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_129",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_131",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_132",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_140",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_142",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_147",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.4000000000000001,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.4000000000000001,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_15",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_150",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_154",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_156",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_165",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_171",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_179",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_181",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_196",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.8,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_20",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_208",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_209",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_21",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_211",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_218",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_220",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_221",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.9090909090909091,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_225",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_249",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.2,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_251",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_255",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.75,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.75,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_257",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_259",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_264",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.20000000000000004,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.20000000000000004,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_270",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.4,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.4,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.8,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_271",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_278",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_298",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_304",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_308",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_321",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_325",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_33",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_331",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_338",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_347",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_351",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_353",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_366",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_388",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_389",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.26666666666666666,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_39",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.2,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_398",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_402",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_410",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_412",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_420",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_429",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_43",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_431",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.38709677419354843,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.45161290322580644,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.967741935483871,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_432",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_441",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_442",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_447",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_450",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.8571428571428571,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_474",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_483",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_486",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_490",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_50",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_505",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.4,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.4,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.8,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_513",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.8333333333333333,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_516",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.75,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.75,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_517",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_526",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_541",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_553",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.2,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_556",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_557",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_578",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_579",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_590",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_594",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.16666666666666666,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_603",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_604",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8148148148148148,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8148148148148148,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.962962962962963,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_612",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_616",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.17391304347826086,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_624",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_627",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_630",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_639",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_64",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_641",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_643",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.8333333333333334,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_657",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_659",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.3636363636363636,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_666",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_677",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_686",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_695",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_697",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_706",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8387096774193549,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8387096774193549,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.967741935483871,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_71",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_711",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_717",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_721",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_724",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.75,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.75,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_731",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_74",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_744",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_754",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_76",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_763",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_765",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.6666666666666666,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_77",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_776",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_777",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_778",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_779",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_78",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_786",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_792",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_809",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_810",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_812",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_817",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_82",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.38709677419354843,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.45161290322580644,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.967741935483871,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_822",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_827",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_83",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.9090909090909091,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_831",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_837",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_843",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.8571428571428571,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_847",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.7333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.7333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_848",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_853",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.5,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_855",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_857",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.888888888888889,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_858",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_887",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_89",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_891",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_896",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_914",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_916",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_919",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_920",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_923",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_927",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.3636363636363636,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_928",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_930",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_934",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.3333333333333333,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_936",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_940",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_941",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false,
+    "excluded": "nonlinear deck whose DC operating point does not solve"
+   }
+  },
+  {
+   "stem": "circuit_949",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.7142857142857143,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.42857142857142855,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.9285714285714286,
+    "exact": false,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_958",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_96",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.8666666666666667,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_98",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.6,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.4000000000000001,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_981",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.0,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_985",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": false
+   }
+  },
+  {
+   "stem": "circuit_988",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  },
+  {
+   "stem": "circuit_991",
+   "op_primary": {
+    "in_domain": false
+   },
+   "op_low_bias": {
+    "in_domain": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 0.22222222222222224,
+    "exact": false,
+    "degenerate": false
+   }
+  },
+  {
+   "stem": "circuit_999",
+   "op_primary": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "op_low_bias": {
+    "in_domain": true,
+    "f1": 0.25,
+    "exact": false,
+    "degenerate": false
+   },
+   "ac_1khz": {
+    "in_domain": true,
+    "f1": 1.0,
+    "exact": true,
+    "degenerate": true
+   }
+  }
+ ]
+}

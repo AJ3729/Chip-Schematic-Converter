@@ -28,7 +28,7 @@ Annotations accepted so far: **0**
 | D2 | Pin aware scorer | DONE |  |  |
 | D3 | Perturbation sensitivity and tolerance definitions *(needs review)* | AWAITING_REVIEW |  |  |
 | D4 | Multistability control | DONE |  |  |
-| D5 | Multi condition agreement | READY |  |  |
+| D5 | Multi condition agreement | DONE |  |  |
 | D6 | Full structural recomputation | DONE |  |  |
 | D7 | Repair separation | DONE |  |  |
 | D8 | Repair intent evaluation | BLOCKED | `data/cghd/annotations/normalized_interventions.json` |  |
@@ -46,5 +46,5 @@ Annotations accepted so far: **0**
 
 - AWAITING_REVIEW: 4
 - BLOCKED: 5
-- DONE: 18
-- READY: 6
+- DONE: 19
+- READY: 5
