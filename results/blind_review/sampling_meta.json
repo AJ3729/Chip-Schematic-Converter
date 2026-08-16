@@ -1,6 +1,6 @@
 {
   "seed": 20260804,
-  "git_sha": "9301612d67c3bc86460ad49dcbb065d0b376f99c",
+  "git_sha": "35ac10dad452b076e61f63fb221061d75f01f15b",
   "split": "data/splits/test.txt",
   "split_images": 192,
   "gt_dir": "data/gt_test_1024",

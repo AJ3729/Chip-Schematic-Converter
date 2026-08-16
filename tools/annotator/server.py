@@ -57,9 +57,27 @@ OUTBOX = ROOT / "data/cghd/annotations/incoming"
 DRAFTS = ROOT / "data/cghd/annotations/drafts"
 
 BLIND_PACKET = ROOT / "results/blind_review/packet"
-BLIND_IMG = BLIND_PACKET / "frames_1024"
 BLIND_OUTBOX = ROOT / "data/blind_review/incoming"
 BLIND_DRAFTS = ROOT / "data/blind_review/drafts"
+
+
+def _first_dir(*candidates: Path) -> Path:
+    """First candidate that exists and holds files, else the first candidate.
+
+    The second annotator receives a FLAT bundle -- frames_1024/ and images/ at
+    the top level -- because burying a volunteer's working files under
+    results/blind_review/packet/ is a good way to have them not find them. In
+    the repository the same directories live under the packet. Resolving both
+    here keeps the bundle from needing its own copy of this file, which would
+    then drift from this one.
+    """
+    for c in candidates:
+        if c.is_dir() and any(c.iterdir()):
+            return c
+    return candidates[0]
+
+
+BLIND_IMG = _first_dir(BLIND_PACKET / "frames_1024", ROOT / "frames_1024")
 
 # Tutorial circuits: Digitize-HCD, ground truth already known, so the annotator
 # can calibrate against a right answer before touching CGHD.
@@ -73,10 +91,10 @@ def load_queue() -> list[dict]:
 
 
 def blind_stems() -> list[str]:
-    f = BLIND_PACKET / "circuits.txt"
-    if not f.exists():
-        return []
-    return [s.strip() for s in f.read_text().splitlines() if s.strip()]
+    for f in (BLIND_PACKET / "circuits.txt", ROOT / "circuits.txt"):
+        if f.exists():
+            return [s.strip() for s in f.read_text().splitlines() if s.strip()]
+    return []
 
 
 def work_items(tutorial: bool, blind: bool = False) -> list[dict]:

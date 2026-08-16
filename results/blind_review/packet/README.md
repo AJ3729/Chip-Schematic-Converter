@@ -97,9 +97,11 @@ Comparison against the existing annotation is automatic:
 
 `circuits.txt` lists the stems in this packet, in no meaningful order.
 
-**Three circuits are already known not to support the site comparison**
-(`circuit_858`, `circuit_557`, `circuit_218`): the first pass's own intersection
-numbering has drifted relative to the tracer, so its calls there cannot be
-trusted to name the ink they once named. Annotate them exactly like the rest --
-their nets, pin order and components are compared normally, and only the
-per-site agreement excludes them. See `results/blind_review/site_evidence_coverage.json`.
+**Three of these circuits will not support the per-site comparison**, because
+the first pass's own intersection numbering has drifted relative to the tracer
+and its calls there can no longer be trusted to name the ink they once named.
+They are not identified here: knowing which three would tell you where the
+existing annotation is already suspect, and that is exactly the kind of hint
+this packet exists to withhold. Annotate every circuit the same way. Their nets,
+pin order and components are compared normally; only the per-site agreement
+excludes them, and which three they are is recorded outside the packet.
