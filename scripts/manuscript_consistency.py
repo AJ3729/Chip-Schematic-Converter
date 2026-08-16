@@ -164,6 +164,49 @@ def _is_float(s: str) -> bool:
         return False
 
 
+_BEGIN = re.compile(r"\\begin\{([^}]*)\}")
+_END = re.compile(r"\\end\{([^}]*)\}")
+
+
+def check_environments(text: str) -> list[str]:
+    """Unbalanced \\begin/\\end, and the graphics each figure includes.
+
+    This is not a substitute for compiling -- it cannot be. It is what can be
+    checked without a TeX installation, and an unclosed environment is both the
+    most common way a document stops compiling and the least informative error
+    LaTeX gives for it.
+    """
+    problems = []
+    stack: list[tuple[str, int]] = []
+    for i, line in enumerate(text.splitlines(), 1):
+        for env in _BEGIN.findall(line):
+            stack.append((env, i))
+        for env in _END.findall(line):
+            if not stack:
+                problems.append(f"L{i}: \\end{{{env}}} with nothing open")
+            elif stack[-1][0] != env:
+                opened, oline = stack[-1]
+                problems.append(
+                    f"L{i}: \\end{{{env}}} closes \\begin{{{opened}}} "
+                    f"opened at L{oline}")
+                stack.pop()
+            else:
+                stack.pop()
+    for env, line in stack:
+        problems.append(f"L{line}: \\begin{{{env}}} is never closed")
+
+    # every \includegraphics target must exist
+    for m in re.finditer(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]*)\}", text):
+        rel = m.group(1)
+        candidates = [ROOT / "paper" / rel, ROOT / rel]
+        if not rel.endswith((".pdf", ".png", ".jpg", ".eps")):
+            candidates += [ROOT / "paper" / (rel + ".pdf"),
+                           ROOT / (rel + ".pdf")]
+        if not any(c.exists() for c in candidates):
+            problems.append(f"missing graphic: {rel}")
+    return problems
+
+
 def check_boilerplate(text: str) -> list[str]:
     found = []
     for pattern, why in BOILERPLATE:
@@ -219,8 +262,16 @@ def main() -> int:
     if not pcts:
         print("   none  OK")
 
+    envs = check_environments(text)
+    print(f"\n5. environments and graphics: {len(envs)} problem(s)")
+    for e in envs:
+        fatal += 1
+        print(f"   {e}")
+    if not envs:
+        print("   all \\begin/\\end balanced, every \\includegraphics resolves  OK")
+
     bp = check_boilerplate(text)
-    print(f"\n5. template boilerplate: {len(bp)}")
+    print(f"\n6. template boilerplate: {len(bp)}")
     for b in bp:
         fatal += 1
         print(f"   {b}")

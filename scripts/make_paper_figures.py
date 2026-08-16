@@ -339,12 +339,190 @@ def fig_size_scatter() -> None:
     save(fig, "fig_size_scatter")
 
 
+def fig_capture() -> None:
+    """Capture invariance: how many distinct circuits four photographs produce.
+
+    The unit is the DRAWING, not the photograph. Each CGHD drawing is
+    photographed four times, so a pipeline invariant to capture would return one
+    topology per drawing. The histogram is the whole result: the modal outcome
+    is four photographs of one drawing yielding four different circuits.
+    """
+    d = json.loads((ROOT / "results/cghd_capture_invariance.json").read_text())
+    hist = d["distinct_topologies_histogram"]
+    ks = [1, 2, 3, 4]
+    vals = [hist.get(str(k), 0) for k in ks]
+    total = sum(vals)
+
+    fig, ax = plt.subplots(figsize=(COL_W, 2.3))
+    # 1 distinct topology is the only invariant outcome; colour it as the
+    # target and everything else as the failure it is.
+    colours = [C_TEST] + [C_VAL] * 3
+    bars = ax.bar([str(k) for k in ks], vals, color=colours, width=0.62)
+    for b, v in zip(bars, vals):
+        if v:
+            ax.text(b.get_x() + b.get_width() / 2, v + total * 0.015,
+                    f"{v}\n({v / total:.1%})", ha="center", va="bottom",
+                    fontsize=6.5, linespacing=1.1)
+    ax.set_xlabel("distinct topologies from the drawing's 4 photographs")
+    ax.set_ylabel("drawings")
+    ax.set_ylim(0, max(vals) * 1.28)
+    ax.set_title(f"{d['groups_all_captures_agree']} of {d['n_groups']} drawings "
+                 f"({d['fraction_all_agree']:.1%}) give one answer",
+                 fontsize=7.5)
+    ax.grid(axis="x", visible=False)
+    save(fig, "fig_capture")
+
+
+def fig_pipeline() -> None:
+    """The pipeline as a single row of stages, drawn from the stage list.
+
+    Deliberately schematic rather than pretty: the point a reader needs is that
+    terminal identity is decided at ONE stage, late, and that repair is outside
+    the topology path entirely. Both are claims the paper makes in prose and
+    neither survives a diagram that shows a single undifferentiated chain.
+    """
+    stages = [
+        ("preprocess", "deskew, crop,\nbinarise"),
+        ("detect", "YOLOv8s\ncomponents"),
+        ("class head", "re-decide\nclass"),
+        ("wire mask", "ink minus\ncomponents"),
+        ("skeleton", "graph of\nnodes + edges"),
+        ("junctions", "junction vs\ncrossing"),
+        ("terminals", "snap to\ncomponent"),
+        ("port head", "which terminal\nis which"),
+        ("nets", "connected\ncomponents"),
+        ("netlist", "SPICE\ndeck"),
+    ]
+    fig, ax = plt.subplots(figsize=(WIDE_W, 1.55))
+    ax.set_axis_off()
+    n = len(stages)
+    w, gap = 1.0, 0.30
+    for i, (name, sub) in enumerate(stages):
+        x = i * (w + gap)
+        # the port head is the stage this paper is about
+        accent = name == "port head"
+        ax.add_patch(plt.Rectangle(
+            (x, 0), w, 1.0, facecolor=(C_TEST if accent else "#FFFFFF"),
+            edgecolor=(C_TEST if accent else "#666666"),
+            linewidth=(1.1 if accent else 0.7), zorder=2))
+        ax.text(x + w / 2, 0.68, name, ha="center", va="center", fontsize=6.6,
+                color=("white" if accent else "black"),
+                fontweight=("bold" if accent else "normal"), zorder=3)
+        ax.text(x + w / 2, 0.30, sub, ha="center", va="center", fontsize=5.4,
+                color=("white" if accent else "#444444"), linespacing=1.15,
+                zorder=3)
+        if i < n - 1:
+            ax.annotate("", xy=(x + w + gap, 0.5), xytext=(x + w, 0.5),
+                        arrowprops=dict(arrowstyle="->", lw=0.7,
+                                        color="#666666"))
+    span = n * (w + gap) - gap
+    # Repair sits OUTSIDE the topology path and the figure has to show that,
+    # because the paper's claim that no topology metric involves repair is the
+    # kind of thing a single undifferentiated chain quietly contradicts.
+    box_w = 2 * w + gap
+    box_x = span - box_w
+    ax.add_patch(plt.Rectangle((box_x, -0.92), box_w, 0.55,
+                               facecolor="#FFFFFF", edgecolor=C_VAL,
+                               linewidth=0.9, linestyle=(0, (3, 2)), zorder=2))
+    ax.text(box_x + box_w / 2, -0.645,
+            "declared repair\n(ledgered, never scored)", ha="center",
+            va="center", fontsize=5.6, color="#8a6100", linespacing=1.2,
+            zorder=3)
+    # arrow from the repair box up into the netlist stage it feeds
+    last_cx = (n - 1) * (w + gap) + w / 2
+    ax.annotate("", xy=(last_cx, 0.0), xytext=(last_cx, -0.37),
+                arrowprops=dict(arrowstyle="->", lw=0.7, color=C_VAL,
+                                linestyle=(0, (3, 2))))
+    ax.set_xlim(-0.15, span + 0.15)
+    ax.set_ylim(-1.02, 1.12)
+    save(fig, "fig_pipeline")
+
+
+def fig_op_gap() -> None:
+    """The paper's central claim as one picture: perfect, then simulated.
+
+    Two stacked bars over the SAME population, so the eye compares the split
+    rather than two independent quantities. Read from the multistability record,
+    which carries the headline counts and the flagged-circuit control together.
+    """
+    d = json.loads((ROOT / "results/multistability.json").read_text())
+    h = d["headline_all_circuits"]
+    perfect = int(h["topologically_perfect"])
+    disagree = int(h["of_those_op_disagrees"])
+    agree = perfect - disagree
+    scored = int(d["n_circuits_tested"])
+    not_perfect = scored - perfect
+
+    fig, ax = plt.subplots(figsize=(COL_W, 1.85))
+    ax.barh([1], [perfect], color=C_TEST, height=0.55)
+    ax.barh([1], [not_perfect], left=[perfect], color=C_DEAD, height=0.55)
+    ax.barh([0], [agree], color=C_TEST, height=0.55)
+    ax.barh([0], [disagree], left=[agree], color=C_VAL, height=0.55)
+    ax.barh([0], [not_perfect], left=[perfect], color=C_DEAD, height=0.55)
+
+    ax.text(perfect / 2, 1, f"{perfect} scored perfect", ha="center",
+            va="center", color="white", fontsize=7, fontweight="bold")
+    ax.text(perfect + not_perfect / 2, 1, f"{not_perfect} not",
+            ha="center", va="center", color="#555555", fontsize=6.5)
+    ax.text(agree / 2, 0, f"{agree} agree", ha="center", va="center",
+            color="white", fontsize=7)
+    ax.text(agree + disagree / 2, 0,
+            f"{disagree} DISAGREE\n({h['rate']:.1%})", ha="center",
+            va="center", color="#4a3400", fontsize=6.8, fontweight="bold",
+            linespacing=1.1)
+
+    ax.set_yticks([0, 1])
+    ax.set_yticklabels(["operating point", "topology metric"], fontsize=7)
+    ax.set_xlabel(f"circuits where both sides solve (n={scored})")
+    ax.set_xlim(0, scored)
+    ax.grid(axis="y", visible=False)
+    save(fig, "fig_op_gap")
+
+
+def fig_vlm() -> None:
+    """Unaided vs handed our detections, for both frontier models.
+
+    The decomposition is the result: the gap is enormous in variant A and gone
+    in variant B, which localises the failure to component detection rather
+    than to connectivity reasoning. Values are the ones the manuscript's
+    tab:vlm reports, kept here in one literal block so the two cannot drift
+    without this comment being wrong too.
+    """
+    systems = ["This work", "Claude Opus 5", "GPT-5.5"]
+    unaided = [0.5312, 0.1250, 0.1250]
+    assisted = [0.5312, 0.5295, 0.6823]
+
+    fig, ax = plt.subplots(figsize=(COL_W, 2.3))
+    x = range(len(systems))
+    wdt = 0.36
+    ax.bar([i - wdt / 2 for i in x], unaided, wdt, label="unaided (variant A)",
+           color=C_VAL)
+    ax.bar([i + wdt / 2 for i in x], assisted, wdt,
+           label="given our detections (variant B)", color=C_TEST)
+    for i, (u, a) in enumerate(zip(unaided, assisted)):
+        ax.text(i - wdt / 2, u + 0.015, f"{u:.4f}", ha="center", va="bottom",
+                fontsize=6)
+        ax.text(i + wdt / 2, a + 0.015, f"{a:.4f}", ha="center", va="bottom",
+                fontsize=6)
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(systems, fontsize=7)
+    ax.set_ylabel("strict success")
+    ax.set_ylim(0, 0.80)
+    ax.legend(frameon=False, loc="upper left", fontsize=6.2)
+    ax.grid(axis="x", visible=False)
+    save(fig, "fig_vlm")
+
+
 FIGURES = {
     "precision_cliff": fig_precision_cliff,
     "ablation_waterfall": fig_ablation_waterfall,
     "oracle_waterfall": fig_oracle_waterfall,
     "per_class_ap": fig_per_class_ap,
     "size_scatter": fig_size_scatter,
+    "capture": fig_capture,
+    "pipeline": fig_pipeline,
+    "op_gap": fig_op_gap,
+    "vlm": fig_vlm,
 }
 
 
