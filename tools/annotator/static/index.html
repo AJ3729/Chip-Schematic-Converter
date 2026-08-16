@@ -38,6 +38,9 @@
         font:inherit; width:100%; }
   .row { display:flex; gap:6px; align-items:center; }
   .row > * { flex:1; }
+  .cbox { position:absolute; border:2px solid var(--accent); border-radius:2px;
+          background:rgba(77,163,255,.10); pointer-events:none; }
+  .cbox.preview { border-style:dashed; background:rgba(77,163,255,.18); }
   .sitedot { position:absolute; width:13px; height:13px; border-radius:50%;
              transform:translate(-50%,-50%); border:2px solid #0c0d11; }
   .termdot { position:absolute; width:11px; height:11px;
@@ -70,8 +73,10 @@
 
   <div class="scroll">
     <div class="pad">
-      <b>Mode</b> — <kbd>t</kbd> terminal · <kbd>i</kbd> intersection
-      <div class="dim" id="mode">terminal</div>
+      <b>Mode</b> — <kbd>b</kbd> box · <kbd>t</kbd> terminal · <kbd>i</kbd> intersection
+      <div class="dim" id="mode">box</div>
+      <div class="dim">Drag a box round the symbol, then click its terminals in
+        port order. Box mode switches to terminal mode by itself.</div>
     </div>
 
     <div class="pad">
@@ -84,7 +89,8 @@
     </div>
 
     <div class="pad">
-      <b>Components</b> <span class="dim">(<kbd>c</kbd> add · <kbd>x</kbd> delete last)</span>
+      <b>Components</b> <span class="dim">(<kbd>c</kbd> class · <kbd>x</kbd> delete last ·
+        <span style="color:var(--bad)">▢</span> = no box)</span>
       <div class="row"><select id="cls"></select></div>
       <table id="comps"></table>
     </div>

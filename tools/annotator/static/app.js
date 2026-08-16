@@ -31,9 +31,9 @@ const SITE_KINDS = {j:"junction", k:"crossing", e:"edge_group", o:"none"};
 const SITE_COLOR = {junction:"#3fbf6f", crossing:"#e0574a",
                     edge_group:"#e0a33e", none:"#8b93a7"};
 
-let items = [], idx = 0, tutorial = false;
+let items = [], idx = 0, tutorial = false, blind = false;
 let state = null;              // the record being built
-let mode = "terminal";
+let mode = "box";
 let curNet = "n1";
 let view = {z:1, x:0, y:0};
 let t0 = 0, elapsed = 0;
@@ -41,12 +41,17 @@ let t0 = 0, elapsed = 0;
 const $ = s => document.querySelector(s);
 const canvas = $("#canvas"), img = $("#img");
 
+const SOURCE = {
+  cghd: "cghd_geometry+manual_topology",
+  "digitize-hcd": "digitize_hcd_tutorial",
+  "blind-review": "digitize_hcd_blind_second_pass"
+};
+
 function blankRecord(item){
   return {
     schema_version: 1,
     image: item.image + ".jpg",
-    source: item.corpus === "cghd" ? "cghd_geometry+manual_topology"
-                                   : "digitize_hcd_tutorial",
+    source: SOURCE[item.corpus] || "manual",
     drafter: item.drafter,
     drawing_group: item.id,
     picture: 1,
@@ -62,7 +67,7 @@ function blankRecord(item){
 
 async function boot(){
   const r = await (await fetch("/api/items")).json();
-  items = r.items; tutorial = r.tutorial;
+  items = r.items; tutorial = r.tutorial; blind = !!r.blind;
   $("#cls").innerHTML = CLASSES.map(c=>`<option>${c}</option>`).join("");
   if (tutorial) $("#tutorialbox").style.display = "block";
   await load(0);
@@ -121,26 +126,90 @@ addEventListener("mousemove", e=>{
 addEventListener("mouseup", ()=> drag = null);
 
 /* ------------------------------------------------------------- placing */
-canvas.addEventListener("click", e=>{
-  if (e.shiftKey) return;
+const at = e => {
   const r = img.getBoundingClientRect();
-  const x = (e.clientX - r.left) / view.z, y = (e.clientY - r.top) / view.z;
+  return [(e.clientX - r.left) / view.z, (e.clientY - r.top) / view.z];
+};
+
+canvas.addEventListener("click", e=>{
+  // A drag emits mouseup and THEN click. Box mode switches to terminal mode on
+  // mouseup, so without this the trailing click lands as a terminal at the
+  // corner of the box you just drew -- every component silently gains a phantom
+  // terminal, and the count only looks wrong two components later.
+  if (swallowClick) { swallowClick = false; return; }
+  if (e.shiftKey || mode === "box") return;
+  const [x,y] = at(e);
   if (mode === "terminal") addTerminal(x, y);
   else addSite(x, y);
   render();
 });
 
+/* Box mode: drag out the component's bounding box. The box is not decoration --
+ * components are paired between the two annotations GEOMETRICALLY (Hungarian
+ * assignment on IoU, see scripts/compare_annotations.py), so a component with no
+ * box cannot be paired at all and reads as one missing plus one extra. */
+let boxDrag = null, swallowClick = false;
+canvas.addEventListener("mousedown", e=>{
+  if (mode !== "box" || e.shiftKey || e.button !== 0) return;
+  e.preventDefault();
+  const [x,y] = at(e);
+  boxDrag = {x0:x, y0:y, x1:x, y1:y};
+  drawBoxPreview();
+});
+addEventListener("mousemove", e=>{
+  if (!boxDrag) return;
+  const [x,y] = at(e);
+  boxDrag.x1 = x; boxDrag.y1 = y;
+  drawBoxPreview();
+});
+addEventListener("mouseup", ()=>{
+  if (!boxDrag) return;
+  const b = boxDrag; boxDrag = null;
+  const el = $("#boxpreview"); if (el) el.remove();
+  swallowClick = true;
+  const x = Math.min(b.x0,b.x1), y = Math.min(b.y0,b.y1);
+  const w = Math.abs(b.x1-b.x0), h = Math.abs(b.y1-b.y0);
+  if (w < 6 || h < 6) { render(); return; }   // a stray click, not a box
+  addComponent(x, y, w, h);
+  mode = "terminal";                          // boxed it; now place its terminals
+  render();
+});
+
+function drawBoxPreview(){
+  let el = $("#boxpreview");
+  if (!el){
+    el = document.createElement("div");
+    el.id = "boxpreview"; el.className = "cbox preview";
+    canvas.appendChild(el);
+  }
+  const b = boxDrag;
+  el.style.left = Math.min(b.x0,b.x1)+"px";
+  el.style.top = Math.min(b.y0,b.y1)+"px";
+  el.style.width = Math.abs(b.x1-b.x0)+"px";
+  el.style.height = Math.abs(b.y1-b.y0)+"px";
+}
+
+function addComponent(x,y,w,h){
+  state.components.push({
+    id: state.components.length, class: $("#cls").value, terminals: [],
+    bbox: [Math.round(x), Math.round(y), Math.round(w), Math.round(h)],
+    allow_self_short: false
+  });
+}
+
 function addTerminal(x,y){
   const cls = $("#cls").value;
   let c = state.components[state.components.length-1];
   const need = PORTS[cls].length;
-  if (!c || c.class !== cls || c.terminals.length >= PORTS[c.class].length){
+  if (!c || c.terminals.length >= PORTS[c.class].length){
+    // No boxed component is waiting for terminals. Create one without a box and
+    // let render() flag it, rather than silently dropping the terminal.
     c = {id: state.components.length, class: cls, terminals: [],
          bbox: null, allow_self_short:false};
     state.components.push(c);
   }
   c.terminals.push({index:c.terminals.length, net:curNet, xy:[Math.round(x),Math.round(y)]});
-  if (c.terminals.length === need) beep();
+  if (c.terminals.length === PORTS[c.class].length) beep();
 }
 
 function addSite(x,y){
@@ -155,7 +224,17 @@ function beep(){ // visual, not audible
 
 /* -------------------------------------------------------------- render */
 function render(){
-  [...canvas.querySelectorAll(".sitedot,.termdot")].forEach(n=>n.remove());
+  [...canvas.querySelectorAll(".sitedot,.termdot,.cbox:not(.preview)")]
+    .forEach(n=>n.remove());
+  state.components.forEach(c=>{
+    if (!c.bbox) return;
+    const d = document.createElement("div");
+    d.className = "cbox";
+    d.style.cssText += `left:${c.bbox[0]}px;top:${c.bbox[1]}px;` +
+                       `width:${c.bbox[2]}px;height:${c.bbox[3]}px`;
+    d.title = `#${c.id} ${c.class}`;
+    canvas.appendChild(d);
+  });
   state.sites.forEach(s=>{
     const d = document.createElement("div");
     d.className = "sitedot";
@@ -175,7 +254,9 @@ function render(){
     state.components.map(c=>{
       const need = PORTS[c.class].length;
       const bad = c.terminals.length !== need;
-      return `<tr><td>${c.id}</td><td>${c.class}</td><td>` +
+      return `<tr><td>${c.id}${c.bbox ? "" :
+                 ' <span style="color:var(--bad)" title="no bounding box">▢</span>'}` +
+        `</td><td>${c.class}</td><td>` +
         c.terminals.map(t=>`<span class="net">${t.net}</span>`).join(" ") +
         (bad ? ` <span style="color:var(--warn)">${c.terminals.length}/${need}</span>` : "") +
         `</td></tr>`;
@@ -187,10 +268,12 @@ function render(){
     Object.entries(byKind).map(([k,v])=>
       `<tr><td style="color:${SITE_COLOR[k]}">${k}</td><td>${v}</td></tr>`).join("");
 
+  const noBox = state.components.filter(c=>!c.bbox).length;
   $("#mode").textContent = mode;
   $("#hint").textContent =
     `${mode} mode · net ${curNet} · ${state.components.length} components · ` +
-    `${state.sites.length} sites`;
+    `${state.sites.length} sites` +
+    (noBox ? ` · ${noBox} WITHOUT A BOX` : "");
   $("#timer").textContent = `${Math.round(secs())} s on this circuit`;
 }
 
@@ -223,6 +306,12 @@ async function submit(){
   if (bad.length && !confirm(
       `${bad.length} component(s) have the wrong terminal count. Submit anyway?`))
     return;
+  const noBox = rec.components.filter(c=>!c.bbox);
+  if (noBox.length && !confirm(
+      `${noBox.length} component(s) have no bounding box. Components are paired ` +
+      `between annotations by box overlap, so an unboxed one cannot be matched ` +
+      `and will read as a disagreement. Submit anyway?`))
+    return;
   const r = await (await fetch("/api/submit", {method:"POST",
     headers:{"Content-Type":"application/json"},
     body: JSON.stringify({id: items[idx].id, record: rec})})).json();
@@ -243,6 +332,12 @@ function wire(){
     curNet = "n"+i; $("#net").value = curNet; render();
   };
   $("#net").oninput = e=> { curNet = e.target.value.trim() || "n1"; render(); };
+  // Boxing first and picking the class after is the natural order, so let a
+  // class change re-label the component still waiting for its terminals.
+  $("#cls").onchange = ()=>{
+    const c = state.components[state.components.length-1];
+    if (c && !c.terminals.length) { c.class = $("#cls").value; render(); }
+  };
   $("#reveal").onclick = async ()=>{
     const t = await (await fetch("/api/truth?id="+encodeURIComponent(items[idx].image))).json();
     $("#truth").textContent = t.components
@@ -257,7 +352,8 @@ function wire(){
       return;
     }
     const k = e.key.toLowerCase();
-    if (k === "t") { mode = "terminal"; render(); }
+    if (k === "b") { mode = "box"; render(); }
+    else if (k === "t") { mode = "terminal"; render(); }
     else if (k === "i") { mode = "intersection"; render(); }
     else if (k in SITE_KINDS && state.sites.length){
       state.sites[state.sites.length-1].kind = SITE_KINDS[k]; render();
@@ -266,6 +362,7 @@ function wire(){
     else if (k === "0") { curNet = "0"; $("#net").value = "0"; render(); }
     else if (k === "x") {          // undo last placement
       if (mode === "intersection") state.sites.pop();
+      else if (mode === "box") state.components.pop();
       else {
         const c = state.components[state.components.length-1];
         if (c){ c.terminals.pop(); if (!c.terminals.length) state.components.pop(); }

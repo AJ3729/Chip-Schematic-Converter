@@ -77,6 +77,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 import random
 import shutil
 import sys
@@ -104,6 +105,11 @@ SITE_CALLS = ("junction", "crossing", "none", "edge-group")
 # what it meant when the sites were first adjudicated.
 DOT_RATIO = 2.30
 HOP_THRESH = 6.0
+
+# Radius, in 1024-frame pixels, within which a coordinate an annotator wrote down
+# is taken to name a traced site. See resolve_sites_xy for why a match must also
+# be UNAMBIGUOUS, and why this number is 12.
+SITE_XY_TOL_PX = 12
 
 CATEGORIES = ("clerical", "ambiguous-ink", "convention",
               "genuine-error-A", "genuine-error-B", "unresolved")
@@ -144,6 +150,114 @@ def normalize_call(value) -> str:
         return "edge-group"
     v = str(value).strip().lower()
     return v if v in SITE_CALLS else f"other:{v}"
+
+
+def resolve_sites_xy(dec: dict | None, site_evidence: dict | None,
+                     tol: float = SITE_XY_TOL_PX,
+                     other_calls: dict | None = None) -> tuple[dict, dict]:
+    """Coordinate-keyed site record -> the index-keyed one this differ compares.
+
+    WHY THIS EXISTS. A site index is not a property of the drawing, it is a
+    property of an annotation: ``gt_val_tools/trace.py`` erases the annotator's
+    component boxes before it skeletonises the ink, so which intersections exist
+    and what order they are numbered in both follow from where that annotator put
+    the boxes. Handing annotation A's indices to an independent second annotator
+    would therefore leak A's component enumeration -- which is exactly what
+    measure 4 is trying to compare -- and asking the second annotator to invent
+    their own indices produces two numberings that do not correspond, so every
+    site lands in ``site_coverage`` and the kappa is computed over nothing.
+
+    A pixel coordinate is a fact about the photograph instead of a fact about an
+    annotation, so it is the one currency both passes can quote independently.
+    Annotator B writes ``{"sites_xy": [{"xy": [434, 869], "call": "crossing"}]}``
+    and this resolves each entry to the site A's tracer found there.
+
+    TWO REFUSALS, BOTH DELIBERATE. A coordinate is dropped as unresolved rather
+    than guessed when (a) several traced sites sit within ``tol`` of it and the
+    choice between them could change the comparison, or (b) two coordinates land
+    on the same site. In both cases the call cannot be attached to a specific
+    piece of ink, and a mis-attached call is worse than a missing one: it enters
+    the kappa as a real disagreement about the wrong intersection.
+
+    THE CLUSTER EXCEPTION. The tracer routinely splits one drawn intersection
+    into two or three sites a few pixels apart -- the schema has an entire value
+    (``edge-group``) for "a drawn crossing split across two nearby sites". A
+    reader looking at the drawing sees one intersection there and writes one
+    coordinate, so refusing every cluster would discard exactly the sites the
+    drawing is hardest at. When ``other_calls`` is supplied, a cluster is
+    resolved to the NEAREST site whenever every site in it that the other
+    annotator adjudicated carries the SAME call: the choice is then provably
+    unable to change the comparison, so making it is bookkeeping rather than
+    interpretation. A cluster whose calls disagree is still refused, because
+    there the choice decides the answer.
+
+    ``tol`` is 12 px in the 1024 frame. The tracer merges branch pixels within 6
+    px into one site, so anything under ~6 px cannot separate two sites anyway;
+    12 px allows for a human pointing at a junction by eye while staying well
+    below the spacing at which two intersections are visually distinct.
+
+    Returns ``(sites_by_index, report)``. ``report`` always carries the counts,
+    so an unresolved coordinate is visible in the output rather than silently
+    absent.
+    """
+    entries = ((dec or {}).get("sites_xy") or [])
+    report = {"given": len(entries), "matched": 0, "unmatched": [],
+              "matched_via_cluster": 0, "tolerance_px": tol,
+              "evidence_available": site_evidence is not None}
+    if not entries:
+        return {}, report
+    if site_evidence is None:
+        report["unmatched"] = [{"xy": e.get("xy"), "why": "no tracer evidence"}
+                               for e in entries]
+        return {}, report
+
+    resolved: dict[str, object] = {}
+    claimed: dict[int, list] = defaultdict(list)
+    for e in entries:
+        xy = e.get("xy")
+        call = e.get("call")
+        if not (isinstance(xy, (list, tuple)) and len(xy) == 2):
+            report["unmatched"].append({"xy": xy, "why": "malformed xy"})
+            continue
+        x, y = float(xy[0]), float(xy[1])
+        near = sorted(
+            ((math.hypot(s["x"] - x, s["y"] - y), i)
+             for i, s in site_evidence.items()),
+            key=lambda t: (t[0], t[1]))
+        within = [(d, i) for d, i in near if d <= tol]
+        if not within:
+            nd = near[0][0] if near else float("inf")
+            report["unmatched"].append(
+                {"xy": [x, y], "call": call,
+                 "why": f"no traced site within {tol} px (nearest {nd:.1f} px)"})
+            continue
+        if len(within) > 1:
+            # Only the candidates the other annotator actually adjudicated can
+            # change the comparison; the rest are uncompared either way.
+            adjudicated = {normalize_call((other_calls or {})[str(i)])
+                           for _, i in within if str(i) in (other_calls or {})}
+            if len(adjudicated) > 1:
+                report["unmatched"].append(
+                    {"xy": [x, y], "call": call,
+                     "why": f"{len(within)} traced sites within {tol} px "
+                            f"(indices {[i for _, i in within]}) carry different "
+                            f"calls {sorted(adjudicated)} -- the choice between "
+                            "them would decide the answer"})
+                continue
+            report["matched_via_cluster"] += 1
+        claimed[within[0][1]].append((x, y, call))
+
+    for idx, hits in claimed.items():
+        if len(hits) > 1:
+            for x, y, call in hits:
+                report["unmatched"].append(
+                    {"xy": [x, y], "call": call,
+                     "why": f"{len(hits)} coordinates resolve to site {idx} -- "
+                            "cannot tell which call belongs to it"})
+            continue
+        resolved[str(idx)] = hits[0][2]
+        report["matched"] += 1
+    return resolved, report
 
 
 # ---------------------------------------------------------------------------
@@ -338,8 +452,26 @@ def compare_circuit(stem: str, gt_a: dict, gt_b: dict,
             component_a=ca["id"], component_b=cb["id"])
 
     # --- site decisions -----------------------------------------------------
-    sites_a = (dec_a or {}).get("sites", {}) or {}
-    sites_b = (dec_b or {}).get("sites", {}) or {}
+    # Either side may record sites by coordinate instead of by index; an index is
+    # a fact about an annotation, a coordinate is a fact about the photograph.
+    # Resolve first, then merge, so the comparison below is identical either way.
+    raw_a = (dec_a or {}).get("sites", {}) or {}
+    raw_b = (dec_b or {}).get("sites", {}) or {}
+    xy_a, xyrep_a = resolve_sites_xy(dec_a, site_evidence, other_calls=raw_b)
+    xy_b, xyrep_b = resolve_sites_xy(dec_b, site_evidence, other_calls=raw_a)
+    sites_a = {**raw_a, **xy_a}
+    sites_b = {**raw_b, **xy_b}
+
+    for side, rep in (("A", xyrep_a), ("B", xyrep_b)):
+        for u in rep["unmatched"]:
+            row("site_xy_unresolved",
+                f"{side} recorded a call at {u.get('xy')} that names no site: "
+                f"{u['why']}",
+                "unresolved",
+                "the call cannot be attached to a specific intersection, so it is "
+                "excluded from the agreement rather than matched to nearby ink; "
+                "re-check the coordinate against the 1024 frame",
+                site="")
     # A missing decision RECORD is one fact about the delivery, not one
     # disagreement per site: emitting a row per site would let a single
     # undelivered file dominate the CSV and drown the substantive rows.
@@ -420,6 +552,13 @@ def compare_circuit(stem: str, gt_a: dict, gt_b: dict,
         "sites_agree": site_agree,
         "sites_only_in_a": len(set(sites_a) - set(sites_b)),
         "sites_only_in_b": len(set(sites_b) - set(sites_a)),
+        "sites_xy_given_a": xyrep_a["given"],
+        "sites_xy_given_b": xyrep_b["given"],
+        "sites_xy_matched_a": xyrep_a["matched"],
+        "sites_xy_matched_b": xyrep_b["matched"],
+        "sites_xy_matched_via_cluster": (xyrep_a["matched_via_cluster"]
+                                         + xyrep_b["matched_via_cluster"]),
+        "sites_xy_unresolved": len(xyrep_a["unmatched"]) + len(xyrep_b["unmatched"]),
         "site_decision_record_missing": missing_record,
         "frame_mismatch_suspected": frame_mismatch,
         "site_evidence_available": site_evidence is not None,
@@ -440,7 +579,7 @@ def compare_circuit(stem: str, gt_a: dict, gt_b: dict,
 # ---------------------------------------------------------------------------
 
 def measure_sites(stem: str, gt_a: dict, images_dir: Path,
-                  dec_a: dict | None) -> dict | None:
+                  dec_a: dict | None, reasons: dict | None = None) -> dict | None:
     """Per-site degree / dot_score / hop_score, from the tracer that made the sites.
 
     Returns None -- meaning "no evidence", which forces every site disagreement to
@@ -449,7 +588,19 @@ def measure_sites(stem: str, gt_a: dict, images_dir: Path,
     annotation A's notes quote a site coordinate (``S12 (434,869)``) it must
     match. If the enumeration has drifted, indices mean different sites in the two
     files and any evidence attached to them would be evidence about the wrong ink.
+
+    The drift guard is deliberately all-or-nothing. A renumbering that moves two
+    sites has moved every site after them, and there is no way to tell from the
+    file which of the unquoted indices those are -- so a circuit that fails it
+    loses its site comparison entirely rather than keeping the majority that
+    happen to still line up. ``reasons``, if given, receives ``stem -> why`` so
+    the report can name the guard that fired instead of saying only "no evidence".
     """
+    def fail(why: str) -> None:
+        if reasons is not None:
+            reasons[stem] = why
+        return None
+
     tools = ROOT / "scripts" / "gt_val_tools"
     img = None
     for ext in (".jpg", ".jpeg", ".png"):
@@ -457,20 +608,23 @@ def measure_sites(stem: str, gt_a: dict, images_dir: Path,
         if p.is_file():
             img = p
             break
-    if img is None or not (tools / "trace.py").is_file():
-        return None
+    if img is None:
+        return fail(f"no image for {stem} under {images_dir}")
+    if not (tools / "trace.py").is_file():
+        return fail("scripts/gt_val_tools/trace.py is not present")
     if str(tools) not in sys.path:
         sys.path.insert(0, str(tools))
     try:
         import trace as tracer  # noqa: PLC0415  (gt_val_tools is not a package)
         tr = tracer.trace(str(img), gt_a)
-    except Exception:
-        return None
+    except Exception as e:
+        return fail(f"the tracer raised {type(e).__name__}: {e}")
 
     sites = tr.get("sites") or []
     recorded = [int(k) for k in ((dec_a or {}).get("sites") or {}) if str(k).isdigit()]
     if recorded and max(recorded) >= len(sites):
-        return None
+        return fail(f"A records site {max(recorded)} but the tracer found only "
+                    f"{len(sites)} sites, so the enumerations do not correspond")
 
     ev = {i: {"x": s["x"], "y": s["y"], "degree": s["degree"],
               "dot_score": s["dot_score"], "hop_score": s["hop_score"],
@@ -480,11 +634,15 @@ def measure_sites(stem: str, gt_a: dict, images_dir: Path,
     # coordinate cross-check against A's own prose, where it quotes one
     import re
     quoted = re.findall(r"\bS(\d+)\s*\((\d+)\s*,\s*(\d+)\)", (dec_a or {}).get("notes", ""))
-    bad = sum(1 for si, x, y in quoted
-              if int(si) in ev and (abs(ev[int(si)]["x"] - int(x)) > 2
-                                    or abs(ev[int(si)]["y"] - int(y)) > 2))
+    bad = [int(si) for si, x, y in quoted
+           if int(si) in ev and (abs(ev[int(si)]["x"] - int(x)) > 2
+                                 or abs(ev[int(si)]["y"] - int(y)) > 2)]
     if quoted and bad:
-        return None
+        return fail(
+            f"site numbering has drifted: {len(bad)} of {len(quoted)} coordinates "
+            f"A quoted in its own notes (sites {sorted(bad)[:5]}) no longer sit "
+            "where the tracer puts those indices, so every index in this circuit "
+            "may name different ink than it did")
     return ev
 
 
@@ -537,6 +695,7 @@ def run_comparison(gt_a_dir: Path, gt_b_dir: Path, stems: list[str],
                    images_dir: Path, use_evidence: bool) -> tuple[dict, list[dict]]:
     per_circuit, all_rows, all_site_pairs = [], [], []
     skipped = []
+    no_evidence: dict[str, str] = {}
     for stem in stems:
         gt_a, dec_a = load_side(gt_a_dir, stem)
         gt_b, dec_b = load_side(gt_b_dir, stem)
@@ -544,7 +703,8 @@ def run_comparison(gt_a_dir: Path, gt_b_dir: Path, stems: list[str],
             skipped.append({"stem": stem,
                             "reason": "missing in A" if gt_a is None else "missing in B"})
             continue
-        ev = measure_sites(stem, gt_a, images_dir, dec_a) if use_evidence else None
+        ev = (measure_sites(stem, gt_a, images_dir, dec_a, no_evidence)
+              if use_evidence else None)
         summary, rows, site_pairs = compare_circuit(stem, gt_a, gt_b, dec_a, dec_b, ev)
         per_circuit.append(summary)
         all_rows.extend(rows)
@@ -599,6 +759,36 @@ def run_comparison(gt_a_dir: Path, gt_b_dir: Path, stems: list[str],
                 "sites_only_in_a": sum(c["sites_only_in_a"] for c in per_circuit),
                 "sites_only_in_b": sum(c["sites_only_in_b"] for c in per_circuit),
                 "cohens_kappa": cohens_kappa(all_site_pairs),
+                "coordinate_records": {
+                    "_meaning": (
+                        "calls recorded as {\"sites_xy\": [{\"xy\": [x, y], "
+                        "\"call\": ...}]} in the 1024 frame and resolved to a "
+                        "traced site here. A site index belongs to whoever drew "
+                        "the component boxes, so an independent annotator quotes "
+                        "coordinates instead; unresolved ones are excluded from "
+                        "the kappa rather than matched to nearby ink"),
+                    "tolerance_px": SITE_XY_TOL_PX,
+                    "given_a": sum(c["sites_xy_given_a"] for c in per_circuit),
+                    "given_b": sum(c["sites_xy_given_b"] for c in per_circuit),
+                    "matched_a": sum(c["sites_xy_matched_a"] for c in per_circuit),
+                    "matched_b": sum(c["sites_xy_matched_b"] for c in per_circuit),
+                    "matched_via_cluster": sum(
+                        c["sites_xy_matched_via_cluster"] for c in per_circuit),
+                    "_cluster_meaning": (
+                        "the tracer split one drawn intersection into several "
+                        "sites a few px apart and the other annotator gave every "
+                        "one of them the same call, so which one the coordinate "
+                        "names cannot change the comparison"),
+                    "unresolved": sum(c["sites_xy_unresolved"] for c in per_circuit),
+                },
+                "circuits_without_ink_evidence": {
+                    "_meaning": (
+                        "site calls in these circuits are excluded from the "
+                        "agreement and the kappa above. Every other measure -- "
+                        "nets, pin order, components -- is unaffected"),
+                    "n": len(no_evidence),
+                    "why": no_evidence,
+                },
             },
             "pin_order_3plus_terminals": {
                 "_meaning": ("scored separately because canonicalize_terminals "
@@ -733,6 +923,10 @@ def self_test(gt_a_dir: Path, images_dir: Path, seed: int, n_flips: int,
     subset = sorted(set(flip_stems + swap_stems + [drop_stem]
                         + rng.sample(rest, min(n_stems, len(rest)))))
 
+    # deliver half the flip stems by coordinate, half by index
+    xy_stems = set(sorted(flip_stems)[: max(1, len(flip_stems) // 2)])
+    xy_delivered: dict[str, int] = {}
+
     injected_flips, injected_swaps, injected_drops = set(), set(), set()
     for stem in subset:
         gt, dec = load_side(gt_a_dir, stem)
@@ -766,6 +960,24 @@ def self_test(gt_a_dir: Path, images_dir: Path, seed: int, n_flips: int,
             victim = gt["components"].pop(rng.randrange(len(gt["components"])))
             injected_drops.add((stem, victim["id"]))
 
+        # Half the flip stems are delivered the way a real second annotator has
+        # to deliver them -- by coordinate, not by site index, because the index
+        # belongs to whoever drew the boxes. Recovery must be identical either
+        # way; if it is not, the coordinate path is silently losing calls.
+        if stem in xy_stems and dec is not None and dec.get("sites"):
+            ev = measure_sites(stem, gt, images_dir, dec)
+            if ev is not None:
+                xy_entries = []
+                for k, v in list(dec["sites"].items()):
+                    if not str(k).isdigit() or int(k) not in ev:
+                        continue
+                    s = ev[int(k)]
+                    xy_entries.append({"xy": [s["x"], s["y"]], "call": v})
+                    del dec["sites"][k]
+                if xy_entries:
+                    dec["sites_xy"] = xy_entries
+                    xy_delivered[stem] = len(xy_entries)
+
         (gt_b_dir / f"{stem}.json").write_text(json.dumps(gt, indent=2))
         if dec is not None:
             (gt_b_dir / "decisions" / f"{stem}.json").write_text(json.dumps(dec, indent=2))
@@ -777,7 +989,8 @@ def self_test(gt_a_dir: Path, images_dir: Path, seed: int, n_flips: int,
     rec_drops = {(r["stem"], r["component_a"])
                  for r in rows if r["kind"] == "component_missing_in_B"}
     other = [r for r in rows if r["kind"] not in
-             ("site_decision", "pin_order", "component_missing_in_B")]
+             ("site_decision", "pin_order", "component_missing_in_B",
+              "site_xy_unresolved")]
 
     print(f"\nself-test: {len(subset)} circuits, "
           f"{len(injected_flips)} site flips, {len(injected_swaps)} pin swaps, "
@@ -816,6 +1029,21 @@ def self_test(gt_a_dir: Path, images_dir: Path, seed: int, n_flips: int,
     if bad_site_cat:
         print(f"      FAIL: site flips categorised {bad_site_cat}, which this tool "
               "must never propose automatically")
+
+    # coordinate delivery must be exactly as good as index delivery
+    xy_flips = {(s, k) for s, k in injected_flips if s in xy_delivered}
+    xy_rec = {(s, k) for s, k in rec_flips if s in xy_delivered}
+    cr = report["agreement_before_adjudication"]["site_decisions"]["coordinate_records"]
+    xy_ok = (bool(xy_delivered) and xy_flips == xy_rec and cr["unresolved"] == 0
+             and cr["matched_b"] == sum(xy_delivered.values()))
+    ok &= xy_ok
+    print(f"  {'sites by coordinate':20s} {len(xy_delivered)} circuit(s), "
+          f"{cr['matched_b']}/{cr['given_b']} coordinates resolved, "
+          f"{len(xy_rec)}/{len(xy_flips)} flips recovered  "
+          f"{'OK' if xy_ok else 'FAIL'}")
+    if not xy_ok:
+        print(f"      the coordinate path is not equivalent to the index path; "
+              f"unresolved {cr['unresolved']}, missed {sorted(xy_flips - xy_rec)[:4]}")
 
     if other:
         print(f"  {'phantom other kinds':20s} {len(other)}  FAIL")

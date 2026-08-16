@@ -6,6 +6,12 @@
       "runtimeExecutable": "./venv/bin/python",
       "runtimeArgs": ["tools/annotator/server.py", "--tutorial", "--port", "8765"],
       "port": 8765
+    },
+    {
+      "name": "annotator-blind",
+      "runtimeExecutable": "./venv/bin/python",
+      "runtimeArgs": ["tools/annotator/server.py", "--blind", "--port", "8766"],
+      "port": 8766
     }
   ]
 }

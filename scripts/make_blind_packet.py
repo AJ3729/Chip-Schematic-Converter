@@ -263,7 +263,8 @@ def _render_hashes() -> tuple[dict[str, str], int]:
     return seen, n
 
 
-def _assert_blind(packet_dir: Path, records: list[dict]) -> dict:
+def _assert_blind(packet_dir: Path, records: list[dict],
+                  frame_records: list[dict] | None = None) -> dict:
     """Prove the packet leaks nothing. Raises SystemExit on ANY doubt.
 
     Four independent assertions, in increasing order of what they would catch:
@@ -280,12 +281,19 @@ def _assert_blind(packet_dir: Path, records: list[dict]) -> dict:
       D. no side-channel-- the packet holds images plus exactly three known text
                            files, and no .json at all. Catches a netlist, a
                            decision record or a notes file riding along.
+
+    ``frame_records`` are the 1024 frames the annotator's coordinates refer to.
+    They go through A, B and C on exactly the same terms as the photographs --
+    a preprocessed frame is still a frame of the drawing, and a render dropped
+    into cleaned_1024 would leak just as completely as one dropped into raw/.
     """
     problems: list[str] = []
+    frame_records = frame_records or []
 
     # A + B
-    for rec in records:
-        src, dst = ROOT / rec["source_path"], packet_dir / "images" / rec["file"]
+    for rec in records + frame_records:
+        sub = "frames_1024" if rec.get("source_kind") == "frame_1024" else "images"
+        src, dst = ROOT / rec["source_path"], packet_dir / sub / rec["file"]
         if not dst.is_file():
             problems.append(f"A: {rec['file']} was not written")
             continue
@@ -305,7 +313,7 @@ def _assert_blind(packet_dir: Path, records: list[dict]) -> dict:
 
     # C
     render_hashes, n_render_files = _render_hashes()
-    for rec in records:
+    for rec in records + frame_records:
         if rec["sha256"] in render_hashes:
             problems.append(
                 f"C: {rec['file']} is byte-identical to the render "
@@ -318,7 +326,7 @@ def _assert_blind(packet_dir: Path, records: list[dict]) -> dict:
         if f.is_dir():
             continue
         rel = f.relative_to(packet_dir)
-        if rel.parts[0] == "images":
+        if rel.parts[0] in ("images", "frames_1024"):
             if f.suffix.lower() not in (".jpg", ".jpeg", ".png"):
                 extra.append(str(rel))
             continue
@@ -339,26 +347,37 @@ def _assert_blind(packet_dir: Path, records: list[dict]) -> dict:
         raise SystemExit(2)
 
     return {
-        "byte_identity_checked": len(records),
+        "byte_identity_checked": len(records) + len(frame_records),
+        "photographs_checked": len(records),
+        "frames_1024_checked": len(frame_records),
         "source_dirs_allowed": list(ALLOWED_SOURCE_DIRS),
         "render_files_hashed": n_render_files,
         "render_hash_collisions": 0,
         "packet_json_files": 0,
         "assertion": (
             "every packet image is byte-identical (sha256) to an untouched "
-            "photograph under data/raw or data/cleaned_1024, is hash-disjoint "
-            "from every render/overlay directory in the repo, and the packet "
-            "contains no JSON and no file other than images/, README.md and "
-            "circuits.txt"),
+            "photograph under data/raw or to its deterministic 1024 preprocessing "
+            "under data/cleaned_1024, is hash-disjoint from every render/overlay "
+            "directory in the repo, and the packet contains no JSON and no file "
+            "other than images/, frames_1024/, README.md and circuits.txt"),
     }
 
 
 PACKET_README = """\
 # Blind re-annotation packet -- connectivity ground truth
 
-You are the independent second annotator. Everything you need is in `images/`:
-{n} photographs of hand-drawn circuit schematics, exactly as they came off the
-camera.
+You are the independent second annotator. The packet holds {n} hand-drawn circuit
+schematics, in two forms of the same drawings:
+
+| directory | what it is | use it for |
+| --- | --- | --- |
+| `images/` | the photographs, exactly as they came off the camera (~2000 px) | **looking**: it has the most detail, so zoom into it to read faint pencil |
+| `frames_1024/` | the same drawings normalised to a 1024 px frame | **coordinates**: every `[x, y]` you write down must be in this frame |
+
+Both are the drawing and nothing else -- no boxes, no nets, no calls. The
+1024 frame exists because the annotation schema records positions, and a
+position is only meaningful once both passes agree on the frame it is in. Read
+faint ink in `images/`, write coordinates from `frames_1024/`.
 
 ## What to produce
 
@@ -403,12 +422,53 @@ what you expect to find. Treat every image as equally likely to be routine.
 
 ## Delivering
 
-Write one `<stem>.json` per image into a single output directory and hand back
-that directory. Comparison against the existing annotation is automatic:
+Hand back one directory containing, per image:
+
+    <stem>.json             the netlist: your components, and the net each
+                            terminal sits on
+    decisions/<stem>.json   your call at each wire-ink intersection, plus notes
+
+### Recording intersections by coordinate
+
+Give each call the position you saw it at, **in the `frames_1024/` frame**:
+
+```json
+{{
+  "sites_xy": [
+    {{"xy": [434, 869], "call": "crossing"}},
+    {{"xy": [612, 240], "call": "junction"}}
+  ],
+  "notes": "S(434,869): plain X, no dot and no hop -- read as a crossing because ..."
+}}
+```
+
+`call` is one of `junction`, `crossing`, `none`, or an explicit edge grouping.
+
+**Why coordinates and not index numbers.** The existing annotation numbers its
+intersections, but that numbering is derived from where *that* annotator drew the
+component boxes -- so the numbers are a fact about their pass, not about the
+drawing, and you cannot be given them without being given part of their answer. A
+position in a shared frame is the one thing both passes can name independently.
+
+A coordinate is matched to an intersection within 12 px. If two intersections are
+that close together, or two of your coordinates land on the same one, the call is
+reported as unresolved rather than guessed -- so put the coordinate on the ink you
+mean, and don't worry about hitting it exactly.
+
+### Scoring
+
+Comparison against the existing annotation is automatic:
 
     python scripts/compare_annotations.py --gt-b <your output directory>
 
 `circuits.txt` lists the stems in this packet, in no meaningful order.
+
+**Three circuits are already known not to support the site comparison**
+(`circuit_858`, `circuit_557`, `circuit_218`): the first pass's own intersection
+numbering has drifted relative to the tracer, so its calls there cannot be
+trusted to name the ink they once named. Annotate them exactly like the rest --
+their nets, pin order and components are compared normally, and only the
+per-site agreement excludes them. See `results/blind_review/site_evidence_coverage.json`.
 """
 
 
@@ -494,11 +554,21 @@ def main() -> None:
 
     # --- copy --------------------------------------------------------------
     images_dir = packet_dir / "images"
+    frames_dir = packet_dir / "frames_1024"
     if packet_dir.exists():
-        # Rebuild the image directory only; never touch anything outside it.
-        for f in images_dir.glob("*"):
-            f.unlink()
+        # Rebuild the image directories only; never touch anything outside them.
+        for d in (images_dir, frames_dir):
+            for f in d.glob("*"):
+                f.unlink()
+        # Finder writes .DS_Store into any directory it is asked to display, and
+        # assertion D correctly refuses to ship a packet holding a file it cannot
+        # account for. Sweep them as part of the rebuild rather than relaxing the
+        # assertion: an unexplained file in a blind packet should always be an
+        # error, and this makes the one benign case stop recurring.
+        for junk in packet_dir.rglob(".DS_Store"):
+            junk.unlink()
     images_dir.mkdir(parents=True, exist_ok=True)
+    frames_dir.mkdir(parents=True, exist_ok=True)
 
     raw_dir, fb_dir = ROOT / args.raw_dir, ROOT / args.fallback_dir
     records = []
@@ -521,6 +591,39 @@ def main() -> None:
     print(f"copied {len(records)} images "
           f"({len(records) - n_fallback} raw, {n_fallback} cleaned fallback)")
 
+    # --- the coordinate frame ----------------------------------------------
+    # The photographs are ~2000 px on the long side; the annotation schema, the
+    # GT bounding boxes and the tracer's site coordinates are all in the 1024
+    # frame. Shipping only the photographs asks the annotator to write down
+    # coordinates in a frame they were never given, and compare_annotations.py
+    # has a whole branch dedicated to catching the result after the fact
+    # ("frame_mismatch_suspected"). Ship the frame instead of detecting its
+    # absence: images/ stays the record of what was photographed and is the
+    # better thing to zoom into, frames_1024/ is what coordinates refer to.
+    #
+    # This leaks nothing. cleaned_1024 is deterministic geometric and tonal
+    # normalisation of the same photograph -- it carries no component box, no
+    # net and no site -- and it was already an allowed packet source, so the
+    # same four assertions below cover it unchanged.
+    frame_records = []
+    for stem in sorted(chosen):
+        src = ROOT / args.fallback_dir / f"{stem}.jpg"
+        if not src.is_file():
+            raise SystemExit(
+                f"no 1024 frame for {stem} in {args.fallback_dir}. The packet "
+                "must not ship photographs without the frame their coordinates "
+                "are expressed in; preprocess the split first.")
+        dst = frames_dir / src.name
+        shutil.copyfile(src, dst)
+        frame_records.append({
+            "stem": stem, "file": dst.name,
+            "source_path": str(src.relative_to(ROOT)),
+            "source_kind": "frame_1024",
+            "sha256": sha256_of(src), "bytes": src.stat().st_size,
+        })
+    print(f"copied {len(frame_records)} 1024 frames "
+          f"({sum(r['bytes'] for r in frame_records) / 1e6:.1f} MB)")
+
     # --- packet text (no strata!) ------------------------------------------
     order = sorted(chosen)
     rng.shuffle(order)
@@ -528,10 +631,12 @@ def main() -> None:
     (packet_dir / "README.md").write_text(PACKET_README.format(n=len(records)))
 
     # --- prove it is blind BEFORE anyone can ship it -----------------------
-    blind = _assert_blind(packet_dir, records)
+    blind = _assert_blind(packet_dir, records, frame_records)
     print(f"blind-safety: OK -- {blind['byte_identity_checked']} images "
-          f"byte-identical to source, hash-disjoint from "
-          f"{blind['render_files_hashed']} render files, 0 JSON in packet")
+          f"({blind['photographs_checked']} photographs + "
+          f"{blind['frames_1024_checked']} frames) byte-identical to source, "
+          f"hash-disjoint from {blind['render_files_hashed']} render files, "
+          f"0 JSON in packet")
 
     # --- manifest (OUTSIDE the packet) -------------------------------------
     manifest = ROOT / args.manifest

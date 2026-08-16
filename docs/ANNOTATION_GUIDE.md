@@ -46,46 +46,68 @@ disagreement stand. A disagreement is a result, not a failure.
 
 ## 1. What you hand back
 
-One JSON file per image, same shape as
-`data/gt_test_1024/decisions/<stem>.json`, so the two passes diff mechanically.
-Every key is optional except `notes`; an absent key means "the default reading
-is fine". Coordinates are in the 1024 px frame (`data/cleaned_1024/`).
+**Use the annotation tool.** It writes the right shape for you, autosaves, and
+resumes where you left off:
+
+```
+python tools/annotator/server.py --blind      # then open http://127.0.0.1:8765
+```
+
+Per circuit: press <kbd>b</kbd> and drag a box round each symbol, pick its class,
+press <kbd>t</kbd> and click its terminals **in port order** (§7), typing a net
+name for each. Press <kbd>i</kbd> and click every wire-ink intersection, then
+<kbd>j</kbd>/<kbd>k</kbd>/<kbd>e</kbd>/<kbd>o</kbd> to call it. <kbd>Enter</kbd>
+submits. When you are done with all of them:
+
+```
+python scripts/annotator_to_gt.py             # converts your work for scoring
+```
+
+That script writes nothing it had to guess — if a component has no box, or a
+terminal has no net, it names the circuit and refuses it rather than inventing
+the missing piece.
+
+### The two files it produces, if you would rather write them by hand
+
+`<stem>.json` is the netlist — your components, each with a class, a bounding
+box, and one terminal per port carrying the net it sits on. `decisions/<stem>.json`
+is your reading of the ink:
 
 ```json
 {
-  "sites":       {"13": "junction", "14": "crossing", "32": "none",
-                  "28": [[61, 62, 58], [53, 64]]},
-  "ports":       {"7": {"0": 2, "1": 0, "2": 1}},
-  "merge":       [["5.0", "7.1"]],
-  "manual_nets": {"6.0": "0", "18.0": "n8"},
-  "bridges":     {"drop": [4]},
-  "classes":     {"9": "MOSFET-P"},
-  "unconnected": [12],
-  "notes":       "Net map: ... Judgement calls: ..."
+  "sites_xy": [
+    {"xy": [434, 869], "call": "crossing"},
+    {"xy": [612, 240], "call": "junction"}
+  ],
+  "interventions": [],
+  "notes": "Net map: ... Judgement calls: ..."
 }
 ```
 
-**`sites`** — per wire-ink intersection, site id → exactly one of four calls:
-`"junction"` (all branches become one net), `"crossing"` (opposite branches pass
-through each other, two nets), `"none"` (join nothing here), or an *edge-group*
-`[[e,…],[e,…]]` — each inner list one electrical group named by wire-edge id,
-used only for a drawn crossing split across two nearby sites. **Record a call
-for every critical site, including ones you agree with**: an absent key is
-indistinguishable from not having looked, and the two passes' site calls are
-compared item by item (with a Cohen's kappa) by
+**Coordinates are in the 1024 px frame** — `frames_1024/` in your packet. Zoom
+`images/` to read faint pencil; take coordinates from the 1024 frame.
+
+**`call`** is one of `"junction"` (all branches become one net), `"crossing"`
+(opposite branches pass through each other, two nets), `"none"` (join nothing
+here), or an *edge-group* `[[e,…],[e,…]]` — each inner list one electrical
+group, used only for a drawn crossing split across two nearby sites. **Record a
+call at every critical intersection, including ones you expect to be routine**:
+an absent one is indistinguishable from not having looked, and the two passes'
+calls are compared item by item, with a Cohen's kappa, by
 `scripts/compare_annotations.py`.
 
-**`ports`** — component id → terminal index → the lead index it belongs on, or
-`null`. The terminal→lead assignment: it fixes pin order (§7) and moves a
-terminal off stray ink (§3). The rest: **`merge`** forces two terminals onto one
-net where the drawn wire broke in the scan (`"5.0"` = component 5, terminal 0);
-**`manual_nets`** asserts a net name on a terminal, a last resort for when no
-lead was detected at all (§4); **`bridges.drop`** rejects an automatic
-gap-bridge whose ends do not touch; **`classes`** only when the drawn symbol is
-clearly a different class; **`unconnected`** lists components with a lead drawn
-going nowhere (those terminals stay `null`).
+> **Why coordinates and not index numbers.** The first pass numbers its
+> intersections, but that numbering is derived from where *that* annotator drew
+> the component boxes — so it is a fact about their pass, not about the drawing,
+> and you cannot be given it without being given part of their answer. A
+> coordinate in a shared frame is the one thing both passes can name
+> independently. Yours is matched to an intersection within 12 px; if two
+> intersections are that close together the call is reported as unresolved
+> rather than guessed, so put the coordinate on the ink you mean and don't worry
+> about hitting it exactly.
 
-**`notes`** is the most valuable thing you produce: one line per net ("n3 =
+**`interventions`** — repairs you *would* apply, never folded into the topology
+(§0). **`notes`** is the most valuable thing you produce: one line per net ("n3 =
 collector of Q4, top of R7, right end of the y≈310 rail"), and every judgement
 call with coordinates, the reading chosen, and what the other reading would have
 implied. Net names are arbitrary — only the *grouping* is compared, never the

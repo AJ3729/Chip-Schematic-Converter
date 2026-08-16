@@ -1,0 +1,13 @@
+{
+ "_what": "Circuits in the blind packet whose SITE calls cannot be compared, and why.",
+ "_scope": "Nets, pin order and components are unaffected in these circuits; only the per-site agreement and its kappa exclude them.",
+ "circuits_total": 58,
+ "circuits_with_ink_evidence": 55,
+ "site_calls_comparable": 683,
+ "site_calls_excluded": 73,
+ "excluded": {
+  "circuit_858": "site numbering has drifted: 2 of 27 coordinates A quoted in its own notes (sites [14, 26]) no longer sit where the tracer puts those indices, so every index in this circuit may name different ink than it did",
+  "circuit_557": "site numbering has drifted: 4 of 22 coordinates A quoted in its own notes (sites [13, 14, 15, 25]) no longer sit where the tracer puts those indices, so every index in this circuit may name different ink than it did",
+  "circuit_218": "site numbering has drifted: 2 of 17 coordinates A quoted in its own notes (sites [17, 22]) no longer sit where the tracer puts those indices, so every index in this circuit may name different ink than it did"
+ }
+}

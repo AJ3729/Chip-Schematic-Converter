@@ -1,8 +1,17 @@
 # Blind re-annotation packet -- connectivity ground truth
 
-You are the independent second annotator. Everything you need is in `images/`:
-58 photographs of hand-drawn circuit schematics, exactly as they came off the
-camera.
+You are the independent second annotator. The packet holds 58 hand-drawn circuit
+schematics, in two forms of the same drawings:
+
+| directory | what it is | use it for |
+| --- | --- | --- |
+| `images/` | the photographs, exactly as they came off the camera (~2000 px) | **looking**: it has the most detail, so zoom into it to read faint pencil |
+| `frames_1024/` | the same drawings normalised to a 1024 px frame | **coordinates**: every `[x, y]` you write down must be in this frame |
+
+Both are the drawing and nothing else -- no boxes, no nets, no calls. The
+1024 frame exists because the annotation schema records positions, and a
+position is only meaningful once both passes agree on the frame it is in. Read
+faint ink in `images/`, write coordinates from `frames_1024/`.
 
 ## What to produce
 
@@ -47,9 +56,50 @@ what you expect to find. Treat every image as equally likely to be routine.
 
 ## Delivering
 
-Write one `<stem>.json` per image into a single output directory and hand back
-that directory. Comparison against the existing annotation is automatic:
+Hand back one directory containing, per image:
+
+    <stem>.json             the netlist: your components, and the net each
+                            terminal sits on
+    decisions/<stem>.json   your call at each wire-ink intersection, plus notes
+
+### Recording intersections by coordinate
+
+Give each call the position you saw it at, **in the `frames_1024/` frame**:
+
+```json
+{
+  "sites_xy": [
+    {"xy": [434, 869], "call": "crossing"},
+    {"xy": [612, 240], "call": "junction"}
+  ],
+  "notes": "S(434,869): plain X, no dot and no hop -- read as a crossing because ..."
+}
+```
+
+`call` is one of `junction`, `crossing`, `none`, or an explicit edge grouping.
+
+**Why coordinates and not index numbers.** The existing annotation numbers its
+intersections, but that numbering is derived from where *that* annotator drew the
+component boxes -- so the numbers are a fact about their pass, not about the
+drawing, and you cannot be given them without being given part of their answer. A
+position in a shared frame is the one thing both passes can name independently.
+
+A coordinate is matched to an intersection within 12 px. If two intersections are
+that close together, or two of your coordinates land on the same one, the call is
+reported as unresolved rather than guessed -- so put the coordinate on the ink you
+mean, and don't worry about hitting it exactly.
+
+### Scoring
+
+Comparison against the existing annotation is automatic:
 
     python scripts/compare_annotations.py --gt-b <your output directory>
 
 `circuits.txt` lists the stems in this packet, in no meaningful order.
+
+**Three circuits are already known not to support the site comparison**
+(`circuit_858`, `circuit_557`, `circuit_218`): the first pass's own intersection
+numbering has drifted relative to the tracer, so its calls there cannot be
+trusted to name the ink they once named. Annotate them exactly like the rest --
+their nets, pin order and components are compared normally, and only the
+per-site agreement excludes them. See `results/blind_review/site_evidence_coverage.json`.

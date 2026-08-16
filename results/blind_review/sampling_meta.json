@@ -1,6 +1,6 @@
 {
   "seed": 20260804,
-  "git_sha": "4909c1fcbb9373b90b322b281922c443914b59b8",
+  "git_sha": "9301612d67c3bc86460ad49dcbb065d0b376f99c",
   "split": "data/splits/test.txt",
   "split_images": 192,
   "gt_dir": "data/gt_test_1024",
@@ -67,7 +67,9 @@
     "cleaned_fallback": 0
   },
   "blind_safety": {
-    "byte_identity_checked": 58,
+    "byte_identity_checked": 116,
+    "photographs_checked": 58,
+    "frames_1024_checked": 58,
     "source_dirs_allowed": [
       "data/raw",
       "data/cleaned_1024"
@@ -75,7 +77,7 @@
     "render_files_hashed": 1216,
     "render_hash_collisions": 0,
     "packet_json_files": 0,
-    "assertion": "every packet image is byte-identical (sha256) to an untouched photograph under data/raw or data/cleaned_1024, is hash-disjoint from every render/overlay directory in the repo, and the packet contains no JSON and no file other than images/, README.md and circuits.txt"
+    "assertion": "every packet image is byte-identical (sha256) to an untouched photograph under data/raw or to its deterministic 1024 preprocessing under data/cleaned_1024, is hash-disjoint from every render/overlay directory in the repo, and the packet contains no JSON and no file other than images/, frames_1024/, README.md and circuits.txt"
   },
   "manifest_not_in_packet_because": "the stratum label tells the annotator which circuits are expected to be hard, which would bias exactly the circuits the strata exist to test; the packet ships circuits.txt (stems only, shuffled)",
   "rejected_check_saturation_heuristic": "fraction of strongly-saturated pixels does NOT separate renders from raw photographs: renders min 0.0019 over the 192 test renders, but circuit_657/circuit_420/circuit_934 raw photographs reach 0.013-0.016. Byte identity is used instead."

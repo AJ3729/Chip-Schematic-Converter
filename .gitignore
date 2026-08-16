@@ -74,3 +74,6 @@ scratchpad/
 # artifact and are not versioned anywhere else in this repo — the packet must
 # not become the exception that quietly puts 11 MB of Digitize-HCD into git.
 results/blind_review/packet/images/
+# The 1024 frames the annotator's coordinates are expressed in. Same reasoning:
+# regenerable from data/cleaned_1024 by the same script, 5.1 MB, not versioned.
+results/blind_review/packet/frames_1024/
