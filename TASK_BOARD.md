@@ -39,12 +39,12 @@ Annotations accepted so far: **0**
 | F1 | Table and figure regeneration | READY |  |  |
 | F2 | Qualitative figure | BLOCKED | `spec/qualitative_circuit.txt` |  |
 | F3 | Consistency pass | READY |  |  |
-| F4 | Reproducibility packet | READY |  |  |
+| F4 | Reproducibility packet | DONE |  |  |
 | F5 | Section drafts *(needs review)* | READY |  |  |
 
 ## Counts
 
 - AWAITING_REVIEW: 4
 - BLOCKED: 5
-- DONE: 20
-- READY: 4
+- DONE: 21
+- READY: 3
