@@ -152,7 +152,10 @@ def main() -> None:
 
     corpora: dict[str, list[dict]] = {}
 
-    hcd = sorted((ROOT / "data/raw").glob("*.jpg"))[: a.limit]
+    import random as _r0
+    hcd_all = sorted((ROOT / "data/raw").glob("*.jpg"))
+    _r0.Random(0).shuffle(hcd_all)
+    hcd = sorted(hcd_all[: a.limit])
     rows = []
     for f in hcd:
         m = measure(f, tf.get(f.stem))
@@ -162,8 +165,17 @@ def main() -> None:
     corpora["Digitize-HCD"] = rows
     print(f"Digitize-HCD: {len(rows)} images measured")
 
-    cg = sorted((ROOT / "data/cghd/extracted").glob("drafter_*/images/*"))
-    cg = [f for f in cg if f.suffix.lower() in (".jpg", ".jpeg", ".png")][: a.limit]
+    # drafter_0 is EXCLUDED everywhere else in this work (917 of its 1,038
+    # images carry no annotation), so it must be excluded here too -- a
+    # characterization of images that appear in no result is worthless. And
+    # sample randomly across drafters: taking the first N by path order gave a
+    # sample that was 100% drafter_0.
+    import random as _rnd
+    cg_all = [f for f in (ROOT / "data/cghd/extracted").glob("drafter_*/images/*")
+              if f.suffix.lower() in (".jpg", ".jpeg", ".png")
+              and f.parent.parent.name != "drafter_0"]
+    _rnd.Random(0).shuffle(cg_all)
+    cg = sorted(cg_all[: a.limit])
     rows = []
     for f in cg:
         m = measure(f, None)
@@ -220,22 +232,42 @@ def main() -> None:
     lines.append(f"| images with EXIF camera | "
                  f"{summary['Digitize-HCD']['n_with_exif']} | "
                  f"{summary['CGHD']['n_with_exif']} |")
+    def med(c, k):
+        return summary[c][k].get("median")
+
+    ratios = {k: (med("CGHD", k) / med("Digitize-HCD", k))
+              for k in KEYS
+              if med("CGHD", k) and med("Digitize-HCD", k)}
+    biggest = sorted(ratios.items(),
+                     key=lambda kv: abs(np.log(kv[1])), reverse=True)
+
     lines += [
         "",
         "## Conclusion",
         "",
-        "The two corpora differ most in **resolution and framing**, not in",
-        "illumination. CGHD images carry roughly 60% of Digitize-HCD's pixels",
-        "and are markedly squarer, with a far higher portrait fraction. Shadow",
-        "field strength and background variation are comparable, so the",
-        "photographic conditions per se are not the distinguishing factor.",
+        "Derived from the table above, ranked by how far each property differs",
+        "(|log ratio|), rather than asserted:",
         "",
-        "This matters for reading the transfer result: the cross-corpus",
-        "detection drop is **not** explained by harsher lighting. It tracks",
-        "component scale, and the scale gap is partly resolution and mostly a",
-        "drawing-convention difference — CGHD components occupy 0.40× the",
-        "image area that Digitize-HCD's do even after normalising for",
-        "resolution.",
+    ]
+    for k, r in biggest:
+        direction = "higher" if r > 1 else "lower"
+        lines.append(f"- **{labels[k]}**: CGHD is {r:.2f}x — "
+                     f"{abs(1-r)*100:.0f}% {direction} than Digitize-HCD.")
+    lines += [
+        "",
+        "**Sampling.** Both corpora are sampled uniformly at random with a",
+        "fixed seed. `drafter_0` is excluded from CGHD, as it is everywhere",
+        "else in this work: 917 of its 1,038 images carry no annotation, so it",
+        "appears in no result and characterising it would describe images the",
+        "evaluation never sees.",
+        "",
+        "**Reading this against the transfer result.** The cross-corpus",
+        "detection drop tracks component scale (recall 0.183 in the smallest",
+        "size quintile against ~0.55 elsewhere). Whichever imaging properties",
+        "differ most above are candidates for *why* small components are hard —",
+        "compression and background clutter both destroy the fine strokes that",
+        "distinguish a small symbol — but this table establishes association,",
+        "not cause. No experiment here isolates one property.",
     ]
     OUT.write_text("\n".join(lines) + "\n")
     print(f"\nwrote {OUT} and {OUTJ}")

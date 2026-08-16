@@ -1,0 +1,167 @@
+# PIN SYMMETRY SPECIFICATION
+#
+# DECIDED by the author on 2026-08-15. This is the operative file; the
+# template it came from is reports/pending_review/pin_symmetry_template.yaml. That file unblocks D2 (the
+# pin-aware scorer) and D6 (full structural recomputation), which together
+# produce the new headline structural metric.
+#
+# WHAT THIS FILE DECLARES, per class:
+#   ports    ordered named ports, in the order the netlist writer emits them
+#   group    the permutation group of GENUINELY interchangeable terminals,
+#            written as a list of permutations over port INDICES. The identity
+#            permutation is implicit and must not be listed.
+#
+# HOW IT IS USED: a component is scored correct if its port->net assignment
+# matches the reference under SOME permutation in `group`. So `group: []` means
+# fully asymmetric (order matters exactly); a group containing [1,0] on a
+# 2-port class means the two terminals are interchangeable.
+#
+# WHY THIS MATTERS: the published metric canonicalises terminal order away
+# entirely, which is why 52 of 84 topologically "perfect" circuits disagree on
+# their operating point. Declaring symmetry per class is what lets the metric
+# be strict where order is physical and lenient where it is not.
+#
+# ---------------------------------------------------------------------------
+# PROPOSAL. Every entry below is a starting position, not a decision. The one
+# genuinely open question is MOSFET source/drain — see the note there.
+# ---------------------------------------------------------------------------
+
+schema_version: 1
+
+classes:
+
+  # ---- fully symmetric: terminal order carries no physical meaning ----------
+
+  Resistor:
+    ports: [terminal 0, terminal 1]
+    group: [[1, 0]]
+    justification: >
+      An ideal resistor is bilateral. Reversing its leads produces an
+      electrically identical circuit, so terminal order cannot be wrong.
+
+  Capacitor:
+    ports: [terminal 0, terminal 1]
+    group: [[1, 0]]
+    justification: >
+      Non-polarized capacitor. Bilateral. NOTE: if the corpus distinguishes
+      polarized (electrolytic) capacitors as a separate class, that class is
+      asymmetric and must NOT inherit this entry.
+
+  Inductor:
+    ports: [terminal 0, terminal 1]
+    group: [[1, 0]]
+    justification: >
+      Bilateral. Mutual-inductance dot convention would break this, but the
+      corpus contains no coupled inductors.
+
+  # ---- fully asymmetric: order is physical -------------------------------
+
+  Diode:
+    ports: [anode, cathode]
+    group: []
+    justification: >
+      Reversing a diode reverses conduction. This is the canonical case the
+      pin-aware metric exists to catch.
+
+  Zener Diode:
+    ports: [anode, cathode]
+    group: []
+    justification: As Diode.
+
+  BJT-NPN:
+    ports: [collector, base, emitter]
+    group: []
+    justification: >
+      Collector and emitter are not interchangeable in a real device: doping
+      and geometry differ, beta is far lower reversed. SPICE will happily
+      simulate a reversed BJT and produce a wrong answer silently.
+
+  BJT-PNP:
+    ports: [collector, base, emitter]
+    group: []
+    justification: As BJT-NPN.
+
+  Op-Amp:
+    ports: [in+, in-, out]
+    group: []
+    justification: >
+      Exchanging the inputs inverts the feedback sense and typically turns a
+      stable amplifier into a latch or oscillator. Note this is also the class
+      where the pipeline's port head is weakest (0.5652), so this entry
+      determines whether that weakness is scored honestly.
+
+  V-DC:
+    ports: [positive, negative]
+    group: []
+    justification: Source polarity sets the sign of every node voltage.
+
+  V-AC:
+    ports: [positive, negative]
+    group: []
+    justification: >
+      Polarity sets phase. Reversal is a 180-degree shift, which matters for
+      any multi-source circuit even though a single-source AC circuit may look
+      unaffected.
+
+  I-DC:
+    ports: [positive, negative]
+    group: []
+    justification: Current direction is physical.
+
+  I-AC:
+    ports: [positive, negative]
+    group: []
+    justification: As I-DC.
+
+  V-DC (one port):
+    ports: [terminal 0]
+    group: []
+    justification: Single terminal; no ordering exists to permute.
+
+  GND:
+    ports: [terminal 0]
+    group: []
+    justification: Single terminal.
+
+  # ---- THE OPEN DECISION ---------------------------------------------------
+
+  MOSFET-N:
+    ports: [drain, gate, source]
+    group: []
+    justification: >
+      ASYMMETRIC — decided by the author, 2026-08-15.
+
+      A discrete MOSFET symbol drawn with three terminals does not bring the
+      bulk out separately, which implies the bulk is tied to the source
+      internally. That creates a body diode from source to drain, and the body
+      diode makes the device genuinely non-symmetric: swapping source and
+      drain reverses it and changes conduction under reverse bias. SPICE's
+      default MOSFET model with bulk tied to source behaves accordingly.
+
+      The alternative — treating the channel as symmetric, group [[2, 1, 0]] —
+      is defensible only for an idealised four-terminal device with the bulk
+      brought out, which is not what this corpus draws.
+
+      Consequence, stated because it is not cosmetic: MOSFET-N and MOSFET-P
+      together are 45 of the 218 decidable multi-terminal devices in the test
+      split, and the port head scores 0.8095 / 0.8333 on them. This ruling
+      scores every drain/source swap as an error rather than forgiving it, so
+      it makes the pin-aware headline STRICTER than the symmetric alternative
+      would have. The manuscript must state the choice and this reasoning.
+
+  MOSFET-P:
+    ports: [drain, gate, source]
+    group: []
+    justification: >
+      ASYMMETRIC — matches MOSFET-N by the same reasoning. Treating the
+      n-channel and p-channel devices differently would be arbitrary.
+
+  # ---- not a component -----------------------------------------------------
+
+  Wire Crossover:
+    ports: []
+    group: []
+    justification: >
+      A drawing annotation, not a component. It carries no terminals and never
+      appears in ground truth. Listed here only so the class table is complete
+      and a missing-key error cannot pass silently.

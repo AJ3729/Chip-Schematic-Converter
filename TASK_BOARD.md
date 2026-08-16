@@ -16,7 +16,7 @@ Annotations accepted so far: **0**
 | B1 | Acquire and inventory CGHD | DONE |  |  |
 | B2 | Class taxonomy mapping *(needs review)* | AWAITING_REVIEW |  |  |
 | B3 | Format adapter | DONE |  |  |
-| B4 | Imaging characterization of both corpora | READY |  |  |
+| B4 | Imaging characterization of both corpora | DONE |  |  |
 | B5 | Detection transfer, scored immediately | DONE |  |  |
 | B6 | Netlist prediction over the evaluable pool | DONE |  |  |
 | B7 | Capture invariance experiment | DONE |  |  |
@@ -25,11 +25,11 @@ Annotations accepted so far: **0**
 | C2 | Schema validator and ingest | READY |  |  |
 | C3 | Annotation dashboard | READY |  |  |
 | D1 | Pin symmetry template (author authors the real file) *(needs review)* | AWAITING_REVIEW |  |  |
-| D2 | Pin aware scorer | BLOCKED | `spec/pin_symmetry.yaml` |  |
+| D2 | Pin aware scorer | DONE |  |  |
 | D3 | Perturbation sensitivity and tolerance definitions *(needs review)* | AWAITING_REVIEW |  |  |
 | D4 | Multistability control | DONE |  |  |
 | D5 | Multi condition agreement | READY |  |  |
-| D6 | Full structural recomputation | BLOCKED | `metrics/pin_aware.py` |  |
+| D6 | Full structural recomputation | DONE |  |  |
 | D7 | Repair separation | DONE |  |  |
 | D8 | Repair intent evaluation | BLOCKED | `data/cghd/annotations/normalized_interventions.json` |  |
 | E1 | Incremental scoring harness | READY |  |  |
@@ -45,6 +45,6 @@ Annotations accepted so far: **0**
 ## Counts
 
 - AWAITING_REVIEW: 4
-- BLOCKED: 7
-- DONE: 11
-- READY: 11
+- BLOCKED: 5
+- DONE: 14
+- READY: 10
