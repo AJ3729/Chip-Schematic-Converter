@@ -190,9 +190,16 @@ function drawBoxPreview(){
 }
 
 function addComponent(x,y,w,h){
+  // Stored CENTRE-based (cx, cy, w, h). Every scorer in this repo -- both
+  // benchmark.iou_center and compare_annotations.geometric_pairs -- reads boxes
+  // that way, and CGHD's own annotations use it too. Storing the drag's
+  // top-left corner instead would offset every box by half its own size, which
+  // drops IoU below the 0.3 pairing threshold for exactly the small components
+  // that are already hardest, and shows up as component disagreement rather
+  // than as a bug.
   state.components.push({
     id: state.components.length, class: $("#cls").value, terminals: [],
-    bbox: [Math.round(x), Math.round(y), Math.round(w), Math.round(h)],
+    bbox: [Math.round(x + w/2), Math.round(y + h/2), Math.round(w), Math.round(h)],
     allow_self_short: false
   });
 }
@@ -230,7 +237,8 @@ function render(){
     if (!c.bbox) return;
     const d = document.createElement("div");
     d.className = "cbox";
-    d.style.cssText += `left:${c.bbox[0]}px;top:${c.bbox[1]}px;` +
+    d.style.cssText += `left:${c.bbox[0] - c.bbox[2]/2}px;` +
+                       `top:${c.bbox[1] - c.bbox[3]/2}px;` +
                        `width:${c.bbox[2]}px;height:${c.bbox[3]}px`;
     d.title = `#${c.id} ${c.class}`;
     canvas.appendChild(d);

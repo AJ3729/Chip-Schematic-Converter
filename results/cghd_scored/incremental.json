@@ -1,0 +1,12 @@
+{
+ "_what": "Cross-corpus netlist scores on CGHD, over the annotations accepted so far. Re-run as more arrive; it is designed to.",
+ "_conditions": {
+  "detector": "the frozen pipeline as it runs -- the honest end-to-end number, bounded by detection transfer (mAP@0.5 0.3445)",
+  "oracle": "CGHD's own annotated boxes substituted for detection, so what is left measures wire tracing and terminal assignment rather than the detector"
+ },
+ "annotations_accepted": 0,
+ "annotation_fingerprint": "e3b0c44298fc1c14",
+ "min_images_for_a_mean": 5,
+ "status": "NO ANNOTATIONS YET",
+ "_next": "Annotate with `python tools/annotator/server.py`; accepted files land in data/cghd/annotations/accepted via scripts/sync_board.py. This harness is complete and will score them the moment they exist -- nothing else is waiting on it."
+}

@@ -32,7 +32,7 @@ Annotations accepted so far: **0**
 | D6 | Full structural recomputation | DONE |  |  |
 | D7 | Repair separation | DONE |  |  |
 | D8 | Repair intent evaluation | BLOCKED | `data/cghd/annotations/normalized_interventions.json` |  |
-| E1 | Incremental scoring harness | READY |  |  |
+| E1 | Incremental scoring harness | DONE |  |  |
 | E2 | Cross corpus transfer results | BLOCKED | `data/cghd/annotations/accepted/*.json` |  |
 | E3 | Drafter generalization analysis | BLOCKED | `data/cghd/annotations/accepted/*.json` |  |
 | E4 | Inter annotator agreement | BLOCKED | `data/cghd/annotations/double/*.json` |  |
@@ -46,5 +46,5 @@ Annotations accepted so far: **0**
 
 - AWAITING_REVIEW: 4
 - BLOCKED: 5
-- DONE: 17
-- READY: 7
+- DONE: 18
+- READY: 6
