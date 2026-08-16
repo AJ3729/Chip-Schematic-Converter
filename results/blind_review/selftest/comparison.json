@@ -1,6 +1,6 @@
 {
   "annotation_a": "/Users/junaidahmed/Documents/Chip-Schematic-Converter/data/gt_test_1024",
-  "annotation_b": "/var/folders/nw/tcpgz3v95r31q6zc0pm14ggc0000gn/T/blind_review_selftest_mb8ij67g/gt_b",
+  "annotation_b": "/var/folders/nw/tcpgz3v95r31q6zc0pm14ggc0000gn/T/blind_review_selftest_hk6s21jl/gt_b",
   "circuits_compared": 21,
   "circuits_skipped": [],
   "agreement_before_adjudication": {

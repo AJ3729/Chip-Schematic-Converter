@@ -348,6 +348,13 @@ def compare_circuit(stem: str, gt_a: dict, gt_b: dict,
     # overlap nothing, so every component reads as "missing in B" plus "extra in
     # B". The resulting report is catastrophically wrong and looks entirely
     # plausible -- a big pile of clerical errors. Catch it as what it is.
+    # "Not one pair overlaps" has more than one cause and the difference matters
+    # to whoever reads the row. A genuinely mis-projected annotation has boxes
+    # OUTSIDE the 1024 frame; a partial one -- an annotator who was interrupted,
+    # or who has done ten of the fifty-eight -- has correctly-placed boxes and
+    # simply too few of them. Asserting the first when it is the second tells a
+    # volunteer their work is meaningless when it is merely incomplete, which is
+    # a good way never to receive the rest of it.
     frame_mismatch = bool(a and b and not pairs)
     if frame_mismatch:
         scale = ""
@@ -355,14 +362,35 @@ def compare_circuit(stem: str, gt_a: dict, gt_b: dict,
             ha = max(c["bbox"][3] for c in a if c.get("bbox"))
             hb = max(c["bbox"][3] for c in b if c.get("bbox"))
             scale = f"; largest box height A {ha:.0f} px vs B {hb:.0f} px"
+
+        FRAME = 1024
+        b_boxes = [c["bbox"] for c in b if c.get("bbox")]
+        out_of_frame = [x for x in b_boxes
+                        if x[0] + x[2] / 2 > FRAME * 1.05
+                        or x[1] + x[3] / 2 > FRAME * 1.05]
+        sparse = len(b) < len(a) / 2
+
+        if out_of_frame:
+            why = (f"{len(out_of_frame)} of {len(b_boxes)} B boxes fall outside "
+                   f"the {FRAME} px frame, so this IS a projection problem "
+                   "(GT bboxes are in the cleaned_1024 frame, see data/README.md). "
+                   "Re-project B before reading any number for this circuit")
+        elif sparse:
+            why = (f"every B box is inside the {FRAME} px frame, so the frame is "
+                   f"probably fine; B has {len(b)} components against A's "
+                   f"{len(a)}, which looks like a PARTIAL annotation rather than "
+                   "a mis-projected one. Check whether this circuit was finished "
+                   "before treating the numbers as disagreement")
+        else:
+            why = (f"every B box is inside the {FRAME} px frame and the counts "
+                   f"are comparable ({len(b)} vs {len(a)}), so neither a "
+                   "projection error nor an unfinished circuit explains this. "
+                   "Look at the drawing: the two annotators may have boxed "
+                   "genuinely different things")
         row("frame_mismatch_suspected",
             f"{len(a)} A components and {len(b)} B components, but NOT ONE pair "
             f"overlaps at IoU>=0.3{scale}",
-            "unresolved",
-            "almost certainly a coordinate-frame difference (GT bboxes are in the "
-            "cleaned_1024 frame, see data/README.md), not 100% disagreement. "
-            "Re-project B before reading any number for this circuit",
-            component_a="", component_b="")
+            "unresolved", why, component_a="", component_b="")
     for i in only_a:
         row("component_missing_in_B",
             f"A#{a[i]['id']} {a[i]['class']} at {a[i].get('bbox')} has no counterpart in B",
@@ -1154,11 +1182,12 @@ def main() -> int:
         print("!" * 78)
         print(f"! {n_frame}/{report['circuits_compared']} circuits have NO overlapping "
               "component box at all.")
-        print("! That is a coordinate-frame difference, not a disagreement. GT boxes "
-              "are in the")
-        print("! cleaned_1024 frame (data/README.md). Re-project annotation B and "
-              "re-run; every")
-        print("! number below is meaningless until you do.")
+        print("! That is not a disagreement -- it is a projection error, an "
+              "unfinished circuit,")
+        print("! or two annotators boxing different things. The CSV says which, "
+              "per circuit,")
+        print("! in the frame_mismatch_suspected row. Read that before any number "
+              "below.")
         print("!" * 78)
     print("AGREEMENT BEFORE ADJUDICATION")
     print(f"  net partition   mean F1 {ag['net_partition']['mean_net_f1']:.4f}, "
