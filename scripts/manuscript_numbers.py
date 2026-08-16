@@ -1,0 +1,360 @@
+#!/usr/bin/env python3
+"""Every number in the manuscript, and the file it comes from (tasks F1 and F3).
+
+The project rule is that no number in the paper is hand-typed. Enforcing it
+needs two things that are really one thing: a machine-readable statement of
+where each quantity lives, and a check that the prose agrees with it. Both are
+built from the REGISTRY below, so they cannot drift apart -- a generator and a
+checker maintained separately would eventually disagree, and the paper would
+follow whichever one nobody was reading.
+
+    --emit    write paper/generated/numbers.tex, one \\newcommand per quantity
+    --check   read a .tex and verify every registered quantity appears in it
+              with the value its source file actually holds
+
+WHAT --check CATCHES, AND WHAT IT CANNOT
+
+It catches the failure that matters: a number that was correct when it was typed
+and is now stale because the run that produced it was redone. That is the whole
+history of this project -- the detector retrain moved every downstream figure at
+once -- and it is invisible to proofreading, because a stale number looks exactly
+like a fresh one.
+
+It cannot certify a number it does not know about. So it also reports every
+\\num{} in the .tex that no registry entry explains, as a WORK LIST rather than
+as an error: many are legitimately not results (split sizes, percentages, years).
+The list shrinking over time is the actual measure of progress here, and it is
+printed so it cannot be quietly ignored.
+
+It also checks only that the correct value appears SOMEWHERE in the document,
+not that it appears in the right cell. A number moved into the wrong row of the
+right table would pass. That is a deliberate stopping point rather than an
+oversight: locating each quantity would mean parsing the tables, and a parser
+that silently mismatched rows would report false failures on a correct paper --
+which is how a checker gets switched off. Row placement is what proofreading is
+for; staleness is what proofreading cannot do.
+
+Usage:
+    python scripts/manuscript_numbers.py --emit
+    python scripts/manuscript_numbers.py --check path/to/access.tex
+    python scripts/manuscript_numbers.py --check path/to/access.tex --unregistered
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import re
+import statistics
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+GEN = ROOT / "paper" / "generated"
+
+SEEDS = (0, 1, 2)
+
+
+@dataclass
+class Q:
+    """One quantity: a macro name, where it comes from, and how it prints."""
+    name: str
+    source: str                     # path, may contain {seed}
+    key: str                        # dotted path into the JSON
+    fmt: str = "{:.4f}"
+    over_seeds: str | None = None   # None | "mean" | "sd"
+    scale: float = 1.0
+    note: str = ""
+    table: str = ""
+
+
+def dotted(obj, key: str):
+    cur = obj
+    for part in key.split("."):
+        if isinstance(cur, list):
+            cur = cur[int(part)]
+        else:
+            cur = cur[part]
+    return cur
+
+
+def read_value(q: Q):
+    if q.over_seeds:
+        vals = []
+        for s in SEEDS:
+            p = ROOT / q.source.format(seed=s)
+            vals.append(float(dotted(json.loads(p.read_text()), q.key)))
+        return (statistics.mean(vals) if q.over_seeds == "mean"
+                else statistics.stdev(vals))
+    p = ROOT / q.source
+    return float(dotted(json.loads(p.read_text()), q.key))
+
+
+# ---------------------------------------------------------------------------
+# THE REGISTRY
+# ---------------------------------------------------------------------------
+# Grouped by the table or paragraph each quantity appears in, so a table that
+# gains a row gains a registry entry beside it rather than a hand-typed number.
+
+BENCH = "results/final/benchmark/seed{seed}/summary.json"
+BENCH0 = "results/final/benchmark/seed0/summary.json"
+VAL = "results/final/benchmark_val/summary.json"
+DET = "results/final/detection/seed{seed}/test/summary.json"
+DET0 = "results/final/detection/seed0/test/summary.json"
+PINS = "results/final/pin_order/summary.json"
+LADDER = "results/pin_aware_ladder.json"
+TRANSFER = "results/cghd_detection_transfer.json"
+CAPTURE = "results/cghd_capture_invariance.json"
+MULTI = "results/multistability.json"
+MCOND = "results/multi_condition_agreement.json"
+
+REGISTRY: list[Q] = [
+    # ---- tab:main, end-to-end reconstruction -----------------------------
+    Q("MainTermPairF1", BENCH, "topology.terminal_pair_f1.mean",
+      over_seeds="mean", table="tab:main"),
+    Q("MainTermPairF1SD", BENCH, "topology.terminal_pair_f1.mean",
+      over_seeds="sd", table="tab:main"),
+    Q("MainNetFone", BENCH, "topology.net_f1.mean",
+      over_seeds="mean", table="tab:main"),
+    Q("MainNetFoneSD", BENCH, "topology.net_f1.mean",
+      over_seeds="sd", table="tab:main"),
+    Q("MainPerComp", BENCH, "topology.per_component_connected_acc.mean",
+      over_seeds="mean", table="tab:main"),
+    Q("MainPerCompSD", BENCH, "topology.per_component_connected_acc.mean",
+      over_seeds="sd", table="tab:main"),
+    Q("MainNGED", BENCH, "topology.nged.mean", over_seeds="mean",
+      table="tab:main"),
+    Q("MainNGEDSD", BENCH, "topology.nged.mean", over_seeds="sd",
+      table="tab:main"),
+    Q("MainStrict", BENCH, "topology.strict_success.mean",
+      over_seeds="mean", table="tab:main"),
+    Q("MainStrictSD", BENCH, "topology.strict_success.mean",
+      over_seeds="sd", table="tab:main"),
+    Q("MainSpiceValid", BENCH0, "repair.spice_valid_rate", table="tab:main"),
+    Q("MainSolvableBefore", BENCH0, "repair.solvable_before_rate",
+      table="tab:main"),
+    Q("MainSolvableAfter", BENCH0, "repair.solvable_after_rate",
+      table="tab:main"),
+    Q("MainAssumptions", BENCH0, "repair.mean_assumptions", fmt="{:.2f}",
+      table="tab:main"),
+
+    # validation column, shown for reference only
+    Q("ValTermPairF1", VAL, "topology.terminal_pair_f1.mean", table="tab:main"),
+    Q("ValNetFone", VAL, "topology.net_f1.mean", table="tab:main"),
+    Q("ValPerComp", VAL, "topology.per_component_connected_acc.mean",
+      table="tab:main"),
+    Q("ValNGED", VAL, "topology.nged.mean", table="tab:main"),
+    Q("ValStrict", VAL, "topology.strict_success.mean", table="tab:main"),
+    Q("ValSpiceValid", VAL, "repair.spice_valid_rate", table="tab:main"),
+    Q("ValSolvableBefore", VAL, "repair.solvable_before_rate", table="tab:main"),
+    Q("ValSolvableAfter", VAL, "repair.solvable_after_rate", table="tab:main"),
+    Q("ValAssumptions", VAL, "repair.mean_assumptions", fmt="{:.2f}",
+      table="tab:main"),
+
+    # ---- tab:detector ----------------------------------------------------
+    Q("DetMapSeedZero", DET.format(seed=0), "map50", table="tab:detector"),
+    Q("DetMapSeedOne", DET.format(seed=1), "map50", table="tab:detector"),
+    Q("DetMapSeedTwo", DET.format(seed=2), "map50", table="tab:detector"),
+    Q("DetMapMean", DET, "map50", over_seeds="mean", table="tab:detector"),
+    Q("DetMapSD", DET, "map50", over_seeds="sd", table="tab:detector"),
+    Q("DetMapNinetyFiveSeedZero", DET.format(seed=0), "map50_95",
+      table="tab:detector"),
+    Q("DetMapNinetyFiveMean", DET, "map50_95", over_seeds="mean",
+      table="tab:detector"),
+    Q("DetPrecisionSeedZero", DET.format(seed=0), "precision",
+      table="tab:detector"),
+    Q("DetRecallSeedZero", DET.format(seed=0), "recall", table="tab:detector"),
+
+    # ---- tab:pins --------------------------------------------------------
+    Q("PinsDecidable", PINS, "templates_only.decidable", fmt="{:.0f}",
+      table="tab:pins"),
+    Q("PinsMatched", PINS, "templates_only.multi_terminal_matched",
+      fmt="{:.0f}", table="tab:pins"),
+    Q("PinsTemplateOverall", PINS, "templates_only.accuracy",
+      table="tab:pins"),
+    Q("PinsTemplateBJTNPN", PINS, "templates_only.by_class.BJT-NPN.accuracy",
+      table="tab:pins"),
+    Q("PinsTemplateBJTPNP", PINS, "templates_only.by_class.BJT-PNP.accuracy",
+      table="tab:pins"),
+    Q("PinsTemplateMOSN", PINS, "templates_only.by_class.MOSFET-N.accuracy",
+      table="tab:pins"),
+    Q("PinsTemplateMOSP", PINS, "templates_only.by_class.MOSFET-P.accuracy",
+      table="tab:pins"),
+    Q("PinsTemplateOpAmp", PINS, "templates_only.by_class.Op-Amp.accuracy",
+      table="tab:pins"),
+
+    # ---- tab:transfer, cross-corpus detection ----------------------------
+    Q("TransferCGHDMap", TRANSFER, "cghd_map50_mean", table="tab:transfer"),
+    Q("TransferCGHDMapSD", TRANSFER, "cghd_map50_std", table="tab:transfer"),
+    Q("TransferHCDMap", TRANSFER, "digitize_hcd_test_map50_mean",
+      table="tab:transfer"),
+    Q("TransferDelta", TRANSFER, "transfer_delta_map50", table="tab:transfer"),
+    Q("TransferCGHDImages", TRANSFER, "n_images", fmt="{:.0f}",
+      table="tab:transfer"),
+    Q("TransferCGHDBoxes", TRANSFER, "n_boxes", fmt="{:.0f}",
+      table="tab:transfer"),
+    Q("TransferCGHDDrafters", TRANSFER, "n_drafters", fmt="{:.0f}",
+      table="tab:transfer"),
+
+    # ---- tab:ladder, the paper's central result --------------------------
+    Q("LadderPinBlindStrict", LADDER, "ladder.pin_blind_strict_success",
+      table="tab:ladder"),
+    Q("LadderPinAwareStrict", LADDER, "ladder.pin_aware_strict_success",
+      table="tab:ladder"),
+    Q("LadderBlindPerfectAlsoAware", LADDER,
+      "ladder.of_pin_blind_perfect_also_pin_aware_perfect", table="tab:ladder"),
+    Q("LadderAwarePerfectOpAgrees", LADDER,
+      "ladder.of_pin_aware_perfect_op_agrees", table="tab:ladder"),
+    Q("LadderComponentAcc", LADDER, "mean_component_accuracy",
+      table="tab:ladder"),
+    Q("LadderCircuits", LADDER, "n_circuits", fmt="{:.0f}", table="tab:ladder"),
+    Q("LadderBlindOnly", LADDER, "mcnemar_blind_vs_aware.pin_blind_only",
+      fmt="{:.0f}", table="tab:ladder"),
+    Q("LadderAwareOnly", LADDER, "mcnemar_blind_vs_aware.pin_aware_only",
+      fmt="{:.0f}", table="tab:ladder"),
+
+    # ---- multistability control (D4) --------------------------------------
+    Q("MultiTested", MULTI, "n_circuits_tested", fmt="{:.0f}"),
+    Q("MultiFlagged", MULTI, "n_flagged_multistable_or_order_dependent",
+      fmt="{:.0f}"),
+    Q("MultiPerfect", MULTI, "headline_all_circuits.topologically_perfect",
+      fmt="{:.0f}"),
+    Q("MultiOpDisagrees", MULTI, "headline_all_circuits.of_those_op_disagrees",
+      fmt="{:.0f}"),
+    Q("MultiRate", MULTI, "headline_all_circuits.rate"),
+    Q("MultiRateExFlagged", MULTI, "headline_excluding_flagged.rate"),
+
+    # ---- capture invariance (B7) ------------------------------------------
+    Q("CaptureGroups", CAPTURE, "n_groups", fmt="{:.0f}"),
+    Q("CaptureAllAgree", CAPTURE, "groups_all_captures_agree", fmt="{:.0f}"),
+    Q("CaptureFractionAgree", CAPTURE, "fraction_all_agree"),
+    Q("CapturePairwise", CAPTURE, "pairwise_topology_agreement"),
+    Q("CapturePairs", CAPTURE, "pairwise_pairs", fmt="{:.0f}"),
+
+    # ---- D5, multi-condition agreement -----------------------------------
+    Q("McondOpFone", MCOND, "summary.op_primary.mean_f1.mean"),
+    Q("McondOpExact", MCOND, "summary.op_primary.exact_rate.mean"),
+    Q("McondOpN", MCOND, "summary.op_primary.n_informative", fmt="{:.0f}"),
+    Q("McondLowBiasFone", MCOND, "summary.op_low_bias.mean_f1.mean"),
+    Q("McondLowBiasExact", MCOND, "summary.op_low_bias.exact_rate.mean"),
+    Q("McondAcFone", MCOND, "summary.ac_1khz.mean_f1.mean"),
+    Q("McondAcExact", MCOND, "summary.ac_1khz.exact_rate.mean"),
+    Q("McondAcN", MCOND, "summary.ac_1khz.n_informative", fmt="{:.0f}"),
+    Q("McondEither", MCOND, "summary._coverage.informative_under_either",
+      fmt="{:.0f}"),
+    Q("McondAddedByAc", MCOND, "summary._coverage.n_added_by_ac_alone",
+      fmt="{:.0f}"),
+]
+
+
+def value_of(q: Q) -> tuple[float | None, str]:
+    try:
+        return read_value(q) * q.scale, ""
+    except FileNotFoundError as e:
+        return None, f"missing source: {e.filename}"
+    except (KeyError, IndexError) as e:
+        return None, f"key not found: {q.key} ({e})"
+    except Exception as e:                                    # noqa: BLE001
+        return None, f"{type(e).__name__}: {e}"
+
+
+def emit() -> int:
+    GEN.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "% GENERATED by scripts/manuscript_numbers.py -- do not edit.",
+        "% Each macro's source file and key is stated beside it. Regenerate",
+        "% after any results change, then run --check against the manuscript.",
+        "",
+    ]
+    bad = []
+    for q in REGISTRY:
+        v, err = value_of(q)
+        if v is None:
+            bad.append((q.name, err))
+            continue
+        src = q.source.format(seed="{0,1,2}") if q.over_seeds else q.source
+        agg = f", {q.over_seeds} over seeds" if q.over_seeds else ""
+        lines.append(f"% {src} :: {q.key}{agg}")
+        lines.append(f"\\newcommand{{\\{q.name}}}{{{q.fmt.format(v)}}}")
+    (GEN / "numbers.tex").write_text("\n".join(lines) + "\n")
+    print(f"wrote paper/generated/numbers.tex -- "
+          f"{len(REGISTRY) - len(bad)}/{len(REGISTRY)} quantities")
+    for name, err in bad:
+        print(f"  UNRESOLVED {name}: {err}")
+    return 1 if bad else 0
+
+
+_NUM_RE = re.compile(r"\\num\{([-+]?[0-9][0-9.eE+\-]*)\}")
+
+
+def check(tex_path: Path, show_unregistered: bool) -> int:
+    text = tex_path.read_text()
+    literals = _NUM_RE.findall(text)
+    lit_set = {s.strip() for s in literals}
+
+    ok, stale, unresolved = [], [], []
+    for q in REGISTRY:
+        v, err = value_of(q)
+        if v is None:
+            unresolved.append((q, err))
+            continue
+        want = q.fmt.format(v)
+        if want in lit_set:
+            ok.append((q, want))
+        else:
+            # Find what the manuscript says instead, if anything close.
+            near = [s for s in lit_set
+                    if s.replace("-", "").replace("+", "")[:3]
+                    == want.replace("-", "").replace("+", "")[:3]]
+            stale.append((q, want, near[:3]))
+
+    print(f"manuscript: {tex_path}")
+    print(f"  registered quantities   {len(REGISTRY)}")
+    print(f"  present and correct     {len(ok)}")
+    print(f"  NOT FOUND in the text   {len(stale)}")
+    print(f"  unresolved sources      {len(unresolved)}")
+
+    for q, want, near in stale:
+        print(f"\n  MISSING/STALE  \\{q.name}"
+              f"{' [' + q.table + ']' if q.table else ''}")
+        print(f"    source says   {want}   ({q.source} :: {q.key})")
+        print(f"    nearest in text: {near if near else 'nothing similar'}")
+    for q, err in unresolved:
+        print(f"\n  UNRESOLVED  \\{q.name}: {err}")
+
+    if show_unregistered:
+        explained = {w for _, w in ok} | {w for _, w, _ in stale}
+        rest = sorted(lit_set - explained,
+                      key=lambda s: (len(s), s), reverse=True)
+        print(f"\n  {len(rest)} \\num{{}} literal(s) with no registry entry. "
+              "Not errors -- split sizes, percentages and counts live here too "
+              "-- but this is the work list for finishing F1:")
+        print("   ", ", ".join(rest[:40]))
+        if len(rest) > 40:
+            print(f"    ... and {len(rest) - 40} more")
+
+    return 1 if (stale or unresolved) else 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--emit", action="store_true")
+    ap.add_argument("--check", metavar="TEX")
+    ap.add_argument("--unregistered", action="store_true",
+                    help="also list \\num{} literals no registry entry explains")
+    a = ap.parse_args()
+    if not a.emit and not a.check:
+        ap.error("give --emit or --check")
+    rc = 0
+    if a.emit:
+        rc |= emit()
+    if a.check:
+        rc |= check(Path(a.check), a.unregistered)
+    return rc
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
