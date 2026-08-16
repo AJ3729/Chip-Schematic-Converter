@@ -1,0 +1,815 @@
+{
+ "_what": "Whether drawings of the same circuit straddle the split boundary. Three measurements, none conclusive alone.",
+ "_limit": "Ground truth netlists exist only for the 382 test and validation images, so measurement 3 cannot see the training boundary at all. Measurements 1 and 2 bound the risk from opposite sides -- an inventory collision is necessary but not sufficient for a duplicate, a perceptual near-duplicate is sufficient but not necessary -- and neither eliminates it.",
+ "splits": {
+  "train": 895,
+  "val": 190,
+  "test": 192
+ },
+ "perceptual": {
+  "_what": "correlation of 64x64 ink-density vectors over data/cleaned_1024, calibrated against CGHD's known same-drawing repeats",
+  "calibration": {
+   "available": true,
+   "_what": "CGHD photographs each drawing 4 times; SAME pairs are two photographs of one sheet, DIFFERENT pairs are unrelated drawings. A usable threshold separates them.",
+   "images": 320,
+   "groups": 80,
+   "same_drawing_pairs": 480,
+   "same_min": -0.1344065690838347,
+   "same_p05": -0.021288849232354207,
+   "same_median": 0.11739628636991464,
+   "different_pairs": 50560,
+   "different_median": 0.05375177724461827,
+   "different_p99": 0.2898389896228306,
+   "different_max": 0.9999895651506824,
+   "threshold_used": 0.85,
+   "threshold_is_below_same_p05": false,
+   "threshold_is_above_different_p99": true
+  },
+  "threshold": 0.85,
+  "frames_compared": 1277,
+  "pairs_compared": 814726,
+  "max_correlation": 0.8883901752426728,
+  "pct999_correlation": 0.5673507477769586,
+  "median_correlation": 0.0654453569499808,
+  "near_duplicate_pairs": 2,
+  "cross_split_pairs": 1,
+  "train_test_pairs": 0,
+  "examples": [
+   {
+    "a": "circuit_726",
+    "b": "circuit_787",
+    "correlation": 0.8884,
+    "split_a": "val",
+    "split_b": "train"
+   },
+   {
+    "a": "circuit_1012",
+    "b": "circuit_850",
+    "correlation": 0.8699,
+    "split_a": "train",
+    "split_b": "train"
+   }
+  ]
+ },
+ "inventory": {
+  "_what": "multiset of component classes; necessary not sufficient",
+  "images": 1277,
+  "distinct_signatures": 347,
+  "groups_spanning_splits": 85,
+  "groups_spanning_train_test": 63,
+  "largest_groups": [
+   {
+    "n": 99,
+    "by_split": {
+     "test": 15,
+     "train": 69,
+     "val": 15
+    }
+   },
+   {
+    "n": 74,
+    "by_split": {
+     "test": 12,
+     "train": 51,
+     "val": 11
+    }
+   },
+   {
+    "n": 65,
+    "by_split": {
+     "test": 11,
+     "train": 44,
+     "val": 10
+    }
+   },
+   {
+    "n": 57,
+    "by_split": {
+     "test": 10,
+     "train": 39,
+     "val": 8
+    }
+   },
+   {
+    "n": 55,
+    "by_split": {
+     "test": 9,
+     "train": 41,
+     "val": 5
+    }
+   },
+   {
+    "n": 41,
+    "by_split": {
+     "test": 8,
+     "train": 25,
+     "val": 8
+    }
+   },
+   {
+    "n": 37,
+    "by_split": {
+     "test": 7,
+     "train": 22,
+     "val": 8
+    }
+   },
+   {
+    "n": 36,
+    "by_split": {
+     "test": 4,
+     "train": 24,
+     "val": 8
+    }
+   },
+   {
+    "n": 30,
+    "by_split": {
+     "test": 5,
+     "train": 21,
+     "val": 4
+    }
+   },
+   {
+    "n": 19,
+    "by_split": {
+     "test": 1,
+     "train": 12,
+     "val": 6
+    }
+   },
+   {
+    "n": 16,
+    "by_split": {
+     "test": 2,
+     "train": 11,
+     "val": 3
+    }
+   },
+   {
+    "n": 16,
+    "by_split": {
+     "test": 1,
+     "train": 13,
+     "val": 2
+    }
+   },
+   {
+    "n": 16,
+    "by_split": {
+     "test": 3,
+     "train": 12,
+     "val": 1
+    }
+   },
+   {
+    "n": 15,
+    "by_split": {
+     "test": 1,
+     "train": 13,
+     "val": 1
+    }
+   },
+   {
+    "n": 15,
+    "by_split": {
+     "test": 2,
+     "train": 10,
+     "val": 3
+    }
+   }
+  ]
+ },
+ "topology": {
+  "_what": "Weisfeiler-Lehman hash of the net/component graph, invariant to net naming and component id",
+  "images_with_gt": 383,
+  "distinct_topologies": 255,
+  "identical_topology_groups": [
+   {
+    "hash": "2c4d478e1eb02d77",
+    "stems": [
+     "circuit_1048",
+     "circuit_294",
+     "circuit_937"
+    ]
+   },
+   {
+    "hash": "ffaee6710091b98a",
+    "stems": [
+     "circuit_1059",
+     "circuit_1184",
+     "circuit_1209",
+     "circuit_1268",
+     "circuit_153",
+     "circuit_211",
+     "circuit_221",
+     "circuit_238",
+     "circuit_39",
+     "circuit_394",
+     "circuit_470",
+     "circuit_594",
+     "circuit_595",
+     "circuit_639",
+     "circuit_643",
+     "circuit_709",
+     "circuit_87",
+     "circuit_901",
+     "circuit_910"
+    ]
+   },
+   {
+    "hash": "ff373f998d3f403a",
+    "stems": [
+     "circuit_1080",
+     "circuit_218",
+     "circuit_472",
+     "circuit_506",
+     "circuit_616"
+    ]
+   },
+   {
+    "hash": "0bde2db26ee79e4e",
+    "stems": [
+     "circuit_1095",
+     "circuit_1122",
+     "circuit_1124",
+     "circuit_1156",
+     "circuit_1187",
+     "circuit_132",
+     "circuit_155",
+     "circuit_208",
+     "circuit_303",
+     "circuit_324",
+     "circuit_347",
+     "circuit_474",
+     "circuit_678",
+     "circuit_711",
+     "circuit_750",
+     "circuit_755",
+     "circuit_76",
+     "circuit_810",
+     "circuit_855",
+     "circuit_930"
+    ]
+   },
+   {
+    "hash": "7d98e5d83859f559",
+    "stems": [
+     "circuit_1103",
+     "circuit_185"
+    ]
+   },
+   {
+    "hash": "9c862ee8e61ee912",
+    "stems": [
+     "circuit_1166",
+     "circuit_1172",
+     "circuit_118",
+     "circuit_1273",
+     "circuit_14",
+     "circuit_140",
+     "circuit_337",
+     "circuit_43",
+     "circuit_627",
+     "circuit_706",
+     "circuit_74",
+     "circuit_847",
+     "circuit_98"
+    ]
+   },
+   {
+    "hash": "624b3f975640747f",
+    "stems": [
+     "circuit_1135",
+     "circuit_1182",
+     "circuit_271"
+    ]
+   },
+   {
+    "hash": "374480adabff926d",
+    "stems": [
+     "circuit_1222",
+     "circuit_1264",
+     "circuit_181",
+     "circuit_205",
+     "circuit_210",
+     "circuit_215",
+     "circuit_259",
+     "circuit_278",
+     "circuit_344",
+     "circuit_415",
+     "circuit_590",
+     "circuit_630",
+     "circuit_689",
+     "circuit_980",
+     "circuit_985"
+    ]
+   },
+   {
+    "hash": "a0dee854289d6147",
+    "stems": [
+     "circuit_1076",
+     "circuit_1238",
+     "circuit_1240",
+     "circuit_1243",
+     "circuit_225",
+     "circuit_226",
+     "circuit_366",
+     "circuit_398",
+     "circuit_410",
+     "circuit_525",
+     "circuit_613",
+     "circuit_64",
+     "circuit_677",
+     "circuit_744",
+     "circuit_763",
+     "circuit_778",
+     "circuit_831",
+     "circuit_848",
+     "circuit_891",
+     "circuit_916",
+     "circuit_975",
+     "circuit_979"
+    ]
+   },
+   {
+    "hash": "edaa9e29aae75bd7",
+    "stems": [
+     "circuit_209",
+     "circuit_588"
+    ]
+   },
+   {
+    "hash": "8fe1e188ef6a8473",
+    "stems": [
+     "circuit_1111",
+     "circuit_113",
+     "circuit_1194",
+     "circuit_1244",
+     "circuit_298",
+     "circuit_328",
+     "circuit_957",
+     "circuit_961"
+    ]
+   },
+   {
+    "hash": "03aff5ee014e4031",
+    "stems": [
+     "circuit_1074",
+     "circuit_1153",
+     "circuit_331",
+     "circuit_412",
+     "circuit_981"
+    ]
+   },
+   {
+    "hash": "fd06f504bf25b06c",
+    "stems": [
+     "circuit_388",
+     "circuit_754",
+     "circuit_887"
+    ]
+   },
+   {
+    "hash": "0cb6d9635126bfe5",
+    "stems": [
+     "circuit_431",
+     "circuit_82"
+    ]
+   },
+   {
+    "hash": "7e9cd7661d298216",
+    "stems": [
+     "circuit_350",
+     "circuit_432",
+     "circuit_578",
+     "circuit_748",
+     "circuit_856",
+     "circuit_896"
+    ]
+   },
+   {
+    "hash": "b032c5a202917103",
+    "stems": [
+     "circuit_468",
+     "circuit_553",
+     "circuit_77"
+    ]
+   },
+   {
+    "hash": "7f4dd837530f2e87",
+    "stems": [
+     "circuit_1134",
+     "circuit_659",
+     "circuit_83",
+     "circuit_836"
+    ]
+   },
+   {
+    "hash": "3b0e9a53337366a8",
+    "stems": [
+     "circuit_356",
+     "circuit_769",
+     "circuit_786"
+    ]
+   },
+   {
+    "hash": "72b96f6841ff301c",
+    "stems": [
+     "circuit_372",
+     "circuit_809"
+    ]
+   },
+   {
+    "hash": "5053b02ce55ae1eb",
+    "stems": [
+     "circuit_1093",
+     "circuit_941"
+    ]
+   },
+   {
+    "hash": "b6c2ac0611c15bda",
+    "stems": [
+     "circuit_1239",
+     "circuit_999"
+    ]
+   },
+   {
+    "hash": "e5d4643397063c80",
+    "stems": [
+     "circuit_1",
+     "circuit_1233"
+    ]
+   },
+   {
+    "hash": "83c26ce20e4b09e6",
+    "stems": [
+     "circuit_1205",
+     "circuit_267"
+    ]
+   },
+   {
+    "hash": "82bba6ee7bafc2c9",
+    "stems": [
+     "circuit_1262",
+     "circuit_614"
+    ]
+   },
+   {
+    "hash": "e50dfa961d3dc9eb",
+    "stems": [
+     "circuit_198",
+     "circuit_438"
+    ]
+   },
+   {
+    "hash": "11ed47bf296479c7",
+    "stems": [
+     "circuit_485",
+     "circuit_743"
+    ]
+   }
+  ],
+  "groups_spanning_splits": [
+   {
+    "key": "2c4d478e1eb02d77b120e727d644cb23",
+    "n": 3,
+    "by_split": {
+     "test": [
+      "circuit_1048"
+     ],
+     "val": [
+      "circuit_294",
+      "circuit_937"
+     ]
+    }
+   },
+   {
+    "key": "ffaee6710091b98a6504d1ba480ad0a7",
+    "n": 19,
+    "by_split": {
+     "test": [
+      "circuit_1059",
+      "circuit_1184",
+      "circuit_211",
+      "circuit_221",
+      "circuit_39",
+      "circuit_594",
+      "circuit_639",
+      "circuit_643"
+     ],
+     "val": [
+      "circuit_1209",
+      "circuit_1268",
+      "circuit_153",
+      "circuit_238",
+      "circuit_394",
+      "circuit_470",
+      "circuit_595",
+      "circuit_709",
+      "circuit_87",
+      "circuit_901",
+      "circuit_910"
+     ]
+    }
+   },
+   {
+    "key": "ff373f998d3f403a849e72354c7a4b21",
+    "n": 5,
+    "by_split": {
+     "test": [
+      "circuit_1080",
+      "circuit_218",
+      "circuit_616"
+     ],
+     "val": [
+      "circuit_472",
+      "circuit_506"
+     ]
+    }
+   },
+   {
+    "key": "0bde2db26ee79e4eb42f74d294550c8d",
+    "n": 20,
+    "by_split": {
+     "test": [
+      "circuit_1095",
+      "circuit_1156",
+      "circuit_1187",
+      "circuit_132",
+      "circuit_208",
+      "circuit_347",
+      "circuit_474",
+      "circuit_711",
+      "circuit_76",
+      "circuit_810",
+      "circuit_855",
+      "circuit_930"
+     ],
+     "val": [
+      "circuit_1122",
+      "circuit_1124",
+      "circuit_155",
+      "circuit_303",
+      "circuit_324",
+      "circuit_678",
+      "circuit_750",
+      "circuit_755"
+     ]
+    }
+   },
+   {
+    "key": "7d98e5d83859f559b27765dfcc458507",
+    "n": 2,
+    "by_split": {
+     "test": [
+      "circuit_1103"
+     ],
+     "val": [
+      "circuit_185"
+     ]
+    }
+   },
+   {
+    "key": "9c862ee8e61ee912d157b2acd6858f56",
+    "n": 13,
+    "by_split": {
+     "test": [
+      "circuit_118",
+      "circuit_1273",
+      "circuit_140",
+      "circuit_43",
+      "circuit_627",
+      "circuit_706",
+      "circuit_74",
+      "circuit_847",
+      "circuit_98"
+     ],
+     "val": [
+      "circuit_1166",
+      "circuit_1172",
+      "circuit_14",
+      "circuit_337"
+     ]
+    }
+   },
+   {
+    "key": "624b3f975640747fbbc31c1ac7fcc4f5",
+    "n": 3,
+    "by_split": {
+     "test": [
+      "circuit_1182",
+      "circuit_271"
+     ],
+     "val": [
+      "circuit_1135"
+     ]
+    }
+   },
+   {
+    "key": "374480adabff926d16158e3da1fa1938",
+    "n": 15,
+    "by_split": {
+     "test": [
+      "circuit_1222",
+      "circuit_1264",
+      "circuit_181",
+      "circuit_259",
+      "circuit_278",
+      "circuit_590",
+      "circuit_630",
+      "circuit_985"
+     ],
+     "val": [
+      "circuit_205",
+      "circuit_210",
+      "circuit_215",
+      "circuit_344",
+      "circuit_415",
+      "circuit_689",
+      "circuit_980"
+     ]
+    }
+   },
+   {
+    "key": "a0dee854289d6147cfa5a0ea8cf05f1c",
+    "n": 22,
+    "by_split": {
+     "test": [
+      "circuit_1238",
+      "circuit_1240",
+      "circuit_225",
+      "circuit_366",
+      "circuit_398",
+      "circuit_410",
+      "circuit_64",
+      "circuit_677",
+      "circuit_744",
+      "circuit_763",
+      "circuit_778",
+      "circuit_831",
+      "circuit_848",
+      "circuit_891",
+      "circuit_916"
+     ],
+     "val": [
+      "circuit_1076",
+      "circuit_1243",
+      "circuit_226",
+      "circuit_525",
+      "circuit_613",
+      "circuit_975",
+      "circuit_979"
+     ]
+    }
+   },
+   {
+    "key": "edaa9e29aae75bd7714f616fcc3cd9c6",
+    "n": 2,
+    "by_split": {
+     "test": [
+      "circuit_209"
+     ],
+     "val": [
+      "circuit_588"
+     ]
+    }
+   },
+   {
+    "key": "8fe1e188ef6a8473df23ed5803543000",
+    "n": 8,
+    "by_split": {
+     "test": [
+      "circuit_298"
+     ],
+     "val": [
+      "circuit_1111",
+      "circuit_113",
+      "circuit_1194",
+      "circuit_1244",
+      "circuit_328",
+      "circuit_957",
+      "circuit_961"
+     ]
+    }
+   },
+   {
+    "key": "03aff5ee014e403116492ff3fc41378c",
+    "n": 5,
+    "by_split": {
+     "test": [
+      "circuit_331",
+      "circuit_412",
+      "circuit_981"
+     ],
+     "val": [
+      "circuit_1074",
+      "circuit_1153"
+     ]
+    }
+   },
+   {
+    "key": "7e9cd7661d298216403b726a8c5ef51d",
+    "n": 6,
+    "by_split": {
+     "test": [
+      "circuit_432",
+      "circuit_578",
+      "circuit_896"
+     ],
+     "val": [
+      "circuit_350",
+      "circuit_748",
+      "circuit_856"
+     ]
+    }
+   },
+   {
+    "key": "b032c5a202917103cf69250edfbc619c",
+    "n": 3,
+    "by_split": {
+     "test": [
+      "circuit_553",
+      "circuit_77"
+     ],
+     "val": [
+      "circuit_468"
+     ]
+    }
+   },
+   {
+    "key": "7f4dd837530f2e8782b1c2d17dad33b7",
+    "n": 4,
+    "by_split": {
+     "test": [
+      "circuit_659",
+      "circuit_83"
+     ],
+     "val": [
+      "circuit_1134",
+      "circuit_836"
+     ]
+    }
+   },
+   {
+    "key": "3b0e9a53337366a8d598065d08c41693",
+    "n": 3,
+    "by_split": {
+     "test": [
+      "circuit_786"
+     ],
+     "val": [
+      "circuit_356",
+      "circuit_769"
+     ]
+    }
+   },
+   {
+    "key": "72b96f6841ff301ce90513b19ea292e6",
+    "n": 2,
+    "by_split": {
+     "test": [
+      "circuit_809"
+     ],
+     "val": [
+      "circuit_372"
+     ]
+    }
+   },
+   {
+    "key": "5053b02ce55ae1eb8995cb0c612a567e",
+    "n": 2,
+    "by_split": {
+     "test": [
+      "circuit_941"
+     ],
+     "val": [
+      "circuit_1093"
+     ]
+    }
+   },
+   {
+    "key": "b6c2ac0611c15bda6c993d66a161dba5",
+    "n": 2,
+    "by_split": {
+     "test": [
+      "circuit_999"
+     ],
+     "val": [
+      "circuit_1239"
+     ]
+    }
+   }
+  ],
+  "impact": {
+   "_what": "How much of the REPORTED split is affected. Groups are not an actionable unit; test images are.",
+   "test_images": 192,
+   "test_sharing_topology_with_val": 75,
+   "test_sharing_topology_with_val_rate": 0.390625,
+   "test_sharing_topology_with_another_test_image": 72,
+   "test_in_any_repeated_topology_group": 80,
+   "largest_group_size": 22,
+   "_consequence": "Validation selects and test reports, so a topology present in both means selection saw the circuit the headline is scored on. This is measured, not inferred. The TRAIN boundary cannot be measured the same way -- those 895 images have no netlist ground truth -- but a corpus that repeats circuits this heavily across two splits of 190 and 192 is unlikely to stop doing so across the 895."
+  }
+ }
+}
