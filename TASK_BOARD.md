@@ -36,15 +36,14 @@ Annotations accepted so far: **0**
 | E2 | Cross corpus transfer results | BLOCKED | `data/cghd/annotations/accepted/*.json` |  |
 | E3 | Drafter generalization analysis | BLOCKED | `data/cghd/annotations/accepted/*.json` |  |
 | E4 | Inter annotator agreement | BLOCKED | `data/cghd/annotations/double/*.json` |  |
-| F1 | Table and figure regeneration | READY |  |  |
+| F1 | Table and figure regeneration | DONE |  |  |
 | F2 | Qualitative figure | BLOCKED | `spec/qualitative_circuit.txt` |  |
 | F3 | Consistency pass | DONE |  |  |
 | F4 | Reproducibility packet | DONE |  |  |
-| F5 | Section drafts *(needs review)* | READY |  |  |
+| F5 | Section drafts *(needs review)* | DONE |  |  |
 
 ## Counts
 
 - AWAITING_REVIEW: 4
 - BLOCKED: 5
-- DONE: 22
-- READY: 2
+- DONE: 24
