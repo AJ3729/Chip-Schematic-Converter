@@ -1,0 +1,777 @@
+{
+ "_what": "Does the REFERENCE operating point depend on element ordering or on the solver's starting guess? If it does for a circuit, that circuit's contribution to the headline is the solver's, not the pipeline's.",
+ "protocol": {
+  "permutations": 5,
+  "nodeset_seeds_V": [
+   0.0,
+   1.0,
+   -1.0
+  ],
+  "threshold": "D3: |dV| > max(10 mV, 1% of the reference circuit's max |V|)"
+ },
+ "n_circuits_tested": 93,
+ "n_flagged_multistable_or_order_dependent": 1,
+ "flagged": [
+  "circuit_999"
+ ],
+ "headline_all_circuits": {
+  "topologically_perfect": 84,
+  "of_those_op_disagrees": 52,
+  "rate": 0.6190476190476191
+ },
+ "headline_excluding_flagged": {
+  "topologically_perfect": 83,
+  "of_those_op_disagrees": 51,
+  "rate": 0.6144578313253012
+ },
+ "per_circuit": {
+  "circuit_1013": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 5.551115e-16,
+   "flagged": false
+  },
+  "circuit_1022": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1025": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 3.092804e-16,
+   "flagged": false
+  },
+  "circuit_1045": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1048": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.003650000000000375,
+   "flagged": false
+  },
+  "circuit_1052": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1103": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_115": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1150": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1175": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.001580000000000581,
+   "flagged": false
+  },
+  "circuit_118": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 9.999999999621423e-06,
+   "flagged": false
+  },
+  "circuit_1182": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1195": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1197": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1234": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1247": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0020900000000008134,
+   "flagged": false
+  },
+  "circuit_1253": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.10992000000000068,
+   "flagged": false
+  },
+  "circuit_1259": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_1273": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.005789999999999296,
+   "flagged": false
+  },
+  "circuit_1275": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_129": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_131": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_147": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_15": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_150": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_154": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_165": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 5.551115e-16,
+   "flagged": false
+  },
+  "circuit_196": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_20": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 5.551115e-16,
+   "flagged": false
+  },
+  "circuit_21": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 5.551115e-16,
+   "flagged": false
+  },
+  "circuit_255": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_264": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 3.330669e-16,
+   "flagged": false
+  },
+  "circuit_270": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 5.55112e-16,
+   "flagged": false
+  },
+  "circuit_271": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_321": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_325": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_33": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.009479999999999933,
+   "flagged": false
+  },
+  "circuit_351": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_353": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_402": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_420": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 3.330669e-16,
+   "flagged": false
+  },
+  "circuit_43": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.005789999999999296,
+   "flagged": false
+  },
+  "circuit_431": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.012589999999999435,
+   "flagged": false
+  },
+  "circuit_441": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_442": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_447": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 3.330669e-16,
+   "flagged": false
+  },
+  "circuit_486": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_490": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_505": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 4.16334e-17,
+   "flagged": false
+  },
+  "circuit_516": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 3.330669e-16,
+   "flagged": false
+  },
+  "circuit_517": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_526": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_579": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_604": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.008630000000000138,
+   "flagged": false
+  },
+  "circuit_612": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_616": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 3.6999999999953737e-06,
+   "flagged": false
+  },
+  "circuit_627": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.005789999999999296,
+   "flagged": false
+  },
+  "circuit_641": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_657": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_666": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_686": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_695": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 2.081668e-17,
+   "flagged": false
+  },
+  "circuit_697": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 5.55112e-16,
+   "flagged": false
+  },
+  "circuit_706": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.005789999999999296,
+   "flagged": false
+  },
+  "circuit_71": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_717": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 2.91434e-16,
+   "flagged": false
+  },
+  "circuit_724": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_74": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.014210000000000278,
+   "flagged": false
+  },
+  "circuit_765": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 5.551115e-16,
+   "flagged": false
+  },
+  "circuit_776": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_779": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_78": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_786": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 2.081668e-17,
+   "flagged": false
+  },
+  "circuit_792": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_809": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_812": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_817": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_82": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.02026000000000039,
+   "flagged": false
+  },
+  "circuit_837": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 3.330669e-16,
+   "flagged": false
+  },
+  "circuit_847": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.014210000000000278,
+   "flagged": false
+  },
+  "circuit_853": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 5.55112e-16,
+   "flagged": false
+  },
+  "circuit_89": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_914": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_920": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_923": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_928": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_934": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_940": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 2.081668e-17,
+   "flagged": false
+  },
+  "circuit_949": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.009689999999999088,
+   "flagged": false
+  },
+  "circuit_96": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.006859999999999644,
+   "flagged": false
+  },
+  "circuit_98": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.006180000000000518,
+   "flagged": false
+  },
+  "circuit_988": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [],
+   "max_abs_dv_within_reference": 0.0,
+   "flagged": false
+  },
+  "circuit_999": {
+   "baseline_solved": true,
+   "n_variants": 8,
+   "n_failed_to_solve": 0,
+   "variants_moved": [
+    "nodeset+0V",
+    "nodeset+1V",
+    "nodeset-1V"
+   ],
+   "max_abs_dv_within_reference": 0.508,
+   "flagged": true
+  }
+ }
+}

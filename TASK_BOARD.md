@@ -27,7 +27,7 @@ Annotations accepted so far: **0**
 | D1 | Pin symmetry template (author authors the real file) *(needs review)* | AWAITING_REVIEW |  |  |
 | D2 | Pin aware scorer | BLOCKED | `spec/pin_symmetry.yaml` |  |
 | D3 | Perturbation sensitivity and tolerance definitions *(needs review)* | AWAITING_REVIEW |  |  |
-| D4 | Multistability control | READY |  |  |
+| D4 | Multistability control | DONE |  |  |
 | D5 | Multi condition agreement | READY |  |  |
 | D6 | Full structural recomputation | BLOCKED | `metrics/pin_aware.py` |  |
 | D7 | Repair separation | DONE |  |  |
@@ -46,5 +46,5 @@ Annotations accepted so far: **0**
 
 - AWAITING_REVIEW: 3
 - BLOCKED: 7
-- DONE: 9
-- READY: 14
+- DONE: 10
+- READY: 13
