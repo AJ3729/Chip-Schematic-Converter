@@ -301,8 +301,15 @@ def check(tex_path: Path, show_unregistered: bool) -> int:
             unresolved.append((q, err))
             continue
         want = q.fmt.format(v)
-        if want in lit_set:
-            ok.append((q, want))
+        # A negative quantity is conventionally typeset with the sign OUTSIDE
+        # the \num{}, as \(-\num{0.6466}\), so the literal in the source has no
+        # sign. Accept either spelling rather than reporting a formatting
+        # convention as a stale number -- false alarms are how a checker stops
+        # being run.
+        spellings = {want, want.lstrip("-")} if v < 0 else {want}
+        hit = spellings & lit_set
+        if hit:
+            ok.append((q, sorted(hit)[0]))
         else:
             # Find what the manuscript says instead, if anything close.
             near = [s for s in lit_set

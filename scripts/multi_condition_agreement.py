@@ -156,6 +156,54 @@ def run_condition(graph: list[dict], cond: str, cfg: dict) -> dict:
     return {"solved": bool(res["solved"]), "values": res["voltages"]}
 
 
+# E24, the standard 5% preferred-value series. Drawing from it rather than from
+# a continuous range keeps every deck a circuit an engineer could actually build,
+# so a disagreement cannot be blamed on an absurd component value.
+E24 = (1.0, 1.1, 1.2, 1.3, 1.5, 1.6, 1.8, 2.0, 2.2, 2.4, 2.7, 3.0,
+       3.3, 3.6, 3.9, 4.3, 4.7, 5.1, 5.6, 6.2, 6.8, 7.5, 8.2, 9.1)
+
+# (key, unit suffix, decade range) per class. Ranges are ordinary working values.
+VALUE_RANGES = (
+    ("resistor", "", (2, 5)),        # 100 ohm .. 100 k
+    ("capacitor", "", (-9, -5)),     # 1 nF .. 10 uF
+    ("inductor", "", (-5, -2)),      # 10 uH .. 10 mH
+)
+
+K_ASSIGNMENTS = 10
+
+
+def _eng(value: float) -> str:
+    """SPICE-friendly engineering notation, e.g. 4.7k, 220n."""
+    for exp, suf in ((9, "g"), (6, "meg"), (3, "k"), (0, ""), (-3, "m"),
+                     (-6, "u"), (-9, "n"), (-12, "p")):
+        if abs(value) >= 10 ** exp:
+            return f"{value / 10 ** exp:g}{suf}"
+    return f"{value:g}"
+
+
+def random_placeholders(base: dict, rng) -> dict:
+    """One E24 assignment, applied identically to both decks.
+
+    Values are OUR choice on both sides and therefore cancel, exactly as the
+    single fixed assignment does. What varies here is whether a circuit's
+    agreement survives being asked the same question with different components:
+    two topologies that coincide at one assignment by arithmetic accident are
+    unlikely to coincide at ten.
+    """
+    ph = dict(base)
+    for key, _suf, (lo, hi) in VALUE_RANGES:
+        mant = rng.choice(E24)
+        dec = rng.randint(lo, hi)
+        ph[key] = _eng(mant * (10 ** dec))
+    supply = rng.choice((5, 9, 12, 15, 24))
+    ph["dc_supply"] = f"DC {supply}"
+    ph["ac_supply"] = f"DC {supply} AC 1"
+    cur = rng.choice((100, 500, 1000))          # microamps
+    ph["dc_current"] = f"DC {cur}u"
+    ph["ac_current"] = f"DC {cur}u AC 1m"
+    return ph
+
+
 CONDITIONS = ("op_primary", "op_low_bias", "ac_1khz")
 
 
@@ -197,10 +245,46 @@ def measure(stems: list[str], cfg: dict) -> list[dict]:
             degenerate = all(abs(v) < 1e-12 for v in g["values"].values())
             row[cond] = {"in_domain": True, "f1": s["f1"],
                          "exact": s["f1"] == 1.0, "degenerate": degenerate}
+        # The stricter criterion: agreement under EVERY one of K independent
+        # E24 assignments, each applied identically to both decks.
+        row["multi_value"] = multi_value_agreement(gt, pred, corr, cfg)
+
         rows.append(row)
         if i % 20 == 0:
             print(f"  ...{i}/{len(stems)}", flush=True)
     return rows
+
+
+def multi_value_agreement(gt: list[dict], pred: list[dict], corr: dict,
+                          cfg: dict, k: int = K_ASSIGNMENTS,
+                          seed: int = 0) -> dict:
+    """Exact agreement under all K value assignments, and under each alone.
+
+    Seeded, so the K assignments are the same for every circuit and across runs
+    -- circuits must be compared under identical conditions, and a re-run must
+    reproduce the table.
+    """
+    import random as _random
+
+    rng = _random.Random(seed)
+    base = policy_placeholders(cfg, "hv")
+    per_draw, solved_all = [], True
+    for _ in range(k):
+        ph = random_placeholders(base, rng)
+        g = _run_ngspice(build_deck(spice_components(gt), ph), cfg)
+        p = _run_ngspice(build_deck(spice_components(pred), ph), cfg)
+        if not (g["solved"] and p["solved"]):
+            solved_all = False
+            break
+        s = score_op(g["voltages"], p["voltages"], corr,
+                     atol=PRIMARY_ATOL, rtol=PRIMARY_RTOL)
+        per_draw.append(s["f1"] == 1.0)
+    if not solved_all or not per_draw:
+        return {"in_domain": False}
+    return {"in_domain": True, "k": len(per_draw),
+            "exact_under_all": all(per_draw),
+            "exact_under_any": any(per_draw),
+            "n_exact": sum(per_draw)}
 
 
 def summarise(rows: list[dict]) -> dict:
@@ -249,6 +333,39 @@ def summarise(rows: list[dict]) -> dict:
                 "p_value": mc.p_value}
         cross[cond] = entry
     out["_reclassification"] = cross
+
+    # The stricter criterion the plan asks for: agreement under all K draws.
+    mv = [r for r in rows if r.get("multi_value", {}).get("in_domain")]
+    if mv:
+        strict = bootstrap_rate([r["multi_value"]["exact_under_all"] for r in mv])
+        loose = bootstrap_rate([r["multi_value"]["exact_under_any"] for r in mv])
+        single = [r for r in mv
+                  if r.get("op_primary", {}).get("in_domain")
+                  and not r["op_primary"]["degenerate"]]
+        a = [r["op_primary"]["exact"] for r in single]
+        b = [r["multi_value"]["exact_under_all"] for r in single]
+        lost = [r["stem"] for r, x, y in zip(single, a, b) if x and not y]
+        out["multi_value"] = {
+            "_meaning": (
+                f"agreement required under ALL {K_ASSIGNMENTS} independent E24 "
+                "value assignments, each applied identically to both decks. Two "
+                "topologies that coincide at one assignment by arithmetic "
+                "accident are unlikely to coincide at ten"),
+            "k": K_ASSIGNMENTS,
+            "n_in_domain": len(mv),
+            "exact_under_all": {"mean": strict.point,
+                                "ci95": [strict.lo, strict.hi]},
+            "exact_under_at_least_one": {"mean": loose.point,
+                                         "ci95": [loose.lo, loose.hi]},
+            "n_compared_with_single_assignment": len(single),
+            "lost_under_the_stricter_criterion": lost,
+            "n_lost": len(lost),
+        }
+        if single:
+            mc = mcnemar_exact(a, b)
+            out["multi_value"]["mcnemar_vs_single"] = {
+                "n_only_single": mc.n_only_a, "n_only_all_k": mc.n_only_b,
+                "p_value": mc.p_value}
 
     # The substantive result: how many circuits any probe can say anything about.
     def informative(cond):
@@ -405,6 +522,14 @@ def main() -> int:
           f".op cannot)")
     print(f"  excluded as nonlinear without a DC solution: "
           f"{len(cov['excluded_nonlinear_without_dc'])}")
+    mv = summary.get("multi_value")
+    if mv:
+        print(f"\n  under all {mv['k']} E24 assignments: "
+              f"exact {mv['exact_under_all']['mean']:.4f} "
+              f"(vs {mv['exact_under_at_least_one']['mean']:.4f} under at least "
+              f"one), n={mv['n_in_domain']}")
+        print(f"  circuits that pass a single assignment but fail all-{mv['k']}: "
+              f"{mv['n_lost']}")
     return 0
 
 

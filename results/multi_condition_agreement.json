@@ -99,6 +99,33 @@
     }
    }
   },
+  "multi_value": {
+   "_meaning": "agreement required under ALL 10 independent E24 value assignments, each applied identically to both decks. Two topologies that coincide at one assignment by arithmetic accident are unlikely to coincide at ten",
+   "k": 10,
+   "n_in_domain": 91,
+   "exact_under_all": {
+    "mean": 0.3516483516483517,
+    "ci95": [
+     0.25274725274725274,
+     0.45054945054945056
+    ]
+   },
+   "exact_under_at_least_one": {
+    "mean": 0.3516483516483517,
+    "ci95": [
+     0.25274725274725274,
+     0.45054945054945056
+    ]
+   },
+   "n_compared_with_single_assignment": 90,
+   "lost_under_the_stricter_criterion": [],
+   "n_lost": 0,
+   "mcnemar_vs_single": {
+    "n_only_single": 0,
+    "n_only_all_k": 0,
+    "p_value": 1.0
+   }
+  },
   "_coverage": {
    "_meaning": "the published metric is defined only where a DC operating point exists on both sides. A linear network that is singular at DC can still be well defined at 1 kHz, so AC measures circuits the DC probe cannot -- these are added circuits, not rescued ones",
    "informative_under_op_primary": 92,
@@ -186,6 +213,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -207,6 +241,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -228,6 +269,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -243,6 +291,9 @@
     "f1": 0.8333333333333333,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -264,6 +315,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -285,6 +343,13 @@
     "f1": 0.9655172413793104,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -306,6 +371,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -321,6 +393,9 @@
     "f1": 0.1818181818181818,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -334,6 +409,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -347,6 +425,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -368,6 +449,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -389,6 +477,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -410,6 +505,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -423,6 +525,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -444,6 +549,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -465,6 +577,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -486,6 +605,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -501,6 +627,9 @@
     "f1": 0.9090909090909091,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -514,6 +643,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -535,6 +667,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -556,6 +695,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -571,6 +717,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -582,6 +731,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -604,6 +756,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -619,6 +778,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -634,6 +796,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -655,6 +820,9 @@
     "f1": 0.967741935483871,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -676,6 +844,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -697,6 +872,13 @@
     "f1": 0.25,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -708,6 +890,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -730,6 +915,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -751,6 +943,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -772,6 +971,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -793,6 +999,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -806,6 +1019,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -819,6 +1035,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -834,6 +1053,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -855,6 +1077,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -876,6 +1105,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -897,6 +1133,13 @@
     "f1": 0.3333333333333333,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -918,6 +1161,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -931,6 +1181,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -952,6 +1205,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -967,6 +1227,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -982,6 +1245,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -993,6 +1259,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -1015,6 +1284,13 @@
     "f1": 0.8,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1036,6 +1312,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1049,6 +1332,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1064,6 +1350,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1085,6 +1374,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1096,6 +1392,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -1113,6 +1412,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1128,6 +1430,9 @@
     "f1": 0.6666666666666666,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1143,6 +1448,9 @@
     "f1": 0.9090909090909091,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1158,6 +1466,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1173,6 +1484,9 @@
     "f1": 0.2,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1188,6 +1502,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1209,6 +1526,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1222,6 +1546,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1233,6 +1560,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -1255,6 +1585,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1276,6 +1613,13 @@
     "f1": 0.8,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1297,6 +1641,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1308,6 +1659,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -1324,6 +1678,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1339,6 +1696,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1354,6 +1714,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1375,6 +1738,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1396,6 +1766,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1417,6 +1794,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1432,6 +1812,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1447,6 +1830,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1460,6 +1846,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1481,6 +1870,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1502,6 +1898,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -1517,6 +1920,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1528,6 +1934,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -1544,6 +1953,9 @@
     "f1": 0.26666666666666666,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1559,6 +1971,9 @@
     "f1": 0.2,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1574,6 +1989,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1595,6 +2013,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -1610,6 +2035,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1625,6 +2053,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1646,6 +2077,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -1661,6 +2099,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1682,6 +2123,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1703,6 +2151,13 @@
     "f1": 0.967741935483871,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1716,6 +2171,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1737,6 +2195,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1758,6 +2223,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -1779,6 +2251,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -1794,6 +2273,9 @@
     "f1": 0.8571428571428571,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1807,6 +2289,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1818,6 +2303,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -1840,6 +2328,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -1861,6 +2356,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1876,6 +2378,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1897,6 +2402,13 @@
     "f1": 0.8,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1912,6 +2424,9 @@
     "f1": 0.8333333333333333,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -1933,6 +2448,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1954,6 +2476,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1975,6 +2504,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -1990,6 +2526,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2005,6 +2544,9 @@
     "f1": 0.2,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2016,6 +2558,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -2032,6 +2577,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2045,6 +2593,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2066,6 +2617,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2077,6 +2635,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -2093,6 +2654,9 @@
     "f1": 0.16666666666666666,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2108,6 +2672,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2129,6 +2696,13 @@
     "f1": 0.962962962962963,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2150,6 +2724,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2171,6 +2752,13 @@
     "f1": 0.17391304347826086,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2186,6 +2774,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2207,6 +2798,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2218,6 +2816,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -2234,6 +2835,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2249,6 +2853,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2270,6 +2877,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2285,6 +2899,9 @@
     "f1": 0.8333333333333334,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2306,6 +2923,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2321,6 +2945,9 @@
     "f1": 0.3636363636363636,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2342,6 +2969,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2357,6 +2991,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2378,6 +3015,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2399,6 +3043,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2420,6 +3071,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2441,6 +3099,13 @@
     "f1": 0.967741935483871,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2462,6 +3127,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2475,6 +3147,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2496,6 +3171,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2511,6 +3193,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2532,6 +3217,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2547,6 +3239,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2568,6 +3263,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2583,6 +3285,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2594,6 +3299,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -2608,6 +3316,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2623,6 +3334,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2644,6 +3358,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2659,6 +3380,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2680,6 +3404,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2691,6 +3422,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -2707,6 +3441,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2728,6 +3465,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2749,6 +3493,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2770,6 +3521,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2791,6 +3549,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2812,6 +3577,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2825,6 +3597,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2846,6 +3621,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2867,6 +3649,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2888,6 +3677,13 @@
     "f1": 0.967741935483871,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -2901,6 +3697,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2912,6 +3711,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -2928,6 +3730,9 @@
     "f1": 0.9090909090909091,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2943,6 +3748,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -2964,6 +3772,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -2979,6 +3794,9 @@
     "f1": 0.8571428571428571,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3000,6 +3818,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -3015,6 +3840,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3036,6 +3864,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -3049,6 +3884,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3064,6 +3902,9 @@
     "f1": 0.888888888888889,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3079,6 +3920,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3090,6 +3934,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -3112,6 +3959,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -3127,6 +3981,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3140,6 +3997,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3161,6 +4021,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -3176,6 +4043,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3187,6 +4057,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -3209,6 +4082,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -3230,6 +4110,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -3245,6 +4132,9 @@
     "f1": 0.3636363636363636,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3266,6 +4156,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -3279,6 +4176,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3300,6 +4200,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -3311,6 +4218,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -3333,6 +4243,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -3346,6 +4263,9 @@
    "ac_1khz": {
     "in_domain": false,
     "excluded": "nonlinear deck whose DC operating point does not solve"
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3367,6 +4287,13 @@
     "f1": 0.9285714285714286,
     "exact": false,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -3382,6 +4309,9 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3403,6 +4333,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -3424,6 +4361,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   },
   {
@@ -3439,6 +4383,9 @@
     "f1": 0.0,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3450,6 +4397,9 @@
     "in_domain": false
    },
    "ac_1khz": {
+    "in_domain": false
+   },
+   "multi_value": {
     "in_domain": false
    }
   },
@@ -3472,6 +4422,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": true,
+    "exact_under_any": true,
+    "n_exact": 10
    }
   },
   {
@@ -3487,6 +4444,9 @@
     "f1": 0.22222222222222224,
     "exact": false,
     "degenerate": false
+   },
+   "multi_value": {
+    "in_domain": false
    }
   },
   {
@@ -3508,6 +4468,13 @@
     "f1": 1.0,
     "exact": true,
     "degenerate": true
+   },
+   "multi_value": {
+    "in_domain": true,
+    "k": 10,
+    "exact_under_all": false,
+    "exact_under_any": false,
+    "n_exact": 0
    }
   }
  ]
