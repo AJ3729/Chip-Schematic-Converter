@@ -21,9 +21,9 @@ Annotations accepted so far: **0**
 | B6 | Netlist prediction over the evaluable pool | DONE |  |  |
 | B7 | Capture invariance experiment | DONE |  |  |
 | B8 | Annotation sampling design *(needs review)* | AWAITING_REVIEW |  |  |
-| C1 | Annotation tool | READY |  |  |
-| C2 | Schema validator and ingest | READY |  |  |
-| C3 | Annotation dashboard | READY |  |  |
+| C1 | Annotation tool | DONE |  |  |
+| C2 | Schema validator and ingest | DONE |  |  |
+| C3 | Annotation dashboard | DONE |  |  |
 | D1 | Pin symmetry template (author authors the real file) *(needs review)* | AWAITING_REVIEW |  |  |
 | D2 | Pin aware scorer | DONE |  |  |
 | D3 | Perturbation sensitivity and tolerance definitions *(needs review)* | AWAITING_REVIEW |  |  |
@@ -46,5 +46,5 @@ Annotations accepted so far: **0**
 
 - AWAITING_REVIEW: 4
 - BLOCKED: 5
-- DONE: 14
-- READY: 10
+- DONE: 17
+- READY: 7

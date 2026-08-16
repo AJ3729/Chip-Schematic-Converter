@@ -2,11 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "demo",
+      "name": "annotator",
       "runtimeExecutable": "./venv/bin/python",
-      "runtimeArgs": ["demo/app.py"],
-      "port": 5001,
-      "autoPort": true
+      "runtimeArgs": ["tools/annotator/server.py", "--tutorial", "--port", "8765"],
+      "port": 8765
     }
   ]
 }

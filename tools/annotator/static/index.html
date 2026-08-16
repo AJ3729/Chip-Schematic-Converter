@@ -1,0 +1,125 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CGHD netlist annotator</title>
+<style>
+  :root { --bg:#12141a; --panel:#1b1e26; --line:#2c313d; --fg:#e6e8ee;
+          --dim:#8b93a7; --accent:#4da3ff; --ok:#3fbf6f; --warn:#e0a33e;
+          --bad:#e0574a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:13px/1.45 ui-sans-serif,system-ui,-apple-system,sans-serif;
+         display:grid; grid-template-columns:1fr 340px; height:100vh; }
+  #stage { position:relative; overflow:hidden; background:#0c0d11; }
+  #canvas { position:absolute; transform-origin:0 0; cursor:crosshair; }
+  aside { background:var(--panel); border-left:1px solid var(--line);
+          display:flex; flex-direction:column; overflow:hidden; }
+  header { padding:10px 12px; border-bottom:1px solid var(--line); }
+  h1 { font-size:13px; margin:0 0 4px; letter-spacing:.02em; }
+  .dim { color:var(--dim); }
+  .pad { padding:10px 12px; }
+  .scroll { overflow-y:auto; flex:1; }
+  button { background:#252a35; color:var(--fg); border:1px solid var(--line);
+           border-radius:5px; padding:5px 9px; font:inherit; cursor:pointer; }
+  button:hover { border-color:var(--accent); }
+  button.primary { background:var(--accent); color:#06121f; border-color:transparent;
+                   font-weight:600; }
+  kbd { background:#2a2f3b; border:1px solid var(--line); border-bottom-width:2px;
+        border-radius:4px; padding:0 5px; font:11px ui-monospace,monospace; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  td,th { padding:3px 5px; border-bottom:1px solid var(--line); text-align:left; }
+  .net { display:inline-block; min-width:26px; padding:0 5px; border-radius:3px;
+         background:#2a3140; font:11px ui-monospace,monospace; }
+  .warnbox { background:#2a2318; border:1px solid var(--warn); color:#f0c98a;
+             border-radius:5px; padding:8px; margin:8px 12px; font-size:12px; }
+  .okbox { background:#16261c; border:1px solid var(--ok); color:#9fe0b8;
+           border-radius:5px; padding:8px; margin:8px 12px; font-size:12px; }
+  input,select,textarea { background:#12151c; color:var(--fg);
+        border:1px solid var(--line); border-radius:4px; padding:4px 6px;
+        font:inherit; width:100%; }
+  .row { display:flex; gap:6px; align-items:center; }
+  .row > * { flex:1; }
+  .sitedot { position:absolute; width:13px; height:13px; border-radius:50%;
+             transform:translate(-50%,-50%); border:2px solid #0c0d11; }
+  .termdot { position:absolute; width:11px; height:11px;
+             transform:translate(-50%,-50%) rotate(45deg); border:2px solid #0c0d11; }
+  #hint { position:absolute; left:10px; bottom:10px; background:#0c0d11cc;
+          border:1px solid var(--line); border-radius:6px; padding:6px 9px;
+          font-size:12px; color:var(--dim); }
+</style>
+
+<div id="stage">
+  <div id="canvas"><img id="img" draggable="false"></div>
+  <div id="hint"></div>
+</div>
+
+<aside>
+  <header>
+    <h1 id="title">loading…</h1>
+    <div class="dim" id="sub"></div>
+  </header>
+
+  <div id="banner"></div>
+
+  <div class="pad">
+    <div class="row">
+      <button id="prev">◀ <kbd>[</kbd></button>
+      <button id="next"><kbd>]</kbd> ▶</button>
+      <button id="save">save <kbd>s</kbd></button>
+    </div>
+  </div>
+
+  <div class="scroll">
+    <div class="pad">
+      <b>Mode</b> — <kbd>t</kbd> terminal · <kbd>i</kbd> intersection
+      <div class="dim" id="mode">terminal</div>
+    </div>
+
+    <div class="pad">
+      <b>Current net</b>
+      <div class="row">
+        <input id="net" value="n1">
+        <button id="newnet">new <kbd>n</kbd></button>
+      </div>
+      <div class="dim">Ground must be net <code>0</code>. <kbd>0</kbd> selects it.</div>
+    </div>
+
+    <div class="pad">
+      <b>Components</b> <span class="dim">(<kbd>c</kbd> add · <kbd>x</kbd> delete last)</span>
+      <div class="row"><select id="cls"></select></div>
+      <table id="comps"></table>
+    </div>
+
+    <div class="pad">
+      <b>Intersections</b>
+      <div class="dim"><kbd>j</kbd> junction · <kbd>k</kbd> crossing ·
+        <kbd>e</kbd> edge group · <kbd>o</kbd> none</div>
+      <table id="sites"></table>
+    </div>
+
+    <div class="pad">
+      <b>Interventions</b>
+      <div class="dim">Repairs you WOULD apply. Recorded separately —
+        never folded into topology.</div>
+      <textarea id="interv" rows="3"
+        placeholder="assumed_ground: n3 — no GND drawn, bottom rail is clearly the return"></textarea>
+    </div>
+
+    <div class="pad">
+      <b>Notes</b>
+      <textarea id="notes" rows="3" placeholder="judgement calls, ambiguities"></textarea>
+    </div>
+
+    <div class="pad" id="tutorialbox" style="display:none">
+      <button id="reveal">reveal known answer</button>
+      <div id="truth" class="dim"></div>
+    </div>
+
+    <div class="pad">
+      <button class="primary" id="submit" style="width:100%">
+        submit to incoming/ <kbd>⏎</kbd></button>
+      <div class="dim" id="timer" style="margin-top:6px"></div>
+    </div>
+  </div>
+</aside>
+
+<script src="/app.js"></script>
