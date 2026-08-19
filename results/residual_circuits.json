@@ -1,0 +1,43 @@
+{
+ "_what": "Why circuit_1247 and circuit_431 disagree at the operating point after the pin-aware pass. Both share one mechanism.",
+ "_mechanism": "Neither drawing has a ground symbol. The as-drawn rule keeps the reference annotation without a net '0'; the pipeline's ground-selection step designates one drawn rail as the reference. The two decks are isomorphic as graphs -- pin-aware scores 22/22 on both -- but are simulated against different reference nodes, so their absolute node voltages are not comparable. This is a limit of the operating-point comparison on ungrounded drawings, not a reconstruction error.",
+ "residuals": {
+  "circuit_1247": {
+   "gnd_components_drawn": 0,
+   "one_port_sources": 5,
+   "pin_aware_correct": "22/22",
+   "pin_aware_strict": true,
+   "class_mismatches": 0,
+   "gt_has_net_zero": false,
+   "pred_has_net_zero": true,
+   "gt_net_serving_as_pred_reference": "n14",
+   "op_f1": 0.3225806451612903
+  },
+  "circuit_431": {
+   "gnd_components_drawn": 0,
+   "one_port_sources": 5,
+   "pin_aware_correct": "22/22",
+   "pin_aware_strict": true,
+   "class_mismatches": 0,
+   "gt_has_net_zero": false,
+   "pred_has_net_zero": true,
+   "gt_net_serving_as_pred_reference": "n15",
+   "op_f1": 0.38709677419354843
+  }
+ },
+ "population_check": {
+  "_what": "If the mechanism is right, ungrounded drawings should disagree far more often than grounded ones.",
+  "circuits_with_drawn_ground": 89,
+  "of_those_op_disagrees": 4,
+  "rate_with_ground": 0.6404494382022472,
+  "circuits_without_drawn_ground": 4,
+  "rate_without_ground": 1.0,
+  "ungrounded_stems": [
+   "circuit_1247",
+   "circuit_431",
+   "circuit_616",
+   "circuit_82"
+  ]
+ },
+ "_consequence": "The operating-point metric should either exclude drawings with no reference, or compare potential DIFFERENCES rather than absolute node voltages. Reported rather than applied: changing the metric after seeing which circuits it fails on is the move this project spent Section 'Threats to Validity' removing."
+}

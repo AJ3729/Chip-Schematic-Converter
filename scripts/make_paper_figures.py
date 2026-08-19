@@ -513,6 +513,67 @@ def fig_vlm() -> None:
     save(fig, "fig_vlm")
 
 
+
+def fig_qualitative() -> None:
+    """circuit_1247: perfect by every structural metric, different operating point.
+
+    Two panels, because the finding is a comparison and not a picture. Left: the
+    drawing, with the rail the pipeline chose as its reference marked -- the
+    reference annotation has no ground symbol and no net 0 at all. Right: the
+    corresponded node voltages, which are what the metric compares and which are
+    only defined relative to a reference the drawing never specifies.
+    """
+    import json as _json
+    stem = "circuit_1247"
+    rec = _json.loads((ROOT / f"results/final/op_agreement/cache/{stem}.json").read_text())
+    res = _json.loads((ROOT / "results/residual_circuits.json").read_text())
+    corr = rec["corr"]
+    ref_net = res["residuals"][stem]["gt_net_serving_as_pred_reference"]
+
+    import sys as _sys
+    _sys.path.insert(0, str(ROOT / "scripts"))
+    from measure_op_agreement import (build_deck, spice_components,
+                                      policy_placeholders, _run_ngspice)
+    from schematic2netlist.config import load_config
+    cfg = load_config(None)
+    ph = policy_placeholders(cfg, "hv")
+    g = _run_ngspice(build_deck(spice_components(rec["gt_graph"]), ph), cfg)
+    pr = _run_ngspice(build_deck(spice_components(rec["pred_graph"]), ph), cfg)
+
+    pairs = []
+    for gn, pn in corr.items():
+        a = g["voltages"].get(str(gn).lower())
+        b = pr["voltages"].get(str(pn).lower())
+        if a is not None and b is not None:
+            pairs.append((gn, a, b))
+    pairs.sort(key=lambda r: -abs(r[2] - r[1]))
+
+    fig, (axl, axr) = plt.subplots(1, 2, figsize=(WIDE_W, 2.6),
+                                   gridspec_kw={"width_ratios": [1, 1.25]})
+
+    img = plt.imread(str(ROOT / f"data/cleaned_1024/{stem}.jpg"))
+    axl.imshow(img, cmap="gray")
+    axl.set_axis_off()
+    axl.set_title(f"(a) {stem}: no ground symbol is drawn", fontsize=7.5)
+
+    labels = [p[0] for p in pairs]
+    y = range(len(pairs))
+    axr.barh([i - 0.2 for i in y], [p[1] for p in pairs], height=0.38,
+             color=C_TEST, label="reference netlist")
+    axr.barh([i + 0.2 for i in y], [p[2] for p in pairs], height=0.38,
+             color=C_VAL, label="reconstruction")
+    axr.set_yticks(list(y))
+    axr.set_yticklabels(labels, fontsize=5.5)
+    axr.invert_yaxis()
+    axr.set_xlabel("node voltage (V)")
+    axr.set_title(f"(b) same graph, but the reconstruction makes {ref_net} its 0 V",
+                  fontsize=7.5)
+    axr.grid(axis="y", visible=False)
+    axr.set_xlim(0, max(max(q[1], q[2]) for q in pairs) * 1.32)
+    axr.legend(frameon=False, fontsize=6, loc="lower right")
+    save(fig, "fig_qualitative")
+
+
 FIGURES = {
     "precision_cliff": fig_precision_cliff,
     "ablation_waterfall": fig_ablation_waterfall,
@@ -523,6 +584,7 @@ FIGURES = {
     "pipeline": fig_pipeline,
     "op_gap": fig_op_gap,
     "vlm": fig_vlm,
+    "qualitative": fig_qualitative,
 }
 
 

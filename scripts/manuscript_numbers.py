@@ -296,6 +296,20 @@ for _label, _macro in (("v5_plus_crossover_DEFAULT", "AblValPortTemplates"),
                                  "results/final/ablation_val/index.json",
                                  f"__delta__.{_label}", table="fig:ablation"))
 
+# The two residual circuits, resolved (task F2 precursor).
+RESID = "results/residual_circuits.json"
+REGISTRY.extend([
+    Q("ResidUngrounded", RESID,
+      "population_check.circuits_without_drawn_ground", fmt="{:.0f}",
+      table="fig:qualitative"),
+    Q("ResidUngroundedDisagree", RESID,
+      "population_check.of_those_op_disagrees", fmt="{:.0f}",
+      table="fig:qualitative"),
+    Q("ResidGroundedN", RESID,
+      "population_check.circuits_with_drawn_ground", fmt="{:.0f}",
+      table="fig:qualitative"),
+])
+
 # Split-overlap audit (mentor fix 1c) and its sensitivity table.
 SPLITDUP = "results/split_duplicate_audit.json"
 REGISTRY.extend([

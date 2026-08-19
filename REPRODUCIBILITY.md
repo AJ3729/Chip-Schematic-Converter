@@ -42,7 +42,7 @@ different claims and are not merged here.
 | Python | 3.11.9 |
 | Platform | Darwin 24.5.0 (arm64) |
 | ngspice | ****** |
-| git SHA (now) | `943ebde507c83fefd541e19d784d8fc1e705a15e` |
+| git SHA (now) | `374d82677cce3187db14775bca10e4265f8b5178` |
 
 | Package | Version |
 | --- | --- |
