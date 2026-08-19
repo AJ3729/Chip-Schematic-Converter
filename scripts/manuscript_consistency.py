@@ -25,7 +25,7 @@ rest are reported and left to judgement, because a checker whose complaints must
 be overridden is a checker that gets switched off.
 
 Usage:
-    python scripts/manuscript_consistency.py paper/access.tex
+    python scripts/manuscript_consistency.py ~/Documents/manuscript/access.tex
 """
 
 from __future__ import annotations

@@ -82,3 +82,10 @@ results/blind_review/packet/frames_1024/
 # Held out of the repo until the author has reviewed them; promote by removing
 # this rule and committing results/sim_coverage/.
 results/sim_coverage/
+
+# The manuscript. Kept OUTSIDE this repository by the author's instruction --
+# it is a submission in progress and must never be committed here. It lives at
+# ~/Documents/manuscript/access.tex; scripts that read it take a path argument
+# rather than assuming an in-repo location.
+paper/access.tex
+*.tex.manuscript

@@ -42,7 +42,7 @@ different claims and are not merged here.
 | Python | 3.11.9 |
 | Platform | Darwin 24.5.0 (arm64) |
 | ngspice | ****** |
-| git SHA (now) | `dcc678a638283bdd2ef39e065d259a186e00a424` |
+| git SHA (now) | `943ebde507c83fefd541e19d784d8fc1e705a15e` |
 
 | Package | Version |
 | --- | --- |
@@ -58,7 +58,7 @@ different claims and are not merged here.
 
 ```bash
 # verify every number in the manuscript against its source
-PYTHONPATH=src python scripts/manuscript_numbers.py --check paper/access.tex
+PYTHONPATH=src python scripts/manuscript_numbers.py --check ~/Documents/manuscript/access.tex
 
 # regenerate the macros the manuscript inputs
 PYTHONPATH=src python scripts/manuscript_numbers.py --emit
@@ -75,7 +75,7 @@ PYTHONPATH=src python -m pytest tests/ -q
 **Regenerable from this repository alone.** Everything downstream of the stored
 result artifacts: every table, every figure, the pin-aware ladder, the
 multi-condition agreement, the significance tests, and the manuscript's number
-check (`scripts/manuscript_numbers.py --check paper/access.tex`). These read
+check (`scripts/manuscript_numbers.py --check ~/Documents/manuscript/access.tex`). These read
 committed JSON and CSV, so they need no dataset and no GPU.
 
 **Needs the datasets.** Digitize-HCD and CGHD images are not redistributed here.
@@ -93,6 +93,10 @@ versions, reasoning settings, per-image input hashes, output schema, run counts,
 invalid-output handling, token usage, cost and per-image predictions are all
 released, so the analysis is checkable without re-running it -- but re-running
 it costs money and the models are not version-frozen by their providers.
+
+**Not in this repository.** The manuscript itself is deliberately absent: it is
+a submission in progress and is kept outside the repo. The checking scripts take
+its path as an argument, so they run against wherever the author keeps it.
 
 **Needs a human.** The independent second annotation, the CGHD annotation
 campaign, and the adjudication of any disagreement they produce. The tooling,
