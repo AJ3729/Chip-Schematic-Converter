@@ -271,6 +271,47 @@ class AblationQ(Q):
     """A quantity read from the ablation deltas rather than from a JSON key."""
 
 
+# Validation-split ablation deltas (mentor fix 1d). The ablation is now
+# reported on val; test is the comparison column, so both are registered.
+class AblationValQ(Q):
+    """A quantity read from the VALIDATION ablation deltas."""
+
+
+def _ablation_val_deltas() -> dict[str, float]:
+    idx = json.loads(
+        (ROOT / "results/final/ablation_val/index.json").read_text())
+    out, prev = {}, None
+    for a in idx["arms"]["ablation"]:
+        s = float(a["topology"]["strict_success"]["mean"])
+        out[a["label"]] = 0.0 if prev is None else s - prev
+        prev = s
+    return out
+
+
+for _label, _macro in (("v5_plus_crossover_DEFAULT", "AblValPortTemplates"),
+                       ("v2_ink_boundary_snap", "AblValInkSnap"),
+                       ("v6_plus_bridge_span7", "AblValBridgeSpan"),
+                       ("v12_plus_head_ensemble", "AblValHeadEnsemble")):
+    REGISTRY.append(AblationValQ(_macro,
+                                 "results/final/ablation_val/index.json",
+                                 f"__delta__.{_label}", table="fig:ablation"))
+
+# Split-overlap audit (mentor fix 1c) and its sensitivity table.
+SPLITDUP = "results/split_duplicate_audit.json"
+REGISTRY.extend([
+    Q("LeakTestShareVal", SPLITDUP,
+      "topology.impact.test_sharing_topology_with_val", fmt="{:.0f}",
+      table="tab:leakage"),
+    Q("LeakTestImages", SPLITDUP, "topology.impact.test_images", fmt="{:.0f}",
+      table="tab:leakage"),
+    Q("LeakDistinctTopologies", SPLITDUP, "topology.distinct_topologies",
+      fmt="{:.0f}", table="tab:leakage"),
+    Q("LeakImagesWithGT", SPLITDUP, "topology.images_with_gt", fmt="{:.0f}",
+      table="tab:leakage"),
+    Q("LeakLargestGroup", SPLITDUP, "topology.impact.largest_group_size",
+      fmt="{:.0f}", table="tab:leakage"),
+])
+
 for _label, _macro in (("v5_plus_crossover_DEFAULT", "AblPortTemplates"),
                        ("v2_ink_boundary_snap", "AblInkSnap"),
                        ("v4_plus_crossover", "AblCrossover"),
@@ -280,6 +321,11 @@ for _label, _macro in (("v5_plus_crossover_DEFAULT", "AblPortTemplates"),
 
 
 def value_of(q: Q) -> tuple[float | None, str]:
+    if isinstance(q, AblationValQ):
+        try:
+            return _ablation_val_deltas()[q.key.split(".", 1)[1]], ""
+        except Exception as e:                                # noqa: BLE001
+            return None, f"{type(e).__name__}: {e}"
     if isinstance(q, AblationQ):
         try:
             return _ablation_deltas()[q.key.split(".", 1)[1]], ""
