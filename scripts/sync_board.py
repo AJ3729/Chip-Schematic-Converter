@@ -64,8 +64,13 @@ TASKS: list[tuple[str, str, str | None, str | None]] = [
     ("D5", "Multi condition agreement", None, None),
     ("D6", "Full structural recomputation", "metrics/pin_aware.py", None),
     ("D7", "Repair separation", None, None),
+    # The prerequisite used to name a CGHD path, which was wrong: the repair
+    # ledger exists for the DIGITIZE-HCD test split, and the second annotator's
+    # blind packet is 58 of those same circuits carrying 249 declared repairs.
+    # Their intervention records are the independent reference D8 needs, and
+    # they arrive with the blind pass rather than with a CGHD campaign.
     ("D8", "Repair intent evaluation",
-     "data/cghd/annotations/normalized_interventions.json", None),
+     "data/blind_review/gt_b/decisions", None),
 
     ("E1", "Incremental scoring harness", None, None),
     ("E2", "Cross corpus transfer results",

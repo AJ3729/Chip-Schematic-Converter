@@ -94,7 +94,37 @@ Per circuit:
    **j** (they join), **k** (they cross over, no connection), **e** (edge group)
    or **o** (nothing happens here).
 4. Write anything you were unsure about in **Notes**, with coordinates.
-5. Press **Enter** to submit and move on.
+5. **Fill in Interventions if the circuit could not be simulated as drawn.**
+   This is a separate box and it matters -- see below.
+6. Press **Enter** to submit and move on.
+
+## The Interventions box: small, and the thing one whole experiment needs
+
+Record what you would have to **add or change** to make the circuit simulate,
+*without* changing what you annotated. Most often this is one line, and most
+often it is a ground:
+
+```
+no_dc_path_to_ground: n7 — nothing returns to ground; the bottom rail is
+                            clearly the return but no GND symbol is drawn
+```
+
+Use these labels where they fit, one per line:
+
+| label | when |
+| --- | --- |
+| `no_dc_path_to_ground` | nothing in the circuit reaches ground, or a section floats |
+| `assumed_ground` | no GND symbol drawn, but one node is obviously the return |
+| `floating_node` | a node connects to nothing and would have to be tied somewhere |
+| `other` | anything else you would have had to assume |
+
+**Leave it empty if the circuit is fine as drawn.** An empty box is a real
+answer and is recorded as one.
+
+Why it matters: our pipeline makes these same repairs automatically and declares
+each one. Comparing its repairs against yours is the only way to tell whether
+they recover what the drafter meant or merely make the deck run. Nothing else
+substitutes, because the pipeline cannot be its own reference.
 
 It autosaves every ten seconds and reopens where you left off, so you can stop
 any time. Use **[** and **]** to move between circuits.
