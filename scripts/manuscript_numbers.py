@@ -154,13 +154,8 @@ REGISTRY: list[Q] = [
       table="tab:main"),
 
     # ---- tab:detector ----------------------------------------------------
-    Q("DetMapSeedZero", DET.format(seed=0), "map50", table="tab:detector"),
-    Q("DetMapSeedOne", DET.format(seed=1), "map50", table="tab:detector"),
-    Q("DetMapSeedTwo", DET.format(seed=2), "map50", table="tab:detector"),
     Q("DetMapMean", DET, "map50", over_seeds="mean", table="tab:detector"),
     Q("DetMapSD", DET, "map50", over_seeds="sd", table="tab:detector"),
-    Q("DetMapNinetyFiveSeedZero", DET.format(seed=0), "map50_95",
-      table="tab:detector"),
     Q("DetMapNinetyFiveMean", DET, "map50_95", over_seeds="mean",
       table="tab:detector"),
     Q("DetPrecisionSeedZero", DET.format(seed=0), "precision",
@@ -190,7 +185,6 @@ REGISTRY: list[Q] = [
     Q("TransferCGHDMapSD", TRANSFER, "cghd_map50_std", table="tab:transfer"),
     Q("TransferHCDMap", TRANSFER, "digitize_hcd_test_map50_mean",
       table="tab:transfer"),
-    Q("TransferDelta", TRANSFER, "transfer_delta_map50", table="tab:transfer"),
     Q("TransferCGHDImages", TRANSFER, "n_images", fmt="{:.0f}",
       table="tab:transfer"),
     Q("TransferCGHDBoxes", TRANSFER, "n_boxes", fmt="{:.0f}",
