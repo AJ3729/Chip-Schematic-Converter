@@ -1,0 +1,26 @@
+{
+ "what_this_is": "repeat-query determinism of the hosted model, variant B",
+ "run": "results/vlm/claude_b_test",
+ "model": "claude-opus-5",
+ "n_repeats": 3,
+ "n_circuits": 192,
+ "note": "no seed or temperature control is exposed by the interface, so these are three identical requests",
+ "exact_output_agreement": {
+  "fraction_all_repeats_identical": 0.234375,
+  "n_identical": 45,
+  "definition": "same component id -> terminal net list in every repeat"
+ },
+ "topology_agreement": {
+  "fraction_all_repeats_identical": 0.40625,
+  "n_identical": 78,
+  "n_changed": 114,
+  "definition": "naming-invariant partition of terminals into nets"
+ },
+ "pairwise_topology_agreement": {
+  "rep0_vs_rep1": 0.505208,
+  "rep0_vs_rep2": 0.473958,
+  "rep1_vs_rep2": 0.515625
+ },
+ "pairwise_min": 0.473958,
+ "pairwise_max": 0.515625
+}

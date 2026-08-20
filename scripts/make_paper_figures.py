@@ -545,41 +545,6 @@ def fig_op_gap() -> None:
     save(fig, "fig_op_gap")
 
 
-def fig_vlm() -> None:
-    """Unaided vs handed our detections, for both frontier models.
-
-    The decomposition is the result: the gap is enormous in variant A and gone
-    in variant B, which localises the failure to component detection rather
-    than to connectivity reasoning. Values are the ones the manuscript's
-    tab:vlm reports, kept here in one literal block so the two cannot drift
-    without this comment being wrong too.
-    """
-    systems = ["This work", "Claude Opus 5", "GPT-5.5"]
-    unaided = [0.5312, 0.1250, 0.1250]
-    assisted = [0.5312, 0.5295, 0.6823]
-
-    fig, ax = plt.subplots(figsize=(COL_W, 2.3))
-    x = range(len(systems))
-    wdt = 0.36
-    ax.bar([i - wdt / 2 for i in x], unaided, wdt, label="unaided (variant A)",
-           color=C_VAL)
-    ax.bar([i + wdt / 2 for i in x], assisted, wdt,
-           label="given our detections (variant B)", color=C_TEST)
-    for i, (u, a) in enumerate(zip(unaided, assisted)):
-        ax.text(i - wdt / 2, u + 0.015, f"{u:.4f}", ha="center", va="bottom",
-                fontsize=6)
-        ax.text(i + wdt / 2, a + 0.015, f"{a:.4f}", ha="center", va="bottom",
-                fontsize=6)
-    ax.set_xticks(list(x))
-    ax.set_xticklabels(systems, fontsize=7)
-    ax.set_ylabel("strict success")
-    ax.set_ylim(0, 0.80)
-    ax.legend(frameon=False, loc="upper left", fontsize=6.2)
-    ax.grid(axis="x", visible=False)
-    save(fig, "fig_vlm")
-
-
-
 def fig_qualitative() -> None:
     """circuit_1247: perfect by every structural metric, different operating point.
 
@@ -656,6 +621,281 @@ def fig_qualitative() -> None:
     save(fig, "fig_qualitative")
 
 
+# --------------------------------------------------------------------------
+def fig_runtime() -> None:
+    """Where the wall clock goes, in the two scopes the summary distinguishes.
+
+    Medians, not means. The run's own caveat says to prefer them (other agents
+    were on the machine), and they are the numbers the manuscript quotes. That
+    rules out a stacked bar: stage medians do not sum to the total median, and
+    a stack silently asserts that they do. Grouped bars make no such claim.
+
+    Eight of the fourteen stages are below 6 ms and fold into "all other" --
+    plotting them would add eight rows of nothing to read.
+    """
+    d = json.loads((ROOT / "results/final/runtime/summary.json").read_text())
+    e2e = d["scopes"]["e2e"]["stages"]
+    cac = d["scopes"]["cached"]["stages"]
+
+    SHOWN = ["detect", "class_head", "stitch", "wires", "textmask"]
+    LABEL = {"detect": "symbol detection", "class_head": "class head",
+             "stitch": "wire stitching", "wires": "wire extraction",
+             "textmask": "text masking"}
+
+    def rest(st):
+        return sum(v["median_ms"] for k, v in st.items()
+                   if k not in SHOWN and k != "total")
+
+    order = sorted(SHOWN, key=lambda k: -e2e[k]["median_ms"])
+    cats = [LABEL[k] for k in order] + ["all other stages"]
+    ee = [e2e[k]["median_ms"] for k in order] + [rest(e2e)]
+    cc = [cac[k]["median_ms"] for k in order] + [rest(cac)]
+
+    tot_e, tot_c = e2e["total"]["median_ms"], cac["total"]["median_ms"]
+    share = e2e["detect"]["share_of_total_median"]
+    ratio = d["e2e_over_cached_total"]["median_x"]
+
+    y = np.arange(len(cats))
+    h = 0.36
+    fig, ax = plt.subplots(figsize=(COL_W, 2.65))
+    ax.barh(y - h / 2, ee, h, color=C_MAIN, linewidth=0,
+            label=f"end-to-end \u2014 {tot_e:.0f} ms")
+    ax.barh(y + h / 2, cc, h, color=C_ALT, linewidth=0,
+            label=f"detections cached \u2014 {tot_c:.0f} ms")
+
+    # Two labels, not twelve: the stage that is the whole difference between
+    # the scopes, and its vanished counterpart.
+    ax.text(ee[0] + 4, y[0] - h / 2, f"{ee[0]:.0f}", va="center", ha="left",
+            fontsize=6.6, color=C_MAIN, fontweight="bold")
+    ax.text(cc[0] + 4, y[0] + h / 2, f"{cc[0]:.1f}", va="center", ha="left",
+            fontsize=6.4, color=C_ALT)
+
+    # No leader line. The text sits in the white space directly beneath the row
+    # it describes and names that row in its first two words; an arrow long
+    # enough to reach the bar would have to cross the two below it.
+    # One line, not two: the clear band between the first two rows is 0.64 of a
+    # row high and a two-line block is 0.75, so the second line landed on the
+    # class-head bar and was unreadable.
+    ax.text(44, y[0] + 0.5,
+            f"detection: {share * 100:.0f}% of end-to-end, "
+            f"and all of the {ratio:.2f}$\\times$ gap",
+            fontsize=6.5, color=C_SUB, va="center", ha="left")
+
+    ax.set_yticks(y)
+    ax.set_yticklabels(cats, fontsize=6.6, color=C_SUB)
+    ax.get_yticklabels()[0].set_color(C_INK)
+    ax.get_yticklabels()[0].set_fontweight("bold")
+    ax.invert_yaxis()
+    ax.set_xlabel("median time per image (ms)")
+    ax.set_xlim(0, 200)
+    ax.grid(axis="y", visible=False)
+    ax.legend(frameon=False, loc="lower right", fontsize=6.5,
+              handlelength=1.5, borderpad=0.15, labelspacing=0.35)
+    save(fig, "fig_runtime")
+
+
+# --------------------------------------------------------------------------
+def fig_vlm() -> None:
+    """What handing the models our detections does to them.
+
+    A slope chart, because the finding IS the change: each model is one line
+    from unaided to assisted, and its steepness is the effect that detection
+    alone accounts for. Paired bars made the reader subtract.
+
+    This work is a reference rule rather than a third series. It does not move
+    between the variants -- it is the system supplying the detections -- so a
+    line implying change would be wrong, and a grey categorical hue fails the
+    palette checks anyway.
+    """
+    sig = json.loads((ROOT / "results/table5_significance.json").read_text())
+    cmp_ = sig["comparisons"]
+    ours = sig["pipeline_strict_success"]
+
+    cb = json.loads(
+        (ROOT / "results/vlm/claude_b_test/scored/summary.json").read_text())
+    cb_mean = cb["across_repeats"]["strict_success"]["mean"]
+    cb_sd = cb["across_repeats"]["strict_success"]["sd"]
+
+    fig, ax = plt.subplots(figsize=(COL_W, 2.8))
+    x0, x1 = 0.0, 1.0
+
+    ax.axhline(ours, color=C_SUB, lw=0.9, ls=(0, (4, 2.5)), zorder=1)
+    ax.text(x0 + 0.02, ours + 0.022,
+            f"this work \u2014 {ours:.4f}\n(it supplies the boxes in B)",
+            fontsize=6.3, color=C_SUB, va="bottom", ha="left", linespacing=1.3)
+
+    # (name, A, B, sd, colour, p-note, vertical side to hang the label on)
+    series = [
+        ("GPT-5.5", cmp_["gpt_A"]["vlm_strict_success"],
+         cmp_["gpt_B"]["vlm_strict_success"], 0.0, C_ALT,
+         r"$p=1.1\times10^{-4}$", +1),
+        ("Claude Opus 5", cmp_["claude_A"]["vlm_strict_success"],
+         cb_mean, cb_sd, C_MAIN,
+         f"$p={cmp_['claude_B']['mcnemar']['p_exact']:.2f}$ \u2014 not distinguishable",
+         -1),
+    ]
+    for name, a, b, sd, col, note, side in series:
+        ax.plot([x0, x1], [a, b], color=col, lw=1.6, zorder=3,
+                solid_capstyle="round")
+        ax.scatter([x0, x1], [a, b], s=26, color=col, zorder=4,
+                   edgecolor="white", linewidth=0.9)
+        if sd:
+            ax.errorbar([x1], [b], yerr=[sd], fmt="none", ecolor=col,
+                        elinewidth=0.9, capsize=2.0, zorder=3)
+        # Claude lands within 0.002 of the reference rule, so its label hangs
+        # BELOW its marker and the rule's label sits at the far end. Nothing is
+        # nudged: the collision is the finding.
+        top = b + 0.020 if side > 0 else b - 0.026
+        ax.text(x1 + 0.05, top, f"{name}\n{b:.4f}", fontsize=6.5, color=col,
+                va="bottom" if side > 0 else "top", ha="left",
+                linespacing=1.3, fontweight="bold")
+        ax.text(x1 + 0.05, top - (0.0 if side > 0 else 0.075) + (
+            -0.030 if side > 0 else 0.0),
+            note, fontsize=5.9, color=C_SUB,
+            va="top", ha="left")
+
+    # Both models land on the same value unaided; one label, not two.
+    ax.text(x0 - 0.05, cmp_["gpt_A"]["vlm_strict_success"],
+            f"both models\n{cmp_['gpt_A']['vlm_strict_success']:.4f}",
+            fontsize=6.4, color=C_SUB, va="center", ha="right", linespacing=1.3)
+    ax.text(0.30, 0.155, "unaided, they must also\nfind the components",
+            fontsize=6.3, color=C_SUB, va="center", ha="left", linespacing=1.35)
+
+    ax.set_xticks([x0, x1])
+    ax.set_xticklabels(["A: raw scan\n(unaided)",
+                        "B: given our\ndetected boxes"], fontsize=6.8,
+                       color=C_INK, linespacing=1.4)
+    ax.set_ylabel("strict success")
+    ax.set_ylim(0.05, 0.80)
+    ax.set_xlim(-0.34, 1.72)
+    ax.grid(axis="x", visible=False)
+    ax.spines["bottom"].set_visible(False)
+    ax.tick_params(axis="x", length=0, pad=4)
+    save(fig, "fig_vlm")
+
+
+# --------------------------------------------------------------------------
+def fig_pin_order() -> None:
+    """Templates vs the learned port head, per class, as signed movement.
+
+    An arrow per class rather than paired bars: the quantity being argued about
+    is the CHANGE, and one class moves backwards. Paired bars render a
+    regression as "the right bar is shorter", which reads as a smaller number
+    rather than as the anomaly it is; an arrow pointing the other way cannot be
+    misread. Colour follows the sign -- a polarity job, not identity.
+    """
+    d = json.loads((ROOT / "results/final/pin_order/summary.json").read_text())
+    t, h = d["templates_only"], d["port_head"]
+
+    rows = [(k, t["by_class"][k]["accuracy"], h["by_class"][k]["accuracy"],
+             t["by_class"][k]["decidable"]) for k in t["by_class"]]
+    rows.sort(key=lambda r: r[2] - r[1], reverse=True)
+    rows.append(("Overall", t["accuracy"], h["accuracy"], t["decidable"]))
+
+    fig, ax = plt.subplots(figsize=(COL_W, 2.55))
+    y = np.arange(len(rows))[::-1]
+
+    for yi, (name, a, b, n) in zip(y, rows):
+        col = C_MAIN if b >= a else C_ALT
+        ax.annotate("", xy=(b, yi), xytext=(a, yi),
+                    arrowprops=dict(arrowstyle="-|>", lw=1.5, color=col,
+                                    shrinkA=0, shrinkB=0, mutation_scale=7.5))
+        ax.scatter([a], [yi], s=13, color="white", zorder=4,
+                   edgecolor=col, linewidth=1.1)
+        ax.text(min(a, b) - 0.022, yi, f"{min(a, b):.3f}", fontsize=6.0,
+                color=C_SUB, va="center", ha="right")
+        ax.text(max(a, b) + 0.022, yi, f"{max(a, b):.3f}", fontsize=6.2,
+                color=col, va="center", ha="left", fontweight="bold")
+
+    ax.set_yticks(y)
+    ax.set_yticklabels([f"{n}  (n={c})" for n, _, _, c in rows], fontsize=6.6,
+                       color=C_SUB)
+    ax.get_yticklabels()[-1].set_color(C_INK)
+    ax.get_yticklabels()[-1].set_fontweight("bold")
+    ax.axhline(0.5, color=C_GRID, lw=0.8)   # aggregate, not a sixth class
+
+    # The op-amp row's right half is the only genuinely empty region, and it is
+    # the row being described, so the note goes there without a leader.
+    oi = [i for i, r in enumerate(rows) if r[0] == "Op-Amp"][0]
+    ax.text(0.75, y[oi], "the head makes this one worse:\n"
+            "an op-amp's inputs differ by a\n$+$/$-$ glyph, not by geometry",
+            fontsize=6.0, color=C_ALT, va="center", ha="left", linespacing=1.35)
+
+    ax.set_xlabel("pin-order accuracy on decidable devices")
+    ax.set_xlim(0.30, 1.30)
+    ax.set_ylim(-0.75, len(rows) - 0.45)
+    ax.grid(axis="y", visible=False)
+    ax.set_xticks([0.4, 0.6, 0.8, 1.0])
+    save(fig, "fig_pin_order")
+
+
+# --------------------------------------------------------------------------
+def fig_determinism() -> None:
+    """Same input, asked five times (us) and three times (a hosted model).
+
+    Both agreements are fractions of the same 192 circuits, so they share an
+    axis, with counts as the direct labels -- the count is what a reader wants
+    and the fraction is what makes the two systems comparable.
+
+    Directly labelled instead of carrying a legend: with four bars, naming the
+    two systems on the first pair costs less space than a legend box and puts
+    the name where the eye already is.
+    """
+    ours = json.loads(
+        (ROOT / "results/final/determinism/summary.json").read_text())
+    them = json.loads(
+        (ROOT / "results/final/vlm_determinism/summary.json").read_text())
+
+    n = ours["n_circuits"]
+    cats = ["exact output\n(byte-identical)", "topology\n(naming-invariant)"]
+    a = [ours["exact_output_agreement"]["netlist_base_byte_identical_fraction"],
+         ours["topology_changes"]["fraction_stable"]]
+    b = [them["exact_output_agreement"]["fraction_all_repeats_identical"],
+         them["topology_agreement"]["fraction_all_repeats_identical"]]
+    b_n = [them["exact_output_agreement"]["n_identical"],
+           them["topology_agreement"]["n_identical"]]
+
+    y = np.arange(len(cats))
+    h = 0.32
+    fig, ax = plt.subplots(figsize=(COL_W, 2.15))
+    ax.barh(y - h / 2, a, h, color=C_MAIN, linewidth=0)
+    ax.barh(y + h / 2, b, h, color=C_ALT, linewidth=0)
+
+    for i in range(len(cats)):
+        ax.text(a[i] - 0.02, y[i] - h / 2, f"{n}/{n}", va="center", ha="right",
+                fontsize=6.3, color="white", fontweight="bold")
+        ax.text(b[i] + 0.018, y[i] + h / 2, f"{b_n[i]}/{n}", va="center",
+                ha="left", fontsize=6.3, color=C_ALT)
+
+    # Direct labels on the first pair only; the second pair inherits them.
+    # The blue label rides inside its bar (there is room, and nothing else is
+    # there); the vermillion one sits clear of its count rather than under it.
+    ax.text(0.02, y[0] - h / 2, f"this work \u2014 {ours['runs']} fresh interpreters",
+            fontsize=6.3, color="white", va="center", ha="left",
+            fontweight="bold")
+    ax.text(0.42, y[0] + h / 2,
+            f"{them['model']} \u2014 {them['n_repeats']} identical requests",
+            fontsize=6.3, color=C_ALT, va="center", ha="left",
+            fontweight="bold")
+
+    # The band between the two groups is the only region no mark occupies.
+    chg = them["topology_agreement"]["n_changed"]
+    ax.text(0.02, 0.5,
+            f"{chg} of {n} drawings come back as a different circuit;\n"
+            f"pairwise agreement "
+            f"{them['pairwise_min']:.4f}\u2013{them['pairwise_max']:.4f}",
+            fontsize=6.2, color=C_SUB, va="center", ha="left", linespacing=1.35)
+
+    ax.set_yticks(y)
+    ax.set_yticklabels(cats, fontsize=6.6, color=C_SUB, linespacing=1.4)
+    ax.invert_yaxis()
+    ax.set_xlabel("fraction of circuits identical across runs")
+    ax.set_xlim(0, 1.14)
+    ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
+    ax.grid(axis="y", visible=False)
+    save(fig, "fig_determinism")
+
+
 FIGURES = {
     "precision_cliff": fig_precision_cliff,
     "ablation_waterfall": fig_ablation_waterfall,
@@ -666,6 +906,9 @@ FIGURES = {
     "pipeline": fig_pipeline,
     "op_gap": fig_op_gap,
     "vlm": fig_vlm,
+    "runtime": fig_runtime,
+    "pin_order": fig_pin_order,
+    "determinism": fig_determinism,
     "qualitative": fig_qualitative,
 }
 
