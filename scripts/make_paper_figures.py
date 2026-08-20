@@ -149,46 +149,72 @@ def fig_precision_cliff() -> None:
 
 # --------------------------------------------------------------------------
 def fig_ablation_waterfall() -> None:
-    """Cumulative strict success as each mechanism is added, v1 -> v12."""
-    with (ROOT / "results/ablations_test192/wire_method.csv").open() as fh:
-        abl = list(csv.DictReader(fh))
+    """Cumulative strict success as each stage is added.
 
-    # the csv label carries the arm index and a slug; the paper wants the
-    # mechanism, not the slug
-    # every line kept under ~12 characters: at this figure width anything
-    # longer runs into the neighbouring tick and the axis becomes unreadable
-    short = {
-        "v1": "classical\n(canny)", "v2": "ink wires\n+ boundary",
-        "v3": "+ hole\nstitching", "v4": "+ crossover\nnets",
-        "v5": "+ port\ntemplates", "v6": "+ bridge\nspan 7",
-        "v7": "+ connect.\nrepair", "v8": "+ snap\nexpand 80",
-        "v9": "+ blob\nthresholds", "v10": "+ Sauvola\nbinarize",
-        "v11": "+ class\nhead", "v12": "+ head\nensemble",
-    }
-    keys = [r["label"].split("_")[0] for r in abl]
-    y = np.array([float(r["strict_success"]) for r in abl])
-    lo = np.array([float(r["strict_success_ci95_lo"]) for r in abl])
-    hi = np.array([float(r["strict_success_ci95_hi"]) for r in abl])
-    x = np.arange(len(abl))
+    Reported on VALIDATION, with test beside it. The paper reports the ablation
+    on validation because that is the split such decisions may legitimately
+    consult; this figure previously read results/ablations_test192/ while its
+    caption said validation, which is the sort of mismatch a reader has no way
+    to catch. Labels come from spec/ablation_arms.yaml so the figure and the
+    prose cannot name a stage differently.
+    """
+    import yaml
+    spec = yaml.safe_load((ROOT / "spec/ablation_arms.yaml").read_text())
+    label = {a["id"]: a["label"] for a in spec["arms"]}
 
-    fig, ax = plt.subplots(figsize=(WIDE_W, 2.7))
-    ax.bar(x, y, 0.62, color=C_TEST, edgecolor="white", linewidth=0.4)
+    def arms(rel):
+        d = json.loads((ROOT / rel).read_text())
+        out = []
+        for a in d["arms"]["ablation"]:
+            s = a["topology"]["strict_success"]
+            out.append((a["label"], s["mean"], s["ci95_lo"], s["ci95_hi"]))
+        return d["n_images"], out
+
+    n_val, V = arms("results/final/ablation_val/index.json")
+    n_test, T = arms("results/final/ablation/index.json")
+    test_by = {k: v for k, v, _, _ in T}
+
+    keys = [k for k, _, _, _ in V]
+    y = np.array([v for _, v, _, _ in V])
+    lo = np.array([l for _, _, l, _ in V])
+    hi = np.array([h for _, _, _, h in V])
+    ty = np.array([test_by.get(k, np.nan) for k in keys])
+    x = np.arange(len(keys))
+
+    fig, ax = plt.subplots(figsize=(WIDE_W, 3.1))
+    ax.bar(x, y, 0.60, color=C_TEST, edgecolor="white", linewidth=0.4,
+           label=f"validation ({n_val}), reported")
     ax.errorbar(x, y, yerr=[y - lo, hi - y], fmt="none", ecolor="#333333",
                 elinewidth=0.7, capsize=2)
-    # step connectors make it read as a cumulative progression rather than
-    # twelve unrelated configurations
+    ax.plot(x, ty, marker="o", ms=3.2, lw=0.9, color=C_VAL, ls="--",
+            label=f"test ({n_test}), comparison")
+    # step connectors: read it as a cumulative progression, not 12 configs
     for i in range(len(x) - 1):
-        ax.plot([x[i] + 0.31, x[i + 1] - 0.31], [y[i], y[i]],
+        ax.plot([x[i] + 0.30, x[i + 1] - 0.30], [y[i], y[i]],
                 ls=":", lw=0.6, color="#888888")
     for xi, yi, hii in zip(x, y, hi):
-        ax.text(xi, hii + 0.018, f"{yi:.3f}", ha="center", va="bottom",
-                fontsize=6.2)
+        ax.text(xi, hii + 0.016, f"{yi:.3f}", ha="center", va="bottom",
+                fontsize=5.6)
 
-    ax.set_xticks(x, [f"{k}\n{short.get(k, '')}" for k in keys],
-                  fontsize=5.8, linespacing=1.25)
-    ax.set_ylabel("strict end-to-end success")
-    ax.set_ylim(0, hi.max() * 1.16)
-    ax.margins(x=0.012)
+    # the one stage the paper singles out
+    j = keys.index("v5_plus_crossover_DEFAULT")
+    ax.annotate("port templates:\nthe terminal-identity stage",
+                xy=(x[j], y[j]), xytext=(x[j] - 0.4, y[j] + 0.20),
+                fontsize=5.8, color="#0b4a75", ha="left",
+                arrowprops=dict(arrowstyle="->", lw=0.6, color="#0b4a75"))
+
+    ax.set_xticks(x)
+    # Wrap hard: at this width an unwrapped label runs into its neighbour and
+    # the axis becomes unreadable, which is how the first draft of this figure
+    # came out.
+    import textwrap
+    ax.set_xticklabels(
+        ["\n".join(textwrap.wrap(label.get(k, k), 13)) for k in keys],
+        fontsize=5.4)
+    ax.set_ylabel("strict success")
+    ax.set_ylim(0, max(hi.max(), np.nanmax(ty)) + 0.10)
+    ax.legend(frameon=False, loc="upper left", fontsize=6.2)
+    ax.grid(axis="x", visible=False)
     save(fig, "fig_ablation_waterfall")
 
 

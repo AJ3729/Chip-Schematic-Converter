@@ -168,7 +168,7 @@ _BEGIN = re.compile(r"\\begin\{([^}]*)\}")
 _END = re.compile(r"\\end\{([^}]*)\}")
 
 
-def check_environments(text: str) -> list[str]:
+def check_environments(text: str, tex_dir: Path | None = None) -> list[str]:
     """Unbalanced \\begin/\\end, and the graphics each figure includes.
 
     This is not a substitute for compiling -- it cannot be. It is what can be
@@ -195,15 +195,20 @@ def check_environments(text: str) -> list[str]:
     for env, line in stack:
         problems.append(f"L{line}: \\begin{{{env}}} is never closed")
 
-    # every \includegraphics target must exist
+    # Every \includegraphics target must exist RELATIVE TO THE .tex FILE, which
+    # is what LaTeX does. Resolving against the repository instead reported a
+    # clean pass while the manuscript, which lives outside the repository, had
+    # no figures/ directory at all -- three figures that would have compiled to
+    # nothing.
     for m in re.finditer(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]*)\}", text):
         rel = m.group(1)
-        candidates = [ROOT / "paper" / rel, ROOT / rel]
+        base = tex_dir if tex_dir else ROOT
+        candidates = [base / rel]
         if not rel.endswith((".pdf", ".png", ".jpg", ".eps")):
-            candidates += [ROOT / "paper" / (rel + ".pdf"),
-                           ROOT / (rel + ".pdf")]
+            candidates.append(base / (rel + ".pdf"))
         if not any(c.exists() for c in candidates):
-            problems.append(f"missing graphic: {rel}")
+            problems.append(
+                f"missing graphic: {rel} (looked in {base})")
     return problems
 
 
@@ -262,7 +267,7 @@ def main() -> int:
     if not pcts:
         print("   none  OK")
 
-    envs = check_environments(text)
+    envs = check_environments(text, Path(a.tex).resolve().parent)
     print(f"\n5. environments and graphics: {len(envs)} problem(s)")
     for e in envs:
         fatal += 1
