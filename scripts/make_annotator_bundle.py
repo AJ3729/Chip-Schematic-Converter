@@ -109,22 +109,43 @@ no_dc_path_to_ground: n7 — nothing returns to ground; the bottom rail is
                             clearly the return but no GND symbol is drawn
 ```
 
-Use these labels where they fit, one per line:
+Use these labels, one per line:
 
-| label | when |
+| label | use it when |
 | --- | --- |
-| `no_dc_path_to_ground` | nothing in the circuit reaches ground, or a section floats |
-| `assumed_ground` | no GND symbol drawn, but one node is obviously the return |
-| `floating_node` | a node connects to nothing and would have to be tied somewhere |
-| `other` | anything else you would have had to assume |
+| `assumed_ground` | **no** ground symbol is drawn anywhere, and you would designate some node as the return |
+| `no_dc_path_to_ground` | a ground exists, but part of the circuit cannot reach it |
+| `floating_node` | a lead is drawn going nowhere; you would tie it to something |
+| `inferred_polarity` | a diode, source or transistor whose orientation you had to **infer** rather than read off the drawing |
+| `missing_connection` | two things clearly meant to touch, where the ink does not quite meet |
+| `as_drawn_short` | the ink shorts something out; you annotated the short, but would redraw it |
+| `other` | anything else you would have had to assume — describe it in your own words |
+
+**Do not record component values.** Values are out of scope for this project
+entirely; a missing or illegible value is not an intervention.
 
 **Leave it empty if the circuit is fine as drawn.** An empty box is a real
 answer and is recorded as one.
 
-Why it matters: our pipeline makes these same repairs automatically and declares
-each one. Comparing its repairs against yours is the only way to tell whether
-they recover what the drafter meant or merely make the deck run. Nothing else
-substitutes, because the pipeline cannot be its own reference.
+## Why the last three labels matter as much as the first three
+
+The first three are repairs our pipeline also makes, so recording them tells us
+whether it repairs the *same* things you would.
+
+The last three are repairs our pipeline **never** makes. Those tell us what it
+is missing — and that is the half we currently cannot see at all. If you would
+infer a diode's direction from context and the pipeline never even notices the
+direction is ambiguous, that is a finding, and this box is the only place it can
+surface.
+
+So: if something does not fit a label, write it under `other` in your own words
+rather than forcing it into one that nearly fits. A wrong label is worse than a
+sentence of prose.
+
+Our pipeline makes some of these repairs automatically and declares each one.
+Comparing its repairs against yours is the only way to tell whether they recover
+what the drafter meant or merely make the deck run. The pipeline cannot be its
+own reference, and neither can its author.
 
 It autosaves every ten seconds and reopens where you left off, so you can stop
 any time. Use **[** and **]** to move between circuits.
