@@ -46,32 +46,54 @@ TEST = "results/paper_test/seeds/seed0"
 VAL = "results/benchmark_1024_final/seed0"
 TEST_GT, VAL_GT = "data/gt_test_1024", "data/gt_val_1024"
 
-# Colour-blind safe (Okabe-Ito). The test split is the reported one and gets
-# the strong colour; val is the muted comparison throughout.
-C_TEST, C_VAL = "#0072B2", "#E69F00"
-C_GRID, C_DEAD = "#CCCCCC", "#BBBBBB"
+# Validated with the dataviz skill's palette checker (light surface):
+# lightness band, chroma floor, CVD separation, normal-vision floor and
+# contrast-vs-surface all PASS. Vermillion rather than amber because amber
+# scored 2.19:1 against the surface and would have needed a relief clause.
+C_MAIN = "#0072B2"    # the series the figure is about
+C_ALT  = "#D55E00"    # the comparison series
+C_MUTE = "#B9BEC7"    # context bars: present, not competing
+C_INK  = "#1a1d21"    # text
+C_SUB  = "#5b616b"    # secondary text
+C_GRID = "#E3E5E8"    # hairline grid, one step off surface
 
 
 def style() -> None:
+    """Print-figure chrome: the data is the only thing allowed to be loud."""
     plt.rcParams.update({
         "font.family": "serif",
         "font.serif": ["Times New Roman", "DejaVu Serif"],
         "font.size": 8,
-        "axes.labelsize": 8,
+        "text.color": C_INK,
+        "axes.labelcolor": C_INK,
+        "axes.edgecolor": C_SUB,
+        "axes.linewidth": 0.6,
+        "axes.labelsize": 7.5,
         "axes.titlesize": 8,
-        "legend.fontsize": 7,
-        "xtick.labelsize": 7,
-        "ytick.labelsize": 7,
+        "axes.titlepad": 7,
+        "legend.fontsize": 6.8,
+        "xtick.labelsize": 6.6,
+        "ytick.labelsize": 6.6,
+        "xtick.color": C_SUB,
+        "ytick.color": C_SUB,
+        "xtick.major.size": 0,
+        "ytick.major.size": 2,
+        "xtick.major.width": 0.6,
+        "ytick.major.width": 0.6,
         "axes.spines.top": False,
         "axes.spines.right": False,
         "axes.grid": True,
+        "axes.axisbelow": True,
         "grid.color": C_GRID,
-        "grid.linewidth": 0.4,
-        "grid.alpha": 0.7,
-        "figure.dpi": 200,
+        "grid.linewidth": 0.6,
+        "grid.alpha": 1.0,
+        "figure.dpi": 300,
         "savefig.bbox": "tight",
-        "savefig.pad_inches": 0.02,
+        "savefig.pad_inches": 0.03,
     })
+
+
+C_TEST, C_VAL, C_DEAD = C_MAIN, C_ALT, C_MUTE
 
 
 def save(fig, name: str) -> None:
@@ -149,72 +171,81 @@ def fig_precision_cliff() -> None:
 
 # --------------------------------------------------------------------------
 def fig_ablation_waterfall() -> None:
-    """Cumulative strict success as each stage is added.
+    """Cumulative strict success as each stage is added, reported on VALIDATION.
 
-    Reported on VALIDATION, with test beside it. The paper reports the ablation
-    on validation because that is the split such decisions may legitimately
-    consult; this figure previously read results/ablations_test192/ while its
-    caption said validation, which is the sort of mismatch a reader has no way
-    to catch. Labels come from spec/ablation_arms.yaml so the figure and the
-    prose cannot name a stage differently.
+    Emphasis rather than twelve saturated blocks: the story is one stage, so
+    eleven bars are muted context and the port-template stage carries the only
+    colour. Three direct labels, not twelve -- a number on every bar is the
+    anti-pattern that makes a chart go unread.
     """
+    import textwrap
     import yaml
     spec = yaml.safe_load((ROOT / "spec/ablation_arms.yaml").read_text())
     label = {a["id"]: a["label"] for a in spec["arms"]}
 
     def arms(rel):
         d = json.loads((ROOT / rel).read_text())
-        out = []
-        for a in d["arms"]["ablation"]:
-            s = a["topology"]["strict_success"]
-            out.append((a["label"], s["mean"], s["ci95_lo"], s["ci95_hi"]))
-        return d["n_images"], out
+        return d["n_images"], [(a["label"], a["topology"]["strict_success"])
+                               for a in d["arms"]["ablation"]]
 
     n_val, V = arms("results/final/ablation_val/index.json")
     n_test, T = arms("results/final/ablation/index.json")
-    test_by = {k: v for k, v, _, _ in T}
+    test_by = {k: s["mean"] for k, s in T}
 
-    keys = [k for k, _, _, _ in V]
-    y = np.array([v for _, v, _, _ in V])
-    lo = np.array([l for _, _, l, _ in V])
-    hi = np.array([h for _, _, _, h in V])
+    keys = [k for k, _ in V]
+    y = np.array([s["mean"] for _, s in V])
+    lo = np.array([s["ci95_lo"] for _, s in V])
+    hi = np.array([s["ci95_hi"] for _, s in V])
     ty = np.array([test_by.get(k, np.nan) for k in keys])
     x = np.arange(len(keys))
+    star = keys.index("v5_plus_crossover_DEFAULT")
 
-    fig, ax = plt.subplots(figsize=(WIDE_W, 3.1))
-    ax.bar(x, y, 0.60, color=C_TEST, edgecolor="white", linewidth=0.4,
-           label=f"validation ({n_val}), reported")
-    ax.errorbar(x, y, yerr=[y - lo, hi - y], fmt="none", ecolor="#333333",
-                elinewidth=0.7, capsize=2)
-    ax.plot(x, ty, marker="o", ms=3.2, lw=0.9, color=C_VAL, ls="--",
-            label=f"test ({n_test}), comparison")
-    # step connectors: read it as a cumulative progression, not 12 configs
-    for i in range(len(x) - 1):
-        ax.plot([x[i] + 0.30, x[i + 1] - 0.30], [y[i], y[i]],
-                ls=":", lw=0.6, color="#888888")
-    for xi, yi, hii in zip(x, y, hi):
-        ax.text(xi, hii + 0.016, f"{yi:.3f}", ha="center", va="bottom",
-                fontsize=5.6)
+    fig, ax = plt.subplots(figsize=(WIDE_W, 2.7))
+    colours = [C_MAIN if i == star else C_MUTE for i in range(len(keys))]
+    ax.bar(x, y, 0.58, color=colours, linewidth=0)
+    ax.errorbar(x, y, yerr=[y - lo, hi - y], fmt="none",
+                ecolor=C_SUB, elinewidth=0.55, capsize=1.6, alpha=0.85)
+    # The comparison must not out-shout the series being reported: thin line,
+    # small open markers, drawn UNDER the emphasised bar.
+    ax.plot(x, ty, lw=0.9, color=C_ALT, marker="o", ms=2.6,
+            markerfacecolor="white", markeredgewidth=0.8,
+            markeredgecolor=C_ALT, zorder=2, alpha=0.95)
 
-    # the one stage the paper singles out
-    j = keys.index("v5_plus_crossover_DEFAULT")
-    ax.annotate("port templates:\nthe terminal-identity stage",
-                xy=(x[j], y[j]), xytext=(x[j] - 0.4, y[j] + 0.20),
-                fontsize=5.8, color="#0b4a75", ha="left",
-                arrowprops=dict(arrowstyle="->", lw=0.6, color="#0b4a75"))
+    # Two labels, not twelve. The emphasised bar is labelled inside it, where
+    # nothing else competes; the endpoint sits above its error bar.
+    ax.text(x[star], y[star] - 0.035, f"{y[star]:.3f}", ha="center", va="top",
+            fontsize=7.2, color="white", fontweight="bold")
+    ax.text(x[-1], hi[-1] + 0.016, f"{y[-1]:.3f}", ha="center", va="bottom",
+            fontsize=6.6, color=C_SUB)
+    # Annotation in the empty lower-right, clear of every mark.
+    ax.annotate("the terminal-identity stage:\nthe largest single gain",
+                xy=(x[star] + 0.32, 0.20), xytext=(x[star] + 1.05, 0.115),
+                fontsize=6.6, color=C_MAIN, va="center", linespacing=1.35,
+                arrowprops=dict(arrowstyle="-", lw=0.6, color=C_MAIN,
+                                shrinkA=1, shrinkB=1))
 
     ax.set_xticks(x)
-    # Wrap hard: at this width an unwrapped label runs into its neighbour and
-    # the axis becomes unreadable, which is how the first draft of this figure
-    # came out.
-    import textwrap
+    # break_long_words=False: at width 11 the default splits "connectivity"
+    # into "connectiv / ity", which looks like a typo rather than a wrap.
     ax.set_xticklabels(
-        ["\n".join(textwrap.wrap(label.get(k, k), 13)) for k in keys],
-        fontsize=5.4)
+        ["\n".join(textwrap.wrap(label.get(k, k), 12, break_long_words=False))
+         for k in keys], fontsize=6.0, color=C_SUB)
+    for i, lab in enumerate(ax.get_xticklabels()):
+        if i == star:
+            lab.set_color(C_MAIN); lab.set_fontweight("bold")
     ax.set_ylabel("strict success")
-    ax.set_ylim(0, max(hi.max(), np.nanmax(ty)) + 0.10)
-    ax.legend(frameon=False, loc="upper left", fontsize=6.2)
+    ax.set_ylim(0, 0.62)
+    ax.set_xlim(-0.7, len(keys) - 0.3)
     ax.grid(axis="x", visible=False)
+    from matplotlib.lines import Line2D
+    from matplotlib.patches import Patch
+    ax.legend(handles=[Patch(facecolor=C_MUTE, label=f"validation ({n_val}) — reported"),
+                       Line2D([], [], color=C_ALT, lw=1.4, marker="o", ms=3.4,
+                              markerfacecolor="white",
+                              label=f"test ({n_test}) — comparison")],
+              frameon=False, loc="upper left", fontsize=6.6,
+              handlelength=1.6, borderpad=0.1, labelspacing=0.35,
+              bbox_to_anchor=(0.005, 1.02))
     save(fig, "fig_ablation_waterfall")
 
 
@@ -400,67 +431,76 @@ def fig_capture() -> None:
 
 
 def fig_pipeline() -> None:
-    """The pipeline as a single row of stages, drawn from the stage list.
+    """The pipeline as five phases, not ten boxes.
 
-    Deliberately schematic rather than pretty: the point a reader needs is that
-    terminal identity is decided at ONE stage, late, and that repair is outside
-    the topology path entirely. Both are claims the paper makes in prose and
-    neither survives a diagram that shows a single undifferentiated chain.
+    Ten equal boxes across a two-column width gave every stage the same weight
+    and 0.7in of room, which is neither readable nor true: the paper's claim is
+    that ONE phase decides terminal identity. Grouping into five phases with
+    their stages listed beneath buys the space to say so, and lets the
+    identity phase carry the only colour.
     """
-    stages = [
-        ("preprocess", "deskew, crop,\nbinarise"),
-        ("detect", "YOLOv8s\ncomponents"),
-        ("class head", "re-decide\nclass"),
-        ("wire mask", "ink minus\ncomponents"),
-        ("skeleton", "graph of\nnodes + edges"),
-        ("junctions", "junction vs\ncrossing"),
-        ("terminals", "snap to\ncomponent"),
-        ("port head", "which terminal\nis which"),
-        ("nets", "connected\ncomponents"),
-        ("netlist", "SPICE\ndeck"),
+    from matplotlib.patches import FancyBboxPatch
+    phases = [
+        ("Preprocess", "deskew, crop,\nshadow-normalise"),
+        ("Detect", "YOLOv8s +\nclass head"),
+        ("Trace", "wire mask, skeleton,\njunction vs crossing"),
+        ("Identify", "terminal snapping,\nport head"),
+        ("Export", "nets,\nSPICE deck"),
     ]
-    fig, ax = plt.subplots(figsize=(WIDE_W, 1.55))
+    star = 3
+
+    fig, ax = plt.subplots(figsize=(WIDE_W, 1.62))
     ax.set_axis_off()
-    n = len(stages)
-    w, gap = 1.0, 0.30
-    for i, (name, sub) in enumerate(stages):
+    w, gap, h = 1.0, 0.34, 0.72
+    for i, (name, sub) in enumerate(phases):
         x = i * (w + gap)
-        # the port head is the stage this paper is about
-        accent = name == "port head"
-        ax.add_patch(plt.Rectangle(
-            (x, 0), w, 1.0, facecolor=(C_TEST if accent else "#FFFFFF"),
-            edgecolor=(C_TEST if accent else "#666666"),
-            linewidth=(1.1 if accent else 0.7), zorder=2))
-        ax.text(x + w / 2, 0.68, name, ha="center", va="center", fontsize=6.6,
-                color=("white" if accent else "black"),
-                fontweight=("bold" if accent else "normal"), zorder=3)
-        ax.text(x + w / 2, 0.30, sub, ha="center", va="center", fontsize=5.4,
-                color=("white" if accent else "#444444"), linespacing=1.15,
-                zorder=3)
-        if i < n - 1:
-            ax.annotate("", xy=(x + w + gap, 0.5), xytext=(x + w, 0.5),
-                        arrowprops=dict(arrowstyle="->", lw=0.7,
-                                        color="#666666"))
-    span = n * (w + gap) - gap
-    # Repair sits OUTSIDE the topology path and the figure has to show that,
-    # because the paper's claim that no topology metric involves repair is the
-    # kind of thing a single undifferentiated chain quietly contradicts.
-    box_w = 2 * w + gap
-    box_x = span - box_w
-    ax.add_patch(plt.Rectangle((box_x, -0.92), box_w, 0.55,
-                               facecolor="#FFFFFF", edgecolor=C_VAL,
-                               linewidth=0.9, linestyle=(0, (3, 2)), zorder=2))
-    ax.text(box_x + box_w / 2, -0.645,
-            "declared repair\n(ledgered, never scored)", ha="center",
-            va="center", fontsize=5.6, color="#8a6100", linespacing=1.2,
-            zorder=3)
-    # arrow from the repair box up into the netlist stage it feeds
-    last_cx = (n - 1) * (w + gap) + w / 2
-    ax.annotate("", xy=(last_cx, 0.0), xytext=(last_cx, -0.37),
-                arrowprops=dict(arrowstyle="->", lw=0.7, color=C_VAL,
-                                linestyle=(0, (3, 2))))
-    ax.set_xlim(-0.15, span + 0.15)
-    ax.set_ylim(-1.02, 1.12)
+        on = i == star
+        ax.add_patch(FancyBboxPatch(
+            (x, 0), w, h, boxstyle="round,pad=0,rounding_size=0.045",
+            facecolor=(C_MAIN if on else "#F4F5F7"),
+            edgecolor=(C_MAIN if on else "#D5D8DD"),
+            linewidth=(0 if on else 0.7), zorder=2))
+        ax.text(x + w / 2, h * 0.63, name, ha="center", va="center",
+                fontsize=8.2, color=("white" if on else C_INK),
+                fontweight="bold", zorder=3)
+        ax.text(x + w / 2, h * 0.27, sub, ha="center", va="center",
+                fontsize=5.9, color=("#D8E7F2" if on else C_SUB),
+                linespacing=1.3, zorder=3)
+        if i < len(phases) - 1:
+            ax.annotate("", xy=(x + w + gap - 0.055, h / 2),
+                        xytext=(x + w + 0.055, h / 2),
+                        arrowprops=dict(arrowstyle="-|>", lw=0.8,
+                                        color="#9AA0A8",
+                                        mutation_scale=7))
+    span = len(phases) * (w + gap) - gap
+
+    ax.annotate("decides which terminal is which —\n"
+                "the quantity every graph metric discards",
+                xy=(star * (w + gap) + w / 2, -0.045),
+                xytext=(star * (w + gap) + w / 2, -0.40),
+                ha="center", va="center", fontsize=6.4, color=C_MAIN,
+                linespacing=1.35,
+                arrowprops=dict(arrowstyle="-", lw=0.7, color=C_MAIN,
+                                shrinkA=1, shrinkB=1))
+
+    # repair: outside the topology path, and drawn that way
+    rx, rw = span - w, w
+    ax.add_patch(FancyBboxPatch(
+        (rx, h + 0.30), rw, 0.30,
+        boxstyle="round,pad=0,rounding_size=0.045",
+        facecolor="white", edgecolor=C_ALT, linewidth=0.8,
+        linestyle=(0, (2.6, 1.8)), zorder=2))
+    ax.text(rx + rw / 2, h + 0.45, "declared repair", ha="center",
+            va="center", fontsize=6.4, color=C_ALT, zorder=3)
+    ax.annotate("", xy=(rx + rw / 2, h + 0.04),
+                xytext=(rx + rw / 2, h + 0.28),
+                arrowprops=dict(arrowstyle="-|>", lw=0.7, color=C_ALT,
+                                linestyle=(0, (2.2, 1.6)), mutation_scale=6))
+    ax.text(rx + rw / 2, h + 0.70, "outside the topology path",
+            ha="center", va="center", fontsize=6.0, color=C_SUB)
+
+    ax.set_xlim(-0.10, span + 0.10)
+    ax.set_ylim(-0.62, h + 0.84)
     save(fig, "fig_pipeline")
 
 
@@ -543,20 +583,19 @@ def fig_vlm() -> None:
 def fig_qualitative() -> None:
     """circuit_1247: perfect by every structural metric, different operating point.
 
-    Two panels, because the finding is a comparison and not a picture. Left: the
-    drawing, with the rail the pipeline chose as its reference marked -- the
-    reference annotation has no ground symbol and no net 0 at all. Right: the
-    corresponded node voltages, which are what the metric compares and which are
-    only defined relative to a reference the drawing never specifies.
+    A dumbbell rather than paired bars. The quantity that matters is the GAP
+    between the two netlists at each node, and a dumbbell encodes a difference
+    as a length you read directly; forty paired bars made the reader compute it.
+    Nodes are sorted by that gap, so the shape of the failure is the shape of
+    the chart.
     """
     import json as _json
+    import sys as _sys
     stem = "circuit_1247"
     rec = _json.loads((ROOT / f"results/final/op_agreement/cache/{stem}.json").read_text())
     res = _json.loads((ROOT / "results/residual_circuits.json").read_text())
-    corr = rec["corr"]
     ref_net = res["residuals"][stem]["gt_net_serving_as_pred_reference"]
 
-    import sys as _sys
     _sys.path.insert(0, str(ROOT / "scripts"))
     from measure_op_agreement import (build_deck, spice_components,
                                       policy_placeholders, _run_ngspice)
@@ -567,36 +606,53 @@ def fig_qualitative() -> None:
     pr = _run_ngspice(build_deck(spice_components(rec["pred_graph"]), ph), cfg)
 
     pairs = []
-    for gn, pn in corr.items():
-        a = g["voltages"].get(str(gn).lower())
-        b = pr["voltages"].get(str(pn).lower())
-        if a is not None and b is not None:
-            pairs.append((gn, a, b))
-    pairs.sort(key=lambda r: -abs(r[2] - r[1]))
+    for gn, pn in rec["corr"].items():
+        a_ = g["voltages"].get(str(gn).lower())
+        b_ = pr["voltages"].get(str(pn).lower())
+        if a_ is not None and b_ is not None:
+            pairs.append((gn, a_, b_))
+    pairs.sort(key=lambda r: abs(r[2] - r[1]))          # gap ascending
 
-    fig, (axl, axr) = plt.subplots(1, 2, figsize=(WIDE_W, 2.6),
-                                   gridspec_kw={"width_ratios": [1, 1.25]})
+    fig = plt.figure(figsize=(WIDE_W, 2.75))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.0, 1.35], wspace=0.13)
+    axl, axr = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
 
     img = plt.imread(str(ROOT / f"data/cleaned_1024/{stem}.jpg"))
-    axl.imshow(img, cmap="gray")
+    axl.imshow(img, cmap="gray", interpolation="bilinear")
     axl.set_axis_off()
-    axl.set_title(f"(a) {stem}: no ground symbol is drawn", fontsize=7.5)
+    axl.set_title("(a)  no ground symbol is drawn", fontsize=7.4,
+                  color=C_INK, loc="left", pad=5)
 
-    labels = [p[0] for p in pairs]
-    y = range(len(pairs))
-    axr.barh([i - 0.2 for i in y], [p[1] for p in pairs], height=0.38,
-             color=C_TEST, label="reference netlist")
-    axr.barh([i + 0.2 for i in y], [p[2] for p in pairs], height=0.38,
-             color=C_VAL, label="reconstruction")
-    axr.set_yticks(list(y))
-    axr.set_yticklabels(labels, fontsize=5.5)
-    axr.invert_yaxis()
+    y = np.arange(len(pairs))
+    gt = np.array([r[1] for r in pairs])
+    pd_ = np.array([r[2] for r in pairs])
+    axr.hlines(y, gt, pd_, color=C_MUTE, lw=1.6, zorder=1)
+    axr.scatter(gt, y, s=15, color=C_MAIN, zorder=3,
+                edgecolor="white", linewidth=0.7, label="reference netlist")
+    axr.scatter(pd_, y, s=15, color=C_ALT, zorder=3,
+                edgecolor="white", linewidth=0.7, label="reconstruction")
+
+    axr.set_yticks(y)
+    axr.set_yticklabels([r[0] for r in pairs], fontsize=6.0, color=C_SUB)
     axr.set_xlabel("node voltage (V)")
-    axr.set_title(f"(b) same graph, but the reconstruction makes {ref_net} its 0 V",
-                  fontsize=7.5)
+    axr.set_xlim(-1.2, 17.4)
+    axr.set_ylim(-0.9, len(pairs) - 0.1)
     axr.grid(axis="y", visible=False)
-    axr.set_xlim(0, max(max(q[1], q[2]) for q in pairs) * 1.32)
-    axr.legend(frameon=False, fontsize=6, loc="lower right")
+    axr.set_title("(b)  same graph, measured from a different origin",
+                  fontsize=7.4, color=C_INK, loc="left", pad=5)
+    # Bottom-left is genuinely empty: the last five nodes sit at ~15 V in both
+    # netlists, so nothing is drawn there. Legend and annotation both go there
+    # rather than on top of the marks.
+    axr.legend(frameon=False, loc="lower left", fontsize=6.6,
+               handletextpad=0.3, borderpad=0.2, labelspacing=0.3,
+               bbox_to_anchor=(0.01, 0.02))
+
+    # No leader line: the text sits in empty space directly under the bars it
+    # describes, and any arrow long enough to reach them crosses every one.
+    axr.text(1.2, 3.9, f"the reconstruction makes {ref_net} its 0 V,\n"
+             "so every node is displaced",
+             fontsize=6.6, color=C_SUB, va="center", ha="left",
+             linespacing=1.35)
     save(fig, "fig_qualitative")
 
 
