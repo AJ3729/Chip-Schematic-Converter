@@ -109,6 +109,8 @@ TRANSFER = "results/cghd_detection_transfer.json"
 CAPTURE = "results/cghd_capture_invariance.json"
 MULTI = "results/multistability.json"
 MCOND = "results/multi_condition_agreement.json"
+VLMSIG = "results/table5_significance.json"
+VLMREP = "results/final/vlm_repeat_significance/summary.json"
 
 REGISTRY: list[Q] = [
     # ---- tab:main, end-to-end reconstruction -----------------------------
@@ -240,6 +242,42 @@ REGISTRY: list[Q] = [
       fmt="{:.0f}"),
     Q("McondAddedByAc", MCOND, "summary._coverage.n_added_by_ac_alone",
       fmt="{:.0f}"),
+
+    # ---- tab:vlm, the frontier-model anchor -------------------------------
+    # These were unregistered until the Claude variant-B row was found to pair
+    # a mean strict success with a delta and p computed from the majority vote
+    # of the same three repeats -- two correct numbers describing different
+    # systems, in a row that therefore did not subtract. Nothing caught it
+    # because nothing was checking this table.
+    Q("VlmClaudeAStrict", VLMSIG, "comparisons.claude_A.vlm_strict_success",
+      table="tab:vlm"),
+    Q("VlmGptAStrict", VLMSIG, "comparisons.gpt_A.vlm_strict_success",
+      table="tab:vlm"),
+    Q("VlmGptBStrict", VLMSIG, "comparisons.gpt_B.vlm_strict_success",
+      table="tab:vlm"),
+    Q("VlmGptBDelta", VLMSIG, "comparisons.gpt_B.pipeline_minus_vlm",
+      table="tab:vlm"),
+    Q("VlmClaudeADelta", VLMSIG, "comparisons.claude_A.pipeline_minus_vlm",
+      table="tab:vlm"),
+    Q("VlmGptADelta", VLMSIG, "comparisons.gpt_A.pipeline_minus_vlm",
+      table="tab:vlm"),
+    # variant B, Claude: single-query mean, and the delta that matches it
+    Q("VlmClaudeBStrict", VLMREP, "single_query.mean_strict_success",
+      table="tab:vlm"),
+    Q("VlmClaudeBDelta", VLMREP, "single_query.delta_ours_minus_theirs",
+      table="tab:vlm"),
+    Q("VlmClaudeBPMin", VLMREP, "single_query.mcnemar_p_min", fmt="{:.2f}",
+      table="tab:vlm"),
+    Q("VlmClaudeBPMax", VLMREP, "single_query.mcnemar_p_max", fmt="{:.2f}",
+      table="tab:vlm"),
+    Q("VlmClaudeBRepLo", VLMREP, "per_repeat.rep2.vlm_strict_success",
+      table="tab:vlm"),
+    Q("VlmClaudeBRepMid", VLMREP, "per_repeat.rep1.vlm_strict_success",
+      table="tab:vlm"),
+    Q("VlmClaudeBRepHi", VLMREP, "per_repeat.rep0.vlm_strict_success",
+      table="tab:vlm"),
+    Q("VlmClaudeBCiLo", VLMREP, "single_query.ci_widest.0", table="tab:vlm"),
+    Q("VlmClaudeBCiHi", VLMREP, "single_query.ci_widest.1", table="tab:vlm"),
 ]
 
 

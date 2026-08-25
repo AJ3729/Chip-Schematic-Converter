@@ -1,0 +1,65 @@
+{
+ "what_this_is": "per-repeat paired comparison, pipeline vs frontier model, variant B",
+ "n_circuits": 192,
+ "n_repeats": 3,
+ "pipeline_strict_success": 0.53125,
+ "per_repeat": {
+  "rep0": {
+   "vlm_strict_success": 0.541667,
+   "both": 77,
+   "pipeline_only": 25,
+   "vlm_only": 27,
+   "neither": 63,
+   "paired_delta": -0.010417,
+   "paired_delta_ci95": [
+    -0.083333,
+    0.0625
+   ],
+   "mcnemar_p_exact": 0.889884
+  },
+  "rep1": {
+   "vlm_strict_success": 0.536458,
+   "both": 77,
+   "pipeline_only": 25,
+   "vlm_only": 26,
+   "neither": 64,
+   "paired_delta": -0.005208,
+   "paired_delta_ci95": [
+    -0.078125,
+    0.067708
+   ],
+   "mcnemar_p_exact": 1.0
+  },
+  "rep2": {
+   "vlm_strict_success": 0.510417,
+   "both": 75,
+   "pipeline_only": 27,
+   "vlm_only": 23,
+   "neither": 67,
+   "paired_delta": 0.020833,
+   "paired_delta_ci95": [
+    -0.046875,
+    0.09375
+   ],
+   "mcnemar_p_exact": 0.671811
+  }
+ },
+ "single_query": {
+  "mean_strict_success": 0.529514,
+  "delta_ours_minus_theirs": 0.001736,
+  "mcnemar_p_min": 0.671811,
+  "mcnemar_p_max": 1.0,
+  "ci_widest": [
+   -0.083333,
+   0.09375
+  ],
+  "every_ci_contains_zero": true,
+  "any_repeat_distinguishable_at_05": false
+ },
+ "majority_vote_NOT_REPORTED": {
+  "strict_success": 0.552083,
+  "paired_delta": -0.020833,
+  "mcnemar_p_exact": 0.671811,
+  "why_not": "an ensemble of three queries, costing 3x and scoring above every individual repeat; recorded here only because tab:vlm quoted its delta and p"
+ }
+}
