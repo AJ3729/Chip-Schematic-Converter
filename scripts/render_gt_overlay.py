@@ -40,7 +40,12 @@ PALETTE = [(60, 60, 220), (30, 160, 30), (220, 120, 20), (200, 30, 200),
            (200, 60, 120), (80, 140, 60), (40, 90, 220), (140, 40, 40)]
 
 
+UNSET = (255, 0, 255)      # magenta: a terminal whose net was never set
+
+
 def net_colour(net, order):
+    if net is None:
+        return UNSET
     if net in ("0", 0):
         return (0, 0, 0)
     return PALETTE[order.index(net) % len(PALETTE)] if net in order else (120,) * 3
@@ -52,6 +57,10 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default=None)
     ap.add_argument("--images", default="")
+    ap.add_argument("--from-file", default=None,
+                    help="text file of image names, one per line")
+    ap.add_argument("--gt-dir", default=None,
+                    help="override benchmark.gt_dir (e.g. data/gt_val_1024)")
     ap.add_argument("--from-welds", action="store_true")
     ap.add_argument("--welds", default="results/weld_review/welds.csv")
     ap.add_argument("--raw-dir", default="data/raw")
@@ -64,14 +73,17 @@ def main() -> None:
     tf = json.load(open(args.transforms))
     if args.from_welds:
         names = sorted({r["image"] for r in csv.DictReader(open(args.welds))})
+    elif args.from_file:
+        names = [l.strip() for l in open(args.from_file) if l.strip()]
     else:
         names = [s.strip() for s in args.images.split(",") if s.strip()]
+    gt_dir = args.gt_dir or cfg["benchmark"]["gt_dir"]
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
 
     for nm in names:
         stem = Path(nm).stem
-        gp = Path(cfg["benchmark"]["gt_dir"]) / f"{stem}.json"
+        gp = Path(gt_dir) / f"{stem}.json"
         if not gp.exists():
             print(f"  !! no GT for {nm}")
             continue
@@ -85,7 +97,8 @@ def main() -> None:
         order, seen = [], set()
         for c in gt["components"]:
             for t in c["terminals"]:
-                if t["net"] not in seen and t["net"] != "0":
+                if (t["net"] is not None and t["net"] not in seen
+                        and t["net"] != "0"):
                     seen.add(t["net"])
                     order.append(t["net"])
 
@@ -112,13 +125,27 @@ def main() -> None:
             cv2.putText(vis, txt, (x1, max(14, y1 - 8)),
                         cv2.FONT_HERSHEY_SIMPLEX, fs * 0.8, col,
                         max(1, thick - 1), cv2.LINE_AA)
-            lab = "|".join(nets)
-            cv2.putText(vis, lab, (x1, min(H - 4, y2 + int(26 * fs * 1.5))),
-                        cv2.FONT_HERSHEY_SIMPLEX, fs * 0.9, (255, 255, 255),
-                        int(thick * 2.6), cv2.LINE_AA)
-            cv2.putText(vis, lab, (x1, min(H - 4, y2 + int(26 * fs * 1.5))),
-                        cv2.FONT_HERSHEY_SIMPLEX, fs * 0.9, col,
-                        max(1, thick - 1), cv2.LINE_AA)
+            # Each terminal's net carries ITS OWN colour. Painting the whole
+            # label in nets[0]'s colour made a component straddling two nets
+            # look like it sat on one, which is the thing this view exists to
+            # show. Halos are drawn in a first pass: interleaving them lets the
+            # next token's halo eat the previous token's glyphs.
+            ly = min(H - 4, y2 + int(26 * fs * 1.5))
+            toks, lx = [], x1
+            for k, net in enumerate(nets):
+                tok = ("?" if net is None else net) + (
+                    "" if k == len(nets) - 1 else "|")
+                toks.append((tok, lx, net))
+                lx += cv2.getTextSize(tok, cv2.FONT_HERSHEY_SIMPLEX, fs * 0.9,
+                                      max(1, thick - 1))[0][0]
+            for tok, tx, _n in toks:
+                cv2.putText(vis, tok, (tx, ly), cv2.FONT_HERSHEY_SIMPLEX,
+                            fs * 0.9, (255, 255, 255), int(thick * 2.6),
+                            cv2.LINE_AA)
+            for tok, tx, _n in toks:
+                cv2.putText(vis, tok, (tx, ly), cv2.FONT_HERSHEY_SIMPLEX,
+                            fs * 0.9, net_colour(_n, order),
+                            max(1, thick - 1), cv2.LINE_AA)
 
         s = args.width / vis.shape[1]
         vis = cv2.resize(vis, None, fx=s, fy=s, interpolation=cv2.INTER_AREA)

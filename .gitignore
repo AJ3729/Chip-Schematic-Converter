@@ -89,3 +89,7 @@ results/sim_coverage/
 # rather than assuming an in-repo location.
 paper/access.tex
 *.tex.manuscript
+
+# GT-overlay renders for the validation split: 208 MB of derived PNGs that
+# scripts/render_gt_overlay.py regenerates in one command from GT + raw scans.
+results/gt_overlay_val/
