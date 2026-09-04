@@ -93,3 +93,9 @@ paper/access.tex
 # GT-overlay renders for the validation split: 208 MB of derived PNGs that
 # scripts/render_gt_overlay.py regenerates in one command from GT + raw scans.
 results/gt_overlay_val/
+
+# Grad-CAM overlays for the robustness sweep: 130 MB of derived JPEGs, twelve
+# images per condition on each of the raw and cleaned frames. Regenerable with
+# scripts/robustness/gradcam_overlay.py from the committed configs; the two
+# figures built from them (paper/figures/fig_robustness_cam.*) ARE committed.
+results/robustness/gradcam/

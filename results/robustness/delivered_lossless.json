@@ -1,0 +1,39 @@
+{
+ "what_this_is": "delivered vs nominal corruption for the lossless Gaussian arms",
+ "encoding": "PNG (lossless); the earlier JPEG q95 copies lost a further ~29%",
+ "raw_mean_intensity": 249.7,
+ "why_below_nominal": "clipping against a near-white page, not encoding",
+ "n_images": 12,
+ "conditions": {
+  "gauss_noise_s1_lossless": {
+   "nominal_sigma": 8,
+   "sigma_delivered": 5.529,
+   "clipping_loss_frac": 0.309,
+   "n": 12
+  },
+  "gauss_noise_s2_lossless": {
+   "nominal_sigma": 16,
+   "sigma_delivered": 10.396,
+   "clipping_loss_frac": 0.35,
+   "n": 12
+  },
+  "gauss_noise_s3_lossless": {
+   "nominal_sigma": 32,
+   "sigma_delivered": 20.079,
+   "clipping_loss_frac": 0.373,
+   "n": 12
+  }
+ },
+ "summary": {
+  "nominal": [
+   8,
+   16,
+   32
+  ],
+  "delivered": [
+   5.529,
+   10.396,
+   20.079
+  ]
+ }
+}

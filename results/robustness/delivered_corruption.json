@@ -1,0 +1,245 @@
+{
+ "what_this_is": "delivered vs nominal corruption, measured on disk",
+ "n_images": 12,
+ "changed_threshold": 60,
+ "conditions": {
+  "gauss_noise_s1": {
+   "family": "photometric",
+   "severity": 1,
+   "sigma_in_memory": 5.528,
+   "sigma_on_disk": 4.015,
+   "changed_frac_in_memory": 0.0,
+   "changed_frac_on_disk": 0.0,
+   "nominal_sigma": 8,
+   "clipping_loss_frac": 0.309,
+   "jpeg_loss_frac": 0.274
+  },
+  "gauss_noise_s2": {
+   "family": "photometric",
+   "severity": 2,
+   "sigma_in_memory": 10.394,
+   "sigma_on_disk": 7.394,
+   "changed_frac_in_memory": 0.00027,
+   "changed_frac_on_disk": 0.0,
+   "nominal_sigma": 16,
+   "clipping_loss_frac": 0.35,
+   "jpeg_loss_frac": 0.289
+  },
+  "gauss_noise_s3": {
+   "family": "photometric",
+   "severity": 3,
+   "sigma_in_memory": 20.077,
+   "sigma_on_disk": 13.906,
+   "changed_frac_in_memory": 0.09056,
+   "changed_frac_on_disk": 0.00787,
+   "nominal_sigma": 32,
+   "clipping_loss_frac": 0.373,
+   "jpeg_loss_frac": 0.307
+  },
+  "speckle_s1": {
+   "family": "photometric",
+   "severity": 1,
+   "sigma_in_memory": 17.744,
+   "sigma_on_disk": 17.673,
+   "changed_frac_in_memory": 0.00514,
+   "changed_frac_on_disk": 0.00514
+  },
+  "speckle_s2": {
+   "family": "photometric",
+   "severity": 2,
+   "sigma_in_memory": 30.606,
+   "sigma_on_disk": 30.482,
+   "changed_frac_in_memory": 0.01546,
+   "changed_frac_on_disk": 0.01544
+  },
+  "speckle_s3": {
+   "family": "photometric",
+   "severity": 3,
+   "sigma_in_memory": 42.927,
+   "sigma_on_disk": 42.748,
+   "changed_frac_in_memory": 0.03083,
+   "changed_frac_on_disk": 0.03081
+  },
+  "blur_s1": {
+   "family": "photometric",
+   "severity": 1,
+   "sigma_in_memory": 4.653,
+   "sigma_on_disk": 4.648,
+   "changed_frac_in_memory": 0.00015,
+   "changed_frac_on_disk": 0.00016
+  },
+  "blur_s2": {
+   "family": "photometric",
+   "severity": 2,
+   "sigma_in_memory": 8.697,
+   "sigma_on_disk": 8.682,
+   "changed_frac_in_memory": 0.0046,
+   "changed_frac_on_disk": 0.00478
+  },
+  "blur_s3": {
+   "family": "photometric",
+   "severity": 3,
+   "sigma_in_memory": 12.656,
+   "sigma_on_disk": 12.639,
+   "changed_frac_in_memory": 0.01639,
+   "changed_frac_on_disk": 0.01653
+  },
+  "jpeg_s1": {
+   "family": "photometric",
+   "severity": 1,
+   "sigma_in_memory": 2.785,
+   "sigma_on_disk": 2.787,
+   "changed_frac_in_memory": 0.0,
+   "changed_frac_on_disk": 0.0
+  },
+  "jpeg_s2": {
+   "family": "photometric",
+   "severity": 2,
+   "sigma_in_memory": 3.741,
+   "sigma_on_disk": 3.729,
+   "changed_frac_in_memory": 6e-05,
+   "changed_frac_on_disk": 6e-05
+  },
+  "jpeg_s3": {
+   "family": "photometric",
+   "severity": 3,
+   "sigma_in_memory": 5.399,
+   "sigma_on_disk": 5.388,
+   "changed_frac_in_memory": 0.00068,
+   "changed_frac_on_disk": 0.00068
+  },
+  "brightness_s1": {
+   "family": "photometric",
+   "severity": 1,
+   "sigma_in_memory": 6.509,
+   "sigma_on_disk": 6.522,
+   "changed_frac_in_memory": 0.96426,
+   "changed_frac_on_disk": 0.96413
+  },
+  "brightness_s2": {
+   "family": "photometric",
+   "severity": 2,
+   "sigma_in_memory": 11.675,
+   "sigma_on_disk": 11.69,
+   "changed_frac_in_memory": 0.97833,
+   "changed_frac_on_disk": 0.97863
+  },
+  "brightness_s3": {
+   "family": "photometric",
+   "severity": 3,
+   "sigma_in_memory": 15.57,
+   "sigma_on_disk": 15.596,
+   "changed_frac_in_memory": 0.98753,
+   "changed_frac_on_disk": 0.98798
+  },
+  "contrast_s1": {
+   "family": "photometric",
+   "severity": 1,
+   "sigma_in_memory": 6.499,
+   "sigma_on_disk": 6.522,
+   "changed_frac_in_memory": 1e-05,
+   "changed_frac_on_disk": 1e-05
+  },
+  "contrast_s2": {
+   "family": "photometric",
+   "severity": 2,
+   "sigma_in_memory": 11.677,
+   "sigma_on_disk": 11.687,
+   "changed_frac_in_memory": 0.0209,
+   "changed_frac_on_disk": 0.02104
+  },
+  "contrast_s3": {
+   "family": "photometric",
+   "severity": 3,
+   "sigma_in_memory": 15.572,
+   "sigma_on_disk": 15.586,
+   "changed_frac_in_memory": 0.02545,
+   "changed_frac_on_disk": 0.02552
+  },
+  "downscale_s1": {
+   "family": "photometric",
+   "severity": 1,
+   "sigma_in_memory": 4.588,
+   "sigma_on_disk": 4.583,
+   "changed_frac_in_memory": 0.00012,
+   "changed_frac_on_disk": 0.00012
+  },
+  "downscale_s2": {
+   "family": "photometric",
+   "severity": 2,
+   "sigma_in_memory": 6.726,
+   "sigma_on_disk": 6.715,
+   "changed_frac_in_memory": 0.00135,
+   "changed_frac_on_disk": 0.00143
+  },
+  "downscale_s3": {
+   "family": "photometric",
+   "severity": 3,
+   "sigma_in_memory": 9.407,
+   "sigma_on_disk": 9.394,
+   "changed_frac_in_memory": 0.00708,
+   "changed_frac_on_disk": 0.00719
+  },
+  "rotate_s1": {
+   "family": "geometric",
+   "severity": 1,
+   "sigma_in_memory": 32.656,
+   "sigma_on_disk": 32.674,
+   "changed_frac_in_memory": 0.05175,
+   "changed_frac_on_disk": 0.05172
+  },
+  "rotate_s2": {
+   "family": "geometric",
+   "severity": 2,
+   "sigma_in_memory": 35.539,
+   "sigma_on_disk": 35.559,
+   "changed_frac_in_memory": 0.06257,
+   "changed_frac_on_disk": 0.06254
+  },
+  "rotate_s3": {
+   "family": "geometric",
+   "severity": 3,
+   "sigma_in_memory": 37.45,
+   "sigma_on_disk": 37.471,
+   "changed_frac_in_memory": 0.07315,
+   "changed_frac_on_disk": 0.07313
+  },
+  "perspective_s1": {
+   "family": "geometric",
+   "severity": 1,
+   "sigma_in_memory": 30.817,
+   "sigma_on_disk": 30.833,
+   "changed_frac_in_memory": 0.04702,
+   "changed_frac_on_disk": 0.04699
+  },
+  "perspective_s2": {
+   "family": "geometric",
+   "severity": 2,
+   "sigma_in_memory": 34.819,
+   "sigma_on_disk": 34.837,
+   "changed_frac_in_memory": 0.05997,
+   "changed_frac_on_disk": 0.05994
+  },
+  "perspective_s3": {
+   "family": "geometric",
+   "severity": 3,
+   "sigma_in_memory": 36.871,
+   "sigma_on_disk": 36.889,
+   "changed_frac_in_memory": 0.06949,
+   "changed_frac_on_disk": 0.06946
+  }
+ },
+ "gaussian_summary": {
+  "nominal": [
+   8,
+   16,
+   32
+  ],
+  "delivered": [
+   4.015,
+   7.394,
+   13.906
+  ],
+  "raw_mean_intensity": 249.7
+ }
+}

@@ -105,10 +105,10 @@ DET = "results/final/detection/seed{seed}/test/summary.json"
 DET0 = "results/final/detection/seed0/test/summary.json"
 PINS = "results/final/pin_order/summary.json"
 LADDER = "results/pin_aware_ladder.json"
-TRANSFER = "results/cghd_detection_transfer.json"
-CAPTURE = "results/cghd_capture_invariance.json"
 MULTI = "results/multistability.json"
 MCOND = "results/multi_condition_agreement.json"
+ROB = "results/robustness/SUMMARY.json"
+DELIV = "results/robustness/delivered_lossless.json"
 VLMSIG = "results/table5_significance.json"
 VLMREP = "results/final/vlm_repeat_significance/summary.json"
 
@@ -182,18 +182,6 @@ REGISTRY: list[Q] = [
     Q("PinsTemplateOpAmp", PINS, "templates_only.by_class.Op-Amp.accuracy",
       table="tab:pins"),
 
-    # ---- tab:transfer, cross-corpus detection ----------------------------
-    Q("TransferCGHDMap", TRANSFER, "cghd_map50_mean", table="tab:transfer"),
-    Q("TransferCGHDMapSD", TRANSFER, "cghd_map50_std", table="tab:transfer"),
-    Q("TransferHCDMap", TRANSFER, "digitize_hcd_test_map50_mean",
-      table="tab:transfer"),
-    Q("TransferCGHDImages", TRANSFER, "n_images", fmt="{:.0f}",
-      table="tab:transfer"),
-    Q("TransferCGHDBoxes", TRANSFER, "n_boxes", fmt="{:.0f}",
-      table="tab:transfer"),
-    Q("TransferCGHDDrafters", TRANSFER, "n_drafters", fmt="{:.0f}",
-      table="tab:transfer"),
-
     # ---- tab:ladder, the paper's central result --------------------------
     Q("LadderPinBlindStrict", LADDER, "ladder.pin_blind_strict_success",
       table="tab:ladder"),
@@ -221,13 +209,6 @@ REGISTRY: list[Q] = [
       fmt="{:.0f}"),
     Q("MultiRate", MULTI, "headline_all_circuits.rate"),
     Q("MultiRateExFlagged", MULTI, "headline_excluding_flagged.rate"),
-
-    # ---- capture invariance (B7) ------------------------------------------
-    Q("CaptureGroups", CAPTURE, "n_groups", fmt="{:.0f}"),
-    Q("CaptureAllAgree", CAPTURE, "groups_all_captures_agree", fmt="{:.0f}"),
-    Q("CaptureFractionAgree", CAPTURE, "fraction_all_agree"),
-    Q("CapturePairwise", CAPTURE, "pairwise_topology_agreement"),
-    Q("CapturePairs", CAPTURE, "pairwise_pairs", fmt="{:.0f}"),
 
     # ---- D5, multi-condition agreement -----------------------------------
     Q("McondOpFone", MCOND, "summary.op_primary.mean_f1.mean"),
@@ -278,6 +259,51 @@ REGISTRY: list[Q] = [
       table="tab:vlm"),
     Q("VlmClaudeBCiLo", VLMREP, "single_query.ci_widest.0", table="tab:vlm"),
     Q("VlmClaudeBCiHi", VLMREP, "single_query.ci_widest.1", table="tab:vlm"),
+
+    # ---- tab:robustness, simulated capture degradation --------------------
+    # The control entry is the one that matters: if it ever stops equalling
+    # the published 0.5312 the whole sweep is measuring its own plumbing, and
+    # a checker that verifies every other row but not this one would not say so.
+    Q("RobControl", ROB, "conditions.clean.strict_success", table="tab:robustness"),
+    Q("RobContrast2", ROB, "conditions.contrast_s2.strict_success", table="tab:robustness"),
+    Q("RobJpeg1", ROB, "conditions.jpeg_s1.strict_success", table="tab:robustness"),
+    Q("RobDownscale3", ROB, "conditions.downscale_s3.strict_success", table="tab:robustness"),
+    Q("RobBright3", ROB, "conditions.brightness_s3.strict_success", table="tab:robustness"),
+    Q("RobBlur3", ROB, "conditions.blur_s3.strict_success", table="tab:robustness"),
+    Q("RobRotate1", ROB, "conditions.rotate_s1.strict_success", table="tab:robustness"),
+    Q("RobPersp1", ROB, "conditions.perspective_s1.strict_success", table="tab:robustness"),
+    Q("RobPersp3", ROB, "conditions.perspective_s3.strict_success", table="tab:robustness"),
+    Q("RobScaleCghd", "results/robustness/scale_f71/summary.json",
+      "topology.strict_success.mean", table="tab:robustness"),
+    Q("RobScaleTiny", "results/robustness/scale_f36/summary.json",
+      "topology.strict_success.mean", table="tab:robustness"),
+
+    # Delivered, not requested. The manuscript quotes these because clipping
+    # against a 249.7-mean page and a JPEG re-encode together remove more than
+    # half the requested sigma, and the requested figure would overstate three
+    # conditions by more than twofold.
+    Q("DelivGauss1", DELIV, "conditions.gauss_noise_s1_lossless.sigma_delivered", fmt="{:.1f}"),
+    Q("DelivGauss2", DELIV, "conditions.gauss_noise_s2_lossless.sigma_delivered", fmt="{:.1f}"),
+    Q("DelivGauss3", DELIV, "conditions.gauss_noise_s3_lossless.sigma_delivered", fmt="{:.1f}"),
+    Q("DelivSpeckle1", "results/robustness/delivered_corruption.json",
+      "conditions.speckle_s1.changed_frac_on_disk", fmt="{:.2f}", scale=100.0),
+    Q("DelivSpeckle3", "results/robustness/delivered_corruption.json",
+      "conditions.speckle_s3.changed_frac_on_disk", fmt="{:.2f}", scale=100.0),
+    # re-seeded and lossless arms
+    Q("RobCleanLossless", "results/robustness/clean_lossless/summary.json",
+      "topology.strict_success.mean", table="tab:robustness"),
+    Q("RobGaussL1", "results/robustness/gauss_noise_s1_lossless/summary.json",
+      "topology.strict_success.mean", table="tab:robustness"),
+    Q("RobGaussL3", "results/robustness/gauss_noise_s3_lossless/summary.json",
+      "topology.strict_success.mean", table="tab:robustness"),
+    Q("RobSpeckle1b", "results/robustness/speckle_s1/summary.json",
+      "topology.strict_success.mean", table="tab:robustness"),
+    Q("RobSpeckle3b", "results/robustness/speckle_s3/summary.json",
+      "topology.strict_success.mean", table="tab:robustness"),
+    Q("RobSpeckle1FixF1", "results/robustness/speckle_s1_fix/summary.json",
+      "topology.terminal_pair_f1.mean"),
+    Q("RobSpeckle1F1", "results/robustness/speckle_s1/summary.json",
+      "topology.terminal_pair_f1.mean"),
 ]
 
 

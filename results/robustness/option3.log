@@ -1,0 +1,11 @@
+speckle_s1                 ok 278s  (free 4.3 GB)
+speckle_s2                 ok 383s  (free 6.0 GB)
+speckle_s3                 ok 286s  (free 6.0 GB)
+speckle_s1_fix             ok 254s  (free 5.9 GB)
+speckle_s2_fix             ok 250s  (free 6.0 GB)
+speckle_s3_fix             ok 256s  (free 5.9 GB)
+clean_lossless             ok 133s  (free 5.9 GB)
+gauss_noise_s1_lossless    ok 177s  (free 5.9 GB)
+gauss_noise_s2_lossless    ok 176s  (free 5.9 GB)
+gauss_noise_s3_lossless    ok 278s  (free 5.9 GB)
+OPTION3 DONE

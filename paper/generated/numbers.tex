@@ -48,18 +48,10 @@
 \newcommand{\ValSolvableAfter}{0.7579}
 % results/final/benchmark_val/summary.json :: repair.mean_assumptions
 \newcommand{\ValAssumptions}{2.44}
-% results/final/detection/seed0/test/summary.json :: map50
-\newcommand{\DetMapSeedZero}{0.9915}
-% results/final/detection/seed1/test/summary.json :: map50
-\newcommand{\DetMapSeedOne}{0.9907}
-% results/final/detection/seed2/test/summary.json :: map50
-\newcommand{\DetMapSeedTwo}{0.9909}
 % results/final/detection/seed{0,1,2}/test/summary.json :: map50, mean over seeds
 \newcommand{\DetMapMean}{0.9910}
 % results/final/detection/seed{0,1,2}/test/summary.json :: map50, sd over seeds
 \newcommand{\DetMapSD}{0.0004}
-% results/final/detection/seed0/test/summary.json :: map50_95
-\newcommand{\DetMapNinetyFiveSeedZero}{0.7597}
 % results/final/detection/seed{0,1,2}/test/summary.json :: map50_95, mean over seeds
 \newcommand{\DetMapNinetyFiveMean}{0.7603}
 % results/final/detection/seed0/test/summary.json :: precision
@@ -88,8 +80,6 @@
 \newcommand{\TransferCGHDMapSD}{0.0215}
 % results/cghd_detection_transfer.json :: digitize_hcd_test_map50_mean
 \newcommand{\TransferHCDMap}{0.9910}
-% results/cghd_detection_transfer.json :: transfer_delta_map50
-\newcommand{\TransferDelta}{-0.6466}
 % results/cghd_detection_transfer.json :: n_images
 \newcommand{\TransferCGHDImages}{660}
 % results/cghd_detection_transfer.json :: n_boxes
@@ -154,6 +144,36 @@
 \newcommand{\McondEither}{124}
 % results/multi_condition_agreement.json :: summary._coverage.n_added_by_ac_alone
 \newcommand{\McondAddedByAc}{32}
+% results/table5_significance.json :: comparisons.claude_A.vlm_strict_success
+\newcommand{\VlmClaudeAStrict}{0.1250}
+% results/table5_significance.json :: comparisons.gpt_A.vlm_strict_success
+\newcommand{\VlmGptAStrict}{0.1250}
+% results/table5_significance.json :: comparisons.gpt_B.vlm_strict_success
+\newcommand{\VlmGptBStrict}{0.6823}
+% results/table5_significance.json :: comparisons.gpt_B.pipeline_minus_vlm
+\newcommand{\VlmGptBDelta}{-0.1510}
+% results/table5_significance.json :: comparisons.claude_A.pipeline_minus_vlm
+\newcommand{\VlmClaudeADelta}{0.4062}
+% results/table5_significance.json :: comparisons.gpt_A.pipeline_minus_vlm
+\newcommand{\VlmGptADelta}{0.4062}
+% results/final/vlm_repeat_significance/summary.json :: single_query.mean_strict_success
+\newcommand{\VlmClaudeBStrict}{0.5295}
+% results/final/vlm_repeat_significance/summary.json :: single_query.delta_ours_minus_theirs
+\newcommand{\VlmClaudeBDelta}{0.0017}
+% results/final/vlm_repeat_significance/summary.json :: single_query.mcnemar_p_min
+\newcommand{\VlmClaudeBPMin}{0.67}
+% results/final/vlm_repeat_significance/summary.json :: single_query.mcnemar_p_max
+\newcommand{\VlmClaudeBPMax}{1.00}
+% results/final/vlm_repeat_significance/summary.json :: per_repeat.rep2.vlm_strict_success
+\newcommand{\VlmClaudeBRepLo}{0.5104}
+% results/final/vlm_repeat_significance/summary.json :: per_repeat.rep1.vlm_strict_success
+\newcommand{\VlmClaudeBRepMid}{0.5365}
+% results/final/vlm_repeat_significance/summary.json :: per_repeat.rep0.vlm_strict_success
+\newcommand{\VlmClaudeBRepHi}{0.5417}
+% results/final/vlm_repeat_significance/summary.json :: single_query.ci_widest.0
+\newcommand{\VlmClaudeBCiLo}{-0.0833}
+% results/final/vlm_repeat_significance/summary.json :: single_query.ci_widest.1
+\newcommand{\VlmClaudeBCiHi}{0.0938}
 % results/final/ablation_val/index.json :: __delta__.v5_plus_crossover_DEFAULT
 \newcommand{\AblValPortTemplates}{0.2579}
 % results/final/ablation_val/index.json :: __delta__.v2_ink_boundary_snap

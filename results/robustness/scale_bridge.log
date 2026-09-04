@@ -1,0 +1,9 @@
+[scale_f85] f=0.85  median component area 2308 px^2
+  strict=0.5156 (204s)
+[scale_f71] f=0.71  median component area 1610 px^2
+  strict=0.4896 (197s)
+[scale_f54] f=0.54  median component area 931 px^2
+  strict=0.4479 (216s)
+[scale_f36] f=0.36  median component area 414 px^2
+  strict=0.1510 (214s)
+SCALE BRIDGE DONE
